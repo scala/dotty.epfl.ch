@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-10-16 -->
+<!-- This page was last generated on 2018-10-26 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6495,6 +6495,30 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../.././api/dotty/tools/dotc/transform/InlineCalls$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../.././api/dotty/tools/dotc/transform/InlineCalls.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../.././api/dotty/tools/dotc/transform/InlineCalls.html">InlineCalls</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor object" href="../.././api/dotty/tools/dotc/transform/InterceptedMethods$.html">O</a>
                         
                         <a class="letter-anchor class" href="../.././api/dotty/tools/dotc/transform/InterceptedMethods.html">C</a>
@@ -7102,30 +7126,6 @@
 
                 
 
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../.././api/dotty/tools/dotc/transform/Splitter$.html">O</a>
-                        
-                        <a class="letter-anchor class" href="../.././api/dotty/tools/dotc/transform/Splitter.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../.././api/dotty/tools/dotc/transform/Splitter.html">Splitter</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
                  <!-- end != "package" -->
 
             
@@ -12269,14 +12269,8 @@ val either: Password | UserName = UserName(Eve)
 </code></pre>
 <p>The type of <code>res2</code> is <code>Object &amp; Product</code>, which is a supertype of
 <code>UserName</code> and <code>Product</code>, but not the least supertype <code>Password | UserName</code>.  If we want the least supertype, we have to give it
-explicitly, as is done for the type of <code>either</code>. More precisely, the
-typechecker will <em>widen</em> a union type to a non-union type when
-inferring the type of <code>val</code> or <code>var</code>, or the result type of a <code>def</code>,
-or the argument to pass for a type parameter.  The widened type of <code>A | B</code> is usually the intersection of all class or trait types that are
-supertypes of both <code>A</code> and <code>B</code>; it does not include any refinements.
-Union types are in that sense analogous to singleton types <code>x.type</code>
-which are also widened to their underlying type unless explicitly
-specified.</p>
+explicitly, as is done for the type of <code>either</code>.</p>
+<p><a href="./union-types-spec.html">More details</a></p>
 
         </div>
     </div><!-- end content-body -->

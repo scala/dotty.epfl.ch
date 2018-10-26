@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-10-16 -->
+<!-- This page was last generated on 2018-10-26 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6495,6 +6495,30 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/InlineCalls$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/InlineCalls.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/InlineCalls.html">InlineCalls</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/InterceptedMethods$.html">O</a>
                         
                         <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/InterceptedMethods.html">C</a>
@@ -7102,30 +7126,6 @@
 
                 
 
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/Splitter$.html">O</a>
-                        
-                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/Splitter.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/Splitter.html">Splitter</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
                  <!-- end != "package" -->
 
             
@@ -12282,8 +12282,7 @@ field (corresponding = super class field is initialized with subclass field)
 <p>(8) Replaces self references by name with <code>this</code></p>
 <p>(9) Adds SourceFile annotations to all top-level classes and objects</p>
 <p>(10) Adds Child annotations to all sealed classes</p>
-<p>(11) Minimizes <code>call</code> fields of <code>Inlined</code> nodes to just point to the toplevel
-class from which code was inlined.</p>
+<p>(11) Replace RHS of <code>erased</code> (but not <code>inline</code>) members by <code>(???: rhs.type)</code></p>
 <p>The reason for making this a macro transform is that some functions (in particular
 super and protected accessors and instantiation checks) are naturally top-down and
 don't lend themselves to the bottom-up approach of a mini phase. The other two functions

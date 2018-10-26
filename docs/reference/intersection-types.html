@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-10-16 -->
+<!-- This page was last generated on 2018-10-26 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6495,6 +6495,30 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../.././api/dotty/tools/dotc/transform/InlineCalls$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../.././api/dotty/tools/dotc/transform/InlineCalls.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../.././api/dotty/tools/dotc/transform/InlineCalls.html">InlineCalls</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor object" href="../.././api/dotty/tools/dotc/transform/InterceptedMethods$.html">O</a>
                         
                         <a class="letter-anchor class" href="../.././api/dotty/tools/dotc/transform/InterceptedMethods.html">C</a>
@@ -7102,30 +7126,6 @@
 
                 
 
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../.././api/dotty/tools/dotc/transform/Splitter$.html">O</a>
-                        
-                        <a class="letter-anchor class" href="../.././api/dotty/tools/dotc/transform/Splitter.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../.././api/dotty/tools/dotc/transform/Splitter.html">Splitter</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
                  <!-- end != "package" -->
 
             
@@ -12237,6 +12237,8 @@
         <hr/>
         <div id="doc-page-container">
             <p>Used on types, the <code>&amp;</code> operator creates an intersection type.</p>
+<h2><a href="#type-checking" id="type-checking">Type Checking</a></h2>
+<p>The type <code>S &amp; T</code> represents values that are of the type <code>S</code> and <code>T</code> at the same time.</p>
 <pre><code class="language-scala">trait Resettable {
   def reset(): this.type
 }
@@ -12249,16 +12251,12 @@ def f(x: Resettable &amp; Growable[String]) = {
 }
 </code></pre>
 <p>The value <code>x</code> is required to be <em>both</em> a <code>Resettable</code> and a
-<code>Growable[String]</code>.  Intersection types <code>A &amp; B</code> replace compound types
-<code>A with B</code> in Scala 2. For the moment, <code>A with B</code> is still allowed, but
-its usage as a type (as opposed to in a <code>new</code> or <code>extends</code> clause) will be deprecated and removed in the future.</p>
-<p>The members of an intersection type <code>A &amp; B</code> are all the members of <code>A</code>
-and all the members of <code>B</code>. For instance <code>Resettable &amp; Growable[String]</code>
+<code>Growable[String]</code>.</p>
+<p>The members of an intersection type <code>A &amp; B</code> are all the members of <code>A</code> and all
+the members of <code>B</code>.  For instance <code>Resettable &amp; Growable[String]</code>
 has member methods <code>reset</code> and <code>add</code>.</p>
-<p><code>&amp;</code> is <em>commutative</em>: <code>A &amp; B</code> is the same type as <code>B &amp; A</code>, in that sense that the two types
-have the same values and are subtypes of each other.</p>
-<p>If a member appears in both <code>A</code> and <code>B</code>, its type in <code>A &amp; B</code> is the
-intersection of its type in <code>A</code> and its type in <code>B</code>. For instance, assume the definitions:</p>
+<p>If a member appears in both <code>A</code> and <code>B</code>, its type in <code>A &amp; B</code> is the intersection
+of its type in <code>A</code> and its type in <code>B</code>. For instance, assume the definitions:</p>
 <pre><code class="language-scala">trait A {
   def children: List[A]
 }
@@ -12284,6 +12282,7 @@ to give at that point a definition of a <code>children</code> method with the re
   def children: List[A &amp; B] = ???
 }
 </code></pre>
+<p><a href="./intersection-types-spec.html">More details</a></p>
 
         </div>
     </div><!-- end content-body -->
