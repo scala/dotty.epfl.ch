@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Named Type Arguments</title>
+        <title>Named Type Arguments - More Details</title>
 
         <link rel="icon" type="image/png" href="../.././images/favicon.png">
 
@@ -12230,29 +12230,36 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Named Type Arguments</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/named-typeargs.md">
+        <h1 id="doc-page-title">Named Type Arguments - More Details</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/named-typeargs-spec.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Type arguments of methods can now be named, as well as by position. Example:</p>
-<pre><code class="language-scala">def construct[Elem, Coll[_]](xs: Elem*): Coll[Elem] = ???
-
-val xs1 = construct[Coll = List, Elem = Int](1, 2, 3)
-val xs2 = construct[Coll = List](1, 2, 3)
+            <h2><a href="#syntax" id="syntax">Syntax</a></h2>
+<p>The addition to the grammar is:</p>
+<pre><code>SimpleExpr1       ::=  ...
+                    |  SimpleExpr (TypeArgs | NamedTypeArgs)
+NamedTypeArgs     ::=  ‘[’ NamedTypeArg {‘,’ NamedTypeArg} ‘]’
+NamedTypeArg      ::=  id ‘=’ Type
 </code></pre>
-<p>Similar to a named value argument <code>(x = e)</code>, a named type argument
-<code>[X = T]</code> instantiates the type parameter <code>X</code> to the type <code>T</code>. Type
-arguments must be all named or un-named, mixtures of named and
-positional type arguments are not supported.</p>
-<h2><a href="#motivation" id="motivation">Motivation</a></h2>
-<p>The main benefit of named type arguments is that unlike positional arguments,
-you are allowed to omit passing arguments for some parameters, like in the
-definition of <code>xs2</code> above. A missing type argument is inferred as usual by
-local type inference. This is particularly useful in situations where some type
-arguments can be easily inferred from others.</p>
-<p><a href="./named-typeargs-spec.html">More details</a></p>
+<p>Note in particular that named arguments cannot be passed to type constructors:</p>
+<pre><code class="language-scala">class C[T]
+
+val x: C[T = Int] = // error
+  new C[T = Int] // error
+
+class E extends C[T = Int] // error
+</code></pre>
+<h2><a href="#compatibility-considerations" id="compatibility-considerations">Compatibility considerations</a></h2>
+<p>Named type arguments do not have an impact on binary compatibility, but they
+have an impact on source compatibility: if the name of a method type parameter
+is changed, any existing named reference to this parameter will break. This
+means that the names of method type parameters are now part of the public API
+of a library.</p>
+<p>(Unimplemented proposal: to mitigate this,
+<a href="https://www.scala-lang.org/api/current/scala/deprecatedName.html"><code>scala.deprecatedName</code></a>
+could be extended to also be applicable on method type parameters.)</p>
 
         </div>
     </div><!-- end content-body -->
