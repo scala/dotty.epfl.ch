@@ -6495,30 +6495,6 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor object" href="../../.././api/dotty/tools/dotc/transform/InlineCalls$.html">O</a>
-                        
-                        <a class="letter-anchor class" href="../../.././api/dotty/tools/dotc/transform/InlineCalls.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../.././api/dotty/tools/dotc/transform/InlineCalls.html">InlineCalls</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
                         <a class="letter-anchor object" href="../../.././api/dotty/tools/dotc/transform/InterceptedMethods$.html">O</a>
                         
                         <a class="letter-anchor class" href="../../.././api/dotty/tools/dotc/transform/InterceptedMethods.html">C</a>
@@ -6970,30 +6946,6 @@
                 
 
                 
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../../.././api/dotty/tools/dotc/transform/ReifyQuotes$.html">O</a>
-                        
-                        <a class="letter-anchor class" href="../../.././api/dotty/tools/dotc/transform/ReifyQuotes.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../.././api/dotty/tools/dotc/transform/ReifyQuotes.html">ReifyQuotes</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-                 <!-- end != "package" -->
-
-            
-                
-
-                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -7126,6 +7078,30 @@
 
                 
 
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../.././api/dotty/tools/dotc/transform/Staging$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../.././api/dotty/tools/dotc/transform/Staging.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../.././api/dotty/tools/dotc/transform/Staging.html">Staging</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
                  <!-- end != "package" -->
 
             
@@ -12260,7 +12236,7 @@ import dotty.tools.dotc.core.Decorators._
 import dotty.tools.dotc.core.StdNames._
 import dotty.tools.dotc.core.Symbols._
 import dotty.tools.dotc.plugins.{PluginPhase, StandardPlugin}
-import dotty.tools.dotc.transform.{Pickler, ReifyQuotes}
+import dotty.tools.dotc.transform.{Pickler, Staging}
 
 class DivideZero extends StandardPlugin {
   val name: String = &quot;divideZero&quot;
@@ -12275,7 +12251,7 @@ class DivideZeroPhase extends PluginPhase {
   val phaseName = &quot;divideZero&quot;
 
   override val runsAfter = Set(Pickler.name)
-  override val runsBefore = Set(ReifyQuotes.name)
+  override val runsBefore = Set(Staging.name)
 
   override def transformApply(tree: Apply)(implicit ctx: Context): Tree = {
     tree match {

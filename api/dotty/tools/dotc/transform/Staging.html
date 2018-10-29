@@ -6495,30 +6495,6 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/InlineCalls$.html">O</a>
-                        
-                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/InlineCalls.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/InlineCalls.html">InlineCalls</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
                         <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/InterceptedMethods$.html">O</a>
                         
                         <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/InterceptedMethods.html">C</a>
@@ -6970,30 +6946,6 @@
                 
 
                 
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/ReifyQuotes$.html">O</a>
-                        
-                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/ReifyQuotes.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/ReifyQuotes.html">ReifyQuotes</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-                 <!-- end != "package" -->
-
-            
-                
-
-                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -7126,6 +7078,30 @@
 
                 
 
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/Staging$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/Staging.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/Staging.html">Staging</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
                  <!-- end != "package" -->
 
             
@@ -12212,7 +12188,7 @@
 
 
     <script>
-        document.title = "Dotty Docs - InlineCalls"
+        document.title = "Dotty Docs - Staging"
     </script>
 
     <div id="content-body">
@@ -12228,7 +12204,7 @@
                     class
                 </span>
                 <span id="entity-name">
-                    InlineCalls
+                    Staging
                 </span>
                 
                 
@@ -12237,7 +12213,7 @@
                     
                     <span class="keyword">extends</span>
                     
-                    <span class="entity-super-type"><a href="../../../../.././api/dotty/tools/dotc/transform/MacroTransform.html">MacroTransform</a></span>
+                    <span class="entity-super-type"><a href="../../../../.././api/dotty/tools/dotc/transform/MacroTransformWithImplicits.html">MacroTransformWithImplicits</a></span>
                     
                 </div>
                 
@@ -12245,7 +12221,40 @@
 
             
             <div id="entity-body" class="entity-section">
-                <p>β-reduce all calls to inline methods and perform constant folding</p>
+                <p>Inline calls to inline methods, evaluates macros, translates quoted terms (and types)
+to <code>unpickle</code> method calls and checks that the phase consistency principle (PCP) holds.</p>
+<p>Transforms top level quote</p>
+<pre><code>'{ ...
+   val x1 = ???
+   val x2 = ???
+   ...
+   ~{ ... '{ ... x1 ... x2 ...} ... }
+   ...
+ }
+</code></pre>
+<p>to</p>
+<pre><code> unpickle(
+   [[ // PICKLED TASTY
+     ...
+     val x1 = ???
+     val x2 = ???
+     ...
+     Hole(0 | x1, x2)
+     ...
+   ]],
+   List(
+     (args: Seq[Any]) =&gt; {
+       val x1$1 = args(0).asInstanceOf[Expr[T]]
+       val x2$1 = args(1).asInstanceOf[Expr[T]] // can be asInstanceOf[Type[T]]
+       ...
+       { ... '{ ... x1$1.unary_~ ... x2$1.unary_~ ...} ... }
+     }
+   )
+ )
+</code></pre>
+<p>and then performs the same transformation on <code>'{ ... x1$1.unary_~ ... x2$1.unary_~ ...}</code>.</p>
+<p>For macro definitions we assume that we have a single ~ directly as the RHS.
+The Splicer is used to check that the RHS will be interpretable (with the <code>Splicer</code>) once inlined.</p>
 
             </div>
             
@@ -12260,7 +12269,7 @@
                     
                     <div class="member">
                         <div class="member-title">
-                            <span class="member-name">InlineCalls</span>
+                            <span class="member-name">Staging</span>
                             <span class="no-left">(</span>
                                 
                                 
@@ -12278,21 +12287,21 @@
 
             <div id="entity-members" class="entity-section ">
                 
-                <div id="InlineCallsTransformer" class="member ">
+                <div id="LevelInfo" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'InlineCallsTransformer');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'LevelInfo');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            
+                            private
                         </span>
                         <span class="member-kind">
                             class
                         </span>
                         <span class="member-name ">
                             
-                                <a href="../../../../.././api/dotty/tools/dotc/transform/InlineCalls/InlineCallsTransformer.html">InlineCallsTransformer</a>
+                                <a href="../../../../.././api/dotty/tools/dotc/transform/Staging/LevelInfo.html">LevelInfo</a>
                             
                         </span>
 
@@ -12304,7 +12313,185 @@
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-InlineCallsTransformer">
+                        <div class="member-body-long" id ="long-body-LevelInfo">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="Reifier" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Reifier');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            class
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../.././api/dotty/tools/dotc/transform/Staging/Reifier.html">Reifier</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Reifier">
+                            <p>The main transformer class</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="myMacroClassLoader" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'myMacroClassLoader');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            var
+                        </span>
+                        <span class="member-name ">
+                            
+                                myMacroClassLoader
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: ClassLoader</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-myMacroClassLoader">
+                            <p>Classloader used for loading macros</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="checkPostCondition(tree)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkPostCondition(tree)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            override
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                checkPostCondition
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tree:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-checkPostCondition(tree)(ctx)">
+                            <p>Check what the phase achieves, to be called at any point after it is finished.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="macroClassLoader(ctx)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'macroClassLoader(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                macroClassLoader
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: ClassLoader</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-macroClassLoader(ctx)">
                             
                         </div>
                     </div>
@@ -12442,58 +12629,6 @@ instance, it is possible to print trees after a given phase using:</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-run(ctx)">
                             
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="transformPhase(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'transformPhase(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            override
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                transformPhase
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Phases$/Phase.html">Phase</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-transformPhase(ctx)">
-                            <p>The phase in which the transformation should be run.
-By default this is the phase given by the this macro transformer,
-but it could be overridden to be the phase following that one.</p>
-
                         </div>
                     </div>
                 </div><!-- end member -->
