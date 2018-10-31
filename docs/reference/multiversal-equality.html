@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-10-29 -->
+<!-- This page was last generated on 2018-10-31 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12202,7 +12202,7 @@ types.</p>
 <p>Universal equality is convenient but also dangerous since it
 undermines type safety. Say you have an erroneous program where
 a value <code>y</code> has type <code>S</code> instead of the expected type <code>T</code>.</p>
-<pre><code>val x = ... // of type T
+<pre><code class="language-scala">val x = ... // of type T
 val y = ... // of type S, but should be T
 x == y      // typechecks, will always yield false
 </code></pre>
@@ -12213,7 +12213,7 @@ safer. The idea is that by declaring an <code>implicit</code> value one can
 restrict the types that are legal in comparisons. The example above
 would not typecheck if an implicit was declared like this for type <code>T</code>
 (or an analogous one for type <code>S</code>):</p>
-<pre><code>implicit def eqT: Eq[T, T] = Eq
+<pre><code class="language-scala">implicit def eqT: Eq[T, T] = Eq
 </code></pre>
 <p>This definition effectively says that value of type <code>T</code> can (only) be
 compared with <code>==</code> or <code>!=</code> to other values of type <code>T</code>. The definition
@@ -12222,7 +12222,7 @@ behavior, since <code>==</code> always maps to <code>equals</code> and <code>!=<
 the negation of <code>equals</code>. The right hand side of the definition is a value
 that has any <code>Eq</code> instance as its type. Here is the definition of class
 <code>Eq</code> and its companion object:</p>
-<pre><code>package scala
+<pre><code class="language-scala">package scala
 import annotation.implicitNotFound
 
 @implicitNotFound(&quot;Values of types ${L} and ${R} cannot be compared with == or !=&quot;)
@@ -12233,7 +12233,7 @@ object Eq extends Eq[Any, Any]
 <p>One can have several <code>Eq</code> instances for a type. For example, the four
 definitions below make values of type <code>A</code> and type <code>B</code> comparable with
 each other, but not comparable to anything else:</p>
-<pre><code>implicit def eqA : Eq[A, A] = Eq
+<pre><code class="language-scala">implicit def eqA : Eq[A, A] = Eq
 implicit def eqB : Eq[B, B] = Eq
 implicit def eqAB: Eq[A, B] = Eq
 implicit def eqBA: Eq[B, A] = Eq
@@ -12248,7 +12248,7 @@ sequences and sets only comparable to other sets.</p>
 <p>There's also a &quot;fallback&quot; instance named <code>eqAny</code> that allows comparisons
 over all types that do not themselves have an <code>Eq</code> instance.  <code>eqAny</code> is
 defined as follows:</p>
-<pre><code>def eqAny[L, R]: Eq[L, R] = Eq
+<pre><code class="language-scala">def eqAny[L, R]: Eq[L, R] = Eq
 </code></pre>
 <p>Even though <code>eqAny</code> is not declared implicit, the compiler will still
 construct an <code>eqAny</code> instance as answer to an implicit search for the
@@ -12258,7 +12258,7 @@ defined on them.</p>
 if this is of no concern one can disable <code>eqAny</code> by enabling the language
 feature <code>strictEquality</code>. As for all language features this can be either
 done with an import</p>
-<pre><code>import scala.language.strictEquality
+<pre><code class="language-scala">import scala.language.strictEquality
 </code></pre>
 <p>or with a command line option <code>-language:strictEquality</code>.</p>
 <p>All <code>enum</code> types also come with <code>Eq</code> instances that make values of the
@@ -12274,11 +12274,11 @@ a definition of lifting.</p>
 </li>
 <li>
 <p>The usual rules for implicit search apply also to <code>Eq</code> instances,
-with one modification: An instance of <code>scala.Eq.eqAny[T, U]</code> is
-constructed if neither <code>T</code> nor <code>U</code> have a reflexive <code>Eq</code>
-instance themselves. Here, a type <code>T</code> has a reflexive <code>Eq</code>
-instance if the implicit search for <code>Eq[T, T]</code> succeeds
-and constructs an instance different from <code>eqAny</code>.</p>
+with one modification: If the <code>strictEquality</code> feature is not enabled,
+an instance of <code>scala.Eq.eqAny[T, U]</code> is constructed if neither <code>T</code>
+nor <code>U</code> have a reflexive <code>Eq</code> instance themselves. Here, a type <code>T</code>
+has a reflexive <code>Eq</code> instance if the implicit search for <code>Eq[T, T]</code>
+succeeds and constructs an instance different from <code>eqAny</code>.</p>
 <p>Here <em>lifting</em> a type <code>S</code> means replacing all references to  abstract types
 in covariant positions of <code>S</code> by their upper bound, and to replacing
 all refinement types in covariant positions of <code>S</code> by their parent.</p>

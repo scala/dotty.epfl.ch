@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-10-29 -->
+<!-- This page was last generated on 2018-10-31 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Restrictions to Implicit Conversions</title>
+        <title>Implicit Conversions</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -12188,47 +12188,62 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Restrictions to Implicit Conversions</h1>
+        <h1 id="doc-page-title">Implicit Conversions</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/changed/implicit-conversions.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Previously, an implicit value of type <code>Function1</code>, or any of its subtypes
-could be used as an implicit conversion. That is, the following code would compile
-even though it probably masks a type error:</p>
-<pre><code>implicit val m: Map[Int, String] = Map(1 -&gt; &quot;abc&quot;)
+            <p>An <em>implicit conversion</em>, also called <em>view</em>, is a conversion that
+is applied by the compiler in several situations:</p>
+<ol>
+<li>When an expression <code>e</code> of type <code>T</code> is encountered, but the compiler
+needs an expression of type <code>S</code>.</li>
+<li>When an expression <code>e.m</code> where <code>e</code> has type <code>T</code> but <code>T</code> defines no
+member <code>m</code> is encountered.</li>
+</ol>
+<p>In those cases, the compiler looks in the implicit scope for a
+conversion that can convert an expression of type <code>T</code> to an expression
+of type <code>S</code> (or to a type that defines a member <code>m</code> in the second
+case).</p>
+<p>This conversion can be either:</p>
+<ol>
+<li>An <code>implicit def</code> of type <code>T =&gt; S</code> or <code>(=&gt; T) =&gt; S</code></li>
+<li>An implicit value of type <code>ImplicitConverter[T, S]</code></li>
+</ol>
+<p>Defining an implicit conversion will emit a warning unless the import
+<code>scala.language.implicitConversions</code> is in scope, or the flag
+<code>-language:implicitConversions</code> is given to the compiler.</p>
+<h2><a href="#examples" id="examples">Examples</a></h2>
+<p>The first example is taken from <code>scala.Predef</code>. Thanks to this
+implicit conversion, it is possible to pass a <code>scala.Int</code> to a Java
+method that expects a <code>java.lang.Integer</code></p>
+<pre><code class="language-scala">import scala.language.implicitConversions
+implicit def int2Integer(x: Int): java.lang.Integer =
+  x.asInstanceOf[java.lang.Integer]
+</code></pre>
+<p>The second example shows how to use <code>ImplicitConverter</code> to define an
+<code>Ordering</code> for an arbitrary type, given existing <code>Ordering</code>s for other
+types:</p>
+<pre><code class="language-scala">import scala.language.implicitConversions
+implicit def ordT[T, S](
+  implicit conv: ImplicitConverter[T, S],
+           ordS: Ordering[S]
+  ): Ordering[T] = {
+  // `ordS` compares values of type `S`, but we can convert from `T` to `S`
+  (x: T, y: T) =&gt; ordS.compare(x, y)
+}
 
-val x: String = 1  // scalac: assigns &quot;abc&quot; to x
-                   // Dotty: type error
+class A(val x: Int) // The type for which we want an `Ordering`
+
+// Convert `A` to a type for which an `Ordering` is available:
+implicit val AToInt: ImplicitConverter[A, Int] = _.x
+
+implicitly[Ordering[Int]] // Ok, exists in the standard library
+implicitly[Ordering[A]] // Ok, will use the implicit conversion from
+                        // `A` to `Int` and the `Ordering` for `Int`.
 </code></pre>
-<p>By contrast, Dotty only considers <em>methods</em> as implicit conversions, so the
-<code>Map</code> value <code>m</code> above would not qualify as a conversion from <code>String</code> to <code>Int</code>.</p>
-<p>To be able to express implicit conversions passed as parameters, <code>Dotty</code>
-introduces a new type</p>
-<pre><code>abstract class ImplicitConverter[-T, +U] extends Function1[T, U]
-</code></pre>
-<p>Implicit values of type <code>ImplicitConverter[A, B]</code> do qualify as implicit
-conversions. It is as if there was a global implicit conversion method</p>
-<pre><code>def convert[A, B](x: A)(implicit converter: ImplicitConverter[A, B]): B =
-  converter(x)
-</code></pre>
-<p>(In reality the Dotty compiler simulates the behavior of this method directly in
-its type checking because this turns out to be more efficient).</p>
-<p>In summary, previous code using implicit conversion parameters such as</p>
-<pre><code>def useConversion(implicit f: A =&gt; B) = {
-  val y: A = ...
-  val x: B = y    // error under Dotty
-}
-</code></pre>
-<p>is no longer legal and has to be rewritten to</p>
-<pre><code>def useConversion(implicit f: ImplicitConverter[A, B]) = {
-  val y: A = ...
-  val x: B = y    // OK
-}
-</code></pre>
-<h3><a href="#reference" id="reference">Reference</a></h3>
-<p>For more info, see <a href="https://github.com/lampepfl/dotty/pull/2065">PR #2065</a>.</p>
+<p><a href="implicit-conversions-spec.html">More details</a></p>
 
         </div>
     </div><!-- end content-body -->

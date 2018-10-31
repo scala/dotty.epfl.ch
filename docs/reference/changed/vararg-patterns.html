@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-10-29 -->
+<!-- This page was last generated on 2018-10-31 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12194,41 +12194,31 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>The syntax of vararg patterns has changed. In the new syntax one
-writes varargs in patterns exactly like one writes them in
-expressions, using a <code>: _*</code> type annotation:</p>
-<pre><code>xs match {
+            <p>The syntax of vararg patterns has changed. In the new syntax one writes varargs in patterns exactly
+like one writes them in expressions, using a <code>: _*</code> type annotation:</p>
+<pre><code class="language-scala">xs match {
   case List(1, 2, xs: _*) =&gt; println(xs)    // binds xs
   case List(1, _ : _*) =&gt;                   // wildcard pattern
 }
 </code></pre>
-<p>The old syntax, which is shorter but less regular, is no longer
-supported:</p>
-<pre><code>/*!*/ case List(1, 2, xs @ _*)       // syntax error
+<p>The old syntax, which is shorter but less regular, is no longer supported.</p>
+<pre><code class="language-scala">/*!*/ case List(1, 2, xs @ _*)       // syntax error
 /*!*/ case List(1, 2, _*) =&gt; ...     // syntax error
 </code></pre>
-<p>Another change relates to extractors producing values with <code>T*</code> types, which can then be
-matched by vararg patterns. Previously, such extractors used an <code>unapplySeq</code> whereas now they use an <code>unapply</code> (in the long term, we plan to get rid of <code>unapplySeq</code> altogether, replacing all its usages with <code>unapply</code>).</p>
-<p>Example: Previously, this was correct:</p>
-<pre><code>class Person(val name: String, val children: Person *)
-object Person {
-  def unapplySeq(p: Person) = Some((p.name, p.children))
-}
-
-def childCount(p: Person) = p match {
-  case Person(_, ns @ _*) =&gt; ns.length
-}
+<p>The change to the grammar is:</p>
+<pre><code class="language-diff"> SimplePattern ::=  ‘_’
+                 |  varid
+                 |  Literal
+                 |  StableId
+                 |  StableId ‘(’ [Patterns ‘)’
+-                |  StableId ‘(’ [Patterns ‘,’] [varid ‘@’] ‘_’ ‘*’ ‘)’
++                |  StableId ‘(’ [Patterns ‘,’] (varid | ‘_’) ‘:’ ‘_’ ‘*’ ‘)’
+                 |  ‘(’ [Patterns] ‘)’
+                 |  XmlPattern
 </code></pre>
-<p>Now, the equivalent program is written as follows:</p>
-<pre><code>class Person(val name: String, val children: Person *)
-object Person {
-  def unapply(p: Person) = Some((p.name, p.children))
-}
-
-def childCount(p: Person) = p match {
-  case Person(_, ns : _*) =&gt; ns.length
-}
-</code></pre>
+<h2><a href="#compatibility-considerations" id="compatibility-considerations">Compatibility considerations</a></h2>
+<p>Under the <code>-language:Scala2</code> option, Dotty will accept both the old and the new syntax.
+A migration warning will be emitted when the old syntax is encountered.</p>
 
         </div>
     </div><!-- end content-body -->
