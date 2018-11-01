@@ -12194,99 +12194,50 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Previously, Scala supported structural types by means of
-reflection. This is problematic on other platforms, because Scala's
-reflection is JVM-based. Consequently, Scala.js and Scala.native don't
-support structural types fully. The reflection based implementation is
-also needlessly restrictive, since it rules out other implementation
-schemes. This makes structural types unsuitable for e.g. modelling
-rows in a database, for which they would otherwise seem to be an ideal
-match.</p>
-<p>Dotty allows to implement structural types programmatically, using
-&quot;Selectables&quot;. <code>Selectable</code> is a trait defined as follows:</p>
-<pre><code>trait Selectable extends Any {
-  def selectDynamic(name: String): Any
-  def selectDynamicMethod(name: String, paramClasses: ClassTag[_]*): Any =
-    new UnsupportedOperationException(&quot;selectDynamicMethod&quot;)
-}
-</code></pre>
-<p>The most important method of a <code>Selectable</code> is <code>selectDynamic</code>: It
-takes a field name and returns the value associated with that name in
-the selectable.</p>
-<p>Assume now <code>r</code> is a value with structural type <code>S</code>. In general <code>S</code> is
-of the form <code>C { Rs }</code>, i.e. it consists of a class reference <code>C</code> and
-refinement declarations <code>Rs</code>. We call a field selection <code>r.f</code>
-<em>structural</em> if <code>f</code> is a name defined by a declaration in <code>Rs</code> whereas
-<code>C</code> defines no member of name <code>f</code>. Assuming the selection has type
-<code>T</code>, it is mapped to something equivalent to the following code:</p>
-<pre><code>(r: Selectable).selectDynamic(&quot;f&quot;).asInstanceOf[T]
-</code></pre>
-<p>That is, we make sure <code>r</code> conforms to type <code>Selectable</code>, potentially
-by adding an implicit conversion. We then invoke the <code>get</code> operation
-of that instance, passing the the name <code>&quot;f&quot;</code> as a parameter. We
-finally cast the resulting value back to the statically known type
-<code>T</code>.</p>
-<p><code>Selectable</code> also defines another access method called
-<code>selectDynamicMethod</code>. This operation is used to select methods
-instead of fields. It gets passed the class tags of the selected
-method's formal parameter types as additional arguments. These can
-then be used to disambiguate one of several overloaded variants.</p>
-<p>Package <code>scala.reflect</code> contains an implicit conversion which can map
-any value to a selectable that emulates reflection-based selection, in
-a way similar to what was done until now:</p>
-<pre><code>package scala.reflect
+            <p>Some usecases, such as modelling database access, are more awkward in
+statically typed languages than in dynamically typed languages: With
+dynamically typed languages, it's quite natural to model a row as a
+record or object, and to select entries with simple dot notation (e.g.
+<code>row.columnName</code>).</p>
+<p>Achieving the same experience in statically typed
+language requires defining a class for every possible row arising from
+database manipulation (including rows arising from joins and
+projections) and setting up a scheme to map between a row and the
+class representing it.</p>
+<p>This requires a large amount of boilerplate, which leads developers to
+trade the advantages of static typing for simpler schemes where colum
+names are represented as strings and passed to other operators (e.g.
+<code>row.select(&quot;columnName&quot;)</code>). This approach forgoes the advantages of
+static typing, and is still not as natural as the dynamically typed
+version.</p>
+<p>Structural types help in situations where we would like to support
+simple dot notation in dynamic contexts without losing the advantages
+of static typing. They allow developers to use dot notation and
+configure how fields and methods should be resolved.</p>
+<h2><a href="#example" id="example">Example</a></h2>
+<pre><code class="language-scala">object StructuralTypeExample {
 
-object Selectable {
-  implicit def reflectiveSelectable(receiver: Any): scala.Selectable =
-    receiver match {
-      case receiver: scala.Selectable =&gt; receiver
-      case _ =&gt; new scala.reflect.Selectable(receiver)
-    }
+  case class Record(elems: (String, Any)*) extends Selectable {
+    def selectDynamic(name: String): Any = elems.find(_._1 == name).get._2
+  }
+
+  type Person = Record {
+    val name: String
+    val age: Int
+  }
+
+  def main(args: Array[String]): Unit = {
+    val person = Record(&quot;name&quot; -&gt; &quot;Emma&quot;, &quot;age&quot; -&gt; 42).asInstanceOf[Person]
+    println(s&quot;${person.name} is ${person.age} years old.&quot;)
+    // Prints: Emma is 42 years old.
+  }
 }
 </code></pre>
-<p>When imported, <code>reflectiveSelectable</code> provides a way to access fields
-of any structural type using Java reflection. This is similar to the
-current implementation of structural types. The main difference is
-that to get reflection-based structural access one now has to add an
-import:</p>
-<pre><code>import scala.reflect.Selectable.reflectiveSelectable
-</code></pre>
-<p>On the other hand, the previously required language feature import of
-<code>reflectiveCalls</code> is now redundant and is therefore dropped.</p>
-<p>As you can see from its implementation above, <code>reflectSelectable</code>
-checks first whether its argument is already a run-time instance of
-<code>Selectable</code>, in which case it is returned directly. This means that
-reflection-based accesses only take place as a last resort, if no
-other <code>Selectable</code> is defined.</p>
-<p>Other selectable instances can be defined in libraries. For instance,
-here is a simple class of records that support dynamic selection:</p>
-<pre><code>case class Record(elems: (String, Any)*) extends Selectable {
-  def selectDynamic(name: String): Any = elems.find(_._1 == name).get._2
-}
-</code></pre>
-<p><code>Record</code> consists of a list of pairs of element names and values. Its
-<code>selectDynamic</code> operation finds the pair with given name and returns
-its value.</p>
-<p>For illustration, let's define a record value and cast it to a
-structural type <code>Person</code>:</p>
-<pre><code>type Person = Record { val name: String; val age: Int }
-val person = Record(&quot;name&quot; -&gt; &quot;Emma&quot;, &quot;age&quot; -&gt; 42).asInstanceOf[Person]
-</code></pre>
-<p>Then <code>person.name</code> will have static type <code>String</code>, and will produce <code>&quot;Emma&quot;</code> as result.</p>
-<p>The safety of this scheme relies on the correctness of the cast. If
-the cast lies about the structure of the record, the corresponding
-<code>selectDynamic</code> operation would fail.  In practice, the cast would
-likely be part if a database access layer which would ensure its
-correctness.</p>
-<h3><a href="#notes" id="notes">Notes:</a></h3>
-<ol>
-<li>
-<p>The scheme does not handle polymorphic methods in structural
-refinements. Such polymorphic methods are currently flagged as
-errors. It's not clear whether the use case is common enough to
-warrant the additional complexity of supporting it.</p>
-</li>
-<li>
+<h2><a href="#extensibility" id="extensibility">Extensibility</a></h2>
+<p>New instances of <code>Selectable</code> can be defined to support means of
+access other than Java reflection, which would enable usages such as
+the database access example given at the beginning of this document.</p>
+<h2><a href="#relation-with-scaladynamic" id="relation-with-scaladynamic">Relation with <code>scala.Dynamic</code></a></h2>
 <p>There are clearly some connections with <code>scala.Dynamic</code> here, since
 both select members programmatically. But there are also some
 differences.</p>
@@ -12308,10 +12259,7 @@ takes class tags indicating the method's formal parameter types as
 additional argument. <code>Dynamic</code> comes with <code>applyDynamic</code> and
 <code>updateDynamic</code> methods, which take actual argument values.</li>
 </ul>
-</li>
-</ol>
-<h3><a href="#reference" id="reference">Reference</a></h3>
-<p>For more info, see <a href="https://github.com/lampepfl/dotty/issues/1886">Issue #1886</a>.</p>
+<p><a href="structural-types-spec.html">More details</a></p>
 
         </div>
     </div><!-- end content-body -->
