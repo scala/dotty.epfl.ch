@@ -17727,6 +17727,90 @@ in the current typer state.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="designatorFor(prefix,name,denot)(ctx)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'designatorFor(prefix,name,denot)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                designatorFor
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        prefix:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        name:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Names$/Name.html">Name</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        denot:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Denotations$/Denotation.html">Denotation</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Names$/Designator.html">Designator</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-designatorFor(prefix,name,denot)(ctx)">
+                            <p>The designator to be used for a named type creation with given prefix, name, and denotation.
+This is the denotation's symbol, if it exists and the prefix is not the this type
+of the class owning the symbol. The reason for the latter qualification is that
+when re-computing the denotation of a <code>this.&lt;symbol&gt;</code> reference we read the
+type directly off the symbol. But the given denotation might contain a more precise
+type than what can be computed from the symbol's info. We have to create in this case
+a reference with a name as designator so that the denotation will be correctly updated in
+the future. See also NamedType#withDenot. Test case is neg/opaque-self-encoding.scala.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="eqType" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'eqType');">[+]</span>

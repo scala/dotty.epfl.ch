@@ -14511,8 +14511,21 @@ Used to get the class underlying a ThisType.</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-withDenot(denot)(ctx)">
                             <p>A reference like this one, but with the given denotation, if it exists.
-If the symbol of <code>denot</code> is the same as the current symbol, the denotation
-is re-used, otherwise a new one is created.</p>
+Returns a new named type with the denotation's symbol if that symbol exists, and
+one of the following alternatives applies:
+1. The current designator is a symbol and the symbols differ, or
+2. The current designator is a name and the new symbolic named type
+does not have a currently known denotation.
+3. The current designator is a name and the new symbolic named type
+has the same info as the current info
+Otherwise the current denotation is overwritten with the given one.</p>
+<p>Note: (2) and (3) are a &quot;lock in mechanism&quot; where a reference with a name as
+designator can turn into a symbolic reference.</p>
+<p>Note: This is a subtle dance to keep the balance between going to symbolic
+references as much as we can (since otherwise we'd risk getting cycles)
+and to still not lose any type info in the denotation (since symbolic
+references often recompute their info directly from the symbol's info).
+A test case is neg/opaque-self-encoding.scala.</p>
 
                         </div>
                     </div>
