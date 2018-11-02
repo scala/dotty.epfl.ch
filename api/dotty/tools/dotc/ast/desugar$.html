@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-11-01 -->
+<!-- This page was last generated on 2018-11-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14404,9 +14404,9 @@ ValDef or DefDef.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="makeTupledFunction(params,body)(ctx)" class="member ">
+                <div id="makeTupledFunction(params,body,isGenericTuple)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'makeTupledFunction(params,body)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'makeTupledFunction(params,body,isGenericTuple)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14443,6 +14443,14 @@ ValDef or DefDef.</p>
                                     </span>
                                     <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
                                     
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        isGenericTuple:
+                                    </span>
+                                    Boolean
+                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -14469,12 +14477,19 @@ ValDef or DefDef.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-makeTupledFunction(params,body)(ctx)">
+                        <div class="member-body-long" id ="long-body-makeTupledFunction(params,body,isGenericTuple)(ctx)">
                             <p>Map n-ary function <code>(p1, ..., pn) =&gt; body</code> where n != 1 to unary function as follows:</p>
 <p>x$1 =&gt; {
 def p1 = x$1._1
 ...
 def pn = x$1._n
+body
+}</p>
+<p>or if <code>isGenericTuple</code></p>
+<p>x$1 =&gt; {
+def p1 = x$1.apply(0)
+...
+def pn = x$1.apply(n-1)
 body
 }</p>
 
