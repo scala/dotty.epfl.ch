@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-11-02 -->
+<!-- This page was last generated on 2018-11-03 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12234,7 +12234,7 @@ foo.bar                               ~~&gt; foo.selectDynamic(bar)</li>
 <p>The first matching rule of is applied.</p>
 <ol>
 <li>Translates member selections on structural types to calls of <code>selectDynamic</code>
-or <code>selectDynamicMethod</code> on a <code>Selectable</code> instance. @See handleStructural.</li>
+or <code>applyDynamic</code> on a <code>Selectable</code> instance. @See handleStructural.</li>
 </ol>
 
             </div>
@@ -12406,15 +12406,16 @@ or <code>selectDynamicMethod</code> on a <code>Selectable</code> instance. @See 
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-handleStructural(tree)(ctx)">
-                            <p>Handle reflection-based dispatch for members of structural types.
-Given <code>x.a</code>, where <code>x</code> is of (widened) type <code>T</code> and <code>x.a</code> is of type <code>U</code>:</p>
-<p>If <code>U</code> is a value type, map <code>x.a</code> to the equivalent of:</p>
+                            <p>Handle reflection-based dispatch for members of structural types.</p>
+<p>Given <code>x.a</code>, where <code>x</code> is of (widened) type <code>T</code> (a value type or a nullary method type),
+and <code>x.a</code> is of type <code>U</code>, map <code>x.a</code> to the equivalent of:</p>
 <p>(x: Selectable).selectDynamic(&quot;a&quot;).asInstanceOf[U]</p>
-<p>If <code>U</code> is a method type (T1,...,Tn)R, map <code>x.a</code> to the equivalent of:</p>
-<p>(x: Selectable).selectDynamicMethod(&quot;a&quot;, CT1, ..., CTn).asInstanceOf[(T1,...,Tn) =&gt; R]</p>
-<p>where CT1,...,CTn are the class tags representing the erasure of T1,...,Tn.</p>
+<p>Given <code>x.a(arg1, ..., argn)</code>, where <code>x.a</code> is of (widened) type (T1, ..., Tn)R,
+map <code>x.a(arg1, ..., argn)</code> to the equivalent of:</p>
+<p>(x:selectable).applyDynamic(&quot;a&quot;, CT1, ..., CTn)(arg1, ..., argn).asInstanceOf[R]</p>
+<p>where CT1, ..., CTn are the class tags representing the erasure of T1, ..., Tn.</p>
 <p>It's an error if U is neither a value nor a method type, or a dependent method
-type, or of too large arity (limit is Definitions.MaxStructuralMethodArity).</p>
+type.</p>
 
                         </div>
                     </div>
