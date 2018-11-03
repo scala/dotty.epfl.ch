@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Dependent Function Types</title>
+        <title>Implicit Function Types - More Details</title>
 
         <link rel="icon" type="image/png" href="../.././images/favicon.png">
 
@@ -12188,46 +12188,77 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Dependent Function Types</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/dependent-function-types.md">
+        <h1 id="doc-page-title">Implicit Function Types - More Details</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/implicit-function-types-spec.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>A dependent function type describes functions where the result type may depend
-on the function's parameter values. Example:</p>
-<pre><code>trait Entry { type Key; val key: Key }
-
-def extractKey(e: Entry): e.Key = e.key          // a dependent method
-val extractor: (e: Entry) =&gt; e.Key = extractKey  // a dependent function value
-//            ║   ⇓ ⇓ ⇓ ⇓ ⇓ ⇓ ⇓   ║
-//            ║     Dependent     ║
-//            ║   Function Type   ║
-//            ╚═══════════════════╝
+            <p>Initial implementation in (#1775)[https://github.com/lampepfl/dotty/pull/1775].</p>
+<h2><a href="#syntax" id="syntax">Syntax</a></h2>
+<pre><code>Type              ::=  [`implicit'] FunArgTypes `=&gt;' Type
+                    |  HkTypeParamClause `=&gt;' Type
+                    |  InfixType
+Expr              ::=  [`implicit'] FunParams `=&gt;' Expr
+BlockResult       ::=  [`implicit'] FunParams `=&gt;' Block
+                    |  Expr1
 </code></pre>
-<p>Scala already has <em>dependent methods</em>, i.e. methods where the result
-type refers to some of the parameters of the method. Method
-<code>extractKey</code> is an example. Its result type, <code>e.key</code> refers its
-parameter <code>e</code> (we also say, <code>e.Key</code> <em>depends</em> on <code>e</code>). But so far it
-was not possible to turn such methods into function values, so that
-they can be passed as parameters to other functions, or returned as
-results. Dependent methods could not be turned into functions simply
-because there was no type that could describe them.</p>
-<p>In Dotty this is now possible. The type of the <code>extractor</code> value above is</p>
-<pre><code>(e: Entry) =&gt; e.Key
-</code></pre>
-<p>This type describes function values that take any argument <code>x</code> of type
-<code>Entry</code> and return a result of type <code>x.Key</code>.</p>
-<p>Recall that a normal function type <code>A =&gt; B</code> is represented as an
-instance of the <code>Function1</code> trait (i.e. <code>Function1[A, B]</code>) and
-analogously for functions with more parameters. Dependent functions
-are also represented as instances of these traits, but they get an additional
-refinement. In fact, the dependent function type above is just syntactic sugar for</p>
-<pre><code>Function1[Entry, Entry#Key] {
-  def apply(e: Entry): e.Key
+<p>Implicit function types associate to the right, e.g.
+<code>implicit S ⇒ implicit T ⇒ U</code> is the same as <code>implicit S ⇒ (implicit T ⇒ U)</code>.</p>
+<h2><a href="#implementation" id="implementation">Implementation</a></h2>
+<p>Implicit function types are shorthands for class types that define <code>apply</code>
+methods with implicit parameters. Specifically, the <code>N</code>-ary function type
+<code>implicit T1, ..., TN ⇒ R</code> is a shorthand for the class type
+<code>ImplicitFunctionN[T1 , ... , TN, R]</code>. Such class types are defined in the
+Scala library for <code>N</code> between 1 and 22 as follows.</p>
+<pre><code>package scala
+trait ImplicitFunctionN[-T1 , ... , -TN, +R] {
+  def apply(implicit x1: T1 , ... , xN: TN): R
 }
 </code></pre>
-<p><a href="./dependent-function-types-spec.html">More details</a></p>
+<p>Anonymous implicit functions <code>implicit (x1: T1, ..., xn: Tn) =&gt; e</code> map
+implicit parameters <code>xi</code> of types <code>Ti</code> to a result given by expression <code>e</code>.
+The scope of each implicit parameter <code>xi</code> is <code>e</code>. Implicit parameters must
+have pairwise distinct names.</p>
+<p>If the expected type of the anonymous implicit function is of the form
+<code>scala.ImplicitFunctionN[S1, ..., Sn, R]</code>, the expected type of <code>e</code> is <code>R</code> and
+the type <code>Ti</code> of any of the parameters <code>xi</code> can be omitted, in which case <code>Ti = Si</code> is assumed. If the expected type of the anonymous implicit function is
+some other type, all implicit parameter types must be explicitly given, and
+the expected type of <code>e</code> is undefined. The type of the anonymous implicit
+function is <code>scala.ImplicitFunctionN[S1, ...,Sn, T]</code>, where <code>T</code> is the widened
+type of <code>e</code>. <code>T</code> must be equivalent to a type which does not refer to any of
+the implicit parameters <code>xi</code>.</p>
+<p>The anonymous implicit function is evaluated as the instance creation
+expression:</p>
+<pre><code>new scala.ImplicitFunctionN[T1, ..., Tn, T] {
+  def apply(implicit x1: T1, ..., xn: Tn): T = e
+}
+</code></pre>
+<p>In the case of a single untyped implicit parameter, <code>implicit (x) =&gt; e</code> can be
+abbreviated to <code>implicit x =&gt; e</code>. If an anonymous implicit function <code>implicit (x: T) =&gt; e</code> with a single typed parameter appears as the result expression of
+a block, it can be abbreviated to <code>implicit x: T =&gt; e</code></p>
+<p>A implicit parameter may also be a wildcard represented by an underscore <code>_</code>. In
+that case, a fresh name for the parameter is chosen arbitrarily.</p>
+<p>Note: The closing paragraph of the [Anonymous Functions section](<a href="https://www">https://www</a>
+.scala-lang.org/files/archive/spec/2.12/06-expressions.html#anonymous-
+functions) of the Scala 2.12 is subsumed by implicit function types and should
+be removed.</p>
+<p>Anonymous implicit functions <code>implicit (x1: T1, ..., xn: Tn) =&gt; e</code> are
+automatically inserted around any expression <code>e</code> whose expected type is
+<code>scala.ImplicitFunctionN[T1, ..., Tn, R]</code>. This is analogous to the automatic
+insertion of <code>scala.Function0</code> around expression in by-name argument position.</p>
+<p>Implicit functions generalize to <code>N &gt; 22</code> in the same way that functions do,
+see <a href="https://dotty.epfl.ch/docs/reference/dropped/limit22.html">the corresponding
+documentation</a>.</p>
+<h2><a href="#examples" id="examples">Examples</a></h2>
+<p>See the section on Expressiveness from <a href="https://dl.acm.org/citation.cfm?id=3158130">Simplicitly: foundations and
+applications of implicit function
+types</a>. I've extracted it in [this
+Gist](<a href="https://gist.github.com/OlivierBlanvillain/234d3927fe9e9c6fba074b53a7bd9">https://gist.github.com/OlivierBlanvillain/234d3927fe9e9c6fba074b53a7bd9</a>
+592), it might easier to access than the pdf.</p>
+<h3><a href="#type-checking" id="type-checking">Type Checking</a></h3>
+<p>After desugaring no additional typing rules are required for implicit function
+types.</p>
 
         </div>
     </div><!-- end content-body -->

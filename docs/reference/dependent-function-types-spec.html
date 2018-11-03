@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Dependent Function Types</title>
+        <title>Dependent Function Types - More Details</title>
 
         <link rel="icon" type="image/png" href="../.././images/favicon.png">
 
@@ -12188,46 +12188,47 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Dependent Function Types</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/dependent-function-types.md">
+        <h1 id="doc-page-title">Dependent Function Types - More Details</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/dependent-function-types-spec.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>A dependent function type describes functions where the result type may depend
-on the function's parameter values. Example:</p>
-<pre><code>trait Entry { type Key; val key: Key }
-
-def extractKey(e: Entry): e.Key = e.key          // a dependent method
-val extractor: (e: Entry) =&gt; e.Key = extractKey  // a dependent function value
-//            ║   ⇓ ⇓ ⇓ ⇓ ⇓ ⇓ ⇓   ║
-//            ║     Dependent     ║
-//            ║   Function Type   ║
-//            ╚═══════════════════╝
+            <p>Initial implementation in (#3464)[https://github.com/lampepfl/dotty/pull/3464].</p>
+<h2><a href="#syntax" id="syntax">Syntax</a></h2>
+<pre><code>FunArgTypes       ::=  InfixType
+                    |  ‘(’ [ FunArgType {‘,’ FunArgType } ] ‘)’
+                    |  '(' TypedFunParam {',' TypedFunParam } ')'
+TypedFunParam     ::=  id ':' Type
 </code></pre>
-<p>Scala already has <em>dependent methods</em>, i.e. methods where the result
-type refers to some of the parameters of the method. Method
-<code>extractKey</code> is an example. Its result type, <code>e.key</code> refers its
-parameter <code>e</code> (we also say, <code>e.Key</code> <em>depends</em> on <code>e</code>). But so far it
-was not possible to turn such methods into function values, so that
-they can be passed as parameters to other functions, or returned as
-results. Dependent methods could not be turned into functions simply
-because there was no type that could describe them.</p>
-<p>In Dotty this is now possible. The type of the <code>extractor</code> value above is</p>
-<pre><code>(e: Entry) =&gt; e.Key
-</code></pre>
-<p>This type describes function values that take any argument <code>x</code> of type
-<code>Entry</code> and return a result of type <code>x.Key</code>.</p>
-<p>Recall that a normal function type <code>A =&gt; B</code> is represented as an
-instance of the <code>Function1</code> trait (i.e. <code>Function1[A, B]</code>) and
-analogously for functions with more parameters. Dependent functions
-are also represented as instances of these traits, but they get an additional
-refinement. In fact, the dependent function type above is just syntactic sugar for</p>
-<pre><code>Function1[Entry, Entry#Key] {
-  def apply(e: Entry): e.Key
+<p>Dependent function types associate to the right, e.g.
+<code>(s: S) ⇒ (t: T) ⇒ U</code> is the same as <code>(s: S) ⇒ ((t: T) ⇒ U)</code>.</p>
+<h2><a href="#implementation" id="implementation">Implementation</a></h2>
+<p>Dependent function types are shorthands for class types that define <code>apply</code>
+methods with a dependent result type.Dependent function types desugar to
+refinement types of <code>scala.FunctionN</code>. A dependent functon type
+<code>(x1: K1, ..., xN: KN) =&gt; R</code> of arity <code>N</code> translates to</p>
+<pre><code>FunctionN[K1, ..., Kn, R'] {
+  def apply(x1: K1, ..., xN: KN): R
 }
 </code></pre>
-<p><a href="./dependent-function-types-spec.html">More details</a></p>
+<p>where the result type parameter <code>R'</code> is the least upper approximation of the
+precise result type <code>R</code> without any referance to value parameters <code>x1, ..., xN</code>.</p>
+<p>The syntax and sementics of anonymous dependent functions is identical to the
+one of regular functions. Eta expansion is naturaly generalized to produce
+dependent function types for methods with dependent result types.</p>
+<p>Dependent functions can be implicit, and generalize to arity <code>N &gt; 22</code> in the
+same way that other functions do, see <a href="https://dotty.epfl.ch/docs/reference/dropped/limit22.html">the corresponding
+documentation</a>.</p>
+<h2><a href="#examples" id="examples">Examples</a></h2>
+<ul>
+<li>
+<p>(depfuntype.scala)[https://github.com/lampepfl/dotty/blob/0.10.x/tests/pos/depfuntype.scala]</p>
+</li>
+<li>(eff-dependent.scala)[https://github.com/lampepfl/dotty/blob/0.10.x/tests/run/eff-dependent.scala]</li>
+</ul>
+<h3><a href="#type-checking" id="type-checking">Type Checking</a></h3>
+<p>After desugaring no additional typing rules are required for dependent function types.</p>
 
         </div>
     </div><!-- end content-body -->
