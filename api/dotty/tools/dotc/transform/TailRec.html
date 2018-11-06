@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-11-05 -->
+<!-- This page was last generated on 2018-11-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12221,7 +12221,78 @@
 
             
             <div id="entity-body" class="entity-section">
-                <p>A Tail Rec Transformer</p>
+                <p>A Tail Rec Transformer.</p>
+<p>What it does:</p>
+<p>Finds method calls in tail-position and replaces them with jumps.
+A call is in a tail-position if it is the last instruction to be
+executed in the body of a method. This includes being in
+tail-position of a <code>return</code> from a <code>Labeled</code> block which is itself
+in tail-position (which is critical for tail-recursive calls in the
+cases of a <code>match</code>). To identify tail positions, we recurse over
+the trees that may contain calls in tail-position (trees that can't
+contain such calls are not transformed).</p>
+<p>When a method contains at least one tail-recursive call, its rhs
+is wrapped in the following structure:
+{{{
+var localForParam1: T1 = param1
+...
+while (<empty>) {
+tailResult[ResultType]: {
+return {
+// original rhs with tail recursive calls transformed (see below)
+}
+}
+}
+}}}</p>
+<p>Self-recursive calls in tail-position are then replaced by (a)
+reassigning the local <code>var</code>s substituting formal parameters and
+(b) a <code>return</code> from the <code>tailResult</code> labeled block, which has the
+net effect of looping back to the beginning of the method.
+If the receiver is modifed in a recursive call, an additional <code>var</code>
+is used to replace <code>this</code>.</p>
+<p>As a complete example of the transformation, the classical <code>fact</code>
+function, defined as:
+{{{
+def fact(n: Int, acc: Int): Int =
+if (n == 0) acc
+else fact(n - 1, acc * n)
+}}}
+is rewritten as:
+{{{
+def fact(n: Int, acc: Int): Int = {
+var acc$tailLocal1: Int = acc
+var n$tailLocal1: Int = n
+while (<empty>) {
+tailLabel1[Unit]: {
+return {
+if (n$tailLocal1 == 0)
+acc$tailLocal1
+else {
+val n$tailLocal1$tmp1: Int = n$tailLocal1 - 1
+val acc$tailLocal1$tmp1: Int = acc$tailLocal1 * n$tailLocal1
+n$tailLocal1 = n$tailLocal1$tmp1
+acc$tailLocal1 = acc$tailLocal1$tmp1
+(return[tailLabel1] ()): Int
+}
+}
+}
+}
+}
+}}}</p>
+<p>As the JVM provides no way to jump from a method to another one,
+non-recursive calls in tail-position are not optimized.</p>
+<p>A method call is self-recursive if it calls the current method and
+the method is final (otherwise, it could be a call to an overridden
+method in a subclass). Recursive calls on a different instance are
+optimized.</p>
+<p>This phase has been moved after erasure to allow the use of vars
+for the parameters combined with a <code>WhileDo</code>. This is also
+beneficial to support polymorphic tail-recursive calls.</p>
+<p>In scalac, if the method had type parameters, the call must contain
+the same parameters as type arguments. This is no longer the case in
+dotc thanks to being located after erasure.
+In scalac, this is named tailCall but it does only provide optimization for
+self recursive functions, that's why it's renamed to tailrec</p>
 
             </div>
             
@@ -12281,100 +12352,6 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-TailRecElimination">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="labelFlags" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'labelFlags');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            final
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                labelFlags
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-labelFlags">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="mkLabel(method)(ctx)" class="member private">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'mkLabel(method)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            private
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                mkLabel
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        method:
-                                    </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$.html#TermSymbol">TermSymbol</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-mkLabel(method)(ctx)">
                             
                         </div>
                     </div>
