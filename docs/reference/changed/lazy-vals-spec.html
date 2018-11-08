@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Changed: Lazy Vals</title>
+        <title>Changed: Lazy Vals - More Details</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -12170,26 +12170,75 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Changed: Lazy Vals</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/changed/lazy-vals.md">
+        <h1 id="doc-page-title">Changed: Lazy Vals - More Details</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/changed/lazy-vals-spec.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Lazy field initialization no longer guarantees safe publishing. This change was done
-to avoid the performance overhead of thread synchonization because most lazy vals are only used in
-a single-threaded context.</p>
-<h2><a href="#compatibility-considerations" id="compatibility-considerations">Compatibility considerations</a></h2>
-<p>To get back safe publishing (Scala 2's default) you need to annotate a lazy val with <code>@volatile</code>. In</p>
-<pre><code class="language-scala">@volatile lazy val x = expr
+            <p>Dotty implements <a href="https://docs.scala-lang.org/sips/improved-lazy-val-initialization.html#version-6---no-synchronization-on-this-and-concurrent-initialization-of-fields">Version 6</a>
+of the <a href="https://docs.scala-lang.org/sips/improved-lazy-val-initialization.html">SIP-20</a> improved lazy vals initialization proposal.</p>
+<h2><a href="#motivation" id="motivation">Motivation</a></h2>
+<p>The newly proposed lazy val initialization mechanism aims to eliminate the acquisition of resources
+during the execution of the lazy val initializer block, thus reducing the possibility of a deadlock.
+The concrete deadlock scenarios that the new lazy val initialization scheme eliminates are
+summarized in the <a href="https://docs.scala-lang.org/sips/improved-lazy-val-initialization.html">SIP-20</a> document.</p>
+<h2><a href="#implementation" id="implementation">Implementation</a></h2>
+<p>Given a lazy field of the form:</p>
+<pre><code class="language-scala">class Foo {
+  @volatile lazy val bar = &lt;RHS&gt;
+}
 </code></pre>
-<p>it is guaranteed that readers of a lazy val will see the value of <code>x</code> once it is assigned.</p>
-<p>Local lazy vals (i.e. defined inside methods) are left unchanged.</p>
-<p>The <a href="https://scalacenter.github.io/scalafix/">ScalaFix</a> rewrite tool
-as well as Dotty's own <code>-language:Scala2 -rewrite</code> option will rewrite all normal
-lazy vals to volatile ones in order to keep their semantics compatible
-with current Scala's.</p>
-<p><a href="./lazy-vals-spec.html">More details</a></p>
+<p>The Dotty compiler will generate code equivalent to:</p>
+<pre><code class="language-scala">class Foo {
+  import dotty.runtime.LazyVals
+  var value_0: Int = _
+  var bitmap = 0
+  val bitmap_offset = LazyVals.getOffset(classOf[LazyCell], &quot;bitmap&quot;)
+
+  def bar(): Int = {
+    var result: Int = 0
+    var retry: Boolean = true
+    var flag: Long = 0L
+    while (retry) {
+      flag = LazyVals.get(this, bitmap_offset)
+      LazyVals.STATE(flag, &lt;field-id&gt;) match {
+        case &lt;state-0&gt; =&gt;
+          if (LazyVals.CAS(this, bitmap_offset, flag, &lt;state-1&gt;)) {
+            try result = &lt;RHS&gt;
+            catch {
+              case ex =&gt;
+                LazyVals.setFlag(this, bitmap_offset, &lt;state-0&gt;, &lt;field-id&gt;)
+                throw ex
+            }
+            value_0 = result
+            LazyVals.setFlag(this, bitmap_offset, &lt;state-3&gt;, &lt;field-id&gt;)
+            retry = false
+          }
+        case &lt;state-1&gt; | &lt;state-2&gt; =&gt;
+          LazyVals.wait4Notification(this, bitmap_offset, flag, &lt;field-id&gt;)
+        case &lt;state-3&gt; =&gt;
+          retry = false
+          result = $target
+        }
+      }
+    result
+  }
+}
+</code></pre>
+<p>The state of the lazy val <code>&lt;state-i&gt;</code> is represented with 4 values: 0, 1, 2 and 3. The state 0
+represents a non-initialized lazy val. The state 1 represents a lazy val that is currently being
+initialized by some thread. The state 2 denotes that there are concurrent readers of the lazy val.
+The state 3 represents a lazy val that has been initialized. <code>&lt;field-id&gt;</code> is the id of the lazy
+val. This id grows with the number of volatile lazy vals defined in the class.</p>
+<h2><a href="#note-on-recursive-lazy-vals" id="note-on-recursive-lazy-vals">Note on recursive lazy vals</a></h2>
+<p>Ideally recursive lazy vals should be flagged as an error. The current behavior for <code>@volatile</code>
+recursive lazy vals is undefined (initialization may result in a deadlock). Non <code>@volatile</code> lazy
+vals behave as in Scala 2.</p>
+<h2><a href="#reference" id="reference">Reference</a></h2>
+<ul>
+<li><a href="https://docs.scala-lang.org/sips/improved-lazy-val-initialization.html">SIP-20</a></li>
+</ul>
 
         </div>
     </div><!-- end content-body -->
