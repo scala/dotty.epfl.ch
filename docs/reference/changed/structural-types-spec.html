@@ -12191,16 +12191,18 @@ consider three distinct cases:</p>
 (v: Selectable).selectDynamic(&quot;a&quot;).asInstanceOf[U]
 </code></pre>
 </li>
-<li>If <code>U</code> is a method type <code>(T1, ..., Tn) =&gt; R</code> with at most 7
-parameters and it is not a dependent method type, we map <code>v.a</code> to
+<li>If <code>U</code> is a method type <code>(T11, ..., T1n)...(TN1, ..., TNn) =&gt; R</code> and it is not
+a dependent method type, we map <code>v.a(a11, ..., a1n)...(aN1, aNn)</code> to
 the  equivalent of:
 <pre><code class="language-scala">v.a(arg1, ..., argn)
    ---&gt;
-(v: Selectable).applyDynamic(&quot;a&quot;, CT1, ..., CTn)(arg1, ..., argn).asInstanceOf[R]
+(v: Selectable).applyDynamic(&quot;a&quot;, CT11, ..., CTn, ..., CTN1, ... CTNn)
+                            (a11, ..., a1n, ..., aN1, ..., aNn)
+               .asInstanceOf[R]
 </code></pre>
 </li>
 <li>If <code>U</code> is neither a value nor a method type, or a dependent method
-type, or has more than 7 parameters, an error is emitted.</li>
+type, an error is emitted.</li>
 </ul>
 <p>We make sure that <code>r</code> conforms to type <code>Selectable</code>, potentially by
 introducing an implicit conversion, and then call either

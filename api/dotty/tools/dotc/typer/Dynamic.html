@@ -12372,11 +12372,15 @@ or <code>applyDynamic</code> on a <code>Selectable</code> instance. @See handleS
                             <p>Handle reflection-based dispatch for members of structural types.</p>
 <p>Given <code>x.a</code>, where <code>x</code> is of (widened) type <code>T</code> (a value type or a nullary method type),
 and <code>x.a</code> is of type <code>U</code>, map <code>x.a</code> to the equivalent of:</p>
-<p>(x: Selectable).selectDynamic(&quot;a&quot;).asInstanceOf[U]</p>
-<p>Given <code>x.a(arg1, ..., argn)</code>, where <code>x.a</code> is of (widened) type (T1, ..., Tn)R,
-map <code>x.a(arg1, ..., argn)</code> to the equivalent of:</p>
-<p>(x:selectable).applyDynamic(&quot;a&quot;, CT1, ..., CTn)(arg1, ..., argn).asInstanceOf[R]</p>
-<p>where CT1, ..., CTn are the class tags representing the erasure of T1, ..., Tn.</p>
+<pre><code class="language-scala">(x: Selectable).selectDynamic(&quot;a&quot;).asInstanceOf[U]
+</code></pre>
+<p>Given <code>x.a(a11, ..., a1n)...(aN1, ..., aNn)</code>, where <code>x.a</code> is of (widened) type
+<code>(T11, ..., T1n)...(TN1, ..., TNn) =&gt; R</code>, it is desugared to:</p>
+<pre><code class="language-scala">(x:selectable).applyDynamic(&quot;a&quot;, CT11, ..., CT1n, ..., CTN1, ... CTNn)
+                           (a11, ..., a1n, ..., aN1, ..., aNn)
+              .asInstanceOf[R]
+</code></pre>
+<p>where CT11, ..., CTNn are the class tags representing the erasure of T11, ..., TNn.</p>
 <p>It's an error if U is neither a value nor a method type, or a dependent method
 type.</p>
 
