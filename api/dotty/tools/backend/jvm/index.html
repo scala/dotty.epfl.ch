@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-11-06 -->
+<!-- This page was last generated on 2018-11-08 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -477,24 +477,6 @@
                         <a class="letter-anchor class" href="../../../../.././api/dotty/tools/backend/jvm/GenBCodePipeline.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../.././api/dotty/tools/backend/jvm/GenBCodePipeline.html">GenBCodePipeline</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/backend/jvm/LabelDefs.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../../../.././api/dotty/tools/backend/jvm/LabelDefs.html">LabelDefs</a>
                 </li>
 
                 
@@ -12502,71 +12484,6 @@ etc.). They will all be mapped to the same int.</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-GenBCodePipeline">
                             
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="LabelDefs" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'LabelDefs');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            class
-                        </span>
-                        <span class="member-name ">
-                            
-                                <a href="../../../../.././api/dotty/tools/backend/jvm/LabelDefs.html">LabelDefs</a>
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-LabelDefs">
-                            <p>Verifies that each Label DefDef has only a single address to jump back and
-reorders them such that they are not nested and this address is a
-fall-through address for the JVM.</p>
-<pre><code class="language-scala">&lt;label&gt; def foo(i: Int) = {
- &lt;label&gt; def bar = 0
- &lt;label&gt; def dough(i: Int) = if (i == 0) bar else foo(i-1)
- dough(i)
-}
-
-foo(100)
-</code></pre>
-<p>will get rewritten to:</p>
-<pre><code class="language-scala">&lt;label&gt; def foo(i: Int) = dough(i)
-&lt;label&gt; def dough(i: Int) = if (i == 0) bar else foo(i-1)
-&lt;label&gt; def bar = 2
-foo(100)
-</code></pre>
-<p>Proposed way to generate this pattern in backend is:</p>
-<pre><code class="language-scala">foo(100)
-&lt;jump foo&gt;
-&lt;label&gt; def foo(i: Int) = dough(i)
-// &lt;jump a&gt;                           // unreachable
-&lt;label&gt; def dough(i: Int) = if (i == 0) bar else foo(i-1)
-// &lt;jump a&gt;                           // unreachable
-&lt;label&gt; def bar = 2
-// &lt;jump a&gt;                           // unreachable
-&lt;asm point a&gt;
-</code></pre>
-<p>Unreachable jumps will be eliminated by local dead code analysis.
-After JVM is smart enough to remove next-line jumps</p>
-<p>Note that Ychecking this phase requires softening scoping rules
-as it intentionally allowed to break scoping rules inside methods for labels.
-This is modified by setting <code>labelsReordered</code> flag in Phases.</p>
-
                         </div>
                     </div>
                 </div><!-- end member -->
