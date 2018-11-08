@@ -8303,24 +8303,6 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/util/Chars$.html">O</a>
-                    </div>
-                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/util/Chars$.html">Chars</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
                         <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/util/CommentParsing$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/util/CommentParsing$.html">CommentParsing</a>
@@ -8370,8 +8352,7 @@
                 
 
                 
-                <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
-                <li class="hidden-by-default  with-companion ">
+                <li class=" with-companion ">
                 <!-- end li setter -->
 
                     <div class="entity-kinds">
@@ -12222,7 +12203,8 @@ field (corresponding = super class field is initialized with subclass field)
 <p>(8) Replaces self references by name with <code>this</code></p>
 <p>(9) Adds SourceFile annotations to all top-level classes and objects</p>
 <p>(10) Adds Child annotations to all sealed classes</p>
-<p>(11) Replace RHS of <code>erased</code> (but not <code>inline</code>) members by <code>(???: rhs.type)</code></p>
+<p>(11) Minimizes <code>call</code> fields of <code>Inlined</code> nodes to just point to the toplevel
+class from which code was inlined.</p>
 <p>The reason for making this a macro transform is that some functions (in particular
 super and protected accessors and instantiation checks) are naturally top-down and
 don't lend themselves to the bottom-up approach of a mini phase. The other two functions
