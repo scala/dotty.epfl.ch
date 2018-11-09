@@ -12999,6 +12999,66 @@ is covariant is irrelevant, so can be ignored.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="appliedTo(arg)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'appliedTo(arg)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                appliedTo
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        arg:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-appliedTo(arg)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="appliedTo(args)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'appliedTo(args)(ctx)');">[+]</span>
@@ -13061,66 +13121,6 @@ is covariant is irrelevant, so can be ignored.</p>
 <p>T[U1, ..., Un]</p>
 <p>where</p>
 
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="appliedTo(arg)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'appliedTo(arg)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                appliedTo
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        arg:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-appliedTo(arg)(ctx)">
-                            
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -21286,9 +21286,9 @@ Every other type is turned into a type alias</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="translateParameterized(from,to)(ctx)" class="member ">
+                <div id="translateParameterized(from,to,wildcardArg)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'translateParameterized(from,to)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'translateParameterized(from,to,wildcardArg)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -21322,6 +21322,14 @@ Every other type is turned into a type alias</p>
                                     </span>
                                     ClassSymbol
                                     
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        wildcardArg:
+                                    </span>
+                                    Boolean
+                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -21348,8 +21356,45 @@ Every other type is turned into a type alias</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-translateParameterized(from,to)(ctx)">
-                            <p>Translate a type of the form From[T] to To[T], keep other types as they are.
+                        <div class="member-body-long" id ="long-body-translateParameterized(from,to,wildcardArg)(ctx)">
+                            <p>Translate a type of the form From[T] to either To[T] or To[_ &lt;: T] (if <code>wildcardArg</code> is set). Keep other types as they are.
+<code>from</code> and <code>to</code> must be static classes, both with one type parameter, and the same variance.
+Do the same for by name types =&gt; From[T] and =&gt; To[T]</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="translateParameterized$default$3" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'translateParameterized$default$3');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                translateParameterized$default$3
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-translateParameterized$default$3">
+                            <p>Translate a type of the form From[T] to either To[T] or To[_ &lt;: T] (if <code>wildcardArg</code> is set). Keep other types as they are.
 <code>from</code> and <code>to</code> must be static classes, both with one type parameter, and the same variance.
 Do the same for by name types =&gt; From[T] and =&gt; To[T]</p>
 
