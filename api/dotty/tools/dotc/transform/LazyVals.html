@@ -13349,9 +13349,19 @@ before this phase starts processing same tree</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-transformLocalDef(x)(ctx)">
-                            <p>Replace a local lazy val inside a method,
-with a LazyHolder from
-dotty.runtime(eg dotty.runtime.LazyInt)</p>
+                            <p>Desugar a local <code>lazy val x: Int = &lt;RHS&gt;</code> into:</p>
+<pre><code>val x$lzy = new scala.runtime.LazyInt()
+
+def x$lzycompute(): Int = x$lzy.synchronized {
+  if (x$lzy.initialized()) x$lzy.value()
+  else x$lzy.initialize(&lt;RHS&gt;)
+    // TODO: Implement Unit-typed lazy val optimization described below
+    // for a Unit-typed lazy val, this becomes `{ rhs ; x$lzy.initialize() }`
+    // to avoid passing around BoxedUnit
+}
+
+def x(): Int = if (x$lzy.initialized()) x$lzy.value() else x$lzycompute()
+</code></pre>
 
                         </div>
                     </div>
