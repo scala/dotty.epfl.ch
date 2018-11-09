@@ -16187,18 +16187,17 @@ cases of a <code>match</code>). To identify tail positions, we recurse over
 the trees that may contain calls in tail-position (trees that can't
 contain such calls are not transformed).</p>
 <p>When a method contains at least one tail-recursive call, its rhs
-is wrapped in the following structure:
-{{{
-var localForParam1: T1 = param1
+is wrapped in the following structure:</p>
+<pre><code>var localForParam1: T1 = param1
 ...
-while (<empty>) {
-tailResult[ResultType]: {
-return {
-// original rhs with tail recursive calls transformed (see below)
+while (&lt;empty&gt;) {
+  tailResult[ResultType]: {
+    return {
+      // original rhs with tail recursive calls transformed (see below)
+    }
+  }
 }
-}
-}
-}}}</p>
+</code></pre>
 <p>Self-recursive calls in tail-position are then replaced by (a)
 reassigning the local <code>var</code>s substituting formal parameters and
 (b) a <code>return</code> from the <code>tailResult</code> labeled block, which has the
@@ -16206,34 +16205,32 @@ net effect of looping back to the beginning of the method.
 If the receiver is modifed in a recursive call, an additional <code>var</code>
 is used to replace <code>this</code>.</p>
 <p>As a complete example of the transformation, the classical <code>fact</code>
-function, defined as:
-{{{
-def fact(n: Int, acc: Int): Int =
-if (n == 0) acc
-else fact(n - 1, acc * n)
-}}}
-is rewritten as:
-{{{
-def fact(n: Int, acc: Int): Int = {
-var acc$tailLocal1: Int = acc
-var n$tailLocal1: Int = n
-while (<empty>) {
-tailLabel1[Unit]: {
-return {
-if (n$tailLocal1 == 0)
-acc$tailLocal1
-else {
-val n$tailLocal1$tmp1: Int = n$tailLocal1 - 1
-val acc$tailLocal1$tmp1: Int = acc$tailLocal1 * n$tailLocal1
-n$tailLocal1 = n$tailLocal1$tmp1
-acc$tailLocal1 = acc$tailLocal1$tmp1
-(return[tailLabel1] ()): Int
+function, defined as:</p>
+<pre><code>def fact(n: Int, acc: Int): Int =
+  if (n == 0) acc
+  else fact(n - 1, acc * n)
+</code></pre>
+<p>is rewritten as:</p>
+<pre><code>def fact(n: Int, acc: Int): Int = {
+  var acc$tailLocal1: Int = acc
+  var n$tailLocal1: Int = n
+  while (&lt;empty&gt;) {
+    tailLabel1[Unit]: {
+      return {
+        if (n$tailLocal1 == 0)
+          acc$tailLocal1
+        else {
+          val n$tailLocal1$tmp1: Int = n$tailLocal1 - 1
+          val acc$tailLocal1$tmp1: Int = acc$tailLocal1 * n$tailLocal1
+          n$tailLocal1 = n$tailLocal1$tmp1
+          acc$tailLocal1 = acc$tailLocal1$tmp1
+          (return[tailLabel1] ()): Int
+        }
+      }
+    }
+  }
 }
-}
-}
-}
-}
-}}}</p>
+</code></pre>
 <p>As the JVM provides no way to jump from a method to another one,
 non-recursive calls in tail-position are not optimized.</p>
 <p>A method call is self-recursive if it calls the current method and
