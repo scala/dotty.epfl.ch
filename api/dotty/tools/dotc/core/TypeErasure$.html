@@ -164,6 +164,8 @@
 </li>
 <li><a href="../../../../.././docs/reference/principled-meta-programming.html">Meta Programming</a>
 </li>
+<li><a href="../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
+</li>
 <li><a href="../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -6062,6 +6064,30 @@
                         <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/ElimErasedValueType.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/ElimErasedValueType.html">ElimErasedValueType</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/ElimOpaque$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/ElimOpaque.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/ElimOpaque.html">ElimOpaque</a>
                 </li>
 
                 
@@ -12360,6 +12386,68 @@ Nothing. This is because this type is only useful for type adaptation (see
                     </div>
                 </div><!-- end member -->
                 
+                <div id="classify(tp)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'classify(tp)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                classify
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-classify(tp)(ctx)">
+                            <p>Underlying type that does not contain aliases or abstract types
+at top-level, treating opaque aliases as transparent.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="erasedGlb(tp1,tp2,isJava)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'erasedGlb(tp1,tp2,isJava)(ctx)');">[+]</span>
@@ -12431,7 +12519,8 @@ Nothing. This is because this type is only useful for type adaptation (see
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-erasedGlb(tp1,tp2,isJava)(ctx)">
-                            <p>The erased greatest lower bound picks one of the two argument types. It prefers, in this order:
+                            <p>The erased greatest lower bound of two erased type picks one of the two argument types.
+It prefers, in this order:
 - arrays over non-arrays
 - subtypes over supertypes, unless isJava is set
 - real classes over traits</p>
@@ -12503,7 +12592,7 @@ Nothing. This is because this type is only useful for type adaptation (see
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-erasedLub(tp1,tp2)(ctx)">
-                            <p>The erased least upper bound is computed as follows
+                            <p>The erased least upper bound of two erased types is computed as follows
 - if both argument are arrays of objects, an array of the erased lub of the element types
 - if both arguments are arrays of same primitives, an array of this primitive
 - if one argument is array of primitives and the other is array of objects, Object
@@ -12694,9 +12783,9 @@ TermRefs are kept instead of being widened away.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="erasureDependsOnArgs(tp)(ctx)" class="member private">
+                <div id="erasureDependsOnArgs(sym)(ctx)" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'erasureDependsOnArgs(tp)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'erasureDependsOnArgs(sym)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12718,9 +12807,9 @@ TermRefs are kept instead of being widened away.</p>
                                 
                                 
                                     <span class="no-left">
-                                        tp:
+                                        sym:
                                     </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    Symbol
                                     
                                 
                             <span class="no-left">)</span>
@@ -12748,7 +12837,7 @@ TermRefs are kept instead of being widened away.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-erasureDependsOnArgs(tp)(ctx)">
+                        <div class="member-body-long" id ="long-body-erasureDependsOnArgs(sym)(ctx)">
                             
                         </div>
                     </div>
@@ -13284,9 +13373,6 @@ erased to <code>Object</code> instead of <code>Object[]</code>.</p>
 <li>For $asInstanceOf           : [T]T</li>
 <li>For $isInstanceOf           : [T]Boolean</li>
 <li>For all abstract types      : = ?</li>
-<li>For companion methods       : the erasure of their type with semiEraseVCs = false.
-The signature of these methods are used to keep a
-link between companions and should not be semi-erased.</li>
 <li>For Java-defined symbols:   : the erasure of their type with isJava = true,
 semiEraseVCs = false. Semi-erasure never happens in Java.</li>
 <li>For all other symbols       : the semi-erasure of their types, with

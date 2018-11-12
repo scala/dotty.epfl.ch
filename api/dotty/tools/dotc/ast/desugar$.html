@@ -164,6 +164,8 @@
 </li>
 <li><a href="../../../../.././docs/reference/principled-meta-programming.html">Meta Programming</a>
 </li>
+<li><a href="../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
+</li>
 <li><a href="../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -6062,6 +6064,30 @@
                         <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/ElimErasedValueType.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/ElimErasedValueType.html">ElimErasedValueType</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dotc/transform/ElimOpaque$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/transform/ElimOpaque.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/transform/ElimOpaque.html">ElimOpaque</a>
                 </li>
 
                 
@@ -14552,6 +14578,75 @@ body
 <p>to:
 <module> val name: name$ = New(name$)
 <module> final class name$ extends parents { self: name.type =&gt; body }</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="opaqueAlias(tdef)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'opaqueAlias(tdef)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                opaqueAlias
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tdef:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#TypeDef">TypeDef</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-opaqueAlias(tdef)(ctx)">
+                            <p>Expand</p>
+<p><mods> opaque type T = [Xs] =&gt; R</p>
+<p>to</p>
+<p><mods> opaque type T = T.T
+synthetic object T {
+synthetic opaque type T &gt;: [Xs] =&gt; R
+}</p>
+<p>The generated companion object will later (in Namer) be merged with the user-defined
+companion object, and the synthetic opaque type member will go into the self type.</p>
 
                         </div>
                     </div>

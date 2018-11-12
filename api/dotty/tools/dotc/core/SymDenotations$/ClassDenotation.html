@@ -164,6 +164,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/principled-meta-programming.html">Meta Programming</a>
 </li>
+<li><a href="../../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
+</li>
 <li><a href="../../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -6062,6 +6064,30 @@
                         <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/transform/ElimErasedValueType.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/ElimErasedValueType.html">ElimErasedValueType</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/transform/ElimOpaque$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/transform/ElimOpaque.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/ElimOpaque.html">ElimOpaque</a>
                 </li>
 
                 
@@ -12616,6 +12642,40 @@
                     </div>
                 </div><!-- end member -->
                 
+                <div id="myCompanion" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'myCompanion');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            var
+                        </span>
+                        <span class="member-name ">
+                            
+                                myCompanion
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Symbol</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-myCompanion">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="myMemberCache" class="member private">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'myMemberCache');">[+]</span>
@@ -13099,7 +13159,7 @@ ClassSymbol
                             
                         </span>
                         <span class="member-modifiers">
-                            private <accessor>
+                            private
                         </span>
                         <span class="member-kind">
                             def
@@ -14723,7 +14783,7 @@ explcitly given here).</p>
                             
                         </span>
                         <span class="member-modifiers">
-                            private <accessor>
+                            private
                         </span>
                         <span class="member-kind">
                             def
@@ -15058,6 +15118,164 @@ Both getters and setters are returned in this list.</p>
                         <div class="member-body-long" id ="long-body-proceedWithEnter(sym,mscope)(ctx)">
                             <p>Hook to do a pre-enter test. Overridden in PackageDenotation</p>
 
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="registerCompanion(companion)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'registerCompanion(companion)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            override
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                registerCompanion
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        companion:
+                                    </span>
+                                    Symbol
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-registerCompanion(companion)(ctx)">
+                            <p>Register companion class</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="registeredCompanion(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'registeredCompanion(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            override
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                registeredCompanion
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Symbol</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-registeredCompanion(ctx)">
+                            <p>The registered companion; overridden in ClassDenotation</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="registeredCompanion_=(c)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'registeredCompanion_=(c)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            override
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                registeredCompanion_=
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        c:
+                                    </span>
+                                    Symbol
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-registeredCompanion_=(c)">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->

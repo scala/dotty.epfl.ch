@@ -164,6 +164,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/principled-meta-programming.html">Meta Programming</a>
 </li>
+<li><a href="../../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
+</li>
 <li><a href="../../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -6062,6 +6064,30 @@
                         <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/transform/ElimErasedValueType.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/ElimErasedValueType.html">ElimErasedValueType</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/transform/ElimOpaque$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/transform/ElimOpaque.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/ElimOpaque.html">ElimOpaque</a>
                 </li>
 
                 
@@ -13862,6 +13888,57 @@ with the class itself as first element.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="canHaveCompanion(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'canHaveCompanion(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                canHaveCompanion
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-canHaveCompanion(ctx)">
+                            <p>Can this symbol have a companion module?
+This is the case if it is a class or an opaque type alias.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="canMatchInheritedSymbols(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'canMatchInheritedSymbols(ctx)');">[+]</span>
@@ -14353,6 +14430,58 @@ NoSymbol if this class does not exist.</p>
                             <p>The module object with the same (term-) name as this class or module class,
 and which is also defined in the same scope and compilation unit.
 NoSymbol if this module does not exist.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="companionOpaqueType(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'companionOpaqueType(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                companionOpaqueType
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Symbol</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-companionOpaqueType(ctx)">
+                            <p>The opaque type with the same (type-) name as this module or module class,
+and which is also defined in the same scope and compilation unit.
+NoSymbol if this type does not exist.</p>
 
                         </div>
                     </div>
@@ -18290,76 +18419,6 @@ of this run.</p>
                                     <span class="no-left">
                                         fs:
                                     </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        butNot:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-is(fs,butNot)(ctx)">
-                            <p>Has this denotation one of the flags in <code>fs</code> set, whereas none of the flags
-in <code>butNot</code> are set?</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="is(fs,butNot)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(fs,butNot)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                is
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        fs:
-                                    </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
                                     
                                         <span class="no-left">, </span>
@@ -18460,6 +18519,76 @@ in <code>butNot</code> are set?</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-is(fs)(ctx)">
                             <p>Has this denotation all of the flags in <code>fs</code> set?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="is(fs,butNot)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(fs,butNot)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                is
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        fs:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        butNot:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-is(fs,butNot)(ctx)">
+                            <p>Has this denotation one of the flags in <code>fs</code> set, whereas none of the flags
+in <code>butNot</code> are set?</p>
 
                         </div>
                     </div>
@@ -19182,59 +19311,6 @@ in <code>butNot</code> are set?</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-isCoDefinedWith(other)(ctx)">
                             <p>Is this denotation defined in the same scope and compilation unit as that symbol?</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="isCompanionMethod(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isCompanionMethod(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                isCompanionMethod
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isCompanionMethod(ctx)">
-                            <p>Is this a companion class method or companion object method?
-These methods are generated by Symbols#synthesizeCompanionMethod
-and used in SymDenotations#companionClass and
-SymDenotations#companionModule .</p>
 
                         </div>
                     </div>
@@ -20178,6 +20254,156 @@ initaliazion code?</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="isOpaqueAlias(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isOpaqueAlias(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isOpaqueAlias
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isOpaqueAlias(ctx)">
+                            <p>Is this symbol a user-defined opaque alias type?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="isOpaqueCompanion(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isOpaqueCompanion(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isOpaqueCompanion
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isOpaqueCompanion(ctx)">
+                            <p>Is this symbol the companion of an opaque alias type?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="isOpaqueHelper(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isOpaqueHelper(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isOpaqueHelper
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isOpaqueHelper(ctx)">
+                            <p>Is this symbol a synthetic opaque type inside an opaque companion object?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="isOverloaded" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'isOverloaded');">[+]</span>
@@ -20519,8 +20745,7 @@ initaliazion code?</p>
                         <div class="member-body-long" id ="long-body-isRealMethod(ctx)">
                             <p>Is this a &quot;real&quot; method? A real method is a method which is:
 - not an accessor
-- not an anonymous function
-- not a companion method</p>
+- not an anonymous function</p>
 
                         </div>
                     </div>
@@ -22657,6 +22882,61 @@ have existing symbols.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="normalizeOpaque()(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'normalizeOpaque()(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                normalizeOpaque
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-normalizeOpaque()(ctx)">
+                            <p>If this is a synthetic opaque type alias, mark it as Deferred with empty bounds</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="notify()" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'notify()');">[+]</span>
@@ -22739,9 +23019,9 @@ have existing symbols.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="orElse(that)" class="member ">
+                <div id="opaqueAlias(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'orElse(that)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'opaqueAlias(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -22753,7 +23033,7 @@ have existing symbols.</p>
                         </span>
                         <span class="member-name ">
                             
-                                orElse
+                                opaqueAlias
                             
                         </span>
 
@@ -22761,11 +23041,13 @@ have existing symbols.</p>
                             
                             <span class="no-left">(</span>
                                 
+                                <span class="no-left keyword">implicit</span>
+                                
                                 
                                     <span class="no-left">
-                                        that: =&gt;
+                                        ctx:
                                     </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Denotations$/Denotation.html">Denotation</a>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -22775,13 +23057,14 @@ have existing symbols.</p>
                         
 
                         
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Denotations$/Denotation.html">Denotation</a></span>
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-orElse(that)">
-                            <p>If this denotation does not exist, fallback to alternative</p>
+                        <div class="member-body-long" id ="long-body-opaqueAlias(ctx)">
+                            <p>The alias of a synthetic opaque type that's stored in the self type of the
+containing object.</p>
 
                         </div>
                     </div>
@@ -22830,6 +23113,54 @@ have existing symbols.</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-orElse(that)">
                             
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="orElse(that)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'orElse(that)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                orElse
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        that: =&gt;
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Denotations$/Denotation.html">Denotation</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Denotations$/Denotation.html">Denotation</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-orElse(that)">
+                            <p>If this denotation does not exist, fallback to alternative</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -23400,6 +23731,164 @@ Both getters and setters are returned in this list.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="registerCompanion(companion)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'registerCompanion(companion)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                registerCompanion
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        companion:
+                                    </span>
+                                    Symbol
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-registerCompanion(companion)(ctx)">
+                            <p>Register companion class</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="registeredCompanion(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'registeredCompanion(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                registeredCompanion
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Symbol</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-registeredCompanion(ctx)">
+                            <p>The registered companion; overridden in ClassDenotation</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="registeredCompanion_=(c)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'registeredCompanion_=(c)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                registeredCompanion_=
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        c:
+                                    </span>
+                                    Symbol
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-registeredCompanion_=(c)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="removeAnnotation(cls)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'removeAnnotation(cls)(ctx)');">[+]</span>
@@ -23645,6 +24134,66 @@ whether the replaced denotation is the only one in its cycle or not.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="requiredMethod(name)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'requiredMethod(name)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                requiredMethod
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        name:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/PreName.html">PreName</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: TermSymbol</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-requiredMethod(name)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="requiredMethod(name,argTypes)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'requiredMethod(name,argTypes)(ctx)');">[+]</span>
@@ -23711,66 +24260,6 @@ whether the replaced denotation is the only one in its cycle or not.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-requiredMethod(name,argTypes)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="requiredMethod(name)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'requiredMethod(name)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                requiredMethod
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        name:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/PreName.html">PreName</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: TermSymbol</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-requiredMethod(name)(ctx)">
                             
                         </div>
                     </div>
@@ -26514,6 +27003,47 @@ or taking more efficient shortcuts (e.g. the stillValid test).</li>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="wait()" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'wait()');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                wait
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-wait()">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="wait(x$0)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'wait(x$0)');">[+]</span>
@@ -26556,47 +27086,6 @@ or taking more efficient shortcuts (e.g. the stillValid test).</li>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-wait(x$0)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="wait()" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'wait()');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                wait
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Unit</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-wait()">
                             
                         </div>
                     </div>
