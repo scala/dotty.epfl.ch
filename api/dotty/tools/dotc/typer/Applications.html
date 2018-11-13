@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-11-12 -->
+<!-- This page was last generated on 2018-11-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12917,9 +12917,9 @@ we rely on implicit search to find one.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="harmonic(harmonize)(op)(ctx)" class="member ">
+                <div id="harmonic(harmonize,pt)(op)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'harmonic(harmonize)(op)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'harmonic(harmonize,pt)(op)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12950,6 +12950,14 @@ T
 <span class="no-left no-right">[</span>
 T
 <span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        pt:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -12994,8 +13002,9 @@ T
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-harmonic(harmonize)(op)(ctx)">
-                            <p>Apply a transformation <code>harmonize</code> on the results of operation <code>op</code>.
+                        <div class="member-body-long" id ="long-body-harmonic(harmonize,pt)(op)(ctx)">
+                            <p>Apply a transformation <code>harmonize</code> on the results of operation <code>op</code>,
+unless the expected type <code>pt</code> is fully defined.
 If the result is different (wrt eq) from the original results of <code>op</code>,
 revert back to the constraint in force before computing <code>op</code>.
 This reset is needed because otherwise the original results might
