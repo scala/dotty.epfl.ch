@@ -12598,9 +12598,9 @@ and number of bits currently used</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="mkDefNonThreadSafeNonNullable(target,rhs,nullables)(ctx)" class="member ">
+                <div id="mkDefNonThreadSafeNonNullable(sym,target,rhs)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'mkDefNonThreadSafeNonNullable(target,rhs,nullables)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'mkDefNonThreadSafeNonNullable(sym,target,rhs)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12622,6 +12622,14 @@ and number of bits currently used</p>
                                 
                                 
                                     <span class="no-left">
+                                        sym:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         target:
                                     </span>
                                     <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
@@ -12633,17 +12641,6 @@ and number of bits currently used</p>
                                         rhs:
                                     </span>
                                     <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        nullables:
-                                    </span>
-                                    List
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
-<span class="no-left">]</span>
                                     
                                 
                             <span class="no-left">)</span>
@@ -12666,19 +12663,19 @@ and number of bits currently used</p>
                         
 
                         
-                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#If">If</a></span>
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#DefDef">DefDef</a></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-mkDefNonThreadSafeNonNullable(target,rhs,nullables)(ctx)">
+                        <div class="member-body-long" id ="long-body-mkDefNonThreadSafeNonNullable(sym,target,rhs)(ctx)">
                             <p>Create non-threadsafe lazy accessor for not-nullable types  equivalent to such code</p>
 <pre><code>def methodSymbol() = {
  if (target eq null) {
    target = rhs
    nullable = null
-   target
- } else target
+ }
+ target
 }
 </code></pre>
 
@@ -12686,9 +12683,9 @@ and number of bits currently used</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="mkNonThreadSafeDef(target,flag,rhs,nullables)(ctx)" class="member ">
+                <div id="mkNonThreadSafeDef(sym,flag,target,rhs)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'mkNonThreadSafeDef(target,flag,rhs,nullables)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'mkNonThreadSafeDef(sym,flag,target,rhs)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12710,9 +12707,9 @@ and number of bits currently used</p>
                                 
                                 
                                     <span class="no-left">
-                                        target:
+                                        sym:
                                     </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -12720,7 +12717,15 @@ and number of bits currently used</p>
                                     <span class="">
                                         flag:
                                     </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        target:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -12729,17 +12734,6 @@ and number of bits currently used</p>
                                         rhs:
                                     </span>
                                     <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        nullables:
-                                    </span>
-                                    List
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
-<span class="no-left">]</span>
                                     
                                 
                             <span class="no-left">)</span>
@@ -12762,22 +12756,20 @@ and number of bits currently used</p>
                         
 
                         
-                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#If">If</a></span>
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#DefDef">DefDef</a></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-mkNonThreadSafeDef(target,flag,rhs,nullables)(ctx)">
+                        <div class="member-body-long" id ="long-body-mkNonThreadSafeDef(sym,flag,target,rhs)(ctx)">
                             <p>Create non-threadsafe lazy accessor equivalent to such code</p>
 <pre><code>def methodSymbol() = {
- if (flag) target
- else {
+ if (!flag) {
    target = rhs
    flag = true
    nullable = null
-   target
-   }
  }
+ target
 }
 </code></pre>
 
