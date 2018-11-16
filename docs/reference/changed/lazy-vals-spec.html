@@ -12253,7 +12253,7 @@ summarized in the <a href="https://docs.scala-lang.org/sips/improved-lazy-val-in
       flag = LazyVals.get(this, bitmap_offset)
       LazyVals.STATE(flag, &lt;field-id&gt;) match {
         case &lt;state-0&gt; =&gt;
-          if (LazyVals.CAS(this, bitmap_offset, flag, &lt;state-1&gt;)) {
+          if (LazyVals.CAS(this, bitmap_offset, flag, &lt;state-1&gt;, &lt;field-id&gt;)) {
             try result = &lt;RHS&gt;
             catch {
               case ex =&gt;
