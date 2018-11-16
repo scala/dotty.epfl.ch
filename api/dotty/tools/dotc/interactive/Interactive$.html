@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-11-15 -->
+<!-- This page was last generated on 2018-11-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12753,9 +12753,9 @@ Int<span>, </span>List
                     </div>
                 </div><!-- end member -->
                 
-                <div id="enclosingSourceSymbol(path)(ctx)" class="member ">
+                <div id="enclosingSourceSymbols(path,pos)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'enclosingSourceSymbol(path)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'enclosingSourceSymbols(path,pos)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12767,7 +12767,7 @@ Int<span>, </span>List
                         </span>
                         <span class="member-name ">
                             
-                                enclosingSourceSymbol
+                                enclosingSourceSymbols
                             
                         </span>
 
@@ -12782,70 +12782,6 @@ Int<span>, </span>List
                                     List
 <span class="no-left no-right">[</span>
 <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-<span class="no-left">]</span>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-enclosingSourceSymbol(path)(ctx)">
-                            <p>The source symbol that is the closest to <code>path</code>.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="enclosingSourceSymbol(trees,pos)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'enclosingSourceSymbol(trees,pos)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                enclosingSourceSymbol
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        trees:
-                                    </span>
-                                    List
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/dotty/tools/dotc/interactive/SourceTree.html">SourceTree</a>
 <span class="no-left">]</span>
                                     
                                         <span class="no-left">, </span>
@@ -12877,15 +12813,18 @@ Int<span>, </span>List
                         
 
                         
-                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a></span>
+                        <span class="no-left">: List
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
+<span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-enclosingSourceSymbol(trees,pos)(ctx)">
-                            <p>The source symbol that is the closest to the path to <code>pos</code> in <code>trees</code>.</p>
-<p>Computes the path from the tree with position <code>pos</code> in <code>trees</code>, and extract it source
-symbol.</p>
+                        <div class="member-body-long" id ="long-body-enclosingSourceSymbols(path,pos)(ctx)">
+                            <p>The source symbols that are the closest to <code>path</code>.</p>
+<p>If this path ends in an import, then this returns all the symbols that are imported by this
+import statement.</p>
 
                         </div>
                     </div>
@@ -13099,9 +13038,9 @@ symbol.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="findDefinitions(path,driver)(ctx)" class="member ">
+                <div id="findDefinitions(path,pos,driver)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findDefinitions(path,driver)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findDefinitions(path,pos,driver)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13129,6 +13068,14 @@ symbol.</p>
 <span class="no-left no-right">[</span>
 <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
 <span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        pos:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/util/SourcePosition.html">SourcePosition</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -13167,16 +13114,16 @@ symbol.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-findDefinitions(path,driver)(ctx)">
+                        <div class="member-body-long" id ="long-body-findDefinitions(path,pos,driver)(ctx)">
                             <p>Find the definitions of the symbol at the end of <code>path</code>.</p>
 
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="findTreesMatching(trees,includes,symbol)(ctx)" class="member ">
+                <div id="findTreesMatching(trees,includes,symbol,predicate)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findTreesMatching(trees,includes,symbol)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findTreesMatching(trees,includes,symbol,predicate)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13211,7 +13158,7 @@ symbol.</p>
                                     <span class="">
                                         includes:
                                     </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/interactive/Interactive$/Include$.html#Set">Set</a>
+                                    <a href="../../../../.././api/dotty/tools/dotc/interactive/Interactive$/Include$/Set.html">Set</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -13220,6 +13167,14 @@ symbol.</p>
                                         symbol:
                                     </span>
                                     <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        predicate:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#NameTree">NameTree</a><span class="right-arrow"> =&gt; </span>Boolean
                                     
                                 
                             <span class="no-left">)</span>
@@ -13250,7 +13205,42 @@ symbol.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-findTreesMatching(trees,includes,symbol)(ctx)">
+                        <div class="member-body-long" id ="long-body-findTreesMatching(trees,includes,symbol,predicate)(ctx)">
+                            <p>Find trees that match <code>symbol</code> in <code>trees</code>.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="findTreesMatching$default$4" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findTreesMatching$default$4');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                findTreesMatching$default$4
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Any<span class="right-arrow"> =&gt; </span>Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-findTreesMatching$default$4">
                             <p>Find trees that match <code>symbol</code> in <code>trees</code>.</p>
 
                         </div>
@@ -13367,6 +13357,67 @@ symbol.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="isRenamed(tree)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isRenamed(tree)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isRenamed
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tree:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#NameTree">NameTree</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isRenamed(tree)(ctx)">
+                            <p>Is this tree using a renaming introduced by an import statement or an alias for <code>this</code>?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="localize(symbol,sourceDriver,targetDriver)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'localize(symbol,sourceDriver,targetDriver)');">[+]</span>
@@ -13474,7 +13525,7 @@ symbol.</p>
                                     <span class="">
                                         include:
                                     </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/interactive/Interactive$/Include$.html#Set">Set</a>
+                                    <a href="../../../../.././api/dotty/tools/dotc/interactive/Interactive$/Include$/Set.html">Set</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -13550,7 +13601,7 @@ or <code>include</code> is <code>overriding</code>, and <code>tree</code> overri
                                     <span class="">
                                         include:
                                     </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/interactive/Interactive$/Include$.html#Set">Set</a>
+                                    <a href="../../../../.././api/dotty/tools/dotc/interactive/Interactive$/Include$/Set.html">Set</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -13674,9 +13725,9 @@ source code.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="namedTrees(trees,includeReferences,treePredicate)(ctx)" class="member ">
+                <div id="namedTrees(trees,include,treePredicate)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'namedTrees(trees,includeReferences,treePredicate)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'namedTrees(trees,include,treePredicate)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13709,9 +13760,9 @@ source code.</p>
                                     
                                 
                                     <span class="">
-                                        includeReferences:
+                                        include:
                                     </span>
-                                    Boolean
+                                    <a href="../../../../.././api/dotty/tools/dotc/interactive/Interactive$/Include$/Set.html">Set</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -13750,7 +13801,7 @@ source code.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-namedTrees(trees,includeReferences,treePredicate)(ctx)">
+                        <div class="member-body-long" id ="long-body-namedTrees(trees,include,treePredicate)(ctx)">
                             <p>Find named trees with a non-empty position satisfying <code>treePredicate</code> in <code>trees</code>.</p>
 
                         </div>
@@ -13958,11 +14009,11 @@ T
                     </div>
                 </div><!-- end member -->
                 
-                <div id="sourceSymbol(sym)(ctx)" class="member ">
+                <div id="sameName(n0,n1)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'sourceSymbol(sym)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'sameName(n0,n1)');">[+]</span>
                         <span class="member-annotations">
-                            @tailrec 
+                            
                         </span>
                         <span class="member-modifiers">
                             
@@ -13972,7 +14023,7 @@ T
                         </span>
                         <span class="member-name ">
                             
-                                sourceSymbol
+                                sameName
                             
                         </span>
 
@@ -13982,22 +14033,17 @@ T
                                 
                                 
                                     <span class="no-left">
-                                        sym:
+                                        n0:
                                     </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Names$/Name.html">Name</a>
+                                    
+                                        <span class="no-left">, </span>
                                     
                                 
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
+                                    <span class="">
+                                        n1:
                                     </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Names$/Name.html">Name</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -14007,13 +14053,13 @@ T
                         
 
                         
-                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a></span>
+                        <span class="no-left">: Boolean</span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-sourceSymbol(sym)(ctx)">
-                            <p>A symbol related to <code>sym</code> that is defined in source code.</p>
+                        <div class="member-body-long" id ="long-body-sameName(n0,n1)">
+                            <p>Are the two names the same?</p>
 
                         </div>
                     </div>
