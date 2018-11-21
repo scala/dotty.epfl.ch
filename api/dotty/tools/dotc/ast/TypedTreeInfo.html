@@ -12491,7 +12491,7 @@ For the moment, only Ident, Select, Literal, Apply and TypeApply are supported</
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-constToLiteral(tree)(ctx)">
-                            <p>If <code>tree</code> is a constant expression, its value as a Literal,
+                            <p>(1) If <code>tree</code> is a constant expression, its value as a Literal,
 or <code>tree</code> itself otherwise.</p>
 <p>Note: Demanding idempotency instead of purity in literalize is strictly speaking too loose.
 Example</p>
@@ -12517,6 +12517,11 @@ of the following classes qualify:</p>
   Select
   TypeApply
 </code></pre>
+<p>(2) A primitive unary operator expression <code>pre.op</code> where <code>op</code> is one of <code>+</code>, <code>-</code>, <code>~</code>, <code>!</code>
+that has a constant type <code>ConstantType(v)</code> but that is not a constant expression
+(i.e. <code>pre</code> has side-effects) is translated to</p>
+<p>{ pre; v }</p>
+<p>This avoids the situation where we have a Select node that does not have a symbol.</p>
 
                         </div>
                     </div>
