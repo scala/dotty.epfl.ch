@@ -110,7 +110,7 @@
         
         <li><a href="../../../../../.././blog/index.html">Blog</a></li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Usage</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Usage</a>
 <ul id="">
     <li><a href="../../../../../.././docs/usage/getting-started.html">Getting Started</a>
 </li>
@@ -126,11 +126,11 @@
 </ul>
 </li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Reference</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Reference</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/overview.html">Overview</a>
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>New Types</a>
+<li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>New Types</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/intersection-types.html">Intersection types</a>
 </li>
@@ -146,7 +146,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Enums</a>
+<li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Enums</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/enums/enums.html">Enumerations</a>
 </li>
@@ -156,7 +156,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Other New Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Other New Features</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/multiversal-equality.html">Multiversal Equality</a>
 </li>
@@ -180,7 +180,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Changed Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Changed Features</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/changed/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
@@ -204,7 +204,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Dropped Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Dropped Features</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/dropped/delayed-init.html">DelayedInit</a>
 </li>
@@ -232,7 +232,7 @@
 </ul>
 </li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Contributing</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Contributing</a>
 <ul id="">
     <li><a href="../../../../../.././docs/contributing/getting-started.html">Getting Started</a>
 </li>
@@ -248,7 +248,7 @@
 </ul>
 </li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Internals</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Internals</a>
 <ul id="">
     <li><a href="../../../../../.././docs/internals/backend.html">Backend</a>
 </li>
@@ -274,7 +274,7 @@
 </ul>
 </li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "Inliner");'>Resources</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "Trees$");'>Resources</a>
 <ul id="">
     <li><a href="../../../../../.././docs/resources/talks.html">Talks</a></li>
 </ul>
@@ -12221,7 +12221,7 @@
 
 
     <script>
-        document.title = "Dotty Docs - reducer"
+        document.title = "Dotty Docs - InlineIf"
     </script>
 
     <div id="content-body">
@@ -12234,10 +12234,22 @@
                     
                 </span>
                 <span id="entity-kind">
-                    object
+                    class
                 </span>
                 <span id="entity-name">
-                    reducer
+                    InlineIf
+                </span>
+                
+                <span id="entity-type-params">
+                    <span class="no-left">[</span>
+                    
+                    <span class="no-left">
+                        
+                            T
+                        
+                    </span>
+                    
+                    <span class="no-left">]</span>
                 </span>
                 
                 
@@ -12246,25 +12258,63 @@
                     
                     <span class="keyword">extends</span>
                     
-                    <span class="entity-super-type">Object</span>
+                    <span class="entity-super-type"><a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/If.html">If</a></span>
                     
                 </div>
                 
             </div>
 
             
-            <div id="entity-body" class="entity-section">
-                <p>A utility object offering methods for rewriting inlined code</p>
 
-            </div>
-            
-
-            <h1 class="section empty">
-                <span class="expand-button visibleinvisible" onclick="toggleMembersBody(this, 'constructors');">[-]</span>
+            <h1 class="section ">
+                <span class="expand-button visible" onclick="toggleMembersBody(this, 'constructors');">[-]</span>
                 Constructors
             </h1>
 
-            <div id="entity-constructors" class="entity-section empty">
+            <div id="entity-constructors" class="entity-section ">
+                
+                    
+                    <div class="member">
+                        <div class="member-title">
+                            <span class="member-name">InlineIf</span>
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        cond:
+                                    </span>
+                                    Tree
+<span class="no-left no-right">[</span>
+T
+<span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        thenp:
+                                    </span>
+                                    Tree
+<span class="no-left no-right">[</span>
+T
+<span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        elsep:
+                                    </span>
+                                    Tree
+<span class="no-left no-right">[</span>
+T
+<span class="no-left">]</span>
+                                    
+                                
+                            <span class="no-left">)</span>
+                        </div>
+                    </div>
+                    
                 
             </div>
 
@@ -12275,174 +12325,21 @@
 
             <div id="entity-members" class="entity-section ">
                 
-                <div id="ConstantValue$" class="member ">
+                <div id="cond" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'ConstantValue$');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            object
-                        </span>
-                        <span class="member-name ">
-                            
-                                <a href="../../../../../.././api/dotty/tools/dotc/typer/Inliner/reducer$/ConstantValue$.html">ConstantValue</a>
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-ConstantValue$">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="InlineableArg$" class="member private">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'InlineableArg$');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'cond');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
                             private
-                        </span>
-                        <span class="member-kind">
-                            object
-                        </span>
-                        <span class="member-name ">
-                            
-                                <a href="../../../../../.././api/dotty/tools/dotc/typer/Inliner/reducer$/InlineableArg$.html">InlineableArg</a>
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-InlineableArg$">
-                            <p>An extractor for references to inlineable arguments. These are :
-- by-value arguments marked with <code>inline</code>
-- all by-name arguments</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="NewInstance$" class="member private">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'NewInstance$');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            private
-                        </span>
-                        <span class="member-kind">
-                            object
-                        </span>
-                        <span class="member-name ">
-                            
-                                <a href="../../../../../.././api/dotty/tools/dotc/typer/Inliner/reducer$/NewInstance$.html">NewInstance</a>
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-NewInstance$">
-                            <p>An extractor for terms equivalent to <code>new C(args)</code>, returning the class <code>C</code>,
-a list of bindings, and the arguments <code>args</code>. Can see inside blocks and Inlined nodes and can
-follow a reference to an inline value binding to its right hand side.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="MatchRedux" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'MatchRedux');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            type
-                        </span>
-                        <span class="member-name ">
-                            
-                                MatchRedux
-                            
-                        </span>
-
-                        
-
-                        
-                        
-                        
-                        <span class="type-alias">
-                            <span class="equals"> = </span>
-                            Option
-<span class="no-left no-right">[</span>
-<span class="no-right">(</span>
-List
-<span class="no-left no-right">[</span>
-<a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#MemberDef">MemberDef</a>
-<span class="no-left">]</span><span>, </span><a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-<span class="no-left">)</span>
-<span class="no-left">]</span>
-                        </span>
-                        
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-MatchRedux">
-                            <p>The result type of reducing a match. It consists optionally of a list of bindings
-for the pattern-bound variables and the RHS of the selected case.
-Returns <code>None</code> if no case was selected.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="matchBindingsBuf" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'matchBindingsBuf');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
                         </span>
                         <span class="member-kind">
                             val
                         </span>
                         <span class="member-name ">
                             
-                                matchBindingsBuf
+                                cond
                             
                         </span>
 
@@ -12451,360 +12348,157 @@ Returns <code>None</code> if no case was selected.</p>
                         
 
                         
-                        <span class="no-left">: ListBuffer
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Tree.html">Tree</a>
 <span class="no-left no-right">[</span>
-<a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#MemberDef">MemberDef</a>
+T
 <span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-matchBindingsBuf">
-                            <p>Additional bindings established by reducing match expressions</p>
-
+                        <div class="member-body-long" id ="long-body-cond">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="betaReduce(tree)(ctx)" class="member ">
+                <div id="elsep" class="member private">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'betaReduce(tree)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'elsep');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            
+                            private
                         </span>
                         <span class="member-kind">
-                            def
+                            val
                         </span>
                         <span class="member-name ">
                             
-                                betaReduce
+                                elsep
                             
                         </span>
 
                         
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tree:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
 
                         
 
                         
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-betaReduce(tree)(ctx)">
-                            <p>Rewrite an application</p>
-<p>((x1, ..., xn) =&gt; b)(e1, ..., en)</p>
-<p>to</p>
-<p>val/def x1 = e1; ...; val/def xn = en; b</p>
-<p>where <code>def</code> is used for call-by-name parameters. However, we shortcut any NoPrefix
-refs among the ei's directly without creating an intermediate binding.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="normalizeBinding(binding)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'normalizeBinding(binding)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                normalizeBinding
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        binding:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#MemberDef">MemberDef</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/MemberDef.html">MemberDef</a>
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Tree.html">Tree</a>
 <span class="no-left no-right">[</span>
-<a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+T
 <span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-normalizeBinding(binding)(ctx)">
-                            <p>If this is a value binding:
-- reduce its rhs if it is a projection and adjust its type accordingly,
-- record symbol -&gt; rhs in the InlineBindings context propery.</p>
-
+                        <div class="member-body-long" id ="long-body-elsep">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="reduceInlineMatch(scrutinee,scrutType,cases,typer)(ctx)" class="member ">
+                <div id="thenp" class="member private">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'reduceInlineMatch(scrutinee,scrutType,cases,typer)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'thenp');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            
+                            private
                         </span>
                         <span class="member-kind">
-                            def
+                            val
                         </span>
                         <span class="member-name ">
                             
-                                reduceInlineMatch
+                                thenp
                             
                         </span>
 
                         
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        scrutinee:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        scrutType:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        cases:
-                                    </span>
-                                    List
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Tree.html">Tree</a>
 <span class="no-left no-right">[</span>
-<a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#CaseDef">CaseDef</a>
-<span class="no-left">]</span>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        typer:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/typer/Typer.html">Typer</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: MatchRedux</span>
+T
+<span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-reduceInlineMatch(scrutinee,scrutType,cases,typer)(ctx)">
-                            <p>Reduce an inline match</p>
-
+                        <div class="member-body-long" id ="long-body-thenp">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="reduceProjection(tree)(ctx)" class="member ">
+                <div id="isInline" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'reduceProjection(tree)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isInline');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            
+                            override
                         </span>
                         <span class="member-kind">
                             def
                         </span>
                         <span class="member-name ">
                             
-                                reduceProjection
+                                isInline
                             
                         </span>
 
                         
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tree:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
 
                         
 
                         
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        <span class="no-left">: Boolean</span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-reduceProjection(tree)(ctx)">
-                            <p>If <code>tree</code> is equivalent to <code>new C(args).x</code> where class <code>C</code> does not have
-initialization code and <code>x</code> is a parameter corresponding to one of the
-arguments <code>args</code>, the corresponding argument, otherwise <code>tree</code> itself.
-Side effects of original arguments need to be preserved.</p>
-
+                        <div class="member-body-long" id ="long-body-isInline">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="tryInline(tree)(ctx)" class="member ">
+                <div id="toString" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'tryInline(tree)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'toString');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            
+                            override
                         </span>
                         <span class="member-kind">
                             def
                         </span>
                         <span class="member-name ">
                             
-                                tryInline
+                                toString
                             
                         </span>
 
                         
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tree:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
 
                         
 
                         
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        <span class="no-left">: String</span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-tryInline(tree)(ctx)">
+                        <div class="member-body-long" id ="long-body-toString">
                             
                         </div>
                     </div>
