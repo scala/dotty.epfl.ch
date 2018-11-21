@@ -12779,9 +12779,9 @@ and number of bits currently used</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="mkThreadSafeDef(methodSymbol,claz,ord,target,rhs,tp,offset,getFlag,stateMask,casFlag,setFlagState,waitOnLock,nullables)(ctx)" class="member ">
+                <div id="mkThreadSafeDef(methodSymbol,claz,ord,target,rhs,tp,offset,getFlag,stateMask,casFlag,setFlagState,waitOnLock)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'mkThreadSafeDef(methodSymbol,claz,ord,target,rhs,tp,offset,getFlag,stateMask,casFlag,setFlagState,waitOnLock,nullables)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'mkThreadSafeDef(methodSymbol,claz,ord,target,rhs,tp,offset,getFlag,stateMask,casFlag,setFlagState,waitOnLock)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12895,17 +12895,6 @@ and number of bits currently used</p>
                                     </span>
                                     <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
                                     
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        nullables:
-                                    </span>
-                                    List
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
-<span class="no-left">]</span>
-                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -12932,37 +12921,34 @@ and number of bits currently used</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-mkThreadSafeDef(methodSymbol,claz,ord,target,rhs,tp,offset,getFlag,stateMask,casFlag,setFlagState,waitOnLock,nullables)(ctx)">
+                        <div class="member-body-long" id ="long-body-mkThreadSafeDef(methodSymbol,claz,ord,target,rhs,tp,offset,getFlag,stateMask,casFlag,setFlagState,waitOnLock)(ctx)">
                             <p>Create a threadsafe lazy accessor equivalent to such code</p>
 <pre><code>def methodSymbol(): Int = {
- val result: Int = 0
- val retry: Boolean = true
- var flag: Long = 0L
- while retry do {
-   flag = dotty.runtime.LazyVals.get(this, $claz.$OFFSET)
-   dotty.runtime.LazyVals.STATE(flag, 0) match {
-     case 0 =&gt;
-       if dotty.runtime.LazyVals.CAS(this, $claz.$OFFSET, flag, 1, $ord) {
-         try {result = rhs} catch {
-           case x: Throwable =&gt;
-             dotty.runtime.LazyVals.setFlag(this, $claz.$OFFSET, 0, $ord)
-             throw x
-         }
-         $target = result
-         dotty.runtime.LazyVals.setFlag(this, $claz.$OFFSET, 3, $ord)
-         retry = false
-         }
-     case 1 =&gt;
-       dotty.runtime.LazyVals.wait4Notification(this, $claz.$OFFSET, flag, $ord)
-     case 2 =&gt;
-       dotty.runtime.LazyVals.wait4Notification(this, $claz.$OFFSET, flag, $ord)
-     case 3 =&gt;
-       retry = false
-       result = $target
+ while (true) {
+   val flag = LazyVals.get(this, bitmap_offset)
+   val state = LazyVals.STATE(flag, &lt;field-id&gt;)
+
+   if (state == &lt;state-3&gt;) {
+     return value_0
+   } else if (state == &lt;state-0&gt;) {
+     if (LazyVals.CAS(this, bitmap_offset, flag, &lt;state-1&gt;, &lt;field-id&gt;)) {
+       try {
+         val result = &lt;RHS&gt;
+         value_0 = result
+         nullable = null
+         LazyVals.setFlag(this, bitmap_offset, &lt;state-3&gt;, &lt;field-id&gt;)
+         return result
+       }
+       catch {
+         case ex =&gt;
+           LazyVals.setFlag(this, bitmap_offset, &lt;state-0&gt;, &lt;field-id&gt;)
+           throw ex
+       }
      }
+   } else /* if (state == &lt;state-1&gt; || state == &lt;state-2&gt;) */ {
+     LazyVals.wait4Notification(this, bitmap_offset, flag, &lt;field-id&gt;)
    }
- nullable = null
- result
+ }
 }
 </code></pre>
 
