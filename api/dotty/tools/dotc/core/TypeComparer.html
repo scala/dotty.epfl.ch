@@ -13622,7 +13622,7 @@ signature are conflicting</li>
                 
                 <div id="distributeAnd(tp1,tp2)" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'distributeAnd(tp1,tp2)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'distributeAnd(tp1,tp2)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13670,7 +13670,8 @@ signature are conflicting</li>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-distributeAnd(tp1,tp2)">
-                            
+                            <p>Try to distribute <code>&amp;</code> inside type, detect and handle conflicts</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -14962,7 +14963,7 @@ In the latter case, combine <code>tp1</code> and <code>tp2</code> under a type l
                 
                 <div id="lub(tp1,tp2,canConstrain)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'lub(tp1,tp2,canConstrain)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'lub(tp1,tp2,canConstrain)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -15018,7 +15019,8 @@ In the latter case, combine <code>tp1</code> and <code>tp2</code> under a type l
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-lub(tp1,tp2,canConstrain)">
-                            
+                            <p>The least upper bound of two types</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -15076,7 +15078,7 @@ In the latter case, combine <code>tp1</code> and <code>tp2</code> under a type l
                 
                 <div id="lub$default$3" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'lub$default$3');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'lub$default$3');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -15103,14 +15105,15 @@ In the latter case, combine <code>tp1</code> and <code>tp2</code> under a type l
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-lub$default$3">
-                            
+                            <p>The least upper bound of two types</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
                 
                 <div id="lubArgs(args1,args2,tparams,canConstrain)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'lubArgs(args1,args2,tparams,canConstrain)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'lubArgs(args1,args2,tparams,canConstrain)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -15186,14 +15189,21 @@ In the latter case, combine <code>tp1</code> and <code>tp2</code> under a type l
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-lubArgs(args1,args2,tparams,canConstrain)">
-                            
+                            <p>Try to produce joint arguments for a lub <code>A[T_1, ..., T_n] | A[T_1', ..., T_n']</code> using
+the following strategies:</p>
+<ul>
+<li>if arguments are the same, that argument.</li>
+<li>if corresponding parameter variance is co/contra-variant, the lub/glb.</li>
+<li>otherwise a TypeBounds containing both arguments</li>
+</ul>
+
                         </div>
                     </div>
                 </div><!-- end member -->
                 
                 <div id="lubArgs$default$4" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'lubArgs$default$4');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'lubArgs$default$4');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -15220,7 +15230,14 @@ In the latter case, combine <code>tp1</code> and <code>tp2</code> under a type l
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-lubArgs$default$4">
-                            
+                            <p>Try to produce joint arguments for a lub <code>A[T_1, ..., T_n] | A[T_1', ..., T_n']</code> using
+the following strategies:</p>
+<ul>
+<li>if arguments are the same, that argument.</li>
+<li>if corresponding parameter variance is co/contra-variant, the lub/glb.</li>
+<li>otherwise a TypeBounds containing both arguments</li>
+</ul>
+
                         </div>
                     </div>
                 </div><!-- end member -->

@@ -13541,7 +13541,7 @@ Nothing<span class="bounds"> &lt;: </span>Any
                 
                 <div id="processArguments(state,processAll,skipped)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'processArguments(state,processAll,skipped)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'processArguments(state,processAll,skipped)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13600,7 +13600,16 @@ String
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-processArguments(state,processAll,skipped)">
-                            
+                            <p>Iterates over the arguments applying them to settings where applicable.
+Then verifies setting dependencies are met.</p>
+<p>This temporarily takes a boolean indicating whether to keep
+processing if an argument is seen which is not a command line option.
+This is an expedience for the moment so that you can say</p>
+<p>scalac -d /tmp foo.scala -optimise</p>
+<p>while also allowing</p>
+<p>scala Program opt opt</p>
+<p>to get their arguments.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->

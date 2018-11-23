@@ -15348,7 +15348,7 @@ Refinements are typed as if they were members of refinement class <code>refineCl
                 
                 <div id="avoid(tp,symsToAvoid)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'avoid(tp,symsToAvoid)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'avoid(tp,symsToAvoid)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -15412,7 +15412,16 @@ Refinements are typed as if they were members of refinement class <code>refineCl
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-avoid(tp,symsToAvoid)(ctx)">
-                            
+                            <p>An upper approximation of the given type <code>tp</code> that does not refer to any symbol in <code>symsToAvoid</code>.
+We need to approximate with ranges:</p>
+<p>term references to symbols in <code>symsToAvoid</code>,
+term references that have a widened type of which some part refers
+to a symbol in <code>symsToAvoid</code>,
+type references to symbols in <code>symsToAvoid</code>,
+this types of classes in <code>symsToAvoid</code>.</p>
+<p>Type variables that would be interpolated to a type that
+needs to be widened are replaced by the widened interpolation instance.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->

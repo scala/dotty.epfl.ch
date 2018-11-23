@@ -12631,7 +12631,7 @@ a hashtable</p>
                 
                 <div id="MinHashedScopeSize" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'MinHashedScopeSize');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'MinHashedScopeSize');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12658,7 +12658,11 @@ a hashtable</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-MinHashedScopeSize">
-                            
+                            <p>A hashtable is created once current size exceeds MinHash * FillFactor
+The initial hash table has twice that size (i.e 16).
+This value must be a power of two, so that the index of an element can
+be computed as element.hashCode &amp; (hashTable.length - 1)</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->

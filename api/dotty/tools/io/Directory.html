@@ -12738,7 +12738,7 @@ until it runs out of contents.</p>
                 
                 <div id="walkFilter(cond)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'walkFilter(cond)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'walkFilter(cond)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12781,7 +12781,14 @@ until it runs out of contents.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-walkFilter(cond)">
-                            
+                            <p>If this path is a directory, recursively iterate over its contents.
+The supplied condition is a filter which is applied to each element,
+with that branch of the tree being closed off if it is false.
+So for example if the condition is false for some subdirectory, nothing
+under that directory will be in the Iterator. If it's true, all files for
+which the condition holds and are directly in that subdirectory are in the
+Iterator, and all sub-subdirectories are recursively evaluated</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->

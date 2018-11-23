@@ -12289,6 +12289,46 @@
             </div>
 
             
+            <div id="entity-body" class="entity-section">
+                <p>Post-attribution checking and transformation, which fulfills the following roles</p>
+<ol>
+<li>This phase performs the following checks.</li>
+</ol>
+<ul>
+<li>only one overloaded alternative defines default arguments</li>
+<li>applyDynamic methods are not overloaded</li>
+<li>all overrides conform to rules laid down by <code>checkAllOverrides</code>.</li>
+<li>any value classes conform to rules laid down by <code>checkDerivedValueClass</code>.</li>
+<li>this(...) constructor calls do not forward reference other definitions in their block (not even lazy vals).</li>
+<li>no forward reference in a local block jumps over a non-lazy val definition.</li>
+<li>a class and its companion object do not both define a class or module with the same name.</li>
+</ul>
+<ol>
+<li>
+<p>It warns about references to symbols labeled deprecated or migration.</p>
+</li>
+<li>
+<p>It eliminates macro definitions.</p>
+</li>
+<li>It makes members not private where necessary. The following members
+cannot be private in the Java model:
+<ul>
+<li>term members of traits</li>
+<li>the primary constructor of a value class</li>
+<li>the parameter accessor of a value class</li>
+<li>members accessed from an inner or companion class.
+All these members are marked as NotJavaPrivate.
+Unlike in Scala 2.x not-private members keep their name. It is
+up to the backend to find a unique expanded name for them. The
+rationale to do name changes that late is that they are very fragile.</li>
+</ul>
+</li>
+</ol>
+<p>todo: But RefChecks is not done yet. It's still a somewhat dirty port from the Scala 2 version.
+todo: move untrivial logic to their own mini-phases</p>
+
+            </div>
+            
 
             <h1 class="section ">
                 <span class="expand-button visible" onclick="toggleMembersBody(this, 'constructors');">[-]</span>

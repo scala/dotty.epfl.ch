@@ -12361,7 +12361,7 @@ Byte
                 
                 <div id="decode(xs)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'decode(xs)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'decode(xs)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12404,7 +12404,16 @@ Byte
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-decode(xs)">
-                            
+                            <p>Destructively decodes array xs and returns the length of the decoded array.</p>
+<p>Sometimes returns (length + 1) of the decoded array. Example:</p>
+<p>scala&gt; val enc = reflect.generic.ByteCodecs.encode(Array(1,2,3))
+enc: Array[Byte] = Array(2, 5, 13, 1)</p>
+<p>scala&gt; reflect.generic.ByteCodecs.decode(enc)
+res43: Int = 4</p>
+<p>scala&gt; enc
+res44: Array[Byte] = Array(1, 2, 3, 0)</p>
+<p>However, this does not always happen.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->

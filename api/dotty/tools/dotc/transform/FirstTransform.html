@@ -12431,7 +12431,7 @@ if (false) A else B   ==&gt; B</p>
                 
                 <div id="foldCondition(tree)(ctx)" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'foldCondition(tree)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'foldCondition(tree)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12487,7 +12487,13 @@ if (false) A else B   ==&gt; B</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-foldCondition(tree)(ctx)">
-                            
+                            <p>Perform one of the following simplification if applicable:</p>
+<pre><code>true  &amp;&amp; y   ==&gt;  y
+false &amp;&amp; y   ==&gt;  false
+true  || y   ==&gt;  true
+false || y   ==&gt;  y
+</code></pre>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -13283,7 +13289,7 @@ so that bound symbols can be properly copied.</p>
                 
                 <div id="transformTemplate(impl)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'transformTemplate(impl)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'transformTemplate(impl)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13336,7 +13342,8 @@ so that bound symbols can be properly copied.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-transformTemplate(impl)(ctx)">
-                            
+                            <p>eliminate self in Template</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
