@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-11-26 -->
+<!-- This page was last generated on 2018-11-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>TASTy reflect</title>
+        <title>TASTy Reflect</title>
 
         <link rel="icon" type="image/png" href="../.././images/favicon.png">
 
@@ -12277,7 +12277,7 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">TASTy reflect</h1>
+        <h1 id="doc-page-title">TASTy Reflect</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/tasty-reflect.md">
             Edit this page on GitHub
         </a>
@@ -12303,11 +12303,11 @@ def natConstImpl(x: Expr[Int])(implicit reflection: Reflection): Expr[Int] = {
   ...
 }
 </code></pre>
-<p><code>import reflection._</code> will provide a <code>reflect</code> extension method on <code>quoted.Expr</code> and <code>quoted.Type</code> which return a <code>reflection.Term</code> and <code>reflection.TypeTree</code> respectively.
+<p><code>import reflection._</code> will provide a <code>unseal</code> extension method on <code>quoted.Expr</code> and <code>quoted.Type</code> which return a <code>reflection.Term</code> and <code>reflection.TypeTree</code> respectively.
 It will also import all extractors and methods on TASTy Reflect trees. For example the <code>Term.Literal(_)</code> extractor used below.</p>
 <pre><code class="language-scala">def natConstImpl(x: Expr[Int])(implicit reflection: Reflection): Expr[Int] = {
   import reflection._
-  val xTree: Term = x.reflect
+  val xTree: Term = x.unseal
   xTree match {
     case Term.Literal(Constant.Int(n)) =&gt;
       if (n &lt;= 0)
