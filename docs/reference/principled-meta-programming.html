@@ -12334,8 +12334,13 @@ prints it again in an error message if it evaluates to <code>false</code>.</p>
 inline def assert(expr: =&gt; Boolean): Unit =
   ~ assertImpl('(expr))
 
-def assertImpl(expr: Expr[Boolean]) =
-  '{ if !(~expr) then throw new AssertionError(s&quot;failed assertion: ${~showExpr(expr)}&quot;) }
+def assertImpl(expr: Expr[Boolean]) = '{
+  if !(~expr) then
+    throw new AssertionError(s&quot;failed assertion: ${~showExpr(expr)}&quot;)
+}
+
+def showExpr(expr: Expr[Boolean]): Expr[String] =
+  '(&quot;&lt;some source code&gt;&quot;) // Better implementation later in this document
 </code></pre>
 <p>If <code>e</code> is an expression, then <code>'(e)</code> or <code>'{e}</code> represent the typed
 abstract syntax tree representing <code>e</code>. If <code>T</code> is a type, then <code>'[T]</code>
@@ -12831,9 +12836,12 @@ collections, case classes and enums. Note also that the implicit synthesis
 of &quot;type-tag&quot; values of type <code>Type[T]</code> is essentially the type-level
 analogue of lifting.</p>
 <p>Using lifting, we can now give the missing definition of <code>showExpr</code> in the introductory example:</p>
-<pre><code>def showExpr[T](expr: Expr[T]): Expr[String] = expr.toString
+<pre><code>def showExpr[T](expr: Expr[T]): Expr[String] = {
+  val code = expr.show
+  code.toExpr
+}
 </code></pre>
-<p>That is, the <code>showExpr</code> method converts its <code>Expr</code> argument to a string, and lifts
+<p>That is, the <code>showExpr</code> method converts its <code>Expr</code> argument to a string (<code>code</code>), and lifts
 the result back to an <code>Expr[String]</code> using the implicit <code>toExpr</code> conversion.</p>
 <h2><a href="#implementation" id="implementation">Implementation</a></h2>
 <h3><a href="#syntax-changes" id="syntax-changes">Syntax changes</a></h3>
