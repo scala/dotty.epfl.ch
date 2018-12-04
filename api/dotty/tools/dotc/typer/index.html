@@ -8281,6 +8281,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/typer/SearchRoot.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/typer/SearchRoot.html">SearchRoot</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/typer/TermRefSet.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/typer/TermRefSet.html">TermRefSet</a>
@@ -13723,7 +13741,7 @@ todo: move untrivial logic to their own mini-phases</p>
                             
                         </span>
                         <span class="member-modifiers">
-                            
+                            abstract
                         </span>
                         <span class="member-kind">
                             class
@@ -13743,7 +13761,48 @@ todo: move untrivial logic to their own mini-phases</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-SearchHistory">
-                            <p>Records the history of currently open implicit searches</p>
+                            <p>Records the history of currently open implicit searches.</p>
+<p>A search history maintains a list of open implicit searches (<code>open</code>) a shortcut flag
+indicating whether any of these are by name (<code>byname</code>) and a reference to the root
+search history (<code>root</code>) which in turn maintains a possibly empty dictionary of
+recursive implicit terms constructed during this search.</p>
+<p>A search history provides operations to create a nested search history, check for
+divergence, enter by name references and definitions in the implicit dictionary, lookup
+recursive references and emit a complete implicit dictionary when the outermost search
+is complete.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="SearchRoot" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'SearchRoot');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            final
+                        </span>
+                        <span class="member-kind">
+                            class
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../.././api/dotty/tools/dotc/typer/SearchRoot.html">SearchRoot</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-SearchRoot">
+                            <p>The the state corresponding to the outermost context of an implicit searcch.</p>
 
                         </div>
                     </div>

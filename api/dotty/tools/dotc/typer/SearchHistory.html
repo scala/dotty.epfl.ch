@@ -8281,6 +8281,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/typer/SearchRoot.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/typer/SearchRoot.html">SearchRoot</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/typer/TermRefSet.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/typer/TermRefSet.html">TermRefSet</a>
@@ -12317,7 +12335,7 @@
                     
                 </span>
                 <span id="entity-modifiers">
-                    
+                    abstract
                 </span>
                 <span id="entity-kind">
                     class
@@ -12340,7 +12358,15 @@
 
             
             <div id="entity-body" class="entity-section">
-                <p>Records the history of currently open implicit searches</p>
+                <p>Records the history of currently open implicit searches.</p>
+<p>A search history maintains a list of open implicit searches (<code>open</code>) a shortcut flag
+indicating whether any of these are by name (<code>byname</code>) and a reference to the root
+search history (<code>root</code>) which in turn maintains a possibly empty dictionary of
+recursive implicit terms constructed during this search.</p>
+<p>A search history provides operations to create a nested search history, check for
+divergence, enter by name references and definitions in the implicit dictionary, lookup
+recursive references and emit a complete implicit dictionary when the outermost search
+is complete.</p>
 
             </div>
             
@@ -12359,23 +12385,6 @@
                             <span class="no-left">(</span>
                                 
                                 
-                                    <span class="no-left">
-                                        searchDepth:
-                                    </span>
-                                    Int
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        seen:
-                                    </span>
-                                    Map
-<span class="no-left no-right">[</span>
-ClassSymbol<span class="">, </span>Int
-<span class="no-left">]</span>
-                                    
-                                
                             <span class="no-left">)</span>
                         </div>
                     </div>
@@ -12390,9 +12399,9 @@ ClassSymbol<span class="">, </span>Int
 
             <div id="entity-members" class="entity-section ">
                 
-                <div id="searchDepth" class="member ">
+                <div id="byname" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'searchDepth');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'byname');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12404,7 +12413,7 @@ ClassSymbol<span class="">, </span>Int
                         </span>
                         <span class="member-name ">
                             
-                                searchDepth
+                                byname
                             
                         </span>
 
@@ -12413,20 +12422,21 @@ ClassSymbol<span class="">, </span>Int
                         
 
                         
-                        <span class="no-left">: Int</span>
+                        <span class="no-left">: Boolean</span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-searchDepth">
-                            
+                        <div class="member-body-long" id ="long-body-byname">
+                            <p>Does this search history contain any by name implicit arguments.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="seen" class="member ">
+                <div id="open" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'seen');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'open');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12438,7 +12448,7 @@ ClassSymbol<span class="">, </span>Int
                         </span>
                         <span class="member-name ">
                             
-                                seen
+                                open
                             
                         </span>
 
@@ -12447,23 +12457,372 @@ ClassSymbol<span class="">, </span>Int
                         
 
                         
-                        <span class="no-left">: Map
+                        <span class="no-left">: List
 <span class="no-left no-right">[</span>
-<a href="../../../../.././api/dotty/tools/dotc/core/Symbols$/ClassSymbol.html">ClassSymbol</a><span class="">, </span>Int
+<span class="no-right">(</span>
+<a href="../../../../.././api/dotty/tools/dotc/typer/Implicits$/Candidate.html">Candidate</a><span>, </span><a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+<span class="no-left">)</span>
 <span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-seen">
+                        <div class="member-body-long" id ="long-body-open">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="nest(proto)(ctx)" class="member ">
+                <div id="root" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'nest(proto)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'root');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                root
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/typer/SearchRoot.html">SearchRoot</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-root">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="checkDivergence(cand,pt)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkDivergence(cand,pt)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                checkDivergence
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        cand:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/typer/Implicits$/Candidate.html">Candidate</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        pt:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-checkDivergence(cand,pt)(ctx)">
+                            <p>Check if the supplied candidate implicit and target type indicate a diverging
+implicit search.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="defineBynameImplicit(tpe,result)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'defineBynameImplicit(tpe,result)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                defineBynameImplicit
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tpe:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        result:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/typer/Implicits$/SearchSuccess.html">SearchSuccess</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/typer/Implicits$/SearchResult.html">SearchResult</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-defineBynameImplicit(tpe,result)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="emitDictionary(pos,result)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'emitDictionary(pos,result)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                emitDictionary
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        pos:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/util/Positions$/Position.html">Position</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        result:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/typer/Implicits$/SearchResult.html">SearchResult</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/typer/Implicits$/SearchResult.html">SearchResult</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-emitDictionary(pos,result)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="isByname(tp)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isByname(tp)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isByname
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isByname(tp)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="linkBynameImplicit(tpe)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'linkBynameImplicit(tpe)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                linkBynameImplicit
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tpe:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Types$/TermRef.html">TermRef</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-linkBynameImplicit(tpe)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="nest(cand,pt)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'nest(cand,pt)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12485,7 +12844,15 @@ ClassSymbol<span class="">, </span>Int
                                 
                                 
                                     <span class="no-left">
-                                        proto:
+                                        cand:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/typer/Implicits$/Candidate.html">Candidate</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        pt:
                                     </span>
                                     <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
                                     
@@ -12515,19 +12882,139 @@ ClassSymbol<span class="">, </span>Int
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-nest(proto)(ctx)">
-                            <p>Check for possible divergence. If one is detected return the current search history
-(this will be used as a criterion to abandon the implicit search in rankImplicits).
-If no divergence is detected, produce a new search history nested in the current one
-which records that we are now also looking for type <code>proto</code>.</p>
-<p>As long as <code>searchDepth</code> is lower than the <code>XminImplicitSearchDepth</code> value
-in settings, a new history is always produced, so the implicit search is always
-undertaken. If <code>searchDepth</code> matches or exceeds the <code>XminImplicitSearchDepth</code> value,
-we test that the new search is for a class that is either not yet in the set of
-<code>seen</code> classes, or the complexity of the type <code>proto</code> being searched for is strictly
-lower than the complexity of the type that was previously encountered and that had
-the same class symbol as <code>proto</code>. A possible divergence is detected if that test fails.</p>
+                        <div class="member-body-long" id ="long-body-nest(cand,pt)(ctx)">
+                            <p>Create the state for a nested implicit search.</p>
 
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="recursiveRef(pt)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'recursiveRef(pt)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                recursiveRef
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        pt:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-recursiveRef(pt)(ctx)">
+                            <p>Return the reference, if any, to a term under construction or already constructed in
+the current search history corresponding to the supplied target type.</p>
+<p>A term is eligible if its type is a subtype of the target type and either it has
+already been constructed and is present in the current implicit dictionary, or it is
+currently under construction and is separated from the current search context by at
+least one by name argument position.</p>
+<p>Note that because any suitable term found is defined as part of this search it will
+always be effectively in a more inner context than any other definition provided by
+explicit definitions. Consequently these terms have the highest priority and no other
+candidates need to be considered.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="refBynameImplicit(tpe)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'refBynameImplicit(tpe)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                refBynameImplicit
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tpe:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-refBynameImplicit(tpe)(ctx)">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -12562,67 +13049,6 @@ the same class symbol as <code>proto</code>. A possible divergence is detected i
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-toString">
                             
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="typeSize(tp)(ctx)" class="member private">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'typeSize(tp)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            private
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                typeSize
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tp:
-                                    </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Int</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-typeSize(tp)(ctx)">
-                            <p>The number of applications and refinements in this type, after all aliases are expanded</p>
-
                         </div>
                     </div>
                 </div><!-- end member -->
