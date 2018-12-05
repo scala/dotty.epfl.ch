@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-12-04 -->
+<!-- This page was last generated on 2018-12-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12351,7 +12351,7 @@ def natConstImpl(x: Expr[Int])(implicit reflection: Reflection): Expr[Int] = {
   ...
 }
 </code></pre>
-<p><code>import reflection._</code> will provide a <code>unseal</code> extension method on <code>quoted.Expr</code> and <code>quoted.Type</code> which return a <code>reflection.Term</code> and <code>reflection.TypeTree</code> respectively.
+<p><code>import reflection._</code> will provide an <code>unseal</code> extension method on <code>quoted.Expr</code> and <code>quoted.Type</code> which returns a <code>reflection.Term</code> and <code>reflection.TypeTree</code> respectively.
 It will also import all extractors and methods on TASTy Reflect trees. For example the <code>Term.Literal(_)</code> extractor used below.</p>
 <pre><code class="language-scala">def natConstImpl(x: Expr[Int])(implicit reflection: Reflection): Expr[Int] = {
   import reflection._
@@ -12367,7 +12367,7 @@ It will also import all extractors and methods on TASTy Reflect trees. For examp
 }
 </code></pre>
 <p>To easily know which extractors are needed, the <code>reflection.Term.show</code> method returns the string representation of the extractors.</p>
-<p>The method <code>reflection.Term.reify[T]</code> provides a way to to go back to a <code>quoted.Expr</code>.
+<p>The method <code>reflection.Term.reify[T]</code> provides a way to go back to a <code>quoted.Expr</code>.
 Note that the type must be set explicitly and that if it does not conform to it an exception will be thrown.
 In the code above we could have replaced <code>n.toExpr</code> by <code>xTree.reify[Int]</code>.</p>
 <h2><a href="#inspect-a-tasty-file" id="inspect-a-tasty-file">Inspect a TASTy file</a></h2>
