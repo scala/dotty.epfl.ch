@@ -170,6 +170,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
 </li>
+<li><a href="../../../../../.././docs/reference/extension-methods.html">Extension Methods</a>
+</li>
 <li><a href="../../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -12898,6 +12900,75 @@ return a NoDenotation instead.</li>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="compatibleWith(required,excluded)(ctx)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'compatibleWith(required,excluded)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                compatibleWith
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        required:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        excluded:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-compatibleWith(required,excluded)(ctx)">
+                            <p>Does this denotation have all the <code>required</code> flags but none of the <code>excluded</code> flags?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="computeAsSeenFrom(pre)(ctx)" class="member protected">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'computeAsSeenFrom(pre)(ctx)');">[+]</span>
@@ -13282,21 +13353,21 @@ that's not already defined by <code>denots</code>.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="filterExcluded(excluded)(ctx)" class="member ">
+                <div id="filterWithFlags(required,excluded)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'filterExcluded(excluded)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'filterWithFlags(required,excluded)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            final
+                            
                         </span>
                         <span class="member-kind">
                             def
                         </span>
                         <span class="member-name ">
                             
-                                filterExcluded
+                                filterWithFlags
                             
                         </span>
 
@@ -13306,6 +13377,14 @@ that's not already defined by <code>denots</code>.</p>
                                 
                                 
                                     <span class="no-left">
+                                        required:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         excluded:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
@@ -13336,9 +13415,9 @@ that's not already defined by <code>denots</code>.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-filterExcluded(excluded)(ctx)">
-                            <p>Keep only those denotations in this group whose flags do not intersect
-with <code>excluded</code>.</p>
+                        <div class="member-body-long" id ="long-body-filterWithFlags(required,excluded)(ctx)">
+                            <p>Keep only those denotations in this group that have all of the flags in <code>required</code>,
+but none of the flags in <code>excluded</code>.</p>
 
                         </div>
                     </div>
@@ -14228,66 +14307,6 @@ These are called a &quot;flock&quot;. Flock members are generated by</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-orElse(that)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="overlaps(fs)(ctx)" class="member private">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'overlaps(fs)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            private
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                overlaps
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        fs:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-overlaps(fs)(ctx)">
                             
                         </div>
                     </div>

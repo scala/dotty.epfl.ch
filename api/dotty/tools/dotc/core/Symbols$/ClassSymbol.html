@@ -170,6 +170,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
 </li>
+<li><a href="../../../../../.././docs/reference/extension-methods.html">Extension Methods</a>
+</li>
 <li><a href="../../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -17130,9 +17132,9 @@ that's not already defined by <code>denots</code>.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="filterExcluded(excluded)(ctx)" class="member ">
+                <div id="filterWithFlags(required,excluded)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'filterExcluded(excluded)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'filterWithFlags(required,excluded)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -17144,7 +17146,7 @@ that's not already defined by <code>denots</code>.</p>
                         </span>
                         <span class="member-name ">
                             
-                                filterExcluded
+                                filterWithFlags
                             
                         </span>
 
@@ -17154,6 +17156,14 @@ that's not already defined by <code>denots</code>.</p>
                                 
                                 
                                     <span class="no-left">
+                                        required:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         excluded:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
@@ -17184,9 +17194,9 @@ that's not already defined by <code>denots</code>.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-filterExcluded(excluded)(ctx)">
-                            <p>Keep only those denotations in this group whose flags do not intersect
-with <code>excluded</code>.</p>
+                        <div class="member-body-long" id ="long-body-filterWithFlags(required,excluded)(ctx)">
+                            <p>Keep only those denotations in this group that have all of the flags in <code>required</code>,
+but none of the flags in <code>excluded</code>.</p>
 
                         </div>
                     </div>
@@ -17281,9 +17291,9 @@ with <code>excluded</code>.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="findMember(name,pre,excluded)(ctx)" class="member ">
+                <div id="findMember(name,pre,required,excluded)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findMember(name,pre,excluded)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findMember(name,pre,required,excluded)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -17321,6 +17331,14 @@ with <code>excluded</code>.</p>
                                     
                                 
                                     <span class="">
+                                        required:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         excluded:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
@@ -17351,11 +17369,10 @@ with <code>excluded</code>.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-findMember(name,pre,excluded)(ctx)">
-                            <p>Find member of this denotation with given name and
-produce a denotation that contains the type of the member
-as seen from given prefix <code>pre</code>. Exclude all members that have
-flags in <code>excluded</code> from consideration.</p>
+                        <div class="member-body-long" id ="long-body-findMember(name,pre,required,excluded)(ctx)">
+                            <p>Find member of this denotation with given <code>name</code>, all <code>required</code>
+flags and no <code>excluded</code> flag, and produce a denotation that contains the type of the member
+as seen from given prefix <code>pre</code>.</p>
 
                         </div>
                     </div>
@@ -17630,6 +17647,69 @@ Should be used only for printing.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="fullNameSeparated(kind)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'fullNameSeparated(kind)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                fullNameSeparated
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        kind:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/NameKinds$/QualifiedNameKind.html">QualifiedNameKind</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/Name.html">Name</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-fullNameSeparated(kind)(ctx)">
+                            <p>The encoded full path name of this denotation, where outer names and inner names
+are separated by <code>separator</code> strings as indicated by the given name kind.
+Drops package objects. Represents each term in the owner chain by a simple <code>_$</code>.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="fullNameSeparated(prefixKind,kind,name)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'fullNameSeparated(prefixKind,kind,name)(ctx)');">[+]</span>
@@ -17703,69 +17783,6 @@ Should be used only for printing.</p>
                         <div class="member-body-long" id ="long-body-fullNameSeparated(prefixKind,kind,name)(ctx)">
                             <p>The encoded full path name of this denotation (separated by <code>prefixKind</code>),
 followed by the separator implied by <code>kind</code> and the given <code>name</code>.
-Drops package objects. Represents each term in the owner chain by a simple <code>_$</code>.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="fullNameSeparated(kind)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'fullNameSeparated(kind)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                fullNameSeparated
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        kind:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/NameKinds$/QualifiedNameKind.html">QualifiedNameKind</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/Name.html">Name</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-fullNameSeparated(kind)(ctx)">
-                            <p>The encoded full path name of this denotation, where outer names and inner names
-are separated by <code>separator</code> strings as indicated by the given name kind.
 Drops package objects. Represents each term in the owner chain by a simple <code>_$</code>.</p>
 
                         </div>
@@ -18480,6 +18497,137 @@ of this run.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="is(fs,butNot)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(fs,butNot)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                is
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        fs:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        butNot:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-is(fs,butNot)(ctx)">
+                            <p>Has this denotation all of the flags in <code>fs</code> set, whereas none of the flags
+in <code>butNot</code> are set?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="is(fs)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(fs)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                is
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        fs:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-is(fs)(ctx)">
+                            <p>Has this denotation all of the flags in <code>fs</code> set?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="is(fs)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(fs)(ctx)');">[+]</span>
@@ -18605,137 +18753,6 @@ of this run.</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-is(fs,butNot)(ctx)">
                             <p>Has this denotation one of the flags in <code>fs</code> set, whereas none of the flags
-in <code>butNot</code> are set?</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="is(fs)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(fs)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                is
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        fs:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-is(fs)(ctx)">
-                            <p>Has this denotation all of the flags in <code>fs</code> set?</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="is(fs,butNot)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(fs,butNot)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                is
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        fs:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        butNot:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-is(fs,butNot)(ctx)">
-                            <p>Has this denotation all of the flags in <code>fs</code> set, whereas none of the flags
 in <code>butNot</code> are set?</p>
 
                         </div>
@@ -24037,6 +24054,66 @@ Both getters and setters are returned in this list.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="relevantFlagsFor(fs)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'relevantFlagsFor(fs)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                relevantFlagsFor
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        fs:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-relevantFlagsFor(fs)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="removeAnnotation(cls)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'removeAnnotation(cls)(ctx)');">[+]</span>
@@ -24413,6 +24490,66 @@ whether the replaced denotation is the only one in its cycle or not.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="requiredMethodRef(name)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'requiredMethodRef(name)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                requiredMethodRef
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        name:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/PreName.html">PreName</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TermRef.html">TermRef</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-requiredMethodRef(name)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="requiredMethodRef(name,argTypes)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'requiredMethodRef(name,argTypes)(ctx)');">[+]</span>
@@ -24479,66 +24616,6 @@ whether the replaced denotation is the only one in its cycle or not.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-requiredMethodRef(name,argTypes)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="requiredMethodRef(name)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'requiredMethodRef(name)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                requiredMethodRef
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        name:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/PreName.html">PreName</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TermRef.html">TermRef</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-requiredMethodRef(name)(ctx)">
                             
                         </div>
                     </div>
@@ -25388,55 +25465,6 @@ as seen from subclasses.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="showSummary(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'showSummary(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                showSummary
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: String</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-showSummary(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="showSummary(depth)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'showSummary(depth)(ctx)');">[+]</span>
@@ -25496,6 +25524,55 @@ as seen from subclasses.</p>
 Recursion depth is limited to some smallish value. Default is
 Config.summarizeDepth.</p>
 
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="showSummary(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'showSummary(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                showSummary
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: String</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-showSummary(ctx)">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->

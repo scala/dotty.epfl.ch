@@ -170,6 +170,8 @@
 </li>
 <li><a href="../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
 </li>
+<li><a href="../../../../.././docs/reference/extension-methods.html">Extension Methods</a>
+</li>
 <li><a href="../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -12996,6 +12998,89 @@ we rely on implicit search to find one.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="extMethodApply(methodRef,receiver,pt)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'extMethodApply(methodRef,receiver,pt)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                extMethodApply
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        methodRef:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        receiver:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        pt:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/dotty/tools/dotc/ast/Trees$/Tree.html">Tree</a>
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-extMethodApply(methodRef,receiver,pt)(ctx)">
+                            <p>The typed application</p>
+<p><methodRef>(<receiver>)    or
+<methodRef><a href="#"><type-args></a></p>
+<p>where <type-args> comes from <code>pt</code> if it is a PolyProto.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="handleUnexpectedFunType(tree,fun)(ctx)" class="member protected">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'handleUnexpectedFunType(tree,fun)(ctx)');">[+]</span>
@@ -13384,6 +13469,92 @@ T
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-harmonizeWith(ts)(tpe,adapt)(ctx)">
                             
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="hasExtensionMethod(tp,name,argType,resultType)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'hasExtensionMethod(tp,name,argType,resultType)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                hasExtensionMethod
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        name:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Names$/TermName.html">TermName</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        argType:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        resultType:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-hasExtensionMethod(tp,name,argType,resultType)(ctx)">
+                            <p>Does <code>tp</code> have an extension method named <code>name</code> with this-argument <code>argType</code> and
+result matching <code>resultType</code>?</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->

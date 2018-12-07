@@ -170,6 +170,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
 </li>
+<li><a href="../../../../../.././docs/reference/extension-methods.html">Extension Methods</a>
+</li>
 <li><a href="../../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -13105,9 +13107,9 @@ is covariant is irrelevant, so can be ignored.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="appliedTo(args)(ctx)" class="member ">
+                <div id="appliedTo(arg)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'appliedTo(args)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'appliedTo(arg)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13129,12 +13131,9 @@ is covariant is irrelevant, so can be ignored.</p>
                                 
                                 
                                     <span class="no-left">
-                                        args:
+                                        arg:
                                     </span>
-                                    List
-<span class="no-left no-right">[</span>
-<a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
-<span class="no-left">]</span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -13162,11 +13161,8 @@ is covariant is irrelevant, so can be ignored.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-appliedTo(args)(ctx)">
-                            <p>The type representing</p>
-<p>T[U1, ..., Un]</p>
-<p>where</p>
-
+                        <div class="member-body-long" id ="long-body-appliedTo(arg)(ctx)">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -13239,9 +13235,9 @@ is covariant is irrelevant, so can be ignored.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="appliedTo(arg)(ctx)" class="member ">
+                <div id="appliedTo(args)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'appliedTo(arg)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'appliedTo(args)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13263,9 +13259,12 @@ is covariant is irrelevant, so can be ignored.</p>
                                 
                                 
                                     <span class="no-left">
-                                        arg:
+                                        args:
                                     </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    List
+<span class="no-left no-right">[</span>
+<a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+<span class="no-left">]</span>
                                     
                                 
                             <span class="no-left">)</span>
@@ -13293,8 +13292,11 @@ is covariant is irrelevant, so can be ignored.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-appliedTo(arg)(ctx)">
-                            
+                        <div class="member-body-long" id ="long-body-appliedTo(args)(ctx)">
+                            <p>The type representing</p>
+<p>T[U1, ..., Un]</p>
+<p>where</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -15291,9 +15293,9 @@ in <code>excluded</code> are omitted.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="findMember(name,pre,excluded)(ctx)" class="member ">
+                <div id="findMember(name,pre,required,excluded)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findMember(name,pre,excluded)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findMember(name,pre,required,excluded)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -15331,6 +15333,14 @@ in <code>excluded</code> are omitted.</p>
                                     
                                 
                                     <span class="">
+                                        required:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         excluded:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
@@ -15361,11 +15371,10 @@ in <code>excluded</code> are omitted.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-findMember(name,pre,excluded)(ctx)">
-                            <p>Find member of this type with given name and
-produce a denotation that contains the type of the member
-as seen from given prefix <code>pre</code>. Exclude all members that have
-flags in <code>excluded</code> from consideration.</p>
+                        <div class="member-body-long" id ="long-body-findMember(name,pre,required,excluded)(ctx)">
+                            <p>Find member of this type with given <code>name</code>, all <code>required</code>
+flags and no <code>excluded</code> flag and produce a denotation that contains
+the type of the member as seen from given prefix <code>pre</code>.</p>
 
                         </div>
                     </div>
@@ -18111,6 +18120,153 @@ vice versa.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="memberBasedOnFlags(name,required,excluded)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'memberBasedOnFlags(name,required,excluded)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            final
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                memberBasedOnFlags
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        name:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/Name.html">Name</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        required:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        excluded:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Denotations$/Denotation.html">Denotation</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-memberBasedOnFlags(name,required,excluded)(ctx)">
+                            <p>The member with given <code>name</code> and required and/or excluded flags</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="memberBasedOnFlags$default$2" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'memberBasedOnFlags$default$2');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                memberBasedOnFlags$default$2
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-memberBasedOnFlags$default$2">
+                            <p>The member with given <code>name</code> and required and/or excluded flags</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="memberBasedOnFlags$default$3" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'memberBasedOnFlags$default$3');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                memberBasedOnFlags$default$3
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-memberBasedOnFlags$default$3">
+                            <p>The member with given <code>name</code> and required and/or excluded flags</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="memberClasses(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'memberClasses(ctx)');">[+]</span>
@@ -18233,74 +18389,6 @@ vice versa.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-memberDenots(keepOnly,f)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="memberExcluding(name,excluding)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'memberExcluding(name,excluding)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            final
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                memberExcluding
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        name:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/Name.html">Name</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        excluding:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Denotations$/Denotation.html">Denotation</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-memberExcluding(name,excluding)(ctx)">
                             
                         </div>
                     </div>
@@ -18478,9 +18566,9 @@ of members <code>name</code> such that <code>keepOnly(pre, name)</code> is <code
                     </div>
                 </div><!-- end member -->
                 
-                <div id="membersBasedOnFlags(requiredFlags,excludedFlags)(ctx)" class="member ">
+                <div id="membersBasedOnFlags(required,excluded)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'membersBasedOnFlags(requiredFlags,excludedFlags)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'membersBasedOnFlags(required,excluded)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -18502,15 +18590,15 @@ of members <code>name</code> such that <code>keepOnly(pre, name)</code> is <code
                                 
                                 
                                     <span class="no-left">
-                                        requiredFlags:
+                                        required:
                                     </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
                                     
                                         <span class="no-left">, </span>
                                     
                                 
                                     <span class="">
-                                        excludedFlags:
+                                        excluded:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
                                     
@@ -18543,8 +18631,8 @@ of members <code>name</code> such that <code>keepOnly(pre, name)</code> is <code
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-membersBasedOnFlags(requiredFlags,excludedFlags)(ctx)">
-                            <p>The set of members of this type having at least one of <code>requiredFlags</code> but none of <code>excludedFlags</code> set</p>
+                        <div class="member-body-long" id ="long-body-membersBasedOnFlags(required,excluded)(ctx)">
+                            <p>The set of members of this type that have all of <code>required</code> flags but none of <code>excluded</code> flags set.</p>
 
                         </div>
                     </div>
@@ -19688,6 +19776,41 @@ List
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-resultType(ctx)">
                             <p>The resultType of a LambdaType, or ExprType, the type itself for others</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="revealIgnored" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'revealIgnored');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                revealIgnored
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-revealIgnored">
+                            <p>If this is an ignored proto type, its underlying type, otherwise the type itself</p>
 
                         </div>
                     </div>

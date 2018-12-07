@@ -170,6 +170,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
 </li>
+<li><a href="../../../../../.././docs/reference/extension-methods.html">Extension Methods</a>
+</li>
 <li><a href="../../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -14326,9 +14328,9 @@ someone does a findMember on a subclass.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="findMember(name,pre,excluded)(ctx)" class="member ">
+                <div id="findMember(name,pre,required,excluded)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findMember(name,pre,excluded)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'findMember(name,pre,required,excluded)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14366,6 +14368,14 @@ someone does a findMember on a subclass.</p>
                                     
                                 
                                     <span class="">
+                                        required:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         excluded:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
@@ -14396,11 +14406,10 @@ someone does a findMember on a subclass.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-findMember(name,pre,excluded)(ctx)">
-                            <p>Find member of this denotation with given name and
-produce a denotation that contains the type of the member
-as seen from given prefix <code>pre</code>. Exclude all members that have
-flags in <code>excluded</code> from consideration.</p>
+                        <div class="member-body-long" id ="long-body-findMember(name,pre,required,excluded)(ctx)">
+                            <p>Find member of this denotation with given <code>name</code>, all <code>required</code>
+flags and no <code>excluded</code> flag, and produce a denotation that contains the type of the member
+as seen from given prefix <code>pre</code>.</p>
 
                         </div>
                     </div>

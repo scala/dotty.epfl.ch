@@ -170,6 +170,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/opaques.html">Opaque Type Aliases</a>
 </li>
+<li><a href="../../../../../.././docs/reference/extension-methods.html">Extension Methods</a>
+</li>
 <li><a href="../../../../../.././docs/reference/implicit-by-name-parameters.html">By-Name Implicits</a>
 </li>
 <li><a href="../../../../../.././docs/reference/auto-parameter-tupling.html">Auto Parameter Tupling</a>
@@ -12559,9 +12561,9 @@ that's not already defined by <code>denots</code>.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="filterExcluded(excluded)(ctx)" class="member ">
+                <div id="filterWithFlags(required,excluded)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'filterExcluded(excluded)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'filterWithFlags(required,excluded)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12573,7 +12575,7 @@ that's not already defined by <code>denots</code>.</p>
                         </span>
                         <span class="member-name ">
                             
-                                filterExcluded
+                                filterWithFlags
                             
                         </span>
 
@@ -12583,6 +12585,14 @@ that's not already defined by <code>denots</code>.</p>
                                 
                                 
                                     <span class="no-left">
+                                        required:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         excluded:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
@@ -12613,9 +12623,9 @@ that's not already defined by <code>denots</code>.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-filterExcluded(excluded)(ctx)">
-                            <p>Keep only those denotations in this group whose flags do not intersect
-with <code>excluded</code>.</p>
+                        <div class="member-body-long" id ="long-body-filterWithFlags(required,excluded)(ctx)">
+                            <p>Keep only those denotations in this group that have all of the flags in <code>required</code>,
+but none of the flags in <code>excluded</code>.</p>
 
                         </div>
                     </div>
