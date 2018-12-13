@@ -12618,23 +12618,23 @@ type-class which can implement such accesses within the confines of the
 PCP. This is explained further in a later section.</p>
 <h2><a href="#details" id="details">Details</a></h2>
 <h3><a href="#from-exprs-to-functions-and-back" id="from-exprs-to-functions-and-back">From <code>Expr</code>s to Functions and Back</a></h3>
-<p>The <code>Expr</code> companion object contains an &quot;AsFunction&quot; decorator that turns a tree
+<p>The <code>Expr</code> companion object contains an <code>AsFunctionN</code> (for 0 &lt;= N &lt; 23) decorator that turns a tree
 describing a function into a function mapping trees to trees.</p>
 <pre><code>object Expr {
   ...
-  implicit class AsFunction[T, U](f: Expr[T =&gt; U]) extends AnyVal {
+  implicit class AsFunction1[T, U](f: Expr[T =&gt; U]) extends AnyVal {
     def apply(x: Expr[T]): Expr[U] = ???
   }
 }
 </code></pre>
 <p>This decorator gives <code>Expr</code> the <code>apply</code> operation of an applicative functor, where <code>Expr</code>s
 over function types can be applied to <code>Expr</code> arguments. The definition
-of <code>AsFunction(f).apply(x)</code> is assumed to be functionally the same as
+of <code>AsFunction1(f).apply(x)</code> is assumed to be functionally the same as
 <code>'((~f)(~x))</code>, however it should optimize this call by returning the
-result of beta-reducing <code>f(x)</code> if <code>f</code> is a known lambda expression</p>
-<p>The <code>AsFunction</code> decorator distributes applications of <code>Expr</code> over function
+result of beta-reducing <code>f(x)</code> if <code>f</code> is a known lambda expression.</p>
+<p>The <code>AsFunction1</code> decorator distributes applications of <code>Expr</code> over function
 arrows:</p>
-<pre><code>AsFunction(_).apply: Expr[S =&gt; T] =&gt; (Expr[S] =&gt; Expr[T])
+<pre><code>AsFunction1(_).apply: Expr[S =&gt; T] =&gt; (Expr[S] =&gt; Expr[T])
 </code></pre>
 <p>Its dual, let’s call it <code>reflect</code>, can be defined as follows:</p>
 <pre><code>def reflect[T, U](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] = '{
