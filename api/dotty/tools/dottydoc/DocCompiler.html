@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-12-13 -->
+<!-- This page was last generated on 2018-12-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -3790,9 +3790,9 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/fromtasty/ReadTastyTreesFromClasses.html">C</a>
+                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dotc/fromtasty/ReadTasty.html">C</a>
                     </div>
-                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/fromtasty/ReadTastyTreesFromClasses.html">ReadTastyTreesFromClasses</a>
+                    <a class="entity-name" href="../../../../.././api/dotty/tools/dotc/fromtasty/ReadTasty.html">ReadTasty</a>
                 </li>
 
                 
@@ -9194,24 +9194,6 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor class" href="../../../../.././api/dotty/tools/dottydoc/DocFrontEnd.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../../../.././api/dotty/tools/dottydoc/DocFrontEnd.html">DocFrontEnd</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
                         <a class="letter-anchor object" href="../../../../.././api/dotty/tools/dottydoc/Main$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../../.././api/dotty/tools/dottydoc/Main$.html">Main</a>
@@ -12578,21 +12560,21 @@ wihtout discarding AnyVal interfaces
 
             <div id="entity-members" class="entity-section ">
                 
-                <div id="backendPhases" class="member protected">
+                <div id="DocFrontEnd" class="member private">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'backendPhases');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'DocFrontEnd');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            protected override
+                            private
                         </span>
                         <span class="member-kind">
-                            def
+                            class
                         </span>
                         <span class="member-name ">
                             
-                                backendPhases
+                                <a href="../../../../.././api/dotty/tools/dottydoc/DocCompiler/DocFrontEnd.html">DocFrontEnd</a>
                             
                         </span>
 
@@ -12600,61 +12582,17 @@ wihtout discarding AnyVal interfaces
 
                         
 
-                        
-                        <span class="no-left">: List
-<span class="no-left no-right">[</span>
-List
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/dotty/tools/dotc/core/Phases$/Phase.html">Phase</a>
-<span class="no-left">]</span>
-<span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-backendPhases">
-                            <p>Generate the output of the compilation</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="frontendPhases" class="member protected">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'frontendPhases');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            protected override
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                frontendPhases
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: List
-<span class="no-left no-right">[</span>
-List
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/dotty/tools/dotc/core/Phases$/Phase.html">Phase</a>
-<span class="no-left">]</span>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-frontendPhases">
-                            <p>Phases dealing with the frontend up to trees ready for TASTY pickling</p>
+                        <div class="member-body-long" id ="long-body-DocFrontEnd">
+                            <p><code>DocFrontEnd</code> uses the Dotty <code>FrontEnd</code> without discarding the AnyVal
+interfaces for Boolean, Int, Char, Long, Byte etc.</p>
+<p>If <code>-from-tasty</code> is set, then the trees and documentation will be loaded
+from TASTY. The comments will be cooked after being unpickled.</p>
+<p>It currently still throws away Java sources by overriding
+<code>discardAfterTyper</code>.</p>
 
                         </div>
                     </div>
@@ -12709,21 +12647,21 @@ List
                     </div>
                 </div><!-- end member -->
                 
-                <div id="picklerPhases" class="member protected">
+                <div id="phases" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'picklerPhases');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'phases');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            protected override
+                            override
                         </span>
                         <span class="member-kind">
                             def
                         </span>
                         <span class="member-name ">
                             
-                                picklerPhases
+                                phases
                             
                         </span>
 
@@ -12743,49 +12681,21 @@ List
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-picklerPhases">
-                            <p>Phases dealing with TASTY tree pickling and unpickling</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="transformPhases" class="member protected">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'transformPhases');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            protected override
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                transformPhases
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: List
-<span class="no-left no-right">[</span>
-List
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/dotty/tools/dotc/core/Phases$/Phase.html">Phase</a>
-<span class="no-left">]</span>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-transformPhases">
-                            <p>Phases dealing with the transformation from pickled trees to backend trees</p>
+                        <div class="member-body-long" id ="long-body-phases">
+                            <p>Meta-ordering constraint:</p>
+<p>DenotTransformers that change the signature of their denotation's info must go
+after erasure. The reason is that denotations are permanently referred to by
+TermRefs which contain a signature. If the signature of a symbol would change,
+all refs to it would become outdated - they could not be dereferenced in the
+new phase.</p>
+<p>After erasure, signature changing denot-transformers are OK because erasure
+will make sure that only term refs with fixed SymDenotations survive beyond it. This
+is possible because:</p>
+<ul>
+<li>splitter has run, so every ident or select refers to a unique symbol</li>
+<li>after erasure, asSeenFrom is the identity, so every reference has a
+plain SymDenotation, as opposed to a UniqueRefDenotation.</li>
+</ul>
 
                         </div>
                     </div>

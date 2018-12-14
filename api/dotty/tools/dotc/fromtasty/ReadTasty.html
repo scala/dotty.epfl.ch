@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-12-13 -->
+<!-- This page was last generated on 2018-12-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -3790,9 +3790,9 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/fromtasty/ReadTastyTreesFromClasses.html">C</a>
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/fromtasty/ReadTasty.html">C</a>
                     </div>
-                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/fromtasty/ReadTastyTreesFromClasses.html">ReadTastyTreesFromClasses</a>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/fromtasty/ReadTasty.html">ReadTasty</a>
                 </li>
 
                 
@@ -9194,24 +9194,6 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dottydoc/DocFrontEnd.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dottydoc/DocFrontEnd.html">DocFrontEnd</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
                         <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dottydoc/Main$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dottydoc/Main$.html">Main</a>
@@ -12504,7 +12486,7 @@
 
 
     <script>
-        document.title = "Dotty Docs - ReadTastyTreesFromClasses"
+        document.title = "Dotty Docs - ReadTasty"
     </script>
 
     <div id="content-body">
@@ -12520,7 +12502,7 @@
                     class
                 </span>
                 <span id="entity-name">
-                    ReadTastyTreesFromClasses
+                    ReadTasty
                 </span>
                 
                 
@@ -12529,12 +12511,17 @@
                     
                     <span class="keyword">extends</span>
                     
-                    <span class="entity-super-type"><a href="../../../../../.././api/dotty/tools/dotc/typer/FrontEnd.html">FrontEnd</a></span>
+                    <span class="entity-super-type"><a href="../../../../../.././api/dotty/tools/dotc/core/Phases$/Phase.html">Phase</a></span>
                     
                 </div>
                 
             </div>
 
+            
+            <div id="entity-body" class="entity-section">
+                <p>Load trees from TASTY files</p>
+
+            </div>
             
 
             <h1 class="section ">
@@ -12547,7 +12534,7 @@
                     
                     <div class="member">
                         <div class="member-title">
-                            <span class="member-name">ReadTastyTreesFromClasses</span>
+                            <span class="member-name">ReadTasty</span>
                             <span class="no-left">(</span>
                                 
                                 
@@ -12565,9 +12552,9 @@
 
             <div id="entity-members" class="entity-section ">
                 
-                <div id="isTyper" class="member ">
+                <div id="isRunnable(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isTyper');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isRunnable(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12579,10 +12566,25 @@
                         </span>
                         <span class="member-name ">
                             
-                                isTyper
+                                isRunnable
                             
                         </span>
 
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -12593,11 +12595,45 @@
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isTyper">
-                            <p>Is this phase the standard typerphase? True for FrontEnd, but
-not for other first phases (such as FromTasty). The predicate
-is tested in some places that perform checks and corrections. It's
-different from isAfterTyper (and cheaper to test).</p>
+                        <div class="member-body-long" id ="long-body-isRunnable(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="phaseName" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'phaseName');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                phaseName
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: String</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-phaseName">
+                            <p>A name given to the <code>Phase</code> that can be used to debug the compiler. For
+instance, it is possible to print trees after a given phase using:</p>
+<pre><code class="language-bash">$ ./bin/dotc -Xprint:&lt;phaseNameHere&gt; sourceFile.scala
+</code></pre>
 
                         </div>
                     </div>
@@ -12661,6 +12697,55 @@ different from isAfterTyper (and cheaper to test).</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-readTASTY(unit)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="run(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'run(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                run
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-run(ctx)">
                             
                         </div>
                     </div>
