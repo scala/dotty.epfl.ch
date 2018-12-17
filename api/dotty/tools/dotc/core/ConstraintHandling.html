@@ -2054,6 +2054,30 @@
                 
 
                 
+                <li class=" with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/core/AbsentContext$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/core/AbsentContext.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/AbsentContext.html">AbsentContext</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="">
                 <!-- end li setter -->
 
@@ -2096,7 +2120,8 @@
                 
 
                 
-                <li class="">
+                <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
+                <li class="hidden-by-default ">
                 <!-- end li setter -->
 
                     <div class="entity-kinds">
@@ -2114,7 +2139,7 @@
                 
 
                 
-                <li class="">
+                <li class="hidden-by-default ">
                 <!-- end li setter -->
 
                     <div class="entity-kinds">
@@ -2132,7 +2157,6 @@
                 
 
                 
-                <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -12505,6 +12529,18 @@
                     ConstraintHandling
                 </span>
                 
+                <span id="entity-type-params">
+                    <span class="no-left">[</span>
+                    
+                    <span class="no-left">
+                        
+                            AbstractContext
+                        
+                    </span>
+                    
+                    <span class="no-left">]</span>
+                </span>
+                
                 
                 <div id="super-types">
                     
@@ -12655,40 +12691,6 @@ optimization: when <code>false</code>, no need to do an expensive <code>pruneLam
                     </div>
                 </div><!-- end member -->
                 
-                <div id="ctx" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'ctx');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            implicit
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                ctx
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-ctx">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="frozenConstraint" class="member protected">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'frozenConstraint');">[+]</span>
@@ -12762,43 +12764,9 @@ See note in TypeComparer#distributeAnd.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="state" class="member ">
+                <div id="addConstraint(param,bound,fromBelow)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'state');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                state
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/TyperState.html">TyperState</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-state">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="addConstraint(param,bound,fromBelow)" class="member protected">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'addConstraint(param,bound,fromBelow)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'addConstraint(param,bound,fromBelow)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12843,6 +12811,19 @@ See note in TypeComparer#distributeAnd.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -12853,7 +12834,7 @@ See note in TypeComparer#distributeAnd.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-addConstraint(param,bound,fromBelow)">
+                        <div class="member-body-long" id ="long-body-addConstraint(param,bound,fromBelow)(actx)">
                             <p>Add constraint <code>param &lt;: bound</code> if <code>fromBelow</code> is false, <code>param &gt;: bound</code> otherwise.
 <code>bound</code> is assumed to be in normalized form, as specified in <code>firstTry</code> and
 <code>secondTry</code> of <code>TypeComparer</code>. In particular, it should not be an alias type,
@@ -12912,9 +12893,9 @@ way isSubType is organized.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="addLess(p1,p2)" class="member protected">
+                <div id="addLess(p1,p2)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'addLess(p1,p2)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'addLess(p1,p2)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12951,6 +12932,19 @@ way isSubType is organized.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -12961,15 +12955,15 @@ way isSubType is organized.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-addLess(p1,p2)">
+                        <div class="member-body-long" id ="long-body-addLess(p1,p2)(actx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="addLowerBound(param,bound)" class="member protected">
+                <div id="addLowerBound(param,bound)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'addLowerBound(param,bound)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'addLowerBound(param,bound)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13006,6 +13000,19 @@ way isSubType is organized.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13016,15 +13023,15 @@ way isSubType is organized.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-addLowerBound(param,bound)">
+                        <div class="member-body-long" id ="long-body-addLowerBound(param,bound)(actx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="addOneBound(param,bound,isUpper)" class="member protected">
+                <div id="addOneBound(param,bound,isUpper)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'addOneBound(param,bound,isUpper)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'addOneBound(param,bound,isUpper)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13069,6 +13076,19 @@ way isSubType is organized.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13079,15 +13099,15 @@ way isSubType is organized.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-addOneBound(param,bound,isUpper)">
+                        <div class="member-body-long" id ="long-body-addOneBound(param,bound,isUpper)(actx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="addToConstraint(tl,tvars)" class="member ">
+                <div id="addToConstraint(tl,tvars)(actx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'addToConstraint(tl,tvars)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'addToConstraint(tl,tvars)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13127,6 +13147,19 @@ way isSubType is organized.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13137,7 +13170,7 @@ way isSubType is organized.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-addToConstraint(tl,tvars)">
+                        <div class="member-body-long" id ="long-body-addToConstraint(tl,tvars)(actx)">
                             <p>Add type lambda <code>tl</code>, possibly with type variables <code>tvars</code>, to current constraint
 and propagate all bounds.</p>
 
@@ -13145,9 +13178,9 @@ and propagate all bounds.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="addUpperBound(param,bound)" class="member protected">
+                <div id="addUpperBound(param,bound)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'addUpperBound(param,bound)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'addUpperBound(param,bound)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13184,6 +13217,19 @@ and propagate all bounds.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13194,15 +13240,15 @@ and propagate all bounds.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-addUpperBound(param,bound)">
+                        <div class="member-body-long" id ="long-body-addUpperBound(param,bound)(actx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="approximation(param,fromBelow)" class="member ">
+                <div id="approximation(param,fromBelow)(actx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'approximation(param,fromBelow)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'approximation(param,fromBelow)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13239,6 +13285,19 @@ and propagate all bounds.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13249,7 +13308,7 @@ and propagate all bounds.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-approximation(param,fromBelow)">
+                        <div class="member-body-long" id ="long-body-approximation(param,fromBelow)(actx)">
                             <p>Solve constraint set for given type parameter <code>param</code>.
 If <code>fromBelow</code> is true the parameter is approximated by its lower bound,
 otherwise it is approximated by its upper bound. However, any occurrences
@@ -13262,9 +13321,9 @@ The constraint is left unchanged.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="assumedTrue(param)" class="member ">
+                <div id="assumedTrue(param)(actx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'assumedTrue(param)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'assumedTrue(param)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13293,6 +13352,19 @@ The constraint is left unchanged.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13303,7 +13375,7 @@ The constraint is left unchanged.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-assumedTrue(param)">
+                        <div class="member-body-long" id ="long-body-assumedTrue(param)(actx)">
                             <p>Is <code>param</code> assumed to be a sub- and super-type of any other type?
 This holds if <code>TypeVarsMissContext</code> is set unless <code>param</code> is a part
 of a MatchType that is currently normalized.</p>
@@ -13312,9 +13384,9 @@ of a MatchType that is currently normalized.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="bounds(param)" class="member ">
+                <div id="bounds(param)(actx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'bounds(param)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'bounds(param)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13343,6 +13415,19 @@ of a MatchType that is currently normalized.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13353,7 +13438,7 @@ of a MatchType that is currently normalized.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-bounds(param)">
+                        <div class="member-body-long" id ="long-body-bounds(param)(actx)">
                             <p>The current bounds of type parameter <code>param</code></p>
 
                         </div>
@@ -13457,9 +13542,9 @@ is generally frozen.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="checkPropagated(msg)(result)" class="member ">
+                <div id="checkPropagated(msg)(result)(actx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkPropagated(msg)(result)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkPropagated(msg)(result)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13499,6 +13584,19 @@ is generally frozen.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13509,7 +13607,7 @@ is generally frozen.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-checkPropagated(msg)(result)">
+                        <div class="member-body-long" id ="long-body-checkPropagated(msg)(result)(actx)">
                             <p>Check that constraint is fully propagated. See comment in Config.checkConstraintsPropagated</p>
 
                         </div>
@@ -13564,6 +13662,183 @@ is generally frozen.</p>
                             <p>We are currently comparing type lambdas. Used as a flag for
 optimization: when <code>false</code>, no need to do an expensive <code>pruneLambdaParams</code></p>
 
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="constr_println(msg)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'constr_println(msg)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                constr_println
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        msg: =&gt;
+                                    </span>
+                                    String
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-constr_println(msg)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="constraint" class="member protected">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'constraint');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            protected
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                constraint
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Constraint.html">Constraint</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-constraint">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="constraint_=(c)" class="member protected">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'constraint_=(c)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            protected
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                constraint_=
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        c:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Constraint.html">Constraint</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-constraint_=(c)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="ctx(ac)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'ctx(ac)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            implicit
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                ctx
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ac:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-ctx(ac)">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -13714,9 +13989,60 @@ See note in TypeComparer#distributeAnd.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="instanceType(param,fromBelow)" class="member ">
+                <div id="instType(tvar)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'instanceType(param,fromBelow)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'instType(tvar)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                instType
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tvar:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeVar.html">TypeVar</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-instType(tvar)">
+                            <p>Gives for each instantiated type var that does not yet have its <code>inst</code> field
+set, the instance value stored in the constraint. Storing instances in constraints
+is done only in a temporary way for contexts that may be retracted
+without also retracting the type var as a whole.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="instanceType(param,fromBelow)(actx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'instanceType(param,fromBelow)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13753,6 +14079,19 @@ See note in TypeComparer#distributeAnd.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13763,7 +14102,7 @@ See note in TypeComparer#distributeAnd.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-instanceType(param,fromBelow)">
+                        <div class="member-body-long" id ="long-body-instanceType(param,fromBelow)(actx)">
                             <p>The instance type of <code>param</code> in the current constraint (which contains <code>param</code>).
 If <code>fromBelow</code> is true, the instance type is the lub of the parameter's
 lower bounds; otherwise it is the glb of its upper bounds. However,
@@ -13774,9 +14113,9 @@ is also a singleton type.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isSameType(tp1,tp2)" class="member protected">
+                <div id="isSameType(tp1,tp2)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSameType(tp1,tp2)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSameType(tp1,tp2)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13813,6 +14152,19 @@ is also a singleton type.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13823,15 +14175,15 @@ is also a singleton type.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isSameType(tp1,tp2)">
+                        <div class="member-body-long" id ="long-body-isSameType(tp1,tp2)(actx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isSameTypeWhenFrozen(tp1,tp2)" class="member ">
+                <div id="isSameTypeWhenFrozen(tp1,tp2)(actx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSameTypeWhenFrozen(tp1,tp2)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSameTypeWhenFrozen(tp1,tp2)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13868,6 +14220,19 @@ is also a singleton type.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13878,15 +14243,15 @@ is also a singleton type.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isSameTypeWhenFrozen(tp1,tp2)">
+                        <div class="member-body-long" id ="long-body-isSameTypeWhenFrozen(tp1,tp2)(actx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isSatisfiable" class="member protected">
+                <div id="isSatisfiable(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isSatisfiable');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isSatisfiable(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13903,6 +14268,21 @@ is also a singleton type.</p>
                         </span>
 
                         
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
 
                         
 
@@ -13912,7 +14292,7 @@ is also a singleton type.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isSatisfiable">
+                        <div class="member-body-long" id ="long-body-isSatisfiable(actx)">
                             <p>Test whether the lower bounds of all parameters in this
 constraint are a solution to the constraint.</p>
 
@@ -13920,9 +14300,9 @@ constraint are a solution to the constraint.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isSubType(tp1,tp2)" class="member protected">
+                <div id="isSubType(tp1,tp2)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSubType(tp1,tp2)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSubType(tp1,tp2)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13959,6 +14339,19 @@ constraint are a solution to the constraint.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -13969,15 +14362,15 @@ constraint are a solution to the constraint.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isSubType(tp1,tp2)">
+                        <div class="member-body-long" id ="long-body-isSubType(tp1,tp2)(actx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isSubType(tp1,tp2,whenFrozen)" class="member protected">
+                <div id="isSubType(tp1,tp2,whenFrozen)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSubType(tp1,tp2,whenFrozen)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSubType(tp1,tp2,whenFrozen)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14022,6 +14415,19 @@ constraint are a solution to the constraint.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -14032,15 +14438,15 @@ constraint are a solution to the constraint.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isSubType(tp1,tp2,whenFrozen)">
+                        <div class="member-body-long" id ="long-body-isSubType(tp1,tp2,whenFrozen)(actx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isSubTypeWhenFrozen(tp1,tp2)" class="member ">
+                <div id="isSubTypeWhenFrozen(tp1,tp2)(actx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSubTypeWhenFrozen(tp1,tp2)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isSubTypeWhenFrozen(tp1,tp2)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14077,6 +14483,19 @@ constraint are a solution to the constraint.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -14087,7 +14506,7 @@ constraint are a solution to the constraint.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isSubTypeWhenFrozen(tp1,tp2)">
+                        <div class="member-body-long" id ="long-body-isSubTypeWhenFrozen(tp1,tp2)(actx)">
                             
                         </div>
                     </div>
@@ -14142,9 +14561,9 @@ constraint are a solution to the constraint.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="subsumes(c1,c2,pre)" class="member protected">
+                <div id="subsumes(c1,c2,pre)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'subsumes(c1,c2,pre)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'subsumes(c1,c2,pre)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14189,6 +14608,19 @@ constraint are a solution to the constraint.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -14199,7 +14631,7 @@ constraint are a solution to the constraint.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-subsumes(c1,c2,pre)">
+                        <div class="member-body-long" id ="long-body-subsumes(c1,c2,pre)(actx)">
                             <p>Constraint <code>c1</code> subsumes constraint <code>c2</code>, if under <code>c2</code> as constraint we have
 for all poly params <code>p</code> defined in <code>c2</code> as <code>p &gt;: L2 &lt;: U2</code>:</p>
 <p>c1 defines p with bounds p &gt;: L1 &lt;: U1, and
@@ -14212,9 +14644,9 @@ narrowing it with further bounds.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="tryInstantiate(param,tp)" class="member protected">
+                <div id="tryInstantiate(param,tp)(actx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'tryInstantiate(param,tp)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'tryInstantiate(param,tp)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14251,6 +14683,19 @@ narrowing it with further bounds.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -14261,16 +14706,63 @@ narrowing it with further bounds.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-tryInstantiate(param,tp)">
+                        <div class="member-body-long" id ="long-body-tryInstantiate(param,tp)(actx)">
                             <p>Instantiate <code>param</code> to <code>tp</code> if the constraint stays satisfiable</p>
 
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="unify(p1,p2)" class="member private">
+                <div id="typr_println(msg)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'unify(p1,p2)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'typr_println(msg)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                typr_println
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        msg: =&gt;
+                                    </span>
+                                    String
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-typr_println(msg)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="unify(p1,p2)(actx)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'unify(p1,p2)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14307,6 +14799,19 @@ narrowing it with further bounds.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -14317,16 +14822,16 @@ narrowing it with further bounds.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-unify(p1,p2)">
+                        <div class="member-body-long" id ="long-body-unify(p1,p2)(actx)">
                             <p>Make p2 = p1, transfer all bounds of p2 to p1</p>
 
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="widenInferred(tp,bound)" class="member ">
+                <div id="widenInferred(tp,bound)(actx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'widenInferred(tp,bound)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'widenInferred(tp,bound)(actx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14363,6 +14868,19 @@ narrowing it with further bounds.</p>
                                 
                             <span class="no-left">)</span>
                             
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        actx:
+                                    </span>
+                                    AbstractContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
                         
 
                         
@@ -14373,7 +14891,7 @@ narrowing it with further bounds.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-widenInferred(tp,bound)">
+                        <div class="member-body-long" id ="long-body-widenInferred(tp,bound)(actx)">
                             <p>Widen inferred type <code>tp</code> with upper bound <code>bound</code>, according to the following rules:
 1. If <code>tp</code> is a singleton type, yet <code>bound</code> is not a singleton type, nor a subtype
 of <code>scala.Singleton</code>, widen <code>tp</code>.
