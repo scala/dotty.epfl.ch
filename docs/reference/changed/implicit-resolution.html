@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2018-12-15 -->
+<!-- This page was last generated on 2018-12-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12553,12 +12553,24 @@ these techniques no longer work. But there is now a new special type <code>scala
 which implements negation directly. For any query type <code>Q</code>: <code>Not[Q]</code> succeeds if and only if
 the implicit search for <code>Q</code> fails.</p>
 </li>
-<li>The treatment of divergence errors has also changed. A divergent implicit is
+<li>
+<p>The treatment of divergence errors has also changed. A divergent implicit is
 treated as a normal failure, after which alternatives are still tried. This also makes
 sense: Encountering a divergent implicit means that we assume that no finite
 solution can be found on the given path, but another path can still be tried. By contrast
 most (but not all) divergence errors in Scala 2 would terminate the implicit
-search as a whole.</li>
+search as a whole.</p>
+</li>
+<li>
+<p>Scala-2 gives a lower level of priority to implicit conversions with call-by-name
+parameters relative to implicit conversions with call-by-value parameters. Dotty
+drops this distinction. So the following code snippet would be ambiguous in Dotty:</p>
+<pre><code>implicit def conv1(x: Int): A = new A(x)
+implicit def conv2(x: =&gt; Int): A = new A(x)
+def buzz(y: A) = ???
+buzz(1)   // error: ambiguous
+</code></pre>
+</li>
 </ol>
 <p>[//]: # todo: expand with precise rules</p>
 
