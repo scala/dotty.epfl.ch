@@ -13351,7 +13351,7 @@ it's a term.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-getCompletions(ctx)">
-                            <p>Return the list of symbols that shoudl be included in completion results.</p>
+                            <p>Return the list of symbols that should be included in completion results.</p>
 <p>If several symbols share the same name, the type symbols appear before term symbols inside
 the same <code>Completion</code>.</p>
 
@@ -13494,7 +13494,9 @@ from T to S.</p>
 4. have an existing source symbol,
 5. are the module class in case of packages,
 6. are mutable accessors, to exclude setters for <code>var</code>,
-7. have same term/type kind as name prefix given so far</p>
+7. symbol is not a package object
+8. symbol is not an artifact of the compiler
+9. have same term/type kind as name prefix given so far</p>
 
                         </div>
                     </div>
