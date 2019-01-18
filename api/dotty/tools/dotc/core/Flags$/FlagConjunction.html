@@ -8880,24 +8880,6 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor object" href="../../../../../../.././api/dotty/tools/dotc/util/Positions$.html">O</a>
-                    </div>
-                    <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/util/Positions$.html">Positions</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
                         <a class="letter-anchor object" href="../../../../../../.././api/dotty/tools/dotc/util/Property$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/util/Property$.html">Property</a>
@@ -9062,7 +9044,7 @@
                         
                         <a class="letter-anchor object" href="../../../../../../.././api/dotty/tools/dotc/util/SourceFile$.html">O</a>
                         
-                        <a class="letter-anchor case class" href="../../../../../../.././api/dotty/tools/dotc/util/SourceFile.html">C</a>
+                        <a class="letter-anchor class" href="../../../../../../.././api/dotty/tools/dotc/util/SourceFile.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/util/SourceFile.html">SourceFile</a>
                 </li>
@@ -9097,6 +9079,24 @@
 
             
                 
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../../.././api/dotty/tools/dotc/util/Spans$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/util/Spans$.html">Spans</a>
+                </li>
+
+                
+
                  <!-- end != "package" -->
 
             
@@ -12990,6 +12990,55 @@ String
                     </div>
                 </div><!-- end member -->
                 
+                <div id="is(flags)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(flags)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                is
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        flags:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-is(flags)">
+                            <p>Does this flag set have all of the flags in given flag conjunction?
+Pre: The intersection of the typeflags of both sets must be non-empty.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="is(flags,butNot)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(flags,butNot)');">[+]</span>
@@ -13073,7 +13122,7 @@ and at the same time contain none of the flags in the <code>butNot</code> set?</
                                     <span class="no-left">
                                         flags:
                                     </span>
-                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -13089,8 +13138,8 @@ and at the same time contain none of the flags in the <code>butNot</code> set?</
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-is(flags)">
-                            <p>Does this flag set have all of the flags in given flag conjunction?
-Pre: The intersection of the typeflags of both sets must be non-empty.</p>
+                            <p>Does this flag set have a non-empty intersection with the given flag set?
+This means that both the kind flags and the carrier bits have non-empty intersection.</p>
 
                         </div>
                     </div>
@@ -13149,55 +13198,6 @@ Pre: The intersection of the typeflags of both sets must be non-empty.</p>
                             <p>Does this flag set have all of the flags in given flag conjunction?
 and at the same time contain none of the flags in the <code>butNot</code> set?
 Pre: The intersection of the typeflags of both sets must be non-empty.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="is(flags)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(flags)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                is
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        flags:
-                                    </span>
-                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-is(flags)">
-                            <p>Does this flag set have a non-empty intersection with the given flag set?
-This means that both the kind flags and the carrier bits have non-empty intersection.</p>
 
                         </div>
                     </div>

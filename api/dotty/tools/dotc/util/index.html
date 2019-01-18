@@ -8880,24 +8880,6 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/util/Positions$.html">O</a>
-                    </div>
-                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/util/Positions$.html">Positions</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
                         <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/util/Property$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/util/Property$.html">Property</a>
@@ -9062,7 +9044,7 @@
                         
                         <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/util/SourceFile$.html">O</a>
                         
-                        <a class="letter-anchor case class" href="../../../../../.././api/dotty/tools/dotc/util/SourceFile.html">C</a>
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/util/SourceFile.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/util/SourceFile.html">SourceFile</a>
                 </li>
@@ -9097,6 +9079,24 @@
 
             
                 
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/util/Spans$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/util/Spans$.html">Spans</a>
+                </li>
+
+                
+
                  <!-- end != "package" -->
 
             
@@ -13094,44 +13094,6 @@ at the <code>last</code> position.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="Positions$" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Positions$');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            object
-                        </span>
-                        <span class="member-name ">
-                            
-                                <a href="../../../../../.././api/dotty/tools/dotc/util/Positions$.html">Positions</a>
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Positions$">
-                            <p>Position format in little endian:
-Start: unsigned 26 Bits (works for source files up to 64M)
-End: unsigned 26 Bits
-Point: unsigned 12 Bits relative to start
-NoPosition encoded as -1L (this is a normally invalid position
-because point would lie beyond end.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="Property$" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'Property$');">[+]</span>
@@ -13503,7 +13465,7 @@ values 0..15 in a single Long.</p>
                             
                         </span>
                         <span class="member-kind">
-                            case class
+                            class
                         </span>
                         <span class="member-name ">
                             
@@ -13584,7 +13546,7 @@ values 0..15 in a single Long.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-SourcePosition">
-                            <p>A source position is comprised of a position in a source file</p>
+                            <p>A source position is comprised of a span and a source file</p>
 
                         </div>
                     </div>
@@ -13617,7 +13579,48 @@ values 0..15 in a single Long.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-SourcePosition$">
-                            <p>A source position is comprised of a position in a source file</p>
+                            <p>A source position is comprised of a span and a source file</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="Spans$" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Spans$');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            object
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/util/Spans$.html">Spans</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Spans$">
+                            <p>The offsets part of a full position, consisting of 2 or 3 entries:
+- start:  the start offset of the span, in characters from start of file
+- end  :  the end offset of the span
+- point:  if given, the offset where a sing;le <code>^</code> would be logically placed</p>
+<p>&amp;  Spans are encoded according to the following format in little endian:
+Start: unsigned 26 Bits (works for source files up to 64M)
+End: unsigned 26 Bits
+Point: unsigned 12 Bits relative to start
+NoSpan encoded as -1L (this is a normally invalid span because point would lie beyond end).</p>
 
                         </div>
                     </div>
