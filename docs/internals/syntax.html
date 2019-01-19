@@ -158,7 +158,9 @@
 </li>
 <li><a class="toggle-children" onclick='clickToc(this, "internals");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
+    <li><a href="../../.././docs/reference/derivation.html">Typeclass Derivation</a>
+</li>
+<li><a href="../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
 </li>
 <li><a href="../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -6839,6 +6841,24 @@
                 
 
                 
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../.././api/dotty/tools/dotc/transform/Instrumentation.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../.././api/dotty/tools/dotc/transform/Instrumentation.html">Instrumentation</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default  with-companion ">
                 <!-- end li setter -->
 
@@ -8007,6 +8027,24 @@
 
                 
                 <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor trait" href="../../.././api/dotty/tools/dotc/typer/Deriving.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../.././api/dotty/tools/dotc/typer/Deriving.html">Deriving</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -12629,6 +12667,19 @@ comment          ::=  ‘/*’ “any sequence of characters; nested comments ar
 nl               ::=  “new line character”
 semi             ::=  ‘;’ |  nl {nl}
 </code></pre>
+<h2><a href="#keywords" id="keywords">Keywords</a></h2>
+<h3><a href="#regular-keywords" id="regular-keywords">Regular keywords</a></h3>
+<pre><code>abstract  case      catch     class     def       do        else      enum
+erased    extends   false     final     finally   for       if        implicit
+import    lazy      match     new       null      object    package   private
+protected override  return    super     sealed    then      throw     trait
+true      try       type      val       var       while     with      yield
+:         =         &lt;-        =&gt;        &lt;:        :&gt;        #         @
+</code></pre>
+<h3><a href="#soft-keywords" id="soft-keywords">Soft keywords</a></h3>
+<pre><code>derives   inline    opaque
+~         *         |         &amp;         +         -
+</code></pre>
 <h2><a href="#context-free-syntax" id="context-free-syntax">Context-free Syntax</a></h2>
 <p>The context-free syntax of Scala is given by the following EBNF
 grammar:</p>
@@ -12721,7 +12772,7 @@ PostfixExpr       ::=  InfixExpr [id]                                           
 InfixExpr         ::=  PrefixExpr
                     |  InfixExpr id [nl] InfixExpr                              InfixOp(expr, op, expr)
 PrefixExpr        ::=  [‘-’ | ‘+’ | ‘~’ | ‘!’] SimpleExpr                       PrefixOp(expr, op)
-SimpleExpr        ::=  ‘new’ Template                                           New(templ)
+SimpleExpr        ::=  ‘new’ (ConstrApp [TemplateBody] | TemplateBody)          New(constr | templ)
                     |  BlockExpr
                     |  ''{’ BlockExprContents ‘}’
                     |  ‘'(’ ExprsInParens ‘)’
@@ -12870,14 +12921,15 @@ DefDef            ::=  DefSig [(‘:’ | ‘&lt;:’) Type] ‘=’ Expr       
 TmplDef           ::=  ([‘case’] ‘class’ | ‘trait’) ClassDef
                     |  [‘case’] ‘object’ ObjectDef
                     |  ‘enum’ EnumDef
-ClassDef          ::=  id ClassConstr TemplateOpt                               ClassDef(mods, name, tparams, templ)
-ClassConstr       ::=  [ClsTypeParamClause] [ConstrMods] ClsParamClauses         with DefDef(_, &lt;init&gt;, Nil, vparamss, EmptyTree, EmptyTree) as first stat
+ClassDef          ::=  id ClassConstr [Template]                                ClassDef(mods, name, tparams, templ)
+ClassConstr       ::=  [ClsTypeParamClause] [ConstrMods] ClsParamClauses        with DefDef(_, &lt;init&gt;, Nil, vparamss, EmptyTree, EmptyTree) as first stat
 ConstrMods        ::=  {Annotation} [AccessModifier]
-ObjectDef         ::=  id TemplateOpt                                           ModuleDef(mods, name, template)  // no constructor
-EnumDef           ::=  id ClassConstr [‘extends’ [ConstrApps]] EnumBody         EnumDef(mods, name, tparams, template)
-TemplateOpt       ::=  [‘extends’ Template | [nl] TemplateBody]
-Template          ::=  ConstrApps [TemplateBody] | TemplateBody                 Template(constr, parents, self, stats)
+ObjectDef         ::=  id [Template]                                            ModuleDef(mods, name, template)  // no constructor
+EnumDef           ::=  id ClassConstr InheritClauses EnumBody                   EnumDef(mods, name, tparams, template)
+Template          ::=  InheritClauses [TemplateBody]                            Template(constr, parents, self, stats)
+InheritClauses    ::=  [‘extends’ ConstrApps] [‘derives’ QualId {‘,’ QualId}]
 ConstrApps        ::=  ConstrApp {‘with’ ConstrApp}
+                    |  ConstrApp {‘,’ ConstrApp}
 ConstrApp         ::=  AnnotType {ArgumentExprs}                                Apply(tp, args)
 ConstrExpr        ::=  SelfInvocation
                     |  ConstrBlock

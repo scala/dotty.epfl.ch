@@ -158,7 +158,9 @@
 </li>
 <li><a class="toggle-children" onclick='clickToc(this, "ast");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
+    <li><a href="../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
+</li>
+<li><a href="../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -6839,6 +6841,24 @@
                 
 
                 
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/transform/Instrumentation.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/Instrumentation.html">Instrumentation</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default  with-companion ">
                 <!-- end li setter -->
 
@@ -8007,6 +8027,24 @@
 
                 
                 <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor trait" href="../../../../../.././api/dotty/tools/dotc/typer/Deriving.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/typer/Deriving.html">Deriving</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -12764,6 +12802,43 @@ type tree in the References attachment of the <code>from</code> tree as a side e
                     </div>
                 </div><!-- end member -->
                 
+                <div id="DerivingTemplate" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'DerivingTemplate');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            class
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/ast/untpd$/DerivingTemplate.html">DerivingTemplate</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-DerivingTemplate">
+                            <p>An untyped template with a derives clause. Derived parents are added to the end
+of the <code>parents</code> list. <code>derivedCount</code> keeps track of how many there are.
+This representation was chosen because it balances two concerns:
+- maximize overlap between DerivingTemplate and Template for code streamlining
+- keep invariant that elements of untyped trees align with source positions</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="DoWhile" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'DoWhile');">[+]</span>
@@ -13349,7 +13424,7 @@ type tree in the References attachment of the <code>from</code> tree as a side e
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'Mod');">[+]</span>
                         <span class="member-annotations">
-                            
+                            @Child @Child @Child @Child @Child @Child @Child @Child @Child @Child @Child @Child @Child 
                         </span>
                         <span class="member-modifiers">
                             sealed abstract
@@ -17563,9 +17638,9 @@ PrepareInlineable.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="Template(constr,parents,self,body)(src)" class="member ">
+                <div id="Template(constr,parents,derived,self,body)(src)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Template(constr,parents,self,body)(src)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'Template(constr,parents,derived,self,body)(src)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -17596,6 +17671,17 @@ PrepareInlineable.</p>
                                 
                                     <span class="">
                                         parents:
+                                    </span>
+                                    List
+<span class="no-left no-right">[</span>
+<a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        derived:
                                     </span>
                                     List
 <span class="no-left no-right">[</span>
@@ -17644,7 +17730,7 @@ PrepareInlineable.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Template(constr,parents,self,body)(src)">
+                        <div class="member-body-long" id ="long-body-Template(constr,parents,derived,self,body)(src)">
                             
                         </div>
                     </div>

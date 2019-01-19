@@ -158,7 +158,9 @@
 </li>
 <li><a class="toggle-children" onclick='clickToc(this, "typer");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
+    <li><a href="../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
+</li>
+<li><a href="../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -6839,6 +6841,24 @@
                 
 
                 
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/transform/Instrumentation.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/Instrumentation.html">Instrumentation</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default  with-companion ">
                 <!-- end li setter -->
 
@@ -8007,6 +8027,24 @@
 
                 
                 <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor trait" href="../../../../../.././api/dotty/tools/dotc/typer/Deriving.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/typer/Deriving.html">Deriving</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -12674,9 +12712,9 @@
                     </div>
                 </div><!-- end member -->
                 
-                <div id="checkClassType(tp,posd,traitReq,stablePrefixReq)(ctx)" class="member ">
+                <div id="checkClassType(tp,pos,traitReq,stablePrefixReq)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkClassType(tp,posd,traitReq,stablePrefixReq)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkClassType(tp,pos,traitReq,stablePrefixReq)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12706,9 +12744,9 @@
                                     
                                 
                                     <span class="">
-                                        posd:
+                                        pos:
                                     </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Positioned.html">Positioned</a>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/util/SourcePosition.html">SourcePosition</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -12752,7 +12790,7 @@
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-checkClassType(tp,posd,traitReq,stablePrefixReq)(ctx)">
+                        <div class="member-body-long" id ="long-body-checkClassType(tp,pos,traitReq,stablePrefixReq)(ctx)">
                             <p>Check that <code>tp</code> is a class type.
 Also, if <code>traitReq</code> is true, check that <code>tp</code> is a trait.
 Also, if <code>stablePrefixReq</code> is true and phase is not after RefChecks,
@@ -12911,14 +12949,14 @@ check that class prefix is stable.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="checkEnumCaseRefsLegal(cdef,enumCtx)(ctx)" class="member private">
+                <div id="checkEnumCaseRefsLegal(cdef,enumCtx)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkEnumCaseRefsLegal(cdef,enumCtx)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            private
+                            
                         </span>
                         <span class="member-kind">
                             def
@@ -12976,84 +13014,6 @@ check that class prefix is stable.</p>
                         <div class="member-body-long" id ="long-body-checkEnumCaseRefsLegal(cdef,enumCtx)(ctx)">
                             <p>Check that all references coming from enum cases in an enum companion object
 are legal.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="checkEnumCompanions(stats,enumContexts)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkEnumCompanions(stats,enumContexts)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                checkEnumCompanions
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        stats:
-                                    </span>
-                                    List
-<span class="no-left no-right">[</span>
-<a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-<span class="no-left">]</span>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        enumContexts:
-                                    </span>
-                                    Map
-<span class="no-left no-right">[</span>
-<a href="../../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a><span class="">, </span><a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-<span class="no-left">]</span>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: List
-<span class="no-left no-right">[</span>
-<a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-checkEnumCompanions(stats,enumContexts)(ctx)">
-                            <p>Check all enum cases in all enum companions in <code>stats</code> for legal accesses.</p>
 
                         </div>
                     </div>
@@ -14265,9 +14225,9 @@ to <code>badOwner</code>.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="checkStable(tp,posd)(ctx)" class="member ">
+                <div id="checkStable(tp,pos)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkStable(tp,posd)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkStable(tp,pos)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14297,9 +14257,9 @@ to <code>badOwner</code>.</p>
                                     
                                 
                                     <span class="">
-                                        posd:
+                                        pos:
                                     </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Positioned.html">Positioned</a>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/util/SourcePosition.html">SourcePosition</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -14327,7 +14287,7 @@ to <code>badOwner</code>.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-checkStable(tp,posd)(ctx)">
+                        <div class="member-body-long" id ="long-body-checkStable(tp,pos)(ctx)">
                             <p>Check that type <code>tp</code> is stable.</p>
 
                         </div>

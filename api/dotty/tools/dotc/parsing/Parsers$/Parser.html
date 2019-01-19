@@ -158,7 +158,9 @@
 </li>
 <li><a class="toggle-children" onclick='clickToc(this, "Parsers$");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
+    <li><a href="../../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -6839,6 +6841,24 @@
                 
 
                 
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../../.././api/dotty/tools/dotc/transform/Instrumentation.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/transform/Instrumentation.html">Instrumentation</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default  with-companion ">
                 <!-- end li setter -->
 
@@ -8007,6 +8027,24 @@
 
                 
                 <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor trait" href="../../../../../../.././api/dotty/tools/dotc/typer/Deriving.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/typer/Deriving.html">Deriving</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -15750,6 +15788,52 @@ T
                     </div>
                 </div><!-- end member -->
                 
+                <div id="constrApps()" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'constrApps()');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                constrApps
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: List
+<span class="no-left no-right">[</span>
+<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-constrApps()">
+                            <p>ConstrApps ::=  ConstrApp {‘with’ ConstrApp}  (to be deprecated in 3.1)
+|  ConstrApp {‘,’ ConstrApp}</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="constrBlock()" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'constrBlock()');">[+]</span>
@@ -16681,7 +16765,7 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-enumDef(start,mods,enumMod)">
-                            <p>EnumDef ::=  id ClassConstr [`extends' [ConstrApps]] EnumBody</p>
+                            <p>EnumDef ::=  id ClassConstr InheritClauses EnumBody</p>
 
                         </div>
                     </div>
@@ -18619,6 +18703,56 @@ respecting rules of associativity and precedence.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="inheritClauses()" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'inheritClauses()');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                inheritClauses
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <span class="no-right">(</span>
+List
+<span class="no-left no-right">[</span>
+<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span><span>, </span>List
+<span class="no-left no-right">[</span>
+<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span>
+<span class="no-left">)</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-inheritClauses()">
+                            <p>InheritClauses ::=  [‘extends’ ConstrApps] [‘derives’ QualId {‘,’ QualId}]</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="interpolatedString(inPattern)" class="member private">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'interpolatedString(inPattern)');">[+]</span>
@@ -20141,6 +20275,48 @@ LocalModifier  ::= abstract | final | sealed | implicit | lazy | erased | inline
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-mustStartStat">
                             
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="newExpr()" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'newExpr()');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                newExpr
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-newExpr()">
+                            <p>SimpleExpr    ::= ‘new’ (ConstrApp {<code>with</code> ConstrApp} [TemplateBody] | TemplateBody)</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -22219,7 +22395,7 @@ RefineStat       ::=  ‘val’ VarDcl
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-simpleExpr()">
-                            <p>SimpleExpr    ::= new Template
+                            <p>SimpleExpr    ::= ‘new’ (ConstrApp [TemplateBody] | TemplateBody)
 |  BlockExpr
 |  ‘'{’ BlockExprContents ‘}’
 |  ‘'(’ ExprsInParens ‘)’
@@ -22691,16 +22867,13 @@ Otherwise issue a syntax error and skip to next safe point.</p>
                         
 
                         
-                        <span class="no-left">: <span class="no-right">(</span>
-<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Template">Template</a><span>, </span>Boolean
-<span class="no-left">)</span></span>
+                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Template">Template</a></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-template(constr,isEnum)">
-                            <p>Template          ::=  ConstrApps [TemplateBody] | TemplateBody
-ConstrApps        ::=  ConstrApp {`with' ConstrApp}</p>
+                            <p>Template          ::=  InheritClauses [TemplateBody]</p>
 
                         </div>
                     </div>
@@ -22735,8 +22908,7 @@ ConstrApps        ::=  ConstrApp {`with' ConstrApp}</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-template$default$2">
-                            <p>Template          ::=  ConstrApps [TemplateBody] | TemplateBody
-ConstrApps        ::=  ConstrApp {`with' ConstrApp}</p>
+                            <p>Template          ::=  InheritClauses [TemplateBody]</p>
 
                         </div>
                     </div>
@@ -22788,9 +22960,9 @@ ConstrApps        ::=  ConstrApp {`with' ConstrApp}</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="templateBodyOpt(constr,parents,isEnum)" class="member ">
+                <div id="templateBodyOpt(constr,parents,derived,isEnum)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'templateBodyOpt(constr,parents,isEnum)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'templateBodyOpt(constr,parents,derived,isEnum)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -22831,6 +23003,17 @@ ConstrApps        ::=  ConstrApp {`with' ConstrApp}</p>
                                     
                                 
                                     <span class="">
+                                        derived:
+                                    </span>
+                                    List
+<span class="no-left no-right">[</span>
+<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         isEnum:
                                     </span>
                                     Boolean
@@ -22848,7 +23031,7 @@ ConstrApps        ::=  ConstrApp {`with' ConstrApp}</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-templateBodyOpt(constr,parents,isEnum)">
+                        <div class="member-body-long" id ="long-body-templateBodyOpt(constr,parents,derived,isEnum)">
                             <p>TemplateBody ::= [nl] <code>{' TemplateStatSeq</code>}'</p>
 
                         </div>
@@ -22905,7 +23088,7 @@ ConstrApps        ::=  ConstrApp {`with' ConstrApp}</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-templateOpt(constr,isEnum)">
-                            <p>TemplateOpt = [`extends' Template | TemplateBody]</p>
+                            <p>TemplateOpt = [Template]</p>
 
                         </div>
                     </div>
@@ -22940,7 +23123,7 @@ ConstrApps        ::=  ConstrApp {`with' ConstrApp}</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-templateOpt$default$2">
-                            <p>TemplateOpt = [`extends' Template | TemplateBody]</p>
+                            <p>TemplateOpt = [Template]</p>
 
                         </div>
                     </div>

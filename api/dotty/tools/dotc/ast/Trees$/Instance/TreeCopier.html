@@ -158,7 +158,9 @@
 </li>
 <li><a class="toggle-children" onclick='clickToc(this, "Instance");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
+    <li><a href="../../../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
+</li>
+<li><a href="../../../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
 </li>
 <li><a href="../../../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -6839,6 +6841,24 @@
                 
 
                 
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../../../.././api/dotty/tools/dotc/transform/Instrumentation.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../../../.././api/dotty/tools/dotc/transform/Instrumentation.html">Instrumentation</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default  with-companion ">
                 <!-- end li setter -->
 
@@ -8007,6 +8027,24 @@
 
                 
                 <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor trait" href="../../../../../../../.././api/dotty/tools/dotc/typer/Deriving.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../../../.././api/dotty/tools/dotc/typer/Deriving.html">Deriving</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -16285,9 +16323,9 @@ T
                     </div>
                 </div><!-- end member -->
                 
-                <div id="Template(tree)(constr,parents,self,body)(ctx)" class="member ">
+                <div id="Template(tree)(constr,parents,derived,self,body)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Template(tree)(constr,parents,self,body)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'Template(tree)(constr,parents,derived,self,body)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -16339,6 +16377,17 @@ T
                                     
                                 
                                     <span class="">
+                                        derived:
+                                    </span>
+                                    List
+<span class="no-left no-right">[</span>
+<a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         self:
                                     </span>
                                     <a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#ValDef">ValDef</a>
@@ -16377,15 +16426,15 @@ T
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Template(tree)(constr,parents,self,body)(ctx)">
+                        <div class="member-body-long" id ="long-body-Template(tree)(constr,parents,derived,self,body)(ctx)">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="Template(tree)(constr,parents,self,body)(ctx)" class="member ">
+                <div id="Template(tree)(constr,parents,derived,self,body)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Template(tree)(constr,parents,self,body)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'Template(tree)(constr,parents,derived,self,body)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -16437,6 +16486,17 @@ T
                                     
                                 
                                     <span class="">
+                                        derived:
+                                    </span>
+                                    List
+<span class="no-left no-right">[</span>
+<a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         self:
                                     </span>
                                     <a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#ValDef">ValDef</a>
@@ -16475,7 +16535,7 @@ T
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Template(tree)(constr,parents,self,body)(ctx)">
+                        <div class="member-body-long" id ="long-body-Template(tree)(constr,parents,derived,self,body)(ctx)">
                             
                         </div>
                     </div>
@@ -16620,9 +16680,9 @@ T
                         
 
                         
-                        <span class="no-left">: <a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$/ValDef.html">ValDef</a>
+                        <span class="no-left">: List
 <span class="no-left no-right">[</span>
-T
+<a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
 <span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
@@ -16670,12 +16730,62 @@ T
                         
 
                         
-                        <span class="no-left">: <a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$.html#LazyTreeList">LazyTreeList</a></span>
+                        <span class="no-left">: <a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$/ValDef.html">ValDef</a>
+<span class="no-left no-right">[</span>
+T
+<span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-Template$default$5(tree)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="Template$default$6(tree)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'Template$default$6(tree)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                Template$default$6
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tree:
+                                    </span>
+                                    <a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Template">Template</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../../../.././api/dotty/tools/dotc/ast/Trees$.html#LazyTreeList">LazyTreeList</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Template$default$6(tree)">
                             
                         </div>
                     </div>
