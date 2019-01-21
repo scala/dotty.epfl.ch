@@ -12989,10 +12989,8 @@ Traversable
 [scaladoc] ../scala-trunk/src/reflect/scala/reflect/macros/Reifiers.scala:89: error: object api is not a member of package reflect
 [scaladoc] case class ReificationException(val pos: reflect.api.PositionApi, val msg: String) extends Throwable(msg)
 [scaladoc]                                              ^
-because the bootstrapping will look at the sourcepath and create package &quot;reflect&quot; in &quot;<root>&quot;
-and then when typing relative names, instead of picking <root>.scala.relect, typedIdentifier will pick up the
-<root>.reflect package created by the bootstrapping. Thus, no bootstrapping for scaladoc!
-TODO: we should refactor this as a separate -bootstrap option to have a clean implementation, no?</p>
+Because bootstrapping looks at the sourcepath and creates the package &quot;reflect&quot; in &quot;<root>&quot; it will cause the
+typedIdentifier to pick <root>.reflect instead of the <root>.scala.reflect package.  Thus, no bootstrapping for scaladoc!</p>
 
                         </div>
                     </div>
@@ -13068,7 +13066,7 @@ TODO: we should refactor this as a separate -bootstrap option to have a clean im
                 
                 <div id="userClassPath" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'userClassPath');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'userClassPath');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13095,15 +13093,7 @@ TODO: we should refactor this as a separate -bootstrap option to have a clean im
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-userClassPath">
-                            <p>Against my better judgment, giving in to martin here and allowing
-CLASSPATH to be used automatically.  So for the user-specified part
-of the classpath:</p>
-<ul>
-<li>If -classpath or -cp is given, it is that</li>
-<li>Otherwise, if CLASSPATH is set, it is that</li>
-<li>If neither of those, then &quot;.&quot; is used.</li>
-</ul>
-
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
