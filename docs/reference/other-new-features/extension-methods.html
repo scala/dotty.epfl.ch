@@ -12718,20 +12718,21 @@ method name makes it visually harder to discern what is being defined. To addres
 that problem, it is recommended that the name of an extension method is
 preceded by a space and is also followed by a space if there are more parameters
 to come.</p>
-<h3><a href="#extension-methods-and-typeclasses" id="extension-methods-and-typeclasses">Extension Methods and TypeClasses</a></h3>
-<p>The rules for expanding extension methods make sure that they work seamlessly with typeclasses. For instance, consider <code>SemiGroup</code> and <code>Monoid</code>.</p>
-<pre><code class="language-scala">  // Two typeclasses:
+<h3><a href="#extension-methods-and-type-classes" id="extension-methods-and-type-classes">Extension Methods and Type Classes</a></h3>
+<p>The rules for expanding extension methods make sure that they work seamlessly with type classes. For instance, consider <code>SemiGroup</code> and <code>Monoid</code>.</p>
+<pre><code class="language-scala">  // Two type classes:
   trait SemiGroup[T] {
     def (x: T) combine(y: T): T
   }
   trait Monoid[T] extends SemiGroup[T] {
     def unit: T
   }
-
-  // An instance declaration:
-  implicit object StringMonoid extends Monoid[String] {
-    def (x: String) combine (y: String): String = x.concat(y)
-    def unit: String = &quot;&quot;
+  object Monoid {
+    // An instance declaration:
+    implicit object StringMonoid extends Monoid[String] {
+      def (x: String) combine (y: String): String = x.concat(y)
+      def unit: String = &quot;&quot;
+    }
   }
 
   // Abstracting over a typeclass with a context bound:
@@ -12742,9 +12743,27 @@ to come.</p>
 which expands in turn to <code>(x1, x2) =&gt; ev.combine(x1, x2)</code> where <code>ev</code> is the implicit
 evidence parameter summoned by the context bound <code>[T: Monoid]</code>. This works since
 extension methods apply everywhere their enclosing object is available as an implicit.</p>
+<p>To avoid having to write <code>implicitly[Monoid[T]].unit</code> to access the <code>unit</code> method in <code>Monoid[T]</code>,
+we can make <code>unit</code> itself an extension method on the <code>Monoid</code> <em>companion object</em>,
+as shown below:</p>
+<pre><code class="language-scala">  trait Monoid[T] extends SemiGroup[T] {
+    def (self: Monoid.type) unit: T
+  }
+  object Monoid {
+    implicit object StringMonoid extends Monoid[String] {
+      def (x: String) combine (y: String): String = x.concat(y)
+      def (self: Monoid.type) unit: String = &quot;&quot;
+    }
+  }
+</code></pre>
+<p>This allows us to write <code>Monoid.unit</code> instead of <code>implicitly[Monoid[T]].unit</code>,
+letting the expected type distinguish which instance we want to use:</p>
+<pre><code class="language-scala">  def sum[T: Monoid](xs: List[T]): T =
+    xs.foldLeft(Monoid.unit)(_.combine(_))
+</code></pre>
 <h3><a href="#generic-extension-classes" id="generic-extension-classes">Generic Extension Classes</a></h3>
 <p>As another example, consider implementations of an <code>Ord</code> type class with a <code>minimum</code> value:</p>
-<pre><code class="language-scala">  trait Ord[T]
+<pre><code class="language-scala">  trait Ord[T] {
     def (x: T) compareTo (y: T): Int
     def (x: T) &lt; (y: T) = x.compareTo(y) &lt; 0
     def (x: T) &gt; (y: T) = x.compareTo(y) &gt; 0
@@ -12758,7 +12777,7 @@ extension methods apply everywhere their enclosing object is available as an imp
   }
 
   class ListOrd[T: Ord] extends Ord[List[T]] {
-    def (xs: List[T]) compareTo (ys: List[T]): Int = (xs, ys) match
+    def (xs: List[T]) compareTo (ys: List[T]): Int = (xs, ys) match {
       case (Nil, Nil) =&gt; 0
       case (Nil, _) =&gt; -1
       case (_, Nil) =&gt; +1

@@ -12619,7 +12619,12 @@
 
             
             <div id="entity-body" class="entity-section">
-                <p>Compute realizability status</p>
+                <p>Compute realizability status.</p>
+<p>A type T is realizable iff it is inhabited by non-null values. This ensures that its type members have good bounds
+(in the sense from DOT papers). A type projection T#L is legal if T is realizable, and can be understood as
+Scala 2's <code>v.L forSome { val v: T }</code>.</p>
+<p>In general, a realizable type can have multiple inhabitants, hence it need not be stable (in the sense of
+Type.isStable).</p>
 
             </div>
             

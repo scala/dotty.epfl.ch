@@ -21438,9 +21438,9 @@ spending a Flag on them?</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isStable(ctx)" class="member ">
+                <div id="isStableMember(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isStable(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isStableMember(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -21452,7 +21452,7 @@ spending a Flag on them?</p>
                         </span>
                         <span class="member-name ">
                             
-                                isStable
+                                isStableMember
                             
                         </span>
 
@@ -21481,8 +21481,14 @@ spending a Flag on them?</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isStable(ctx)">
-                            <p>Is this a denotation of a stable term (or an arbitrary type)?</p>
+                        <div class="member-body-long" id ="long-body-isStableMember(ctx)">
+                            <p>Is this a denotation of a stable term (or an arbitrary type)?
+Terms are stable if they are idempotent (as in TreeInfo.Idempotent): that is, they always return the same value,
+if any.</p>
+<p>A <em>member</em> is stable, basically, if it behaves like a field projection: that is, it projects a constant result
+out of its owner.</p>
+<p>However, a stable member might not yet be initialized (if it is an object or anyhow lazy).
+So the first call to a stable member might fail and/or produce side effects.</p>
 
                         </div>
                     </div>
