@@ -12777,7 +12777,10 @@ Boolean
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-phaseName">
-                            <p>the following two members override abstract members in Transform</p>
+                            <p>A name given to the <code>Phase</code> that can be used to debug the compiler. For
+instance, it is possible to print trees after a given phase using:</p>
+<pre><code class="language-bash">$ ./bin/dotc -Xprint:&lt;phaseNameHere&gt; sourceFile.scala
+</code></pre>
 
                         </div>
                     </div>
@@ -13285,6 +13288,45 @@ Boolean
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-prepareForValDef(tree)(ctx)">
                             
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="runsAfterGroupsOf" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'runsAfterGroupsOf');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            override
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                runsAfterGroupsOf
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Set
+<span class="no-left no-right">[</span>
+String
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-runsAfterGroupsOf">
+                            <p>List of names of phases that should have finished their processing of all compilation units
+before this phase starts</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
