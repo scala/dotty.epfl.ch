@@ -140,8 +140,6 @@
 </li>
 <li><a href="../../../../../.././docs/reference/new-types/match-types.html">Match types</a>
 </li>
-<li><a href="../../../../../.././docs/reference/new-types/implicit-function-types.html">Implicit Function Types</a>
-</li>
 <li><a href="../../../../../.././docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></li>
 </ul>
 
@@ -186,7 +184,23 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "ast");'>Changed Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "ast");'>New Implicits</a>
+<ul id="">
+    <li><a href="../../../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
+</ul>
+
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "ast");'>Other Changed Features</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/changed-features/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
@@ -12733,6 +12747,67 @@
                     </div>
                 </div><!-- end member -->
                 
+                <div id="isContextualClosure(tree)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isContextualClosure(tree)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isContextualClosure
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tree:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isContextualClosure(tree)(ctx)">
+                            <p>Is <code>tree</code> an implicit function or closure, possibly nested in a block?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="isFunctionWithUnknownParamType(tree)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'isFunctionWithUnknownParamType(tree)');">[+]</span>
@@ -12776,67 +12851,6 @@
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-isFunctionWithUnknownParamType(tree)">
                             
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="isImplicitClosure(tree)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isImplicitClosure(tree)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                isImplicitClosure
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tree:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isImplicitClosure(tree)(ctx)">
-                            <p>Is <code>tree</code> an implicit function or closure, possibly nested in a block?</p>
-
                         </div>
                     </div>
                 </div><!-- end member -->

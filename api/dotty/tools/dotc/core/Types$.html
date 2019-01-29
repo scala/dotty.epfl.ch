@@ -140,8 +140,6 @@
 </li>
 <li><a href="../../../../../.././docs/reference/new-types/match-types.html">Match types</a>
 </li>
-<li><a href="../../../../../.././docs/reference/new-types/implicit-function-types.html">Implicit Function Types</a>
-</li>
 <li><a href="../../../../../.././docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></li>
 </ul>
 
@@ -186,7 +184,23 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "core");'>Changed Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "core");'>New Implicits</a>
+<ul id="">
+    <li><a href="../../../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
+</ul>
+
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "core");'>Other Changed Features</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/changed-features/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
@@ -13749,6 +13763,38 @@ Instances are: LambdaType, RecType.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="ContextualMethodType$" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'ContextualMethodType$');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            object
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/ContextualMethodType$.html">ContextualMethodType</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-ContextualMethodType$">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="CoveringSetAccumulator" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'CoveringSetAccumulator');">[+]</span>
@@ -13841,6 +13887,38 @@ Instances are: LambdaType, RecType.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-DepStatus$">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="ErasedContextualMethodType$" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'ErasedContextualMethodType$');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            object
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/ErasedContextualMethodType$.html">ErasedContextualMethodType</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-ErasedContextualMethodType$">
                             
                         </div>
                     </div>
@@ -16568,6 +16646,7 @@ represent higher-kinded types.</p>
                      +- OrType
                      +- MethodOrPoly ---+-- PolyType
                                         +-- MethodType ---+- ImplicitMethodType
+                                                          +- ContextualMethodType
                      |                                    +- JavaMethodType
                      +- ClassInfo
                      |

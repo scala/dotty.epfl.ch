@@ -140,8 +140,6 @@
 </li>
 <li><a href="../../.././docs/reference/new-types/match-types.html">Match types</a>
 </li>
-<li><a href="../../.././docs/reference/new-types/implicit-function-types.html">Implicit Function Types</a>
-</li>
 <li><a href="../../.././docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></li>
 </ul>
 
@@ -186,7 +184,23 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "internals");'>Changed Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "internals");'>New Implicits</a>
+<ul id="">
+    <li><a href="../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
+</li>
+<li><a href="../../.././docs/reference/instances/context-params.html">Context Parameters</a>
+</li>
+<li><a href="../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
+</li>
+<li><a href="../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
+</li>
+<li><a href="../../.././docs/reference/instances/discussion.html">Discussion</a></li>
+</ul>
+
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "internals");'>Other Changed Features</a>
 <ul id="">
     <li><a href="../../.././docs/reference/changed-features/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
@@ -12748,7 +12762,7 @@ StableId          ::=  id
 ClassQualifier    ::=  ‘[’ id ‘]’
 </code></pre>
 <h3><a href="#types" id="types">Types</a></h3>
-<pre><code class="language-ebnf">Type              ::=  [FunArgMods] FunArgTypes ‘=&gt;’ Type                       Function(ts, t)
+<pre><code class="language-ebnf">Type              ::=  [‘erased’] FunArgTypes (‘=&gt;’ | ‘|=&gt;’) Type               Function(ts, t)
                     |  HkTypeParamClause ‘=&gt;’ Type                              TypeLambda(ps, t)
                     |  MatchType
                     |  InfixType
@@ -12786,6 +12800,7 @@ TypeParamBounds   ::=  TypeBounds {‘&lt;%’ Type} {‘:’ Type}             
 </code></pre>
 <h3><a href="#expressions" id="expressions">Expressions</a></h3>
 <pre><code class="language-ebnf">Expr              ::=  [FunArgMods] FunParams ‘=&gt;’ Expr                         Function(args, expr), Function(ValDef([implicit], id, TypeTree(), EmptyTree), expr)
+                    |  [‘erased’] FunParams ‘|=&gt;’ Expr
                     |  Expr1
 BlockResult       ::=  [FunArgMods] FunParams ‘=&gt;’ Block
                     |  Expr1
@@ -12814,6 +12829,7 @@ Catches           ::=  ‘catch’ Expr
 PostfixExpr       ::=  InfixExpr [id]                                           PostfixOp(expr, op)
 InfixExpr         ::=  PrefixExpr
                     |  InfixExpr id [nl] InfixExpr                              InfixOp(expr, op, expr)
+                    |  InfixExpr ‘with’ (InfixExpr | ParArgumentExprs)
 PrefixExpr        ::=  [‘-’ | ‘+’ | ‘~’ | ‘!’] SimpleExpr                       PrefixOp(expr, op)
 SimpleExpr        ::=  ‘new’ (ConstrApp [TemplateBody] | TemplateBody)          New(constr | templ)
                     |  BlockExpr
@@ -12894,8 +12910,9 @@ HkTypeParamClause ::=  ‘[’ HkTypeParam {‘,’ HkTypeParam} ‘]’
 HkTypeParam       ::=  {Annotation} [‘+’ | ‘-’] (Id[HkTypeParamClause] | ‘_’)
                        TypeBounds
 
-ClsParamClauses   ::=  {ClsParamClause} [[nl] ‘(’ [FunArgMods] ClsParams ‘)’]
-ClsParamClause    ::=  [nl] ‘(’ [ClsParams] ‘)’
+ClsParamClauses   ::=  {ClsParamClause}
+ClsParamClause    ::=  [nl] ‘(’ [[FunArgMods] ClsParams] ‘)’
+                    |  ‘with’ (‘(’ ([[FunArgMods] ClsParams] ‘)’ | ContextTypes)
 ClsParams         ::=  ClsParam {‘,’ ClsParam}
 ClsParam          ::=  {Annotation}                                             ValDef(mods, id, tpe, expr) -- point of mods on val/var
                        [{Modifier} (‘val’ | ‘var’) | ‘inline’] Param
@@ -12903,9 +12920,11 @@ Param             ::=  id ‘:’ ParamType [‘=’ Expr]
                     |  INT
 
 DefParamClauses   ::=  {DefParamClause} [[nl] ‘(’ [FunArgMods] DefParams ‘)’]
-DefParamClause    ::=  [nl] ‘(’ [DefParams] ‘)’
+DefParamClause    ::=  [nl] ‘(’ [DefParams] ‘)’ | InstParamClause
+InstParamClause   ::=  ‘with’ (‘(’ [DefParams] ‘)’ | ContextTypes)
 DefParams         ::=  DefParam {‘,’ DefParam}
 DefParam          ::=  {Annotation} [‘inline’] Param                            ValDef(mods, id, tpe, expr) -- point of mods at id.
+ContextTypes      ::=  RefinedType {‘,’ RefinedType}
 </code></pre>
 <h3><a href="#bindings-and-imports" id="bindings-and-imports">Bindings and Imports</a></h3>
 <pre><code class="language-ebnf">Bindings          ::=  ‘(’ Binding {‘,’ Binding} ‘)’
@@ -12951,12 +12970,13 @@ Def               ::=  ‘val’ PatDef
                     |  ‘var’ VarDef
                     |  ‘def’ DefDef
                     |  ‘type’ {nl} TypeDcl
+                    |  ‘instance’ {nl} InstanceDef
                     |  TmplDef
                     |  INT
 PatDef            ::=  Pattern2 {‘,’ Pattern2} [‘:’ Type] ‘=’ Expr              PatDef(_, pats, tpe?, expr)
 VarDef            ::=  PatDef
                     |  ids ‘:’ Type ‘=’ ‘_’
-DefDef            ::=  DefSig [(‘:’ | ‘&lt;:’) Type] ‘=’ Expr                               DefDef(_, name, tparams, vparamss, tpe, expr)
+DefDef            ::=  DefSig [(‘:’ | ‘&lt;:’) Type] ‘=’ Expr                      DefDef(_, name, tparams, vparamss, tpe, expr)
                     |  DefSig [nl] ‘{’ Block ‘}’                                DefDef(_, name, tparams, vparamss, tpe, Block)
                     |  ‘this’ DefParamClause DefParamClauses                    DefDef(_, &lt;init&gt;, Nil, vparamss, EmptyTree, expr | Block)
                        (‘=’ ConstrExpr | [nl] ConstrBlock)
@@ -12964,11 +12984,16 @@ DefDef            ::=  DefSig [(‘:’ | ‘&lt;:’) Type] ‘=’ Expr       
 TmplDef           ::=  ([‘case’] ‘class’ | ‘trait’) ClassDef
                     |  [‘case’] ‘object’ ObjectDef
                     |  ‘enum’ EnumDef
+                    |  ‘witness’ WitnessDef
 ClassDef          ::=  id ClassConstr [Template]                                ClassDef(mods, name, tparams, templ)
 ClassConstr       ::=  [ClsTypeParamClause] [ConstrMods] ClsParamClauses        with DefDef(_, &lt;init&gt;, Nil, vparamss, EmptyTree, EmptyTree) as first stat
 ConstrMods        ::=  {Annotation} [AccessModifier]
 ObjectDef         ::=  id [Template]                                            ModuleDef(mods, name, template)  // no constructor
 EnumDef           ::=  id ClassConstr InheritClauses EnumBody                   EnumDef(mods, name, tparams, template)
+InstanceDef       ::=  [id] InstanceParams InstanceBody
+InstanceParams    ::=  [DefTypeParamClause] {InstParamClause}
+InstanceBody      ::=  [‘of’ ConstrApp {‘,’ ConstrApp }] [TemplateBody]
+                    |  ‘of’ Type ‘=’ Expr
 Template          ::=  InheritClauses [TemplateBody]                            Template(constr, parents, self, stats)
 InheritClauses    ::=  [‘extends’ ConstrApps] [‘derives’ QualId {‘,’ QualId}]
 ConstrApps        ::=  ConstrApp {‘with’ ConstrApp}

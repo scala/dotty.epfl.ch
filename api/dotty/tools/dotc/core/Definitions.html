@@ -140,8 +140,6 @@
 </li>
 <li><a href="../../../../../.././docs/reference/new-types/match-types.html">Match types</a>
 </li>
-<li><a href="../../../../../.././docs/reference/new-types/implicit-function-types.html">Implicit Function Types</a>
-</li>
 <li><a href="../../../../../.././docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></li>
 </ul>
 
@@ -186,7 +184,23 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "core");'>Changed Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "core");'>New Implicits</a>
+<ul id="">
+    <li><a href="../../../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
+</li>
+<li><a href="../../../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
+</ul>
+
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "core");'>Other Changed Features</a>
 <ul id="">
     <li><a href="../../../../../.././docs/reference/changed-features/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
@@ -15457,6 +15471,40 @@ def getClass: java.lang.Class[T] = ???
                     </div>
                 </div><!-- end member -->
                 
+                <div id="ConversionType" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'ConversionType');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            lazy
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                ConversionType
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeRef.html">TypeRef</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-ConversionType">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="CovariantBetweenAnnotType" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'CovariantBetweenAnnotType');">[+]</span>
@@ -18721,74 +18769,6 @@ Symbol
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-PredefImportFns">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Predef_ConformsR" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Predef_ConformsR');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            lazy
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                Predef_ConformsR
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeRef.html">TypeRef</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Predef_ConformsR">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Predef_ImplicitConverterR" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Predef_ImplicitConverterR');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            lazy
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                Predef_ImplicitConverterR
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeRef.html">TypeRef</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Predef_ImplicitConverterR">
                             
                         </div>
                     </div>
@@ -25383,6 +25363,55 @@ TermSymbol
                     </div>
                 </div><!-- end member -->
                 
+                <div id="ConversionClass(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'ConversionClass(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                ConversionClass
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: ClassSymbol</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-ConversionClass(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="CovariantBetweenAnnot(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'CovariantBetweenAnnot(ctx)');">[+]</span>
@@ -26213,9 +26242,9 @@ TermSymbol
                     </div>
                 </div><!-- end member -->
                 
-                <div id="FunctionClass(n,isImplicit,isErased)(ctx)" class="member ">
+                <div id="FunctionClass(n,isContextual,isErased)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'FunctionClass(n,isImplicit,isErased)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'FunctionClass(n,isContextual,isErased)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -26245,7 +26274,7 @@ TermSymbol
                                     
                                 
                                     <span class="">
-                                        isImplicit:
+                                        isContextual:
                                     </span>
                                     Boolean
                                     
@@ -26283,7 +26312,7 @@ TermSymbol
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-FunctionClass(n,isImplicit,isErased)(ctx)">
+                        <div class="member-body-long" id ="long-body-FunctionClass(n,isContextual,isErased)(ctx)">
                             
                         </div>
                     </div>
@@ -26397,9 +26426,9 @@ Symbol
                     </div>
                 </div><!-- end member -->
                 
-                <div id="FunctionType(n,isImplicit,isErased)(ctx)" class="member ">
+                <div id="FunctionType(n,isContextual,isErased)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'FunctionType(n,isImplicit,isErased)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'FunctionType(n,isContextual,isErased)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -26429,7 +26458,7 @@ Symbol
                                     
                                 
                                     <span class="">
-                                        isImplicit:
+                                        isContextual:
                                     </span>
                                     Boolean
                                     
@@ -26467,7 +26496,7 @@ Symbol
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-FunctionType(n,isImplicit,isErased)(ctx)">
+                        <div class="member-body-long" id ="long-body-FunctionType(n,isContextual,isErased)(ctx)">
                             
                         </div>
                     </div>
@@ -28274,104 +28303,6 @@ TermSymbol
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-PartialFunction_isDefinedAt(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Predef_Conforms(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Predef_Conforms(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                Predef_Conforms
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Symbol</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Predef_Conforms(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Predef_ImplicitConverter(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Predef_ImplicitConverter(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                Predef_ImplicitConverter
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Symbol</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Predef_ImplicitConverter(ctx)">
                             
                         </div>
                     </div>
@@ -31769,6 +31700,55 @@ TermSymbol
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-StringType">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="SubTypeClass(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'SubTypeClass(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                SubTypeClass
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Symbol</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-SubTypeClass(ctx)">
                             
                         </div>
                     </div>

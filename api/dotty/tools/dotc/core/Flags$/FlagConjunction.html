@@ -140,8 +140,6 @@
 </li>
 <li><a href="../../../../../../.././docs/reference/new-types/match-types.html">Match types</a>
 </li>
-<li><a href="../../../../../../.././docs/reference/new-types/implicit-function-types.html">Implicit Function Types</a>
-</li>
 <li><a href="../../../../../../.././docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></li>
 </ul>
 
@@ -186,7 +184,23 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "Flags$");'>Changed Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "Flags$");'>New Implicits</a>
+<ul id="">
+    <li><a href="../../../../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
+</ul>
+
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "Flags$");'>Other Changed Features</a>
 <ul id="">
     <li><a href="../../../../../../.././docs/reference/changed-features/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
@@ -13205,55 +13219,6 @@ String
                     </div>
                 </div><!-- end member -->
                 
-                <div id="is(flags)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(flags)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                is
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        flags:
-                                    </span>
-                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-is(flags)">
-                            <p>Does this flag set have all of the flags in given flag conjunction?
-Pre: The intersection of the typeflags of both sets must be non-empty.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="is(flags,butNot)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(flags,butNot)');">[+]</span>
@@ -13413,6 +13378,55 @@ This means that both the kind flags and the carrier bits have non-empty intersec
                         <div class="member-body-long" id ="long-body-is(flags,butNot)">
                             <p>Does this flag set have a non-empty intersection with the given flag set,
 and at the same time contain none of the flags in the <code>butNot</code> set?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="is(flags)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'is(flags)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                is
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        flags:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-is(flags)">
+                            <p>Does this flag set have all of the flags in given flag conjunction?
+Pre: The intersection of the typeflags of both sets must be non-empty.</p>
 
                         </div>
                     </div>
@@ -14059,9 +14073,9 @@ Any
                     </div>
                 </div><!-- end member -->
                 
-                <div id="wait(x$0)" class="member ">
+                <div id="wait()" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'wait(x$0)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'wait()');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14082,12 +14096,6 @@ Any
                             <span class="no-left">(</span>
                                 
                                 
-                                    <span class="no-left">
-                                        x$0:
-                                    </span>
-                                    Long
-                                    
-                                
                             <span class="no-left">)</span>
                             
                         
@@ -14100,7 +14108,7 @@ Any
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-wait(x$0)">
+                        <div class="member-body-long" id ="long-body-wait()">
                             
                         </div>
                     </div>
@@ -14161,9 +14169,9 @@ Any
                     </div>
                 </div><!-- end member -->
                 
-                <div id="wait()" class="member ">
+                <div id="wait(x$0)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'wait()');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'wait(x$0)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14184,6 +14192,12 @@ Any
                             <span class="no-left">(</span>
                                 
                                 
+                                    <span class="no-left">
+                                        x$0:
+                                    </span>
+                                    Long
+                                    
+                                
                             <span class="no-left">)</span>
                             
                         
@@ -14196,7 +14210,7 @@ Any
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-wait()">
+                        <div class="member-body-long" id ="long-body-wait(x$0)">
                             
                         </div>
                     </div>

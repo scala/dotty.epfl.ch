@@ -140,8 +140,6 @@
 </li>
 <li><a href="../../../.././docs/reference/new-types/match-types.html">Match types</a>
 </li>
-<li><a href="../../../.././docs/reference/new-types/implicit-function-types.html">Implicit Function Types</a>
-</li>
 <li><a href="../../../.././docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></li>
 </ul>
 
@@ -186,8 +184,24 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "changed-features");'>Changed Features</a>
-<ul id="active-toc-entry">
+<li><a class="toggle-children" onclick='clickToc(this, "changed-features");'>New Implicits</a>
+<ul id="">
+    <li><a href="../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
+</ul>
+
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "changed-features");'>Other Changed Features</a>
+<ul id="">
     <li><a href="../../../.././docs/reference/changed-features/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
 <li><a href="../../../.././docs/reference/changed-features/structural-types.html">Structural Types</a>
@@ -12640,13 +12654,14 @@
 defined by either:</p>
 <ul>
 <li>An <code>implicit def</code> which has type <code>S =&gt; T</code> or <code>(=&gt; S) =&gt; T</code></li>
-<li>An implicit value which has type <code>ImplicitConverter[S, T]</code></li>
+<li>An implicit value which has type <code>Conversion[S, T]</code></li>
 </ul>
-<p>The standard library defines an abstract class <code>ImplicitConverter</code>:</p>
-<pre><code class="language-scala">abstract class ImplicitConverter[-T, +U] extends Function1[T, U]
+<p>The standard library defines an abstract class <code>Conversion</code>:</p>
+<pre><code class="language-scala">package scala
+@java.lang.FunctionalInterface
+abstract class Conversion[-T, +U] extends Function1[T, U]
 </code></pre>
-<p>Function literals are automatically converted to <code>ImplicitConverter</code>
-values.</p>
+<p>Function literals are automatically converted to <code>Conversion</code> values.</p>
 <p>Views are applied in three situations:</p>
 <ol>
 <li>If an expression <code>e</code> is of type <code>T</code>, and <code>T</code> does not conform to
@@ -12683,12 +12698,12 @@ val x: String = 0 // Compiles in Scala2 (uses `conv1`),
 </code></pre>
 <p>In Scala 2, implicit values of a function type would be considered as
 potential views. In Scala 3, these implicit value need to have type
-<code>ImplicitConverter</code>:</p>
+<code>Conversion</code>:</p>
 <pre><code class="language-scala">// Scala 2:
 def foo(x: Int)(implicit conv: Int =&gt; String): String = x
 
 // Becomes with Scala 3:
-def foo(x: Int)(implicit conv: ImplicitConverter[Int, String]): String = x
+def foo(x: Int)(implicit conv: Conversion[Int, String]): String = x
 
 // Call site is unchanged:
 foo(4)(_.toString)
@@ -12697,13 +12712,13 @@ foo(4)(_.toString)
 implicit val myConverter: Int =&gt; String = _.toString
 
 // Becomes with Scala 3:
-implicit val myConverter: ImplicitConverter[Int, String] = _.toString
+implicit val myConverter: Conversion[Int, String] = _.toString
 </code></pre>
 <p>Note that implicit conversions are also  affected by the <a href="implicit-resolution.html">changes to
 implicit resolution</a> between Scala 2 and
 Scala 3.</p>
 <h2><a href="#motivation-for-the-changes" id="motivation-for-the-changes">Motivation for the changes</a></h2>
-<p>The introduction of <code>ImplicitConverter</code> in Scala 3 and the decision to
+<p>The introduction of <code>Conversion</code> in Scala 3 and the decision to
 restrict implicit values of this type to be considered as potential
 views comes from the desire to remove surprising behavior from the
 language:</p>
@@ -12716,10 +12731,10 @@ val x: String = 1  // scalac: assigns &quot;abc&quot; to x
 does not conform to type <code>String</code>. In Scala 2, the compiler will use
 <code>m</code> as an implicit conversion from <code>Int</code> to <code>String</code>, whereas Scala 3
 will report a type error, because Map isn't an instance of
-<code>ImplicitConverter</code>.</p>
+<code>Conversion</code>.</p>
 <h2><a href="#migration-path" id="migration-path">Migration path</a></h2>
 <p>Implicit values that are used as views should see their type changed
-to <code>ImplicitConverter</code>.</p>
+to <code>Conversion</code>.</p>
 <p>For the migration of implicit conversions that are affected by the
 changes to implicit resolution, refer to the <a href="implicit-resolution.html">Changes in Implicit
 Resolution</a> for more information.</p>

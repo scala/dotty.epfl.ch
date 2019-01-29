@@ -140,8 +140,6 @@
 </li>
 <li><a href="../../../.././docs/reference/new-types/match-types.html">Match types</a>
 </li>
-<li><a href="../../../.././docs/reference/new-types/implicit-function-types.html">Implicit Function Types</a>
-</li>
 <li><a href="../../../.././docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></li>
 </ul>
 
@@ -186,8 +184,24 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "changed-features");'>Changed Features</a>
-<ul id="active-toc-entry">
+<li><a class="toggle-children" onclick='clickToc(this, "changed-features");'>New Implicits</a>
+<ul id="">
+    <li><a href="../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
+</li>
+<li><a href="../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
+</ul>
+
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "changed-features");'>Other Changed Features</a>
+<ul id="">
     <li><a href="../../../.././docs/reference/changed-features/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
 <li><a href="../../../.././docs/reference/changed-features/structural-types.html">Structural Types</a>
@@ -12650,7 +12664,7 @@ case).</p>
 <p>This conversion can be either:</p>
 <ol>
 <li>An <code>implicit def</code> of type <code>T =&gt; S</code> or <code>(=&gt; T) =&gt; S</code></li>
-<li>An implicit value of type <code>ImplicitConverter[T, S]</code></li>
+<li>An implicit value of type <code>scala.Conversion[T, S]</code></li>
 </ol>
 <p>Defining an implicit conversion will emit a warning unless the import
 <code>scala.language.implicitConversions</code> is in scope, or the flag
@@ -12663,12 +12677,12 @@ method that expects a <code>java.lang.Integer</code></p>
 implicit def int2Integer(x: Int): java.lang.Integer =
   x.asInstanceOf[java.lang.Integer]
 </code></pre>
-<p>The second example shows how to use <code>ImplicitConverter</code> to define an
+<p>The second example shows how to use <code>Conversion</code> to define an
 <code>Ordering</code> for an arbitrary type, given existing <code>Ordering</code>s for other
 types:</p>
 <pre><code class="language-scala">import scala.language.implicitConversions
 implicit def ordT[T, S](
-  implicit conv: ImplicitConverter[T, S],
+  implicit conv: Conversion[T, S],
            ordS: Ordering[S]
   ): Ordering[T] = {
   // `ordS` compares values of type `S`, but we can convert from `T` to `S`
@@ -12678,7 +12692,7 @@ implicit def ordT[T, S](
 class A(val x: Int) // The type for which we want an `Ordering`
 
 // Convert `A` to a type for which an `Ordering` is available:
-implicit val AToInt: ImplicitConverter[A, Int] = _.x
+implicit val AToInt: Conversion[A, Int] = _.x
 
 implicitly[Ordering[Int]] // Ok, exists in the standard library
 implicitly[Ordering[A]] // Ok, will use the implicit conversion from
