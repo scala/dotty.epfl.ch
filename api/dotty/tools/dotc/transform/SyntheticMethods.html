@@ -12687,8 +12687,9 @@ def toString(): String
 def productElement(i: Int): Any
 def productArity: Int
 def productPrefix: String</p>
-<p>Special handling:
-protected def readResolve(): AnyRef</p>
+<p>Add to serializable static objects, unless an implementation
+already exists:
+private def writeReplace(): AnyRef</p>
 <p>Selectively added to value classes, unless a non-default
 implementation already exists:
 def equals(other: Any): Boolean
@@ -12936,6 +12937,71 @@ def hashCode(): Int</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="caseAndValueMethods(clazz)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'caseAndValueMethods(clazz)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                caseAndValueMethods
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        clazz:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Symbols$/ClassSymbol.html">ClassSymbol</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: List
+<span class="no-left no-right">[</span>
+<a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-caseAndValueMethods(clazz)(ctx)">
+                            <p>If this is a case or value class, return the appropriate additional methods,
+otherwise return nothing.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="caseModuleSymbols(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'caseModuleSymbols(ctx)');">[+]</span>
@@ -13089,9 +13155,9 @@ def hashCode(): Int</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="syntheticMethods(clazz)(ctx)" class="member ">
+                <div id="serializableObjectMethod(clazz)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'syntheticMethods(clazz)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'serializableObjectMethod(clazz)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13103,7 +13169,7 @@ def hashCode(): Int</p>
                         </span>
                         <span class="member-name ">
                             
-                                syntheticMethods
+                                serializableObjectMethod
                             
                         </span>
 
@@ -13146,8 +13212,12 @@ def hashCode(): Int</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-syntheticMethods(clazz)(ctx)">
-                            <p>The synthetic methods of the case or value class <code>clazz</code>.</p>
+                        <div class="member-body-long" id ="long-body-serializableObjectMethod(clazz)(ctx)">
+                            <p>If this is a serializable static object <code>Foo</code>, add the method:</p>
+<pre><code>private def writeReplace(): AnyRef =
+  new scala.runtime.ModuleSerializationProxy(classOf[Foo.type])
+</code></pre>
+<p>unless an implementation already exists, otherwise do nothing.</p>
 
                         </div>
                     </div>

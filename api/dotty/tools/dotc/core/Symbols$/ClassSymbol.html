@@ -18934,7 +18934,7 @@ of this run.</p>
                                     <span class="no-left">
                                         fs:
                                     </span>
-                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -18971,7 +18971,7 @@ of this run.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-is(fs,butNot)(ctx)">
-                            <p>Has this denotation all of the flags in <code>fs</code> set, whereas none of the flags
+                            <p>Has this denotation one of the flags in <code>fs</code> set, whereas none of the flags
 in <code>butNot</code> are set?</p>
 
                         </div>
@@ -19065,7 +19065,7 @@ in <code>butNot</code> are set?</p>
                                     <span class="no-left">
                                         fs:
                                     </span>
-                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagSet.html">FlagSet</a>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Flags$/FlagConjunction.html">FlagConjunction</a>
                                     
                                         <span class="no-left">, </span>
                                     
@@ -19102,7 +19102,7 @@ in <code>butNot</code> are set?</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-is(fs,butNot)(ctx)">
-                            <p>Has this denotation one of the flags in <code>fs</code> set, whereas none of the flags
+                            <p>Has this denotation all of the flags in <code>fs</code> set, whereas none of the flags
 in <code>butNot</code> are set?</p>
 
                         </div>
@@ -21406,6 +21406,56 @@ which is the type of this symbol's owner.
 symbol's name is &quot;_&quot;.
 TODO: Find a more robust way to characterize self symbols, maybe by
 spending a Flag on them?</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="isSerializable(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isSerializable(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isSerializable
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isSerializable(ctx)">
+                            <p>Is this symbol a class that extends <code>java.io.Serializable</code> ?</p>
 
                         </div>
                     </div>
@@ -25976,55 +26026,6 @@ as seen from subclasses.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="showSummary(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'showSummary(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                showSummary
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: String</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-showSummary(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="showSummary(depth)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'showSummary(depth)(ctx)');">[+]</span>
@@ -26084,6 +26085,55 @@ as seen from subclasses.</p>
 Recursion depth is limited to some smallish value. Default is
 Config.summarizeDepth.</p>
 
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="showSummary(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'showSummary(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                showSummary
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: String</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-showSummary(ctx)">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -27733,47 +27783,6 @@ or taking more efficient shortcuts (e.g. the stillValid test).</li>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="wait()" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'wait()');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                wait
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Unit</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-wait()">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="wait(x$0,x$1)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'wait(x$0,x$1)');">[+]</span>
@@ -27871,6 +27880,47 @@ or taking more efficient shortcuts (e.g. the stillValid test).</li>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-wait(x$0)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="wait()" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'wait()');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                wait
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-wait()">
                             
                         </div>
                     </div>

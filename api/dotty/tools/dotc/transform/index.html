@@ -16756,8 +16756,9 @@ def toString(): String
 def productElement(i: Int): Any
 def productArity: Int
 def productPrefix: String</p>
-<p>Special handling:
-protected def readResolve(): AnyRef</p>
+<p>Add to serializable static objects, unless an implementation
+already exists:
+private def writeReplace(): AnyRef</p>
 <p>Selectively added to value classes, unless a non-default
 implementation already exists:
 def equals(other: Any): Boolean
