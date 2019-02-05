@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-02-02 -->
+<!-- This page was last generated on 2019-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -154,11 +154,33 @@
 </ul>
 
 </li>
+<li><a class="toggle-children" onclick='clickToc(this, "SymDenotations$");'>Contextual Abstractions</a>
+<ul id="">
+    <li><a href="../../../../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/typeclasses.html">Implementing Typeclasses</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
+</ul>
+
+</li>
 <li><a class="toggle-children" onclick='clickToc(this, "SymDenotations$");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
+    <li><a href="../../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -170,10 +192,6 @@
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/opaques.html">Opaque Type Aliases</a>
 </li>
-<li><a href="../../../../../../.././docs/reference/other-new-features/extension-methods.html">Extension Methods</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/other-new-features/implicit-by-name-parameters.html">By-Name Implicits</a>
-</li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/auto-parameter-tupling.html">Auto Parameter Tupling</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/named-typeargs.html">Named Type Arguments</a>
@@ -181,22 +199,6 @@
 <li><a href="../../../../../../.././docs/reference/other-new-features/erased-terms.html">Erased Terms</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a></li>
-</ul>
-
-</li>
-<li><a class="toggle-children" onclick='clickToc(this, "SymDenotations$");'>New Implicits</a>
-<ul id="">
-    <li><a href="../../../../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
 </ul>
 
 </li>
@@ -235,6 +237,8 @@
 <li><a href="../../../../../../.././docs/reference/dropped-features/type-projection.html">Type Projection</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/dropped-features/procedure-syntax.html">Procedure Syntax</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/dropped-features/package-objects.html">Package Objects</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/dropped-features/early-initializers.html">Early Initializers</a>
 </li>
@@ -12926,9 +12930,9 @@ It overrides ClassDenotation to take account of package objects when looking for
                     </div>
                 </div><!-- end member -->
                 
-                <div id="packageObjCache" class="member private">
+                <div id="packageObjsCache" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'packageObjCache');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'packageObjsCache');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12940,7 +12944,7 @@ It overrides ClassDenotation to take account of package objects when looking for
                         </span>
                         <span class="member-name ">
                             
-                                packageObjCache
+                                packageObjsCache
                             
                         </span>
 
@@ -12949,20 +12953,23 @@ It overrides ClassDenotation to take account of package objects when looking for
                         
 
                         
-                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/core/SymDenotations.html#SymDenotation(symbol,owner,name,initFlags,initInfo,initPrivateWithin)(ctx)">SymDenotation</a></span>
+                        <span class="no-left">: List
+<span class="no-left no-right">[</span>
+ClassDenotation
+<span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-packageObjCache">
+                        <div class="member-body-long" id ="long-body-packageObjsCache">
                             
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="packageObjRunId" class="member private">
+                <div id="packageObjsRunId" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'packageObjRunId');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'packageObjsRunId');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12974,7 +12981,7 @@ It overrides ClassDenotation to take account of package objects when looking for
                         </span>
                         <span class="member-name ">
                             
-                                packageObjRunId
+                                packageObjsRunId
                             
                         </span>
 
@@ -12988,7 +12995,7 @@ It overrides ClassDenotation to take account of package objects when looking for
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-packageObjRunId">
+                        <div class="member-body-long" id ="long-body-packageObjsRunId">
                             
                         </div>
                     </div>
@@ -13086,8 +13093,8 @@ It overrides ClassDenotation to take account of package objects when looking for
                             <p>Looks in both the package object and the package for members. The precise algorithm
 is as follows:</p>
 <p>If this is the scala package look in the package first, and if nothing is found
-there, look in the package object second. Otherwise, look in the package object
-first, and if nothing is found there, in the package second.</p>
+there, look in the package object second. Otherwise, look in the both the package object
+and the package and form a union of the results.</p>
 <p>The reason for the special treatment of the scala package is that if we
 complete it too early, we freeze its superclass Any, so that no members can
 be entered in it. As a consequence, there should be no entry in the scala package
@@ -13170,9 +13177,9 @@ the behavior would then be unintuitive for such members.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="packageObj(ctx)" class="member ">
+                <div id="packageObjFor(sym)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'packageObj(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'packageObjFor(sym)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13184,7 +13191,69 @@ the behavior would then be unintuitive for such members.</p>
                         </span>
                         <span class="member-name ">
                             
-                                packageObj
+                                packageObjFor
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        sym:
+                                    </span>
+                                    Symbol
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Symbol</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-packageObjFor(sym)(ctx)">
+                            <p>The package object (as a term symbol) in this package that might contain
+<code>sym</code> as a member.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="packageObjs(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'packageObjs(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                packageObjs
                             
                         </span>
 
@@ -13208,13 +13277,16 @@ the behavior would then be unintuitive for such members.</p>
                         
 
                         
-                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/core/SymDenotations.html#SymDenotation(symbol,owner,name,initFlags,initInfo,initPrivateWithin)(ctx)">SymDenotation</a></span>
+                        <span class="no-left">: List
+<span class="no-left no-right">[</span>
+ClassDenotation
+<span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-packageObj(ctx)">
-                            <p>The package object in this class, of one exists</p>
+                        <div class="member-body-long" id ="long-body-packageObjs(ctx)">
+                            <p>The package objects in this class</p>
 
                         </div>
                     </div>

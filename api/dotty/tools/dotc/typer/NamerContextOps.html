@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-02-02 -->
+<!-- This page was last generated on 2019-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -154,11 +154,33 @@
 </ul>
 
 </li>
+<li><a class="toggle-children" onclick='clickToc(this, "typer");'>Contextual Abstractions</a>
+<ul id="">
+    <li><a href="../../../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+</li>
+<li><a href="../../../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+</li>
+<li><a href="../../../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
+</li>
+<li><a href="../../../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
+</li>
+<li><a href="../../../../../.././docs/reference/contextual/typeclasses.html">Implementing Typeclasses</a>
+</li>
+<li><a href="../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
+</li>
+<li><a href="../../../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+</li>
+<li><a href="../../../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+</li>
+<li><a href="../../../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
+</ul>
+
+</li>
 <li><a class="toggle-children" onclick='clickToc(this, "typer");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
-</li>
-<li><a href="../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
+    <li><a href="../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -170,10 +192,6 @@
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/opaques.html">Opaque Type Aliases</a>
 </li>
-<li><a href="../../../../../.././docs/reference/other-new-features/extension-methods.html">Extension Methods</a>
-</li>
-<li><a href="../../../../../.././docs/reference/other-new-features/implicit-by-name-parameters.html">By-Name Implicits</a>
-</li>
 <li><a href="../../../../../.././docs/reference/other-new-features/auto-parameter-tupling.html">Auto Parameter Tupling</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/named-typeargs.html">Named Type Arguments</a>
@@ -181,22 +199,6 @@
 <li><a href="../../../../../.././docs/reference/other-new-features/erased-terms.html">Erased Terms</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a></li>
-</ul>
-
-</li>
-<li><a class="toggle-children" onclick='clickToc(this, "typer");'>New Implicits</a>
-<ul id="">
-    <li><a href="../../../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
-</li>
-<li><a href="../../../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
-</li>
-<li><a href="../../../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
-</li>
-<li><a href="../../../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
-</li>
-<li><a href="../../../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
-</li>
-<li><a href="../../../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
 </ul>
 
 </li>
@@ -235,6 +237,8 @@
 <li><a href="../../../../../.././docs/reference/dropped-features/type-projection.html">Type Projection</a>
 </li>
 <li><a href="../../../../../.././docs/reference/dropped-features/procedure-syntax.html">Procedure Syntax</a>
+</li>
+<li><a href="../../../../../.././docs/reference/dropped-features/package-objects.html">Package Objects</a>
 </li>
 <li><a href="../../../../../.././docs/reference/dropped-features/early-initializers.html">Early Initializers</a>
 </li>
@@ -12888,9 +12892,9 @@ for a module or module class</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="effectiveResultType(sym,typeParams,given)" class="member ">
+                <div id="effectiveResultType(sym,typeParams,givenTp)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'effectiveResultType(sym,typeParams,given)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'effectiveResultType(sym,typeParams,givenTp)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12931,7 +12935,7 @@ for a module or module class</p>
                                     
                                 
                                     <span class="">
-                                        given:
+                                        givenTp:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
                                     
@@ -12948,7 +12952,7 @@ for a module or module class</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-effectiveResultType(sym,typeParams,given)">
+                        <div class="member-body-long" id ="long-body-effectiveResultType(sym,typeParams,givenTp)">
                             <p>The given type, unless <code>sym</code> is a constructor, in which case the
 type of the constructed instance is returned</p>
 
@@ -13149,9 +13153,9 @@ no owner is set in result context</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="methodType(typeParams,valueParamss,resultType,isJava,isInstance)(ctx)" class="member ">
+                <div id="methodType(typeParams,valueParamss,resultType,isJava)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'methodType(typeParams,valueParamss,resultType,isJava,isInstance)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'methodType(typeParams,valueParamss,resultType,isJava)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13210,14 +13214,6 @@ List
                                     </span>
                                     Boolean
                                     
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        isInstance:
-                                    </span>
-                                    Boolean
-                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -13244,7 +13240,7 @@ List
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-methodType(typeParams,valueParamss,resultType,isJava,isInstance)(ctx)">
+                        <div class="member-body-long" id ="long-body-methodType(typeParams,valueParamss,resultType,isJava)(ctx)">
                             <p>The method type corresponding to given parameters and result type</p>
 
                         </div>
@@ -13280,41 +13276,6 @@ List
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-methodType$default$4">
-                            <p>The method type corresponding to given parameters and result type</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="methodType$default$5" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'methodType$default$5');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                methodType$default$5
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Boolean</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-methodType$default$5">
                             <p>The method type corresponding to given parameters and result type</p>
 
                         </div>

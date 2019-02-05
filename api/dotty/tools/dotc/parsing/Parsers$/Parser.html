@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-02-02 -->
+<!-- This page was last generated on 2019-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -154,11 +154,33 @@
 </ul>
 
 </li>
+<li><a class="toggle-children" onclick='clickToc(this, "Parsers$");'>Contextual Abstractions</a>
+<ul id="">
+    <li><a href="../../../../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/typeclasses.html">Implementing Typeclasses</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
+</ul>
+
+</li>
 <li><a class="toggle-children" onclick='clickToc(this, "Parsers$");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../../../../.././docs/reference/derivation.html">Typeclass Derivation</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
+    <li><a href="../../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -170,10 +192,6 @@
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/opaques.html">Opaque Type Aliases</a>
 </li>
-<li><a href="../../../../../../.././docs/reference/other-new-features/extension-methods.html">Extension Methods</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/other-new-features/implicit-by-name-parameters.html">By-Name Implicits</a>
-</li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/auto-parameter-tupling.html">Auto Parameter Tupling</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/named-typeargs.html">Named Type Arguments</a>
@@ -181,22 +199,6 @@
 <li><a href="../../../../../../.././docs/reference/other-new-features/erased-terms.html">Erased Terms</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a></li>
-</ul>
-
-</li>
-<li><a class="toggle-children" onclick='clickToc(this, "Parsers$");'>New Implicits</a>
-<ul id="">
-    <li><a href="../../../../../../.././docs/reference/instances/instance-defs.html">Instance Definitions</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/context-params.html">Context Parameters</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/implicit-function-types.html">Implicit Function Types</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/implicit-conversions.html">Implicit Conversions</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/replacing-implicits.html">Replacing Implicits</a>
-</li>
-<li><a href="../../../../../../.././docs/reference/instances/discussion.html">Discussion</a></li>
 </ul>
 
 </li>
@@ -235,6 +237,8 @@
 <li><a href="../../../../../../.././docs/reference/dropped-features/type-projection.html">Type Projection</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/dropped-features/procedure-syntax.html">Procedure Syntax</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/dropped-features/package-objects.html">Package Objects</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/dropped-features/early-initializers.html">Early Initializers</a>
 </li>
@@ -12829,6 +12833,40 @@
                     </div>
                 </div><!-- end member -->
                 
+                <div id="closureMods" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'closureMods');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                closureMods
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: BitSet</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-closureMods">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="constrApp" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'constrApp');">[+]</span>
@@ -12927,14 +12965,13 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-exprInParens">
-                            <p>Expr              ::=  [FunArgMods] FunParams =&gt;' Expr
-|  [‘erased’] FunParams ‘|=&gt;’ Expr
+                            <p>Expr              ::=  [ClosureMods] FunParams =&gt;' Expr
 |  Expr1
 FunParams         ::=  Bindings
 |  id
 |  <code>_' ExprInParens ::= PostfixExpr</code>:' Type
 |  Expr
-BlockResult       ::=  [FunArgMods] FunParams =&gt;' Block
+BlockResult       ::=  [ClosureMods] FunParams =&gt;' Block
 |  Expr1
 Expr1             ::=  [‘inline’] <code>if'</code>(' Expr <code>)' {nl} Expr [[semi] else Expr] | [‘inline’]</code>if' Expr <code>then' Expr [[semi] else Expr] |</code>while' <code>(' Expr</code>)' {nl} Expr
 |  <code>while' Expr</code>do' Expr
@@ -12948,6 +12985,43 @@ Expr1             ::=  [‘inline’] <code>if'</code>(' Expr <code>)' {nl} Expr
 |  <code>implicit'</code>match' <code>{' ImplicitCaseClauses</code>}'
 Bindings          ::= <code>(' [Binding {</code>,' Binding}] <code>)' Binding ::= (id |</code>_') [<code>:' Type] Ascription ::=</code>:' CompoundType
 | <code>:' Annotation {Annotation} |</code>:' <code>_'</code>*'</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="funArgMods" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'funArgMods');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                funArgMods
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: BitSet</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-funArgMods">
+                            <p>FunArgMods  ::=  { <code>implicit</code> | <code>erased</code> }
+ClosureMods ::=  { ‘implicit’ | ‘erased’ | ‘given’}
+FunTypeMods ::=  { ‘erased’ | ‘given’}</p>
 
                         </div>
                     </div>
@@ -12984,6 +13058,40 @@ Bindings          ::= <code>(' [Binding {</code>,' Binding}] <code>)' Binding ::
                         <div class="member-body-long" id ="long-body-funArgType">
                             <p>FunArgType ::=  Type | `=&gt;' Type</p>
 
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="funTypeMods" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'funTypeMods');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                funTypeMods
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: BitSet</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-funTypeMods">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -16069,9 +16177,9 @@ T
                     </div>
                 </div><!-- end member -->
                 
-                <div id="convertToParam(tree,mods,expected)" class="member ">
+                <div id="convertToParam(tree,expected)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'convertToParam(tree,mods,expected)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'convertToParam(tree,expected)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -16101,14 +16209,6 @@ T
                                     
                                 
                                     <span class="">
-                                        mods:
-                                    </span>
-                                    <a href="../../../../../../.././api/dotty/tools/dotc/ast/untpd$/Modifiers.html">Modifiers</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
                                         expected:
                                     </span>
                                     String
@@ -16126,16 +16226,16 @@ T
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-convertToParam(tree,mods,expected)">
+                        <div class="member-body-long" id ="long-body-convertToParam(tree,expected)">
                             <p>Convert tree to formal parameter</p>
 
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="convertToParam$default$3" class="member ">
+                <div id="convertToParam$default$2" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'convertToParam$default$3');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'convertToParam$default$2');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -16147,7 +16247,7 @@ T
                         </span>
                         <span class="member-name ">
                             
-                                convertToParam$default$3
+                                convertToParam$default$2
                             
                         </span>
 
@@ -16161,16 +16261,16 @@ T
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-convertToParam$default$3">
+                        <div class="member-body-long" id ="long-body-convertToParam$default$2">
                             <p>Convert tree to formal parameter</p>
 
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="convertToParams(tree,mods)" class="member ">
+                <div id="convertToParams(tree)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'convertToParams(tree,mods)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'convertToParams(tree)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -16196,14 +16296,6 @@ T
                                     </span>
                                     <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
                                     
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        mods:
-                                    </span>
-                                    <a href="../../../../../../.././api/dotty/tools/dotc/ast/untpd$/Modifiers.html">Modifiers</a>
-                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -16220,7 +16312,7 @@ T
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-convertToParams(tree,mods)">
+                        <div class="member-body-long" id ="long-body-convertToParams(tree)">
                             <p>Convert tree to formal parameter list</p>
 
                         </div>
@@ -17543,41 +17635,6 @@ If it is, returns the [[Tree]] which immediately represents the non-value type.<
                     </div>
                 </div><!-- end member -->
                 
-                <div id="funArgMods" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'funArgMods');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                funArgMods
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: BitSet</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-funArgMods">
-                            <p>FunArgMods ::= { <code>implicit</code> | <code>erased</code> }</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="funParams(mods,location)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'funParams(mods,location)');">[+]</span>
@@ -17926,7 +17983,7 @@ If it is, returns the [[Tree]] which immediately represents the non-value type.<
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-implicitClosure(start,location,implicitMods)">
-                            <p>Expr         ::= FunArgMods FunParams <code>=&gt;' Expr | [‘erased’] FunParams ‘|=&gt;’ Expr BlockResult ::= implicit id [</code>:' InfixType] `=&gt;' Block // Scala2 only</p>
+                            <p>Expr         ::= ClosureMods FunParams <code>=&gt;' Expr BlockResult ::= implicit id [</code>:' InfixType] `=&gt;' Block // Scala2 only</p>
 
                         </div>
                     </div>
@@ -18488,7 +18545,7 @@ If it is, returns the [[Tree]] which immediately represents the non-value type.<
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-infixOps(first,canStartOperand,operand,isType,isOperator,maybePostfix)">
-                            <p>operand { infixop operand | ‘with’ (operand | ParArgumentExprs) } [postfixop],</p>
+                            <p>operand { infixop operand | ‘given’ (operand | ParArgumentExprs) } [postfixop],</p>
 <p>respecting rules of associativity and precedence.</p>
 
                         </div>
@@ -18524,7 +18581,7 @@ If it is, returns the [[Tree]] which immediately represents the non-value type.<
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-infixOps$default$4">
-                            <p>operand { infixop operand | ‘with’ (operand | ParArgumentExprs) } [postfixop],</p>
+                            <p>operand { infixop operand | ‘given’ (operand | ParArgumentExprs) } [postfixop],</p>
 <p>respecting rules of associativity and precedence.</p>
 
                         </div>
@@ -18560,7 +18617,7 @@ If it is, returns the [[Tree]] which immediately represents the non-value type.<
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-infixOps$default$5">
-                            <p>operand { infixop operand | ‘with’ (operand | ParArgumentExprs) } [postfixop],</p>
+                            <p>operand { infixop operand | ‘given’ (operand | ParArgumentExprs) } [postfixop],</p>
 <p>respecting rules of associativity and precedence.</p>
 
                         </div>
@@ -18596,7 +18653,7 @@ If it is, returns the [[Tree]] which immediately represents the non-value type.<
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-infixOps$default$6">
-                            <p>operand { infixop operand | ‘with’ (operand | ParArgumentExprs) } [postfixop],</p>
+                            <p>operand { infixop operand | ‘given’ (operand | ParArgumentExprs) } [postfixop],</p>
 <p>respecting rules of associativity and precedence.</p>
 
                         </div>
@@ -18846,7 +18903,7 @@ List
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-instanceDef(start,mods,instanceMod)">
                             <p>InstanceDef    ::=  [id] InstanceParams InstanceBody
-InstanceParams ::=  [DefTypeParamClause] {InstParamClause}
+InstanceParams ::=  [DefTypeParamClause] {InferParamClause}
 InstanceBody   ::=  [‘of’ ConstrApp {‘,’ ConstrApp }] [TemplateBody]
 |  ‘of’ Type ‘=’ Expr</p>
 
@@ -21047,8 +21104,8 @@ Furthermore, <code>()</code> is considered a annotation argument only if it come
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause(ofClass,ofCaseClass,prefix,firstClause,initialMods)">
                             <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{Modifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InstParamClause
-InstParamClause   ::=  ‘with’ (‘(’ [DefParams] ‘)’ | ContextTypes)
+ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
+InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21086,8 +21143,8 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$1">
                             <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{Modifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InstParamClause
-InstParamClause   ::=  ‘with’ (‘(’ [DefParams] ‘)’ | ContextTypes)
+ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
+InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21125,8 +21182,8 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$2">
                             <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{Modifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InstParamClause
-InstParamClause   ::=  ‘with’ (‘(’ [DefParams] ‘)’ | ContextTypes)
+ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
+InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21164,8 +21221,8 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$3">
                             <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{Modifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InstParamClause
-InstParamClause   ::=  ‘with’ (‘(’ [DefParams] ‘)’ | ContextTypes)
+ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
+InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21203,8 +21260,8 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$4">
                             <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{Modifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InstParamClause
-InstParamClause   ::=  ‘with’ (‘(’ [DefParams] ‘)’ | ContextTypes)
+ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
+InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21242,8 +21299,8 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$5">
                             <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{Modifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InstParamClause
-InstParamClause   ::=  ‘with’ (‘(’ [DefParams] ‘)’ | ContextTypes)
+ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
+InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21317,7 +21374,7 @@ List
                         <div class="member-body-long" id ="long-body-paramClauses(ofClass,ofCaseClass,ofInstance)">
                             <p>ClsParamClauses   ::=  {ClsParamClause}
 DefParamClauses   ::=  {DefParamClause}
-InstParamClauses  ::=  {InstParamClause}</p>
+InferParamClauses ::=  {InferParamClause}</p>
 
                         </div>
                     </div>
@@ -21354,7 +21411,7 @@ InstParamClauses  ::=  {InstParamClause}</p>
                         <div class="member-body-long" id ="long-body-paramClauses$default$1">
                             <p>ClsParamClauses   ::=  {ClsParamClause}
 DefParamClauses   ::=  {DefParamClause}
-InstParamClauses  ::=  {InstParamClause}</p>
+InferParamClauses ::=  {InferParamClause}</p>
 
                         </div>
                     </div>
@@ -21391,7 +21448,7 @@ InstParamClauses  ::=  {InstParamClause}</p>
                         <div class="member-body-long" id ="long-body-paramClauses$default$2">
                             <p>ClsParamClauses   ::=  {ClsParamClause}
 DefParamClauses   ::=  {DefParamClause}
-InstParamClauses  ::=  {InstParamClause}</p>
+InferParamClauses ::=  {InferParamClause}</p>
 
                         </div>
                     </div>
@@ -21428,7 +21485,7 @@ InstParamClauses  ::=  {InstParamClause}</p>
                         <div class="member-body-long" id ="long-body-paramClauses$default$3">
                             <p>ClsParamClauses   ::=  {ClsParamClause}
 DefParamClauses   ::=  {DefParamClause}
-InstParamClauses  ::=  {InstParamClause}</p>
+InferParamClauses ::=  {InferParamClause}</p>
 
                         </div>
                     </div>
@@ -22032,7 +22089,7 @@ Parameters appear in reverse order.</p>
                             <p>PostfixExpr   ::= InfixExpr [id [nl]]
 InfixExpr     ::= PrefixExpr
 | InfixExpr id [nl] InfixExpr
-| InfixExpr ‘with’ (InfixExpr | ParArgumentExprs)</p>
+| InfixExpr ‘given’ (InfixExpr | ParArgumentExprs)</p>
 
                         </div>
                     </div>
@@ -23618,7 +23675,7 @@ T
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-topStatSeq()">
                             <p>TopStatSeq ::= TopStat {semi TopStat}
-TopStat ::= Annotations Modifiers TmplDef
+TopStat ::= Annotations Modifiers Def
 | Packaging
 | package object objectDef
 | Import
@@ -23707,8 +23764,10 @@ returns a tree for type <code>Any</code> instead.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-typ()">
-                            <p>Type        ::=  [‘erased’] FunArgTypes (‘=&gt;’ | ‘|=&gt;’) Type
-|  HkTypeParamClause <code>-&gt;' Type | InfixType FunArgTypes ::= InfixType |</code>(' [ FunArgType {<code>,' FunArgType } ]</code>)'
+                            <p>Type        ::=  FunTypeMods FunArgTypes <code>=&gt;' Type | HkTypeParamClause</code>-&gt;' Type
+|  InfixType
+FunArgTypes ::=  InfixType
+|  <code>(' [ FunArgType {</code>,' FunArgType } ] `)'
 |  '(' TypedFunParam {',' TypedFunParam } ')'</p>
 
                         </div>
