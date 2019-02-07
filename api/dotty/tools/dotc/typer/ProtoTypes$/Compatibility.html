@@ -12985,9 +12985,9 @@ achieved by replacing expected type parameters with wildcards.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="normalizedCompatible(tp,pt)(ctx)" class="member ">
+                <div id="normalizedCompatible(tp,pt,keepConstraint)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'normalizedCompatible(tp,pt)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'normalizedCompatible(tp,pt,keepConstraint)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13021,6 +13021,14 @@ achieved by replacing expected type parameters with wildcards.</p>
                                     </span>
                                     <a href="../../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
                                     
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        keepConstraint:
+                                    </span>
+                                    Boolean
+                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -13047,8 +13055,9 @@ achieved by replacing expected type parameters with wildcards.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-normalizedCompatible(tp,pt)(ctx)">
-                            <p>Test compatibility after normalization in a fresh typerstate.</p>
+                        <div class="member-body-long" id ="long-body-normalizedCompatible(tp,pt,keepConstraint)(ctx)">
+                            <p>Test compatibility after normalization.
+Do this in a fresh typerstate unless <code>keepConstraint</code> is true.</p>
 
                         </div>
                     </div>
