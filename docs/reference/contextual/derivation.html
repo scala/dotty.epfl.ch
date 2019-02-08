@@ -13010,12 +13010,7 @@ case object None extends Option[Nothing]
 </code></pre>
 <p>The generated typeclass instances are placed in the companion objects <code>Labelled</code> and <code>Option</code>, respectively.</p>
 <h3><a href="#derivable-types" id="derivable-types">Derivable Types</a></h3>
-<p>A trait or class can appear in a <code>derives</code> clause if</p>
-<ul>
-<li>it has a single type parameter, and</li>
-<li>its companion object defines a method named <code>derived</code>.</li>
-</ul>
-<p>These two conditions ensure that the synthesized derived instances for the trait are well-formed. The type and implementation of a <code>derived</code> method are arbitrary, but typically it has a definition like this:</p>
+<p>A trait or class can appear in a <code>derives</code> clause if its companion object defines a method named <code>derived</code>. The type and implementation of a <code>derived</code> method are arbitrary, but typically it has a definition like this:</p>
 <pre><code class="language-scala">  def derived[T] with Generic[T] = ...
 </code></pre>
 <p>That is, the <code>derived</code> method takes an inferable parameter of type <code>Generic</code> that determines the <em>shape</em> of the deriving type <code>T</code> and it computes the typeclass implementation according to that shape. An implied <code>Generic</code> instance is generated automatically for any type that derives a typeclass with a <code>derived</code>
