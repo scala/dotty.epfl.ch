@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-02-10 -->
+<!-- This page was last generated on 2019-02-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -161,6 +161,8 @@
 <li><a href="../../../../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -13427,40 +13429,6 @@ FunTypeMods ::=  { ‘erased’ | ‘given’}</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="handleImport" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'handleImport');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                handleImport
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a><span class="right-arrow"> =&gt; </span><a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-handleImport">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="handleSingletonType" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'handleSingletonType');">[+]</span>
@@ -13525,41 +13493,6 @@ FunTypeMods ::=  { ‘erased’ | ‘given’}</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-id">
                             
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="importExpr" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'importExpr');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                importExpr
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <span>() =&gt; </span><a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Import">Import</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-importExpr">
-                            <p>ImportExpr ::= StableId <code>.' (id |</code>_' | ImportSelectors)</p>
-
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -18465,7 +18398,55 @@ If it is, returns the [[Tree]] which immediately represents the non-value type.<
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-importClause()">
-                            <p>Import  ::= import ImportExpr {`,' ImportExpr}</p>
+                            <p>Import  ::= import [implied] [ImportExpr {`,' ImportExpr}</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="importExpr(impliedOnly)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'importExpr(impliedOnly)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                importExpr
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        impliedOnly:
+                                    </span>
+                                    Boolean
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <span>() =&gt; </span><a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Import">Import</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-importExpr(impliedOnly)">
+                            <p>ImportExpr ::= StableId <code>.' (id |</code>_' | ImportSelectors)</p>
 
                         </div>
                     </div>

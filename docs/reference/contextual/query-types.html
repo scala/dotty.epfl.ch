@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-02-10 -->
+<!-- This page was last generated on 2019-02-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -161,6 +161,8 @@
 <li><a href="../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
+</li>
+<li><a href="../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -13101,7 +13103,7 @@ that would otherwise be necessary.</p>
 }
 
 object Test {
-  import PostConditions.ensuring
+  import PostConditions.{ensuring, result}
   val s = List(1, 2, 3).sum.ensuring(result == 6)
 }
 </code></pre>
