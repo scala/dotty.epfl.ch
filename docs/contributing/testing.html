@@ -13032,11 +13032,22 @@ along with their expected output (run tests) or errors (neg tests).</p>
 <p>This will run both the test <code>./tests/pos/companions.scala</code> and
 <code>./tests/neg/companions.scala</code> since both of these match the given string.
 This also means that you could run <code>testCompilation</code> with no arguments to run all integration tests.</p>
+<p>When complex checkfiles must be updated, <code>testCompilation</code> can run in a mode where it overrides the checkfiles with the test outputs.</p>
+<pre><code class="language-bash">$ sbt
+&gt; testCompilation --update-checkfiles
+</code></pre>
 <h3><a href="#bootstrapped-only-tests" id="bootstrapped-only-tests">Bootstrapped-only tests</a></h3>
 <p>To run <code>testCompilation</code> on a bootstrapped Dotty compiler, use
 <code>dotty-compiler-bootstrapped/testCompilation</code> (with the same syntax as above).
 Some tests can only be run in bootstrapped compilers; that includes all tests
 with <code>with-compiler</code> in their name.</p>
+<h3><a href="#from-tasty-tests" id="from-tasty-tests">From TASTy tests</a></h3>
+<p><code>testCompilation</code> has a additional mode to run tests that compile code from a <code>.tasty</code> file, decompile a <code>.tasty</code> file and recompile the decompiled tasty.
+Modify blacklist and whitelists in <code>compiler/test/dotc</code> to enable or disable tests from <code>.tasty</code> files.</p>
+<pre><code class="language-bash">$ sbt
+&gt; testCompilation --from-tasty
+</code></pre>
+<p>This mode can be combined with <code>--update-checkfiles</code> to update the <code>.decompiled</code> files or can be run under <code>dotty-compiler-bootstrapped/testCompilation</code> to test on a bootstrapped Dotty compiler.</p>
 
         </div>
     </div><!-- end content-body -->
