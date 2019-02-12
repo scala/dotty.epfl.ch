@@ -170,6 +170,8 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/derivation.html">Typeclass Derivation</a>
 </li>
+<li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
+</li>
 <li><a href="../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
@@ -182,9 +184,7 @@
 </li>
 <li><a class="toggle-children" onclick='clickToc(this, "enums");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
-</li>
-<li><a href="../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
+    <li><a href="../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/other-new-features/inline.html">Inlining by Rewriting</a>
 </li>
@@ -13110,13 +13110,6 @@ the form</p>
 starting from 0.</p>
 </li>
 </ol>
-<h3><a href="#equality" id="equality">Equality</a></h3>
-<p>An <code>enum</code> type contains a <code>scala.Eq</code> instance that restricts values of the <code>enum</code> type to
-be compared only to other values of the same enum type. Furtermore, generic
-<code>enum</code> types are comparable only if their type arguments are. For instance the
-<code>Option</code> enum type will get the following definition in its companion object:</p>
-<pre><code>implicit def eqOption[T, U](implicit ev1: Eq[T, U]): Eq[Option[T], Option[U]] = Eq
-</code></pre>
 <h3><a href="#translation-of-enumerations" id="translation-of-enumerations">Translation of Enumerations</a></h3>
 <p>Non-generic enums <code>E</code> that define one or more singleton cases
 are called <em>enumerations</em>. Companion objects of enumerations define

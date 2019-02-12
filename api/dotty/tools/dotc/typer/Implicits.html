@@ -170,6 +170,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/contextual/derivation.html">Typeclass Derivation</a>
 </li>
+<li><a href="../../../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
+</li>
 <li><a href="../../../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
 </li>
 <li><a href="../../../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
@@ -182,9 +184,7 @@
 </li>
 <li><a class="toggle-children" onclick='clickToc(this, "typer");'>Other New Features</a>
 <ul id="">
-    <li><a href="../../../../../.././docs/reference/other-new-features/multiversal-equality.html">Multiversal Equality</a>
-</li>
-<li><a href="../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
+    <li><a href="../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/inline.html">Inlining by Rewriting</a>
 </li>
@@ -13069,7 +13069,7 @@
                 
                 <div id="assumedCanEqual(ltp,rtp)(ctx)" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'assumedCanEqual(ltp,rtp)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'assumedCanEqual(ltp,rtp)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13130,7 +13130,11 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-assumedCanEqual(ltp,rtp)(ctx)">
-                            
+                            <p>An Eql[T, U] instance is assumed
+- if one of T, U is an error type, or
+- if one of T, U is a subtype of the lifted version of the other,
+unless strict equality is set.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -13646,6 +13650,55 @@ result is compatible with type <code>to</code>.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-missingArgMsg(arg,pt,where)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="strictEquality(ctx)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'strictEquality(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                strictEquality
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-strictEquality(ctx)">
                             
                         </div>
                     </div>
