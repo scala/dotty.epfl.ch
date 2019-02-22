@@ -14044,6 +14044,40 @@ SimplePattern1   ::= Path
                     </div>
                 </div><!-- end member -->
                 
+                <div id="staged" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'staged');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            var
+                        </span>
+                        <span class="member-name ">
+                            
+                                staged
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Int</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-staged">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="typeCaseClause" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'typeCaseClause');">[+]</span>
@@ -19540,6 +19574,43 @@ are a prefix of the characters between the preceding end-of-line and offset2.</p
                     </div>
                 </div><!-- end member -->
                 
+                <div id="isSplice" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isSplice');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isSplice
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isSplice">
+                            <p>A '$' identifier is treated as a splice if followed by a <code>{</code>.
+A longer identifier starting with <code>$</code> is treated as a splice/id combination
+in a quoted block '{...'</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="isStatSep" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'isStatSep');">[+]</span>
@@ -19787,7 +19858,7 @@ are a prefix of the characters between the preceding end-of-line and offset2.</p
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-literal(negOffset,inPattern)">
                             <p>SimpleExpr    ::= literal
-| symbol
+| 'id | 'this | 'true | 'false | 'null
 | null</p>
 
                         </div>
@@ -19824,7 +19895,7 @@ are a prefix of the characters between the preceding end-of-line and offset2.</p
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-literal$default$1">
                             <p>SimpleExpr    ::= literal
-| symbol
+| 'id | 'this | 'true | 'false | 'null
 | null</p>
 
                         </div>
@@ -19861,7 +19932,7 @@ are a prefix of the characters between the preceding end-of-line and offset2.</p
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-literal$default$2">
                             <p>SimpleExpr    ::= literal
-| symbol
+| 'id | 'this | 'true | 'false | 'null
 | null</p>
 
                         </div>
@@ -22818,9 +22889,10 @@ RefineStat       ::=  ‘val’ VarDcl
                         <div class="member-body-long" id ="long-body-simpleExpr()">
                             <p>SimpleExpr    ::= ‘new’ (ConstrApp [TemplateBody] | TemplateBody)
 |  BlockExpr
-|  ‘'{’ BlockExprContents ‘}’
-|  ‘'(’ ExprsInParens ‘)’
-|  ‘'[’ Type ‘]’
+|  ‘'’ ‘{’ Block ‘}’
+|  ‘'’ ‘[’ Type ‘]’
+|  ‘$’ ‘{’ Block ‘}’
+|  quoteId
 |  SimpleExpr1 [<code>_'] SimpleExpr1 ::= literal | xmlLiteral | Path |</code>(' [ExprsInParens] <code>)' | SimpleExpr</code>.' id
 |  SimpleExpr (TypeArgs | NamedTypeArgs)
 |  SimpleExpr1 ArgumentExprs</p>
@@ -23002,11 +23074,12 @@ RefineStat       ::=  ‘val’ VarDcl
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-simpleType()">
                             <p>SimpleType       ::=  SimpleType TypeArgs
-|  SimpleType <code>#' id | StableId | ['~'] StableId | Path</code>.' type
+|  SimpleType <code>#' id | StableId | Path</code>.' type
 |  <code>(' ArgTypes</code>)'
 |  `_' TypeBounds
 |  Refinement
-|  Literal</p>
+|  Literal
+|  ‘$’ ‘{’ Block ‘}’</p>
 
                         </div>
                     </div>
@@ -23108,6 +23181,55 @@ than the last known statement start before the error point.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="splice(isType)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'splice(isType)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                splice
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        isType:
+                                    </span>
+                                    Boolean
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-splice(isType)">
+                            <p>SimpleEpxr  ::=  spliceId | ‘$’ ‘{’ Block ‘}’)
+SimpleType  ::=  spliceId | ‘$’ ‘{’ Block ‘}’)</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="stableId()" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'stableId()');">[+]</span>
@@ -23146,6 +23268,51 @@ than the last known statement start before the error point.</p>
                         <div class="member-body-long" id ="long-body-stableId()">
                             <p>StableId ::= id
 |  Path <code>.' id | [id '.'] super [</code>[' id <code>]']</code>.' id</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="stagedBlock()" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'stagedBlock()');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                stagedBlock
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Tree.html">Tree</a>
+<span class="no-left no-right">[</span>
+<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$.html#Untyped">Untyped</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-stagedBlock()">
+                            <p>The block in a quote or splice</p>
 
                         </div>
                     </div>
@@ -24859,6 +25026,64 @@ TypTypeParam      ::=  {Annotation} id [HkTypePamClause] TypeBounds</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-withinEnum(isEnum)(body)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="withinStaged(kind)(op)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'withinStaged(kind)(op)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                withinStaged
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        kind:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/parsing/Parsers$.html#StageKind">StageKind</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        op: =&gt;
+                                    </span>
+                                    T
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: T</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-withinStaged(kind)(op)">
                             
                         </div>
                     </div>

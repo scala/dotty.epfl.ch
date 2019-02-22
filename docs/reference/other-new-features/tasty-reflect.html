@@ -13047,7 +13047,7 @@ Using TASTy Reflect will break these guarantees and may fail at macro expansion 
 <pre><code class="language-scala">import scala.quoted._
 import scala.tasty._
 
-inline def natConst(x: Int): Int = ~natConstImpl('(x))
+inline def natConst(x: Int): Int = ~natConstImpl('x)
 
 def natConstImpl(x: Expr[Int])(implicit reflection: Reflection): Expr[Int] = {
   import reflection._

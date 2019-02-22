@@ -13044,42 +13044,46 @@ splices in exactly the same way.</p>
 <h3><a href="#quotes-and-splices" id="quotes-and-splices">Quotes and Splices</a></h3>
 <p>Principled meta programming is built on two well-known fundamental
 operations: quotation and splicing.  Quotation is expressed as
-<code>'(...)</code> or <code>'{...}</code> for expressions (both forms are equivalent) and
-as <code>'[...]</code> for types. Splicing is expressed as a prefix <code>~</code> operator.</p>
+<code>'{...}</code> for expressions (both forms are equivalent) and
+as <code>'[...]</code> for types. Splicing is expressed as <code>${ ... }</code>.</p>
 <p>For example, the code below presents an inline function <code>assert</code>
 which calls at compile-time a method <code>assertImpl</code> with a boolean
 expression tree as argument. <code>assertImpl</code> evaluates the expression and
 prints it again in an error message if it evaluates to <code>false</code>.</p>
-<pre><code>import scala.quoted._
+<pre><code class="language-scala">    import scala.quoted._
 
-inline def assert(expr: =&gt; Boolean): Unit =
-  ~ assertImpl('(expr))
+    inline def assert(expr: =&gt; Boolean): Unit =
+      ${ assertImpl('{ expr }) }
 
-def assertImpl(expr: Expr[Boolean]) = '{
-  if !(~expr) then
-    throw new AssertionError(s&quot;failed assertion: ${~showExpr(expr)}&quot;)
-}
+    def assertImpl(expr: Expr[Boolean]) = '{
+      if !(${ expr }) then
+        throw new AssertionError(s&quot;failed assertion: ${${ showExpr(expr) }}&quot;)
+    }
 
-def showExpr(expr: Expr[Boolean]): Expr[String] =
-  '(&quot;&lt;some source code&gt;&quot;) // Better implementation later in this document
+    def showExpr(expr: Expr[Boolean]): Expr[String] =
+      '{ &quot;&lt;some source code&gt;&quot; } // Better implementation later in this document
 </code></pre>
-<p>If <code>e</code> is an expression, then <code>'(e)</code> or <code>'{e}</code> represent the typed
+<p>If <code>e</code> is an expression, then <code>'{e}</code> represent the typed
 abstract syntax tree representing <code>e</code>. If <code>T</code> is a type, then <code>'[T]</code>
 represents the type structure representing <code>T</code>.  The precise
 definitions of &quot;typed abstract syntax tree&quot; or &quot;type-structure&quot; do not
 matter for now, the terms are used only to give some
-intuition. Conversely, <code>~ e</code> evaluates the expression <code>e</code>, which must
+intuition. Conversely, <code>${e}</code> evaluates the expression <code>e</code>, which must
 yield a typed abstract syntax tree or type structure, and embeds the
 result as an expression (respectively, type) in the enclosing program.</p>
 <p>Quotations can have spliced parts in them; in this case the embedded
 splices are evaluated and embedded as part of the formation of the
 quotation.</p>
+<p>Quotes and splices can also be applied directly to identifiers. An identifier
+<code>$x</code> starting with a <code>$</code> that appears inside a quoted expression or type is treated as a
+splice <code>${x}</code>. Analogously, an quoted identifier 'x that appears inside a splice
+is treated as a quote <code>'{x}</code>. See the Syntax section below for details.</p>
 <p>Quotes and splices are duals of each other. For arbitrary
 expressions <code>e</code> and types <code>T</code> we have:</p>
-<pre><code>~'(e) = e
-'(~e) = e
-~'[T] = T
-'[~T] = T
+<pre><code>${'{e}} = e
+'{${e}} = e
+${'[T]} = T
+'[${T}] = T
 </code></pre>
 <h3><a href="#types-for-quotations" id="types-for-quotations">Types for Quotations</a></h3>
 <p>The type signatures of quotes and splices can be described using
@@ -13093,14 +13097,10 @@ and it takes types <code>T</code> to expressions of type <code>Type[T]</code>. S
 takes expressions of type <code>Expr[T]</code> to expressions of type <code>T</code> and it
 takes expressions of type <code>Type[T]</code> to types <code>T</code>.</p>
 <p>The two types can be defined in package <code>scala.quoted</code> as follows:</p>
-<pre><code>package scala.quoted
+<pre><code class="language-scala">    package scala.quoted
 
-sealed abstract class Expr[T] {
-  def unary_~: T   // splice operation
-}
-sealed abstract class Type[T] {
-  type unary_~ = T  // splice type
-}
+    sealed abstract class Expr[T]
+    sealed abstract class Type[T]
 </code></pre>
 <p>Both <code>Expr</code> and <code>Type</code> are abstract and sealed, so all constructors for
 these types are provided by the system. One way to construct values of
@@ -13122,7 +13122,7 @@ represented only by referring to the original variable <code>x</code>. Hence, th
 result of the program will need to persist the program state itself as
 one of its parts. We don’t want to do this, hence this situation
 should be made illegal. Dually, suppose a top-level part of a program
-is a spliced text <code>~{ ... x ... }</code> that refers to a free variable <code>x</code>
+is a spliced text <code>${ ... x ... }</code> that refers to a free variable <code>x</code>
 in <code>P</code>.  This would mean that we refer during <em>construction</em> of <code>P</code> to
 a value that is available only during <em>execution</em> of <code>P</code>. This is of
 course impossible and therefore needs to be ruled out.  Now, the
@@ -13142,28 +13142,26 @@ type-class which can implement such accesses within the confines of the
 PCP. This is explained further in a later section.</p>
 <h2><a href="#details" id="details">Details</a></h2>
 <h3><a href="#from-exprs-to-functions-and-back" id="from-exprs-to-functions-and-back">From <code>Expr</code>s to Functions and Back</a></h3>
-<p>The <code>Expr</code> companion object contains an <code>AsFunctionN</code> (for 0 &lt;= N &lt; 23) decorator that turns a tree
+<p>The <code>Expr</code> companion object contains an implicit <code>AsFunctionN</code> (for 0 &lt;= N &lt; 23) conversion that turns a tree
 describing a function into a function mapping trees to trees.</p>
-<pre><code>object Expr {
-  ...
-  implicit class AsFunction1[T, U](f: Expr[T =&gt; U]) extends AnyVal {
-    def apply(x: Expr[T]): Expr[U] = ???
-  }
-}
+<pre><code class="language-scala">    object Expr {
+      ...
+      implied AsFunction1[T, U] for Conversion[Expr[T =&gt; U], Expr[T] =&gt; Expr[U]] ...
+    }
 </code></pre>
 <p>This decorator gives <code>Expr</code> the <code>apply</code> operation of an applicative functor, where <code>Expr</code>s
 over function types can be applied to <code>Expr</code> arguments. The definition
 of <code>AsFunction1(f).apply(x)</code> is assumed to be functionally the same as
-<code>'((~f)(~x))</code>, however it should optimize this call by returning the
+<code>'{($f)($x)}</code>, however it should optimize this call by returning the
 result of beta-reducing <code>f(x)</code> if <code>f</code> is a known lambda expression.</p>
 <p>The <code>AsFunction1</code> decorator distributes applications of <code>Expr</code> over function
 arrows:</p>
-<pre><code>AsFunction1(_).apply: Expr[S =&gt; T] =&gt; (Expr[S] =&gt; Expr[T])
+<pre><code class="language-scala">    AsFunction1(_).apply: Expr[S =&gt; T] =&gt; (Expr[S] =&gt; Expr[T])
 </code></pre>
 <p>Its dual, let’s call it <code>reflect</code>, can be defined as follows:</p>
-<pre><code>def reflect[T, U](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] = '{
-  (x: T) =&gt; ~f('(x))
-}
+<pre><code class="language-scala">    def reflect[T, U](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] = '{
+      (x: T) =&gt; ${ f('x) }
+    }
 </code></pre>
 <p>Note how the fundamental phase consistency principle works in two
 different directions here for <code>f</code> and <code>x</code>.  The reference to <code>f</code> is
@@ -13176,24 +13174,24 @@ definition of <code>reflect</code> above is not phase correct since there is a
 quote but no splice between the parameter binding of <code>T</code> and its
 usage. But the code can be made phase correct by adding a binding
 of a <code>Type[T]</code> tag:</p>
-<pre><code>def reflect[T, U](f: Expr[T] =&gt; Expr[U])(implicit t: Type[T]): Expr[T =&gt; U] =
-  '{ (x: ~t) =&gt; ~f('(x)) }
+<pre><code class="language-scala">    def reflect[T, U](f: Expr[T] =&gt; Expr[U]) given (t: Type[T]): Expr[T =&gt; U] =
+      '{ (x: $t) =&gt; ${ f('x) } }
 </code></pre>
 <p>In this version of <code>reflect</code>, the type of <code>x</code> is now the result of
 splicing the <code>Type</code> value <code>t</code>. This operation <em>is</em> splice correct -- there
 is one quote and one splice between the use of <code>t</code> and its definition.</p>
 <p>To avoid clutter, the Scala implementation tries to convert any phase-incorrect
-reference to a type <code>T</code> to a type-splice, by rewriting <code>T</code> to <code>~implicitly[Type[T]]</code>.
+reference to a type <code>T</code> to a type-splice, by rewriting <code>T</code> to <code>${ the[Type[T]] }</code>.
 For instance, the user-level definition of <code>reflect</code>:</p>
-<pre><code>def reflect[T: Type, U](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
-  '{ (x: T) =&gt; ~f('(x)) }
+<pre><code class="language-scala">    def reflect[T: Type, U](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
+      '{ (x: T) =&gt; ${ f('x) } }
 </code></pre>
 <p>would be rewritten to</p>
-<pre><code>def reflect[T: Type, U](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
-  '{ (x: ~implicitly[Type[T]]) =&gt; ~f('(x)) }
+<pre><code class="language-scala">    def reflect[T: Type, U](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
+      '{ (x: ${ the[Type[T]] }) =&gt; ${ f('x) } }
 </code></pre>
-<p>The <code>implicitly</code> query succeeds because there is an implicit value of
-type <code>Type[T]</code> available (namely the evidence parameter corresponding
+<p>The <code>the</code> query succeeds because there is an implied value of
+type <code>Type[T]</code> available (namely the given parameter corresponding
 to the context bound <code>: Type</code>), and the reference to that value is
 phase-correct. If that was not the case, the phase inconsistency for
 <code>T</code> would be reported as an error.</p>
@@ -13208,93 +13206,93 @@ just reifying the containing type together with the member name. But
 what to do for references to type parameters or local type definitions
 that are not defined in the current stage? Here, we cannot construct
 the <code>Type[T]</code> tree directly, so we need to get it from a recursive
-implicit search. For instance, to implemenent</p>
-<pre><code>implicitly[Type[List[T]]]
+implicit search. For instance, to implement</p>
+<pre><code class="language-scala">    the[Type[List[T]]]
 </code></pre>
 <p>where <code>T</code> is not defined in the current stage, we construct the type constructor
-of <code>List</code> applied to the splice of the result of searching for an implicit <code>Type[T]</code>:</p>
-<pre><code>'[List[~implicitly[Type[T]]]]
+of <code>List</code> applied to the splice of the result of searching for an implied instance for <code>Type[T]</code>:</p>
+<pre><code class="language-scala">    '[ List[ ${ the[Type[T]] } ] ]
 </code></pre>
-<p>This is in exactly the algorithm that Scala 2 uses to search for type tags.
+<p>This is exactly the algorithm that Scala 2 uses to search for type tags.
 In fact Scala 2's type tag feature can be understood as a more ad-hoc version of
 <code>quoted.Type</code>. As was the case for type tags, the implicit search for a <code>quoted.Type</code>
 is handled by the compiler, using the algorithm sketched above.</p>
 <h3><a href="#example-expansion" id="example-expansion">Example Expansion</a></h3>
 <p>Assume an <code>Array</code> class with an inline <code>map</code> method that forwards to a macro implementation.</p>
-<pre><code>class Array[T] {
-  inline def map[U](f: T =&gt; U): Array[U] = ~ Macros.mapImpl[T, U]('[U], '(this), '(f))
-}
+<pre><code class="language-scala">    class Array[T] {
+      inline def map[U](f: T =&gt; U): Array[U] = ${ Macros.mapImpl[T, U]('[U], 'this, 'f) }
+    }
 </code></pre>
 <p>Here’s the definition of the <code>mapImpl</code> macro, which takes quoted types and expressions to a quoted expression:</p>
-<pre><code>object Macros {
+<pre><code class="language-scala">    object Macros {
 
-  def mapImpl[T, U](u: Type[U], arr: Expr[Array[T]], op: Expr[T =&gt; U]): Expr[Array[U]] = '{
-    var i = 0
-    val xs = ~arr
-    var len = xs.length
-    val ys = new Array[~u](len)
-    while (i &lt; len) {
-      ys(i) = ~op('(xs(i)))
-      i += 1
+      def mapImpl[T, U](u: Type[U], arr: Expr[Array[T]], op: Expr[T =&gt; U]): Expr[Array[U]] = '{
+        var i = 0
+        val xs = $arr
+        var len = xs.length
+        val ys = new Array[$u](len)
+        while (i &lt; len) {
+          ys(i) = ${ op('{ xs(i) }) }
+          i += 1
+        }
+        ys
+      }
     }
-    ys
-  }
-}
 </code></pre>
 <p>Here’s an application of <code>map</code> and how it rewrites to optimized code:</p>
-<pre><code>genSeq[Int]().map(x =&gt; x + 1)
+<pre><code class="language-scala">    genSeq[Int]().map(x =&gt; x + 1)
 </code></pre>
 <p>==&gt; (inline)</p>
-<pre><code>val $this: Seq[Int] = genSeq[Int]()
-val f: Int =&gt; Int = x =&gt; x + 1
-~ _root_.Macros.mapImpl[Int, Int]('[Int], '($this), '(f))
+<pre><code class="language-scala">    val _this: Seq[Int] = genSeq[Int]()
+    val f: Int =&gt; Int = x =&gt; x + 1
+    ${ _root_.Macros.mapImpl[Int, Int]('[Int], '_this, 'f) }
 </code></pre>
 <p>==&gt; (splice)</p>
-<pre><code>val $this: Seq[Int] = genSeq[Int]()
-val f: Int =&gt; Int = x =&gt; x + 1
+<pre><code class="language-scala">    val _this: Seq[Int] = genSeq[Int]()
+    val f: Int =&gt; Int = x =&gt; x + 1
 
-{
-  var i = 0
-  val xs = ~'($this)
-  var len = xs.length
-  val ys = new Array[~'[Int]](len)
-  while (i &lt; len) {
-    ys(i) = ~('(f)('(xs(i))))
-    i += 1
-  }
-  ys
-}
+    {
+      var i = 0
+      val xs = ${ '_this }
+      var len = xs.length
+      val ys = new Array[${ '[Int] }](len)
+      while (i &lt; len) {
+        ys(i) = ${ ('f)('{ xs(i) }) }
+        i += 1
+      }
+      ys
+    }
 </code></pre>
 <p>==&gt; (expand and splice inside quotes)</p>
-<pre><code>val $this: Seq[Int] = genSeq[Int]()
-val f: Int =&gt; Int = x =&gt; x + 1
+<pre><code class="language-scala">    val _this: Seq[Int] = genSeq[Int]()
+    val f: Int =&gt; Int = x =&gt; x + 1
 
-{
-  var i = 0
-  val xs = $this
-  var len = xs.length
-  val ys = new Array[Int](len)
-  while (i &lt; len) {
-    ys(i) = xs(i) + 1
-    i += 1
-  }
-  ys
-}
+    {
+      var i = 0
+      val xs = _this
+      var len = xs.length
+      val ys = new Array[Int](len)
+      while (i &lt; len) {
+        ys(i) = xs(i) + 1
+        i += 1
+      }
+      ys
+    }
 </code></pre>
 <p>==&gt; (elim dead code)</p>
-<pre><code>val $this: Seq[Int] = genSeq[Int]()
+<pre><code class="language-scala">    val _this: Seq[Int] = genSeq[Int]()
 
-{
-  var i = 0
-  val xs = $this
-  var len = xs.length
-  val ys = new Array[Int](len)
-  while (i &lt; len) {
-    ys(i) = xs(i) + 1
-    i += 1
-  }
-  ys
-}
+    {
+      var i = 0
+      val xs = _this
+      var len = xs.length
+      val ys = new Array[Int](len)
+      while (i &lt; len) {
+        ys(i) = xs(i) + 1
+        i += 1
+      }
+      ys
+    }
 </code></pre>
 <h3><a href="#relationship-with-inline-and-macros" id="relationship-with-inline-and-macros">Relationship with Inline and Macros</a></h3>
 <p>Seen by itself, principled meta-programming looks more like a
@@ -13304,28 +13302,27 @@ compile-time system.  The idea is that macro elaboration can be
 understood as a combination of a macro library and a quoted
 program. For instance, here’s the <code>assert</code> macro again together with a
 program that calls <code>assert</code>.</p>
-<pre><code>object Macros {
+<pre><code class="language-scala">    object Macros {
 
-  inline def assert(expr: =&gt; Boolean): Unit =
-    ~ assertImpl('(expr))
+      inline def assert(expr: =&gt; Boolean): Unit =
+        ${ assertImpl('expr) }
 
-  def assertImpl(expr: Expr[Boolean]) =
-    '{ if !(~expr) then throw new AssertionError(s&quot;failed assertion: ${~expr}&quot;) }
-}
+      def assertImpl(expr: Expr[Boolean]) =
+        '{ if !($expr) then throw new AssertionError(s&quot;failed assertion: ${$expr}&quot;) }
+    }
 
-// has to be in a different compilation unit that depends on Macros
-object App {
-  val program = {
-    val x = 1
-    Macros.assert(x != 0)
-  }
-}
+    object App {
+      val program = {
+        val x = 1
+        Macros.assert(x != 0)
+      }
+    }
 </code></pre>
 <p>Inlining the <code>assert</code> function would give the following program:</p>
-<pre><code>val program = {
-  val x = 1
-  ~Macros.assertImpl('(x != 0))
-}
+<pre><code class="language-scala">    val program = {
+      val x = 1
+      ${ Macros.assertImpl('{ x != 0) } }
+    }
 </code></pre>
 <p>The example is only phase correct because Macros is a global value and
 as such not subject to phase consistency checking. Conceptually that’s
@@ -13341,10 +13338,10 @@ macros would be to have the user program be in a phase after the macro
 definitions, reflecting the fact that macros have to be defined and
 compiled before they are used. Hence, conceptually the program part
 should be treated by the compiler as if it was quoted:</p>
-<pre><code>val program = '{
-  val x = 1
-  ~Macros.assertImpl('(x != 0))
-}
+<pre><code class="language-scala">    val program = '{
+      val x = 1
+      ${ Macros.assertImpl('{ x != 0 }) }
+    }
 </code></pre>
 <p>If <code>program</code> is treated as a quoted expression, the call to
 <code>Macro.assertImpl</code> becomes phase correct even if macro library and
@@ -13363,19 +13360,19 @@ either a constant or is a parameter that will be a constant when instantiated. T
 aspect is also important for macro expansion.  To illustrate this,
 consider an implementation of the <code>power</code> function that makes use of a
 statically known exponent:</p>
-<pre><code>inline def power(inline n: Int, x: Double) = ~powerCode(n, '(x))
+<pre><code class="language-scala">    inline def power(inline n: Int, x: Double) = ${ powerCode(n, 'x) }
 
-private def powerCode(n: Int, x: Expr[Double]): Expr[Double] =
-  if (n == 0) '(1.0)
-  else if (n == 1) x
-  else if (n % 2 == 0) '{ val y = ~x * ~x; ~powerCode(n / 2, '(y)) }
-  else '{ ~x * ~powerCode(n - 1, x) }
+    private def powerCode(n: Int, x: Expr[Double]): Expr[Double] =
+      if (n == 0) '{ 1.0 }
+      else if (n == 1) x
+      else if (n % 2 == 0) '{ val y = $x * $x; ${ powerCode(n / 2, 'y) } }
+      else '{ $x * ${ powerCode(n - 1, x) } }
 </code></pre>
-<p>The reference to <code>n</code> as an argument in <code>~powerCode(n, '(x))</code> is not
+<p>The reference to <code>n</code> as an argument in <code>${ powerCode(n, 'x) }</code> is not
 phase-consistent, since <code>n</code> appears in a splice without an enclosing
 quote. Normally that would be a problem because it means that we need
 the <em>value</em> of <code>n</code> at compile time, which is not available for general
-parameters. But since <code>n</code> is a inline parameter of a macro, we know
+parameters. But since <code>n</code> is an inline parameter of a macro, we know
 that at the macro’s expansion point <code>n</code> will be instantiated to a
 constant, so the value of <code>n</code> will in fact be known at this
 point. To reflect this, we loosen the phase consistency requirements
@@ -13434,20 +13431,19 @@ method passing quoted arguments, constant arguments or inline arguments.</p>
 </ol>
 <p>The framework as discussed so far allows code to be staged, i.e. be prepared
 to be executed at a later stage. To run that code, there is another method
-in class <code>Expr</code> called <code>run</code>. Note that <code>~</code> and <code>run</code> both map from <code>Expr[T]</code>
-to <code>T</code> but only <code>~</code> is subject to the PCP, whereas <code>run</code> is just a normal method.</p>
-<pre><code>sealed abstract class Expr[T] {
-  def unary_~: T
-  def run(implicit runner: Runner[T]): T       // run staged code
-  def show(implicit runner: Runner[T]): String // show staged code
-}
+in class <code>Expr</code> called <code>run</code>. Note that <code>$</code> and <code>run</code> both map from <code>Expr[T]</code>
+to <code>T</code> but only <code>$</code> is subject to the PCP, whereas <code>run</code> is just a normal method.</p>
+<pre><code class="language-scala">    sealed abstract class Expr[T] {
+      def run  given (toolbox: Toolbox): T       // run staged code
+      def show given (toolbox: Toolbox): String  // show staged code
+    }
 </code></pre>
 <h3><a href="#limitations-to-splicing" id="limitations-to-splicing">Limitations to Splicing</a></h3>
 <p>Quotes and splices are duals as far as the PCP is concerned. But there is an additional
 restriction that needs to be imposed on splices to guarantee soundness:
 code in splices must be free of side effects. The restriction prevents code like this:</p>
-<pre><code> var x: Expr[T]
- '{ (y: T) =&gt; ~{ x = '(y); 1 } }
+<pre><code class="language-scala">     var x: Expr[T]
+     '{ (y: T) =&gt; ${ x = 'y; 1 } }
 </code></pre>
 <p>This code, if it was accepted, would &quot;extrude&quot; a reference to a quoted variable <code>y</code> from its scope.
 This means we an subsequently access a variable outside the scope where it is defined, which is
@@ -13457,11 +13453,11 @@ are pure. In the absence of such a system we simply demand that spliced expressi
 pure by convention, and allow for undefined compiler behavior if they are not. This is analogous
 to the status of pattern guards in Scala, which are also required, but not verified, to be pure.</p>
 <p>There is also a problem with <code>run</code> in splices. Consider the following expression:</p>
-<pre><code>'{ (x: Int) =&gt; ~{ {'(x)}.run; 1 } }
+<pre><code class="language-scala">    '{ (x: Int) =&gt; ${ ('x).run; 1 } }
 </code></pre>
 <p>This is again phase correct, but will lead us into trouble. Indeed, evaluating the splice will reduce the
-expression <code>{'(x)}.run</code> to <code>x</code>. But then the result</p>
-<pre><code>'{ (x: Int) =&gt; ~{ x; 1 } }
+expression <code>('x).run</code> to <code>x</code>. But then the result</p>
+<pre><code class="language-scala">    '{ (x: Int) =&gt; ${ x; 1 } }
 </code></pre>
 <p>is no longer phase correct. To prevent this soundness hole it seems easiest to classify <code>run</code> as a side-effecting
 operation. It would thus be prevented from appearing in splices. In a base language with side-effects we'd have to
@@ -13469,54 +13465,55 @@ do this anyway: Since <code>run</code> runs arbitrary code it can always produce
 <h3><a href="#the-liftable-type-class" id="the-liftable-type-class">The <code>Liftable</code> type-class</a></h3>
 <p>Consider the following implementation of a staged interpreter that implements
 a compiler through staging.</p>
-<pre><code>import scala.quoted._
+<pre><code class="language-scala">    import scala.quoted._
 
-enum Exp {
-  case Num(n: Int)
-  case Plus(e1: Exp, e2: Exp)
-  case Var(x: String)
-  case Let(x: String, e: Exp, in: Exp)
-}
+    enum Exp {
+      case Num(n: Int)
+      case Plus(e1: Exp, e2: Exp)
+      case Var(x: String)
+      case Let(x: String, e: Exp, in: Exp)
+    }
 </code></pre>
 <p>The interpreted language consists of numbers <code>Num</code>, addition <code>Plus</code>, and variables
 <code>Var</code> which are bound by <code>Let</code>. Here are two sample expressions in the language:</p>
-<pre><code>val exp = Plus(Plus(Num(2), Var(&quot;x&quot;)), Num(4))
-val letExp = Let(&quot;x&quot;, Num(3), exp)
+<pre><code class="language-scala">    val exp = Plus(Plus(Num(2), Var(&quot;x&quot;)), Num(4))
+    val letExp = Let(&quot;x&quot;, Num(3), exp)
 </code></pre>
 <p>Here’s a compiler that maps an expression given in the interpreted
 language to quoted Scala code of type <code>Expr[Int]</code>.
 The compiler takes an environment that maps variable names to Scala <code>Expr</code>s.</p>
-<pre><code>def compile(e: Exp, env: Map[String, Expr[Int]]): Expr[Int] = e match {
-  case Num(n) =&gt;
-    n.toExpr
-  case Plus(e1, e2) =&gt;
-    '(~compile(e1, env) + ~compile(e2, env))
-  case Var(x) =&gt;
-    env(x)
-  case Let(x, e, body) =&gt;
-    '{ val y = ~compile(e, env); ~compile(body, env + (x -&gt; '(y))) }
-}
+<pre><code class="language-scala">    import implied scala.quoted._
+
+    def compile(e: Exp, env: Map[String, Expr[Int]]): Expr[Int] = e match {
+      case Num(n) =&gt;
+        n.toExpr
+      case Plus(e1, e2) =&gt;
+        '{ ${ compile(e1, env) } + ${ compile(e2, env) } }
+      case Var(x) =&gt;
+        env(x)
+      case Let(x, e, body) =&gt;
+        '{ val y = ${ compile(e, env) }; ${ compile(body, env + (x -&gt; 'y)) } }
+    }
 </code></pre>
 <p>Running <code>compile(letExp, Map())</code> would yield the following Scala code:</p>
-<pre><code>'{ val y = 3; (2 + y) + 4 }
+<pre><code class="language-scala">    '{ val y = 3; (2 + y) + 4 }
 </code></pre>
 <p>The body of the first clause, <code>case Num(n) =&gt; n.toExpr</code>, looks suspicious. <code>n</code>
-is declared as an <code>Int</code>, yet it is conveted to an <code>Expr[Int]</code> with <code>toExpr</code>.
+is declared as an <code>Int</code>, yet it is converted to an <code>Expr[Int]</code> with <code>toExpr</code>.
 Shouldn’t <code>n</code> be quoted? In fact this would not
 work since replacing <code>n</code> by <code>'n</code> in the clause would not be phase
 correct.</p>
-<p>What happens instead &quot;under the hood&quot; is an extension method <code>toExpr</code> is added: <code>n.toExpr</code>
-is expanded to <code>new scala.quoted.LiftExprOps(n).toExpr</code>. The <code>toExpr</code> extension
-is defined in the companion object of class <code>Liftable</code> as follows:</p>
-<pre><code>package object quoted {
-  implicit class LiftExprOps[T](val x: T) extends AnyVal {
-    def toExpr(implicit ev: Liftable[T]): Expr[T] = ev.toExpr(x)
-  }
-}
+<p>The <code>toExpr</code> extension method is defined in package <code>quoted</code>:</p>
+<pre><code class="language-scala">    package quoted
+
+    implied LiftingOps {
+      def (x: T) toExpr[T] given (ev: Liftable[T]): Expr[T] = ev.toExpr(x)
+    }
 </code></pre>
 <p>The extension says that values of types implementing the <code>Liftable</code> type class can be
-converted (&quot;lifted&quot;) to <code>Expr</code> values using <code>toExpr</code> when <code>scala.quoted._</code> is imported.
-Dotty comes with instance definitions of <code>Liftable</code> for
+converted (&quot;lifted&quot;) to <code>Expr</code> values using <code>toExpr</code>, provided an implied import
+of <code>scala.quoted._</code> is in scope.</p>
+<p>Dotty comes with implied instance definitions of <code>Liftable</code> for
 several types including <code>Boolean</code>, <code>String</code>, and all primitive number
 types. For example, <code>Int</code> values can be converted to <code>Expr[Int]</code>
 values by wrapping the value in a <code>Literal</code> tree node. This makes use
@@ -13525,69 +13522,59 @@ efficiency. But the <code>Liftable</code> instances are nevertheless not &quot;m
 in the sense that they could all be defined in a user program without
 knowing anything about the representation of <code>Expr</code> trees. For
 instance, here is a possible instance of <code>Liftable[Boolean]</code>:</p>
-<pre><code>implicit def BooleanIsLiftable: Liftable[Boolean] = new {
-  implicit def toExpr(b: Boolean) = if (b) '(true) else '(false)
-}
+<pre><code class="language-scala">    implied for Liftable[Boolean] {
+      def toExpr(b: Boolean) = if (b) '{ true } else '{ false }
+    }
 </code></pre>
 <p>Once we can lift bits, we can work our way up. For instance, here is a
 possible implementation of <code>Liftable[Int]</code> that does not use the underlying
 tree machinery:</p>
-<pre><code>implicit def IntIsLiftable: Liftable[Int] = new {
-  def toExpr(n: Int): Expr[Int] = n match {
-    case Int.MinValue    =&gt; '(Int.MinValue)
-    case _ if n &lt; 0      =&gt; '(-(~toExpr(n)))
-    case 0               =&gt; '(0)
-    case _ if n % 2 == 0 =&gt; '(~toExpr(n / 2) * 2)
-    case _               =&gt; '(~toExpr(n / 2) * 2 + 1)
-  }
-}
+<pre><code class="language-scala">    implied for Liftable[Int] {
+      def toExpr(n: Int): Expr[Int] = n match {
+        case Int.MinValue    =&gt; '{ Int.MinValue }
+        case _ if n &lt; 0      =&gt; '{ - ${ toExpr(n) } }
+        case 0               =&gt; '{ 0 }
+        case _ if n % 2 == 0 =&gt; '{ ${ toExpr(n / 2) } * 2 }
+        case _               =&gt; '{ ${ toExpr(n / 2) } * 2 + 1 }
+      }
+    }
 </code></pre>
 <p>Since <code>Liftable</code> is a type class, its instances can be conditional. For example,
 a <code>List</code> is liftable if its element type is:</p>
-<pre><code>implicit def ListIsLiftable[T: Liftable]: Liftable[List[T]] = new {
-  def toExpr(xs: List[T]): Expr[List[T]] = xs match {
-    case x :: xs1 =&gt; '(~x.toExpr :: ~toExpr(xs1))
-    case Nil =&gt; '(Nil: List[T])
-  }
-}
+<pre><code class="language-scala">    implied [T: Liftable] for Liftable[List[T]] {
+      def toExpr(xs: List[T]): Expr[List[T]] = xs match {
+        case x :: xs1 =&gt; '{ ${ toExpr(x) } :: ${ toExpr(xs1) } }
+        case Nil =&gt; '{ Nil: List[T] }
+      }
+    }
 </code></pre>
 <p>In the end, <code>Liftable</code> resembles very much a serialization
 framework. Like the latter it can be derived systematically for all
-collections, case classes and enums. Note also that the implicit synthesis
+collections, case classes and enums. Note also that the synthesis
 of &quot;type-tag&quot; values of type <code>Type[T]</code> is essentially the type-level
 analogue of lifting.</p>
 <p>Using lifting, we can now give the missing definition of <code>showExpr</code> in the introductory example:</p>
-<pre><code>def showExpr[T](expr: Expr[T]): Expr[String] = {
-  val code = expr.show
-  code.toExpr
-}
+<pre><code class="language-scala">    def showExpr[T](expr: Expr[T]): Expr[String] = {
+      val code = expr.show
+      code.toExpr
+    }
 </code></pre>
 <p>That is, the <code>showExpr</code> method converts its <code>Expr</code> argument to a string (<code>code</code>), and lifts
-the result back to an <code>Expr[String]</code> using the implicit <code>toExpr</code> conversion.</p>
+the result back to an <code>Expr[String]</code> using the <code>toExpr</code> wrapper.</p>
 <h2><a href="#implementation" id="implementation">Implementation</a></h2>
-<h3><a href="#syntax-changes" id="syntax-changes">Syntax changes</a></h3>
-<p>A splice <code>~e</code> on an expression of type <code>Expr[T]</code> is a normal prefix
-operator. To make it work as a type operator on <code>Type[T]</code> as well, we
-need a syntax change that introduces prefix operators as types.</p>
-<pre><code>  SimpleType        ::=  ...
-                         [‘-’ | ‘+’ | ‘~’ | ‘!’] StableId
+<h3><a href="#syntax" id="syntax">Syntax</a></h3>
+<p>Compared to the <a href="../../internals/syntax.html">Dotty reference grammar</a>
+there are the following syntax changes:</p>
+<pre><code>  SimpleExpr      ::=  ...
+                    |  ‘'’ ‘{’ Block ‘}’
+                    |  ‘'’ ‘[’ Type ‘]’
+                    |  ‘$’ ‘{’ Block ‘}’
+  SimpleType      ::=  ...
+                    |  ‘$’ ‘{’ Block ‘}’
 </code></pre>
-<p>Analogously to the situation with expressions, a prefix type operator
-such as <code>~ e</code> is treated as a shorthand for the type <code>e.unary_~</code>.</p>
-<p>Quotes are supported by introducing new tokens <code>'(</code>, <code>'{</code>, and <code>'[</code>
-and adding quoted variants <code>'(...)</code>, <code>'{...}</code> and <code>'[...]</code> to the
-<code>SimpleExpr</code> productions.</p>
-<pre><code>  SimpleExpr        ::=  ...
-                      |  ‘'{’ BlockExprContents ‘}’
-                      |  ‘'’ ‘(’ ExprsInParens ‘)’
-                      |  ‘'’ ‘[’ Type ‘]’
-</code></pre>
-<p>Syntax changes are given relative to the <a href="../../internals/syntax.html">Dotty reference
-grammar</a>.</p>
-<p>An alternative syntax would treat <code>'</code> as a separate operator. This
-would be attractive since it enables quoting single identifiers as
-e.g. <code>'x</code> instead of <code>'(x)</code>. But it would clash with symbol
-literals. So it could be done only if symbol literals were abolished.</p>
+<p>In addition, an identifier <code>$x</code> starting with a <code>$</code> that appears inside
+a quoted expression or type is treated as a splice <code>${x}</code> and a quoted identifier
+<code>'x</code> that appears inside a splice is treated as a quote <code>'{x}</code></p>
 <h3><a href="#implementation-in-dotc" id="implementation-in-dotc">Implementation in <code>dotc</code></a></h3>
 <p>Quotes and splices are primitive forms in the generated abstract
 syntax trees. They are eliminated in an expansion phase
@@ -13610,13 +13597,13 @@ expanding any quotes in the spliced code recursively.</p>
 <h2><a href="#formalization" id="formalization">Formalization</a></h2>
 <p>The phase consistency principle can be formalized in a calculus that
 extends simply-typed lambda calculus with quotes and splices.</p>
-<h3><a href="#syntax" id="syntax">Syntax</a></h3>
+<h3><a href="#syntax-1" id="syntax-1">Syntax</a></h3>
 <p>The syntax of terms, values, and types is given as follows:</p>
 <pre><code>Terms         t  ::=  x                 variable
                       (x: T) =&gt; t       lambda
                       t t               application
                       't                quote
-                      ~t                splice
+                      $t                splice
 
 Values        v  ::=  (x: T) =&gt; t       lambda
                       'u                quote
@@ -13630,7 +13617,7 @@ Types         T  ::=  A                 base type
 <p>Typing rules are formulated using a stack of environments
 <code>Es</code>. Individual environments <code>E</code> consist as usual of variable
 bindings <code>x: T</code>. Environments can be combined using the two
-combinators <code>'</code> and <code>~</code>.</p>
+combinators <code>'</code> and <code>$</code>.</p>
 <pre><code>Environment   E  ::=  ()                empty
                       E, x: T
 
@@ -13639,7 +13626,7 @@ Env. stack    Es ::=  ()                empty
                       Es * Es           combined
 
 Separator     *  ::=  '
-                      ~
+                      $
 </code></pre>
 <p>The two environment combinators are both associative with left and
 right identity <code>()</code>.</p>
@@ -13647,7 +13634,7 @@ right identity <code>()</code>.</p>
 <p>We define a small step reduction relation <code>--&gt;</code> with the following rules:</p>
 <pre><code>            ((x: T) =&gt; t) v  --&gt;  [x := v]t
 
-                      ~('u)  --&gt;  u
+                      ${'u}  --&gt;  u
 
                          t1  --&gt;  t2
                       -----------------
@@ -13658,7 +13645,7 @@ rule says that splice and quotes cancel each other out. The third rule
 is a context rule; it says that reduction is allowed in the hole <code>[ ]</code>
 position of an evaluation context.  Evaluation contexts <code>e</code> and
 splice evaluation context <code>e_s</code> are defined syntactically as follows:</p>
-<pre><code>Eval context    e    ::=  [ ]  |  e t  |  v e  |  'e_s[~e]
+<pre><code>Eval context    e    ::=  [ ]  |  e t  |  v e  |  'e_s[${e}]
 Splice context  e_s  ::=  [ ]  |  (x: T) =&gt; e_s  |  e_s t  |  u e_s
 </code></pre>
 <h3><a href="#typing-rules" id="typing-rules">Typing rules</a></h3>
@@ -13667,12 +13654,12 @@ substructural rules which express the fact that quotes and splices
 cancel each other out:</p>
 <pre><code>                      Es1 * Es2 |- t: T
                  ---------------------------
-                 Es1 ~ E1 ' E2 * Es2 |- t: T
+                 Es1 $ E1 ' E2 * Es2 |- t: T
 
 
                       Es1 * Es2 |- t: T
                  ---------------------------
-                 Es1 ' E1 ~ E2 * Es2 |- t: T
+                 Es1 ' E1 $ E2 * Es2 |- t: T
 </code></pre>
 <p>The lambda calculus fragment of the rules is standard, except that we
 use a stack of environments. The rules only interact with the topmost
@@ -13691,11 +13678,11 @@ environment of the stack.</p>
                ---------------------------------
                       Es |- t1 t2: T
 </code></pre>
-<p>The rules for quotes and splices map between <code>expr T</code> and <code>T</code> by trading <code>'</code> and <code>~</code> between
+<p>The rules for quotes and splices map between <code>expr T</code> and <code>T</code> by trading <code>'</code> and <code>$</code> between
 environments and terms.</p>
-<pre><code>                     Es ~ () |- t: expr T
+<pre><code>                     Es $ () |- t: expr T
                      --------------------
-                         Es |- ~t: T
+                         Es |- $t: T
 
 
                        Es ' () |- t: T
@@ -13714,41 +13701,42 @@ pattern matching. This opens new possibilities. For instance, here is a
 version of <code>power</code> that generates the multiplications directly if the
 exponent is statically known and falls back to the dynamic
 implementation of power otherwise.</p>
-<pre><code>inline def power(n: Int, x: Double): Double = ~{
-  '(n) match {
-    case Constant(n1) =&gt; powerCode(n1, '(x))
-    case _ =&gt; '{ dynamicPower(n, x) }
-  }
-}
+<pre><code class="language-scala">    inline def power(n: Int, x: Double): Double = ${
+      'n match {
+        case Constant(n1) =&gt; powerCode(n1, 'x)
+        case _ =&gt; '{ dynamicPower(n, x) }
+      }
+    }
 
-private def dynamicPower(n: Int, x: Double): Double =
-  if (n == 0) 1.0
-  else if (n % 2 == 0) dynamicPower(n / 2, x * x)
-  else x * dynamicPower(n - 1, x)
+    private def dynamicPower(n: Int, x: Double): Double =
+      if (n == 0) 1.0
+      else if (n % 2 == 0) dynamicPower(n / 2, x * x)
+      else x * dynamicPower(n - 1, x)
 </code></pre>
 <p>This assumes a <code>Constant</code> extractor that maps tree nodes representing
 constants to their values.</p>
-<p>With the right extractors the &quot;AsFunction&quot; operation
+<p>With the right extractors, the &quot;AsFunction&quot; conversion
 that maps expressions over functions to functions over expressions can
 be implemented in user code:</p>
-<pre><code>implicit class AsFunction[T, U](f: Expr[T =&gt; U]) extends AnyVal {
-  def apply(x: Expr[T]): Expr[U] =
-    f match {
-      case Lambda(g) =&gt; g(x)
-      case _ =&gt; '((~f)(~x))
+<pre><code class="language-scala">    implied AsFunction1[T, U] for Conversion[Expr[T =&gt; U], Expr[T] =&gt; Expr[U]] {
+      def apply(f: Expr[T =&gt; U]): Expr[T] =&gt; Expr[U] =
+       (x: Expr[T]) =&gt; f match {
+         case Lambda(g) =&gt; g(x)
+         case _ =&gt; '{ ($f)($x) }
+       }
     }
 </code></pre>
 <p>This assumes an extractor</p>
-<pre><code>object Lambda {
-  def unapply[T, U](x: Expr[T =&gt; U]): Option[Expr[T] =&gt; Expr[U]]
-}
+<pre><code class="language-scala">    object Lambda {
+      def unapply[T, U](x: Expr[T =&gt; U]): Option[Expr[T] =&gt; Expr[U]]
+    }
 </code></pre>
 <p>Once we allow inspection of code via extractors, it’s tempting to also
 add constructors that create typed trees directly without going
 through quotes. Most likely, those constructors would work over <code>Expr</code>
 types which lack a known type argument. For instance, an <code>Apply</code>
 constructor could be typed as follows:</p>
-<pre><code>def Apply(fn: Expr[_], args: List[Expr[_]]): Expr[_]
+<pre><code class="language-scala">    def Apply(fn: Expr[_], args: List[Expr[_]]): Expr[_]
 </code></pre>
 <p>This would allow constructing applications from lists of arguments
 without having to match the arguments one-by-one with the
