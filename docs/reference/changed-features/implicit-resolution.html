@@ -13067,7 +13067,24 @@ Consider for instance the following scenario:</p>
 </code></pre>
 <p>This will now resolve the <code>implicitly</code> call to <code>j</code>, because <code>j</code> is nested
 more deeply than <code>i</code>. Previously, this would have resulted in an
-ambiguity error.</p>
+ambiguity error. The previous possibility of an implicit search failure
+due to <em>shadowing</em> (where an implicit is hidden by a nested definition)
+no longer applies.</p>
+</li>
+<li>
+<p>Package prefixes no longer contribute to the implicit scope of a type.
+Example:</p>
+<pre><code>package p
+implied a for A
+
+object o {
+  implied b for B
+  type C
+}
+</code></pre>
+<p>Both <code>a</code> and <code>b</code> are visible as implicits at the point of the definition
+of <code>type C</code>. However, a reference to <code>p.o.C</code> outside of package <code>p</code> will
+have only <code>b</code> in its implicit scope but not <code>a</code>.</p>
 </li>
 <li>
 <p>The treatment of ambiguity errors has changed. If an ambiguity is encountered
@@ -13112,6 +13129,27 @@ implicit def conv2(x: =&gt; Int): A = new A(x)
 def buzz(y: A) = ???
 buzz(1)   // error: ambiguous
 </code></pre>
+</li>
+<li>
+<p>The rule for picking a <em>most specific</em> alternative among a set of overloaded or implicit
+alternatives is refined to take inferable parameters into account. All else
+being equal, an alternative that takes more inferable parameters is taken to be more specific
+than an alternative that takes fewer. If both alternatives take the same number of
+inferable parameters, we try to choose between them as if they were methods with regular parameters.
+The following paragraph in the SLS is affected by this change:</p>
+<p><em>Original version:</em></p>
+<blockquote>
+<p>An alternative A is <em>more specific</em> than an alternative B if the relative weight of A over B is greater than the relative weight of B over A.</p>
+</blockquote>
+<p><em>Modified version:</em></p>
+<p>An alternative A is <em>more specific</em> than an alternative B if</p>
+<ul>
+<li>the relative weight of A over B is greater than the relative weight of B over A, or</li>
+<li>the relative weights are the same and A takes more inferable parameters than B, or</li>
+<li>the relative weights and the number of inferable parameters are the same and
+A is more specific than B if all inferable parameters in either alternative are
+replaced by regular parameters.</li>
+</ul>
 </li>
 </ol>
 <p>[//]: # todo: expand with precise rules</p>
