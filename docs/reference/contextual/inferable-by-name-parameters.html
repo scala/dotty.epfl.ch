@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-02-22 -->
+<!-- This page was last generated on 2019-02-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13048,7 +13048,7 @@ implied optionCodec[T] given (ev: =&gt; Codec[T]) for Codec[Option[T]] {
   }
 }
 
-val s = infer[Codec[Option[Int]]]
+val s = the[Codec[Option[Int]]]
 
 s.write(Some(33))
 s.write(None)
@@ -13077,7 +13077,7 @@ if this is necessary to prevent an otherwise diverging expansion.</p>
 </li>
 </ol>
 <p>In the example above, the definition of <code>s</code> would be expanded as follows.</p>
-<pre><code class="language-scala">val s = infer[Test.Codec[Option[Int]]](
+<pre><code class="language-scala">val s = the[Test.Codec[Option[Int]]](
   optionCodec[Int](intCodec))
 </code></pre>
 <p>No local instance was generated because the synthesized argument is not recursive.</p>

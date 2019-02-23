@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-02-22 -->
+<!-- This page was last generated on 2019-02-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13092,7 +13092,11 @@ constructor of its first parameter. For example, the instance</p>
 Explicit arguments to inferable parameters <em>must</em> be written using <code>given</code>,
 mirroring the definition syntax. E.g, <code>max(2, 3) given IntOrd</code>.
 Scala 2 uses normal applications <code>max(2, 3)(IntOrd)</code> instead. The Scala 2 syntax has some inherent ambiguities and restrictions which are overcome by the new syntax. For instance, multiple implicit parameter lists are not available in the old syntax, even though they can be simulated using auxiliary objects in the &quot;Aux&quot; pattern.</p>
-<p>The <code>infer</code> method corresponds to <code>implicitly</code> in Scala 2.</p>
+<p>The <code>the</code> method corresponds to <code>implicitly</code> in Scala 2.
+It is precisely the same as the <code>the</code> method in Shapeless.
+The difference between <code>the</code> (in both versions) and <code>implicitly</code> is
+that <code>the</code> can return a more precise type than the type that was
+asked for.</p>
 <h3><a href="#context-bounds" id="context-bounds">Context Bounds</a></h3>
 <p>Context bounds are the same in both language versions. They expand to the respective forms of implicit parameters.</p>
 <p><strong>Note:</strong> To ease migration, context bounds in Dotty map for a limited time to old-style implicit parameters for which arguments can be passed either with <code>given</code> or
