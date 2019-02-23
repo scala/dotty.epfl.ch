@@ -13891,6 +13891,67 @@ This is either the tree as an assignment, or a setter call.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="cast(tp)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'cast(tp)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                cast
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-cast(tp)(ctx)">
+                            <p>cast tree to <code>tp</code>, assuming no exception is raised, i.e the operation is pure</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="changeNonLocalOwners(newOwner)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'changeNonLocalOwners(newOwner)(ctx)');">[+]</span>
@@ -14277,7 +14338,7 @@ owner by <code>from</code> to <code>to</code>.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-ensureConforms(tp)(ctx)">
-                            <p><code>tree.asInstanceOf[tp]</code> (or its box/unbox/cast equivalent when after
+                            <p>cast <code>tree</code> to <code>tp</code> (or its box/unbox/cast equivalent when after
 erasure and value and non-value types are mixed),
 unless tree's type already conforms to <code>tp</code>.</p>
 

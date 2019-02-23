@@ -13142,7 +13142,7 @@
                 
                 <div id="approx" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'approx');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'approx');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13169,7 +13169,8 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-approx">
-                            
+                            <p>The current approximation state. See <code>ApproxState</code>.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -13204,6 +13205,43 @@
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-initctx">
                             
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="leftRoot" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'leftRoot');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            var
+                        </span>
+                        <span class="member-name ">
+                            
+                                leftRoot
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-leftRoot">
+                            <p>The original left-hand type of the comparison. Gets reset
+everytime we compare components of the previous pair of types.
+This type is used for capture conversion in <code>isSubArgs</code>.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -15557,9 +15595,9 @@ two overloaded refs are the same if they have pairwise equal alternatives</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isSubArgs(args1,args2,tp1,tparams)" class="member ">
+                <div id="isSubArgs(args1,args2,tp1,tparams2)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isSubArgs(args1,args2,tp1,tparams)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isSubArgs(args1,args2,tp1,tparams2)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -15611,7 +15649,7 @@ two overloaded refs are the same if they have pairwise equal alternatives</p>
                                     
                                 
                                     <span class="">
-                                        tparams:
+                                        tparams2:
                                     </span>
                                     List
 <span class="no-left no-right">[</span>
@@ -15631,9 +15669,9 @@ two overloaded refs are the same if they have pairwise equal alternatives</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isSubArgs(args1,args2,tp1,tparams)">
+                        <div class="member-body-long" id ="long-body-isSubArgs(args1,args2,tp1,tparams2)">
                             <p>Subtype test for corresponding arguments in <code>args1</code>, <code>args2</code> according to
-variances in type parameters <code>tparams</code>.</p>
+variances in type parameters <code>tparams2</code>.</p>
 
                         </div>
                     </div>
@@ -16892,7 +16930,7 @@ that form part of a subtype derivation tree that's ultimately successful.</p>
                 
                 <div id="recur(tp1,tp2)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'recur(tp1,tp2)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'recur(tp1,tp2)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -16940,7 +16978,20 @@ that form part of a subtype derivation tree that's ultimately successful.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-recur(tp1,tp2)">
-                            
+                            <p>The inner loop of the isSubType comparison.
+Recursive calls from recur should go to recur directly if the two types
+compared in the callee are essentially the same as the types compared in the
+caller. &quot;The same&quot; means: represent essentially the same sets of values.
+<code>recur</code> should not be used to compare components of types. In this case
+one should use <code>isSubType(_, _)</code>.
+<code>recur</code> should also not be used to compare approximated versions of the original
+types (as when we go from an abstract type to one of its bounds). In that case
+one should use <code>isSubType(_, _, a)</code> where <code>a</code> defines the kind of approximation.</p>
+<p>Note: Logicaly, <code>recur</code> could be nested in <code>isSubType</code>, which would avoid
+the instance state consisting <code>approx</code> and <code>leftRoot</code>. But then the implemented
+code would have two extra parameters for each of the many calls that go from
+one sub-part of isSubType to another.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->

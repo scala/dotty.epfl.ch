@@ -13117,7 +13117,7 @@
                 
                 <div id="ApproxState" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'ApproxState');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'ApproxState');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13142,14 +13142,19 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-ApproxState">
-                            
+                            <p>The approximation state indicates how the pair of types currently compared
+relates to the types compared originally.
+- <code>NoApprox</code>: They are still the same types
+- <code>LoApprox</code>: The left type is approximated (i.e widened)&quot;
+- <code>HiApprox</code>: The right type is approximated (i.e narrowed)&quot;</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
                 
                 <div id="ApproxState$" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'ApproxState$');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'ApproxState$');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13174,7 +13179,49 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-ApproxState$">
+                            <p>The approximation state indicates how the pair of types currently compared
+relates to the types compared originally.
+- <code>NoApprox</code>: They are still the same types
+- <code>LoApprox</code>: The left type is approximated (i.e widened)&quot;
+- <code>HiApprox</code>: The right type is approximated (i.e narrowed)&quot;</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="FreshApprox" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'FreshApprox');">[+]</span>
+                        <span class="member-annotations">
                             
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                FreshApprox
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: ApproxState</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-FreshApprox">
+                            <p>A special approximation state to indicate that this is the first time we
+compare (approximations of) this pair of types. It's converted to <code>NoApprox</code>
+in <code>isSubType</code>, but also leads to <code>leftRoot</code> being set there.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
