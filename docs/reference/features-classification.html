@@ -13064,8 +13064,8 @@ replace implicit objects and defs, focussing on intent over mechanism,</li>
 of value classes while guaranteeing absence of boxing,</li>
 <li><a href="https://dotty.epfl.ch/docs/reference/dropped-features/package-objects.html">Toplevel definitions</a> replace package objects, dropping syntactic boilerplate,</li>
 <li><a href="https://dotty.epfl.ch/docs/reference/changed-features/vararg-patterns.html">Vararg patterns</a> now use the form <code>: _*</code> instead of <code>@ _*</code>, mirroring vararg expressions,</li>
-<li><a href="https://contributors.scala-lang.org/t/expunging-new-from-scala-3/2868/81">Synthesized creation methods</a>
-replace <code>new</code> expressions (under discussion, not implemented),</li>
+<li><a href="https://contributors.scala-lang.org/t/expunging-new-from-scala-3/2868/81">Synthesized creation methods</a> allow to use simple function call syntax
+instead of <code>new</code> expressions (under discussion, not implemented).</li>
 </ul>
 <p>With the exception of early initializers and old-style vararg patterns, all superseded features continue to be available in Scala 3.0. The plan is to deprecate and phase them out later.</p>
 <p>Value classes (superseded by opaque type aliases) are a special case. There are currently no deprecation plans for value classes, since we might want to bring them back in a more general form if they are supported natively by the JVM as is planned by project Valhalla.</p>
@@ -13156,7 +13156,7 @@ a partial list of type arguments.</li>
 <li><a href="https://dotty.epfl.ch/docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a> allows the definition of operators working equally on types and type constructors.</li>
 </ul>
 <p><strong>Status: mixed</strong></p>
-<p>Enums offer an essential simplification of core features, so they should be adopted for Scala 3.0. Auto-parameter tupling is a very small change that removes some awkwardness, so it might as well be adopted now. The other features constitute more specialized functionality which could be introduced in later versions. On the other hand, except for polymorphic function types they are all fully implemented, so if the Scala 3.0 spec does not include them, they might be still made available under a language flag.</p>
+<p>Enums offer an essential simplification of fundamental use patterns, so they should be adopted for Scala 3.0. Auto-parameter tupling is a very small change that removes some awkwardness, so it might as well be adopted now. The other features constitute more specialized functionality which could be introduced in later versions. On the other hand, except for polymorphic function types they are all fully implemented, so if the Scala 3.0 spec does not include them, they might be still made available under a language flag.</p>
 <p><strong>Migration cost: none</strong></p>
 <p>Being new features, existing code migrates without changes. To be sure, sometimes it would be attractive to rewrite code to make use of the new features in order to increase clarity and conciseness.</p>
 <h2><a href="#meta-programming" id="meta-programming">Meta Programming</a></h2>
