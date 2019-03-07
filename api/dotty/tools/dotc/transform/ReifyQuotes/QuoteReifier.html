@@ -2843,6 +2843,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../../../../../../.././api/dotty/tools/dotc/core/MacroClassLoader$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/core/MacroClassLoader$.html">MacroClassLoader</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor class" href="../../../../../../.././api/dotty/tools/dotc/core/MalformedType.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/core/MalformedType.html">MalformedType</a>
@@ -3152,6 +3170,24 @@
                         <a class="letter-anchor class" href="../../../../../../.././api/dotty/tools/dotc/core/SourcefileLoader.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/core/SourcefileLoader.html">SourcefileLoader</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../../.././api/dotty/tools/dotc/core/StagingContext$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/core/StagingContext$.html">StagingContext</a>
                 </li>
 
                 
@@ -7230,6 +7266,24 @@
                         <a class="letter-anchor object" href="../../../../../../.././api/dotty/tools/dotc/transform/OverridingPairs$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/transform/OverridingPairs$.html">OverridingPairs</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../../.././api/dotty/tools/dotc/transform/PCPCheckAndHeal.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../../.././api/dotty/tools/dotc/transform/PCPCheckAndHeal.html">PCPCheckAndHeal</a>
                 </li>
 
                 
@@ -13026,10 +13080,10 @@ Symbol<span class="">, </span>Tree<span class="right-arrow"> =&gt; </span>Tree
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-addTags(expr)(ctx)">
-                            <p>Assuming <expr> contains types <code>&lt;tag1&gt;.unary_~, ..., &lt;tagN&gt;.unary_~</code>, the expression</p>
-<pre><code>{ type &lt;Type1&gt; = &lt;tag1&gt;.unary_~
+                            <p>Assuming <expr> contains types <code>${&lt;tag1&gt;}, ..., ${&lt;tagN&gt;}</code>, the expression</p>
+<pre><code>{ type &lt;Type1&gt; = ${&lt;tag1&gt;}
   ...
-  type &lt;TypeN&gt; = &lt;tagN&gt;.unary_~
+  type &lt;TypeN&gt; = ${&lt;tagN&gt;}
   &lt;expr&gt;
 }
 </code></pre>
@@ -13322,7 +13376,7 @@ Assuming
 '{
 val x = ???
 val y = ???
-{ ... '{ ... x .. y ... } ... }.unary_~
+${ ... '{ ... x .. y ... } ... }
 }
 then the spliced subexpression
 { ... '{ ... x ... y ... } ... }
@@ -13330,7 +13384,7 @@ will be transformed to
 (args: Seq[Any]) =&gt; {
 val x$1 = args(0).asInstanceOf[Expr[Any]] // or .asInstanceOf[Type[Any]]
 val y$1 = args(1).asInstanceOf[Expr[Any]] // or .asInstanceOf[Type[Any]]
-{ ... '{ ... x$1.unary_~ ... y$1.unary_~ ... } ... }
+{ ... '{ ... ${x$1} ... ${y$1} ... } ... }
 }</p>
 <p>See: <code>capture</code></p>
 <p>At the same time register embedded trees <code>x</code> and <code>y</code> to place as arguments of the hole

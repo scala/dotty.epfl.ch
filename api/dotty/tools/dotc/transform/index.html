@@ -2843,6 +2843,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/core/MacroClassLoader$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/MacroClassLoader$.html">MacroClassLoader</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/core/MalformedType.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/MalformedType.html">MalformedType</a>
@@ -3152,6 +3170,24 @@
                         <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/core/SourcefileLoader.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/SourcefileLoader.html">SourcefileLoader</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/core/StagingContext$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/StagingContext$.html">StagingContext</a>
                 </li>
 
                 
@@ -7230,6 +7266,24 @@
                         <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/transform/OverridingPairs$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/OverridingPairs$.html">OverridingPairs</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/transform/PCPCheckAndHeal.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/PCPCheckAndHeal.html">PCPCheckAndHeal</a>
                 </li>
 
                 
@@ -15665,6 +15719,40 @@ way too unwieldy to be maintained.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="PCPCheckAndHeal" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'PCPCheckAndHeal');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            class
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/transform/PCPCheckAndHeal.html">PCPCheckAndHeal</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-PCPCheckAndHeal">
+                            <p>Checks that the Phase Consistency Principle (PCP) holds and heals types.</p>
+<p>Type healing consists in transforming a phase inconsistent type <code>T</code> into a splice of <code>implicitly[Type[T]]</code>.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="ParamForwarding" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'ParamForwarding');">[+]</span>
@@ -16097,7 +16185,7 @@ as IsInstanceOfChecker don't give false negatives.</p>
    val x1 = ???
    val x2 = ???
    ...
-   ~{ ... '{ ... x1 ... x2 ...} ... }
+   ${ ... '{ ... x1 ... x2 ...} ... }
    ...
  }
 </code></pre>
@@ -16116,12 +16204,12 @@ as IsInstanceOfChecker don't give false negatives.</p>
        val x1$1 = args(0).asInstanceOf[Expr[T]]
        val x2$1 = args(1).asInstanceOf[Expr[T]] // can be asInstanceOf[Type[T]]
        ...
-       { ... '{ ... x1$1.unary_~ ... x2$1.unary_~ ...} ... }
+       { ... '{ ... ${x1$1} ... ${x2$1} ...} ... }
      }
    )
  )
 </code></pre>
-<p>and then performs the same transformation on <code>'{ ... x1$1.unary_~ ... x2$1.unary_~ ...}</code>.</p>
+<p>and then performs the same transformation on <code>'{ ... ${x1$1} ... ${x2$1} ...}</code>.</p>
 
                         </div>
                     </div>
@@ -16608,10 +16696,8 @@ shortcut methods on the fly.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-Staging">
-                            <p>Checks that the Phase Consistency Principle (PCP) holds, heals types and expand macros.</p>
-<p>Type healing consists in transforming a phase inconsistent type <code>T</code> into <code>implicitly[Type[T]].unary_~</code>.</p>
-<p>For macro definitions we assume that we have a single ${...} directly as the RHS.
-The Splicer is used to check that the RHS will be interpretable (with the <code>Splicer</code>) once inlined.</p>
+                            <p>Checks that the Phase Consistency Principle (PCP) holds and heals types.</p>
+<p>Type healing consists in transforming a phase inconsistent type <code>T</code> into <code>${ implicitly[Type[T]] }</code>.</p>
 
                         </div>
                     </div>
