@@ -12969,16 +12969,13 @@ Additionally it optimizes calls to scala.Array.ofDim functions by replacing them
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-AugmentScala2Traits">
-                            <p>This phase augments Scala2 traits with implementation classes and with additional members
-needed for mixin composition.
-These symbols would have been added between Unpickling and Mixin in the Scala2 pipeline.
-Specifically, it adds</p>
-<ul>
-<li>an implementation class which defines a trait constructor and trait method implementations</li>
-<li>trait setters for vals defined in traits</li>
-</ul>
-<p>Furthermore, it expands the names of all private getters and setters as well as super accessors in the trait and makes
-them not-private.</p>
+                            <p>This phase augments Scala2 traits with additional members needed for mixin composition.</p>
+<p>These symbols would have been added between Unpickling and Mixin in the Scala2 pipeline.</p>
+<p>Specifically, we:
+- Mark all lazy val fields as @volatile to get the proper Scala 2 semantics.
+- Add trait setters for vals defined in traits.
+- Expand the names of all private getters and setters as well as super accessors in the trait and make
+not-private.</p>
 
                         </div>
                     </div>
@@ -15194,12 +15191,9 @@ after an exception, so the fact that values on the stack are 'lost' does not mat
                         <div class="member-body-long" id ="long-body-LinkScala2Impls">
                             <p>Rewrite calls</p>
 <p>super[M].f(args)</p>
-<p>where M is a Scala 2.11 trait implemented by the current class to</p>
-<p>M$class.f(this, args)</p>
-<p>provided the implementation class M$class defines a corresponding function <code>f</code>.
-If M is a Scala 2.12 or newer trait, rewrite to</p>
-<p>M.f(this, args)</p>
-<p>where f is a static member of M.</p>
+<p>where M is a Scala 2.x trait implemented by the current class to</p>
+<p>M.f$(this, args)</p>
+<p>where f$ is a static member of M.</p>
 
                         </div>
                     </div>
@@ -15448,19 +15442,23 @@ reverse linearization order, add the following definitions to C:</p>
 3.2 (done in `traitInits`) For every concrete trait getter `&lt;mods&gt; def x(): T` in M
     which is not a parameter accessor, in order of textual occurrence, produce the following:
 
-    3.2.1 If `x` is also a member of `C`, and M is a Dotty trait:
+    3.2.1 If `x` is also a member of `C`, and is a lazy val,
+
+      &lt;mods&gt; lazy val x: T = super[M].x
+
+    3.2.2 If `x` is also a member of `C`, and M is a Dotty trait,
 
       &lt;mods&gt; def x(): T = super[M].initial$x()
 
-    3.2.2 If `x` is also a member of `C`, and M is a Scala 2.x trait:
+    3.2.3 If `x` is also a member of `C`, and M is a Scala 2.x trait:
 
       &lt;mods&gt; def x(): T = _
 
-    3.2.3 If `x` is not a member of `C`, and M is a Dotty trait:
+    3.2.4 If `x` is not a member of `C`, and M is a Dotty trait:
 
       super[M].initial$x()
 
-    3.2.4 If `x` is not a member of `C`, and M is a Scala2.x trait, nothing gets added.
+    3.2.5 If `x` is not a member of `C`, and M is a Scala2.x trait, nothing gets added.
 
 
 3.3 (done in `superCallOpt`) The call:

@@ -12777,12 +12777,9 @@
             <div id="entity-body" class="entity-section">
                 <p>Rewrite calls</p>
 <p>super[M].f(args)</p>
-<p>where M is a Scala 2.11 trait implemented by the current class to</p>
-<p>M$class.f(this, args)</p>
-<p>provided the implementation class M$class defines a corresponding function <code>f</code>.
-If M is a Scala 2.12 or newer trait, rewrite to</p>
-<p>M.f(this, args)</p>
-<p>where f is a static member of M.</p>
+<p>where M is a Scala 2.x trait implemented by the current class to</p>
+<p>M.f$(this, args)</p>
+<p>where f$ is a static member of M.</p>
 
             </div>
             
@@ -12849,9 +12846,9 @@ If M is a Scala 2.12 or newer trait, rewrite to</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="augmentScala_2_12_Trait(mixin)(ctx)" class="member private">
+                <div id="addStaticForwarders(mixin)(ctx)" class="member private">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'augmentScala_2_12_Trait(mixin)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'addStaticForwarders(mixin)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12863,7 +12860,7 @@ If M is a Scala 2.12 or newer trait, rewrite to</p>
                         </span>
                         <span class="member-name ">
                             
-                                augmentScala_2_12_Trait
+                                addStaticForwarders
                             
                         </span>
 
@@ -12903,9 +12900,8 @@ If M is a Scala 2.12 or newer trait, rewrite to</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-augmentScala_2_12_Trait(mixin)(ctx)">
-                            <p>Copy definitions from implementation class to trait itself</p>
-
+                        <div class="member-body-long" id ="long-body-addStaticForwarders(mixin)(ctx)">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->

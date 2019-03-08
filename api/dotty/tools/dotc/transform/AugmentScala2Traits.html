@@ -12769,27 +12769,19 @@
                     
                     <span class="entity-super-type"><a href="../../../../../.././api/dotty/tools/dotc/core/DenotTransformers$/IdentityDenotTransformer.html">IdentityDenotTransformer</a></span>
                     
-                    
-                    <span class="keyword">with</span>
-                    
-                    <span class="entity-super-type"><a href="../../../../../.././api/dotty/tools/dotc/transform/FullParameterization.html">FullParameterization</a></span>
-                    
                 </div>
                 
             </div>
 
             
             <div id="entity-body" class="entity-section">
-                <p>This phase augments Scala2 traits with implementation classes and with additional members
-needed for mixin composition.
-These symbols would have been added between Unpickling and Mixin in the Scala2 pipeline.
-Specifically, it adds</p>
-<ul>
-<li>an implementation class which defines a trait constructor and trait method implementations</li>
-<li>trait setters for vals defined in traits</li>
-</ul>
-<p>Furthermore, it expands the names of all private getters and setters as well as super accessors in the trait and makes
-them not-private.</p>
+                <p>This phase augments Scala2 traits with additional members needed for mixin composition.</p>
+<p>These symbols would have been added between Unpickling and Mixin in the Scala2 pipeline.</p>
+<p>Specifically, we:
+- Mark all lazy val fields as @volatile to get the proper Scala 2 semantics.
+- Add trait setters for vals defined in traits.
+- Expand the names of all private getters and setters as well as super accessors in the trait and make
+not-private.</p>
 
             </div>
             
@@ -12822,9 +12814,9 @@ them not-private.</p>
 
             <div id="entity-members" class="entity-section ">
                 
-                <div id="augmentScala2Trait(mixin,cls)(ctx)" class="member private">
+                <div id="augmentScala2Trait(mixin)(ctx)" class="member private">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'augmentScala2Trait(mixin,cls)(ctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'augmentScala2Trait(mixin)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12847,14 +12839,6 @@ them not-private.</p>
                                 
                                     <span class="no-left">
                                         mixin:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Symbols$/ClassSymbol.html">ClassSymbol</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        cls:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Symbols$/ClassSymbol.html">ClassSymbol</a>
                                     
@@ -12884,7 +12868,7 @@ them not-private.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-augmentScala2Trait(mixin,cls)(ctx)">
+                        <div class="member-body-long" id ="long-body-augmentScala2Trait(mixin)(ctx)">
                             
                         </div>
                     </div>
@@ -12958,77 +12942,6 @@ them not-private.</p>
 instance, it is possible to print trees after a given phase using:</p>
 <pre><code class="language-bash">$ ./bin/dotc -Xprint:&lt;phaseNameHere&gt; sourceFile.scala
 </code></pre>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="rewiredTarget(referenced,derived)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'rewiredTarget(referenced,derived)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            override
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                rewiredTarget
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        referenced:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        derived:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-rewiredTarget(referenced,derived)(ctx)">
-                            <p>If references to original symbol <code>referenced</code> from within fully parameterized method
-<code>derived</code> should be rewired to some fully parameterized method, the rewiring target symbol,
-otherwise NoSymbol.</p>
 
                         </div>
                     </div>
