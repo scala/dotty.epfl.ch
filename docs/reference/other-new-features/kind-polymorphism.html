@@ -12770,8 +12770,8 @@ through advanced uses of implicits.</p>
 <p>Some technical details: <code>AnyKind</code> is a synthesized class just like <code>Any</code>, but without any members. It extends no other class.
 It is declared <code>abstract</code> and <code>final</code>, so it can be neither instantiated nor extended.</p>
 <p><code>AnyKind</code> plays a special role in Scala's subtype system: It is a supertype of all other types no matter what their kind is. It is also assumed to be kind-compatible with all other types. Furthermore, <code>AnyKind</code> is treated as a higher-kinded type (so it cannot be used as a type of values), but at the same time it has no type parameters (so it cannot be instantiated).</p>
-<p><strong>Note</strong>: This feature is considered experimental and is only enabled under a compiler flag
-(i.e. <code>-Ykind-polymorphism</code>).</p>
+<p><strong>Note</strong>: This feature is considered experimental but stable and it can be disabled under compiler flag
+(i.e. <code>-Yno-kind-polymorphism</code>).</p>
 
         </div>
     </div><!-- end content-body -->
