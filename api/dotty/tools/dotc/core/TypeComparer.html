@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-03-08 -->
+<!-- This page was last generated on 2019-03-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15011,6 +15011,83 @@ Therefore it is subject to Config option <code>alignArgsInAnd</code>.</p>
 the normalized type of the refinement <code>tp2</code>?
 Normalization is as follows: If <code>tp2</code> contains a skolem to its refinement type,
 rebase both itself and the member info of <code>tp</code> on a freshly created skolem type.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="intersecting(tp1,tp2)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'intersecting(tp1,tp2)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                intersecting
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp1:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        tp2:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-intersecting(tp1,tp2)(ctx)">
+                            <p>Do <code>tp1</code> and <code>tp2</code> share a non-null inhabitant?</p>
+<p><code>false</code> implies that we found a proof; uncertainty default to <code>true</code>.</p>
+<p>Proofs rely on the following properties of Scala types:</p>
+<ol>
+<li>Single inheritance of classes</li>
+<li>Final classes cannot be extended</li>
+<li>ConstantTypes with distinc values are non intersecting</li>
+<li>There is no value of type Nothing</li>
+</ol>
 
                         </div>
                     </div>

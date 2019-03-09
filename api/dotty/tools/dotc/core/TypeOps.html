@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-03-08 -->
+<!-- This page was last generated on 2019-03-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13231,6 +13231,78 @@ the prefix &quot;dotty.language.&quot;.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="instantiate(tp1,tp2)(ctx)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'instantiate(tp1,tp2)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                instantiate
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp1:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/NamedType.html">NamedType</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        tp2:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-instantiate(tp1,tp2)(ctx)">
+                            <p>Instantiate type <code>tp1</code> to be a subtype of <code>tp2</code></p>
+<p>Return the instantiated type if type parameters and this type
+in <code>tp1</code> can be instantiated such that <code>tp1 &lt;:&lt; tp2</code>.</p>
+<p>Otherwise, return NoType.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="isLegalPrefix(pre)(ctx)" class="member private">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'isLegalPrefix(pre)(ctx)');">[+]</span>
@@ -13394,6 +13466,88 @@ class A extends C[A] with D
 class B extends C[B] with D with E
 </code></pre>
 <p>we approximate <code>A | B</code> by <code>C[A | B] with D</code></p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="refineUsingParent(parent,child)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'refineUsingParent(parent,child)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                refineUsingParent
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        parent:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        child:
+                                    </span>
+                                    Symbol
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-refineUsingParent(parent,child)(ctx)">
+                            <p>Refine child based on parent</p>
+<p>In child class definition, we have:</p>
+<pre><code>class Child[Ts] extends path.Parent[Us] with Es
+object Child extends path.Parent[Us] with Es
+val child = new path.Parent[Us] with Es           // enum values
+</code></pre>
+<p>Given a parent type <code>parent</code> and a child symbol <code>child</code>, we infer the prefix
+and type parameters for the child:</p>
+<pre><code>prefix.child[Vs] &lt;:&lt; parent
+</code></pre>
+<p>where <code>Vs</code> are fresh type variables and <code>prefix</code> is the symbol prefix with all
+non-module and non-package <code>ThisType</code> replaced by fresh type variables.</p>
+<p>If the subtyping is true, the instantiated type <code>p.child[Vs]</code> is
+returned. Otherwise, <code>NoType</code> is returned.</p>
 
                         </div>
                     </div>
