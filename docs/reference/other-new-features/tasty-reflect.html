@@ -12803,52 +12803,50 @@ In the code above we could have replaced <code>n.toExpr</code> by <code>xTree.re
 <pre><code class="language-none">+- Tree -+- PackageClause
          +- Import
          +- Statement -+- Definition --+- PackageDef
-                       |               +- ClassDef
-                       |               +- TypeDef
-                       |               +- DefDef
-                       |               +- ValDef
-                       |
-                       +- Term --------+- Ident
-                                       +- Select
-                                       +- Literal
-                                       +- This
-                                       +- New
-                                       +- NamedArg
-                                       +- Apply
-                                       +- TypeApply
-                                       +- Super
-                                       +- Typed
-                                       +- Assign
-                                       +- Block
-                                       +- Lambda
-                                       +- If
-                                       +- Match
-                                       +- Try
-                                       +- Return
-                                       +- Repeated
-                                       +- Inlined
-                                       +- SelectOuter
-                                       +- While
-
-
-                       +- TypeTree ----+- Synthetic
-                       |               +- Ident
-                       |               +- Select
-                       |               +- Project
-                       |               +- Singleton
-+- TypeOrBoundsTree ---+               +- Refined
-                       |               +- Applied
-                       |               +- Annotated
-                       |               +- MatchType
-                       |               +- ByName
-                       |               +- LambdaTypeTree
-                       |               +- Bind
-                       |
-                       +- TypeBoundsTree
-                       +- SyntheticBounds
-
-+- CaseDef
-+- TypeCaseDef
+         |             |               +- ClassDef
+         |             |               +- TypeDef
+         |             |               +- DefDef
+         |             |               +- ValDef
+         |             |
+         |             +- Term --------+- Ident
+         |                             +- Select
+         |                             +- Literal
+         |                             +- This
+         |                             +- New
+         |                             +- NamedArg
+         |                             +- Apply
+         |                             +- TypeApply
+         |                             +- Super
+         |                             +- Typed
+         |                             +- Assign
+         |                             +- Block
+         |                             +- Lambda
+         |                             +- If
+         |                             +- Match
+         |                             +- Try
+         |                             +- Return
+         |                             +- Repeated
+         |                             +- Inlined
+         |                             +- SelectOuter
+         |                             +- While
+         |
+         +- TypeTree ----+- Synthetic
+         |               +- Ident
+         |               +- Select
+         |               +- Project
+         |               +- Singleton
+         |               +- Refined
+         |               +- Applied
+         |               +- Annotated
+         |               +- MatchType
+         |               +- ByName
+         |               +- LambdaTypeTree
+         |               +- Bind
+         |
+         +- TypeBoundsTree
+         +- SyntheticBounds
+         +- CaseDef
+         +- TypeCaseDef
 
 +- Pattern --+- Value
              +- Bind
@@ -12902,8 +12900,6 @@ In the code above we could have replaced <code>n.toExpr</code> by <code>xTree.re
             +- BindSymbol
             +- NoSymbol
 
-Aliases:
- # TermOrTypeTree = Term | TypeTree
 </code></pre>
 <h2><a href="#more-examples" id="more-examples">More Examples</a></h2>
 <ul>
