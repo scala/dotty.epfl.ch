@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-03-11 -->
+<!-- This page was last generated on 2019-03-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12745,9 +12745,57 @@
         <div id="doc-page-container">
             <p>Dotty implementation of pattern matching was greatly simplified compared to scalac. From a user perspective, this means that Dotty generated patterns are a <em>lot</em> easier to debug, as variables all show up in debug modes and positions are correctly preserved.</p>
 <p>Dotty supports a superset of scalac's <a href="https://www.scala-lang.org/files/archive/spec/2.13/08-pattern-matching.html#extractor-patterns">extractors</a>.</p>
-<h2><a href="#boolean-pattern" id="boolean-pattern">Boolean Pattern</a></h2>
+<h2><a href="#extractors" id="extractors">Extractors</a></h2>
+<p>Extractors are objects that expose a method <code>unapply</code> or <code>unapplySeq</code>:</p>
+<pre><code class="language-Scala">def unapply[A](x: T)(implicit x: B): U
+def unapplySeq[A](x: T)(implicit x: B): U
+</code></pre>
+<p>Extractors expose the method <code>unapply</code> are called fixed-arity extractors, which
+work with patterns of fixed arity. Extractors expose the method <code>unapplySeq</code> are
+called variadic extractors, which enables variadic patterns.</p>
+<h3><a href="#fixed-arity-extractors" id="fixed-arity-extractors">Fixed-Arity Extractors</a></h3>
+<p>Fixed-arity extractors expose the following signature:</p>
+<pre><code class="language-Scala">def unapply[A](x: T)(implicit x: B): U
+</code></pre>
+<p>The type <code>U</code> conforms to one of the following matches:</p>
 <ul>
-<li>Extractor defines <code>def unapply(x: T): Boolean</code></li>
+<li>Boolean match</li>
+<li>Product match</li>
+</ul>
+<p>Or <code>U</code> conforms to the type <code>R</code>:</p>
+<pre><code class="language-Scala">type R = {
+  def isEmpty: Boolean
+  def get: S
+}
+</code></pre>
+<p>and <code>S</code> conforms to one of the following matches:</p>
+<ul>
+<li>single match</li>
+<li>name-based match</li>
+</ul>
+<p>The former form of <code>unapply</code> has higher precedence, and <em>single match</em> has higher
+precedence over <em>name-based match</em>.</p>
+<h3><a href="#variadic-extractors" id="variadic-extractors">Variadic Extractors</a></h3>
+<p>Variadic extractors expose the following signature:</p>
+<pre><code class="language-Scala">def unapplySeq[A](x: T)(implicit x: B): U
+</code></pre>
+<p>The type <code>U</code> conforms to one of the following matches:</p>
+<ul>
+<li>sequence match</li>
+<li>product-sequence match</li>
+</ul>
+<p>Or <code>U</code> conforms to the type <code>R</code>:</p>
+<pre><code class="language-Scala">type R = {
+  def isEmpty: Boolean
+  def get: S
+}
+</code></pre>
+<p>and <code>S</code> conforms to one of the two matches above.</p>
+<p>The former form of <code>unapplySeq</code> has higher priority, and <em>sequence match</em> has higher
+precedence over <em>product-sequence match</em>.</p>
+<h2><a href="#boolean-match" id="boolean-match">Boolean Match</a></h2>
+<ul>
+<li><code>U =:= Boolean</code></li>
 <li>Pattern-matching on exactly <code>0</code> patterns</li>
 </ul>
 <p>For example:</p>
@@ -12762,9 +12810,8 @@
 }
 // even has an even number of characters
 </code></pre>
-<h2><a href="#product-pattern" id="product-pattern">Product Pattern</a></h2>
+<h2><a href="#product-match" id="product-match">Product Match</a></h2>
 <ul>
-<li>Extractor defines <code>def unapply(x: T): U</code></li>
 <li><code>U &lt;: Product</code></li>
 <li><code>N &gt; 0</code> is the maximum number of consecutive (parameterless <code>def</code> or <code>val</code>) <code>_1: P1</code> ... <code>_N: PN</code> members in <code>U</code></li>
 <li>Pattern-matching on exactly <code>N</code> patterns with types <code>P1, P2, ..., PN</code></li>
@@ -12791,11 +12838,47 @@ object FirstChars {
 }
 // First: H; Second: i
 </code></pre>
-<h2><a href="#name-based-seq-pattern" id="name-based-seq-pattern">Name-based Seq Pattern</a></h2>
+<h2><a href="#single-match" id="single-match">Single Match</a></h2>
 <ul>
-<li>Extractor defines <code>def unapplySeq(x: T): U</code></li>
-<li><code>U</code> has (parameterless <code>def</code> or <code>val</code>) members <code>isEmpty: Boolean</code> and <code>get: S</code></li>
-<li><code>S</code> conforms to <code>X</code>, <code>T2</code> and <code>T3</code> conform to <code>T1</code></li>
+<li>If there is exactly <code>1</code> pattern, pattern-matching on <code>1</code> pattern with type <code>U</code></li>
+</ul>
+<!-- To be kept in sync with tests/new/patmat-spec.scala -->
+<pre><code class="language-scala">class Nat(val x: Int) {
+  def get: Int = x
+  def isEmpty = x &lt; 0
+}
+
+object Nat {
+  def unapply(x: Int): Nat = new Nat(x)
+}
+
+5 match {
+  case Nat(n) =&gt; println(s&quot;$n is a natural number&quot;)
+  case _      =&gt; ()
+}
+// 5 is a natural number
+</code></pre>
+<h2><a href="#name-based-match" id="name-based-match">Name-based Match</a></h2>
+<ul>
+<li><code>N &gt; 1</code> is the maximum number of consecutive (parameterless <code>def</code> or <code>val</code>) <code>_1: P1 ... _N: PN</code> members in <code>U</code></li>
+<li>Pattern-matching on exactly <code>N</code> patterns with types <code>P1, P2, ..., PN</code></li>
+</ul>
+<pre><code class="language-Scala">object ProdEmpty {
+  def _1: Int = ???
+  def _2: String = ???
+  def isEmpty = true
+  def unapply(s: String): this.type = this
+  def get = this
+}
+
+&quot;&quot; match {
+  case ProdEmpty(_, _) =&gt; ???
+  case _ =&gt; ()
+}
+</code></pre>
+<h2><a href="#sequence-match" id="sequence-match">Sequence Match</a></h2>
+<ul>
+<li><code>U &lt;: X</code>, <code>T2</code> and <code>T3</code> conform to <code>T1</code></li>
 </ul>
 <pre><code class="language-Scala">type X = {
   def lengthCompare(len: Int): Int // or, `def length: Int`
@@ -12821,31 +12904,26 @@ object FirstChars {
 }
 // e,x,a,m
 </code></pre>
-<h2><a href="#name-based-pattern" id="name-based-pattern">Name-based Pattern</a></h2>
+<h2><a href="#product-sequence-match" id="product-sequence-match">Product-Sequence Match</a></h2>
 <ul>
-<li>Extractor defines <code>def unapply(x: T): U</code></li>
-<li><code>U</code> has (parameterless <code>def</code> or <code>val</code>) members <code>isEmpty: Boolean</code> and <code>get: S</code></li>
-<li>If there is exactly <code>1</code> pattern, pattern-matching on <code>1</code> pattern with type <code>S</code></li>
-<li>Otherwise <code>N &gt; 0</code> is the maximum number of consecutive (parameterless <code>def</code> or <code>val</code>) <code>_1: P1</code> ... <code>_N: PN</code> members in <code>U</code></li>
-<li>Pattern-matching on exactly <code>N</code> patterns with types <code>P1, P2, ..., PN</code></li>
+<li><code>U &lt;: Product</code></li>
+<li><code>N &gt; 0</code> is the maximum number of consecutive (parameterless <code>def</code> or <code>val</code>) <code>_1: P1</code> ... <code>_N: PN</code> members in <code>U</code></li>
+<li><code>PN</code> conforms to the signature <code>X</code> defined in Seq Pattern</li>
+<li>Pattern-matching on exactly <code>&gt;= N</code> patterns, the first <code>N - 1</code> patterns have types <code>P1, P2, ... P(N-1)</code>,
+the type of the remaining patterns are determined as in Seq Pattern.</li>
 </ul>
-<!-- To be kept in sync with tests/new/patmat-spec.scala -->
-<pre><code class="language-scala">class Nat(val x: Int) {
-  def get: Int = x
-  def isEmpty = x &lt; 0
+<pre><code class="language-Scala">class Foo(val name: String, val children: Int *)
+object Foo {
+  def unapplySeq(f: Foo): Option[(String, Seq[Int])] = Some((f.name, f.children))
 }
 
-object Nat {
-  def unapply(x: Int): Nat = new Nat(x)
+def foo(f: Foo) = f match {
+  case Foo(name, ns : _*) =&gt;
+  case Foo(name, x, y, ns : _*) =&gt;
 }
-
-5 match {
-  case Nat(n) =&gt; println(s&quot;$n is a natural number&quot;)
-  case _      =&gt; ()
-}
-// 5 is a natural number
 </code></pre>
-<p>In case of ambiguities, <em>Product Pattern</em> is preferred over <em>Name Based Pattern</em>. This document reflects the state of pattern matching as currently implemented in Dotty. There are plans for further simplification, in particular to factor out <em>Product Pattern</em> and <em>Name Based Pattern</em> into a single type of extractor.</p>
+<p>There are plans for further simplification, in particular to factor out <em>product
+match</em> and <em>name-based match</em> into a single type of extractor.</p>
 
         </div>
     </div><!-- end content-body -->

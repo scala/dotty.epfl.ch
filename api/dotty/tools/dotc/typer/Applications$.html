@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-03-11 -->
+<!-- This page was last generated on 2019-03-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13333,7 +13333,7 @@ parameterless <code>isEmpty</code> member of result type <code>Boolean</code>.</
                         <div class="member-body-long" id ="long-body-isProductMatch(tp,numArgs,errorPos)(ctx)">
                             <p>Does <code>tp</code> fit the &quot;product match&quot; conditions as an unapply result type
 for a pattern with <code>numArgs</code> subpatterns?
-This is the case of <code>tp</code> has members <code>_1</code> to <code>_N</code> where <code>N == numArgs</code>.</p>
+This is the case if <code>tp</code> has members <code>_1</code> to <code>_N</code> where <code>N == numArgs</code>.</p>
 
                         </div>
                     </div>
@@ -13370,7 +13370,125 @@ This is the case of <code>tp</code> has members <code>_1</code> to <code>_N</cod
                         <div class="member-body-long" id ="long-body-isProductMatch$default$3">
                             <p>Does <code>tp</code> fit the &quot;product match&quot; conditions as an unapply result type
 for a pattern with <code>numArgs</code> subpatterns?
-This is the case of <code>tp</code> has members <code>_1</code> to <code>_N</code> where <code>N == numArgs</code>.</p>
+This is the case if <code>tp</code> has members <code>_1</code> to <code>_N</code> where <code>N == numArgs</code>.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="isProductSeqMatch(tp,numArgs,errorPos)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isProductSeqMatch(tp,numArgs,errorPos)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isProductSeqMatch
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        numArgs:
+                                    </span>
+                                    Int
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        errorPos:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/util/SourcePosition.html">SourcePosition</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isProductSeqMatch(tp,numArgs,errorPos)(ctx)">
+                            <p>Does <code>tp</code> fit the &quot;product-seq match&quot; conditions as an unapply result type
+for a pattern with <code>numArgs</code> subpatterns?
+This is the case if (1) <code>tp</code> has members <code>_1</code> to <code>_N</code> where <code>N &lt;= numArgs + 1</code>.
+(2) <code>tp._N</code> conforms to Seq match</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="isProductSeqMatch$default$3" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isProductSeqMatch$default$3');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isProductSeqMatch$default$3
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: NoSourcePosition.type</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isProductSeqMatch$default$3">
+                            <p>Does <code>tp</code> fit the &quot;product-seq match&quot; conditions as an unapply result type
+for a pattern with <code>numArgs</code> subpatterns?
+This is the case if (1) <code>tp</code> has members <code>_1</code> to <code>_N</code> where <code>N &lt;= numArgs + 1</code>.
+(2) <code>tp._N</code> conforms to Seq match</p>
 
                         </div>
                     </div>
@@ -13612,6 +13730,85 @@ This is the case of <code>tp</code> has members <code>_1</code> to <code>_N</cod
                     </div>
                 </div><!-- end member -->
                 
+                <div id="productSeqSelectors(tp,argsNum,pos)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'productSeqSelectors(tp,argsNum,pos)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                productSeqSelectors
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        argsNum:
+                                    </span>
+                                    Int
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        pos:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/util/SourcePosition.html">SourcePosition</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: List
+<span class="no-left no-right">[</span>
+<a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-productSeqSelectors(tp,argsNum,pos)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="unapplyArgs(unapplyResult,unapplyFn,args,pos)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'unapplyArgs(unapplyResult,unapplyFn,args,pos)(ctx)');">[+]</span>
@@ -13698,6 +13895,75 @@ This is the case of <code>tp</code> has members <code>_1</code> to <code>_N</cod
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-unapplyArgs(unapplyResult,unapplyFn,args,pos)(ctx)">
                             
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="unapplySeqTypeElemTp(getTp)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'unapplySeqTypeElemTp(getTp)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                unapplySeqTypeElemTp
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        getTp:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-unapplySeqTypeElemTp(getTp)(ctx)">
+                            <p>If <code>getType</code> is of the form:</p>
+<pre><code>{
+  def lengthCompare(len: Int): Int // or, def length: Int
+  def apply(i: Int): T = a(i)
+  def drop(n: Int): scala.Seq[T]
+  def toSeq: scala.Seq[T]
+}
+</code></pre>
+<p>returns <code>T</code>, otherwise NoType.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
