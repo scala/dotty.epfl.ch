@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-03-17 -->
+<!-- This page was last generated on 2019-03-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15468,6 +15468,14 @@ reverse linearization order, add the following definitions to C:</p>
 3.4 (done in `setters`) For every concrete setter `&lt;mods&gt; def x_=(y: T)` in M:
 
       &lt;mods&gt; def x_=(y: T) = ()
+
+3.5 (done in `mixinForwarders`) For every method
+`&lt;mods&gt; def f[Ts](ps1)...(psN): U` imn M` that needs to be disambiguated:
+
+      &lt;mods&gt; def f[Ts](ps1)...(psN): U = super[M].f[Ts](ps1)...(psN)
+
+A method in M needs to be disambiguated if it is concrete, not overridden in C,
+and if it overrides another concrete method.
 </code></pre>
 </li>
 <li>
@@ -16305,27 +16313,13 @@ as IsInstanceOfChecker don't give false negatives.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-ResolveSuper">
-                            <p>This phase adds super accessors and method overrides where
-linearization differs from Java's rule for default methods in interfaces.
-In particular:</p>
-<pre><code>  For every trait M directly implemented by the class (see SymUtils.mixin), in
-  reverse linearization order, add the following definitions to C:
-
-    3.1 (done in `superAccessors`) For every superAccessor
-        `&lt;mods&gt; def super$f[Ts](ps1)...(psN): U` in M:
-
-          &lt;mods&gt; def super$f[Ts](ps1)...(psN): U = super[S].f[Ts](ps1)...(psN)
-
-        where `S` is the superclass of `M` in the linearization of `C`.
-
-    3.2 (done in `methodOverrides`) For every method
-        `&lt;mods&gt; def f[Ts](ps1)...(psN): U` in M` that needs to be disambiguated:
-
-          &lt;mods&gt; def f[Ts](ps1)...(psN): U = super[M].f[Ts](ps1)...(psN)
-
-  A method in M needs to be disambiguated if it is concrete, not overridden in C,
-  and if it overrides another concrete method.
+                            <p>This phase implements super accessors in classes that need them.</p>
+<p>For every trait M directly implemented by the class (see SymUtils.mixin), in
+reverse linearization order, add the following definitions to C:</p>
+<p>For every superAccessor <code>&lt;mods&gt; def super$f[Ts](ps1)...(psN): U</code> in M:</p>
+<pre><code> &lt;mods&gt; def super$f[Ts](ps1)...(psN): U = super[S].f[Ts](ps1)...(psN)
 </code></pre>
+<p>where <code>S</code> is the superclass of <code>M</code> in the linearization of <code>C</code>.</p>
 <p>This is the first part of what was the mixin phase. It is complemented by
 Mixin, which runs after erasure.</p>
 
