@@ -12752,6 +12752,9 @@ This class is defined in package <code>scala</code> as follows:</p>
   def apply(str: String): Token = new KeyWord(str)
 }
 </code></pre>
+<p>Using an implied alias this can be expressed more concisely as:</p>
+<pre><code class="language-scala">implied for Conversion[String, Token] = new KeyWord(_)
+</code></pre>
 <p>An implicit conversion is applied automatically by the compiler in three situations:</p>
 <ol>
 <li>If an expression <code>e</code> has type <code>T</code>, and <code>T</code> does not conform to the expression's expected type <code>S</code>.</li>
@@ -12770,9 +12773,8 @@ If such an instance <code>C</code> is found, the expression <code>e</code> is re
 primitive number types to subclasses of <code>java.lang.Number</code>. For instance, the
 conversion from <code>Int</code> to <code>java.lang.Integer</code> can be defined as follows:</li>
 </ol>
-<pre><code class="language-scala">implied int2Integer for Conversion[Int, java.lang.Integer] {
-  def apply(x: Int) = new java.lang.Integer(x)
-}
+<pre><code class="language-scala">implied int2Integer for Conversion[Int, java.lang.Integer] =
+ java.lang.Integer.valueOf(_)
 </code></pre>
 <ol>
 <li>The &quot;magnet&quot; pattern is sometimes used to express many variants of a method. Instead of defining overloaded versions of the method, one can also let the method take one or more arguments of specially defined &quot;magnet&quot; types, into which various argument types can be converted. E.g.</li>
@@ -12793,15 +12795,9 @@ conversion from <code>Int</code> to <code>java.lang.Integer</code> can be define
     //
     //   CompletionArg.fromStatusCode(statusCode)
 
-    implied fromString for Conversion[String, CompletionArg] {
-      def apply(s: String) = CompletionArg.Error(s)
-    }
-    implied fromFuture for Conversion[Future[HttpResponse], CompletionArg] {
-      def apply(f: Future[HttpResponse]) = CompletionArg.Response(f)
-    }
-    implied fromStatusCode for Conversion[Future[StatusCode], CompletionArg] {
-      def apply(code: Future[StatusCode]) = CompletionArg.Status(code)
-    }
+    implied fromString for Conversion[String, CompletionArg] = Error(_)
+    implied fromFuture for Conversion[Future[HttpResponse], CompletionArg] = Response(_)
+    implied fromStatusCode for Conversion[Future[StatusCode], CompletionArg] = Status(_)
   }
   import CompletionArg._
 
