@@ -12844,68 +12844,6 @@
                     </div>
                 </div><!-- end member -->
                 
-                <div id="addSpliceCast(tree)(ctx)" class="member protected">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'addSpliceCast(tree)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            protected
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                addSpliceCast
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tree:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-addSpliceCast(tree)(ctx)">
-                            <p>Add cast to force boundaries where T and $t (an alias of T) are used to ensure PCP.
-'{   ${...: T}  }  --&gt;  '{   ${...: T}.asInstanceOf[T]  } --&gt; '{   ${...: T}.asInstanceOf[$t]  }</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="checkLevel(tree)(ctx)" class="member protected">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkLevel(tree)(ctx)');">[+]</span>
@@ -13306,9 +13244,9 @@ are constant expression trees and we can pull out the constant from the tree.</p
                     </div>
                 </div><!-- end member -->
                 
-                <div id="transformSplice(splice)(ctx)" class="member protected">
+                <div id="transformSplice(body,splice)(ctx)" class="member protected">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'transformSplice(splice)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'transformSplice(body,splice)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13330,9 +13268,17 @@ are constant expression trees and we can pull out the constant from the tree.</p
                                 
                                 
                                     <span class="no-left">
+                                        body:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
                                         splice:
                                     </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Select">Select</a>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -13360,7 +13306,7 @@ are constant expression trees and we can pull out the constant from the tree.</p
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-transformSplice(splice)(ctx)">
+                        <div class="member-body-long" id ="long-body-transformSplice(body,splice)(ctx)">
                             <p>Transform splice
 - If inside a quote, transform the contents of the splice.
 - If inside inlined code, expand the macro code.
