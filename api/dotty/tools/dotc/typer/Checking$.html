@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-03-22 -->
+<!-- This page was last generated on 2019-03-25 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12919,9 +12919,9 @@ cannot handle those.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="checkBounds(args,boundss,instantiate)(ctx)" class="member ">
+                <div id="checkBounds(args,boundss,instantiate,app)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkBounds(args,boundss,instantiate)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkBounds(args,boundss,instantiate,app)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12972,6 +12972,14 @@ cannot handle those.</p>
 <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
 <span class="no-left">]</span><span>) =&gt; </span><a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
                                     
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        app:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -12998,10 +13006,11 @@ cannot handle those.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-checkBounds(args,boundss,instantiate)(ctx)">
+                        <div class="member-body-long" id ="long-body-checkBounds(args,boundss,instantiate,app)(ctx)">
                             <p>A general checkBounds method that can be used for TypeApply nodes as
 well as for AppliedTypeTree nodes. Also checks that type arguments to
-*-type parameters are fully applied.</p>
+*-type parameters are fully applied.
+See TypeOps.boundsViolations for an explanation of the parameters.</p>
 
                         </div>
                     </div>
@@ -13075,7 +13084,45 @@ well as for AppliedTypeTree nodes. Also checks that type arguments to
                         <div class="member-body-long" id ="long-body-checkBounds(args,tl)(ctx)">
                             <p>Check that type arguments <code>args</code> conform to corresponding bounds in <code>tl</code>
 Note: This does not check the bounds of AppliedTypeTrees. These
-are handled by method checkBounds in FirstTransform</p>
+are handled by method checkAppliedType below.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="checkBounds$default$4" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkBounds$default$4');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                checkBounds$default$4
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: NoType.type</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-checkBounds$default$4">
+                            <p>A general checkBounds method that can be used for TypeApply nodes as
+well as for AppliedTypeTree nodes. Also checks that type arguments to
+*-type parameters are fully applied.
+See TypeOps.boundsViolations for an explanation of the parameters.</p>
 
                         </div>
                     </div>
