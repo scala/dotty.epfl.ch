@@ -12781,25 +12781,72 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Overload resolution in Dotty takes all argument blocks into account instead of
-just the first argument block.</p>
-<p>For example, the following code compiles in Dotty, while it results in an
+            <p>Overload resolution in Dotty improves on Scala 2 in two ways.
+First, it takes all argument lists into account instead of
+just the first argument list.
+Second, it can infer parameter types of function values even if they
+are in the first argument list.</p>
+<h2><a href="#looking-beyond-the-first-argument-list" id="looking-beyond-the-first-argument-list">Looking Beyond the First Argument List</a></h2>
+<p>Overloading resolution now can take argument lists into account when
+choosing among a set of overloaded alternatives.
+For example, the following code compiles in Dotty, while it results in an
 ambiguous overload error in Scala2:</p>
-<pre><code class="language-Scala">def f(x: Int)(y: String): Int = 0
-def f(x: Int)(y: Int): Int = 0
+<pre><code class="language-scala">  def f(x: Int)(y: String): Int = 0
+  def f(x: Int)(y: Int): Int = 0
 
-f(3)(&quot;&quot;)     // ok
+  f(3)(&quot;&quot;)     // ok
 </code></pre>
 <p>The following code compiles as well:</p>
-<pre><code class="language-Scala">def g(x: Int)(y: Int)(z: Int): Int = 0
-def g(x: Int)(y: Int)(z: String): Int = 0
+<pre><code class="language-scala">  def g(x: Int)(y: Int)(z: Int): Int = 0
+  def g(x: Int)(y: Int)(z: String): Int = 0
 
-g(2)(3)(4)     // ok
-g(2)(3)(&quot;&quot;)    // ok
+  g(2)(3)(4)     // ok
+  g(2)(3)(&quot;&quot;)    // ok
 </code></pre>
+<p>To make this work, the rules for overloading resolution in section 6.23.3 of the SLS are augmented
+as follows:</p>
+<blockquote>
+<p>In a situation where a function is applied to more than one argument list, if overloading
+resolution yields several competing alternatives when <code>n &gt;= 1</code> parameter lists are taken
+into account, then resolution re-tried using <code>n + 1</code> argument lists.</p>
+</blockquote>
 <p>This change is motivated by the new language feature <a href="../contextual/extension-methods.html">extension
 methods</a>, where emerges the need to do
 overload resolution based on additional argument blocks.</p>
+<h2><a href="#parameter-types-of-function-values" id="parameter-types-of-function-values">Parameter Types of Function Values</a></h2>
+<p>The handling of function values with missing parameter types has been improved. We can now
+pass such values in the first argument list of an overloaded application, provided
+that the remaining parameters suffice for picking a variant of the overloaded function.
+For example, the following code compiles in Dotty, while it results in an
+missing parameter type error in Scala2:</p>
+<pre><code class="language-scala">  def f(x: Int, f: Int =&gt; Int) = f(x)
+  def f(x: String, f: String =&gt; String) = f(x)
+  f(&quot;a&quot;, _.length)
+</code></pre>
+<p>To make this work, the rules for overloading resolution in section 6.23.3 of the SLS are modified
+as follows:</p>
+<p>Replace the sentence</p>
+<blockquote>
+<p>Otherwise, let <code>S1,…,Sm</code> be the vector of types obtained by typing each argument with an undefined expected type.</p>
+</blockquote>
+<p>with the following paragraph:</p>
+<blockquote>
+<p>Otherwise, let <code>S1,…,Sm</code> be the vector of known types of all argument types, where the <em>known type</em> of an argument <code>E</code>
+is determined as followed:</p>
+</blockquote>
+<ul>
+<li>If <code>E</code> is a function value <code>(p_1, ..., p_n) =&gt; B</code> that misses some parameter types, the known type
+of <code>E</code> is <code>(S_1, ..., S_n) =&gt; ?</code>, where each <code>S_i</code> is the type of parameter <code>p_i</code> if it is given, or <code>?</code>
+otherwise. Here <code>?</code> stands for a <em>wildcard type</em> that is compatible with every other type.</li>
+<li>Otherwise the known type of <code>E</code> is the result of typing <code>E</code> with an undefined expected type.</li>
+</ul>
+<p>A pattern matching closure</p>
+<pre><code class="language-scala">  { case P1 =&gt; B1 ... case P_n =&gt; B_n }
+</code></pre>
+<p>is treated as if it was expanded to the function value</p>
+<pre><code class="language-scala">  x =&gt; x match { case P1 =&gt; B1 ... case P_n =&gt; B_n }
+</code></pre>
+<p>and is therefore also approximated with a <code>? =&gt; ?</code> type.</p>
 
         </div>
     </div><!-- end content-body -->

@@ -13186,13 +13186,7 @@ Tree
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-allArgTypesAreCurrent()(ctx)">
-                            <p>Forget the types of any arguments that have been typed producing a constraint
-- that is in a typer state that is not yet committed into the one of the current context <code>ctx</code>,
-- or that has been retracted from its typestate because oif a failed operation.
-This is necessary to avoid &quot;orphan&quot; TypeParamRefs that are referred to from
-type variables in the typed arguments, but that are not registered in the
-current constraint. Test cases are pos/t1756.scala and pos/i3538.scala.</p>
-
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -13719,6 +13713,53 @@ T
                     </div>
                 </div><!-- end member -->
                 
+                <div id="isUndefined(tp)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'isUndefined(tp)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                isUndefined
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tp:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-isUndefined(tp)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="map(tm)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'map(tm)(ctx)');">[+]</span>
@@ -14111,98 +14152,9 @@ used to avoid repeated typings of trees when backtracking.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="typedArgs(force)" class="member private">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'typedArgs(force)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            private
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                typedArgs
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        force:
-                                    </span>
-                                    Boolean
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: List
-<span class="no-left no-right">[</span>
-<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-typedArgs(force)">
-                            <p>The typed arguments. This takes any arguments already typed using
-<code>typedArg</code> into account.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="typedArgs" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'typedArgs');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                typedArgs
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: List
-<span class="no-left no-right">[</span>
-<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-typedArgs">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="unforcedTypedArgs" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'unforcedTypedArgs');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'unforcedTypedArgs');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14232,7 +14184,9 @@ used to avoid repeated typings of trees when backtracking.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-unforcedTypedArgs">
-                            
+                            <p>The typed arguments. This takes any arguments already typed using
+<code>typedArg</code> into account.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
