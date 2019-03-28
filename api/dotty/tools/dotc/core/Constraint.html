@@ -186,6 +186,8 @@
 <ul id="">
     <li><a href="../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
+<li><a href="../../../../../.././docs/reference/other-new-features/creator-applications.html">Creator Applications</a>
+</li>
 <li><a href="../../../../../.././docs/reference/other-new-features/inline.html">Inlining by Rewriting</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/principled-meta-programming.html">Meta Programming</a>
@@ -13216,9 +13218,9 @@ non-parameter bounds are left alone.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="contains(pt)" class="member ">
+                <div id="contains(tl)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'contains(pt)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'contains(tl)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13240,7 +13242,7 @@ non-parameter bounds are left alone.</p>
                                 
                                 
                                     <span class="no-left">
-                                        pt:
+                                        tl:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeLambda.html">TypeLambda</a>
                                     
@@ -13257,8 +13259,8 @@ non-parameter bounds are left alone.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-contains(pt)">
-                            <p>Does the constraint's domain contain the type parameters of <code>pt</code>?</p>
+                        <div class="member-body-long" id ="long-body-contains(tl)">
+                            <p>Does the constraint's domain contain the type parameters of <code>tl</code>?</p>
 
                         </div>
                     </div>
@@ -13431,6 +13433,68 @@ non-parameter bounds are left alone.</p>
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-domainParams">
                             <p>The type lambda parameters constrained by this constraint</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="ensureFresh(tl)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'ensureFresh(tl)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                ensureFresh
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tl:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeLambda.html">TypeLambda</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeLambda.html">TypeLambda</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-ensureFresh(tl)(ctx)">
+                            <p>The given <code>tl</code> in case it is not contained in this constraint,
+a fresh copy of <code>tl</code> otherwise.</p>
 
                         </div>
                     </div>
@@ -13938,9 +14002,9 @@ the constraint domain. Note: Low level, implementation dependent.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="isRemovable(pt)" class="member ">
+                <div id="isRemovable(tl)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isRemovable(pt)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'isRemovable(tl)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13962,7 +14026,7 @@ the constraint domain. Note: Low level, implementation dependent.</p>
                                 
                                 
                                     <span class="no-left">
-                                        pt:
+                                        tl:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeLambda.html">TypeLambda</a>
                                     
@@ -13979,8 +14043,8 @@ the constraint domain. Note: Low level, implementation dependent.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-isRemovable(pt)">
-                            <p>Is entry associated with <code>pt</code> removable? This is the case if
+                        <div class="member-body-long" id ="long-body-isRemovable(tl)">
+                            <p>Is entry associated with <code>tl</code> removable? This is the case if
 all type parameters of the entry are associated with type variables
 which have their <code>inst</code> fields set.</p>
 
@@ -14179,9 +14243,9 @@ are not contained in the return bounds.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="remove(pt)(ctx)" class="member ">
+                <div id="remove(tl)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'remove(pt)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'remove(tl)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14203,7 +14267,7 @@ are not contained in the return bounds.</p>
                                 
                                 
                                     <span class="no-left">
-                                        pt:
+                                        tl:
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeLambda.html">TypeLambda</a>
                                     
@@ -14233,8 +14297,69 @@ are not contained in the return bounds.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-remove(pt)(ctx)">
-                            <p>A new constraint with all entries coming from <code>pt</code> removed.</p>
+                        <div class="member-body-long" id ="long-body-remove(tl)(ctx)">
+                            <p>A new constraint with all entries coming from <code>tl</code> removed.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="rename(tl)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'rename(tl)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                rename
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tl:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/TypeLambda.html">TypeLambda</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/core/Constraint.html#This">This</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-rename(tl)(ctx)">
+                            <p>A new constraint with entry <code>tl</code> renamed to a fresh type lambda</p>
 
                         </div>
                     </div>

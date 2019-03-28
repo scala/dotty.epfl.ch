@@ -186,6 +186,8 @@
 <ul id="">
     <li><a href="../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
+<li><a href="../../../../../.././docs/reference/other-new-features/creator-applications.html">Creator Applications</a>
+</li>
 <li><a href="../../../../../.././docs/reference/other-new-features/inline.html">Inlining by Rewriting</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/principled-meta-programming.html">Meta Programming</a>
@@ -14083,6 +14085,104 @@ with <code>fallBack</code> otherwise. <code>fallBack</code> is supposed to alway
                     </div>
                 </div><!-- end member -->
                 
+                <div id="tryNew(treesInst)(tree,pt,fallBack)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'tryNew(treesInst)(tree,pt,fallBack)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            override
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                tryNew
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        treesInst:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html">Instance</a>
+<span class="no-left no-right">[</span>
+T
+<span class="no-left">]</span>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tree:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Tree.html">Tree</a>
+<span class="no-left no-right">[</span>
+T
+<span class="no-left">]</span>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        pt:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        fallBack: =&gt;
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-tryNew(treesInst)(tree,pt,fallBack)(ctx)">
+                            <p>Try to rename <code>tpt</code> to a type <code>T</code> and typecheck <code>new T</code> with given expected type <code>pt</code>.
+The operation is called from either <code>adapt</code> or <code>typedApply</code>. <code>adapt</code> gets to call <code>tryNew</code>
+for calls <code>p.C(..)</code> if there is a value <code>p.C</code>. <code>typedApply</code> calls <code>tryNew</code> as a fallback
+in case typing <code>p.C</code> fails since there is no value with path <code>p.C</code>. The call from <code>adapt</code>
+is more efficient since it re-uses the prefix <code>p</code> in typed form.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="typedBind(tree,pt)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'typedBind(tree,pt)(ctx)');">[+]</span>
@@ -14147,6 +14247,76 @@ with <code>fallBack</code> otherwise. <code>fallBack</code> is supposed to alway
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-typedBind(tree,pt)(ctx)">
                             
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="typedFunPart(fn,pt)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'typedFunPart(fn,pt)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            override
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                typedFunPart
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        fn:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        pt:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-typedFunPart(fn,pt)(ctx)">
+                            <p>Typecheck the function part of an application.
+Fallback if this fails: try to convert <code>E</code> to <code>new E</code>.</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->

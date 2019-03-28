@@ -186,6 +186,8 @@
 <ul id="">
     <li><a href="../../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
+<li><a href="../../../../../../.././docs/reference/other-new-features/creator-applications.html">Creator Applications</a>
+</li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/inline.html">Inlining by Rewriting</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/other-new-features/principled-meta-programming.html">Meta Programming</a>
@@ -12966,14 +12968,14 @@ Tree
                     </div>
                 </div><!-- end member -->
                 
-                <div id="ctx" class="member private">
+                <div id="ctx" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'ctx');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            private implicit
+                            implicit
                         </span>
                         <span class="member-kind">
                             val
@@ -14152,9 +14154,9 @@ used to avoid repeated typings of trees when backtracking.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="unforcedTypedArgs" class="member ">
+                <div id="unforcedTypedArgs(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'unforcedTypedArgs');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'unforcedTypedArgs(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14171,6 +14173,21 @@ used to avoid repeated typings of trees when backtracking.</p>
                         </span>
 
                         
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
 
                         
 
@@ -14183,9 +14200,12 @@ used to avoid repeated typings of trees when backtracking.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-unforcedTypedArgs">
+                        <div class="member-body-long" id ="long-body-unforcedTypedArgs(ctx)">
                             <p>The typed arguments. This takes any arguments already typed using
 <code>typedArg</code> into account.</p>
+<p>Arguments are typechecked in the typerState where the FunProto was created.
+However, any constraint changes are also propagated to the currently passed
+context.</p>
 
                         </div>
                     </div>

@@ -186,6 +186,8 @@
 <ul id="">
     <li><a href="../../../../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
+<li><a href="../../../../../.././docs/reference/other-new-features/creator-applications.html">Creator Applications</a>
+</li>
 <li><a href="../../../../../.././docs/reference/other-new-features/inline.html">Inlining by Rewriting</a>
 </li>
 <li><a href="../../../../../.././docs/reference/other-new-features/principled-meta-programming.html">Meta Programming</a>
@@ -12862,9 +12864,9 @@
                     </div>
                 </div><!-- end member -->
                 
-                <div id="ExtMethodApply$" class="member ">
+                <div id="IntegratedTypeArgs" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'ExtMethodApply$');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'IntegratedTypeArgs');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -12872,11 +12874,11 @@
                             
                         </span>
                         <span class="member-kind">
-                            object
+                            class
                         </span>
                         <span class="member-name ">
                             
-                                <a href="../../../../../.././api/dotty/tools/dotc/typer/Applications$/ExtMethodApply$.html">ExtMethodApply</a>
+                                <a href="../../../../../.././api/dotty/tools/dotc/typer/Applications$/IntegratedTypeArgs.html">IntegratedTypeArgs</a>
                             
                         </span>
 
@@ -12888,8 +12890,44 @@
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-ExtMethodApply$">
-                            <p>The unapply method of this extractor also recognizes ExtMethodApplys in closure blocks.
+                        <div class="member-body-long" id ="long-body-IntegratedTypeArgs">
+                            <p>A wrapper indicating that its <code>app</code> argument has already integrated the type arguments
+of the expected type, provided that type is a (possibly ignored) PolyProto.
+I.e., if the expected type is a PolyProto, then <code>app</code> will be a <code>TypeApply(_, args)</code> where
+<code>args</code> are the type arguments of the expected type.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="IntegratedTypeArgs$" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'IntegratedTypeArgs$');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            object
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/typer/Applications$/IntegratedTypeArgs$.html">IntegratedTypeArgs</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-IntegratedTypeArgs$">
+                            <p>The unapply method of this extractor also recognizes IntegratedTypeArgs in closure blocks.
 This is necessary to deal with closures as left arguments of extension method applications.
 A test case is i5606.scala</p>
 

@@ -186,6 +186,8 @@
 <ul id="">
     <li><a href="../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
+<li><a href="../../.././docs/reference/other-new-features/creator-applications.html">Creator Applications</a>
+</li>
 <li><a href="../../.././docs/reference/other-new-features/inline.html">Inlining by Rewriting</a>
 </li>
 <li><a href="../../.././docs/reference/other-new-features/principled-meta-programming.html">Meta Programming</a>
@@ -12811,8 +12813,9 @@ replace implicit objects and defs, focussing on intent over mechanism,</li>
 of value classes while guaranteeing absence of boxing,</li>
 <li><a href="https://dotty.epfl.ch/docs/reference/dropped-features/package-objects.html">Toplevel definitions</a> replace package objects, dropping syntactic boilerplate,</li>
 <li><a href="https://dotty.epfl.ch/docs/reference/changed-features/vararg-patterns.html">Vararg patterns</a> now use the form <code>: _*</code> instead of <code>@ _*</code>, mirroring vararg expressions,</li>
-<li><a href="https://contributors.scala-lang.org/t/expunging-new-from-scala-3/2868/81">Synthesized creation methods</a> allow to use simple function call syntax
-instead of <code>new</code> expressions (under discussion, not implemented).</li>
+<li><a href="https://dotty.epfl.ch/docs/reference/other-new-features/creator-applications.html">Creator applications</a> allow to use simple function call syntax
+instead of <code>new</code> expressions. <code>new</code> expressions stay around as a fallback for
+the cases where creator applications cannot be used.</li>
 </ul>
 <p>With the exception of early initializers and old-style vararg patterns, all superseded features continue to be available in Scala 3.0. The plan is to deprecate and phase them out later.</p>
 <p>Value classes (superseded by opaque type aliases) are a special case. There are currently no deprecation plans for value classes, since we might want to bring them back in a more general form if they are supported natively by the JVM as is planned by project Valhalla.</p>
