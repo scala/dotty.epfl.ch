@@ -13749,6 +13749,7 @@ Parameters appear in reverse order.</p>
                         <div class="member-body-long" id ="long-body-simplePattern">
                             <p>SimplePattern    ::= PatVar
 |  Literal
+|  Quoted
 |  XmlPattern
 |  <code>(' [Patterns]</code>)'
 |  SimplePattern1 [TypeArgs] [ArgumentPatterns]
@@ -22638,13 +22639,14 @@ RefineStat       ::=  ‘val’ VarDcl
                         <div class="member-body-long" id ="long-body-simpleExpr()">
                             <p>SimpleExpr    ::= ‘new’ (ConstrApp [TemplateBody] | TemplateBody)
 |  BlockExpr
-|  ‘'’ ‘{’ Block ‘}’
-|  ‘'’ ‘[’ Type ‘]’
 |  ‘$’ ‘{’ Block ‘}’
+|  Quoted
 |  quoteId
 |  SimpleExpr1 [<code>_'] SimpleExpr1 ::= literal | xmlLiteral | Path |</code>(' [ExprsInParens] <code>)' | SimpleExpr</code>.' id
 |  SimpleExpr (TypeArgs | NamedTypeArgs)
-|  SimpleExpr1 ArgumentExprs</p>
+|  SimpleExpr1 ArgumentExprs
+Quoted        ::= ‘'’ ‘{’ Block ‘}’
+|  ‘'’ ‘[’ Type ‘]’</p>
 
                         </div>
                     </div>
