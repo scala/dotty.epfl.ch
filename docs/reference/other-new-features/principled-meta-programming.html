@@ -13310,6 +13310,10 @@ analogue of lifting.</p>
 </code></pre>
 <p>That is, the <code>showExpr</code> method converts its <code>Expr</code> argument to a string (<code>code</code>), and lifts
 the result back to an <code>Expr[String]</code> using the <code>toExpr</code> wrapper.</p>
+<p><strong>Note</strong>: the <code>toExpr</code> extension method can be ommited by importing an implicit
+conversion with <code>import scala.quoted.autolift._</code>. The programmer is able to
+declutter slightly the code at the cost of readable <em>phase distinction</em> between
+stages.</p>
 <h2><a href="#implementation" id="implementation">Implementation</a></h2>
 <h3><a href="#syntax" id="syntax">Syntax</a></h3>
 <p>Compared to the <a href="../../internals/syntax.html">Dotty reference grammar</a>
