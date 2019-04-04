@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-03 -->
+<!-- This page was last generated on 2019-04-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12894,6 +12894,49 @@
                     </div>
                 </div><!-- end member -->
                 
+                <div id="ImportConstr" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'ImportConstr');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            type
+                        </span>
+                        <span class="member-name ">
+                            
+                                ImportConstr
+                            
+                        </span>
+
+                        
+
+                        
+                        
+                        
+                        <span class="type-alias">
+                            <span class="equals"> = </span>
+                            <span>(</span>Boolean<span>, </span><a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a><span>, </span>List
+<span class="no-left no-right">[</span>
+<a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+<span class="no-left">]</span><span>) =&gt; </span><a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                        </span>
+                        
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-ImportConstr">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="argumentExpr" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'argumentExpr');">[+]</span>
@@ -17919,9 +17962,9 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
                     </div>
                 </div><!-- end member -->
                 
-                <div id="importClause()" class="member ">
+                <div id="importClause(leading,mkTree)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'importClause()');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'importClause(leading,mkTree)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -17942,6 +17985,20 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
                             <span class="no-left">(</span>
                                 
                                 
+                                    <span class="no-left">
+                                        leading:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/parsing/TokensCommon.html#Token">Token</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        mkTree:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/parsing/Parsers$/Parser.html#ImportConstr">ImportConstr</a>
+                                    
+                                
                             <span class="no-left">)</span>
                             
                         
@@ -17957,16 +18014,16 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-importClause()">
-                            <p>Import  ::= import [implied] [ImportExpr {`,' ImportExpr}</p>
+                        <div class="member-body-long" id ="long-body-importClause(leading,mkTree)">
+                            <p>Import  ::= import [implied] [ImportExpr {<code>,' ImportExpr} Export ::= export [implied] [ImportExpr {</code>,' ImportExpr}</p>
 
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="importExpr(importImplied)" class="member ">
+                <div id="importExpr(importImplied,mkTree)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'importExpr(importImplied)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'importExpr(importImplied,mkTree)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -17992,6 +18049,14 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
                                     </span>
                                     Boolean
                                     
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        mkTree:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/parsing/Parsers$/Parser.html#ImportConstr">ImportConstr</a>
+                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -18000,12 +18065,12 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
                         
 
                         
-                        <span class="no-left">: <span>() =&gt; </span><a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Import">Import</a></span>
+                        <span class="no-left">: <span>() =&gt; </span><a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-importExpr(importImplied)">
+                        <div class="member-body-long" id ="long-body-importExpr(importImplied,mkTree)">
                             <p>ImportExpr ::= StableId <code>.' (id |</code>_' | ImportSelectors)</p>
 
                         </div>

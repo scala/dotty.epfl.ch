@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-03 -->
+<!-- This page was last generated on 2019-04-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13088,6 +13088,7 @@ Import            ::=  ‘import’ [‘implied’] ImportExpr {‘,’ ImportEx
 ImportExpr        ::=  StableId ‘.’ (id | ‘_’ | ImportSelectors)                Import(expr, sels)
 ImportSelectors   ::=  ‘{’ {ImportSelector ‘,’} (ImportSelector | ‘_’) ‘}’
 ImportSelector    ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’]                                  Ident(name), Pair(id, id)
+Export            ::=  ‘export’ [‘implied’] ImportExpr {‘,’ ImportExpr}
 </code></pre>
 <h3><a href="#declarations-and-definitions" id="declarations-and-definitions">Declarations and Definitions</a></h3>
 <pre><code class="language-ebnf">RefineDcl         ::=  ‘val’ VarDcl
@@ -13122,7 +13123,8 @@ DefDef            ::=  DefSig [(‘:’ | ‘&lt;:’) Type] ‘=’ Expr       
 TmplDef           ::=  ([‘case’] ‘class’ | ‘trait’) ClassDef
                     |  [‘case’] ‘object’ ObjectDef
                     |  ‘enum’ EnumDef
-                    |  ‘witness’ WitnessDef
+                    |  ‘implied’ InstanceDef
+                    |  Export
 ClassDef          ::=  id ClassConstr [Template]                                ClassDef(mods, name, tparams, templ)
 ClassConstr       ::=  [ClsTypeParamClause] [ConstrMods] ClsParamClauses        with DefDef(_, &lt;init&gt;, Nil, vparamss, EmptyTree, EmptyTree) as first stat
 ConstrMods        ::=  {Annotation} [AccessModifier]
@@ -13158,6 +13160,7 @@ EnumCase          ::=  ‘case’ (id ClassConstr [‘extends’ ConstrApps]] | 
 
 TopStatSeq        ::=  TopStat {semi TopStat}
 TopStat           ::=  Import
+                    |  Export
                     |  {Annotation [nl]} {Modifier} Def
                     |  Packaging
                     |  PackageObject
