@@ -188,6 +188,8 @@
 </li>
 <li><a href="../../../.././docs/reference/other-new-features/creator-applications.html">Creator Applications</a>
 </li>
+<li><a href="../../../.././docs/reference/other-new-features/export.html">Export Clauses</a>
+</li>
 <li><a href="../../../.././docs/reference/other-new-features/inline.html">Inlining by Rewriting</a>
 </li>
 <li><a href="../../../.././docs/reference/other-new-features/principled-meta-programming.html">Meta Programming</a>
@@ -196,9 +198,7 @@
 </li>
 <li><a href="../../../.././docs/reference/other-new-features/opaques.html">Opaque Type Aliases</a>
 </li>
-<li><a href="../../../.././docs/reference/other-new-features/auto-parameter-tupling.html">Auto Parameter Tupling</a>
-</li>
-<li><a href="../../../.././docs/reference/other-new-features/named-typeargs.html">Named Type Arguments</a>
+<li><a href="../../../.././docs/reference/other-new-features/parameter-untupling.html">Parameter Untupling</a>
 </li>
 <li><a href="../../../.././docs/reference/other-new-features/erased-terms.html">Erased Terms</a>
 </li>
@@ -12783,7 +12783,8 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Type arguments of methods can now be named, as well as by position. Example:</p>
+            <p><strong>Note:</strong> This feature is implemented in Dotty, but is not expected to be part of Scala 3.0.</p>
+<p>Type arguments of methods can now be named, as well as by position. Example:</p>
 <pre><code class="language-scala">def construct[Elem, Coll[_]](xs: Elem*): Coll[Elem] = ???
 
 val xs1 = construct[Coll = List, Elem = Int](1, 2, 3)
