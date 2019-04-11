@@ -14480,9 +14480,9 @@ without name mangling. But other aspects come into play:</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="genApplyMethod(receiver,methodSym,arguments)(pos)" class="member private">
+                <div id="genApplyMethod(receiver,method,arguments)(pos)" class="member private">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'genApplyMethod(receiver,methodSym,arguments)(pos)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'genApplyMethod(receiver,method,arguments)(pos)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14512,7 +14512,7 @@ without name mangling. But other aspects come into play:</p>
                                     
                                 
                                     <span class="">
-                                        methodSym:
+                                        method:
                                     </span>
                                     Symbol
                                     
@@ -14553,8 +14553,88 @@ Tree
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-genApplyMethod(receiver,methodSym,arguments)(pos)">
+                        <div class="member-body-long" id ="long-body-genApplyMethod(receiver,method,arguments)(pos)">
                             <p>Gen a dynamically linked call to a Scala method.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="genApplyMethodMaybeStatically(receiver,method,arguments)(pos)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'genApplyMethodMaybeStatically(receiver,method,arguments)(pos)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                genApplyMethodMaybeStatically
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        receiver:
+                                    </span>
+                                    Tree
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        method:
+                                    </span>
+                                    Symbol
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        arguments:
+                                    </span>
+                                    List
+<span class="no-left no-right">[</span>
+Tree
+<span class="no-left">]</span>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        pos:
+                                    </span>
+                                    Position
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Tree</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-genApplyMethodMaybeStatically(receiver,method,arguments)(pos)">
+                            <p>Gen a statically linked call to an instance method.</p>
 
                         </div>
                     </div>
@@ -16117,9 +16197,9 @@ MethodDef
                     </div>
                 </div><!-- end member -->
                 
-                <div id="genMethodDef(static,methodName,paramsSyms,resultIRType,tree,optimizerHints)" class="member private">
+                <div id="genMethodDef(namespace,methodName,paramsSyms,resultIRType,tree,optimizerHints)" class="member private">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'genMethodDef(static,methodName,paramsSyms,resultIRType,tree,optimizerHints)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'genMethodDef(namespace,methodName,paramsSyms,resultIRType,tree,optimizerHints)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -16141,9 +16221,9 @@ MethodDef
                                 
                                 
                                     <span class="no-left">
-                                        static:
+                                        namespace:
                                     </span>
-                                    Boolean
+                                    MemberNamespace
                                     
                                         <span class="no-left">, </span>
                                     
@@ -16201,7 +16281,7 @@ Symbol
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-genMethodDef(static,methodName,paramsSyms,resultIRType,tree,optimizerHints)">
+                        <div class="member-body-long" id ="long-body-genMethodDef(namespace,methodName,paramsSyms,resultIRType,tree,optimizerHints)">
                             <p>Generates the MethodDef of a (non-constructor) method</p>
 <p>Most normal methods are emitted straightforwardly. If the result
 type is Unit, then the body is emitted as a statement. Otherwise, it is
