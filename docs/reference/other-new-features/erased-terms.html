@@ -12812,17 +12812,17 @@ m.turnedOn.turnedOn // ERROR
 As these terms are never used at runtime there is not real need to have them around, but they still need to be
 present in some form in the generated code to be able to do separate compilation and retain binary compatibility.</p>
 <h2><a href="#how-to-define-erased-terms" id="how-to-define-erased-terms">How to define erased terms?</a></h2>
-<p>Parameters of methods and functions can be declared as erased, placing <code>erased</code> at the start of the parameter list (like <code>implicit</code>).</p>
-<pre><code class="language-scala">def methodWithErasedEv(erased ev: Ev): Int = 42
+<p>Parameters of methods and functions can be declared as erased, placing <code>erased</code> in front of a parameter list (like <code>given</code>).</p>
+<pre><code class="language-scala">def methodWithErasedEv erased (ev: Ev): Int = 42
 
 val lambdaWithErasedEv: erased Ev =&gt; Int =
   erased (ev: Ev) =&gt; 42
 </code></pre>
 <p><code>erased</code> parameters will not be usable for computations, though they can be used as arguments to other <code>erased</code> parameters.</p>
-<pre><code class="language-scala">def methodWithErasedInt1(erased i: Int): Int =
+<pre><code class="language-scala">def methodWithErasedInt1 erased (i: Int): Int =
   i + 42 // ERROR: can not use i
 
-def methodWithErasedInt2(erased i: Int): Int =
+def methodWithErasedInt2 erased (i: Int): Int =
   methodWithErasedInt1(i) // OK
 </code></pre>
 <p>Not only parameters can be marked as erased, <code>val</code> and <code>def</code> can also be marked with <code>erased</code>. These will also only be usable as arguments to <code>erased</code> parameters.</p>
@@ -12832,7 +12832,7 @@ methodWithErasedEv(erasedEvidence)
 <h2><a href="#what-happens-with-erased-values-at-runtime" id="what-happens-with-erased-values-at-runtime">What happens with erased values at runtime?</a></h2>
 <p>As <code>erased</code> are guaranteed not to be used in computations, they can and will be erased.</p>
 <pre><code class="language-scala">// becomes def methodWithErasedEv(): Int at runtime
-def methodWithErasedEv(erased ev: Ev): Int = ...
+def methodWithErasedEv erased (ev: Ev): Int = ...
 
 def evidence1: Ev = ...
 erased def erasedEvidence2: Ev = ... // does not exist at runtime
@@ -12874,9 +12874,9 @@ object IsOn {
 }
 
 class Machine[S &lt;: State] private {
-  // ev will disapear from both functions
-  def turnedOn(implicit erased ev: IsOff[S]): Machine[On] = new Machine[On]
-  def turnedOff(implicit erased ev: IsOn[S]): Machine[Off] = new Machine[Off]
+  // ev will disappear from both functions
+  def turnedOn given erased (ev: IsOff[S]): Machine[On] = new Machine[On]
+  def turnedOff given erased (ev: IsOn[S]): Machine[Off] = new Machine[Off]
 }
 
 object Machine {
@@ -12910,12 +12910,12 @@ object Test {
 <pre><code class="language-scala">erased val x = ...
 erased def f = ...
 
-def g(erased x: Int) = ...
+def g erased (x: Int) = ...
 
-(erased x: Int) =&gt; ...
+ erased (x: Int) =&gt; ...
 def h(x: erased Int =&gt; Int) = ...
 
-class K(erased x: Int) { ... }
+class K erased (x: Int) { ... }
 </code></pre>
 </li>
 <li>A reference to an <code>erased</code> definition can only be used
@@ -12936,14 +12936,14 @@ class K(erased x: Int) { ... }
 </li>
 <li>
 <p>Eta expansion</p>
-<p>if <code>def f(erased x: T): U</code> then <code>f: (erased T) =&gt; U</code>.</p>
+<p>if <code>def f erased (x: T): U</code> then <code>f: erased (T) =&gt; U</code>.</p>
 </li>
 <li>Erasure Semantics
 <ul>
 <li>All <code>erased</code> parameters are removed from the function</li>
 <li>All argument to <code>erased</code> parameters are not passed to the function</li>
 <li>All <code>erased</code> definitions are removed</li>
-<li>All <code>(erased T1, T2, ..., TN) =&gt; R</code> and <code>(given erased T1, T2, ..., TN) =&gt; R</code> become <code>() =&gt; R</code></li>
+<li>All <code>erased (T1, T2, ..., TN) =&gt; R</code> and <code>(given erased T1, T2, ..., TN) =&gt; R</code> become <code>() =&gt; R</code></li>
 </ul>
 </li>
 <li>
@@ -12952,8 +12952,8 @@ class K(erased x: Int) { ... }
 </li>
 <li>Overriding
 <ul>
-<li>Member definitions overidding each other must both be <code>erased</code> or not be <code>erased</code></li>
-<li><code>def foo(x: T): U</code> cannot be overridden by <code>def foo(erased x: T): U</code> an viceversa</li>
+<li>Member definitions overriding each other must both be <code>erased</code> or not be <code>erased</code></li>
+<li><code>def foo(x: T): U</code> cannot be overridden by <code>def foo erased (x: T): U</code> an vice-versa</li>
 </ul>
 </li>
 </ol>

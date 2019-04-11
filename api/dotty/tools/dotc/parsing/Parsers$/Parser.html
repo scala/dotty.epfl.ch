@@ -13008,7 +13008,7 @@
                 
                 <div id="closureMods" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'closureMods');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'closureMods');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -13035,7 +13035,9 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-closureMods">
-                            
+                            <p>ClosureMods ::=  { ‘implicit’ | ‘erased’ | ‘given’}
+FunTypeMods ::=  { ‘erased’ | ‘given’}</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -13158,43 +13160,6 @@ Expr1             ::=  [‘inline’] <code>if'</code>(' Expr <code>)' {nl} Expr
 |  <code>implicit'</code>match' <code>{' ImplicitCaseClauses</code>}'
 Bindings          ::= <code>(' [Binding {</code>,' Binding}] <code>)' Binding ::= (id |</code>_') [<code>:' Type] Ascription ::=</code>:' CompoundType
 | <code>:' Annotation {Annotation} |</code>:' <code>_'</code>*'</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="funArgMods" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'funArgMods');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                funArgMods
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: BitSet</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-funArgMods">
-                            <p>FunArgMods  ::=  { <code>implicit</code> | <code>erased</code> }
-ClosureMods ::=  { ‘implicit’ | ‘erased’ | ‘given’}
-FunTypeMods ::=  { ‘erased’ | ‘given’}</p>
 
                         </div>
                     </div>
@@ -18840,7 +18805,7 @@ List
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-instanceDef(start,mods,instanceMod)">
                             <p>InstanceDef    ::=  [id] InstanceParams InstanceBody
-InstanceParams ::=  [DefTypeParamClause] {InferParamClause}
+InstanceParams ::=  [DefTypeParamClause] {GivenParamClause}
 InstanceBody   ::=  [‘of’ ConstrApp {‘,’ ConstrApp }] [TemplateBody]
 |  ‘of’ Type ‘=’ Expr</p>
 
@@ -21124,9 +21089,11 @@ Furthermore, <code>()</code> is considered a annotation argument only if it come
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause(ofClass,ofCaseClass,prefix,firstClause,initialMods)">
-                            <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
-InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
+                            <p>ClsParamClause    ::=  [nl] [‘erased’] ‘(’ [ClsParams] ‘)’
+|  ‘given’ [‘erased’] (‘(’ ClsParams ‘)’ | ContextTypes)
+ClsParams         ::=  ClsParam {<code>' ClsParam} ClsParam ::= {Annotation} [{ParamModifier} (</code>val' | <code>var') |</code>inline'] Param
+DefParamClause    ::=  [nl] [‘erased’] ‘(’ [DefParams] ‘)’ | GivenParamClause
+GivenParamClause  ::=  ‘given’ [‘erased’] (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21163,9 +21130,11 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$1">
-                            <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
-InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
+                            <p>ClsParamClause    ::=  [nl] [‘erased’] ‘(’ [ClsParams] ‘)’
+|  ‘given’ [‘erased’] (‘(’ ClsParams ‘)’ | ContextTypes)
+ClsParams         ::=  ClsParam {<code>' ClsParam} ClsParam ::= {Annotation} [{ParamModifier} (</code>val' | <code>var') |</code>inline'] Param
+DefParamClause    ::=  [nl] [‘erased’] ‘(’ [DefParams] ‘)’ | GivenParamClause
+GivenParamClause  ::=  ‘given’ [‘erased’] (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21202,9 +21171,11 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$2">
-                            <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
-InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
+                            <p>ClsParamClause    ::=  [nl] [‘erased’] ‘(’ [ClsParams] ‘)’
+|  ‘given’ [‘erased’] (‘(’ ClsParams ‘)’ | ContextTypes)
+ClsParams         ::=  ClsParam {<code>' ClsParam} ClsParam ::= {Annotation} [{ParamModifier} (</code>val' | <code>var') |</code>inline'] Param
+DefParamClause    ::=  [nl] [‘erased’] ‘(’ [DefParams] ‘)’ | GivenParamClause
+GivenParamClause  ::=  ‘given’ [‘erased’] (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21241,9 +21212,11 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$3">
-                            <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
-InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
+                            <p>ClsParamClause    ::=  [nl] [‘erased’] ‘(’ [ClsParams] ‘)’
+|  ‘given’ [‘erased’] (‘(’ ClsParams ‘)’ | ContextTypes)
+ClsParams         ::=  ClsParam {<code>' ClsParam} ClsParam ::= {Annotation} [{ParamModifier} (</code>val' | <code>var') |</code>inline'] Param
+DefParamClause    ::=  [nl] [‘erased’] ‘(’ [DefParams] ‘)’ | GivenParamClause
+GivenParamClause  ::=  ‘given’ [‘erased’] (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21280,9 +21253,11 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$4">
-                            <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
-InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
+                            <p>ClsParamClause    ::=  [nl] [‘erased’] ‘(’ [ClsParams] ‘)’
+|  ‘given’ [‘erased’] (‘(’ ClsParams ‘)’ | ContextTypes)
+ClsParams         ::=  ClsParam {<code>' ClsParam} ClsParam ::= {Annotation} [{ParamModifier} (</code>val' | <code>var') |</code>inline'] Param
+DefParamClause    ::=  [nl] [‘erased’] ‘(’ [DefParams] ‘)’ | GivenParamClause
+GivenParamClause  ::=  ‘given’ [‘erased’] (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21319,9 +21294,11 @@ DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' 
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClause$default$5">
-                            <p>ClsParamClause    ::=  [nl | ‘with’] <code>(' [FunArgMods] [ClsParams] ')' ClsParams ::= ClsParam {</code>' ClsParam}
-ClsParam          ::=  {Annotation} [{ParamModifier} (<code>val' |</code>var') | <code>inline'] Param DefParamClause ::= [nl]</code>(' [FunArgMods] [DefParams] ')' | InferParamClause
-InferParamClause  ::=  ‘given’ (‘(’ DefParams ‘)’ | ContextTypes)
+                            <p>ClsParamClause    ::=  [nl] [‘erased’] ‘(’ [ClsParams] ‘)’
+|  ‘given’ [‘erased’] (‘(’ ClsParams ‘)’ | ContextTypes)
+ClsParams         ::=  ClsParam {<code>' ClsParam} ClsParam ::= {Annotation} [{ParamModifier} (</code>val' | <code>var') |</code>inline'] Param
+DefParamClause    ::=  [nl] [‘erased’] ‘(’ [DefParams] ‘)’ | GivenParamClause
+GivenParamClause  ::=  ‘given’ [‘erased’] (‘(’ DefParams ‘)’ | ContextTypes)
 ContextTypes      ::=  RefinedType {<code>,' RefinedType} DefParams ::= DefParam {</code>,' DefParam}
 DefParam          ::=  {Annotation} [<code>inline'] Param Param ::= id</code>:' ParamType [`=' Expr]</p>
 
@@ -21393,9 +21370,8 @@ List
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClauses(ofClass,ofCaseClass,ofInstance)">
-                            <p>ClsParamClauses   ::=  {ClsParamClause}
-DefParamClauses   ::=  {DefParamClause}
-InferParamClauses ::=  {InferParamClause}</p>
+                            <p>ClsParamClauses   ::=  {ClsParamClause} [[nl] ‘(’ [‘implicit’] ClsParams ‘)’]
+DefParamClauses   ::=  {DefParamClause} [[nl] ‘(’ [‘implicit’] DefParams ‘)’]</p>
 
                         </div>
                     </div>
@@ -21430,9 +21406,8 @@ InferParamClauses ::=  {InferParamClause}</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClauses$default$1">
-                            <p>ClsParamClauses   ::=  {ClsParamClause}
-DefParamClauses   ::=  {DefParamClause}
-InferParamClauses ::=  {InferParamClause}</p>
+                            <p>ClsParamClauses   ::=  {ClsParamClause} [[nl] ‘(’ [‘implicit’] ClsParams ‘)’]
+DefParamClauses   ::=  {DefParamClause} [[nl] ‘(’ [‘implicit’] DefParams ‘)’]</p>
 
                         </div>
                     </div>
@@ -21467,9 +21442,8 @@ InferParamClauses ::=  {InferParamClause}</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClauses$default$2">
-                            <p>ClsParamClauses   ::=  {ClsParamClause}
-DefParamClauses   ::=  {DefParamClause}
-InferParamClauses ::=  {InferParamClause}</p>
+                            <p>ClsParamClauses   ::=  {ClsParamClause} [[nl] ‘(’ [‘implicit’] ClsParams ‘)’]
+DefParamClauses   ::=  {DefParamClause} [[nl] ‘(’ [‘implicit’] DefParams ‘)’]</p>
 
                         </div>
                     </div>
@@ -21504,9 +21478,8 @@ InferParamClauses ::=  {InferParamClause}</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramClauses$default$3">
-                            <p>ClsParamClauses   ::=  {ClsParamClause}
-DefParamClauses   ::=  {DefParamClause}
-InferParamClauses ::=  {InferParamClause}</p>
+                            <p>ClsParamClauses   ::=  {ClsParamClause} [[nl] ‘(’ [‘implicit’] ClsParams ‘)’]
+DefParamClauses   ::=  {DefParamClause} [[nl] ‘(’ [‘implicit’] DefParams ‘)’]</p>
 
                         </div>
                     </div>
