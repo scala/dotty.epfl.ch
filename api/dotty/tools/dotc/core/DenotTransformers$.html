@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-12 -->
+<!-- This page was last generated on 2019-04-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14547,7 +14547,10 @@ installed using <code>installAfter</code> and <code>enteredAfter</code> at the e
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-SymTransformer">
-                            <p>A transformer that only transforms SymDenotations</p>
+                            <p>A transformer that only transforms SymDenotations.
+Note: Infos of non-sym denotations are left as is. So the transformer should
+be used before erasure only if this is not a problem. After erasure, all
+denotations are SymDenotations, so SymTransformers can be used freely.</p>
 
                         </div>
                     </div>
