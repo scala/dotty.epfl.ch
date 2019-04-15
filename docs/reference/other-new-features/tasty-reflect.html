@@ -14399,10 +14399,10 @@ It will also import all extractors and methods on TASTy Reflect trees. For examp
   xTree match {
     case Term.Literal(Constant.Int(n)) =&gt;
       if (n &lt;= 0)
-        throw new QuoteError(&quot;Parameter must be natural number&quot;)
+        QuoteError(&quot;Parameter must be natural number&quot;)
       n.toExpr
     case _ =&gt;
-      throw new QuoteError(&quot;Parameter must be a known constant&quot;)
+      QuoteError(&quot;Parameter must be a known constant&quot;)
   }
 }
 </code></pre>
