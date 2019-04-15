@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-13 -->
+<!-- This page was last generated on 2019-04-15 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14756,9 +14756,9 @@ for what this means.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="featureEnabled(owner,feature)" class="member ">
+                <div id="featureEnabled(feature,owner)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'featureEnabled(owner,feature)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'featureEnabled(feature,owner)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14780,17 +14780,17 @@ for what this means.</p>
                                 
                                 
                                     <span class="no-left">
-                                        owner:
+                                        feature:
                                     </span>
-                                    ClassSymbol
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/TermName.html">TermName</a>
                                     
                                         <span class="no-left">, </span>
                                     
                                 
                                     <span class="">
-                                        feature:
+                                        owner:
                                     </span>
-                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Names$/TermName.html">TermName</a>
+                                    Symbol
                                     
                                 
                             <span class="no-left">)</span>
@@ -14805,7 +14805,62 @@ for what this means.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-featureEnabled(owner,feature)">
+                        <div class="member-body-long" id ="long-body-featureEnabled(feature,owner)">
+                            <p>Is <code>feature</code> enabled in class <code>owner</code>?
+This is the case if one of the following two alternatives holds:</p>
+<ol>
+<li>
+<p>The feature is imported by a named import</p>
+<p>import owner.feature</p>
+<p>and there is no visible nested import that excludes the feature, as in</p>
+<p>import owner.{ feature =&gt; _ }</p>
+</li>
+</ol>
+<p>The feature may be bunched with others, or renamed, but wildcard imports don't count.</p>
+<ol>
+<li>
+<p>The feature is enabled by a compiler option</p>
+<ul>
+<li>language:<prefix>feature</li>
+</ul>
+</li>
+</ol>
+<p>where <prefix> is the full name of the owner followed by a &quot;.&quot; minus
+the prefix &quot;dotty.language.&quot;.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="featureEnabled$default$2" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'featureEnabled$default$2');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                featureEnabled$default$2
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: NoSymbol.type</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-featureEnabled$default$2">
                             <p>Is <code>feature</code> enabled in class <code>owner</code>?
 This is the case if one of the following two alternatives holds:</p>
 <ol>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-13 -->
+<!-- This page was last generated on 2019-04-15 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14519,7 +14519,7 @@ NamedTypeArg      ::=  id ‘=’ Type                                          
 NamedTypeArgs     ::=  ‘[’ NamedTypeArg {‘,’ NamedTypeArg} ‘]’                  nts
 Refinement        ::=  ‘{’ [RefineDcl] {semi [RefineDcl]} ‘}’                   ds
 SubtypeBounds     ::=  [‘&gt;:’ Type] [‘&lt;:’ Type] | INT                            TypeBoundsTree(lo, hi)
-TypeParamBounds   ::=  SubtypeBounds {‘&lt;%’ Type} {‘:’ Type}                     ContextBounds(typeBounds, tps)
+TypeParamBounds   ::=  SubtypeBounds {‘:’ Type}                                 ContextBounds(typeBounds, tps)
 </code></pre>
 <h3><a href="#expressions" id="expressions">Expressions</a></h3>
 <pre><code class="language-ebnf">Expr              ::=  [ClosureMods] FunParams ‘=&gt;’ Expr                        Function(args, expr), Function(ValDef([implicit], id, TypeTree(), EmptyTree), expr)
