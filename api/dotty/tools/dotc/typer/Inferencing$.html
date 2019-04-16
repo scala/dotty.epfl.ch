@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-15 -->
+<!-- This page was last generated on 2019-04-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14456,8 +14456,10 @@ constrained upper bound == given upper bound).
 constrained upper bound != given upper bound and
 constrained lower bound == given lower bound).
 If (1) and (2) do not apply:
-3. T is maximized if it appears only contravariantly in the given type.
-4. T is minimized in all other cases.</p>
+3. T is minimized if forceDegree is minimizeAll.
+4. Otherwise, T is maximized if it appears only contravariantly in the given type,
+or if forceDegree is <code>noBottom</code> and T's minimized value is a bottom type.
+5. Otherwise, T is minimized.</p>
 <p>The instantiation is done in two phases:
 1st Phase: Try to instantiate minimizable type variables to
 their lower bound. Record whether successful.
