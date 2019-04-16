@@ -14431,12 +14431,12 @@ This also means that you could run <code>testCompilation</code> with no argument
 Some tests can only be run in bootstrapped compilers; that includes all tests
 with <code>with-compiler</code> in their name.</p>
 <h3><a href="#from-tasty-tests" id="from-tasty-tests">From TASTy tests</a></h3>
-<p><code>testCompilation</code> has a additional mode to run tests that compile code from a <code>.tasty</code> file, decompile a <code>.tasty</code> file and recompile the decompiled tasty.
+<p><code>testCompilation</code> has an additional mode to run tests that compile code from a <code>.tasty</code> file.
 Modify blacklist and whitelists in <code>compiler/test/dotc</code> to enable or disable tests from <code>.tasty</code> files.</p>
 <pre><code class="language-bash">$ sbt
 &gt; testCompilation --from-tasty
 </code></pre>
-<p>This mode can be combined with <code>--update-checkfiles</code> to update the <code>.decompiled</code> files or can be run under <code>dotty-compiler-bootstrapped/testCompilation</code> to test on a bootstrapped Dotty compiler.</p>
+<p>This mode can be run under <code>dotty-compiler-bootstrapped/testCompilation</code> to test on a bootstrapped Dotty compiler.</p>
 
         </div>
     </div><!-- end content-body -->
