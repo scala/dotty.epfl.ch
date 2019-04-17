@@ -25201,6 +25201,7 @@ Otherwise issue a syntax error and skip to next safe point.</p>
                         <div class="member-body-long" id ="long-body-templateStatSeq()">
                             <p>TemplateStatSeq  ::= [id [<code>:' Type]</code>=&gt;'] TemplateStat {semi TemplateStat}
 TemplateStat     ::= Import
+| Export
 | Annotations Modifiers Def
 | Annotations Modifiers Dcl
 | Expr1
@@ -25452,10 +25453,11 @@ T
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-topStatSeq()">
                             <p>TopStatSeq ::= TopStat {semi TopStat}
-TopStat ::= Annotations Modifiers Def
+TopStat ::= Import
+| Export
+| Annotations Modifiers Def
 | Packaging
 | package object objectDef
-| Import
 |</p>
 
                         </div>
