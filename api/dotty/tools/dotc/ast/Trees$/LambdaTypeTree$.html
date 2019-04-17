@@ -14430,6 +14430,23 @@
             
             <div id="entity-body" class="entity-section">
                 <p>[typeparams] -&gt; tpt</p>
+<p>Note: the type of such a tree is not necessarily a <code>HKTypeLambda</code>, it can
+also be a <code>TypeBounds</code> where the upper bound is an <code>HKTypeLambda</code>, and the
+lower bound is either a reference to <code>Nothing</code> or an <code>HKTypeLambda</code>,
+this happens because these trees are typed by <code>HKTypeLambda#fromParams</code> which
+makes sure to move bounds outside of the type lambda itself to simplify their
+handling in the compiler.</p>
+<p>You may ask: why not normalize the trees too? That way,</p>
+<pre><code>LambdaTypeTree(X, TypeBoundsTree(A, B))
+</code></pre>
+<p>would become,</p>
+<pre><code>TypeBoundsTree(LambdaTypeTree(X, A), LambdaTypeTree(X, B))
+</code></pre>
+<p>which would maintain consistency between a tree and its type. The problem
+with this definition is that the same tree <code>X</code> appears twice, therefore
+we'd have to create two symbols for it which makes it harder to relate the
+source code written by the user with the trees used by the compiler (for
+example, to make &quot;find all references&quot; work in the IDE).</p>
 
             </div>
             
