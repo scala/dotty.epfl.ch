@@ -14602,10 +14602,10 @@
         <hr/>
         <div id="doc-page-container">
             <h3><a href="#critique-of-the-status-quo" id="critique-of-the-status-quo">Critique of the Status Quo</a></h3>
-<p>Scala's implicits are its most distinguished feature. They are <em>the</em> fundamental way to abstract over context. They represent a unified paradigm with an extremely varied number of use cases, among them: implementing type classes, establishing context, dependency injection, expressing capabilities, computing new types and proving relationships between them.</p>
-<p>Following Haskell, Scala was probably the second popular language to have some form of implicits. Other languages have followed suit. E.g Rust's traits or Swift's protocol extensions. Design proposals are also on the table for Kotlin as <a href="https://github.com/Kotlin/KEEP/blob/e863b25f8b3f2e9b9aaac361c6ee52be31453ee0/proposals/compile-time-dependency-resolution.md">compile time dependency resolution</a>, for C# as <a href="https://github.com/dotnet/csharplang/issues/164">Shapes and Extensions</a>
+<p>Scala's implicits are its most distinguished feature. They are <em>the</em> fundamental way to abstract over context. They represent a unified paradigm with a great variety of use cases, among them: implementing type classes, establishing context, dependency injection, expressing capabilities, computing new types and proving relationships between them.</p>
+<p>Following Haskell, Scala was the second popular language to have some form of implicits. Other languages have followed suit. E.g Rust's traits or Swift's protocol extensions. Design proposals are also on the table for Kotlin as <a href="https://github.com/Kotlin/KEEP/blob/e863b25f8b3f2e9b9aaac361c6ee52be31453ee0/proposals/compile-time-dependency-resolution.md">compile time dependency resolution</a>, for C# as <a href="https://github.com/dotnet/csharplang/issues/164">Shapes and Extensions</a>
 or for F# as <a href="https://github.com/MattWindsor91/visualfsharp/blob/hackathon-vs/examples/fsconcepts.md">Traits</a>. Implicits are also a common feature of theorem provers such as Coq or Agda.</p>
-<p>Even though all these designs use widely different terminology, they are all variants of the core idea of <em>term inference</em>: given a type, the compiler synthesizes a &quot;canonical&quot; term that has that type. Scala embodies the idea in a purer form than most other languages: An implicit parameter directly leads to an inferred argument term that could also be written down explicitly. By contrast, typeclass based designs are less direct since they hide term inference behind some form of type classification and do not offer the option of writing the inferred quantities explicitly.</p>
+<p>Even though these designs use widely different terminology, they are all variants of the core idea of <em>term inference</em>. Given a type, the compiler synthesizes a &quot;canonical&quot; term that has that type. Scala embodies the idea in a purer form than most other languages: An implicit parameter directly leads to an inferred argument term that could also be written down explicitly. By contrast, typeclass based designs are less direct since they hide term inference behind some form of type classification and do not offer the option of writing the inferred quantities (typically, dictionaries) explicitly.</p>
 <p>Given that term inference is where the industry is heading, and given that Scala has it in a very pure form, how come implicits are not more popular? In fact, it's fair to say that implicits are at the same time Scala's most distinguished and most controversial feature. I believe this is due to a number of aspects that together make implicits harder to learn than necessary and also make it harder to prevent abuses.</p>
 <p>Particular criticisms are:</p>
 <ol>
@@ -14630,23 +14630,23 @@ implicit def i2(x: T): C[T] = ...
 <li>Implicits pose challenges for tooling. The set of available implicits depends on context, so command completion has to take context into account. This is feasible in an IDE but docs like ScalaDoc that are based static web pages can only provide an approximation. Another problem is that failed implicit searches often give very unspecific error messages, in particular if some deeply recursive implicit search has failed. Note that the Dotty compiler already implements some improvements in this case, but challenges still remain.</li>
 </ol>
 <p>None of the shortcomings is fatal, after all implicits are very widely used, and many libraries and applications rely on them. But together, they make code using implicits a lot more cumbersome and less clear than it could be.</p>
+<p>Historically, many of these shortcomings come from the way implicits were gradually &quot;discovered&quot; in Scala. Scala originally had only implicit conversions with the intended use case of &quot;extending&quot; a class or trait after it was defined, i.e. what is expressed by implicit classes in later versions of Scala. Implicit parameters and instance definitions came later in 2006 and picked similar syntax since it seemed convenient. For the same reason, no effort was made to distinguish implicit imports or arguments from normal ones.</p>
 <p>Existing Scala programmers by and large have gotten used to the status quo and see little need for change. But for newcomers this status quo presents a big hurdle. I believe if we want to overcome that hurdle, we should take a step back and allow ourselves to consider a radically new design.</p>
 <h3><a href="#the-new-design" id="the-new-design">The New Design</a></h3>
-<p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce the following new constructs:</p>
+<p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce four fundamental new constructs:</p>
 <ol>
 <li>
-<p>A way to replace implicit <em>definitions</em> by <a href="./instance-defs.html">implied instance definitions</a>. The core principle of the proposal is that, rather than
-mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
+<p><a href="./instance-defs.html">Implied Instances</a> are a new way to define inferable terms.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
 </li>
 <li>
-<p>A <a href="./inferable-params.html">new syntax</a> for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several implicit parameter sections, and to have implicit parameters followed by normal ones.</p>
+<p><a href="./inferable-params.html">Inferable Parameters</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several implicit parameter sections, and to have implicit parameters followed by normal ones.</p>
 </li>
 <li>
-<p>A new form of import, <a href="./import-implied.html">import implied</a> that specifically imports implicit definitions and nothing else. New-style implicit definitions <em>must be</em> imported with  <code>import implied</code>, a plain import will no longer bring them into scope.</p>
+<p><a href="./import-implied.html">Implied Imports</a> are new form of import that specifically imports implicit definitions and nothing else. New-style implicit definitions <em>must be</em> imported with  <code>import implied</code>, a plain import will no longer bring them into scope.</p>
 </li>
-<li>A new way to write <a href="./conversions.html">implicit conversions</a> as implied instances of a <code>Conversion</code> class. All other forms of implicit conversions will be phased out.</li>
+<li><a href="./conversions.html">Implicit Conversions</a> are now expressed as implied instances of a standard <code>Conversion</code> class. All other forms of implicit conversions will be phased out.</li>
 </ol>
-<p>This section also contains pages describing other language features that are related to context abstraction.  These are:</p>
+<p>This section also contains pages describing other language features that are related to context abstraction. These are:</p>
 <ul>
 <li><a href="./context-bounds.html">Context Bounds</a>, which carry over unchanged.</li>
 <li><a href="./extension-methods.html">Extension Methods</a> replace implicit classes in a way that integrates better with typeclasses.</li>
@@ -14662,11 +14662,11 @@ to support type safe equality.</li>
 <p>This design thus avoids feature interactions and makes the language more consistent and orthogonal. It will make implicits easier to learn and harder to abuse. It will greatly improve the clarity of the 95% of Scala programs that use implicits. It has thus the potential to fulfil the promise of term inference in a principled way that is also accessible and friendly.</p>
 <p>Could we achieve the same goals by tweaking existing implicits? After having tried for a long time, I believe now that this is impossible.</p>
 <ul>
-<li>First, some of the problems are clearly syntactic and require different syntax to solve.</li>
-<li>Second, there is the problem how to migrate. We cannot change the rules in mid-flight. At some stage of language evolution we need to accommodate both the new and the old rules. With a syntax change, this is easy: Introduce the new syntax with new rules, support the old syntax for a while to facilitate cross compilation, deprecate and phase out the old syntax some times later. Keeping the same syntax does not offer this path, and in fact does not seem to offer any viable path for evolution</li>
+<li>First, some of the problems are clearly syntactic and require different syntax to solve them.</li>
+<li>Second, there is the problem how to migrate. We cannot change the rules in mid-flight. At some stage of language evolution we need to accommodate both the new and the old rules. With a syntax change, this is easy: Introduce the new syntax with new rules, support the old syntax for a while to facilitate cross compilation, deprecate and phase out the old syntax at some later time. Keeping the same syntax does not offer this path, and in fact does not seem to offer any viable path for evolution</li>
 <li>Third, even if we would somehow succeed with migration, we still have the problem
 how to teach this. We cannot make existing tutorials go away. Almost all existing tutorials start with implicit conversions, which will go away; they use normal imports, which will go away, and they explain calls to methods with implicit parameters by expanding them to plain applications, which will also go away. This means that we'd have
-to add modifications and qualifications to all existing literature and courseware,likely causing more confusion with beginners instead of less. By contrast, with a new syntax there is a clear criterion: Any courseware that mentions <code>implicit</code> is outdated and should be replaced.</li>
+to add modifications and qualifications to all existing literature and courseware, likely causing more confusion with beginners instead of less. By contrast, with a new syntax there is a clear criterion: Any courseware that mentions <code>implicit</code> is outdated and should be replaced.</li>
 </ul>
 
         </div>
