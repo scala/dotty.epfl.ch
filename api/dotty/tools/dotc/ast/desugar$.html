@@ -17934,13 +17934,12 @@ type T1 = C { type T &lt;: A }
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-transformQuotedPatternName(tree)(ctx)">
                             <p>Transforms a definition with a name starting with a <code>$</code> in a quoted pattern into a <code>quoted.binding.Binding</code> splice.</p>
-<p>The desugaring consists in renaming the the definition and adding the <code>@patternBindHole</code> annotation. This
-annotation is used during typing to perform the full transformation.</p>
+<p>The desugaring consists in adding the <code>@patternBindHole</code> annotation. This annotation is used during typing to perform the full transformation.</p>
 <p>A definition</p>
-<pre><code class="language-scala">  case '{ def $a(...) = ... a() ...; ... a() ... }
+<pre><code class="language-scala">  case '{ def $a(...) = ...; ... `$a`() ... } =&gt; a
 </code></pre>
 <p>into</p>
-<pre><code class="language-scala">  case '{ @patternBindHole def a(...) = ... a() ...; ... a() ... }
+<pre><code class="language-scala">  case '{ @patternBindHole def `$a`(...) = ...; ... `$a`() ... } =&gt; a
 </code></pre>
 
                         </div>
