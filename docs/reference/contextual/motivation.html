@@ -14633,7 +14633,7 @@ implicit def i2(x: T): C[T] = ...
 <p>Historically, many of these shortcomings come from the way implicits were gradually &quot;discovered&quot; in Scala. Scala originally had only implicit conversions with the intended use case of &quot;extending&quot; a class or trait after it was defined, i.e. what is expressed by implicit classes in later versions of Scala. Implicit parameters and instance definitions came later in 2006 and picked similar syntax since it seemed convenient. For the same reason, no effort was made to distinguish implicit imports or arguments from normal ones.</p>
 <p>Existing Scala programmers by and large have gotten used to the status quo and see little need for change. But for newcomers this status quo presents a big hurdle. I believe if we want to overcome that hurdle, we should take a step back and allow ourselves to consider a radically new design.</p>
 <h3><a href="#the-new-design" id="the-new-design">The New Design</a></h3>
-<p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce four fundamental new constructs:</p>
+<p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce four fundamental changes:</p>
 <ol>
 <li>
 <p><a href="./instance-defs.html">Implied Instances</a> are a new way to define inferable terms.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
