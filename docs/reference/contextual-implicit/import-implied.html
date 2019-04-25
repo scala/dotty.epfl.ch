@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Evidence Imports</title>
+        <title>Import Implicit</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -14595,44 +14595,44 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Evidence Imports</h1>
+        <h1 id="doc-page-title">Import Implicit</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual-implicit/import-implied.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>A special form of import is used to import evidence values. Example:</p>
+            <p>A special form of import is used to import implicit values. Example:</p>
 <pre><code class="language-scala">object A {
   class TC
-  evidence tc for TC
+  implicit tc for TC
   def f given TC = ???
 }
 object B {
   import A._
-  import evidence A._
+  import implicit A._
 }
 </code></pre>
 <p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the evidence <code>tc</code>. Conversely, the second import <code>import evidence A._</code> will import <em>only</em> that evidence.</p>
-<p>Generally, a normal import clause brings all members except evidence values into scope whereas an <code>import evidence</code> clause brings only evidence values into scope.</p>
+of <code>A</code> <em>except</em> the implicit <code>tc</code>. Conversely, the second import <code>import implicit A._</code> will import <em>only</em> that implicit.</p>
+<p>Generally, a normal import clause brings all members except implicit values into scope whereas an <code>import implicit</code> clause brings only implicit values into scope.</p>
 <p>There are two main benefits arising from these rules:</p>
 <ul>
-<li>It is made clearer where evidence values in scope are coming from. In particular, it is not possible to hide imported evidence values in a long list of regular imports.</li>
-<li>It enables importing all evidence values
-without importing anything else. This is particularly important since evidence
+<li>It is made clearer where implicit values in scope are coming from. In particular, it is not possible to hide imported implicit values in a long list of regular imports.</li>
+<li>It enables importing all implicit values
+without importing anything else. This is particularly important since implicit
 values can be anonymous, so the usual recourse of using named imports is not
 practical.</li>
 </ul>
 <h3><a href="#relationship-with-old-style-implicits" id="relationship-with-old-style-implicits">Relationship with Old-Style Implicits</a></h3>
-<p>The rules of evidence imports above have the consequence that a library
+<p>The rules of &quot;import implicit&quot; above have the consequence that a library
 would have to migrate in lockstep with all its users from old style implicit definitions and
-normal imports to evidence definitions and evidence imports.</p>
+normal imports to new style implicit definitions and <code>import implicit</code>.</p>
 <p>The following modifications avoid this hurdle to migration.</p>
 <ol>
 <li>
-<p>An evidence import also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a normal or
-by an evidence import.</p>
+<p>An <code>import implicit</code> also brings old style implicits into scope. So, in Scala 3.0
+an old-style implicit definition can be brought into scope either by a normal import
+or by an <code>import implicit</code>.</p>
 </li>
 <li>
 <p>In Scala 3.1, an old-style implicits accessed implicitly through a normal import
@@ -14641,9 +14641,9 @@ will give a deprecation warning.</p>
 <li>In some version after 3.1, an old-style implicits accessed implicitly through a normal import
 will give a compiler error.</li>
 </ol>
-<p>These rules mean that library users can use <code>import evidence</code> to access old-style implicits in Scala 3.0,
+<p>These rules mean that library users can use <code>import implicit</code> to access old-style implicits in Scala 3.0,
 and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-evidence definitions once their user base has migrated.</p>
+new-style implicit definitions once their user base has migrated.</p>
 
         </div>
     </div><!-- end content-body -->

@@ -14601,9 +14601,9 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Evidence definitions, extension methods and context bounds
+            <p>Implicit instances, extension methods and context bounds
 allow a concise and natural expression of <em>typeclasses</em>. Typeclasses are just traits
-with canonical implementations defined by evidence definitions. Here are some examples of standard typeclasses:</p>
+with canonical implementations defined by implicit instances. Here are some examples of standard typeclasses:</p>
 <h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids">Semigroups and monoids:</a></h3>
 <pre><code class="language-scala">trait SemiGroup[T] {
   def (x: T) combine (y: T): T
@@ -14615,12 +14615,12 @@ object Monoid {
   def apply[T] given Monoid[T] = the[Monoid[T]]
 }
 
-evidence for Monoid[String] {
+implicit for Monoid[String] {
   def (x: String) combine (y: String): String = x.concat(y)
   def unit: String = &quot;&quot;
 }
 
-evidence for Monoid[Int] {
+implicit for Monoid[Int] {
   def (x: Int) combine (y: Int): Int = x + y
   def unit: Int = 0
 }
@@ -14640,14 +14640,14 @@ trait Monad[F[_]] extends Functor[F] {
   def pure[A](x: A): F[A]
 }
 
-evidence ListMonad for Monad[List] {
+implicit ListMonad for Monad[List] {
   def (xs: List[A]) flatMap [A, B] (f: A =&gt; List[B]): List[B] =
     xs.flatMap(f)
   def pure[A](x: A): List[A] =
     List(x)
 }
 
-evidence ReaderMonad[Ctx] for Monad[[X] =&gt; Ctx =&gt; X] {
+implicit ReaderMonad[Ctx] for Monad[[X] =&gt; Ctx =&gt; X] {
   def (r: Ctx =&gt; A) flatMap [A, B] (f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
     ctx =&gt; f(r(ctx))(ctx)
   def pure[A](x: A): Ctx =&gt; A =
