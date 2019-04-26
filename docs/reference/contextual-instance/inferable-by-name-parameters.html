@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Implicit By-Name Parameters</title>
+        <title>Inferable By-Name Parameters</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -14600,7 +14600,7 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Implicit By-Name Parameters</h1>
+        <h1 id="doc-page-title">Inferable By-Name Parameters</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual-instance/inferable-by-name-parameters.md">
             Edit this page on GitHub
         </a>
@@ -14642,7 +14642,7 @@ if this is necessary to prevent an otherwise diverging expansion.</p>
 <p>This instance is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an inferred argument to a by-name parameter.</p>
 </li>
 <li>
-<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to the evidence <code>lv</code>, replace <code>E</code> by</p>
+<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to <code>lv</code>, replace <code>E</code> by</p>
 <pre><code class="language-scala">{ instance lv of T = E; lv }
 </code></pre>
 <p>Otherwise, return <code>E</code> unchanged.</p>

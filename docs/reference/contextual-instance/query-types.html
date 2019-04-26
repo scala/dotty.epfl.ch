@@ -14627,7 +14627,7 @@ context query literal, <code>E</code> is converted to a context query literal by
 </code></pre>
 <p>where the names <code>x_1</code>, ..., <code>x_n</code> are arbitrary. This expansion is performed
 before the expression <code>E</code> is typechecked, which means that <code>x_1</code>, ..., <code>x_n</code>
-are available as evidence in <code>E</code>.</p>
+are available as implicits in <code>E</code>.</p>
 <p>Like query types, query literals are written with a <code>given</code> prefix. They differ from normal function literals in two ways:</p>
 <ol>
 <li>Their parameters are inferable.</li>
@@ -14729,9 +14729,9 @@ object Test {
 </code></pre>
 <p><strong>Explanations</strong>: We use a context query type <code>given WrappedResult[T] =&gt; Boolean</code>
 as the type of the condition of <code>ensuring</code>. An argument to <code>ensuring</code> such as
-<code>(result == 6)</code> will therefore have evidence of type <code>WrappedResult[T]</code> in
+<code>(result == 6)</code> will therefore have an implicit instance of type <code>WrappedResult[T]</code> in
 scope to pass along to the <code>result</code> method. <code>WrappedResult</code> is a fresh type, to make sure
-that we do not get unwanted evidence types in scope (this is good practice in all cases
+that we do not get unwanted implicit instances in scope (this is good practice in all cases
 where given clauses are involved). Since <code>WrappedResult</code> is an opaque type alias, its
 values need not be boxed, and since <code>ensuring</code> is added as an extension method, its argument
 does not need boxing either. Hence, the implementation of <code>ensuring</code> is as about as efficient

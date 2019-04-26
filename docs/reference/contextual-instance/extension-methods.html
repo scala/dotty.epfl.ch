@@ -14629,7 +14629,7 @@ assert(circle.circumference == circumference(circle))
 <ul>
 <li>An extension method is applicable if it is visible under a simple name, by being defined
 or inherited or imported in a scope enclosing the application.</li>
-<li>An extension method is applicable if it is a member of some evidence value at the point of the application.</li>
+<li>An extension method is applicable if it is a member of some implicit instance at the point of the application.</li>
 </ul>
 <p>As an example, consider an extension method <code>longestStrings</code> on <code>String</code> defined in a trait <code>StringSeqOps</code>.</p>
 <pre><code class="language-scala">trait StringSeqOps {
@@ -14639,13 +14639,13 @@ or inherited or imported in a scope enclosing the application.</li>
   }
 }
 </code></pre>
-<p>We can make the extension method available by defining evidence for <code>StringSeqOps</code>, like this:</p>
+<p>We can make the extension method available by defining an implicit instance of <code>StringSeqOps</code>, like this:</p>
 <pre><code class="language-scala">instance ops1 of StringSeqOps
 </code></pre>
 <p>Then</p>
 <pre><code class="language-scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
 </code></pre>
-<p>is legal everywhere <code>ops1</code> is available as evidence. Alternatively, we can define <code>longestStrings</code> as a member of a normal object. But then the method has to be brought into scope to be usable as an extension method.</p>
+<p>is legal everywhere <code>ops1</code> is available as an implicit. Alternatively, we can define <code>longestStrings</code> as a member of a normal object. But then the method has to be brought into scope to be usable as an extension method.</p>
 <pre><code class="language-scala">object ops2 extends StringSeqOps
 import ops2.longestStrings
 List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
@@ -14655,28 +14655,28 @@ List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestS
 and where <code>T</code> is the expected type. The following two rewritings are tried in order:</p>
 <ol>
 <li>The selection is rewritten to <code>m[Ts](e)</code>.</li>
-<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is evidence <code>i</code>
-in either the current scope or in the evidence scope of <code>T</code>, and <code>i</code> defines an extension
+<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is an implicit <code>i</code>
+in either the current scope or in the implicit scope of <code>T</code>, and <code>i</code> defines an extension
 method named <code>m</code>, then selection is expanded to <code>i.m[Ts](e)</code>.
 This second rewriting is attempted at the time where the compiler also tries an implicit conversion
 from <code>T</code> to a type containing <code>m</code>. If there is more than one way of rewriting, an ambiguity error results.</li>
 </ol>
 <p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
-<code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is an eligible evidence value (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
-<h3><a href="#evidence-for-extension-methods" id="evidence-for-extension-methods">Evidence for Extension Methods</a></h3>
-<p>Evidence that defines extension methods can also be defined without a <code>for</code> clause. E.g.,</p>
-<pre><code class="language-scala">evidence StringOps {
+<code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is an eligible implicit (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
+<h3><a href="#implicit-instances-for-extension-methods" id="implicit-instances-for-extension-methods">Implicit Instances for Extension Methods</a></h3>
+<p>Implicits that wrap extension methods can also be defined without an <code>of</code> clause. E.g.,</p>
+<pre><code class="language-scala">instance StringOps {
   def (xs: Seq[String]) longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max
     xs.filter(_.length == maxLength)
   }
 }
 
-evidence {
+instance {
   def (xs: List[T]) second[T] = xs.tail.head
 }
 </code></pre>
-<p>If such an evidence is anonymous (as in the second example above), its name is synthesized from the name
+<p>If such an instance is anonymous (as in the second example above), its name is synthesized from the name
 of the first defined extension method.</p>
 <h3><a href="#operators" id="operators">Operators</a></h3>
 <p>The extension method syntax also applies to the definition of operators.
