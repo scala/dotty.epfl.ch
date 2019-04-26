@@ -14643,8 +14643,8 @@ of the last section can also be expressed like this:</p>
 instance [T] given (ord: Ord[T]) of Ord[List[T]] { ... }
 </code></pre>
 <p>If a  name is not given, the compiler will synthesize one from the type(s) in the <code>for</code> clause.</p>
-<h2><a href="#instance-aliases" id="instance-aliases">instance Aliases</a></h2>
-<p>An instance alias defines an implicit instance that is equal to some expression. E.g., assuming a global method <code>currentThreadPool</code> returning a value with a member <code>context</code>, one could define:</p>
+<h2><a href="#alias-instances" id="alias-instances">Alias Instances</a></h2>
+<p>An alias instance defines an implicit instance that is equal to some expression. E.g., assuming a global method <code>currentThreadPool</code> returning a value with a member <code>context</code>, one could define:</p>
 <pre><code class="language-scala">instance ctx of ExecutionContext = currentThreadPool().context
 </code></pre>
 <p>This creates an implicit instance <code>ctx</code> of type <code>ExecutionContext</code> that resolves to the right hand side <code>currentThreadPool().context</code>.
@@ -14652,7 +14652,7 @@ Each time an instance for <code>ExecutionContext</code> is demanded, the result 
 <p>Alias instances may be anonymous, e.g.</p>
 <pre><code class="language-scala">instance of Position = enclosingTree.position
 </code></pre>
-<p>An instance alias can have type and context parameters just like any other instance definition, but it can only implement a single type.</p>
+<p>An alias instance can have type and context parameters just like any other instance definition, but it can only implement a single type.</p>
 <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <p>Here is the new syntax of instance definitions, seen as a delta from the <a href="http://dotty.epfl.ch/docs/internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
 <pre><code>TmplDef          ::=  ...
