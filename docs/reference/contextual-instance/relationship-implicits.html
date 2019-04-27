@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-26 -->
+<!-- This page was last generated on 2019-04-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14619,7 +14619,7 @@
 </code></pre>
 </li>
 <li>Parameterized instance definitions are mapped to combinations of classes and implicit methods. E.g.,
-<pre><code class="language-scala">  instance ListOrd[T] given (ord: Ord[T]) of Ord[List[T]] { ... }
+<pre><code class="language-scala">  instance ListOrd[T] of Ord[List[T]] given (ord: Ord[T]) { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="language-scala">  class ListOrd[T](implicit ord: Ord[T]) extends Ord[List[T]] { ... }

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-26 -->
+<!-- This page was last generated on 2019-04-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14679,7 +14679,7 @@ done with an import</p>
 </code></pre>
 <p>By the usual rules if <a href="./derivation.html">typeclass derivation</a>,
 this generates the following <code>Eql</code> instance in the companion object of <code>Box</code>:</p>
-<pre><code class="language-scala">instance [T, U] given Eql[T, U] of Eql[Box[T], Box[U]] = Eql.derived
+<pre><code class="language-scala">instance [T, U] of Eql[Box[T], Box[U]] given Eql[T, U] = Eql.derived
 </code></pre>
 <p>That is, two boxes are comparable with <code>==</code> or <code>!=</code> if their elements are. Examples:</p>
 <pre><code class="language-scala">new Box(1) == new Box(1L)   // ok since there is instance of `Eql[Int, Long]`

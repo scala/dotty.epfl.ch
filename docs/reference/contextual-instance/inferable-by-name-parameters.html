@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-26 -->
+<!-- This page was last generated on 2019-04-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14613,7 +14613,7 @@
 
 instance intCodec of Codec[Int] = ???
 
-instance optionCodec[T] given (ev: =&gt; Codec[T]) of Codec[Option[T]] {
+instance optionCodec[T] of Codec[Option[T]] given (ev: =&gt; Codec[T]) {
   def write(xo: Option[T]) = xo match {
     case Some(x) =&gt; ev.write(x)
     case None =&gt;

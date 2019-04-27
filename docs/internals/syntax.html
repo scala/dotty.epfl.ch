@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-04-26 -->
+<!-- This page was last generated on 2019-04-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14960,6 +14960,7 @@ InheritClauses    ::=  [‘extends’ ConstrApps] [‘derives’ QualId {‘,’
 ConstrApps        ::=  ConstrApp {‘with’ ConstrApp}
                     |  ConstrApp {‘,’ ConstrApp}
 ConstrApp         ::=  AnnotType {ArgumentExprs}                                Apply(tp, args)
+                    |  ‘(’ ConstrApp {‘given’ (InfixExpr | ParArgumentExprs)} ‘)’
 ConstrExpr        ::=  SelfInvocation
                     |  ConstrBlock
 SelfInvocation    ::=  ‘this’ ArgumentExprs {ArgumentExprs}
