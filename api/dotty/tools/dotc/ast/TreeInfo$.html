@@ -14656,7 +14656,7 @@
                 
                 <div id="PurityLevel" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'PurityLevel');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'PurityLevel');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14681,14 +14681,15 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-PurityLevel">
-                            
+                            <p>A purity level is represented as a bitset (expressed as an Int)</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
                 
                 <div id="PurityLevel$" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'PurityLevel$');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'PurityLevel$');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14713,14 +14714,15 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-PurityLevel$">
-                            
+                            <p>A purity level is represented as a bitset (expressed as an Int)</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
                 
                 <div id="Idempotent" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Idempotent');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Idempotent');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14747,7 +14749,43 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-Idempotent">
+                            <p>Running the expression a second time has no side effects. Implied by <code>Pure</code>.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="IdempotentPath" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'IdempotentPath');">[+]</span>
+                        <span class="member-annotations">
                             
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                IdempotentPath
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: PurityLevel</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-IdempotentPath">
+                            <p>A stable path that is also idempotent</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -14786,9 +14824,44 @@
                     </div>
                 </div><!-- end member -->
                 
+                <div id="Path" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Path');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                Path
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: PurityLevel</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Path">
+                            <p>An expression is a stable path. Requires that expression is at least idempotent</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="Pure" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Pure');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Pure');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14815,14 +14888,15 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-Pure">
-                            
+                            <p>The expression has no side effects</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="SimplyPure" class="member ">
+                <div id="PurePath" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'SimplyPure');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'PurePath');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14834,7 +14908,7 @@
                         </span>
                         <span class="member-name ">
                             
-                                SimplyPure
+                                PurePath
                             
                         </span>
 
@@ -14848,8 +14922,9 @@
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-SimplyPure">
-                            
+                        <div class="member-body-long" id ="long-body-PurePath">
+                            <p>A stable path that is evaluated without side effects</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
