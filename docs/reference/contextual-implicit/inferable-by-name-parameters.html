@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Inferable By-Name Parameters</title>
+        <title>Implicit By-Name Parameters</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -14600,20 +14600,20 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Inferable By-Name Parameters</h1>
+        <h1 id="doc-page-title">Implicit By-Name Parameters</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual-implicit/inferable-by-name-parameters.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Inferable by-name parameters can be used to avoid a divergent inferred expansion. Example:</p>
+            <p>Implicit by-name parameters can be used to avoid a divergent inferred expansion. Example:</p>
 <pre><code class="language-scala">trait Codec[T] {
   def write(x: T): Unit
 }
 
 implicit intCodec for Codec[Int] = ???
 
-implicit optionCodec[T] given (ev: =&gt; Codec[T]) for Codec[Option[T]] {
+implicit optionCodec[T] for Codec[Option[T]] given (ev: =&gt; Codec[T]) {
   def write(xo: Option[T]) = xo match {
     case Some(x) =&gt; ev.write(x)
     case None =&gt;
@@ -14625,21 +14625,21 @@ val s = the[Codec[Option[Int]]]
 s.write(Some(33))
 s.write(None)
 </code></pre>
-<p>As is the case for a normal by-name parameter, the argument for the inferable parameter <code>ev</code>
+<p>As is the case for a normal by-name parameter, the argument for the implicit parameter <code>ev</code>
 is evaluated on demand. In the example above, if the option value <code>x</code> is <code>None</code>, it is
 not evaluated at all.</p>
-<p>The synthesized argument for an inferable parameter is backed by a local val
+<p>The synthesized argument for an implicit parameter is backed by a local val
 if this is necessary to prevent an otherwise diverging expansion.</p>
-<p>The precise steps for constructing an inferable argument for a by-name parameter of type <code>=&gt; T</code> are as follows.</p>
+<p>The precise steps for synthesizing an argument for a by-name parameter of type <code>=&gt; T</code> are as follows.</p>
 <ol>
 <li>
-<p>Create a new implicit value of type <code>T</code>:</p>
+<p>Create a new implicit for type <code>T</code>:</p>
 <pre><code class="language-scala">implicit lv for T = ???
 </code></pre>
 <p>where <code>lv</code> is an arbitrary fresh name.</p>
 </li>
 <li>
-<p>This instance is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an inferred argument to a by-name parameter.</p>
+<p>This implicit is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an implicit argument to a by-name parameter.</p>
 </li>
 <li>
 <p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to the implicit <code>lv</code>, replace <code>E</code> by</p>
@@ -14652,7 +14652,7 @@ if this is necessary to prevent an otherwise diverging expansion.</p>
 <pre><code class="language-scala">val s = the[Test.Codec[Option[Int]]](
   optionCodec[Int](intCodec))
 </code></pre>
-<p>No local instance was generated because the synthesized argument is not recursive.</p>
+<p>No local implicit was generated because the synthesized argument is not recursive.</p>
 <h3><a href="#reference" id="reference">Reference</a></h3>
 <p>For more info, see <a href="https://github.com/lampepfl/dotty/issues/1998">Issue #1998</a>
 and the associated <a href="https://docs.scala-lang.org/sips/byname-implicits.html">Scala SIP</a>.</p>

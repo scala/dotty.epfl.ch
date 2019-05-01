@@ -14606,7 +14606,7 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Implicit conversions are defined by implicits for the <code>scala.Conversion</code> class.
+            <p>Implicit conversions are defined by implicit instances of the <code>scala.Conversion</code> class.
 This class is defined in package <code>scala</code> as follows:</p>
 <pre><code class="language-scala">abstract class Conversion[-T, +U] extends (T =&gt; U)
 </code></pre>
@@ -14615,7 +14615,7 @@ This class is defined in package <code>scala</code> as follows:</p>
   def apply(str: String): Token = new KeyWord(str)
 }
 </code></pre>
-<p>Using an implicit alias this can be expressed more concisely as:</p>
+<p>Using an alias implicit this can be expressed more concisely as:</p>
 <pre><code class="language-scala">implicit for Conversion[String, Token] = new KeyWord(_)
 </code></pre>
 <p>An implicit conversion is applied automatically by the compiler in three situations:</p>
@@ -14627,9 +14627,9 @@ some member(s) named <code>m</code>, but none of these members can be applied to
 </ol>
 <p>In the first case, the compiler looks for an implicit value of class
 <code>scala.Conversion</code> that maps an argument of type <code>T</code> to type <code>S</code>. In the second and third
-case, it looks for an evidance value  of class <code>scala.Conversion</code> that maps an argument of type <code>T</code>
+case, it looks for an implicit value of class <code>scala.Conversion</code> that maps an argument of type <code>T</code>
 to a type that defines a member <code>m</code> which can be applied to <code>args</code> if present.
-If such an instance <code>C</code> is found, the expression <code>e</code> is replaced by <code>C.apply(e)</code>.</p>
+If such a value <code>C</code> is found, the expression <code>e</code> is replaced by <code>C.apply(e)</code>.</p>
 <h2><a href="#examples" id="examples">Examples</a></h2>
 <ol>
 <li>The <code>Predef</code> package contains &quot;auto-boxing&quot; conversions that map

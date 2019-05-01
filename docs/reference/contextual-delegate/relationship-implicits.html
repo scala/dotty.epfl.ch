@@ -14626,15 +14626,15 @@
   final implicit def ListOrd[T](implicit ord: Ord[T]): ListOrd[T] = new ListOrd[T]
 </code></pre>
 </li>
-<li>Alias delegates map to implicit methods. If the delegates has neither type parameters nor a given clause, the result of creating an instance is cached in a variable. If in addition the right hand side is pure and cheap to compute, a simple <code>val</code> can be used instead. E.g.,
-<pre><code class="language-scala">  delegate ec for ExecutionContext = new ForkJoinContext()
+<li>Alias delegates map to implicit methods. If the delegate has neither type parameters nor a given clause, the result of creating an instance is cached in a variable. If in addition the right hand side is pure and cheap to compute, a simple <code>val</code> can be used instead. E.g.,
+<pre><code class="language-scala">  delegate global for ExecutionContext = new ForkJoinContext()
   delegate config for Config = default.config
 </code></pre>
 <p>map to</p>
-<pre><code class="language-scala">  private[this] var ec$cache: ExecutionContext | Null = null
-  final implicit def ec: ExecutionContext = {
-    if (ec$cache == null) ec$cache = new ForkJoinContext()
-    ec$cache
+<pre><code class="language-scala">  private[this] var global$cache: ExecutionContext | Null = null
+  final implicit def global: ExecutionContext = {
+    if (global$cache == null) global$cache = new ForkJoinContext()
+    global$cache
   }
 
   final implicit val config: Config = default.config

@@ -14618,16 +14618,17 @@ with an erroneous program where a value <code>y</code> has type <code>S</code> i
 val y = ... // of type S, but should be T
 x == y      // typechecks, will always yield false
 </code></pre>
-<p>If all the program does with <code>y</code> is compare it to other values of type <code>T</code>, the program will still typecheck, since values of all types can be compared with each other.
+<p>If <code>y</code> gets compared to other values of type <code>T</code>,
+the program will still typecheck, since values of all types can be compared with each other.
 But it will probably give unexpected results and fail at runtime.</p>
 <p>Multiversal equality is an opt-in way to make universal equality
 safer. It uses a binary typeclass <code>Eql</code> to indicate that values of
 two given types can be compared with each other.
-The example above would not typecheck if <code>S</code> or <code>T</code> was a class
+The example above report a type error if <code>S</code> or <code>T</code> was a class
 that derives <code>Eql</code>, e.g.</p>
 <pre><code class="language-scala">class T derives Eql
 </code></pre>
-<p>Alternatively, one can also provide the derived implicit directly, like this:</p>
+<p>Alternatively, one can also provide an <code>Eql</code> implicit directly, like this:</p>
 <pre><code class="language-scala">implicit for Eql[T, T] = Eql.derived
 </code></pre>
 <p>This definition effectively says that values of type <code>T</code> can (only) be
@@ -14664,22 +14665,22 @@ defined as follows:</p>
 </code></pre>
 <p>Even though <code>eqlAny</code> is not declared as an <code>implicit</code>, the compiler will still
 construct an <code>eqlAny</code> instance as answer to an implicit search for the
-type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have <code>Eql</code> instances
+type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have implicit <code>Eql</code> instances
 defined on them, or the language feature <code>strictEquality</code> is enabled</p>
 <p>The primary motivation for having <code>eqlAny</code> is backwards compatibility,
-if this is of no concern one can disable <code>eqlAny</code> by enabling the language
+if this is of no concern, one can disable <code>eqlAny</code> by enabling the language
 feature <code>strictEquality</code>. As for all language features this can be either
 done with an import</p>
 <pre><code class="language-scala">import scala.language.strictEquality
 </code></pre>
 <p>or with a command line option <code>-language:strictEquality</code>.</p>
 <h2><a href="#deriving-eql-instances" id="deriving-eql-instances">Deriving Eql Instances</a></h2>
-<p>Instead of defining <code>Eql</code> instances directly, it is often more convenient to derive them. Example:</p>
+<p>Instead of defining implicit <code>Eql</code> instances directly, it is often more convenient to derive them. Example:</p>
 <pre><code class="language-scala">class Box[T](x: T) derives Eql
 </code></pre>
 <p>By the usual rules if <a href="./derivation.html">typeclass derivation</a>,
 this generates the following <code>Eql</code> instance in the companion object of <code>Box</code>:</p>
-<pre><code class="language-scala">implicit [T, U] given Eql[T, U] for Eql[Box[T], Box[U]] = Eql.derived
+<pre><code class="language-scala">implicit [T, U] for Eql[Box[T], Box[U]] given Eql[T, U] = Eql.derived
 </code></pre>
 <p>That is, two boxes are comparable with <code>==</code> or <code>!=</code> if their elements are. Examples:</p>
 <pre><code class="language-scala">new Box(1) == new Box(1L)   // ok since there is an implicit for `Eql[Int, Long]`
@@ -14715,7 +14716,7 @@ succeeds.</li>
 - the primitive types <code>Byte</code>, <code>Short</code>, <code>Char</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>,  and <code>Unit</code>,
 - <code>java.lang.Number</code>, <code>java.lang.Boolean</code>, and <code>java.lang.Character</code>,
 - <code>scala.collection.Seq</code>, and <code>scala.collection.Set</code>.</p>
-<p>Implicits are defined so that everyone of these types is has a reflexive <code>Eql</code> implicit, and the following holds:</p>
+<p>Implicits are defined so that every one of these types is has a reflexive <code>Eql</code> implicit, and the following holds:</p>
 <ul>
 <li>Primitive numeric types can be compared with each other.</li>
 <li>Primitive numeric types can be compared with subtypes of <code>java.lang.Number</code> (and <em>vice versa</em>).</li>

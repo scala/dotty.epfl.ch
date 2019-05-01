@@ -14645,17 +14645,17 @@ delegate [T] for Ord[List[T]] given (ord: Ord[T]) { ... }
 the type(s) in the <code>for</code> clause.</p>
 <h2><a href="#alias-delegates" id="alias-delegates">Alias Delegates</a></h2>
 <p>An alias can be used to define a delegate that is equal to some expression. E.g.:</p>
-<pre><code class="language-scala">delegate ctx for ExecutionContext = new ForkJoinPool()
+<pre><code class="language-scala">delegate global for ExecutionContext = new ForkJoinPool()
 </code></pre>
-<p>This creates a delegate <code>ctx</code> of type <code>ExecutionContext</code> that resolves to the right hand side <code>new ForkJoinPool()</code>.
-The first time a delegate for <code>ExecutionContext</code> is demanded, a new <code>ForkJoinPool</code> is created, which is then
-returned for this and all subsequent accesses to <code>ctx</code>.</p>
+<p>This creates a delegate <code>global</code> of type <code>ExecutionContext</code> that resolves to the right hand side <code>new ForkJoinPool()</code>.
+The first time <code>global</code> is accessed, a new <code>ForkJoinPool</code> is created, which is then
+returned for this and all subsequent accesses to <code>global</code>.</p>
 <p>Alias delegates can be anonymous, e.g.</p>
 <pre><code class="language-scala">delegate for Position = enclosingTree.position
 </code></pre>
 <p>An alias delegate can have type and context parameters just like any other delegate, but it can only implement a single type.</p>
 <h2><a href="#delegate-creation" id="delegate-creation">Delegate Creation</a></h2>
-<p>A delegate without type parameters or given clause is created on-demand, the first time it is accessed. No attempt is made to ensure safe publication, which means that different threads might create different delegates for the same <code>delegate</code> clause. If a <code>delegate</code> clause has type parameters or a given clause, a fresh delegate is created for each reference.</p>
+<p>A delegate without type parameters or given clause is created on-demand, the first time it is accessed. It is not required to ensure safe publication, which means that different threads might create different delegates for the same <code>delegate</code> clause. If a <code>delegate</code> clause has type parameters or a given clause, a fresh delegate is created for each reference.</p>
 <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <p>Here is the new syntax of delegate clauses, seen as a delta from the <a href="http://dotty.epfl.ch/docs/internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
 <pre><code>TmplDef          ::=  ...

@@ -14683,7 +14683,7 @@ this generates the following <code>Eql</code> delegate in the companion object o
 <pre><code class="language-scala">delegate [T, U] for Eql[Box[T], Box[U]] given Eql[T, U] = Eql.derived
 </code></pre>
 <p>That is, two boxes are comparable with <code>==</code> or <code>!=</code> if their elements are. Examples:</p>
-<pre><code class="language-scala">new Box(1) == new Box(1L)   // ok since `Eql[Int, Long]` is represented.
+<pre><code class="language-scala">new Box(1) == new Box(1L)   // ok since there is a delegate for `Eql[Int, Long]`
 new Box(1) == new Box(&quot;a&quot;)  // error: can't compare
 new Box(1) == 1             // error: can't compare
 </code></pre>
@@ -14693,7 +14693,7 @@ new Box(1) == 1             // error: can't compare
 a comparison using <code>x == y</code> or <code>x != y</code> between values <code>x: T</code> and <code>y: U</code>
 is legal if</p>
 <ol>
-<li>there is representation of type <code>Eql[T, U]</code>, or</li>
+<li>there is a delegate for <code>Eql[T, U]</code>, or</li>
 <li>one of <code>T</code>, <code>U</code> is <code>Null</code>.</li>
 </ol>
 <p>In the default case where the <code>strictEquality</code> feature is not enabled the comparison is
@@ -14712,7 +14712,7 @@ all refinement types in covariant positions of <code>S</code> by their parent.</
 succeeds.</li>
 </ul>
 <h2><a href="#predefined-eql-delegates" id="predefined-eql-delegates">Predefined Eql Delegates</a></h2>
-<p>The <code>Eql</code> object defines delegates for
+<p>The <code>Eql</code> object defines delegates for comparing
 - the primitive types <code>Byte</code>, <code>Short</code>, <code>Char</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>,  and <code>Unit</code>,
 - <code>java.lang.Number</code>, <code>java.lang.Boolean</code>, and <code>java.lang.Character</code>,
 - <code>scala.collection.Seq</code>, and <code>scala.collection.Set</code>.</p>

@@ -14664,7 +14664,7 @@ from <code>T</code> to a type containing <code>m</code>. If there is more than o
 <p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
 <code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is an eligible implicit value (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
 <h3><a href="#implicits-for-extension-methods" id="implicits-for-extension-methods">Implicits for Extension Methods</a></h3>
-<p>An implicit instance that defines extension methods can also be defined without a <code>for</code> clause. E.g.,</p>
+<p>An implicit instance that define extension methods can also be defined without a <code>for</code> clause. E.g.,</p>
 <pre><code class="language-scala">implicit StringOps {
   def (xs: Seq[String]) longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max

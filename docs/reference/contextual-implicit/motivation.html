@@ -14641,13 +14641,13 @@ implicit def i2(x: T): C[T] = ...
 <p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce four fundamental changes:</p>
 <ol>
 <li>
-<p><a href="./instance-defs.html">Implicit Instance Definitions</a> are a new way to define inferable terms.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
+<p><a href="./instance-defs.html">Implicit Instance Definitions</a> are a new way to define basic terms that can be synthesized. They replace the old style implicit-as-a-modifier form. The core principle is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
 </li>
 <li>
-<p><a href="./inferable-params.html">Given Clauses</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts.</p>
+<p><a href="./inferable-params.html">Given Clauses</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several implicit parameter sections, and to have implicit parameters followed by normal ones.</p>
 </li>
 <li>
-<p><a href="./import-implied.html">Import Implicit</a> are new form of import that specifically imports implicit definitions and nothing else. New-style implicit instances <em>must be</em> imported with  <code>import implicit</code>, a plain import will no longer bring them into scope. Old-style implicit definitions can be imported with either form.</p>
+<p><a href="./import-implied.html">Import Implicit</a> is new form of import that specifically imports implicit definitions and nothing else. New-style implicit instances <em>must be</em> imported with  <code>import implicit</code>, a plain import will no longer bring them into scope. Old-style implicit definitions can be imported with either form.</p>
 </li>
 <li><a href="./conversions.html">Implicit Conversions</a> are now expressed as implicit values of a standard <code>Conversion</code> class. All other forms of implicit conversions will be phased out.</li>
 </ol>
@@ -14659,9 +14659,10 @@ implicit def i2(x: T): C[T] = ...
 <li><a href="./derivation.html">Typeclass Derivation</a> introduces constructs to automatically derive typeclasses for ADTs.</li>
 <li><a href="./multiversal-equality.html">Multiversal Equality</a> introduces a special typeclass
 to support type safe equality.</li>
-<li><a href="./query-types.html">Context Queries</a> <em>aka</em> implicit function types introduce a way to abstract over implicit parameterization.</li>
-<li><a href="./inferable-by-name-parameters.html">Inferable By-Name Parameters</a> are an essential tool to define recursive implicits without looping.</li>
-<li><a href="./relationship-implicits.html">Relationship with Scala 2 Implicits</a> discusses the relationship between old-style and new-style implicits and how to migrate from one to the other.</li>
+<li><a href="./query-types.html">Implicit Function Types</a> introduce a way to abstract over implicit parameterization.</li>
+<li><a href="./inferable-by-name-parameters.html">Implicit By-Name Parameters</a> are an essential tool to define recursive implicits without looping.</li>
+<li><a href="./relationship-implicits.html">Relationship with Scala 2 Implicits</a> discusses the relationship between old-style and
+new-style implicits and how to migrate from one to the other.</li>
 </ul>
 <p>Overall, the new design achieves a better separation of term inference from the rest of the language: There is a single way to define implicit instances instead of a multitude of forms all taking an <code>implicit</code> modifier. There is a single way to introduce implicit parameters and arguments instead of conflating implicit with normal arguments. There is a separate way to import implicits that does not allow them to hide in a sea of normal imports. And there is a single way to define an implicit conversion which is clearly marked as such and does not require special syntax.</p>
 <p>This design thus avoids feature interactions and makes the language more consistent and orthogonal. It will make implicits easier to learn and harder to abuse. It will greatly improve the clarity of the 95% of Scala programs that use implicits. It has thus the potential to fulfil the promise of term inference in a principled way that is also accessible and friendly.</p>

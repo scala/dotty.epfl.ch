@@ -14611,46 +14611,49 @@ This is clean and powerful, but it sometimes leads to functions that take many p
 call trees where the same value is passed over and over again in long call chains to many
 functions. Given clauses can help here since they enable the compiler to synthesize
 repetitive arguments instead of the programmer having to write them explicitly.</p>
-<p>For example, given the <a href="./instance-defs.html">implicit instances</a> of the previous section,
+<p>For example, given the <a href="./instance-defs.html">implicit instances</a> defined previously,
 a maximum function that works for any arguments for which an ordering exists can be defined as follows:</p>
 <pre><code class="language-scala">def max[T](x: T, y: T) given (ord: Ord[T]): T =
   if (ord.compare(x, y) &lt; 1) y else x
 </code></pre>
-<p>Here, the part following <code>given</code> introduces a constraint that <code>T</code> is ordered, or, otherwise put, that evidence for <code>Ord[T]</code> exists. The evidence is passed as an <em>implicit parameter</em> to the method. Inside the method, the implicit value can be accessed under the name <code>ord</code>.</p>
-<p>The <code>max</code> method can be applied as follows:</p>
-<pre><code class="language-scala">max(2, 3) given IntOrd
+<p>Here, <code>ord</code> is an <em>implicit parameter</em> introduced with a <code>given</code> clause.
+The <code>max</code> method can be applied as follows:</p>
+<pre><code class="language-scala">max(2, 3).given(IntOrd)
 </code></pre>
-<p>The <code>given IntOrd</code> part establishes <code>IntOrd</code> as the evidence to satisfy the constraint <code>Ord[Int]</code>. It does this by providing the <code>IntOrd</code> value as as an argument for the implicit <code>ord</code> parameter. But the point of implicit parameters is that this argument can also be left out (and it usually is). So the following applications are equally valid:</p>
+<p>The <code>.given(IntOrd)</code> part passes <code>IntOrd</code> as an argument for the <code>ord</code> parameter. But the point of
+implicit parameters is that this argument can also be left out (and it usually is). So the following
+applications are equally valid:</p>
 <pre><code class="language-scala">max(2, 3)
 max(List(1, 2, 3), Nil)
 </code></pre>
-<h2><a href="#anonymous-inferable-parameters" id="anonymous-inferable-parameters">Anonymous Inferable Parameters</a></h2>
+<h2><a href="#anonymous-implicit-parameters" id="anonymous-implicit-parameters">Anonymous Implicit Parameters</a></h2>
 <p>In many situations, the name of an implicit parameter of a method need not be mentioned explicitly at all, since it is only used as synthesized implicit for other constraints. In that case one can avoid defining a parameter name and just provide its type. Example:</p>
 <pre><code class="language-scala">def maximum[T](xs: List[T]) given Ord[T]: T =
   xs.reduceLeft(max)
 </code></pre>
 <p><code>maximum</code> takes an implicit parameter of type <code>Ord</code> only to pass it on as an implicit argument to <code>max</code>. The name of the parameter is left out.</p>
-<p>Generally, implicit parameters may be given either as a parameter list <code>(p_1: T_1, ..., p_n: T_n)</code> or as a sequence of types, separated by commas.</p>
+<p>Generally, implicit parameters may be given either as a parameter list <code>(p_1: T_1, ..., p_n: T_n)</code>
+or as a sequence of types, separated by commas.</p>
 <h2><a href="#inferring-complex-arguments" id="inferring-complex-arguments">Inferring Complex Arguments</a></h2>
-<p>Here are two other methods that require evidence of type <code>Ord[T]</code>:</p>
+<p>Here are two other methods that have an implicit parameter of type <code>Ord[T]</code>:</p>
 <pre><code class="language-scala">def descending[T] given (asc: Ord[T]): Ord[T] = new Ord[T] {
   def compare(x: T, y: T) = asc.compare(y, x)
 }
 
 def minimum[T](xs: List[T]) given Ord[T] =
-  maximum(xs) given descending
+  maximum(xs).given(descending)
 </code></pre>
 <p>The <code>minimum</code> method's right hand side passes <code>descending</code> as an explicit argument to <code>maximum(xs)</code>.
 With this setup, the following calls are all well-formed, and they all normalize to the last one:</p>
 <pre><code class="language-scala">minimum(xs)
-maximum(xs) given descending
-maximum(xs) given (descending given ListOrd)
-maximum(xs) given (descending given (ListOrd given IntOrd))
+maximum(xs).given(descending)
+maximum(xs).given(descending.given(ListOrd))
+maximum(xs).given(descending.given(ListOrd.given(IntOrd)))
 </code></pre>
-<h2><a href="#mixing-inferable-and-normal-parameters" id="mixing-inferable-and-normal-parameters">Mixing Inferable And Normal Parameters</a></h2>
-<p>Inferable parameters can be freely mixed with normal parameters.
-An inferable parameter may be followed by a normal parameter and <em>vice versa</em>.
-There can be several inferable parameter lists in a definition. Example:</p>
+<h2><a href="#mixing-given-clauses-and-normal-parameters" id="mixing-given-clauses-and-normal-parameters">Mixing Given Clauses And Normal Parameters</a></h2>
+<p>Given clauses can be freely mixed with normal parameters.
+A given clause may be followed by a normal parameter and <em>vice versa</em>.
+There can be several given clauses in a definition. Example:</p>
 <pre><code class="language-scala">def f given (u: Universe) (x: u.T) given Context = ...
 
 implicit global for Universe { type T = String ... }
@@ -14658,18 +14661,17 @@ implicit ctx for Context { ... }
 </code></pre>
 <p>Then the following calls are all valid (and normalize to the last one)</p>
 <pre><code class="language-scala">f(&quot;abc&quot;)
-(f given global)(&quot;abc&quot;)
-f(&quot;abc&quot;) given ctx
-(f given global)(&quot;abc&quot;) given ctx
+f.given(global)(&quot;abc&quot;)
+f(&quot;abc&quot;).given(ctx)
+f.given(global)(&quot;abc&quot;).given(ctx)
 </code></pre>
 <h2><a href="#summoning-an-implicit" id="summoning-an-implicit">Summoning an Implicit</a></h2>
-<p>A method <code>the</code> in <code>Predef</code> summons an implicit for a given type. For example, the implicit for <code>Ord[List[Int]]</code> is generated by</p>
+<p>A method <code>the</code> in <code>Predef</code> returns an implicit instance of a given type. For example, the implicit for <code>Ord[List[Int]]</code> is generated by</p>
 <pre><code class="language-scala">the[Ord[List[Int]]]  // reduces to ListOrd given IntOrd
 </code></pre>
 <p>The <code>the</code> method is simply defined as the (non-widening) identity function over an implicit parameter.</p>
 <pre><code class="language-scala">def the[T] given (x: T): x.type = x
 </code></pre>
-<p>Functions like <code>the</code> that have only implicit parameters are also called <em>context queries</em>.</p>
 <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <p>Here is the new syntax of parameters and arguments seen as a delta from the <a href="http://dotty.epfl.ch/docs/internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
 <pre><code>ClsParamClause    ::=  ...
