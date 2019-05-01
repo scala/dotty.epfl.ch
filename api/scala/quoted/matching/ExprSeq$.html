@@ -13821,9 +13821,9 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor object" href="../../../../.././api/scala/quoted/matching/Literal$.html">O</a>
+                        <a class="letter-anchor object" href="../../../../.././api/scala/quoted/matching/Const$.html">O</a>
                     </div>
-                    <a class="entity-name" href="../../../../.././api/scala/quoted/matching/Literal$.html">Literal</a>
+                    <a class="entity-name" href="../../../../.././api/scala/quoted/matching/Const$.html">Const</a>
                 </li>
 
                 
@@ -13839,9 +13839,9 @@
 
                     <div class="entity-kinds">
                         
-                        <a class="letter-anchor object" href="../../../../.././api/scala/quoted/matching/Repeated$.html">O</a>
+                        <a class="letter-anchor object" href="../../../../.././api/scala/quoted/matching/ExprSeq$.html">O</a>
                     </div>
-                    <a class="entity-name" href="../../../../.././api/scala/quoted/matching/Repeated$.html">Repeated</a>
+                    <a class="entity-name" href="../../../../.././api/scala/quoted/matching/ExprSeq$.html">ExprSeq</a>
                 </li>
 
                 
@@ -14600,7 +14600,7 @@
 
 
     <script>
-        document.title = "Dotty Docs - Literal"
+        document.title = "Dotty Docs - ExprSeq"
     </script>
 
     <div id="content-body">
@@ -14616,7 +14616,7 @@
                     object
                 </span>
                 <span id="entity-name">
-                    Literal
+                    ExprSeq
                 </span>
                 
                 
@@ -14638,14 +14638,7 @@
 
             
             <div id="entity-body" class="entity-section">
-                <p>Matches expressions containing literal values and extracts the value.
-It may match expressions of type Boolean, Byte, Short, Int, Long,
-Float, Double, Char, String, ClassTag, scala.Symbol, Null and Unit.</p>
-<p>Usage:</p>
-<pre><code>(x: Expr[B]) match {
-  case Literal(value: B) =&gt; ...
-}
-</code></pre>
+                <p>Literal sequence of expressions</p>
 
             </div>
             
@@ -14668,7 +14661,7 @@ Float, Double, Char, String, ClassTag, scala.Symbol, Null and Unit.</p>
                 
                 <div id="unapply(expr)(reflect)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'unapply(expr)(reflect)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'unapply(expr)(reflect)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -14694,7 +14687,10 @@ Float, Double, Char, String, ClassTag, scala.Symbol, Null and Unit.</p>
                                     </span>
                                     <a href="../../../../.././api/scala/quoted/Expr.html">Expr</a>
 <span class="no-left no-right">[</span>
+Seq
+<span class="no-left no-right">[</span>
 T
+<span class="no-left">]</span>
 <span class="no-left">]</span>
                                     
                                 
@@ -14720,14 +14716,21 @@ T
                         
                         <span class="no-left">: Option
 <span class="no-left no-right">[</span>
+Seq
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/scala/quoted/Expr.html">Expr</a>
+<span class="no-left no-right">[</span>
 T
+<span class="no-left">]</span>
+<span class="no-left">]</span>
 <span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-unapply(expr)(reflect)">
-                            
+                            <p>Matches a literal sequence of expressions</p>
+
                         </div>
                     </div>
                 </div><!-- end member -->
