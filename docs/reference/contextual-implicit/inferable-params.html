@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-05-01 -->
+<!-- This page was last generated on 2019-05-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14627,7 +14627,7 @@ applications are equally valid:</p>
 max(List(1, 2, 3), Nil)
 </code></pre>
 <h2><a href="#anonymous-implicit-parameters" id="anonymous-implicit-parameters">Anonymous Implicit Parameters</a></h2>
-<p>In many situations, the name of an implicit parameter of a method need not be mentioned explicitly at all, since it is only used as synthesized implicit for other constraints. In that case one can avoid defining a parameter name and just provide its type. Example:</p>
+<p>In many situations, the name of an implicit parameter of a method need not be mentioned explicitly at all, since it is only used as a synthesized argument for other implicit parameters. In that case one can avoid defining a parameter name and just provide its type. Example:</p>
 <pre><code class="language-scala">def maximum[T](xs: List[T]) given Ord[T]: T =
   xs.reduceLeft(max)
 </code></pre>

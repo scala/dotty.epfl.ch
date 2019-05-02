@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-05-01 -->
+<!-- This page was last generated on 2019-05-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14645,7 +14645,7 @@ or inherited or imported in a scope enclosing the application.</li>
 <p>Then</p>
 <pre><code class="language-scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
 </code></pre>
-<p>is legal everywhere <code>ops1</code> is available as a representative. Alternatively, we can define <code>longestStrings</code> as a member of a normal object. But then the method has to be brought into scope to be usable as an extension method.</p>
+<p>is legal everywhere <code>ops1</code> is eligible. Alternatively, we can define <code>longestStrings</code> as a member of a normal object. But then the method has to be brought into scope to be usable as an extension method.</p>
 <pre><code class="language-scala">object ops2 extends StringSeqOps
 import ops2.longestStrings
 List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
@@ -14664,7 +14664,7 @@ from <code>T</code> to a type containing <code>m</code>. If there is more than o
 <p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
 <code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is an eligible representative (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
 <h3><a href="#representatives-for-extension-methods" id="representatives-for-extension-methods">Representatives for Extension Methods</a></h3>
-<p>Representatives that define extension methods can also be defined without a <code>for</code> clause. E.g.,</p>
+<p>Representatives that define extension methods can also be defined without an <code>of</code> clause. E.g.,</p>
 <pre><code class="language-scala">repr StringOps {
   def (xs: Seq[String]) longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max
@@ -14676,10 +14676,10 @@ repr {
   def (xs: List[T]) second[T] = xs.tail.head
 }
 </code></pre>
-<p>If such representatives are anonymous (as in the second clause), their name is synthesized from the name
+<p>If such a representative is anonymous (as in the second clause), its name is synthesized from the name
 of the first defined extension method.</p>
 <h3><a href="#operators" id="operators">Operators</a></h3>
-<p>The extension method syntax also applies to the definitions of operators.
+<p>The extension method syntax also applies to the definition of operators.
 In each case the definition syntax mirrors the way the operator is applied.
 Examples:</p>
 <pre><code class="language-scala">  def (x: String) &lt; (y: String) = ...

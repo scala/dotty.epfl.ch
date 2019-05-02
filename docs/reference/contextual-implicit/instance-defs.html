@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-05-01 -->
+<!-- This page was last generated on 2019-05-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14640,12 +14640,12 @@ Given clauses are further explained in the next section.</p>
 <p>The name of an implicit instance can be left out. So the implicit instance definitions
 of the last section can also be expressed like this:</p>
 <pre><code class="language-scala">implicit for Ord[Int] { ... }
-implicit [T]  or Ord[List[T]] given (ord: Ord[T]) { ... }
+implicit [T] for Ord[List[T]] given (ord: Ord[T]) { ... }
 </code></pre>
 <p>If the name of an implicit is missing, the compiler will synthesize a name from
 the type(s) in the <code>for</code> clause.</p>
 <h2><a href="#alias-implicits" id="alias-implicits">Alias Implicits</a></h2>
-<p>An alias implicit defines an implicit value that is equal to some expression. E.g.:</p>
+<p>An alias can be used to define an implicit value that is equal to some expression. E.g.:</p>
 <pre><code class="language-scala">implicit global for ExecutionContext = new ForkJoinPool()
 </code></pre>
 <p>This creates an implicit <code>global</code> of type <code>ExecutionContext</code> that resolves to the right hand side <code>new ForkJoinPool()</code>.

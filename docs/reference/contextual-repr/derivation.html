@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-05-01 -->
+<!-- This page was last generated on 2019-05-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14612,13 +14612,13 @@
   case Leaf(elem: T)
 }
 </code></pre>
-<p>The <code>derives</code> clause generates repr representatives of the <code>Eql</code>, <code>Ordering</code>, and <code>Pickling</code> traits in the companion object <code>Tree</code>:</p>
+<p>The <code>derives</code> clause generates representatives of the <code>Eql</code>, <code>Ordering</code>, and <code>Pickling</code> traits in the companion object <code>Tree</code>:</p>
 <pre><code class="language-scala">repr [T: Eql]      of Eql[Tree[T]]       = Eql.derived
 repr [T: Ordering] of Ordering[Tree[T]] = Ordering.derived
 repr [T: Pickling] of Pickling[Tree[T]] = Pickling.derived
 </code></pre>
 <h3><a href="#deriving-types" id="deriving-types">Deriving Types</a></h3>
-<p>Besides for <code>enums</code>, typeclasses can also be derived for other sets of classes and objects that form an algebraic data type. These are:</p>
+<p>Besides for enums, typeclasses can also be derived for other sets of classes and objects that form an algebraic data type. These are:</p>
 <ul>
 <li>individual case classes or case objects</li>
 <li>sealed classes or traits that have only case classes and case objects as children.</li>
@@ -14676,8 +14676,7 @@ object Shape {
 <p>Note that an empty element tuple is represented as type <code>Unit</code>. A single-element tuple
 is represented as <code>T *: Unit</code> since there is no direct syntax for such tuples: <code>(T)</code> is just <code>T</code> in parentheses, not a tuple.</p>
 <h3><a href="#the-generic-typeclass" id="the-generic-typeclass">The Generic Typeclass</a></h3>
-<p>For every class <code>C[T_1,...,T_n]</code> with a <code>derives</code> clause, the compiler generates in the companion object of <code>C</code> an representative of <code>Generic[C[T_1,...,T_n]]</code> that follows
-the outline below:</p>
+<p>For every class <code>C[T_1,...,T_n]</code> with a <code>derives</code> clause, the compiler generates in the companion object of <code>C</code> a representative of <code>Generic[C[T_1,...,T_n]]</code> that follows the outline below:</p>
 <pre><code class="language-scala">repr [T_1, ..., T_n] of Generic[C[T_1,...,T_n]] {
   type Shape = ...
   ...
@@ -14781,7 +14780,7 @@ The implementation of these methods typically uses three new type-level construc
 }
 </code></pre>
 <p>We need to implement a method <code>Eql.derived</code> that produces a representative of <code>Eql[T]</code> provided
-there exists evidence of type <code>Generic[T]</code>. Here's a possible solution:</p>
+there exists a representative of type <code>Generic[T]</code>. Here's a possible solution:</p>
 <pre><code class="language-scala">  inline def derived[T] given (ev: Generic[T]): Eql[T] = new Eql[T] {
     def eql(x: T, y: T): Boolean = {
       val mx = ev.reflect(x)                    // (1)
@@ -14799,7 +14798,7 @@ there exists evidence of type <code>Generic[T]</code>. Here's a possible solutio
 <p>The implementation of the inline method <code>derived</code> creates a representative of <code>Eql[T]</code> and implements its <code>eql</code> method. The right-hand side of <code>eql</code> mixes compile-time and runtime elements. In the code above, runtime elements are marked with a number in parentheses, i.e
 <code>(1)</code>, <code>(2)</code>, <code>(3)</code>. Compile-time calls that expand to runtime code are marked with a number in brackets, i.e. <code>[4]</code>, <code>[5]</code>. The implementation of <code>eql</code> consists of the following steps.</p>
 <ol>
-<li>Map the compared values <code>x</code> and <code>y</code> to their mirrors using the <code>reflect</code> method of the implicitly passed <code>Generic</code> evidence <code>(1)</code>, <code>(2)</code>.</li>
+<li>Map the compared values <code>x</code> and <code>y</code> to their mirrors using the <code>reflect</code> method of the implicitly passed <code>Generic</code> <code>(1)</code>, <code>(2)</code>.</li>
 <li>Match at compile-time against the shape of the ADT given in <code>ev.Shape</code>. Dotty does not have a construct for matching types directly, but we can emulate it using an <code>inline</code> match over an <code>erasedValue</code>. Depending on the actual type <code>ev.Shape</code>, the match will reduce at compile time to one of its two alternatives.</li>
 <li>If <code>ev.Shape</code> is of the form <code>Cases[alts]</code> for some tuple <code>alts</code> of alternative types, the equality test consists of comparing the ordinal values of the two mirrors <code>(3)</code> and, if they are equal, comparing the elements of the case indicated by that ordinal value. That second step is performed by code that results from the compile-time expansion of the <code>eqlCases</code> call <code>[4]</code>.</li>
 <li>If <code>ev.Shape</code> is of the form <code>Case[elems]</code> for some tuple <code>elems</code> for element types, the elements of the case are compared by code that results from the compile-time expansion of the <code>eqlElems</code> call <code>[5]</code>.</li>
@@ -14860,7 +14859,7 @@ to <code>eqlElems</code> <code>[13]</code>.</li>
     case ev: Eql[T] =&gt;
       ev.eql(x, y)                              // (15)
     case _ =&gt;
-      error(&quot;No `Eql` representative was found for $T&quot;)
+      error(&quot;No `Eql` instance was found for $T&quot;)
   }
 </code></pre>
 <p><code>tryEql</code> is an inline method that takes an element type <code>T</code> and two element values of that type as arguments. It is defined using an <code>implicit match</code> that tries to find a representative of <code>Eql[T]</code>. If a representative <code>ev</code> is found, it proceeds by comparing the arguments using <code>ev.eql</code>. On the other hand, if no representative is found

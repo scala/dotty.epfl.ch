@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-05-01 -->
+<!-- This page was last generated on 2019-05-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14628,7 +14628,7 @@ The example above report a type error if <code>S</code> or <code>T</code> was a 
 that derives <code>Eql</code>, e.g.</p>
 <pre><code class="language-scala">class T derives Eql
 </code></pre>
-<p>Alternatively, one can also provide an <code>Eql</code> representative directly, like this:</p>
+<p>Alternatively, one can also define an <code>Eql</code> representative directly, like this:</p>
 <pre><code class="language-scala">repr for Eql[T, T] = Eql.derived
 </code></pre>
 <p>This definition effectively says that values of type <code>T</code> can (only) be
@@ -14663,7 +14663,7 @@ over all types that do not themselves have an <code>Eql</code> representative.  
 defined as follows:</p>
 <pre><code class="language-scala">def eqlAny[L, R]: Eql[L, R] = Eql.derived
 </code></pre>
-<p>Even though <code>eqlAny</code> is not declared a representative, the compiler will still
+<p>Even though <code>eqlAny</code> is not declared as a representative, the compiler will still
 construct an <code>eqlAny</code> instance as answer to an implicit search for the
 type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have <code>Eql</code> representatives
 defined on them, or the language feature <code>strictEquality</code> is enabled</p>
@@ -14716,7 +14716,7 @@ succeeds.</li>
 - the primitive types <code>Byte</code>, <code>Short</code>, <code>Char</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>,  and <code>Unit</code>,
 - <code>java.lang.Number</code>, <code>java.lang.Boolean</code>, and <code>java.lang.Character</code>,
 - <code>scala.collection.Seq</code>, and <code>scala.collection.Set</code>.</p>
-<p>Representative are defined so that every one of these types is has a reflexive <code>Eql</code> representative, and the following holds:</p>
+<p>Representative are defined so that every one of these types has a reflexive <code>Eql</code> representative, and the following holds:</p>
 <ul>
 <li>Primitive numeric types can be compared with each other.</li>
 <li>Primitive numeric types can be compared with subtypes of <code>java.lang.Number</code> (and <em>vice versa</em>).</li>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-05-01 -->
+<!-- This page was last generated on 2019-05-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14647,13 +14647,15 @@ the type(s) in the <code>of</code> clause.</p>
 <p>An alias can be used to define a representative that is equal to some expression. E.g.:</p>
 <pre><code class="language-scala">repr ctx of ExecutionContext = new ForkJoinPool()
 </code></pre>
-<p>This creates a representative <code>ctx</code> of type <code>ExecutionContext</code> that resolves to the right hand side <code>new ForkJoinPool()</code>. The first time a representative of <code>ExecutionContext</code> is demanded, a new <code>ForkJoinPool</code> is created, which is then returned for this and all subsequent accesses to <code>ctx</code>.</p>
+<p>This creates a repreentative <code>global</code> of type <code>ExecutionContext</code> that resolves to the right hand side <code>new ForkJoinPool()</code>.
+The first time <code>global</code> is accessed, a new <code>ForkJoinPool</code> is created, which is then
+returned for this and all subsequent accesses to <code>global</code>.</p>
 <p>Alias representatives can be anonymous, e.g.</p>
 <pre><code class="language-scala">repr of Position = enclosingTree.position
 </code></pre>
 <p>An alias representative can have type and context parameters just like any other representative, but it can only implement a single type.</p>
 <h2><a href="#representative-creation" id="representative-creation">Representative Creation</a></h2>
-<p>A representative without type parameters or given clause is created on-demand, the first time it is accessed. No attempt is made to ensure safe publication, which means that different threads might create different representatives for the same <code>repr</code> clause. If a <code>repr</code> clause has type parameters or a given clause, a fresh representative is created for each reference.</p>
+<p>A representative without type parameters or given clause is created on-demand, the first time it is accessed. It is not required to ensure safe publication, which means that different threads might create different representatives for the same <code>repr</code> clause. If a <code>repr</code> clause has type parameters or a given clause, a fresh representative is created for each reference.</p>
 <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <p>Here is the new syntax of representative clauses, seen as a delta from the <a href="http://dotty.epfl.ch/docs/internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
 <pre><code>TmplDef          ::=  ...

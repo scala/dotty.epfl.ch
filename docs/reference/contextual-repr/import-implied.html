@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-05-01 -->
+<!-- This page was last generated on 2019-05-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14619,7 +14619,7 @@ object B {
 </code></pre>
 <p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
 of <code>A</code> <em>except</em> the representative <code>tc</code>. Conversely, the second import <code>import repr A._</code> will import <em>only</em> that representative.</p>
-<p>Generally, a normal import clause brings all definitions except representatives into scope whereas an <code>import repr</code> clause brings only representatives into scope.</p>
+<p>Generally, a normal import clause brings all members except representatives into scope whereas an <code>import repr</code> clause brings only representatives into scope.</p>
 <p>There are two main benefits arising from these rules:</p>
 <ul>
 <li>It is made clearer where representatives in scope are coming from.
@@ -14629,7 +14629,7 @@ without importing anything else. This is particularly important since representa
 can be anonymous, so the usual recourse of using named imports is not
 practical.</li>
 </ul>
-<h3><a href="#relationship-with-old-style-implicits" id="relationship-with-old-style-implicits">Relationship with Old-Style Implicits</a></h3>
+<h3><a href="#migration" id="migration">Migration</a></h3>
 <p>The rules of representatives above have the consequence that a library
 would have to migrate in lockstep with all its users from old style implicits and
 normal imports to representatives and <code>import repr</code> clauses.</p>
@@ -14649,7 +14649,7 @@ will give a compiler error.</li>
 </ol>
 <p>These rules mean that library users can use <code>import repr</code> to access old-style implicits in Scala 3.0,
 and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-representation clauses once their user base has migrated.</p>
+<code>repr</code> clauses once their user base has migrated.</p>
 
         </div>
     </div><!-- end content-body -->
