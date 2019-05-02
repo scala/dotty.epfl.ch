@@ -14636,7 +14636,7 @@ of <code>Ord[List[T]]</code> for all types <code>T</code> that come with a repre
 The <code>given</code> clause in <code>ListOrd</code> defines an implicit parameter.
 Given clauses are further explained in the <a href="./inferable-params.html">next section</a>.</p>
 <h2><a href="#anonymous-representatives" id="anonymous-representatives">Anonymous Representatives</a></h2>
-<p>The name of a representative can be left out. So the representative definitions
+<p>The name of a representative can be left out. So the representatives
 of the last section can also be expressed like this:</p>
 <pre><code class="language-scala">repr of Ord[Int] { ... }
 repr [T] of Ord[List[T]] given (ord: Ord[T]) { ... }
@@ -14654,7 +14654,7 @@ returned for this and all subsequent accesses to <code>global</code>.</p>
 <pre><code class="language-scala">repr of Position = enclosingTree.position
 </code></pre>
 <p>An alias representative can have type and context parameters just like any other representative, but it can only implement a single type.</p>
-<h2><a href="#representative-creation" id="representative-creation">Representative Creation</a></h2>
+<h2><a href="#creating-representatives" id="creating-representatives">Creating Representatives</a></h2>
 <p>A representative without type parameters or given clause is created on-demand, the first time it is accessed. It is not required to ensure safe publication, which means that different threads might create different representatives for the same <code>repr</code> clause. If a <code>repr</code> clause has type parameters or a given clause, a fresh representative is created for each reference.</p>
 <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <p>Here is the new syntax of representative clauses, seen as a delta from the <a href="http://dotty.epfl.ch/docs/internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
