@@ -15391,7 +15391,10 @@ trait D
 class A extends C[A] with D
 class B extends C[B] with D with E
 </code></pre>
-<p>we approximate <code>A | B</code> by <code>C[A | B] with D</code></p>
+<p>we approximate <code>A | B</code> by <code>C[A | B] with D</code>.</p>
+<p>Before we do that, we try to find a common non-class supertype of T1 | ... | Tn
+in a &quot;best effort&quot;, ad-hoc way by selectively widening types in <code>T1, ..., Tn</code>
+and stopping if the resulting union simplifies to a type that is not a disjunction.</p>
 
                         </div>
                     </div>

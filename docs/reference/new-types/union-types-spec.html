@@ -14670,7 +14670,7 @@ instantiate is a union type, we replace it by its join. This mirrors the
 treatment of singleton types which are also widened to their underlying type
 unless explicitly specified. and the motivation is the same: inferring types
 which are &quot;too precise&quot; can lead to unintuitive typechecking issues later on.</p>
-<p>Note: Since this behavior severely limits the usability of union types, it might
+<p>Note: Since this behavior limits the usability of union types, it might
 be changed in the future. For example by not widening unions that have been
 explicitly written down by the user and not inferred, or by not widening a type
 argument when the corresponding type parameter is covariant. See
@@ -14715,9 +14715,6 @@ there are no minimal common superclasses or traits that
 come after S.
 The reason to pick last is that we prefer classes over traits that way,
 which leads to more predictable bytecode and (?) faster dynamic dispatch.</p>
-<h2><a href="#limitations" id="limitations">Limitations</a></h2>
-<p>In a union type <code>A | B</code>, neither <code>A</code> nor <code>B</code> is allowed to be a singleton type.
-This is an implementation restriction that may be lifted in the future.</p>
 
         </div>
     </div><!-- end content-body -->

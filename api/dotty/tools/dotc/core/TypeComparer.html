@@ -16015,6 +16015,64 @@ signature are conflicting</li>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="canCompare(atoms)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'canCompare(atoms)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                canCompare
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        atoms:
+                                    </span>
+                                    Set
+<span class="no-left no-right">[</span>
+<a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
+<span class="no-left">]</span>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-canCompare(atoms)">
+                            <p>Check whether we can compare the given set of atoms with another to determine
+a subtype test between OrTypes. There is one situation where this is not
+the case, which has to do with SkolemTypes. TreeChecker sometimes expects two
+types to be equal that have different skolems. To account for this, we identify
+two different skolems in all phases <code>p</code>, where <code>p.isTyper</code> is false.
+But in that case comparing two sets of atoms that contain skolems
+for equality would give the wrong result, so we should not use the sets
+for comparisons.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="constValue(tp)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'constValue(tp)');">[+]</span>
@@ -19447,6 +19505,55 @@ then be reversed.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-typeVarInstance(tvar)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="widenInUnions(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'widenInUnions(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                widenInUnions
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-widenInUnions(ctx)">
                             
                         </div>
                     </div>

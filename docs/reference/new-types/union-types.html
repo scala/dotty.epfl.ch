@@ -14606,7 +14606,7 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Used on types, the <code>|</code> operator creates a union type.</p>
+            <p>A union type <code>A | B</code> has as values all values of type <code>A</code> and also all values of type <code>B</code>.</p>
 <pre><code class="language-scala">case class UserName(name: String) {
   def lookup(admin: Admin): UserData
 }
@@ -14622,12 +14622,10 @@ def help(id: UserName | Password) = {
   // ...
 }
 </code></pre>
-<p>Union types are dual of intersection types. Values of type <code>A | B</code> are
-all values of type <code>A</code> and all values of type <code>B</code>. <code>|</code> is <em>commutative</em>:
+<p>Union types are duals of intersection types. <code>|</code> is <em>commutative</em>:
 <code>A | B</code> is the same type as <code>B | A</code>.</p>
 <p>The compiler will assign a union type to an expression only if such a
-type is explicitly given.
-This can be seen in the following REPL transcript:</p>
+type is explicitly given. This can be seen in the following REPL transcript:</p>
 <pre><code class="language-scala">scala&gt; val password = Password(123)
 val password: Password = Password(123)
 scala&gt; val name = UserName(&quot;Eve&quot;)
