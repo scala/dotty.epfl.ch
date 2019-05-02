@@ -14626,21 +14626,35 @@
   final implicit def ListOrd[T](implicit ord: Ord[T]): ListOrd[T] = new ListOrd[T]
 </code></pre>
 </li>
-<li>Alias representatives map to implicit methods. If the representative has neither type parameters nor a given clause, the result of creating an instance is cached in a variable. If in addition the right hand side is pure and cheap to compute, a simple <code>val</code> can be used instead. E.g.,
-<pre><code class="language-scala">  repr global of ExecutionContext = new ForkJoinContext()
+<li>Alias representatives map to implicit methods. If the representative has neither type parameters nor a given clause, the result of creating an instance is cached in a variable. There are two cases that can be optimized:</li>
+</ol>
+<ul>
+<li>If the right hand side is a simple reference, we can simply
+use a forwarder to that reference without caching it.</li>
+<li>If the right hand side is more complex, but still known to be pure, we can
+create a <code>val</code> that computes it ahead of time.</li>
+</ul>
+<p>Examples:</p>
+<pre><code>```scala
+  repr global of ExecutionContext = new ForkJoinContext()
   repr config of Config = default.config
-</code></pre>
-<p>map to</p>
-<pre><code class="language-scala">  private[this] var global$cache: ExecutionContext | Null = null
+
+  def ctx: Context
+  repr of Context = ctx
+```
+would map to
+```scala
+  private[this] var global$cache: ExecutionContext | Null = null
   final implicit def global: ExecutionContext = {
     if (global$cache == null) global$cache = new ForkJoinContext()
     global$cache
   }
 
   final implicit val config: Config = default.config
+
+  final implicit def Context_repr = ctx
+```
 </code></pre>
-</li>
-</ol>
 <h3><a href="#anonymous-representatives" id="anonymous-representatives">Anonymous Representatives</a></h3>
 <p>Anonymous representatives get compiler synthesized names, which are generated in a reproducible way from the implemented type(s). For example, if the names of the <code>IntOrd</code> and <code>ListOrd</code> representatives above were left out, the following names would be synthesized instead:</p>
 <pre><code class="language-scala">  repr Ord_Int_repr of Ord[Int] { ... }
