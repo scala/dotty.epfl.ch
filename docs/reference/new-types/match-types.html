@@ -14672,7 +14672,7 @@ in patterns start as usual with a lower case letter.</p>
     case String =&gt; Char
     case Array[t] =&gt; LeafElem[t]
     case Iterable[t] =&gt; LeafElem[t]
-    case t &lt;: AnyVal =&gt; t
+    case AnyVal =&gt; X
   }
 </code></pre>
 <p>Recursive match type definitions can also be given an upper bound, like this:</p>
