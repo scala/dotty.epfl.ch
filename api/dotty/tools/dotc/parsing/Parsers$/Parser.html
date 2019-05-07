@@ -8280,10 +8280,12 @@
                 
 
                 
-                <li class="hidden-by-default ">
+                <li class="hidden-by-default  with-companion ">
                 <!-- end li setter -->
 
                     <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../../.././api/dotty/tools/dotc/transform/patmat/SpaceEngine$.html">O</a>
                         
                         <a class="letter-anchor class" href="../../../../../../.././api/dotty/tools/dotc/transform/patmat/SpaceEngine.html">C</a>
                     </div>
@@ -8292,6 +8294,10 @@
 
                 
 
+                 <!-- end != "package" -->
+
+            
+                
                  <!-- end != "package" -->
 
             
@@ -15021,10 +15027,10 @@ Expr1             ::=  [‘inline’] <code>if'</code>(' Expr <code>)' {nl} Expr
 |  <code>throw' Expr |</code>return' [Expr]
 |  ForExpr
 |  [SimpleExpr <code>.'] id</code>=' Expr
-|  SimpleExpr1 ArgumentExprs <code>=' Expr | PostfixExpr [Ascription] | [‘inline’] PostfixExpr</code>match' <code>{' CaseClauses</code>}'
+|  SimpleExpr1 ArgumentExprs <code>=' Expr | Expr2 | [‘inline’] Expr2</code>match' <code>{' CaseClauses</code>}'
 |  <code>implicit'</code>match' <code>{' ImplicitCaseClauses</code>}'
-Bindings          ::= <code>(' [Binding {</code>,' Binding}] <code>)' Binding ::= (id |</code>_') [<code>:' Type] Ascription ::=</code>:' CompoundType
-| <code>:' Annotation {Annotation} |</code>:' <code>_'</code>*'</p>
+Bindings          ::=  <code>(' [Binding {</code>,' Binding}] <code>)' Binding ::= (id |</code>_') [<code>:' Type] Expr2 ::= PostfixExpr [Ascription] Ascription ::=</code>:' InfixType
+|  <code>:' Annotation {Annotation} |</code>:' <code>_'</code>*'</p>
 
                         </div>
                     </div>
@@ -23616,7 +23622,11 @@ Overridden by ScriptParser</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-patDefOrDcl(start,mods)">
-                            <p>PatDef ::= Pattern2 {<code>,' Pattern2} [</code>:' Type] <code>=' Expr VarDef ::= PatDef | id {</code>,' id} <code>:' Type</code>=' <code>_' ValDcl ::= id {</code>,' id} <code>:' Type VarDcl ::= id {</code>,' id} `:' Type</p>
+                            <p>PatDef  ::=  ids [‘:’ Type] ‘=’ Expr
+|  Pattern2 [‘:’ Type | Ascription] ‘=’ Expr
+VarDef  ::=  PatDef | id {<code>,' id}</code>:' Type <code>='</code>_'
+ValDcl  ::=  id {<code>,' id}</code>:' Type
+VarDcl  ::=  id {<code>,' id}</code>:' Type</p>
 
                         </div>
                     </div>
