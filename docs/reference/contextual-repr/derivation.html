@@ -14937,7 +14937,7 @@ calling the <code>error</code> method defined in <code>scala.compiletime</code>.
 <h3><a href="#deriving-representatives-elsewhere" id="deriving-representatives-elsewhere">Deriving Representatives Elsewhere</a></h3>
 <p>Sometimes one would like to derive a typeclass representative for an ADT after the ADT is defined, without being able to change the code of the ADT itself.
 To do this, simply define a representative with the <code>derived</code> method of the typeclass as right-hand side. E.g, to implement <code>Ordering</code> for <code>Option</code>, define:</p>
-<pre><code class="language-scala">repr [T: Ordering]: Ordering[Option[T]] = Ordering.derived
+<pre><code class="language-scala">repr [T: Ordering] of Ordering[Option[T]] = Ordering.derived
 </code></pre>
 <p>Usually, the <code>Ordering.derived</code> clause has an implicit parameter of type
 <code>Generic[Option[T]]</code>. Since the <code>Option</code> trait has a <code>derives</code> clause,

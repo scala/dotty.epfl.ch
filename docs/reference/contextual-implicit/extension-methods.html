@@ -14677,7 +14677,7 @@ assert(circle.circumference == circumference(circle))
 <ul>
 <li>An extension method is applicable if it is visible under a simple name, by being defined
 or inherited or imported in a scope enclosing the application.</li>
-<li>An extension method is applicable if it is a member of some implicit value at the point of the application.</li>
+<li>An extension method is applicable if it is a member of some implicit instance at the point of the application.</li>
 </ul>
 <p>As an example, consider an extension method <code>longestStrings</code> on <code>String</code> defined in a trait <code>StringSeqOps</code>.</p>
 <pre><code class="language-scala">trait StringSeqOps {
@@ -14687,7 +14687,7 @@ or inherited or imported in a scope enclosing the application.</li>
   }
 }
 </code></pre>
-<p>We can make the extension method available by defining an implicit for <code>StringSeqOps</code>, like this:</p>
+<p>We can make the extension method available by defining an implicit instance for <code>StringSeqOps</code>, like this:</p>
 <pre><code class="language-scala">implicit ops1 for StringSeqOps
 </code></pre>
 <p>Then</p>
@@ -14710,7 +14710,7 @@ This second rewriting is attempted at the time where the compiler also tries an 
 from <code>T</code> to a type containing <code>m</code>. If there is more than one way of rewriting, an ambiguity error results.</li>
 </ol>
 <p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
-<code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is an eligible implicit value (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
+<code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is an eligible implicit (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
 <h3><a href="#implicits-for-extension-methods" id="implicits-for-extension-methods">Implicits for Extension Methods</a></h3>
 <p>An implicit instance that define extension methods can also be defined without a <code>for</code> clause. E.g.,</p>
 <pre><code class="language-scala">implicit StringOps {

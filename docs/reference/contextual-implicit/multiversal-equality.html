@@ -14676,7 +14676,7 @@ The example above report a type error if <code>S</code> or <code>T</code> was a 
 that derives <code>Eql</code>, e.g.</p>
 <pre><code class="language-scala">class T derives Eql
 </code></pre>
-<p>Alternatively, one can also define an <code>Eql</code> implicit directly, like this:</p>
+<p>Alternatively, one can also define an <code>Eql</code> instance directly, like this:</p>
 <pre><code class="language-scala">implicit for Eql[T, T] = Eql.derived
 </code></pre>
 <p>This definition effectively says that values of type <code>T</code> can (only) be
@@ -14760,11 +14760,11 @@ all refinement types in covariant positions of <code>S</code> by their parent.</
 succeeds.</li>
 </ul>
 <h2><a href="#predefined-eql-instances" id="predefined-eql-instances">Predefined Eql Instances</a></h2>
-<p>The <code>Eql</code> object defines implicits for comparing
+<p>The <code>Eql</code> object defines implicit instances for comparing
 - the primitive types <code>Byte</code>, <code>Short</code>, <code>Char</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>,  and <code>Unit</code>,
 - <code>java.lang.Number</code>, <code>java.lang.Boolean</code>, and <code>java.lang.Character</code>,
 - <code>scala.collection.Seq</code>, and <code>scala.collection.Set</code>.</p>
-<p>Implicits are defined so that every one of these types has a reflexive <code>Eql</code> implicit, and the following holds:</p>
+<p>Implicit instances are defined so that every one of these types has a reflexive <code>Eql</code> instance, and the following holds:</p>
 <ul>
 <li>Primitive numeric types can be compared with each other.</li>
 <li>Primitive numeric types can be compared with subtypes of <code>java.lang.Number</code> (and <em>vice versa</em>).</li>

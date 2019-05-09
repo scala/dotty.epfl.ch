@@ -14654,7 +14654,7 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>A special form of import is used to import implicit values. Example:</p>
+            <p>A special form of import is used to import implicit instances. Example:</p>
 <pre><code class="language-scala">object A {
   class TC
   implicit tc for TC
@@ -14666,14 +14666,14 @@ object B {
 }
 </code></pre>
 <p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the implicit <code>tc</code>. Conversely, the second import <code>import implicit A._</code> will import <em>only</em> that implicit.</p>
-<p>Generally, a normal import clause brings all members except implicit values into scope whereas an <code>import implicit</code> clause brings only implicit values into scope.</p>
+of <code>A</code> <em>except</em> the implicit <code>tc</code>. Conversely, the second import <code>import implicit A._</code> will import <em>only</em> that implicit instance.</p>
+<p>Generally, a normal import clause brings all members except implicit instances into scope whereas an <code>import implicit</code> clause brings only implicit instances into scope.</p>
 <p>There are two main benefits arising from these rules:</p>
 <ul>
-<li>It is made clearer where implicit values in scope are coming from. In particular, it is not possible to hide imported implicit values in a long list of regular imports.</li>
-<li>It enables importing all implicit values
+<li>It is made clearer where implicit instances in scope are coming from. In particular, it is not possible to hide imported implicit instances in a long list of regular imports.</li>
+<li>It enables importing all implicit instances
 without importing anything else. This is particularly important since implicit
-values can be anonymous, so the usual recourse of using named imports is not
+instances can be anonymous, so the usual recourse of using named imports is not
 practical.</li>
 </ul>
 <h3><a href="#migration" id="migration">Migration</a></h3>
@@ -14690,6 +14690,7 @@ So these implicits can be brought into scope using either a normal import or an 
 <li>In some version after 3.1, an old-style implicit accessed implicitly through a normal import
 will give a compiler error.</li>
 </ol>
+<p>New-style implicit instance definitions always need to be imported with <code>import implicit</code>.</p>
 <p>These rules mean that library users can use <code>import implicit</code> to access old-style implicits in Scala 3.0,
 and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
 new-style implicit definitions once their user base has migrated.</p>

@@ -14657,7 +14657,7 @@
             <p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
 <h2><a href="#simulating-contextual-abstraction-with-implicits" id="simulating-contextual-abstraction-with-implicits">Simulating Contextual Abstraction with Implicits</a></h2>
 <h3><a href="#implicit-instances" id="implicit-instances">Implicit Instances</a></h3>
-<p>Implicit instances can be mapped to combinations of implicit objects, classes and implicit methods.</p>
+<p>Implicit instances can be mapped to combinations of implicit objects and implicit methods together with normal classes.</p>
 <ol>
 <li>Implicit instances without parameters are mapped to implicit objects. E.g.,
 <pre><code class="language-scala">  implicit IntOrd for Ord[Int] { ... }
@@ -14703,8 +14703,8 @@ would map to
   final implicit def Context_repr = ctx
 ```
 </code></pre>
-<h3><a href="#anonymous-implicits" id="anonymous-implicits">Anonymous Implicits</a></h3>
-<p>Anonymous implicits get compiler synthesized names, which are generated in a reproducible way from the implemented type(s). For example, if the names of the <code>IntOrd</code> and <code>ListOrd</code> implicits above were left out, the following names would be synthesized instead:</p>
+<h3><a href="#anonymous-implicit-instances" id="anonymous-implicit-instances">Anonymous Implicit Instances</a></h3>
+<p>Anonymous implicit instances get compiler synthesized names, which are generated in a reproducible way from the implemented type(s). For example, if the names of the <code>IntOrd</code> and <code>ListOrd</code> implicits above were left out, the following names would be synthesized instead:</p>
 <pre><code class="language-scala">  implicit Ord_Int_ev for Ord[Int] { ... }
   implicit Ord_List_ev[T] for Ord[List[T]] { ... }
 </code></pre>
@@ -14714,7 +14714,7 @@ would map to
 <li>the simple name(s) of the toplevel argument type constructors to these types</li>
 <li>the suffix <code>_ev</code>.</li>
 </ul>
-<p>Anonymous implicit values that define extension methods without also implementing a type
+<p>Anonymous implicit instances that define extension methods without also implementing a type
 get their name from the name of the first extension method and the toplevel type
 constructor of its first parameter. For example, the implicit</p>
 <pre><code class="language-scala">  implicit {
@@ -14761,8 +14761,8 @@ will map to given clauses instead.</p>
 <p>Implicit by-name parameters are not supported in Scala 2, but can be emulated to some degree by the <code>Lazy</code> type in Shapeless.</p>
 <h2><a href="#simulating-scala-2-implicits-in-dotty" id="simulating-scala-2-implicits-in-dotty">Simulating Scala 2 Implicits in Dotty</a></h2>
 <h3><a href="#implicit-conversions" id="implicit-conversions">Implicit Conversions</a></h3>
-<p>Implicit conversion methods in Scala 2 can be expressed as implicit instances of class
-<code>scala.Conversion</code> in Dotty. E.g. instead of</p>
+<p>Implicit conversion methods in Scala 2 can be expressed as implicit instances of the
+<code>scala.Conversion</code> class in Dotty. E.g. instead of</p>
 <pre><code class="language-scala">  implicit def stringToToken(str: String): Token = new Keyword(str)
 </code></pre>
 <p>one can write</p>
@@ -14771,7 +14771,7 @@ will map to given clauses instead.</p>
   }
 </code></pre>
 <h3><a href="#implicit-classes" id="implicit-classes">Implicit Classes</a></h3>
-<p>Implicit classes in Scala 2 are often used to define extension methods, which are directly supported in Dotty. Other uses of implicit classes can be simulated by a pair of a regular class and a conversion instance.</p>
+<p>Implicit classes in Scala 2 are often used to define extension methods, which are directly supported in Dotty. Other uses of implicit classes can be simulated by a pair of a regular class and an implicit <code>Conversion</code> instance.</p>
 <h3><a href="#abstract-implicits" id="abstract-implicits">Abstract Implicits</a></h3>
 <p>An abstract implicit <code>val</code> or <code>def</code> in Scala 2 can be expressed in Dotty using a regular abstract definition and an alias implicit. E.g., Scala 2's</p>
 <pre><code class="language-scala">  implicit def symDeco: SymDeco

@@ -14655,7 +14655,8 @@
         <hr/>
         <div id="doc-page-container">
             <p>Representatives define &quot;canonical&quot; values of given types
-that serve for synthesizing arguments to <a href="./inferable-params.html">given clauses</a>. Example:</p>
+that can be synthesized by the compiler as arguments for
+<a href="./inferable-params.html">given clauses</a>. Example:</p>
 <pre><code class="language-scala">trait Ord[T] {
   def compare(x: T, y: T): Int
   def (x: T) &lt; (y: T) = compare(x, y) &lt; 0

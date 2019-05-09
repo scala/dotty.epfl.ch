@@ -14776,7 +14776,7 @@ object Test {
 </code></pre>
 <p><strong>Explanations</strong>: We use a implicit function type <code>given WrappedResult[T] =&gt; Boolean</code>
 as the type of the condition of <code>ensuring</code>. An argument to <code>ensuring</code> such as
-<code>(result == 6)</code> will therefore have an implicit of type <code>WrappedResult[T]</code> in
+<code>(result == 6)</code> will therefore have an implicit for <code>WrappedResult[T]</code> in
 scope to pass along to the <code>result</code> method. <code>WrappedResult</code> is a fresh type, to make sure
 that we do not get unwanted implicits in scope (this is good practice in all cases
 where implicit parameters are involved). Since <code>WrappedResult</code> is an opaque type alias, its

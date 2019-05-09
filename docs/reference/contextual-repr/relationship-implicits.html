@@ -14657,7 +14657,7 @@
             <p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
 <h2><a href="#simulating-contextual-abstraction-with-implicits" id="simulating-contextual-abstraction-with-implicits">Simulating Contextual Abstraction with Implicits</a></h2>
 <h3><a href="#representatives" id="representatives">Representatives</a></h3>
-<p>Representative clauses can be mapped to combinations of implicit objects, classes and implicit methods.</p>
+<p>Representative clauses can be mapped to combinations of implicit objects and implicit methods together with normal classes.</p>
 <ol>
 <li>Representatives without parameters are mapped to implicit objects. E.g.,
 <pre><code class="language-scala">  repr IntOrd of Ord[Int] { ... }
@@ -14677,7 +14677,7 @@
 <li>Alias representatives map to implicit methods. If the representative has neither type parameters nor a given clause, the result of creating an instance is cached in a variable. There are two cases that can be optimized:</li>
 </ol>
 <ul>
-<li>If the right hand side is a simple reference, we can simply
+<li>If the right hand side is a simple reference, we can
 use a forwarder to that reference without caching it.</li>
 <li>If the right hand side is more complex, but still known to be pure, we can
 create a <code>val</code> that computes it ahead of time.</li>
