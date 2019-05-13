@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-05-12 -->
+<!-- This page was last generated on 2019-05-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2934,6 +2934,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/core/EmptyGadtConstraint$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/EmptyGadtConstraint$.html">EmptyGadtConstraint</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/core/ExplainingTypeComparer.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/ExplainingTypeComparer.html">ExplainingTypeComparer</a>
@@ -2955,6 +2973,24 @@
                         <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/core/Flags$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/Flags$.html">Flags</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/core/GadtConstraint.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/GadtConstraint.html">GadtConstraint</a>
                 </li>
 
                 
@@ -3243,6 +3279,24 @@
                         <a class="letter-anchor trait" href="../../../../../.././api/dotty/tools/dotc/core/Phases.html">T</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/Phases.html">Phases</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/core/ProperGadtConstraint.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/core/ProperGadtConstraint.html">ProperGadtConstraint</a>
                 </li>
 
                 
@@ -16541,25 +16595,9 @@ a refined or applied type. Example:</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-either(op1,op2)">
-                            <p>Returns true iff the result of evaluating either <code>op1</code> or <code>op2</code> is true,
-trying at the same time to keep the constraint as wide as possible.
-E.g, if</p>
-<p>tp11 &lt;:&lt; tp12 = true   with post-constraint c1
-tp12 &lt;:&lt; tp22 = true   with post-constraint c2</p>
-<p>and c1 subsumes c2, then c2 is kept as the post-constraint of the result,
-otherwise c1 is kept.</p>
-<p>This method is used to approximate a solution in one of the following cases</p>
-<p>T1 &amp; T2 &lt;:&lt; T3
-T1 &lt;:&lt; T2 | T3</p>
-<p>In the first case (the second one is analogous), we have a choice whether we
-want to establish the subtyping judgement using</p>
-<p>T1 &lt;:&lt; T3   or    T2 &lt;:&lt; T3</p>
-<p>as a precondition. Either precondition might constrain type variables.
-The purpose of this method is to pick the precondition that constrains less.
-The method is not complete, because sometimes there is no best solution. Example:</p>
-<p>A? &amp; B?  &lt;:  T</p>
-<p>Here, each precondition leads to a different constraint, and neither of
-the two post-constraints subsumes the other.</p>
+                            <p>Returns true iff the result of evaluating either <code>op1</code> or <code>op2</code> is true and approximates resulting constraints.</p>
+<p>If we're <em>not</em> in GADTFlexible mode, we try to keep the smaller of the two constraints.
+If we're <em>in</em> GADTFlexible mode, we keep the smaller constraint if any, or no constraint at all.</p>
 
                         </div>
                     </div>
@@ -18565,6 +18603,92 @@ Int
                     </div>
                 </div><!-- end member -->
                 
+                <div id="necessaryEither(op1,op2)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'necessaryEither(op1,op2)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                necessaryEither
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        op1: =&gt;
+                                    </span>
+                                    Boolean
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        op2: =&gt;
+                                    </span>
+                                    Boolean
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-necessaryEither(op1,op2)">
+                            <p>Returns true iff the result of evaluating either <code>op1</code> or <code>op2</code> is true, keeping the smaller constraint if any.
+E.g., if</p>
+<p>tp11 &lt;:&lt; tp12 = true   with constraint c1 and GADT constraint g1
+tp12 &lt;:&lt; tp22 = true   with constraint c2 and GADT constraint g2</p>
+<p>We keep:
+- (c1, g1) if c2 subsumes c1 and g2 subsumes g1
+- (c2, g2) if c1 subsumes c2 and g1 subsumes g2
+- neither constraint pair otherwise.</p>
+<p>Like [[sufficientEither]], this method is used to approximate a solution in one of the following cases:</p>
+<p>T1 &amp; T2 &lt;:&lt; T3
+T1 &lt;:&lt; T2 | T3</p>
+<p>Unlike [[sufficientEither]], this method is used in GADTFlexible mode, when we are attempting to infer GADT
+constraints that necessarily follow from the subtyping relationship. For instance, if we have</p>
+<p>enum Expr[T] {
+case IntExpr(i: Int) extends Expr[Int]
+case StrExpr(s: String) extends Expr[String]
+}</p>
+<p>and <code>A</code> is an abstract type and we know that</p>
+<p>Expr[A] &lt;: IntExpr | StrExpr</p>
+<p>(the case with &amp;-type is analogous) then this may follow either from</p>
+<p>Expr[A] &lt;: IntExpr    or    Expr[A] &lt;: StrExpr</p>
+<p>Since we don't know which branch is true, we need to give up and not keep either constraint. OTOH, if one
+constraint pair is subsumed by the other, we know that it is necessary for both cases and therefore we can
+keep it.</p>
+<p>Like [[sufficientEither]], this method is not complete because sometimes, the necessary constraint
+is neither of the pairs. For instance, if</p>
+<p>g1 = { A = Int, B = String }
+g2 = { A = Int, B = Int }</p>
+<p>then the necessary constraint is { A = Int }, but correctly inferring that is, as far as we know, too expensive.</p>
+<p>Method name comes from the notion that we are keeping the constraint which is necessary to satisfy both
+subtyping relationships.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="orType(tp1,tp2,isErased)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'orType(tp1,tp2,isErased)');">[+]</span>
@@ -19215,6 +19339,84 @@ String &amp; Singleton .. &quot;name&quot;.type</p>
 permanently instantiate type variables, because the corresponding
 constraint might still be retracted and the instantiation should
 then be reversed.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="sufficientEither(op1,op2)" class="member private">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'sufficientEither(op1,op2)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                sufficientEither
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        op1: =&gt;
+                                    </span>
+                                    Boolean
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        op2: =&gt;
+                                    </span>
+                                    Boolean
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Boolean</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-sufficientEither(op1,op2)">
+                            <p>Returns true iff the result of evaluating either <code>op1</code> or <code>op2</code> is true,
+trying at the same time to keep the constraint as wide as possible.
+E.g, if</p>
+<p>tp11 &lt;:&lt; tp12 = true   with post-constraint c1
+tp12 &lt;:&lt; tp22 = true   with post-constraint c2</p>
+<p>and c1 subsumes c2, then c2 is kept as the post-constraint of the result,
+otherwise c1 is kept.</p>
+<p>This method is used to approximate a solution in one of the following cases</p>
+<p>T1 &amp; T2 &lt;:&lt; T3
+T1 &lt;:&lt; T2 | T3</p>
+<p>In the first case (the second one is analogous), we have a choice whether we
+want to establish the subtyping judgement using</p>
+<p>T1 &lt;:&lt; T3   or    T2 &lt;:&lt; T3</p>
+<p>as a precondition. Either precondition might constrain type variables.
+The purpose of this method is to pick the precondition that constrains less.
+The method is not complete, because sometimes there is no best solution. Example:</p>
+<p>A? &amp; B?  &lt;:  T</p>
+<p>Here, each precondition leads to a different constraint, and neither of
+the two post-constraints subsumes the other.</p>
+<p>Note that to be complete when it comes to typechecking, we would instead need to backtrack
+and attempt to typecheck with the other constraint.</p>
+<p>Method name comes from the notion that we are keeping a constraint which is sufficient to satisfy
+one of subtyping relationships.</p>
 
                         </div>
                     </div>
