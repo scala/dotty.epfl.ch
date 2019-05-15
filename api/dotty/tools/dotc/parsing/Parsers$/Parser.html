@@ -16728,8 +16728,8 @@ NamedTypeArg      ::=  id `=' Type</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-argumentPatterns()">
-                            <p>ArgumentPatterns  ::=  <code>(' [Patterns]</code>)'
-|  <code>(' [Patterns</code>,'] Pattern2 <code>:'</code>_' `*' ')</p>
+                            <p>ArgumentPatterns  ::=  ‘(’ [Patterns] ‘)’
+|  ‘(’ [Patterns ‘,’] Pattern2 ‘:’ ‘_’ ‘*’ ‘)’</p>
 
                         </div>
                     </div>
@@ -25685,7 +25685,8 @@ EnumStat         ::= TemplateStat
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-tmplDef(start,mods)">
-                            <p>TmplDef ::=  ([<code>case'] ‘class’ | trait’) ClassDef | [</code>case'] `object' ObjectDef
+                            <p>TmplDef ::=  ([‘case’] ‘class’ | ‘trait’) ClassDef
+|  [‘case’] ‘object’ ObjectDef
 |  ‘enum’ EnumDef
 |  ‘instance’ InstanceDef</p>
 
@@ -26232,13 +26233,15 @@ FunArgTypes ::=  InfixType
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-typeParamClause(ownerKind)">
-                            <p>ClsTypeParamClause::=  <code>[' ClsTypeParam {</code>,' ClsTypeParam} <code>]' ClsTypeParam ::= {Annotation} [</code>+' | `-']
+                            <p>ClsTypeParamClause::=  ‘[’ ClsTypeParam {‘,’ ClsTypeParam} ‘]’
+ClsTypeParam      ::=  {Annotation} [‘+’ | ‘-’]
 id [HkTypeParamClause] TypeParamBounds</p>
-<p>DefTypeParamClause::=  <code>[' DefTypeParam {</code>,' DefTypeParam} `]'
+<p>DefTypeParamClause::=  ‘[’ DefTypeParam {‘,’ DefTypeParam} ‘]’
 DefTypeParam      ::=  {Annotation} id [HkTypeParamClause] TypeParamBounds</p>
-<p>TypTypeParamCaluse::=  <code>[' TypTypeParam {</code>,' TypTypeParam} `]'
+<p>TypTypeParamCaluse::=  ‘[’ TypTypeParam {‘,’ TypTypeParam} ‘]’
 TypTypeParam      ::=  {Annotation} id [HkTypePamClause] TypeBounds</p>
-<p>HkTypeParamClause ::=  <code>[' HkTypeParam {</code>,' HkTypeParam} <code>]' HkTypeParam ::= {Annotation} ['+' |</code>-'] (id [HkTypePamClause] | _') TypeBounds</p>
+<p>HkTypeParamClause ::=  ‘[’ HkTypeParam {‘,’ HkTypeParam} ‘]’
+HkTypeParam       ::=  {Annotation} [‘+’ | ‘-’] (id [HkTypePamClause] | ‘_’) TypeBounds</p>
 
                         </div>
                     </div>
