@@ -14707,6 +14707,23 @@ The example below picks up all methods with the name <code>canOverwrite</code>:<
 <p>You can also run all paths of classes of a certain name:</p>
 <pre><code class="language-bash">&gt; testOnly *.TreeTransformerTest
 </code></pre>
+<h3><a href="#testing-with-checkfiles" id="testing-with-checkfiles">Testing with checkfiles</a></h3>
+<p>Some tests support checking the output of the run or the compilation against a checkfile. A checkfile is a file in which the expected output of the compilation or run is defined. A test against a checkfile fails if the actual output mismatches the expected output.</p>
+<p>Currently, the <code>run</code> and <code>neg</code> (compilation must fail for the test to succeed) tests support the checkfiles. <code>run</code>'s checkfiles contain an expected run output of the successfully compiled program. <code>neg</code>'s checkfiles contain an expected error output during compilation.</p>
+<p>Absence of a checkfile is <strong>not</strong> a condition for the test failure. E.g. if a <code>neg</code> test fails with the expected number of errors and there is no checkfile for it, the test still passes.</p>
+<p>Checkfiles are located in the same directories as the tests they check, have the same name as these tests with the extension <code>*.check</code>. E.g. if you have a test named <code>tests/neg/foo.scala</code>, you can create a checkfile for it named <code>tests/neg/foo.check</code>. And if you have a test composed of several files in a single directory, e.g. <code>tests/neg/manyScalaFiles</code>, the checkfile will be <code>tests/neg/manyScalaFiles.check</code>.</p>
+<p>If the actual output mismatches the expected output, the test framework will dump the actual output in the file <code>*.check.out</code> and fail the test suite. It will also output the instructions to quickly replace the expected output with the actual output, in the following format:</p>
+<pre><code>Test output dumped in: tests/playground/neg/Sample.check.out
+  See diff of the checkfile
+    &gt; diff tests/playground/neg/Sample.check tests/playground/neg/Sample.check.out
+  Replace checkfile with current output output
+    &gt; mv tests/playground/neg/Sample.check.out tests/playground/neg/Sample.check
+</code></pre>
+<p>To create a checkfile for a test, you can do one of the following:</p>
+<ul>
+<li>Create a dummy checkfile with a random content, run the test, and, when it fails, use the <code>mv</code> command reported by the test to replace the dummy checkfile with the actual output.</li>
+<li>Manually compile the file you are testing with <code>dotc</code> and copy-paste whatever console output the compiler produces to the checkfile.</li>
+</ul>
 <h2><a href="#integration-tests" id="integration-tests">Integration tests</a></h2>
 <p>These tests are Scala source files expected to compile with Dotty (pos tests),
 along with their expected output (run tests) or errors (neg tests).</p>
