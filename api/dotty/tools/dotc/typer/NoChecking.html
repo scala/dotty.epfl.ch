@@ -214,6 +214,8 @@
 </li>
 <li><a href="../../../../../.././docs/reference/changed-features/structural-types.html">Structural Types</a>
 </li>
+<li><a href="../../../../../.././docs/reference/changed-features/operators.html">Operators</a>
+</li>
 <li><a href="../../../../../.././docs/reference/changed-features/type-checking.html">Type Checking</a>
 </li>
 <li><a href="../../../../../.././docs/reference/changed-features/type-inference.html">Type Inference</a>
@@ -13281,9 +13283,45 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor class" href="../../../../../.././api/scala/annotation/alpha.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/scala/annotation/alpha.html">alpha</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor class" href="../../../../../.././api/scala/annotation/constructorOnly.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../../../.././api/scala/annotation/constructorOnly.html">constructorOnly</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/scala/annotation/infix.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/scala/annotation/infix.html">infix</a>
                 </li>
 
                 
@@ -16084,6 +16122,76 @@ traits. E.g. the following is OK:</p>
 <pre><code>... extends Any with java.io.Serializable
 </code></pre>
 <p>The standard library relies on this idiom.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="checkValidInfix(tree,meth)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkValidInfix(tree,meth)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            override
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                checkValidInfix
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tree:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/untpd$/InfixOp.html">InfixOp</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        meth:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Symbols$/Symbol.html">Symbol</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Unit</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-checkValidInfix(tree,meth)(ctx)">
+                            <p>Check that <code>tree</code> is a valid infix operation. That is, if the
+operator is alphanumeric, it must be declared <code>@infix</code>.</p>
 
                         </div>
                     </div>
