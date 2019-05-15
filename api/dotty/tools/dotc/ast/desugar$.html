@@ -226,7 +226,9 @@
 </li>
 <li><a href="../../../../../.././docs/reference/changed-features/vararg-patterns.html">Vararg Patterns</a>
 </li>
-<li><a href="../../../../../.././docs/reference/changed-features/pattern-matching.html">Pattern matching</a>
+<li><a href="../../../../../.././docs/reference/changed-features/pattern-bindings.html">Pattern Bindings</a>
+</li>
+<li><a href="../../../../../.././docs/reference/changed-features/pattern-matching.html">Pattern Matching</a>
 </li>
 <li><a href="../../../../../.././docs/reference/changed-features/eta-expansion.html">Eta Expansion</a>
 </li>
@@ -14791,21 +14793,21 @@
                     </div>
                 </div><!-- end member -->
                 
-                <div id="IrrefutableGenFrom" class="member private">
+                <div id="MatchCheck" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'IrrefutableGenFrom');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'MatchCheck');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
                         <span class="member-modifiers">
-                            private
+                            final
                         </span>
                         <span class="member-kind">
                             class
                         </span>
                         <span class="member-name ">
                             
-                                <a href="../../../../../.././api/dotty/tools/dotc/ast/desugar$/IrrefutableGenFrom.html">IrrefutableGenFrom</a>
+                                <a href="../../../../../.././api/dotty/tools/dotc/ast/desugar$/MatchCheck.html">MatchCheck</a>
                             
                         </span>
 
@@ -14817,7 +14819,40 @@
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-IrrefutableGenFrom">
+                        <div class="member-body-long" id ="long-body-MatchCheck">
+                            <p>What static check should be applied to a Match (none, irrefutable, exhaustive)</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="MatchCheck$" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'MatchCheck$');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            object
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/ast/desugar$/MatchCheck$.html">MatchCheck</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-MatchCheck$">
                             
                         </div>
                     </div>
@@ -14994,6 +15029,45 @@
                     </div>
                 </div><!-- end member -->
                 
+                <div id="CheckIrrefutable" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'CheckIrrefutable');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            val
+                        </span>
+                        <span class="member-name ">
+                            
+                                CheckIrrefutable
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/util/Property$/Key.html">Key</a>
+<span class="no-left no-right">[</span>
+<a href="../../../../../.././api/dotty/tools/dotc/ast/desugar$/MatchCheck.html">MatchCheck</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-CheckIrrefutable">
+                            <p>An attachment for match expressions generated from a PatDef or GenFrom.
+Value of key == one of IrrefutablePatDef, IrrefutableGenFrom</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="DerivingCompanion" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'DerivingCompanion');">[+]</span>
@@ -15029,44 +15103,6 @@
                             <p>An attachment for companion modules of classes that have a <code>derives</code> clause.
 The position value indicates the start position of the template of the
 deriving class.</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="PatDefMatch" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'PatDefMatch');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                PatDefMatch
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/util/Property$/Key.html">Key</a>
-<span class="no-left no-right">[</span>
-Unit
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-PatDefMatch">
-                            <p>An attachment for match expressions generated from a PatDef</p>
 
                         </div>
                     </div>
@@ -16630,9 +16666,9 @@ the classpath that is also compiled from source.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="makeCaseLambda(cases,nparams,unchecked)(ctx)" class="member ">
+                <div id="makeCaseLambda(cases,checkMode,nparams)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'makeCaseLambda(cases,nparams,unchecked)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'makeCaseLambda(cases,checkMode,nparams)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -16665,17 +16701,17 @@ the classpath that is also compiled from source.</p>
                                     
                                 
                                     <span class="">
-                                        nparams:
+                                        checkMode:
                                     </span>
-                                    Int
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/desugar$/MatchCheck.html">MatchCheck</a>
                                     
                                         <span class="no-left">, </span>
                                     
                                 
                                     <span class="">
-                                        unchecked:
+                                        nparams:
                                     </span>
-                                    Boolean
+                                    Int
                                     
                                 
                             <span class="no-left">)</span>
@@ -16703,56 +16739,14 @@ the classpath that is also compiled from source.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-makeCaseLambda(cases,nparams,unchecked)(ctx)">
+                        <div class="member-body-long" id ="long-body-makeCaseLambda(cases,checkMode,nparams)(ctx)">
                             <p>If <code>nparams</code> == 1, expand partial function</p>
 <pre><code> { cases }
 </code></pre>
 <p>==&gt;
-x$1 =&gt; (x$1 @unchecked) match { cases }</p>
+x$1 =&gt; (x$1 @unchecked?) match { cases }</p>
 <p>If <code>nparams</code> != 1, expand instead to</p>
-<pre><code> (x$1, ..., x$n) =&gt; (x$0, ..., x${n-1} @unchecked) match { cases }
-</code></pre>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="makeCaseLambda$default$2" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'makeCaseLambda$default$2');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                makeCaseLambda$default$2
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Int</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-makeCaseLambda$default$2">
-                            <p>If <code>nparams</code> == 1, expand partial function</p>
-<pre><code> { cases }
-</code></pre>
-<p>==&gt;
-x$1 =&gt; (x$1 @unchecked) match { cases }</p>
-<p>If <code>nparams</code> != 1, expand instead to</p>
-<pre><code> (x$1, ..., x$n) =&gt; (x$0, ..., x${n-1} @unchecked) match { cases }
+<pre><code> (x$1, ..., x$n) =&gt; (x$0, ..., x${n-1} @unchecked?) match { cases }
 </code></pre>
 
                         </div>
@@ -16782,7 +16776,7 @@ x$1 =&gt; (x$1 @unchecked) match { cases }</p>
                         
 
                         
-                        <span class="no-left">: Boolean</span>
+                        <span class="no-left">: Int</span>
                         
                     </div><!-- end member-title -->
 
@@ -16792,9 +16786,9 @@ x$1 =&gt; (x$1 @unchecked) match { cases }</p>
 <pre><code> { cases }
 </code></pre>
 <p>==&gt;
-x$1 =&gt; (x$1 @unchecked) match { cases }</p>
+x$1 =&gt; (x$1 @unchecked?) match { cases }</p>
 <p>If <code>nparams</code> != 1, expand instead to</p>
-<pre><code> (x$1, ..., x$n) =&gt; (x$0, ..., x${n-1} @unchecked) match { cases }
+<pre><code> (x$1, ..., x$n) =&gt; (x$0, ..., x${n-1} @unchecked?) match { cases }
 </code></pre>
 
                         </div>
@@ -17251,6 +17245,75 @@ val/var/def x_1 = t$._1
 val/var/def x_N = t$._N
 If the original pattern variable carries a type annotation, so does the corresponding
 ValDef or DefDef.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="makeSelector(sel,checkMode)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'makeSelector(sel,checkMode)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                makeSelector
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        sel:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        checkMode:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/ast/desugar$/MatchCheck.html">MatchCheck</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../../.././api/dotty/tools/dotc/core/Contexts$/Context.html">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-makeSelector(sel,checkMode)(ctx)">
+                            <p>The selector of a match, which depends of the given <code>checkMode</code>.</p>
 
                         </div>
                     </div>

@@ -226,7 +226,9 @@
 </li>
 <li><a href="../../../../../.././docs/reference/changed-features/vararg-patterns.html">Vararg Patterns</a>
 </li>
-<li><a href="../../../../../.././docs/reference/changed-features/pattern-matching.html">Pattern matching</a>
+<li><a href="../../../../../.././docs/reference/changed-features/pattern-bindings.html">Pattern Bindings</a>
+</li>
+<li><a href="../../../../../.././docs/reference/changed-features/pattern-matching.html">Pattern Matching</a>
 </li>
 <li><a href="../../../../../.././docs/reference/changed-features/eta-expansion.html">Eta Expansion</a>
 </li>
@@ -15585,9 +15587,9 @@ argument is infeasible, issue and error and continue with upper bound.</p>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="checkIrrefutable(pat,pt)(ctx)" class="member ">
+                <div id="checkIrrefutable(pat,pt,isPatDef)(ctx)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkIrrefutable(pat,pt)(ctx)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'checkIrrefutable(pat,pt,isPatDef)(ctx)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -15621,6 +15623,14 @@ argument is infeasible, issue and error and continue with upper bound.</p>
                                     </span>
                                     <a href="../../../../../.././api/dotty/tools/dotc/core/Types$/Type.html">Type</a>
                                     
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        isPatDef:
+                                    </span>
+                                    Boolean
+                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -15647,7 +15657,7 @@ argument is infeasible, issue and error and continue with upper bound.</p>
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-checkIrrefutable(pat,pt)(ctx)">
+                        <div class="member-body-long" id ="long-body-checkIrrefutable(pat,pt,isPatDef)(ctx)">
                             <p>Check that pattern <code>pat</code> is irrefutable for scrutinee tye <code>pt</code>.
 This means <code>pat</code> is either marked @unchecked or <code>pt</code> conforms to the
 pattern's type. If pattern is an UnApply, do the check recursively.</p>

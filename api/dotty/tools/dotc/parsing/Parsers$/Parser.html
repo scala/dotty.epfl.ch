@@ -226,7 +226,9 @@
 </li>
 <li><a href="../../../../../../.././docs/reference/changed-features/vararg-patterns.html">Vararg Patterns</a>
 </li>
-<li><a href="../../../../../../.././docs/reference/changed-features/pattern-matching.html">Pattern matching</a>
+<li><a href="../../../../../../.././docs/reference/changed-features/pattern-bindings.html">Pattern Bindings</a>
+</li>
+<li><a href="../../../../../../.././docs/reference/changed-features/pattern-matching.html">Pattern Matching</a>
 </li>
 <li><a href="../../../../../../.././docs/reference/changed-features/eta-expansion.html">Eta Expansion</a>
 </li>
@@ -19547,15 +19549,15 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-generator()">
-                            <p>Generator   ::=  Pattern `&lt;-' Expr</p>
+                            <p>Generator   ::=  [‘case’] Pattern `&lt;-' Expr</p>
 
                         </div>
                     </div>
                 </div><!-- end member -->
                 
-                <div id="generatorRest(pat)" class="member ">
+                <div id="generatorRest(pat,casePat)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'generatorRest(pat)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'generatorRest(pat,casePat)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -19581,6 +19583,14 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
                                     </span>
                                     <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
                                     
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        casePat:
+                                    </span>
+                                    Boolean
+                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -19594,7 +19604,7 @@ EnumCase ::= <code>case' (id ClassConstr [</code>extends' ConstrApps]] | ids)</p
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-generatorRest(pat)">
+                        <div class="member-body-long" id ="long-body-generatorRest(pat,casePat)">
                             
                         </div>
                     </div>
