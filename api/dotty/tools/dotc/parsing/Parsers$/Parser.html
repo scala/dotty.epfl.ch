@@ -15005,7 +15005,9 @@ FunTypeMods ::=  { ‘erased’ | ‘given’}</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-constrApp">
-                            <p>ConstrApp         ::=  SimpleType {ParArgumentExprs}</p>
+                            <p>SimpleConstrApp  ::=  AnnotType {ParArgumentExprs}
+ConstrApp        ::=  SimpleConstrApp
+|  ‘(’ SimpleConstrApp {‘given’ (PrefixExpr | ParArgumentExprs)} ‘)’</p>
 
                         </div>
                     </div>
@@ -16568,6 +16570,61 @@ signal an error if it is not there.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-annotsAsMods$default$1">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="applyGiven(t,operand)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'applyGiven(t,operand)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                applyGiven
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        t:
+                                    </span>
+                                    <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        operand:
+                                    </span>
+                                    <span>() =&gt; </span><a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../../../.././api/dotty/tools/dotc/ast/Trees$/Instance.html#Tree">Tree</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-applyGiven(t,operand)">
                             
                         </div>
                     </div>

@@ -14773,6 +14773,8 @@ GivenParamClause ::=  ‘given’ (‘(’ [DefParams] ‘)’ | GivenTypes)
 InstanceBody     ::=  [‘for’ ConstrApp {‘,’ ConstrApp }] [TemplateBody]
                    |  ‘for’ Type ‘=’ Expr
 GivenTypes       ::=  AnnotType {‘,’ AnnotType}
+ConstrApp        ::=  SimpleConstrApp
+                   |  ‘(’ SimpleConstrApp {‘given’ (PrefixExpr | ParArgumentExprs)} ‘)’
 </code></pre>
 <p>The identifier <code>id</code> can be omitted only if either the <code>for</code> part or the template body is present.
 If the <code>for</code> part is missing, the template body must define at least one extension method.</p>
