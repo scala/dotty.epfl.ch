@@ -20835,10 +20835,10 @@ List
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-instanceDef(start,mods,instanceMod)">
-                            <p>InstanceDef    ::=  [id] InstanceParams InstanceBody
+                            <p>InstanceDef    ::=  [id] [DefTypeParamClause] InstanceBody
 InstanceParams ::=  [DefTypeParamClause] {GivenParamClause}
-InstanceBody   ::=  [‘for’ ConstrApp {‘,’ ConstrApp }] [TemplateBody]
-|  ‘for’ Type ‘=’ Expr</p>
+InstanceBody   ::=  [‘for’ ConstrApp {‘,’ ConstrApp }] {GivenParamClause} [TemplateBody]
+|  ‘for’ Type {GivenParamClause} ‘=’ Expr</p>
 
                         </div>
                     </div>
