@@ -6555,6 +6555,30 @@
                 
 
                 
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">CacheAliasImplicits</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -14752,13 +14776,13 @@ implicit def i2(x: T): C[T] = ...
 <p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce four fundamental changes:</p>
 <ol>
 <li>
-<p><a href="./instance-defs.html">Implied Instances</a> are a new way to define inferable terms.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
+<p><a href="./instance-defs.html">Implied Instances</a> are a new way to define terms that can be synthesized.  They replace the <code>implicit</code> modifiers on definitions. The core principle is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
 </li>
 <li>
-<p><a href="./inferable-params.html">Inferable Parameters</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several implicit parameter sections, and to have implicit parameters followed by normal ones.</p>
+<p><a href="./inferable-params.html">Given Clauses</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several implicit parameter sections, and to have implicit parameters followed by normal ones.</p>
 </li>
 <li>
-<p><a href="./import-implied.html">Implied Imports</a> are new form of import that specifically imports implicit definitions and nothing else. New-style implicit definitions <em>must be</em> imported with  <code>import implied</code>, a plain import will no longer bring them into scope.</p>
+<p><a href="./import-implied.html">Import Implied</a> is new form of import that specifically imports implicit definitions and nothing else. New-style implied instances <em>must be</em> imported with  <code>import implied</code>, a plain import will no longer bring them into scope.</p>
 </li>
 <li><a href="./conversions.html">Implicit Conversions</a> are now expressed as implied instances of a standard <code>Conversion</code> class. All other forms of implicit conversions will be phased out.</li>
 </ol>
@@ -14767,12 +14791,12 @@ implicit def i2(x: T): C[T] = ...
 <li><a href="./context-bounds.html">Context Bounds</a>, which carry over unchanged.</li>
 <li><a href="./extension-methods.html">Extension Methods</a> replace implicit classes in a way that integrates better with typeclasses.</li>
 <li><a href="./typeclasses.html">Implementing Typeclasses</a> demonstrates how some common typeclasses can be implemented using the new constructs.</li>
-<li><a href="./derivation.html">Typeclass Derivation</a> introduces constructs to automatically derive typeclasses for ADTs.</li>
+<li><a href="./derivation.html">Typeclass Derivation</a> introduces constructs to automatically derive implied typeclass instances for ADTs.</li>
 <li><a href="./multiversal-equality.html">Multiversal Equality</a> introduces a special typeclass
 to support type safe equality.</li>
-<li><a href="./query-types.html">Context Queries</a> <em>aka</em> implicit function types introduce a way to abstract over implicit parameterization.</li>
-<li><a href="./inferable-by-name-parameters.html">Inferable By-Name Parameters</a> are an essential tool to define recursive implicits without looping.</li>
-<li><a href="./relationship-implicits.html">Relationship with Scala 2 Implicits</a> discusses the relationship between old-style and new-style implicits and how to migrate from one to the other.</li>
+<li><a href="./query-types.html">Contextual Functions</a> provide a way to abstract over given clauses.</li>
+<li><a href="./inferable-by-name-parameters.html">By-Name Context Parameters</a> are an essential tool to define recursive synthesized values without looping.</li>
+<li><a href="./relationship-implicits.html">Relationship with Scala 2 Implicits</a> discusses the relationship between old-style implicits and new-style implied instances and given clauses and how to migrate from one to the other.</li>
 </ul>
 <p>Overall, the new design achieves a better separation of term inference from the rest of the language: There is a single way to define implied instances instead of a multitude of forms all taking an <code>implicit</code> modifier. There is a single way to introduce implicit parameters and arguments instead of conflating implicit with normal arguments. There is a separate way to import implied instances that does not allow them to hide in a sea of normal imports. And there is a single way to define an implicit conversion which is clearly marked as such and does not require special syntax.</p>
 <p>This design thus avoids feature interactions and makes the language more consistent and orthogonal. It will make implicits easier to learn and harder to abuse. It will greatly improve the clarity of the 95% of Scala programs that use implicits. It has thus the potential to fulfil the promise of term inference in a principled way that is also accessible and friendly.</p>

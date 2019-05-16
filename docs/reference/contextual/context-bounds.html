@@ -6555,6 +6555,30 @@
                 
 
                 
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">CacheAliasImplicits</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -14718,10 +14742,10 @@
         <hr/>
         <div id="doc-page-container">
             <h2><a href="#context-bounds" id="context-bounds">Context Bounds</a></h2>
-<p>A context bound is a shorthand for expressing a common pattern of an inferable parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
+<p>A context bound is a shorthand for expressing a common pattern of a context parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
 <pre><code class="language-scala">def maximum[T: Ord](xs: List[T]): T = xs.reduceLeft(max)
 </code></pre>
-<p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates an inferable parameter <code>given Ord[T]</code>. The inferable parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
+<p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates a context parameter <code>given Ord[T]</code>. The context parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
 <pre><code class="language-scala">def f[T: C1 : C2, U: C3](x: T) given (y: U, z: V): R
 </code></pre>
 <p>would expand to</p>

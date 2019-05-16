@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Implied Imports</title>
+        <title>Importing Implied Instances</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -6541,6 +6541,30 @@
                         <a class="letter-anchor class" href="../../../.././api/dotty/tools/dotc/transform/ByNameClosures.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/dotty/tools/dotc/transform/ByNameClosures.html">ByNameClosures</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">CacheAliasImplicits</a>
                 </li>
 
                 
@@ -14711,7 +14735,7 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Implied Imports</h1>
+        <h1 id="doc-page-title">Importing Implied Instances</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-implied.md">
             Edit this page on GitHub
         </a>
@@ -14730,7 +14754,7 @@ object B {
 </code></pre>
 <p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
 of <code>A</code> <em>except</em> the implied instance <code>tc</code>. Conversely, the second import <code>import implied A._</code> will import <em>only</em> that implied instance.</p>
-<p>Generally, a normal import clause brings all definitions except implied instances into scope whereas an <code>import implied</code> clause brings only implied instances into scope.</p>
+<p>Generally, a normal import clause brings all members except implied instances into scope whereas an <code>import implied</code> clause brings only implied instances into scope.</p>
 <p>There are two main benefits arising from these rules:</p>
 <ul>
 <li>It is made clearer where implied instances in scope are coming from. In particular, it is not possible to hide imported implied instances in a long list of regular imports.</li>
@@ -14739,22 +14763,22 @@ without importing anything else. This is particularly important since implied
 instances can be anonymous, so the usual recourse of using named imports is not
 practical.</li>
 </ul>
-<h3><a href="#relationship-with-old-style-implicits" id="relationship-with-old-style-implicits">Relationship with Old-Style Implicits</a></h3>
-<p>The rules of implied imports above have the consequence that a library
+<h3><a href="#migration" id="migration">Migration</a></h3>
+<p>The rules for <code>import implied</code> above have the consequence that a library
 would have to migrate in lockstep with all its users from old style implicits and
 normal imports to implied instances and imports.</p>
 <p>The following modifications avoid this hurdle to migration.</p>
 <ol>
 <li>
-<p>An implied import also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a normal or
-by an implied import.</p>
+<p>An <code>import implied</code> also brings old style implicits into scope. So, in Scala 3.0
+an old-style implicit definition can be brought into scope either by a normal import or
+by an <code>import implied</code>.</p>
 </li>
 <li>
-<p>In Scala 3.1, an old-style implicits accessed implicitly through a normal import
+<p>In Scala 3.1, old-style implicits accessed through a normal import
 will give a deprecation warning.</p>
 </li>
-<li>In some version after 3.1, an old-style implicits accessed implicitly through a normal import
+<li>In some version after 3.1, an old-style implicit accessed through a normal import
 will give a compiler error.</li>
 </ol>
 <p>These rules mean that library users can use <code>import implied</code> to access old-style implicits in Scala 3.0,

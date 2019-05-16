@@ -6555,6 +6555,30 @@
                 
 
                 
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">CacheAliasImplicits</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -15087,6 +15111,95 @@ e           ==&gt;    &lt;cbn-arg&gt;(() =&gt; e) for all other arguments
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-ByNameClosures$">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="CacheAliasImplicits" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'CacheAliasImplicits');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            class
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">CacheAliasImplicits</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-CacheAliasImplicits">
+                            <p>This phase ensures that the right hand side of parameterless alias implicits
+is cached. It applies to all alias implicits that have neither type parameters
+nor a given clause. Example: The alias</p>
+<pre><code>implicit a for TC = rhs
+</code></pre>
+<p>is expanded before this phase</p>
+<pre><code>implicit def a: TC = rhs
+</code></pre>
+<p>It is then expanded further as follows:</p>
+<ol>
+<li>If <code>rhs</code> is a simple name <code>x</code> (possibly with a <code>this.</code> prefix), leave the definition as is.</li>
+<li>
+<p>Otherwise, if <code>rhs</code> is a pure path, replace the definition with</p>
+<p>implicit val a: TC = rhs</p>
+</li>
+<li>
+<p>Otherwise, if <code>TC</code> is a reference type, replace the definition with</p>
+<p>private[this] var a$_cache: TC = null
+implicit def a: TC = { if (a$_cache == null) a$_cache = rhs; a$_cache }</p>
+</li>
+<li>
+<p>Otherwise <code>TC</code> is a value type. Replace the definition with</p>
+<p>lazy implicit val a: TC = rhs</p>
+</li>
+</ol>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="CacheAliasImplicits$" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'CacheAliasImplicits$');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            object
+                        </span>
+                        <span class="member-name ">
+                            
+                                <a href="../../../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits$.html">CacheAliasImplicits</a>
+                            
+                        </span>
+
+                        
+
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-CacheAliasImplicits$">
                             
                         </div>
                     </div>

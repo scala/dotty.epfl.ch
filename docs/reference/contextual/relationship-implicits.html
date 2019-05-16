@@ -6555,6 +6555,30 @@
                 
 
                 
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">CacheAliasImplicits</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -14720,7 +14744,7 @@
             <p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
 <h2><a href="#simulating-contextual-abstraction-with-implicits" id="simulating-contextual-abstraction-with-implicits">Simulating Contextual Abstraction with Implicits</a></h2>
 <h3><a href="#implied-instance-definitions" id="implied-instance-definitions">Implied Instance Definitions</a></h3>
-<p>Implied instance definitions can be mapped to combinations of implicit objects, classes and implicit methods.</p>
+<p>Implied instance definitions can be mapped to combinations of implicit objects and implicit methods together with normal classes.</p>
 <ol>
 <li>Instance definitions without parameters are mapped to implicit objects. E.g.,
 <pre><code class="language-scala">  implied IntOrd for Ord[Int] { ... }
@@ -14730,21 +14754,42 @@
 </code></pre>
 </li>
 <li>Parameterized instance definitions are mapped to combinations of classes and implicit methods. E.g.,
-<pre><code class="language-scala">  implied ListOrd[T] given (ord: Ord[T]) for Ord[List[T]] { ... }
+<pre><code class="language-scala">  implied ListOrd[T] for Ord[List[T]] given (ord: Ord[T]) { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="language-scala">  class ListOrd[T](implicit ord: Ord[T]) extends Ord[List[T]] { ... }
   final implicit def ListOrd[T](implicit ord: Ord[T]): ListOrd[T] = new ListOrd[T]
 </code></pre>
 </li>
-<li>Implied alias instances map to implicit methods. E.g.,
-<pre><code class="language-scala">  implied ctx for ExecutionContext = ...
-</code></pre>
-<p>maps to</p>
-<pre><code class="language-scala">  final implicit def ctx: ExecutionContext = ...
-</code></pre>
-</li>
+<li>Implied alias instances map to implicit methods. If an alias has neither type parameters nor a given clause, its right-hand side is cached in a variable. There are two cases that can be optimized:</li>
 </ol>
+<ul>
+<li>If the right hand side is a simple reference, we can
+use a forwarder to that reference without caching it.</li>
+<li>If the right hand side is more complex, but still known to be pure, we can
+create a <code>val</code> that computes it ahead of time.</li>
+</ul>
+<p>Examples:</p>
+<pre><code>```scala
+  implied global for ExecutionContext = new ForkJoinContext()
+  implied config for Config = default.config
+
+  val ctx: Context
+  implied for Context = ctx
+```
+would map to
+```scala
+  private[this] var global$cache: ExecutionContext | Null = null
+  final implicit def global: ExecutionContext = {
+    if (global$cache == null) global$cache = new ForkJoinContext()
+    global$cache
+  }
+
+  final implicit val config: Config = default.config
+
+  final implicit def Context_repr = ctx
+```
+</code></pre>
 <h3><a href="#anonymous-implied-instances" id="anonymous-implied-instances">Anonymous Implied Instances</a></h3>
 <p>Anonymous instances get compiler synthesized names, which are generated in a reproducible way from the implemented type(s). For example, if the names of the <code>IntOrd</code> and <code>ListOrd</code> instances above were left out, the following names would be synthesized instead:</p>
 <pre><code class="language-scala">  implied Ord_Int_instance for Ord[Int] { ... }
@@ -14764,15 +14809,15 @@ constructor of its first parameter. For example, the instance</p>
   }
 </code></pre>
 <p>gets the synthesized name <code>second_of_List_T_instance</code>.</p>
-<h3><a href="#inferable-parameters" id="inferable-parameters">Inferable Parameters</a></h3>
-<p>The new inferable parameter syntax with <code>given</code> corresponds largely to Scala-2's implicit parameters. E.g.</p>
+<h3><a href="#context-parameters" id="context-parameters">Context Parameters</a></h3>
+<p>The new context parameter syntax with <code>given</code> corresponds largely to Scala-2's implicit parameters. E.g.</p>
 <pre><code class="language-scala">  def max[T](x: T, y: T) given (ord: Ord[T]): T
 </code></pre>
 <p>would be written</p>
 <pre><code class="language-scala">  def max[T](x: T, y: T)(implicit ord: Ord[T]): T
 </code></pre>
 <p>in Scala 2. The main difference concerns applications of such parameters.
-Explicit arguments to inferable parameters <em>must</em> be written using <code>given</code>,
+Explicit arguments to context parameters <em>must</em> be written using <code>given</code>,
 mirroring the definition syntax. E.g, <code>max(2, 3) given IntOrd</code>.
 Scala 2 uses normal applications <code>max(2, 3)(IntOrd)</code> instead. The Scala 2 syntax has some inherent ambiguities and restrictions which are overcome by the new syntax. For instance, multiple implicit parameter lists are not available in the old syntax, even though they can be simulated using auxiliary objects in the &quot;Aux&quot; pattern.</p>
 <p>The <code>the</code> method corresponds to <code>implicitly</code> in Scala 2.
@@ -14784,7 +14829,7 @@ asked for.</p>
 <p>Context bounds are the same in both language versions. They expand to the respective forms of implicit parameters.</p>
 <p><strong>Note:</strong> To ease migration, context bounds in Dotty map for a limited time to old-style implicit parameters for which arguments can be passed either with <code>given</code> or
 with a normal application. Once old-style implicits are deprecated, context bounds
-will map to inferable parameters instead.</p>
+will map to given clauses instead.</p>
 <h3><a href="#extension-methods" id="extension-methods">Extension Methods</a></h3>
 <p>Extension methods have no direct counterpart in Scala 2, but they can be simulated with implicit classes. For instance, the extension method</p>
 <pre><code class="language-scala">  def (c: Circle) circumference: Double = c.radius * math.Pi * 2
@@ -14797,8 +14842,8 @@ will map to inferable parameters instead.</p>
 <p>Extension methods in implicit instances have no direct counterpart in Scala-2. The only way to simulate these is to make implicit classes available through imports. The Simulacrum macro library can automate this process in some cases.</p>
 <h3><a href="#typeclass-derivation" id="typeclass-derivation">Typeclass Derivation</a></h3>
 <p>Typeclass derivation has no direct counterpart in the Scala 2 language. Comparable functionality can be achieved by macro-based libraries such as Shapeless, Magnolia, or scalaz-deriving.</p>
-<h3><a href="#context-query-types" id="context-query-types">Context Query types</a></h3>
-<p>Context Query types have no analogue in Scala 2.</p>
+<h3><a href="#contextual-function-types" id="contextual-function-types">Contextual Function Types</a></h3>
+<p>Contextual function types have no analogue in Scala 2.</p>
 <h3><a href="#implicit-by-name-parameters" id="implicit-by-name-parameters">Implicit By-Name Parameters</a></h3>
 <p>Implicit by-name parameters are not supported in Scala 2, but can be emulated to some degree by the <code>Lazy</code> type in Shapeless.</p>
 <h2><a href="#simulating-scala-2-implicits-in-dotty" id="simulating-scala-2-implicits-in-dotty">Simulating Scala 2 Implicits in Dotty</a></h2>
@@ -14823,7 +14868,7 @@ of the <code>scala.Conversion</code> class in Dotty. E.g. instead of</p>
   implied for Position = pos
 </code></pre>
 <h3><a href="#abstract-implicits" id="abstract-implicits">Abstract Implicits</a></h3>
-<p>An abstract implicit <code>val</code> or <code>def</code> in Scala 2 can be expressed in Dotty using a regular abstract definition and an implied alias. E.g., Scala 2's</p>
+<p>An abstract implicit <code>val</code> or <code>def</code> in Scala 2 can be expressed in Dotty using a regular abstract definition and an implied alias instaance. E.g., Scala 2's</p>
 <pre><code class="language-scala">  implicit def symDeco: SymDeco
 </code></pre>
 <p>can be expressed in Dotty as</p>

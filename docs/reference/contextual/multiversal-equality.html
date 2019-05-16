@@ -6555,6 +6555,30 @@
                 
 
                 
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">CacheAliasImplicits</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -14738,7 +14762,7 @@ The example above would not typecheck if <code>S</code> or <code>T</code> was a 
 that derives <code>Eql</code>, e.g.</p>
 <pre><code class="language-scala">class T derives Eql
 </code></pre>
-<p>Alternatively, one can also provide the derived implied instance directly, like this:</p>
+<p>Alternatively, one can also define an <code>Eql</code> instance directly, like this:</p>
 <pre><code class="language-scala">implied for Eql[T, T] = Eql.derived
 </code></pre>
 <p>This definition effectively says that values of type <code>T</code> can (only) be
@@ -14773,12 +14797,12 @@ over all types that do not themselves have an <code>Eql</code> instance.  <code>
 defined as follows:</p>
 <pre><code class="language-scala">def eqlAny[L, R]: Eql[L, R] = Eql.derived
 </code></pre>
-<p>Even though <code>eqlAny</code> is not declared <code>implied</code>, the compiler will still
+<p>Even though <code>eqlAny</code> is not declared with an <code>implied</code> clause, the compiler will still
 construct an <code>eqlAny</code> instance as answer to an implicit search for the
 type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have <code>Eql</code> instances
 defined on them, or the language feature <code>strictEquality</code> is enabled</p>
 <p>The primary motivation for having <code>eqlAny</code> is backwards compatibility,
-if this is of no concern one can disable <code>eqlAny</code> by enabling the language
+if this is of no concern, one can disable <code>eqlAny</code> by enabling the language
 feature <code>strictEquality</code>. As for all language features this can be either
 done with an import</p>
 <pre><code class="language-scala">import scala.language.strictEquality
@@ -14790,7 +14814,7 @@ done with an import</p>
 </code></pre>
 <p>By the usual rules if <a href="./derivation.html">typeclass derivation</a>,
 this generates the following <code>Eql</code> instance in the companion object of <code>Box</code>:</p>
-<pre><code class="language-scala">implied [T, U] given Eql[T, U] for Eql[Box[T], Box[U]] = Eql.derived
+<pre><code class="language-scala">implied [T, U] for Eql[Box[T], Box[U]] given Eql[T, U] = Eql.derived
 </code></pre>
 <p>That is, two boxes are comparable with <code>==</code> or <code>!=</code> if their elements are. Examples:</p>
 <pre><code class="language-scala">new Box(1) == new Box(1L)   // ok since `Eql[Int, Long]` is an implied instance
@@ -14826,7 +14850,7 @@ succeeds.</li>
 - the primitive types <code>Byte</code>, <code>Short</code>, <code>Char</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>,  and <code>Unit</code>,
 - <code>java.lang.Number</code>, <code>java.lang.Boolean</code>, and <code>java.lang.Character</code>,
 - <code>scala.collection.Seq</code>, and <code>scala.collection.Set</code>.</p>
-<p>Implied instances are defined so that everyone of these types is has a reflexive <code>Eql</code> instance, and the following holds:</p>
+<p>Implied instances are defined so that every one of these types has a reflexive <code>Eql</code> instance, and the following holds:</p>
 <ul>
 <li>Primitive numeric types can be compared with each other.</li>
 <li>Primitive numeric types can be compared with subtypes of <code>java.lang.Number</code> (and <em>vice versa</em>).</li>

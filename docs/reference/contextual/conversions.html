@@ -6555,6 +6555,30 @@
                 
 
                 
+                <li class="hidden-by-default  with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits$.html">O</a>
+                        
+                        <a class="letter-anchor class" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/dotty/tools/dotc/transform/CacheAliasImplicits.html">CacheAliasImplicits</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default ">
                 <!-- end li setter -->
 
@@ -14726,7 +14750,7 @@ This class is defined in package <code>scala</code> as follows:</p>
   def apply(str: String): Token = new KeyWord(str)
 }
 </code></pre>
-<p>Using an implied alias this can be expressed more concisely as:</p>
+<p>Using an implied alias instance this can be expressed more concisely as:</p>
 <pre><code class="language-scala">implied for Conversion[String, Token] = new KeyWord(_)
 </code></pre>
 <p>An implicit conversion is applied automatically by the compiler in three situations:</p>
@@ -14736,7 +14760,7 @@ This class is defined in package <code>scala</code> as follows:</p>
 <li>In an application <code>e.m(args)</code> with <code>e</code> of type <code>T</code>, if <code>T</code> does define
 some member(s) named <code>m</code>, but none of these members can be applied to the arguments <code>args</code>.</li>
 </ol>
-<p>In the first case, the compiler looks in the implied scope for a an instance of
+<p>In the first case, the compiler looks for an implied instance of
 <code>scala.Conversion</code> that maps an argument of type <code>T</code> to type <code>S</code>. In the second and third
 case, it looks for an instance of <code>scala.Conversion</code> that maps an argument of type <code>T</code>
 to a type that defines a member <code>m</code> which can be applied to <code>args</code> if present.
@@ -14769,9 +14793,9 @@ conversion from <code>Int</code> to <code>java.lang.Integer</code> can be define
     //
     //   CompletionArg.fromStatusCode(statusCode)
 
-    implied fromString for Conversion[String, CompletionArg] = Error(_)
-    implied fromFuture for Conversion[Future[HttpResponse], CompletionArg] = Response(_)
-    implied fromStatusCode for Conversion[Future[StatusCode], CompletionArg] = Status(_)
+    implied fromString     for Conversion[String, CompletionArg]               = Error(_)
+    implied fromFuture     for Conversion[Future[HttpResponse], CompletionArg] = Response(_)
+    implied fromStatusCode for Conversion[Future[StatusCode], CompletionArg]   = Status(_)
   }
   import CompletionArg._
 
