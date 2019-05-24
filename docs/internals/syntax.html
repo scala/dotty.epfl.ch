@@ -2305,6 +2305,7 @@ package   private   protected override  return    super     sealed    then
 throw     trait     true      try       type      val       var       while
 with      yield
 :         =         &lt;-        =&gt;        &lt;:        :&gt;        #         @
+=&gt;&gt;
 </code></pre>
 <h3><a href="#soft-keywords" id="soft-keywords">Soft keywords</a></h3>
 <pre><code>derives   inline    opaque
@@ -2336,7 +2337,7 @@ ClassQualifier    ::=  ‘[’ id ‘]’
 </code></pre>
 <h3><a href="#types" id="types">Types</a></h3>
 <pre><code class="language-ebnf">Type              ::=  { ‘erased’ | ‘given’} FunArgTypes ‘=&gt;’ Type              Function(ts, t)
-                    |  HkTypeParamClause ‘=&gt;’ Type                              TypeLambda(ps, t)
+                    |  HkTypeParamClause ‘=&gt;&gt;’ Type                              TypeLambda(ps, t)
                     |  MatchType
                     |  InfixType
 FunArgTypes       ::=  InfixType

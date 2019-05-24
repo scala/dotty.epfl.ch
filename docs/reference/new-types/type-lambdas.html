@@ -2222,7 +2222,7 @@
         <div id="doc-page-container">
             <p>A <em>type lambda</em> lets one express a higher-kinded type directly, without
 a type definition.</p>
-<pre><code>[+X, Y] =&gt; Map[Y, X]
+<pre><code>[+X, Y] =&gt;&gt; Map[Y, X]
 </code></pre>
 <p>For instance, the type above defines a binary type constructor, with a
 covariant parameter <code>X</code> and a non-variant parameter <code>Y</code>. The
@@ -2233,7 +2233,7 @@ definition or declaration such as</p>
 </code></pre>
 <p>is a shorthand for a plain type definition with a type-lambda as its
 right-hand side:</p>
-<pre><code>type T = [X] =&gt; (X, X)
+<pre><code>type T = [X] =&gt;&gt; (X, X)
 </code></pre>
 <p><a href="./type-lambdas-spec.html">More details</a></p>
 

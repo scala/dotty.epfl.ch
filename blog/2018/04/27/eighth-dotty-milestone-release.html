@@ -2269,8 +2269,8 @@ def foo[T](x: T) = x match {
 <p>Normally type parameters in Scala are partitioned into kinds. First-level types are types of values.
 Higher-kinded types are type constructors such as <code>List</code> or <code>Map</code>. The kind of a type is indicated
 by the top type of which it is a subtype. Normal types are subtypes of <code>Any</code>, covariant single
-argument type constructors such as List are subtypes of <code>[+X] =&gt; Any</code>, and the <code>Map</code> type
-constructor is a subtype of <code>[X, +Y] =&gt; Any</code>.</p>
+argument type constructors such as List are subtypes of <code>[+X] =&gt;&gt; Any</code>, and the <code>Map</code> type
+constructor is a subtype of <code>[X, +Y] =&gt;&gt; Any</code>.</p>
 <p>Sometimes we would like to have type parameters that can have more than one kind, for instance to
 define an implicit value that works for parameters of any kind. This is now possible through a form
 of (subtype) kind polymorphism. Kind polymorphism relies on the special type <code>scala.AnyKind</code> that
@@ -2282,7 +2282,7 @@ legal:</p>
 <pre><code class="language-scala">f[Int]
 f[List]
 f[Map]
-f[[X] =&gt; String]
+f[[X] =&gt;&gt; String]
 </code></pre>
 <p><strong>Note</strong>: This feature is considered experimental and is only enabled under a compiler flag
 (i.e. <code>-Ykind-polymorphism</code>). For more information, visit the <a href="https://dotty.epfl.ch/docs/reference/kind-polymorphism.html">Kind Polymorphism</a>

@@ -2221,18 +2221,18 @@
         <hr/>
         <div id="doc-page-container">
             <h2><a href="#syntax" id="syntax">Syntax</a></h2>
-<pre><code>Type              ::=  ... |  HkTypeParamClause ‘=&gt;’ Type
+<pre><code>Type              ::=  ... |  HkTypeParamClause ‘=&gt;&gt;’ Type
 HkTypeParamClause ::=  ‘[’ HkTypeParam {‘,’ HkTypeParam} ‘]’
 HkTypeParam       ::=  {Annotation} [‘+’ | ‘-’] (Id[HkTypeParamClause] | ‘_’) TypeBounds
 TypeBounds        ::=  [‘&gt;:’ Type] [‘&lt;:’ Type]
 </code></pre>
 <h3><a href="#type-checking" id="type-checking">Type Checking</a></h3>
-<p>A type lambda such <code>[X] =&gt; F[X]</code> defines a function from types to types. The parameter(s) may carry bounds and variance annotations.
-If a parameter is is bounded, as in <code>[X &gt;: L &lt;: H] =&gt; F[X]</code> it is checked that arguments to the parameters conform to the bounds <code>L</code> and <code>H</code>.
+<p>A type lambda such <code>[X] =&gt;&gt; F[X]</code> defines a function from types to types. The parameter(s) may carry bounds and variance annotations.
+If a parameter is is bounded, as in <code>[X &gt;: L &lt;: H] =&gt;&gt; F[X]</code> it is checked that arguments to the parameters conform to the bounds <code>L</code> and <code>H</code>.
 Only the upper bound <code>H</code> can be F-bounded, i.e. <code>X</code> can appear in it.</p>
 <p>A variance annotation on a parameter indicates a subtyping relationship on type instances. For instance, given</p>
-<pre><code class="language-scala">type TL1 = [+A] =&gt; F[A]
-type TL2 = [-A] =&gt; F[A]
+<pre><code class="language-scala">type TL1 = [+A] =&gt;&gt; F[A]
+type TL2 = [-A] =&gt;&gt; F[A]
 </code></pre>
 <p>and two types <code>S &lt;: T</code>, we have</p>
 <pre><code class="language-scala">TL1[S] &lt;: TL1[T]
@@ -2243,8 +2243,8 @@ TL2[T] &lt;: TL2[S]
 (<code>scalac</code> doesn't check variances in bounds either).</p>
 <h2><a href="#subtyping-rules" id="subtyping-rules">Subtyping Rules</a></h2>
 <p>Assume two type lambdas</p>
-<pre><code class="language-scala">type TL1  =  [v1 X &gt;: L1 &lt;: U1] =&gt; R1
-type TL2  =  [v2 X &gt;: L2 &lt;: U2] =&gt; R2
+<pre><code class="language-scala">type TL1  =  [v1 X &gt;: L1 &lt;: U1] =&gt;&gt; R1
+type TL2  =  [v2 X &gt;: L2 &lt;: U2] =&gt;&gt; R2
 </code></pre>
 <p>where <code>v1</code> and <code>v2</code> are optional variance annotations: <code>+</code>, <code>-</code>, or absent.
 Then <code>TL1 &lt;: TL2</code>, if</p>
@@ -2256,41 +2256,41 @@ Then <code>TL1 &lt;: TL2</code>, if</p>
 </ul>
 <p>Here we have relied on alpha renaming to bring match the two bound types <code>X</code>.</p>
 <p>A partially applied type constructor such as <code>List</code> is assumed to be equivalent to
-its eta expansion. I.e, <code>List = [+X] =&gt; List[X]</code>. This allows type constructors
+its eta expansion. I.e, <code>List = [+X] =&gt;&gt; List[X]</code>. This allows type constructors
 to be compared with type lambdas.</p>
 <h2><a href="#relationship-with-parameterized-type-definitions" id="relationship-with-parameterized-type-definitions">Relationship with Parameterized Type Definitions</a></h2>
 <p>A parameterized type definition</p>
 <pre><code class="language-scala">type T[X] = R
 </code></pre>
 <p>is regarded as a shorthand for an unparameterized definition with a type lambda as right-hand side:</p>
-<pre><code class="language-scala">type T = [X] =&gt; R
+<pre><code class="language-scala">type T = [X] =&gt;&gt; R
 </code></pre>
 <p>A parameterized abstract type</p>
 <pre><code class="language-scala">type T[X] &gt;: L &lt;: U
 </code></pre>
 <p>is regarded as shorthand for an unparameterized abstract type with type lambdas as bounds.</p>
-<pre><code class="language-scala">type T &gt;: ([X] =&gt; L) &lt;: ([X] =&gt; U)
+<pre><code class="language-scala">type T &gt;: ([X] =&gt;&gt; L) &lt;: ([X] =&gt;&gt; U)
 </code></pre>
 <p>However, if <code>L</code> is <code>Nothing</code> it is not parameterized, since <code>Nothing</code> is treated as a bottom type for all kinds. For instance,</p>
 <pre><code class="language-scala">type T[-X] &lt;: X =&gt; ()
 </code></pre>
 <p>is expanded to</p>
-<pre><code class="language-scala">type T &gt;: Nothing &lt;: ([-X] =&gt; X =&gt; ())
+<pre><code class="language-scala">type T &gt;: Nothing &lt;: ([-X] =&gt;&gt; X =&gt; ())
 </code></pre>
 <p>instead of</p>
-<pre><code class="language-scala">type T &gt;: ([X] =&gt; Nothing) &lt;: ([-X] =&gt; X =&gt; ())
+<pre><code class="language-scala">type T &gt;: ([X] =&gt;&gt; Nothing) &lt;: ([-X] =&gt;&gt; X =&gt; ())
 </code></pre>
 <p>The same expansions apply to type parameters. E.g.</p>
 <pre><code class="language-scala">[F[X] &lt;: Coll[X]]
 </code></pre>
 <p>is treated as a shorthand for</p>
-<pre><code class="language-scala">[F &gt;: Nothing &lt;: [X] =&gt; Coll[X]]
+<pre><code class="language-scala">[F &gt;: Nothing &lt;: [X] =&gt;&gt; Coll[X]]
 </code></pre>
 <p><strong>Note</strong>: The decision to treat <code>Nothing</code> as universal bottom type is provisional, and might be changed afer further discussion.</p>
 <p><strong>Note</strong>: Scala 2 and 3 differ in that Scala 2 also treats <code>Any</code> as universal top-type. This is not done in Scala 3. See also the discussion on <a href="./kind-polymorphism.html">kind polymorphism</a></p>
 <h2><a href="#curried-type-parameters" id="curried-type-parameters">Curried Type Parameters</a></h2>
 <p>The body of a type lambda can again be a type lambda. Example:</p>
-<pre><code class="language-scala">type TL = [X] =&gt; [Y] =&gt; (X, Y)
+<pre><code class="language-scala">type TL = [X] =&gt;&gt; [Y] =&gt;&gt; (X, Y)
 </code></pre>
 <p>Currently, no special provision is made to infer type arguments to such curried type lambdas. This is left for future work.</p>
 

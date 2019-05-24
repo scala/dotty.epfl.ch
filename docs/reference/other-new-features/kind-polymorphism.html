@@ -2222,9 +2222,9 @@
         <div id="doc-page-container">
             <p>Normally type parameters in Scala are partitioned into <em>kinds</em>. First-level types are types of values. Higher-kinded types are type constructors
 such as <code>List</code> or <code>Map</code>. The kind of a type is indicated by the top type of which it is a subtype. Normal types are subtypes of <code>Any</code>,
-covariant single argument type constructors such as <code>List</code> are subtypes of <code>[+X] =&gt; Any</code>, and the <code>Map</code> type constructor is
-a subtype of <code>[X, +Y] =&gt; Any</code>.</p>
-<p>A type can be used only as prescribed by its kind. Subtypes of <code>Any</code> cannot be applied to type arguments whereas subtypes of <code>[X] =&gt; Any</code>
+covariant single argument type constructors such as <code>List</code> are subtypes of <code>[+X] =&gt;&gt; Any</code>, and the <code>Map</code> type constructor is
+a subtype of <code>[X, +Y] =&gt;&gt; Any</code>.</p>
+<p>A type can be used only as prescribed by its kind. Subtypes of <code>Any</code> cannot be applied to type arguments whereas subtypes of <code>[X] =&gt;&gt; Any</code>
 <em>must</em> be applied to a type argument, unless they are passed to type parameters of the same kind.</p>
 <p>Sometimes we would like to have type parameters that can have more than one kind, for instance to define an implicit
 value that works for parameters of any kind. This is now possible through a form of (<em>subtype</em>) kind polymorphism.
@@ -2235,7 +2235,7 @@ Kind polymorphism relies on the special type <code>scala.AnyKind</code> that can
 <pre><code class="language-scala">f[Int]
 f[List]
 f[Map]
-f[[X] =&gt; String]
+f[[X] =&gt;&gt; String]
 </code></pre>
 <p>We call type parameters and abstract types with an <code>AnyKind</code> upper bound <em>any-kinded types</em>`.
 Since the actual kind of an any-kinded type is unknown, its usage must be heavily restricted: An any-kinded type
