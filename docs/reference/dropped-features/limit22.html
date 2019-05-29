@@ -204,7 +204,9 @@
 </li>
 <li><a href="../../../.././docs/reference/other-new-features/erased-terms.html">Erased Terms</a>
 </li>
-<li><a href="../../../.././docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a></li>
+<li><a href="../../../.././docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a>
+</li>
+<li><a href="../../../.././docs/reference/other-new-features/tupled-function.html">Tupled Function</a></li>
 </ul>
 
 </li>
@@ -711,6 +713,24 @@
                 
 
                 
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor trait" href="../../../.././api/scala/TupledFunction.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/TupledFunction.html">TupledFunction</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default  with-companion ">
                 <!-- end li setter -->
 
@@ -1142,6 +1162,24 @@
                         <a class="letter-anchor object" href="../../../.././api/scala/internal/Quoted$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/internal/Quoted$.html">Quoted</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/scala/internal/TupledFunction$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/internal/TupledFunction$.html">TupledFunction</a>
                 </li>
 
                 
@@ -2223,8 +2261,9 @@
             <p>The limits of 22 for the maximal number of parameters of function types
 and the maximal number of fields in tuple types have been dropped.</p>
 <p>Functions can now have an arbitrary number of
-parameters. Functions beyond Function22 are represented with a new trait
-<code>scala.FunctionXXL</code>.</p>
+parameters. Functions beyond Function22 are erased to a new trait
+<code>scala.FunctionXXL</code> and tuples beyond Tuple22 are erased to a new trait <code>scala.TupleXXL</code>.
+Both of these are implemented using arrays.</p>
 <p>Tuples can also have an arbitrary number of fields. Furthermore, they support generic operation such as concatenation and indexing.</p>
 
         </div>
