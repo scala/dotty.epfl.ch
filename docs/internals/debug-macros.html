@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title></title>
+        <title>Debug Macros</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -110,7 +110,7 @@
         
         <li><a href="../../.././blog/index.html">Blog</a></li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "scala");'>Usage</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "internals");'>Usage</a>
 <ul id="">
     <li><a href="../../.././docs/usage/getting-started.html">Getting Started</a>
 </li>
@@ -126,11 +126,11 @@
 </ul>
 </li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "scala");'>Reference</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "internals");'>Reference</a>
 <ul id="">
     <li><a href="../../.././docs/reference/overview.html">Overview</a>
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "scala");'>New Types</a>
+<li><a class="toggle-children" onclick='clickToc(this, "internals");'>New Types</a>
 <ul id="">
     <li><a href="../../.././docs/reference/new-types/intersection-types.html">Intersection types</a>
 </li>
@@ -144,7 +144,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "scala");'>Enums</a>
+<li><a class="toggle-children" onclick='clickToc(this, "internals");'>Enums</a>
 <ul id="">
     <li><a href="../../.././docs/reference/enums/enums.html">Enumerations</a>
 </li>
@@ -154,7 +154,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "scala");'>Contextual Abstractions</a>
+<li><a class="toggle-children" onclick='clickToc(this, "internals");'>Contextual Abstractions</a>
 <ul id="">
     <li><a href="../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
@@ -184,7 +184,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "scala");'>Other New Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "internals");'>Other New Features</a>
 <ul id="">
     <li><a href="../../.././docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>
 </li>
@@ -210,7 +210,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "scala");'>Other Changed Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "internals");'>Other Changed Features</a>
 <ul id="">
     <li><a href="../../.././docs/reference/changed-features/lazy-vals.html">Volatile Lazy Vals</a>
 </li>
@@ -240,7 +240,7 @@
 </ul>
 
 </li>
-<li><a class="toggle-children" onclick='clickToc(this, "scala");'>Dropped Features</a>
+<li><a class="toggle-children" onclick='clickToc(this, "internals");'>Dropped Features</a>
 <ul id="">
     <li><a href="../../.././docs/reference/dropped-features/delayed-init.html">DelayedInit</a>
 </li>
@@ -272,7 +272,7 @@
 </ul>
 </li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "scala");'>Contributing</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "internals");'>Contributing</a>
 <ul id="">
     <li><a href="../../.././docs/contributing/getting-started.html">Getting Started</a>
 </li>
@@ -288,8 +288,8 @@
 </ul>
 </li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "scala");'>Internals</a>
-<ul id="">
+        <li><a class="toggle-children" onclick='clickToc(this, "internals");'>Internals</a>
+<ul id="active-toc-entry">
     <li><a href="../../.././docs/internals/backend.html">Backend</a>
 </li>
 <li><a href="../../.././docs/internals/classpaths.html">Classpaths</a>
@@ -316,7 +316,7 @@
 </ul>
 </li>
         
-        <li><a class="toggle-children" onclick='clickToc(this, "scala");'>Resources</a>
+        <li><a class="toggle-children" onclick='clickToc(this, "internals");'>Resources</a>
 <ul id="">
     <li><a href="../../.././docs/resources/talks.html">Talks</a></li>
 </ul>
@@ -2253,133 +2253,35 @@
 </script>
 
 
-    <script>
-        document.title = "Dotty Docs - Product0"
-    </script>
+    <div id="content-body" class="doc-page-body">
+        <h1 id="doc-page-title">Debug Macros</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/internals/debug-macros.md">
+            Edit this page on GitHub
+        </a>
+        <hr/>
+        <div id="doc-page-container">
+            <p>Complex macros may break invariants of the compiler, which leads to compiler crashes.
+Here we lists common compiler crashes and how to deal with them.</p>
+<h2><a href="#position-not-set" id="position-not-set">position not set</a></h2>
+<p>For this problem, here is the log that is usually shown:</p>
+<pre><code>[error] assertion failed: position not set for org.scalactic.anyvals.PosZInt.+$extension3(SizeParam.this.minSize)(
+[error]   org.scalactic.anyvals.PosZInt.widenToInt(SizeParam.this.sizeRange)
+[error] ) # 2326942 of class dotty.tools.dotc.ast.Trees$Apply in library/src-bootstrapped/scala/tasty/reflect/utils/TreeUtils.scala
+</code></pre>
+<p>To debug why the position is not set, note the tree id <code>2326942</code>, and enable
+the following compiler option:</p>
+<pre><code>-Ydebug-tree-with-id 2326942
+</code></pre>
+<p>With the option above, the compiler will crash when the tree is created. From
+the stack trace, we will be able to figure out where the tree is created.</p>
+<p>If the position is in the compiler, then either report a compiler bug or
+fix the problem with <code>.withSpan(tree.span)</code>. The following fix is an example:</p>
+<ul>
+<li><a href="https://github.com/lampepfl/dotty/pull/6581">https://github.com/lampepfl/dotty/pull/6581</a></li>
+</ul>
 
-    <div id="content-body">
-        <div id="entity-container">
-            <div id="entity-title">
-                <span id="entity-annotations">
-                    
-                </span>
-                <span id="entity-modifiers">
-                    
-                </span>
-                <span id="entity-kind">
-                    object
-                </span>
-                <span id="entity-name">
-                    Product0
-                </span>
-                
-                
-                <div id="super-types">
-                    
-                    
-                    <span class="keyword">extends</span>
-                    
-                    <span class="entity-super-type">Object</span>
-                    
-                    
-                    <span class="keyword">with</span>
-                    
-                    <span class="entity-super-type">Serializable</span>
-                    
-                </div>
-                
-            </div>
-
-            
-            <div id="entity-body" class="entity-section">
-                <p>A class for Product0 which was missing from the scala distribution.</p>
-
-            </div>
-            
-
-            <h1 class="section empty">
-                <span class="expand-button visibleinvisible" onclick="toggleMembersBody(this, 'constructors');">[-]</span>
-                Constructors
-            </h1>
-
-            <div id="entity-constructors" class="entity-section empty">
-                
-            </div>
-
-            <h1 class="section ">
-              <span class="expand-button visible" onclick="toggleMembersBody(this, 'members');">[-]</span>
-                Members
-            </h1>
-
-            <div id="entity-members" class="entity-section ">
-                
-                <div id="unapply(x)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'unapply(x)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                unapply
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        x:
-                                    </span>
-                                    <a href="../../.././api/scala/Product0.html">Product0</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Option
-<span class="no-left no-right">[</span>
-<a href="../../.././api/scala/Product0.html">Product0</a>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-unapply(x)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <script>
-                    function toggleMembersBody(span, arg){
-                        var members = document.getElementById("entity-" + arg);
-                        members.classList.toggle("toggled");
-                        span.innerHTML = (span.innerHTML == "[-]") ?  "[+]" : "[-]";
-                    }
-
-                    function toggleMemberBody(span, sig) {
-                        var longBody = document.getElementById("long-body-" + sig);
-                        longBody.classList.toggle("toggled")
-                        span.innerHTML = (span.innerHTML == "[+]") ?  "[-]" : "[+]";
-                    }
-                </script>
-            </div>
-        </div><!-- end entity-container -->
-    </div>
-
+        </div>
+    </div><!-- end content-body -->
 </div><!-- end content-wrapper -->
 
         <script src="../../.././js/jquery.min.js"></script>
