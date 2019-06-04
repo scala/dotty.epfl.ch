@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-03 -->
+<!-- This page was last generated on 2019-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2588,8 +2588,11 @@ Annotation        ::=  ‘@’ SimpleType {ParArgumentExprs}                    
 
 Import            ::=  ‘import’ [‘implied’] ImportExpr {‘,’ ImportExpr}
 ImportExpr        ::=  StableId ‘.’ (id | ‘_’ | ImportSelectors)                Import(expr, sels)
-ImportSelectors   ::=  ‘{’ {ImportSelector ‘,’} (ImportSelector | ‘_’) ‘}’
-ImportSelector    ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’]                                  Ident(name), Pair(id, id)
+ImportSelectors   ::=  ‘{’ {ImportSelector ‘,’} FinalSelector ‘}’
+FinalSelector     ::=  ImportSelector                                           Ident(name)
+                    |  ‘_’                                                      Pair(id, id)
+                    |  ‘for’ InfixType {‘,’ InfixType}                          TypeBoundsTree(EmptyTree, tpt)
+ImportSelector    ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’]
 Export            ::=  ‘export’ [‘implied’] ImportExpr {‘,’ ImportExpr}
 </code></pre>
 <h3><a href="#declarations-and-definitions" id="declarations-and-definitions">Declarations and Definitions</a></h3>
