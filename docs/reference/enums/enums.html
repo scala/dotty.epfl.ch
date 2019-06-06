@@ -2382,22 +2382,20 @@ companion object.</p>
 explicit extends clause.</p>
 <h3><a href="#methods-defined-for-enums" id="methods-defined-for-enums">Methods defined for enums</a></h3>
 <p>The values of an enum correspond to unique integers. The integer
-associated with an enum value is returned by its <code>enumTag</code> method:</p>
+associated with an enum value is returned by its <code>ordinal</code> method:</p>
 <pre><code class="language-scala">scala&gt; val red = Color.Red
 val red: Color = Red
-scala&gt; red.enumTag
+scala&gt; red.ordinal
 val res0: Int = 0
 </code></pre>
-<p>The companion object of an enum also defines three utility methods.
-The <code>enumValue</code> and <code>enumValueNamed</code> methods obtain an enum value
-by its tag or its name. The <code>enumValues</code> method returns all enum values
-defined in an enumeration in an <code>Iterable</code>.</p>
-<pre><code class="language-scala">scala&gt; Color.enumValue(1)
-val res1: Color = Green
-scala&gt; Color.enumValueNamed(&quot;Blue&quot;)
-val res2: Color = Blue
-scala&gt; Color.enumValues
-val res3: collection.Iterable[Color] = MapLike(Red, Green, Blue)
+<p>The companion object of an enum also defines two utility methods.
+The <code>valueOf</code> method obtains an enum value
+by its name. The <code>values</code> method returns all enum values
+defined in an enumeration in an <code>Array</code>.</p>
+<pre><code class="language-scala">scala&gt; Color.valueOf(&quot;Blue&quot;)
+val res0: Color = Blue
+scala&gt; Color.values
+val res1: Array[Color] = Array(Red, Green, Blue)
 </code></pre>
 <h3><a href="#user-defined-members-of-enums" id="user-defined-members-of-enums">User-defined members of enums</a></h3>
 <p>It is possible to add your own definitions to an enum. Example:</p>
@@ -2421,28 +2419,37 @@ val res3: collection.Iterable[Color] = MapLike(Red, Green, Blue)
   def main(args: Array[String]) = {
     val earthWeight = args(0).toDouble
     val mass = earthWeight / Earth.surfaceGravity
-    for (p &lt;- enumValues)
+    for (p &lt;- values)
       println(s&quot;Your weight on $p is ${p.surfaceWeight(mass)}&quot;)
   }
 }
 </code></pre>
+<h3><a href="#compatibility-with-java-enums" id="compatibility-with-java-enums">Compatibility with Java Enums</a></h3>
+<p>If you want to use the Scala-defined enums as Java enums, you can do so by extending <code>compat.JEnum</code> class as follows:</p>
+<pre><code class="language-scala">enum Color extends compat.JEnum[Color] { case Red, Green, Blue }
+</code></pre>
+<p>The type parameter comes from the Java enum <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/lang/Enum.html">definition</a> and should me the same as the type of the enum. The compiler will transform the definition above so that <code>Color</code> extends <code>java.lang.Enum</code>.</p>
+<p>After defining <code>Color</code> like that, you can use like you would a Java enum:</p>
+<pre><code class="language-scala">scala&gt; Color.Red.compareTo(Color.Green)
+val res15: Int = -1
+</code></pre>
 <h3><a href="#implementation" id="implementation">Implementation</a></h3>
 <p>Enums are represented as <code>sealed</code> classes that extend the <code>scala.Enum</code> trait.
-This trait defines a single method, <code>enumTag</code>:</p>
+This trait defines a single public method, <code>ordinal</code>:</p>
 <pre><code class="language-scala">package scala
 
 /** A base trait of all enum classes */
 trait Enum {
 
   /** A number uniquely identifying a case of an enum */
-  def enumTag: Int
+  def ordinal: Int
 }
 </code></pre>
 <p>Enum values with <code>extends</code> clauses get expanded to anonymous class instances.
 For instance, the <code>Venus</code> value above would be defined like this:</p>
 <pre><code class="language-scala">val Venus: Planet =
   new Planet(4.869E24, 6051800.0) {
-    def enumTag: Int = 1
+    def ordinal: Int = 1
     override def toString: String = &quot;Venus&quot;
     // internal code to register value
   }
