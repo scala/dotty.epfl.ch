@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-06 -->
+<!-- This page was last generated on 2019-06-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -794,6 +794,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../../../.././api/scala/IArray$package$/arrayOps$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/IArray$package$/arrayOps$.html">arrayOps</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor object" href="../../../.././api/scala/deriving$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/deriving$.html">deriving</a>
@@ -1068,6 +1086,24 @@
                         <a class="letter-anchor class" href="../../../.././api/scala/annotation/internal/SourceFile.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/annotation/internal/SourceFile.html">SourceFile</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../.././api/scala/annotation/internal/WithBounds.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/annotation/internal/WithBounds.html">WithBounds</a>
                 </li>
 
                 
@@ -2464,15 +2500,10 @@ that would otherwise be necessary.</p>
 <pre><code class="language-scala">object PostConditions {
   opaque type WrappedResult[T] = T
 
-  private object WrappedResult {
-    def wrap[T](x: T): WrappedResult[T] = x
-    def unwrap[T](x: WrappedResult[T]): T = x
-  }
-
-  def result[T] given (r: WrappedResult[T]): T = WrappedResult.unwrap(r)
+  def result[T] given (r: WrappedResult[T]): T = f
 
   def (x: T) ensuring [T](condition: given WrappedResult[T] =&gt; Boolean): T = {
-    implied for WrappedResult[T] = WrappedResult.wrap(x)
+    implied for WrappedResult[T] = x
     assert(condition)
     x
   }

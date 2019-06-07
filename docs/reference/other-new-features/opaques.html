@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-06 -->
+<!-- This page was last generated on 2019-06-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -794,6 +794,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../../../.././api/scala/IArray$package$/arrayOps$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/IArray$package$/arrayOps$.html">arrayOps</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor object" href="../../../.././api/scala/deriving$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/deriving$.html">deriving</a>
@@ -1068,6 +1086,24 @@
                         <a class="letter-anchor class" href="../../../.././api/scala/annotation/internal/SourceFile.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/annotation/internal/SourceFile.html">SourceFile</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../.././api/scala/annotation/internal/WithBounds.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/annotation/internal/WithBounds.html">WithBounds</a>
                 </li>
 
                 
@@ -2363,33 +2399,38 @@
         <hr/>
         <div id="doc-page-container">
             <p>Opaque types aliases provide type abstraction without any overhead. Example:</p>
-<pre><code class="language-scala">opaque type Logarithm = Double
-</code></pre>
-<p>This introduces <code>Logarithm</code> as a new type, which is implemented as <code>Double</code> but is different from it. The fact that <code>Logarithm</code> is the same as <code>Double</code> is only known in the companion object of <code>Logarithm</code>. Here is a possible companion object:</p>
-<pre><code class="language-scala">object Logarithm {
+<pre><code class="language-scala">object Logarithms {
 
-  // These are the ways to lift to the logarithm type
-  def apply(d: Double): Logarithm = math.log(d)
+  opaque type Logarithm = Double
 
-  def safe(d: Double): Option[Logarithm] =
-    if (d &gt; 0.0) Some(math.log(d)) else None
+  object Logarithm {
 
-  // This is the first way to unlift the logarithm type
-  def exponent(l: Logarithm): Double = l
+    // These are the ways to lift to the logarithm type
+    def apply(d: Double): Logarithm = math.log(d)
+
+    def safe(d: Double): Option[Logarithm] =
+      if (d &gt; 0.0) Some(math.log(d)) else None
+  }
 
   // Extension methods define opaque types' public APIs
-  implicit class LogarithmOps(val `this`: Logarithm) extends AnyVal {
-    // This is the second way to unlift the logarithm type
-    def toDouble: Double = math.exp(`this`)
-    def +(that: Logarithm): Logarithm = Logarithm(math.exp(`this`) + math.exp(that))
-    def *(that: Logarithm): Logarithm = Logarithm(`this` + that)
+  implied LogarithmOps {
+    def (x: Logarithm) toDouble: Double = math.exp(x)
+    def (x: Logarithm) + (y: Logarithm): Logarithm = Logarithm(math.exp(x) + math.exp(y))
+    def (x: Logarithm) * (y: Logarithm): Logarithm = Logarithm(x + y)
   }
 }
 </code></pre>
-<p>The companion object contains with the <code>apply</code> and <code>safe</code> methods ways to convert from doubles to <code>Logarithm</code> values. It also adds an <code>exponent</code> function and a decorator that implements <code>+</code> and <code>*</code> on logarithm values, as well as a conversion <code>toDouble</code>. All this is possible because within object <code>Logarithm</code>, the type <code>Logarithm</code> is just an alias of <code>Double</code>.</p>
-<p>Outside the companion object, <code>Logarithm</code> is treated as a new abstract type. So the
+<p>This introduces <code>Logarithm</code> as a new type, which is implemented as <code>Double</code> but is different from it. The fact that <code>Logarithm</code> is the same as <code>Double</code> is only known in the scope where
+<code>Logarithm</code> is defined which in this case is object <code>Logarithms</code>.</p>
+<p>The public API of <code>Logarithm</code> consists of the <code>apply</code> and <code>safe</code> methods that convert from doubles to <code>Logarithm</code> values, an extension method <code>toDouble</code> that converts the other way,
+and operations <code>+</code> and <code>*</code> on logarithm values. The implementations of these functions
+type-check because within object <code>Logarithms</code>, the type <code>Logarithm</code> is just an alias of <code>Double</code>.</p>
+<p>Outside its scope, <code>Logarithm</code> is treated as a new abstract type. So the
 following operations would be valid because they use functionality implemented in the <code>Logarithm</code> object.</p>
-<pre><code class="language-scala">  val l = Logarithm(1.0)
+<pre><code class="language-scala">  import Logarithms._
+  import Predef.{any2stringadd =&gt; _, _}
+
+  val l = Logarithm(1.0)
   val l2 = Logarithm(2.0)
   val l3 = l * l2
   val l4 = l + l2
@@ -2400,8 +2441,51 @@ following operations would be valid because they use functionality implemented i
   l * 2                   // error: found: Int(2), required: Logarithm
   l / l2                  // error: `/` is not a member fo Logarithm
 </code></pre>
-<p><code>opaque</code> is a <a href="../soft-modifier.html">soft modifier</a>.</p>
-<p>For more details, see <a href="https://docs.scala-lang.org/sips/opaque-types.html">Scala SIP 35</a>.</p>
+<p>Aside: the <code>any2stringadd =&gt; _</code> import suppression is necessary since otherwise the universal <code>+</code> operation in <code>Predef</code> would take precedence over the <code>+</code> extension method in <code>LogarithmOps</code>. We plan to resolve this wart by eliminating <code>any2stringadd</code>.</p>
+<h3><a href="#bounds-for-opaque-type-aliases" id="bounds-for-opaque-type-aliases">Bounds For Opaque Type Aliases</a></h3>
+<p>Opaque type aliases can also come with bounds. Example:</p>
+<pre><code class="language-scala">object Access {
+
+  opaque type Permissions = Int
+  opaque type PermissionChoice = Int
+  opaque type Permission &lt;: Permissions &amp; PermissionChoice = Int
+
+  def (x: Permissions) &amp; (y: Permissions): Permissions = x &amp; y
+  def (x: PermissionChoice) | (y: PermissionChoice): PermissionChoice = x | y
+  def (x: Permissions) is (y: Permissions) = (x &amp; y) == y
+  def (x: Permissions) isOneOf (y: PermissionChoice) = (x &amp; y) != 0
+
+  val NoPermission: Permission = 0
+  val ReadOnly: Permission = 1
+  val WriteOnly: Permission = 2
+  val ReadWrite: Permissions = ReadOnly &amp; WriteOnly
+  val ReadOrWrite: PermissionChoice = ReadOnly | WriteOnly
+}
+</code></pre>
+<p>The <code>Access</code> object defines three opaque types:</p>
+<ul>
+<li><code>Permission</code>, representing a single permission,</li>
+<li><code>Permissions</code>, representing a conjunction (logical &quot;and&quot;) of permissions,</li>
+<li><code>PermissionChoice</code>, representing a disjunction (logical &quot;or&quot;) of permissions.</li>
+</ul>
+<p>All three opaque types have the same underlying representation type <code>Int</code>. The
+<code>Permission</code> type has an upper bound <code>Permissions &amp; PermissionChoice</code>. This makes
+it known outside the <code>Access</code> object that <code>Permission</code> is a subtype of the other
+two types.  Hence, the following usage scenario type-checks.</p>
+<pre><code class="language-scala">object User {
+  import Access._
+
+  case class Item(rights: Permissions)
+
+  val x = Item(ReadOnly)  // OK, since Permission &lt;: Permissions
+
+  assert( x.rights.is(ReadWrite) == false )
+  assert( x.rights.isOneOf(ReadOrWrite) == true )
+}
+</code></pre>
+<p>On the other hand, the call <code>x.rights.isOneOf(ReadWrite)</code> would give a type error
+since <code>Permissions</code> and <code>PermissionChoice</code> are different, unrelated types outside <code>Access</code>.</p>
+<p><a href="opaques-details.html">More details</a></p>
 
         </div>
     </div><!-- end content-body -->
