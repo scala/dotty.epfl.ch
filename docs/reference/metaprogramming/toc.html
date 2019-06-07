@@ -280,7 +280,9 @@
 </li>
 <li><a href="../../../.././docs/reference/dropped-features/auto-apply.html">Auto-Application</a>
 </li>
-<li><a href="../../../.././docs/reference/dropped-features/weak-conformance.html">Weak Conformance</a></li>
+<li><a href="../../../.././docs/reference/dropped-features/weak-conformance.html">Weak Conformance</a>
+</li>
+<li><a href="../../../.././docs/reference/dropped-features/nonlocal-returns.html">Nonlocal Returns</a></li>
 </ul>
 </li>
 </ul>
@@ -2350,6 +2352,40 @@
         </li>
     
         <li class="index-entity entity-package">
+            <h1><a class="entity-name" href="../../../.././api/scala/util/index.html">scala.util</a></h1>
+            <ul class="package-entities">
+                <div id="cover-block"></div>
+            
+            </ul>
+        </li>
+    
+        <li class="index-entity entity-package">
+            <h1><a class="entity-name" href="../../../.././api/scala/util/control/index.html">scala.util.control</a></h1>
+            <ul class="package-entities">
+                <div id="cover-block"></div>
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/scala/util/control/NonLocalReturns$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/util/control/NonLocalReturns$.html">NonLocalReturns</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+            </ul>
+        </li>
+    
+        <li class="index-entity entity-package">
             <h1><a class="entity-name" href="../../../.././api/scalaShadowing/index.html">scalaShadowing</a></h1>
             <ul class="package-entities">
                 <div id="cover-block"></div>
@@ -2402,49 +2438,50 @@
 introduce the following fundamental facilities:</p>
 <ol>
 <li>
-<p><a href="./inline.html">Inline</a> <code>inline</code> is a new soft-modifier that guarantees that
+<p><a href="./inline.html">Inline</a> <code>inline</code> is a new modifier that guarantees that
 a definition will be inlined at the point of use. The primary motivation
 behind inline is to reduce the overhead behind function calls and access to
 values. The expansion will be performed by the Scala compiler during the
-<code>Typer</code> compiler phase. However, as opposed to inline in other ecosystems,
+<code>Typer</code> compiler phase. Unlike Scala's existsing
+As opposed to inline in some other ecosystems,
 inlining is not merely a request to the compiler but for Scala it is a
-<em>command</em>. The reason is that inlining in Scala can driver other compile-time
-operations too, like inline pattern matching (enabling type-level
+<em>command</em>. The reason is that inlining in Scala can drive other compile-time
+operations, like inline pattern matching (enabling type-level
 programming), macros (enabling compile-time, generative, metaprogramming) and
-runtime code generation (multi-stage programming). In this section we
-describe up to inline pattern matching describing the basic constructs.</p>
+runtime code generation (multi-stage programming).</p>
 </li>
 <li>
 <p><a href="./macros.html">Macros</a> Macros are built on two well-known fundamental
-operations: quotation and splicing.  Quotation is expressed as <code>'{...}</code> for
-expressions (both forms are equivalent) and as <code>'[...]</code> for types. Splicing
-is expressed as <code>${ ... }</code>. Whereas inlining is driven completely by the
-language level features of scala (pattern matching, inline vals and
-definitions), macros enable is synthesize/compute code at will treating code
-values as first class citizens and splicing them together independently.
-Here, we move towards <em>domain-specific</em> metaprogramming.</p>
+operations: quotation and splicing.  Quotation converts program code to
+data, specifically, a (tree-like) representation of this code. It is
+expressed as <code>'{...}</code> for expressions and as <code>'[...]</code> for types. Splicing,
+expressed as <code>${ ... }</code>, goes the other way: it converts a program's representation
+to program code. Together with <code>inline</code>, these two abstractions allow
+to construct program code programmatically.</p>
 </li>
 <li>
-<p><a href="./staging.html">Staging</a> Macros can be seen as distinct phase while
-programming. You write your regular code that will be compiled according to
-the semantics of the language and the macro code that is going to be
-&quot;compiled&quot; or &quot;generated&quot; according the intented purpose of the programmer.
-Staging (or Multi-Stage Programming) can be seen as taking one step further
-this exact concept and can make code generation depent not only on static
-data but also on data available at <em>runtime</em>. This splits the evaluation of
-the program in many phases or ... stages, thus the &quot;Multi-Stage&quot; in the
-programming paradigm we say it supports.</p>
+<p><a href="./staging.html">Staging</a> Where macros construct code at <em>compile-time</em>,
+staging lets programs construct new code at <em>runtime</em>. That way,
+code generation can depend not only on static data but also on data available at runtime. This splits the evaluation of the program in two or more phases or ...
+stages. Consequently, this method generative programming is called &quot;Multi-Stage Programming&quot;. Staging is built on the same foundations as macros. It uses
+quotes and splices, but leaves out <code>inline</code>.</p>
 </li>
 <li>
-<p><a href="./tasty-reflect.html">TASTy Reflection</a> With TASTy reflection we can
-<code>unseal</code> fragments of code and analyze them with reflection over the TASTy
-format of the code.</p>
+<p><a href="./erased-terms.html">Erased Terms</a> Erased terms are used to enforce
+guarantees about program constraints. As <code>erased</code> terms are guaranteed not to
+be used in computations, they will not appear at the generated code.</p>
 </li>
-<li><a href="./tasty-inspect.html">TASTy Inspection</a> Up until now we described how we can
-expand, calculate at compile-time, or generate programs. The Scala compiler
-offers quarantees at the level of types that the generated programs cannot go
-wrong. With TASTy inspection we can load compiled files and analyze their
-typed AST structure according to the TASTy format.</li>
+<li>
+<p><a href="./tasty-reflect.html">TASTy Reflection</a> Quotations are a &quot;black-box&quot;
+representation of code. They can be parameterized and composed using
+splices but their structure cannot be analyzed from the outside. Tasty
+reflection gives a way to analyze code structure by partly revealing the representation type of a piece of code in a standard API. The representation
+type is a form of typed abstract syntax tree, which gives rise to the &quot;TASTy`
+moniker.</p>
+</li>
+<li><a href="./tasty-inspect.html">TASTy Inspection</a> Typed abstract syntax trees are serialized
+in a custom compressed binary format in <code>.tasty</code> files. TASTy inspection allows
+to load these files and analyze their content's tree structure.</li>
 </ol>
 
         </div>

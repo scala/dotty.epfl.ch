@@ -280,7 +280,9 @@
 </li>
 <li><a href="../../../.././docs/reference/dropped-features/auto-apply.html">Auto-Application</a>
 </li>
-<li><a href="../../../.././docs/reference/dropped-features/weak-conformance.html">Weak Conformance</a></li>
+<li><a href="../../../.././docs/reference/dropped-features/weak-conformance.html">Weak Conformance</a>
+</li>
+<li><a href="../../../.././docs/reference/dropped-features/nonlocal-returns.html">Nonlocal Returns</a></li>
 </ul>
 </li>
 </ul>
@@ -2350,6 +2352,40 @@
         </li>
     
         <li class="index-entity entity-package">
+            <h1><a class="entity-name" href="../../../.././api/scala/util/index.html">scala.util</a></h1>
+            <ul class="package-entities">
+                <div id="cover-block"></div>
+            
+            </ul>
+        </li>
+    
+        <li class="index-entity entity-package">
+            <h1><a class="entity-name" href="../../../.././api/scala/util/control/index.html">scala.util.control</a></h1>
+            <ul class="package-entities">
+                <div id="cover-block"></div>
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/scala/util/control/NonLocalReturns$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/util/control/NonLocalReturns$.html">NonLocalReturns</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+            </ul>
+        </li>
+    
+        <li class="index-entity entity-package">
             <h1><a class="entity-name" href="../../../.././api/scalaShadowing/index.html">scalaShadowing</a></h1>
             <ul class="package-entities">
                 <div id="cover-block"></div>
@@ -2422,17 +2458,17 @@ prints it again in an error message if it evaluates to <code>false</code>.</p>
 <pre><code class="language-scala">    import scala.quoted._
 
     inline def assert(expr: =&gt; Boolean): Unit =
-      ${ assertImpl('{ expr }) }
+      ${ assertImpl('expr) }
 
     def assertImpl(expr: Expr[Boolean]) = '{
-      if !(${ expr }) then
+      if !($expr) then
         throw new AssertionError(s&quot;failed assertion: ${${ showExpr(expr) }}&quot;)
     }
 
     def showExpr(expr: Expr[Boolean]): Expr[String] =
       '{ &quot;&lt;some source code&gt;&quot; } // Better implementation later in this document
 </code></pre>
-<p>If <code>e</code> is an expression, then <code>'{e}</code> represent the typed
+<p>If <code>e</code> is an expression, then <code>'{e}</code> represents the typed
 abstract syntax tree representing <code>e</code>. If <code>T</code> is a type, then <code>'[T]</code>
 represents the type structure representing <code>T</code>.  The precise
 definitions of &quot;typed abstract syntax tree&quot; or &quot;type-structure&quot; do not
@@ -2468,7 +2504,7 @@ takes expressions of type <code>Type[T]</code> to types <code>T</code>.</p>
 <p>The two types can be defined in package <code>scala.quoted</code> as follows:</p>
 <pre><code class="language-scala">    package scala.quoted
 
-    sealed abstract class Expr[T]
+    sealed abstract class Expr[+T]
     sealed abstract class Type[T]
 </code></pre>
 <p>Both <code>Expr</code> and <code>Type</code> are abstract and sealed, so all constructors for

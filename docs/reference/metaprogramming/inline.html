@@ -280,7 +280,9 @@
 </li>
 <li><a href="../../../.././docs/reference/dropped-features/auto-apply.html">Auto-Application</a>
 </li>
-<li><a href="../../../.././docs/reference/dropped-features/weak-conformance.html">Weak Conformance</a></li>
+<li><a href="../../../.././docs/reference/dropped-features/weak-conformance.html">Weak Conformance</a>
+</li>
+<li><a href="../../../.././docs/reference/dropped-features/nonlocal-returns.html">Nonlocal Returns</a></li>
 </ul>
 </li>
 </ul>
@@ -2350,6 +2352,40 @@
         </li>
     
         <li class="index-entity entity-package">
+            <h1><a class="entity-name" href="../../../.././api/scala/util/index.html">scala.util</a></h1>
+            <ul class="package-entities">
+                <div id="cover-block"></div>
+            
+            </ul>
+        </li>
+    
+        <li class="index-entity entity-package">
+            <h1><a class="entity-name" href="../../../.././api/scala/util/control/index.html">scala.util.control</a></h1>
+            <ul class="package-entities">
+                <div id="cover-block"></div>
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/scala/util/control/NonLocalReturns$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/util/control/NonLocalReturns$.html">NonLocalReturns</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+            </ul>
+        </li>
+    
+        <li class="index-entity entity-package">
             <h1><a class="entity-name" href="../../../.././api/scalaShadowing/index.html">scalaShadowing</a></h1>
             <ul class="package-entities">
                 <div id="cover-block"></div>
@@ -2398,7 +2434,7 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <h2><a href="#inline-blackboxwhitebox" id="inline-blackboxwhitebox">Inline (blackbox/whitebox)</a></h2>
+            <h2><a href="#inline-definitions" id="inline-definitions">Inline Definitions</a></h2>
 <p><code>inline</code> is a new <a href="../soft-modifier.html">soft modifier</a> that guarantees that a
 definition will be inlined at the point of use. Example:</p>
 <pre><code class="language-scala">object Config {
@@ -2409,12 +2445,12 @@ object Logger {
 
   private var indent = 0
 
-  inline def log[T](msg: =&gt; String)(op: =&gt; T): T =
+  inline def log[T](msg: String, indentMargin: =&gt;Int)(op: =&gt; T): T =
     if (Config.logging) {
       println(s&quot;${&quot;  &quot; * indent}start $msg&quot;)
-      indent += 1
+      indent += indentMargin
       val result = op
-      indent -= 1
+      indent -= indentMargin
       println(s&quot;${&quot;  &quot; * indent}$msg = $result&quot;)
       result
     }
@@ -2425,80 +2461,52 @@ object Logger {
 This means that <code>logging</code> is treated as a <em>constant value</em>, equivalent to its
 right-hand side <code>false</code>. The right-hand side of such an <code>inline val</code> must itself
 be a <a href="https://scala-lang.org/files/archive/spec/2.12/06-expressions.html#constant-expressions">constant expression</a>. Used in this
-way, <code>inline</code> is equivalent to Java and Scala 2's <code>final</code>. <code>final</code> meaning
-<em>inlined constant</em> is still supported in Dotty, but will be phased out.</p>
-<p>The <code>Logger</code> object contains a definition of the <strong>inline method</strong> <code>log</code>.
-This method will always be inlined at the point of call.</p>
-<p>In the inlined code, an if-then-else with a constant condition will be rewritten
-to its then- or else-part. Consequently, in the <code>log</code> method above
-<code>if (Config.logging)</code> with <code>Config.logging == true</code> will rewritten into its then-part.</p>
+way, <code>inline</code> is equivalent to Java and Scala 2's <code>final</code>. Note that <code>final</code>, meaning
+<em>inlined constant</em>, is still supported in Dotty, but will be phased out.</p>
+<p>The <code>Logger</code> object contains a definition of the <strong>inline method</strong> <code>log</code>. This
+method will always be inlined at the point of call.</p>
+<p>In the inlined code, an <code>if-then-else</code> with a constant condition will be rewritten
+to its <code>then</code>- or <code>else</code>-part. Consequently, in the <code>log</code> method above the
+<code>if (Config.loggi0ng)</code> with <code>Config.logging == true</code> will get rewritten into its
+<code>then</code>-part.</p>
 <p>Here's an example:</p>
-<pre><code class="language-scala">def factorial(n: BigInt): BigInt =
-  log(s&quot;factorial($n)&quot;) {
+<pre><code class="language-scala">var indentSetting = 2
+
+def factorial(n: BigInt): BigInt = {
+  log(s&quot;factorial($n)&quot;, indentSetting) {
     if (n == 0) 1
     else n * factorial(n - 1)
   }
+}
 </code></pre>
 <p>If <code>Config.logging == false</code>, this will be rewritten (simplified) to</p>
 <pre><code class="language-scala">def factorial(n: BigInt): BigInt = {
-  /* parameters of log passed by-name (1) */
-  def msg = s&quot;factorial($n)&quot;
-  def op =
-    if (n == 0) 1
-    else n * factorial(n - 1)
-
-  /* inlined body of log  (2) */
-  op
+  if (n == 0) 1
+  else n * factorial(n - 1)
 }
 </code></pre>
-<p>and if <code>true</code> it will be rewritten in the code below:</p>
+<p>As you notice, since neither <code>msg</code> or <code>indentMargin</code> were used, they do not
+appear in the generated code for <code>factorial</code>. Also note the body of our <code>log</code>
+method: the <code>else-</code> part reduces to just an <code>op</code>. In the generated code we do
+not generate any closures because we only refer to a by-name parameter <em>once</em>.
+Consequently, the code was inlined directly and the call was beta-reduced.</p>
+<p>In the <code>true</code> case the code will be rewritten to:</p>
 <pre><code class="language-scala">def factorial(n: BigInt): BigInt = {
-  /* parameters of log passed by-name (1) */
-  def msg = s&quot;factorial($n)&quot;
-  def op =
+  val msg = s&quot;factorial($n)&quot;
+  println(s&quot;${&quot;  &quot; * indent}start $msg&quot;)
+  Logger.inline$indent += indentSetting
+  val result =
     if (n == 0) 1
     else n * factorial(n - 1)
-
-  /* inlined body of log  (2) */
-  println(s&quot;${&quot;  &quot; * indent}start $msg&quot;)
-  indent += 1
-  val result = op
-  indent -= 1
+  Logger.inline$indent -= indentSetting
   println(s&quot;${&quot;  &quot; * indent}$msg = $result&quot;)
   result
 }
 </code></pre>
-<p>Note (1) that the arguments corresponding to the parameters <code>msg</code> and <code>op</code> of
-the inline method <code>log</code> are defined before the inlined body (which is in this
-case simply <code>op</code> (2)). By-name parameters of the inline method correspond to
-<code>def</code> bindings whereas by-value parameters correspond to <code>val</code> bindings. So if
-<code>log</code> was defined like this:</p>
-<pre><code class="language-scala">inline def log[T](msg: String)(op: =&gt; T): T = ...
-</code></pre>
-<p>we'd get</p>
-<pre><code class="language-scala">val msg = s&quot;factorial($n)&quot;
-</code></pre>
-<p>instead. This behavior is designed so that calling an inline method is
-semantically the same as calling a normal method: By-value arguments are
-evaluated before the call whereas by-name arguments are evaluated each time they
-are referenced. As a consequence, it is often preferable to make arguments of
-inline methods by-name in order to avoid unnecessary evaluations. Additionally,
-in the code above, our goal is to print the result after the evaluation of <code>op</code>.
-Imagine, if we were printing the duration of the evaluation between the two
-prints.</p>
-<p>For instance, here is how we can define a zero-overhead <code>foreach</code> method that
-translates into a straightforward while loop without any indirection or
-overhead:</p>
-<pre><code class="language-scala">inline def foreach(op: =&gt; Int =&gt; Unit): Unit = {
-  var i = from
-  while (i &lt; end) {
-    op(i)
-    i += 1
-  }
-}
-</code></pre>
-<p>By contrast, if <code>op</code> is a call-by-value parameter, it would be evaluated
-separately as a closure.</p>
+<p>Note, that the by-value parameter is evaluated only once, per the usual Scala
+semantics, by binding the value and reusing the <code>msg</code> through the body of
+<code>factorial</code>.</p>
+<h3><a href="#recursive-inline-methods" id="recursive-inline-methods">Recursive Inline Methods</a></h3>
 <p>Inline methods can be recursive. For instance, when called with a constant
 exponent <code>n</code>, the following method for <code>power</code> will be implemented by
 straight inline code without any loop or recursion.</p>
@@ -2536,35 +2544,39 @@ annotation which is equivalent to the new <code>inline</code> modifier. Note tha
 Scala 2 ignores the <code>@forceInline</code> annotation, so one must use both
 annotations to guarantee inlining for Dotty and at the same time hint inlining
 for Scala 2 (i.e. <code>@forceInline @inline</code>).</p>
-<h3><a href="#evaluation-rules" id="evaluation-rules">Evaluation Rules</a></h3>
-<p>As you noticed by the examples above a lambda of the form</p>
-<p><code>((x_1, ..., x_n) =&gt; B)(E_1, ..., E_n)</code> is rewritten to:</p>
-<pre><code>{ val/def x_1 = E_1
+<!--- (Commented out since the docs and implementation differ)
+
+### Evaluation Rules
+
+As you noticed by the examples above a lambda of the form
+
+`((x_1, ..., x_n) => B)(E_1, ..., E_n)` is rewritten to:
+
+```
+{ val/def x_1 = E_1
   ...
   val/def x_n = E_n
   B
 }
-</code></pre>
-<p>where vals are used for value parameter bindings and defs are used for by-name
-parameter bindings. If an argument <code>E_i</code> is a simple variable reference <code>y</code>, the
-corresponding binding is omitted and <code>y</code> is used instead of <code>x_i</code> in <code>B</code>.</p>
-<p>If a <code>inline</code> modifier is given for parameters, corresponding arguments must be
-pure expressions of constant type.</p>
+```
+
+where vals are used for value parameter bindings and defs are used for by-name
+parameter bindings. If an argument `E_i` is a simple variable reference `y`, the
+corresponding binding is omitted and `y` is used instead of `x_i` in `B`.
+
+If a `inline` modifier is given for parameters, corresponding arguments must be
+pure expressions of constant type.
+-->
 <h4><a href="#the-definition-of-constant-expression" id="the-definition-of-constant-expression">The definition of constant expression</a></h4>
 <p>Right-hand sides of inline values and of arguments for inline parameters must be
 constant expressions in the sense defined by the <a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#constant-expressions">SLS §
 6.24</a>,
 including <em>platform-specific</em> extensions such as constant folding of pure
 numeric computations.</p>
-<h3><a href="#specializing-inline-whitebox" id="specializing-inline-whitebox">Specializing Inline (Whitebox)</a></h3>
+<h2><a href="#specializing-inline-whitebox" id="specializing-inline-whitebox">Specializing Inline (Whitebox)</a></h2>
 <p>Inline methods support the <code>&lt;: T</code> return type syntax. This means that the return type
 of the inline method is going to be specialized to a more precise type upon
-expansion.</p>
-<p>Consider the example below where the inline method <code>choose</code> can return an object
-of any of the two dynamic types. The subtype relationship is <code>B &lt;: A</code>. Since we
-use the specializing inline syntax, the static types of the <code>val</code>s are inferred
-accordingly. Consequently, calling <code>meth</code> on <code>obj2</code> is not a compile-time error
-as <code>obj2</code> will be of type <code>B</code>.</p>
+expansion. Example:</p>
 <pre><code class="language-scala">class A
 class B extends A {
   def meth() = true
@@ -2578,9 +2590,20 @@ inline def choose(b: Boolean) &lt;: A = {
 val obj1 = choose(true)  // static type is A
 val obj2 = choose(false) // static type is B
 
-obj1.meth() // compile-time error
-obj2.meth() // OK
+// obj1.meth() // compile-time error: `meth` is not defined on `A`
+obj2.meth()    // OK
 </code></pre>
+<p>Here, the inline method <code>choose</code> returns an object of either of the two dynamic types
+<code>A</code> and <code>B</code>. If <code>choose</code> had been declared with a normal return type <code>: A</code>, the result
+of its expansion would always be of type <code>A</code>, even though the computed value might be
+of type <code>B</code>. The inline method is &quot;blackbox&quot;  in the sense that details of its
+implementation do not leak out. But with the specializing return type <code>&lt;: A</code>,
+the type of the expansion is the type of the expanded body. If the argument <code>b</code>
+is <code>true</code>, that type is <code>A</code>, otherwise it is <code>B</code>. Consequently, calling <code>meth</code> on <code>obj2</code>
+type-checks since <code>obj2</code> has the same type as the expansion of <code>choose(false)</code>, which is <code>B</code>.
+Inline methods with specializing return types are &quot;whitebox&quot; in that the type
+of an application of such a method can be more specialized than its declared
+return type, depending on how the method expands.</p>
 <p>In the following example, we see how the return type of <code>zero</code> is specialized to
 the singleton type <code>0</code> permitting the addition to be ascribed with the correct
 type <code>1</code>.</p>
@@ -2588,11 +2611,34 @@ type <code>1</code>.</p>
 
 final val one: 1 = zero() + 1
 </code></pre>
-<h4><a href="#inline-match" id="inline-match">Inline Match</a></h4>
+<h2><a href="#inline-conditionals" id="inline-conditionals">Inline Conditionals</a></h2>
+<p>If the condition of an if-then-else expressions is a constant, the expression simplifies to
+the selected branch. Prefixing an if-then-else expression with <code>inline</code> forces
+the condition to be a constant, and thus guarantees that the conditional will always
+simplify.</p>
+<p>Example:</p>
+<pre><code class="language-scala">inline def update(delta: Int) =
+  inline if (delta &gt;= 0) increaseBy(delta)
+  else decreaseBy(-delta)
+</code></pre>
+<p>A call <code>update(22)</code> would rewrite to <code>increaseBy(22)</code>. But if <code>update</code> was called with
+a value that was not a compile-time constant, we would get a compile time error like the one
+below:</p>
+<pre><code class="language-scala">   |  inline if (delta &gt;= 0) ???
+   |  ^
+   |  cannot reduce inline if
+   |   its condition
+   |     delta &gt;= 0
+   |   is not a constant value
+   | This location is in code that was inlined at ...
+</code></pre>
+<h2><a href="#inline-matches" id="inline-matches">Inline Matches</a></h2>
 <p>A <code>match</code> expression in the body of an <code>inline</code> method definition may be
 prefixed by the <code>inline</code> modifier. If there is enough static information to
 unambiguously take a branch, the expression is reduced to that branch and the
-type of the result is taken. The example below defines an inline method with a
+type of the result is taken. If not, a compile-time error is raised that
+reports that the match cannot be reduced.</p>
+<p>The example below defines an inline method with a
 single inline match expression that picks a case based on its static type:</p>
 <pre><code class="language-scala">inline def g(x: Any) &lt;: Any = inline x match {
   case x: String =&gt; (x, x) // Tuple2[String, String](x, x)
@@ -2621,10 +2667,9 @@ final val natTwo = toInt(Succ(Succ(Zero)))
 val intTwo: 2 = natTwo
 </code></pre>
 <p><code>natTwo</code> is inferred to have the singleton type 2.</p>
-<h4><a href="#scalacompiletime-" id="scalacompiletime-">scala.compiletime._</a></h4>
-<p>This package contains helper definitions providing support for compile time
-operations over values.</p>
-<h5><a href="#const-value--const-value-opt" id="const-value--const-value-opt">Const Value &amp; Const Value Opt</a></h5>
+<h2><a href="#the-scalacompiletime-package" id="the-scalacompiletime-package">The <code>scala.compiletime</code> Package</a></h2>
+<p>The <code>scala.compiletime</code> package contains helper definitions that provide support for compile time operations over values. They are described in the following.</p>
+<h4><a href="#constvalue-constvalueopt-and-the-s-combinator" id="constvalue-constvalueopt-and-the-s-combinator"><code>constValue</code>, <code>constValueOpt</code>, and the <code>S</code> combinator</a></h4>
 <p><code>constvalue</code> is a function that produces the constant value represented by a
 type.</p>
 <pre><code class="language-scala">import scala.compiletime.{constValue, S}
@@ -2641,7 +2686,7 @@ final val ctwo = toIntC[2]
 enabling us to handle situations where a value is not present. Note that <code>S</code> is
 the type of the successor of some singleton type. For example the type <code>S[1]</code> is
 the singleton type <code>2</code>.</p>
-<h5><a href="#erased-value" id="erased-value">Erased Value</a></h5>
+<h4><a href="#erasedvalue" id="erasedvalue"><code>erasedValue</code></a></h4>
 <p>We have seen so far inline methods that take terms (tuples and integers) as
 parameters. What if we want to base case distinctions on types instead? For
 instance, one would like to be able to write a function <code>defaultValue</code>, that,
@@ -2653,7 +2698,7 @@ helper function, <code>scala.compiletime.erasedValue</code>, which is defined as
 <p>The <code>erasedValue</code> function <em>pretends</em> to return a value of its type argument
 <code>T</code>. In fact, it would always raise a <code>NotImplementedError</code> exception when
 called. But the function can in fact never be called, since it is declared
-<code>erased</code>, so can be only used a compile-time during type checking.</p>
+<code>erased</code>, so can be only used at compile-time during type checking.</p>
 <p>Using <code>erasedValue</code>, we can then define <code>defaultValue</code> as follows:</p>
 <pre><code class="language-scala">inline def defaultValue[T] = inline erasedValue[T] match {
   case _: Byte =&gt; Some(0: Byte)
@@ -2665,37 +2710,37 @@ called. But the function can in fact never be called, since it is declared
   case _: Double =&gt; Some(0.0d)
   case _: Boolean =&gt; Some(false)
   case _: Unit =&gt; Some(())
-  case _: t &gt;: Null =&gt; Some(null)
   case _ =&gt; None
 }
 </code></pre>
 <p>Then:</p>
-<pre><code class="language-scala">defaultValue[Int] = Some(0)
-defaultValue[Boolean] = Some(false)
-defaultValue[String | Null] = Some(null)
-defaultValue[AnyVal] = None
+<pre><code class="language-scala">  val dInt: Some[Int] = defaultValue[Int]
+  val dDouble: Some[Double] = defaultValue[Double]
+  val dBoolean: Some[Boolean] = defaultValue[Boolean]
+  val dAny: None.type = defaultValue[Any]
 </code></pre>
-<p>As another example, consider the type-level version of <code>toNat</code> above: given a
-<em>type</em> representing a Peano number, return the integer <em>value</em> corresponding to
-it. Here's how this can be defined:</p>
-<pre><code class="language-scala">inline def toInt[N &lt;: Nat] &lt;: Int = inline scala.compiletime.erasedValue[N] match {
-  case _: Zero =&gt; 0
+<p>As another example, consider the type-level version of <code>toNat</code> above the we call
+<code>toIntT</code>: given a <em>type</em> representing a Peano number, return the integer <em>value</em>
+corresponding to it. Consider the definitions of numbers as in the <em>Inline
+Match</em> section aboce. Here's how <code>toIntT</code> can be defined:</p>
+<pre><code class="language-scala">inline def toIntT[N &lt;: Nat] &lt;: Int = inline scala.compiletime.erasedValue[N] match {
+  case _: Zero.type =&gt; 0
   case _: Succ[n] =&gt; toIntT[n] + 1
 }
 
-final val two = toInt[Succ[Succ[Zero]]]
+final val two = toIntT[Succ[Succ[Zero.type]]]
 </code></pre>
 <p><code>erasedValue</code> is an <code>erased</code> method so it cannot be used and has no runtime
 behavior. Since <code>toInt</code> performs static checks over the static type of <code>N</code> we
 can safely use it to scrutinize its return type (<code>S[S[Z]]</code> in this case).</p>
-<h5><a href="#error" id="error">Error</a></h5>
-<p>This package provides a compile time <code>error</code> definition with the following signature:</p>
+<h4><a href="#error" id="error"><code>error</code></a></h4>
+<p>The <code>error</code> method is used to produce user-defined compile errors during inline expansion.
+It has the following signature:</p>
 <pre><code class="language-scala">inline def error(inline msg: String, objs: Any*): Nothing
 </code></pre>
-<p>The purpose of this is to expand at the point of use, an error message (a
-constant string) and append with commas, compile time values passed in the
-<code>objs</code> param.</p>
-<h4><a href="#implicit-match" id="implicit-match">Implicit Match</a></h4>
+<p>If an inline expansion results in a call <code>error(msgStr)</code> the compiler
+produces an error message containing the given <code>msgStr</code>.</p>
+<h2><a href="#implicit-matches" id="implicit-matches">Implicit Matches</a></h2>
 <p>It is foreseen that many areas of typelevel programming can be done with rewrite
 methods instead of implicits. But sometimes implicits are unavoidable. The
 problem so far was that the Prolog-like programming style of implicit search
