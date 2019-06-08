@@ -2499,14 +2499,15 @@ val res1: Array[Color] = Array(Red, Green, Blue)
 }
 </code></pre>
 <h3><a href="#compatibility-with-java-enums" id="compatibility-with-java-enums">Compatibility with Java Enums</a></h3>
-<p>If you want to use the Scala-defined enums as Java enums, you can do so by extending <code>compat.JEnum</code> class as follows:</p>
-<pre><code class="language-scala">enum Color extends compat.JEnum[Color] { case Red, Green, Blue }
+<p>If you want to use the Scala-defined enums as Java enums, you can do so by extending <code>java.lang.Enum</code> class as follows:</p>
+<pre><code class="language-scala">enum Color extends java.lang.Enum[Color] { case Red, Green, Blue }
 </code></pre>
-<p>The type parameter comes from the Java enum <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/lang/Enum.html">definition</a> and should me the same as the type of the enum. The compiler will transform the definition above so that <code>Color</code> extends <code>java.lang.Enum</code>.</p>
+<p>The type parameter comes from the Java enum <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/lang/Enum.html">definition</a> and should be the same as the type of the enum. There is no need to provide constructor arguments (as defined in the API docs) to <code>java.lang.Enum</code> when extending it – the compiler will generate them automatically.</p>
 <p>After defining <code>Color</code> like that, you can use like you would a Java enum:</p>
 <pre><code class="language-scala">scala&gt; Color.Red.compareTo(Color.Green)
 val res15: Int = -1
 </code></pre>
+<p>For a more in-depth example of using Scala 3 enums from Java, see <a href="https://github.com/lampepfl/dotty/tree/master/tests/run/enum-java">this test</a>. In the test, the enums are defined in the <code>MainScala.scala</code> file and used from a Java source, <code>Test.java</code>.</p>
 <h3><a href="#implementation" id="implementation">Implementation</a></h3>
 <p>Enums are represented as <code>sealed</code> classes that extend the <code>scala.Enum</code> trait.
 This trait defines a single public method, <code>ordinal</code>:</p>

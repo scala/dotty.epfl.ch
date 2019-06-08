@@ -2591,8 +2591,8 @@ values in <code>E</code>, in the order of their definitions.</li>
 <p>A private method <code>$new</code> which defines a new simple case value with given
 ordinal number and name. This method can be thought as being defined as
 follows.</p>
-<pre><code>private def $new(\_$ordinal: Int, $name: String) = new E {
-  def $ordinal = $tag
+<pre><code>private def $new(_$ordinal: Int, $name: String) = new E {
+  def $ordinal = $_ordinal
   override def toString = $name
   $values.register(this) // register enum value so that `valueOf` and `values` can return it.
 }
@@ -2605,6 +2605,10 @@ follows.</p>
 identifiers.</p>
 <p>Even though translated enum cases are located in the enum's companion object, referencing
 this object or its members via <code>this</code> or a simple identifier is also illegal. The compiler typechecks enum cases in the scope of the enclosing companion object but flags any such illegal accesses as errors.</p>
+<h3><a href="#translation-of-java-compatible-enums" id="translation-of-java-compatible-enums">Translation of Java-compatible enums</a></h3>
+<p>A Java-compatible enum is an enum that extends <code>java.lang.Enum</code>. The translation rules are the same as above, with the reservations defined in this section.</p>
+<p>It is a compile-time error for a Java-compatible enum to have class cases.</p>
+<p>Cases such as <code>case C</code> expand to a <code>@static val</code> as opposed to a <code>val</code>. This allows them to be generated as static fields of the enum type, thus ensuring they are represented the same way as Java enums.</p>
 <h3><a href="#other-rules" id="other-rules">Other Rules</a></h3>
 <p>A normal case class which is not produced from an enum case is not allowed to extend
 <code>scala.Enum</code>. This ensures that the only cases of an enum are the ones that are
