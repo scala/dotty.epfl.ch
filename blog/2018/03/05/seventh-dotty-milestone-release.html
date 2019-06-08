@@ -209,8 +209,6 @@
 </li>
 <li><a href="../../../../.././docs/reference/other-new-features/parameter-untupling.html">Parameter Untupling</a>
 </li>
-<li><a href="../../../../.././docs/reference/other-new-features/erased-terms.html">Erased Terms</a>
-</li>
 <li><a href="../../../../.././docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a>
 </li>
 <li><a href="../../../../.././docs/reference/other-new-features/tupled-function.html">Tupled Function</a>
@@ -2509,7 +2507,7 @@ List(1, 2, 3).flatten             // error: Cannot prove that Int &lt;:&lt; List
 <p>The implicit evidence <code>ev</code> is only used to constrain the type parameter <code>X</code> of <code>List</code> such that we
 can safely cast from <code>X</code> to <code>List[_]</code>. The usage of the <code>erased</code> modifier ensures that the evidence
 is not used and can be safely removed at compilation time.</p>
-<p>For more information, visit the <a href="http://dotty.epfl.ch/docs/reference/erased-terms.html">Erased Terms</a>
+<p>For more information, visit the <a href="http://dotty.epfl.ch/docs/reference/metaprogramming/erased-terms.html">Erased Terms</a>
 section of our documentation.</p>
 <p><strong>Note</strong>: Erased terms replace <em>phantom types</em>: they have similar semantics, but with the added
 advantage that any type can be an erased parameter. See <a href="https://github.com/lampepfl/dotty/pull/3410">#3410</a>.</p>
