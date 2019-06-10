@@ -2498,7 +2498,7 @@ delegate ListMonad for Monad[List] {
     List(x)
 }
 
-delegate ReaderMonad[Ctx] for Monad[[X] =&gt; Ctx =&gt; X] {
+delegate ReaderMonad[Ctx] for Monad[[X] =&gt;&gt; Ctx =&gt; X] {
   def (r: Ctx =&gt; A) flatMap [A, B] (f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
     ctx =&gt; f(r(ctx))(ctx)
   def pure[A](x: A): Ctx =&gt; A =
