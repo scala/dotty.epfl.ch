@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2534,7 +2534,7 @@ the compiler (see Implicits.synthesizedEq), so they are not included here.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-derived$">
-                            <p>A non-implied universal <code>Eql</code> instance.</p>
+                            <p>A universal <code>Eql</code> instance.</p>
 
                         </div>
                     </div>
@@ -2573,8 +2573,8 @@ L<span class="">, </span>R
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-eqlAny">
                             <p>A fall-back instance to compare values of any types.
-Even though this method is not declared implied, the compiler will
-compute implied instances as solutions to <code>Eql[T, U]</code> queries if
+Even though this method is not declared a delegate, the compiler will
+synthesize implicit arguments as solutions to <code>Eql[T, U]</code> queries if
 the rules of multiversal equality require it.</p>
 
                         </div>

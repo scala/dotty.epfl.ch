@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2457,35 +2457,35 @@ This is clean and powerful, but it sometimes leads to functions that take many p
 call trees where the same value is passed over and over again in long call chains to many
 functions. Given clauses can help here since they enable the compiler to synthesize
 repetitive arguments instead of the programmer having to write them explicitly.</p>
-<p>For example, given the <a href="./instance-defs.html">implied instances</a> defined previously,
+<p>For example, given the <a href="./instance-defs.html">delegates</a> defined previously,
 a maximum function that works for any arguments for which an ordering exists can be defined as follows:</p>
 <pre><code class="language-scala">def max[T](x: T, y: T) given (ord: Ord[T]): T =
   if (ord.compare(x, y) &lt; 1) y else x
 </code></pre>
-<p>Here, <code>ord</code> is an <em>context parameter</em> introduced with a <code>given</code> clause.
+<p>Here, <code>ord</code> is an <em>implicit parameter</em> introduced with a <code>given</code> clause.
 The <code>max</code> method can be applied as follows:</p>
-<pre><code class="language-scala">max(2, 3) given IntOrd
+<pre><code class="language-scala">max(2, 3).given(IntOrd)
 </code></pre>
 <p>The <code>given IntOrd</code> part passes <code>IntOrd</code> as an argument for the <code>ord</code> parameter. But the point of
-context parameters is that this argument can also be left out (and it usually is). So the following
+implicit parameters is that this argument can also be left out (and it usually is). So the following
 applications are equally valid:</p>
 <pre><code class="language-scala">max(2, 3)
 max(List(1, 2, 3), Nil)
 </code></pre>
-<h2><a href="#anonymous-context-parameters" id="anonymous-context-parameters">Anonymous Context Parameters</a></h2>
-<p>In many situations, the name of a context parameter need not be
+<h2><a href="#anonymous-given-clauses" id="anonymous-given-clauses">Anonymous Given Clauses</a></h2>
+<p>In many situations, the name of an implicit parameter need not be
 mentioned explicitly at all, since it is used only in synthesized arguments for
-other context parameters. In that case one can avoid defining a parameter name
+other implicit parameters. In that case one can avoid defining a parameter name
 and just provide its type. Example:</p>
 <pre><code class="language-scala">def maximum[T](xs: List[T]) given Ord[T]: T =
   xs.reduceLeft(max)
 </code></pre>
-<p><code>maximum</code> takes a context parameter of type <code>Ord</code> only to pass it on as an
+<p><code>maximum</code> takes an implicit parameter of type <code>Ord</code> only to pass it on as an
 inferred argument to <code>max</code>. The name of the parameter is left out.</p>
-<p>Generally, context parameters may be defined either as a parameter list <code>(p_1: T_1, ..., p_n: T_n)</code>
+<p>Generally, implicit parameters may be defined either as a parameter list <code>(p_1: T_1, ..., p_n: T_n)</code>
 or as a sequence of types, separated by commas.</p>
 <h2><a href="#inferring-complex-arguments" id="inferring-complex-arguments">Inferring Complex Arguments</a></h2>
-<p>Here are two other methods that have a context parameter of type <code>Ord[T]</code>:</p>
+<p>Here are two other methods that have an implicit parameter of type <code>Ord[T]</code>:</p>
 <pre><code class="language-scala">def descending[T] given (asc: Ord[T]): Ord[T] = new Ord[T] {
   def compare(x: T, y: T) = asc.compare(y, x)
 }
@@ -2506,8 +2506,8 @@ maximum(xs) given (descending given (ListOrd given IntOrd))
 </code></pre>
 <p>However, all <code>given</code> clauses in a definition must come after any normal parameter clauses.
 Multiple given clauses are matched left-to-right in applications. Example:</p>
-<pre><code class="language-scala">implied global for Universe { type Context = ... }
-implied ctx for global.Context { ... }
+<pre><code class="language-scala">delegate global for Universe { type Context = ... }
+delegate ctx for global.Context { ... }
 </code></pre>
 <p>Then the following calls are all valid (and normalize to the last one)</p>
 <pre><code class="language-scala">f
@@ -2515,23 +2515,22 @@ implied ctx for global.Context { ... }
 (f given global) given ctx
 </code></pre>
 <p>But <code>f given ctx</code> would give a type error.</p>
-<h2><a href="#summoning-implied-instances" id="summoning-implied-instances">Summoning Implied Instances</a></h2>
-<p>A method <code>the</code> in <code>Predef</code> returns the implied instance of a given type. For example,
-the implied instance of <code>Ord[List[Int]]</code> is produced by</p>
-<pre><code class="language-scala">the[Ord[List[Int]]]  // reduces to:  ListOrd given IntOrd
+<h2><a href="#summoning-delegates" id="summoning-delegates">Summoning Delegates</a></h2>
+<p>A method <code>the</code> in <code>Predef</code> returns the delegate for a given type. For example,
+the delegate for <code>Ord[List[Int]]</code> is produced by</p>
+<pre><code class="language-scala">the[Ord[List[Int]]]  // reduces to ListOrd given IntOrd
 </code></pre>
-<p>The <code>the</code> method is simply defined as the (non-widening) identity function over a context parameter.</p>
+<p>The <code>the</code> method is simply defined as the (non-widening) identity function over a implicit parameter.</p>
 <pre><code class="language-scala">def the[T] given (x: T): x.type = x
 </code></pre>
-<p>Functions like <code>the</code> that have only context parameters are also called <em>context functions</em>.</p>
 <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <p>Here is the new syntax of parameters and arguments seen as a delta from the <a href="http://dotty.epfl.ch/docs/internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
 <pre><code>ClsParamClauses     ::=  ...
                       |  {ClsParamClause} {GivenClsParamClause}
-GivenClsParamClause ::=  ‘given’ [‘erased’] (‘(’ ClsParams ‘)’ | GivenTypes)
+GivenClsParamClause ::=  ‘given’ (‘(’ ClsParams ‘)’ | GivenTypes)
 DefParamClauses     ::=  ...
                       |  {DefParamClause} {GivenParamClause}
-GivenParamClause    ::=  ‘given’ [‘erased’] (‘(’ DefParams ‘)’ | GivenTypes)
+GivenParamClause    ::=  ‘given’ (‘(’ DefParams ‘)’ | GivenTypes)
 GivenTypes          ::=  AnnotType {‘,’ AnnotType}
 
 InfixExpr           ::=  ...

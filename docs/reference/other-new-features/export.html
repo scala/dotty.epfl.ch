@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2488,7 +2488,7 @@
 </code></pre>
 <p>An export clause has the same format as an import clause. Its general form is:</p>
 <pre><code class="language-scala">  export path . { sel_1, ..., sel_n }
-  export implied path . { sel_1, ..., sel_n }
+  export delegate path . { sel_1, ..., sel_n }
 </code></pre>
 <p>It consists of a qualifier expression <code>path</code>, which must be a stable identifier, followed by
 one or more selectors <code>sel_i</code> that identify what gets an alias. Selectors can be
@@ -2506,13 +2506,13 @@ those members that are named by a previous simple, renaming, or omitting selecto
 <li>its owner is not a base class of the class(*) containing the export clause,</li>
 <li>it is accessible at the export clause,</li>
 <li>it is not a constructor, nor the (synthetic) class part of an object,</li>
-<li>it is an <code>implied</code> instance (or an old-style <code>implicit</code> value)
-if and only if the export is <code>implied</code>.</li>
+<li>it is delegate (or an old-style <code>implicit</code> value)
+if and only if the export is tagged with <code>delegate</code>.</li>
 </ul>
 <p>It is a compile-time error if a simple or renaming selector does not identify any eligible
 members.</p>
 <p>Type members are aliased by type definitions, and term members are aliased by method definitions. Export aliases copy the type and value parameters of the members they refer to.
-Export aliases are always <code>final</code>. Aliases of implied instances are again <code>implied</code> (and aliases of old-style implicits are <code>implicit</code>). There are no other modifiers that can be given to an alias. This has the following consequences for overriding:</p>
+Export aliases are always <code>final</code>. Aliases of delegates are again defines as delegates (and aliases of old-style implicits are <code>implicit</code>). There are no other modifiers that can be given to an alias. This has the following consequences for overriding:</p>
 <ul>
 <li>Export aliases cannot be overridden, since they are final.</li>
 <li>Export aliases cannot override concrete members in base classes, since they are
@@ -2540,7 +2540,7 @@ more flexible way.</p>
                  |  Export
 TopStat        ::=  ...
                  |  Export
-Export         ::=  ‘export’ [‘implied’] ImportExpr {‘,’ ImportExpr}
+Export         ::=  ‘export’ [‘delegate’] ImportExpr {‘,’ ImportExpr}
 </code></pre>
 <h3><a href="#elaboration-of-export-clauses" id="elaboration-of-export-clauses">Elaboration of Export Clauses</a></h3>
 <p>Export clauses raise questions about the order of elaboration during type checking.

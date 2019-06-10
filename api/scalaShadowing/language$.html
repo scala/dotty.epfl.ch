@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2842,7 +2842,7 @@ implicit val conv = (s: String) =&gt; s.length
 implicit def listToX(xs: List[T])(implicit f: T =&gt; X): X = ...
 }}}</p>
 <p>Implicit values of other types are not affected, and neither are implicit
-classes. In particular, implied instances of the scala.Conversion class can be
+classes. In particular, delegates of the scala.Conversion class can be
 defined without having to import the language feature.</p>
 <p>The language import is also required to enable <em>uses</em> of implicit conversions
 unless the conversion in question is co-defined with the type to which it maps.
@@ -2852,13 +2852,13 @@ Examples:</p>
 class A
 class B
 object B {
-implied a2b for Conversion[A, B] { ... }
+delegate a2b for Conversion[A, B] { ... }
 }
 object C {
-implied b2a for Conversion[B, A] { ... }
+delegate b2a for Conversion[B, A] { ... }
 }
-import implied B._
-import implied C._
+import delegate B._
+import delegate C._
 val x: A = new B     // language import required
 val x: B = new A     // no import necessary since a2b is co-defined with B
 }}}</p>

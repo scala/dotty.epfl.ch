@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2453,10 +2453,10 @@
         <hr/>
         <div id="doc-page-container">
             <h2><a href="#context-bounds" id="context-bounds">Context Bounds</a></h2>
-<p>A context bound is a shorthand for expressing a common pattern of a context parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
+<p>A context bound is a shorthand for expressing the common pattern of an implicit parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
 <pre><code class="language-scala">def maximum[T: Ord](xs: List[T]): T = xs.reduceLeft(max)
 </code></pre>
-<p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates a context parameter <code>given Ord[T]</code>. The context parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
+<p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates an implicit parameter <code>given Ord[T]</code>. The implicit parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
 <pre><code class="language-scala">def f[T: C1 : C2, U: C3](x: T) given (y: U, z: V): R
 </code></pre>
 <p>would expand to</p>

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Importing Implied Instances</title>
+        <title>Delegate Imports</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2446,76 +2446,76 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Importing Implied Instances</h1>
+        <h1 id="doc-page-title">Delegate Imports</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-implied.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>A special form of import is used to import implied instances. Example:</p>
+            <p>A special form of import is used to import delegates. Example:</p>
 <pre><code class="language-scala">object A {
   class TC
-  implied tc for TC
+  delegate tc for TC
   def f given TC = ???
 }
 object B {
   import A._
-  import implied A._
+  import delegate A._
 }
 </code></pre>
 <p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the implied instance <code>tc</code>. Conversely, the second import <code>import implied A._</code> will import <em>only</em> that implied instance.</p>
-<p>Generally, a normal import clause brings all members except implied instances into scope whereas an <code>import implied</code> clause brings only implied instances into scope.</p>
+of <code>A</code> <em>except</em> the delegate <code>tc</code>. Conversely, the second import <code>import delegate A._</code> will import <em>only</em> that delegate.</p>
+<p>Generally, a normal import clause brings all definitions except delegates into scope whereas a delegate import brings only delegates into scope.</p>
 <p>There are two main benefits arising from these rules:</p>
 <ul>
-<li>It is made clearer where implied instances in scope are coming from. In particular, it is not possible to hide imported implied instances in a long list of regular imports.</li>
-<li>It enables importing all implied instances
-without importing anything else. This is particularly important since implied
-instances can be anonymous, so the usual recourse of using named imports is not
+<li>It is made clearer where delegates in scope are coming from.
+In particular, it is not possible to hide imported delegates in a long list of regular imports.</li>
+<li>It enables importing all delegates
+without importing anything else. This is particularly important since delegates
+can be anonymous, so the usual recourse of using named imports is not
 practical.</li>
 </ul>
 <h3><a href="#importing-by-type" id="importing-by-type">Importing By Type</a></h3>
-<p>Since implied instances can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
-<pre><code class="language-scala">import implied A.{for TC}
+<p>Since delegates can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
+<pre><code class="language-scala">import delegate A.{for TC}
 </code></pre>
-<p>This imports any implied instance in <code>A</code> that has a type which conforms tp <code>TC</code>. There can be several bounding types following a <code>for</code> and bounding types can contain wildcards.
+<p>This imports any delegate in <code>A</code> that has a type which conforms tp <code>TC</code>. There can be several bounding types following a <code>for</code> and bounding types can contain wildcards.
 For instance, assuming the object</p>
 <pre><code class="language-scala">object Instances {
-  implied intOrd for Ordering[Int]
-  implied [T: Ordering] listOrd for Ordering[List[T]]
-  implied ec for ExecutionContext = ...
-  implied im for Monoid[Int]
+  delegate intOrd for Ordering[Int]
+  delegate [T: Ordering] listOrd for Ordering[List[T]]
+  delegate ec for ExecutionContext = ...
+  delegate im for Monoid[Int]
 }
 </code></pre>
 <p>the import</p>
-<pre><code>import implied Instances.{for Ordering[_], ExecutionContext}
+<pre><code>import delegate Instances.{for Ordering[_], ExecutionContext}
 </code></pre>
-<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> instances but leave out the <code>im</code> instance, since it fits none of the specified bounds.</p>
+<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> delegates but leave out the <code>im</code> delegate, since it fits none of the specified bounds.</p>
 <p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
-<pre><code>import implied Instances.{im, for Ordering[_]}
+<pre><code>import delegate Instances.{im, for Ordering[_]}
 </code></pre>
 <p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>. By-type imports cannot be mixed with a wildcard import in the same import clause.</p>
 <h3><a href="#migration" id="migration">Migration</a></h3>
-<p>The rules for <code>import implied</code> above have the consequence that a library
+<p>The rules for delegate imports given above have the consequence that a library
 would have to migrate in lockstep with all its users from old style implicits and
-normal imports to implied instances and imports.</p>
+normal imports to delegate definitions and imports.</p>
 <p>The following modifications avoid this hurdle to migration.</p>
 <ol>
 <li>
-<p>An <code>import implied</code> also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a normal import or
-by an <code>import implied</code>.</p>
+<p>A delegate import also brings old style implicits into scope. So, in Scala 3.0
+an old-style implicit definition can be brought into scope either by a normal import or by a delegate import.</p>
 </li>
 <li>
 <p>In Scala 3.1, old-style implicits accessed through a normal import
 will give a deprecation warning.</p>
 </li>
-<li>In some version after 3.1, an old-style implicit accessed through a normal import
+<li>In some version after 3.1, old-style implicits accessed through a normal import
 will give a compiler error.</li>
 </ol>
-<p>These rules mean that library users can use <code>import implied</code> to access old-style implicits in Scala 3.0,
+<p>These rules mean that library users can use <code>import delegate</code> to access old-style implicits in Scala 3.0,
 and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-implied instances once their user base has migrated.</p>
+representation clauses once their user base has migrated.</p>
 
         </div>
     </div><!-- end content-body -->

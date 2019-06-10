@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2464,7 +2464,8 @@ with an erroneous program where a value <code>y</code> has type <code>S</code> i
 val y = ... // of type S, but should be T
 x == y      // typechecks, will always yield false
 </code></pre>
-<p>If all the program does with <code>y</code> is compare it to other values of type <code>T</code>, the program will still typecheck, since values of all types can be compared with each other.
+<p>If <code>y</code> gets compared to other values of type <code>T</code>,
+the program will still typecheck, since values of all types can be compared with each other.
 But it will probably give unexpected results and fail at runtime.</p>
 <p>Multiversal equality is an opt-in way to make universal equality
 safer. It uses a binary typeclass <code>Eql</code> to indicate that values of
@@ -2473,8 +2474,8 @@ The example above would not typecheck if <code>S</code> or <code>T</code> was a 
 that derives <code>Eql</code>, e.g.</p>
 <pre><code class="language-scala">class T derives Eql
 </code></pre>
-<p>Alternatively, one can also define an <code>Eql</code> instance directly, like this:</p>
-<pre><code class="language-scala">implied for Eql[T, T] = Eql.derived
+<p>Alternatively, one can also provide an <code>Eql</code> delegate directly, like this:</p>
+<pre><code class="language-scala">delegate for Eql[T, T] = Eql.derived
 </code></pre>
 <p>This definition effectively says that values of type <code>T</code> can (only) be
 compared to other values of type <code>T</code> when using <code>==</code> or <code>!=</code>. The definition
@@ -2493,24 +2494,24 @@ object Eql {
   object derived extends Eql[Any, Any]
 }
 </code></pre>
-<p>One can have several <code>Eql</code> instances for a type. For example, the four
+<p>One can have several <code>Eql</code> delegates for a type. For example, the four
 definitions below make values of type <code>A</code> and type <code>B</code> comparable with
 each other, but not comparable to anything else:</p>
-<pre><code class="language-scala">implied for Eql[A, A] = Eql.derived
-implied for Eql[B, B] = Eql.derived
-implied for Eql[A, B] = Eql.derived
-implied for Eql[B, A] = Eql.derived
+<pre><code class="language-scala">delegate for Eql[A, A] = Eql.derived
+delegate for Eql[B, B] = Eql.derived
+delegate for Eql[A, B] = Eql.derived
+delegate for Eql[B, A] = Eql.derived
 </code></pre>
-<p>The <code>scala.Eql</code> object defines a number of <code>Eql</code> instances that together
+<p>The <code>scala.Eql</code> object defines a number of <code>Eql</code> delegates that together
 define a rule book for what standard types can be compared (more details below).</p>
 <p>There's also a &quot;fallback&quot; instance named <code>eqlAny</code> that allows comparisons
-over all types that do not themselves have an <code>Eql</code> instance.  <code>eqlAny</code> is
+over all types that do not themselves have an <code>Eql</code> delegate.  <code>eqlAny</code> is
 defined as follows:</p>
 <pre><code class="language-scala">def eqlAny[L, R]: Eql[L, R] = Eql.derived
 </code></pre>
-<p>Even though <code>eqlAny</code> is not declared with an <code>implied</code> clause, the compiler will still
+<p>Even though <code>eqlAny</code> is not declared a delegate, the compiler will still
 construct an <code>eqlAny</code> instance as answer to an implicit search for the
-type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have <code>Eql</code> instances
+type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have <code>Eql</code> delegates
 defined on them, or the language feature <code>strictEquality</code> is enabled</p>
 <p>The primary motivation for having <code>eqlAny</code> is backwards compatibility,
 if this is of no concern, one can disable <code>eqlAny</code> by enabling the language
@@ -2519,16 +2520,16 @@ done with an import</p>
 <pre><code class="language-scala">import scala.language.strictEquality
 </code></pre>
 <p>or with a command line option <code>-language:strictEquality</code>.</p>
-<h2><a href="#deriving-eql-instances" id="deriving-eql-instances">Deriving Eql Instances</a></h2>
-<p>Instead of defining <code>Eql</code> instances directly, it is often more convenient to derive them. Example:</p>
+<h2><a href="#deriving-eql-delegates" id="deriving-eql-delegates">Deriving Eql Delegates</a></h2>
+<p>Instead of defining <code>Eql</code> delegates directly, it is often more convenient to derive them. Example:</p>
 <pre><code class="language-scala">class Box[T](x: T) derives Eql
 </code></pre>
 <p>By the usual rules if <a href="./derivation.html">typeclass derivation</a>,
-this generates the following <code>Eql</code> instance in the companion object of <code>Box</code>:</p>
-<pre><code class="language-scala">implied [T, U] for Eql[Box[T], Box[U]] given Eql[T, U] = Eql.derived
+this generates the following <code>Eql</code> delegate in the companion object of <code>Box</code>:</p>
+<pre><code class="language-scala">delegate [T, U] for Eql[Box[T], Box[U]] given Eql[T, U] = Eql.derived
 </code></pre>
 <p>That is, two boxes are comparable with <code>==</code> or <code>!=</code> if their elements are. Examples:</p>
-<pre><code class="language-scala">new Box(1) == new Box(1L)   // ok since `Eql[Int, Long]` is an implied instance
+<pre><code class="language-scala">new Box(1) == new Box(1L)   // ok since there is a delegate for `Eql[Int, Long]`
 new Box(1) == new Box(&quot;a&quot;)  // error: can't compare
 new Box(1) == 1             // error: can't compare
 </code></pre>
@@ -2538,7 +2539,7 @@ new Box(1) == 1             // error: can't compare
 a comparison using <code>x == y</code> or <code>x != y</code> between values <code>x: T</code> and <code>y: U</code>
 is legal if</p>
 <ol>
-<li>there is an implied instance of type <code>Eql[T, U]</code>, or</li>
+<li>there is a delegate for <code>Eql[T, U]</code>, or</li>
 <li>one of <code>T</code>, <code>U</code> is <code>Null</code>.</li>
 </ol>
 <p>In the default case where the <code>strictEquality</code> feature is not enabled the comparison is
@@ -2546,22 +2547,22 @@ also legal if</p>
 <ol>
 <li><code>T</code> and <code>U</code> the same, or</li>
 <li>one of <code>T</code> and <code>U</code>is a subtype of the <em>lifted</em> version of the other type, or</li>
-<li>neither <code>T</code> nor <code>U</code> have a <em>reflexive <code>Eql</code> instance</em>.</li>
+<li>neither <code>T</code> nor <code>U</code> have a <em>reflexive <code>Eql</code> delegate</em>.</li>
 </ol>
 <p>Explanations:</p>
 <ul>
 <li><em>lifting</em> a type <code>S</code> means replacing all references to  abstract types
 in covariant positions of <code>S</code> by their upper bound, and to replacing
 all refinement types in covariant positions of <code>S</code> by their parent.</li>
-<li>a type <code>T</code> has a <em>reflexive <code>Eql</code> instance</em> if the implicit search for <code>Eql[T, T]</code>
+<li>a type <code>T</code> has a <em>reflexive <code>Eql</code> delegate</em> if the implicit search for <code>Eql[T, T]</code>
 succeeds.</li>
 </ul>
-<h2><a href="#predefined-eql-instances" id="predefined-eql-instances">Predefined Eql Instances</a></h2>
-<p>The <code>Eql</code> object defines implied instances for
+<h2><a href="#predefined-eql-delegates" id="predefined-eql-delegates">Predefined Eql Delegates</a></h2>
+<p>The <code>Eql</code> object defines delegates for comparing
 - the primitive types <code>Byte</code>, <code>Short</code>, <code>Char</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>,  and <code>Unit</code>,
 - <code>java.lang.Number</code>, <code>java.lang.Boolean</code>, and <code>java.lang.Character</code>,
 - <code>scala.collection.Seq</code>, and <code>scala.collection.Set</code>.</p>
-<p>Implied instances are defined so that every one of these types has a reflexive <code>Eql</code> instance, and the following holds:</p>
+<p>Delegates are defined so that every one of these types has a reflexive <code>Eql</code> delegate, and the following holds:</p>
 <ul>
 <li>Primitive numeric types can be compared with each other.</li>
 <li>Primitive numeric types can be compared with subtypes of <code>java.lang.Number</code> (and <em>vice versa</em>).</li>
@@ -2603,14 +2604,14 @@ However, we can make it more useful (i.e. restrictive) by adding an <code>Eql</c
 <pre><code class="language-scala">  def contains[U &gt;: T](x: U) given Eql1[U]: Boolean   // (2)
 </code></pre>
 <p>This version could be applied just as widely as the original <code>contains(x: Any)</code> method,
-since the <code>Eql1[Any]</code> fallback is always available! So we have gained nothing. What got lost in the transition to a single parameter type class was the original rule that <code>Eql[A, B]</code> is available only if neither <code>A</code> nor <code>B</code> have a reflexive <code>Eql</code> instance. That rule simply cannot be expressed if there is a single type parameter for <code>Eql</code>.</p>
+since the <code>Eql1[Any]</code> fallback is always available! So we have gained nothing. What got lost in the transition to a single parameter type class was the original rule that <code>Eql[A, B]</code> is available only if neither <code>A</code> nor <code>B</code> have a reflexive <code>Eql</code> delegate. That rule simply cannot be expressed if there is a single type parameter for <code>Eql</code>.</p>
 <p>The situation is different under <code>-language:strictEquality</code>. In that case,
 the <code>Eql[Any, Any]</code> or <code>Eql1[Any]</code> instances would never be available, and the
 single and two-parameter versions would indeed coincide for most practical purposes.</p>
 <p>But assuming <code>-language:strictEquality</code> immediately and everywhere poses migration problems which might well be unsurmountable. Consider again <code>contains</code>, which is in the standard library. Parameterizing it with the <code>Eql</code> type class as in (1) is an immediate win since it rules out non-sensical applications while still allowing all sensible ones.
 So it can be done almost at any time, modulo binary compatibility concerns.
 On the other hand, parameterizing <code>contains</code> with <code>Eql1</code> as in (2) would make <code>contains</code>
-unusable for all types that have not yet declared an <code>Eql1</code> instance, including all
+unusable for all types that have not yet declared an <code>Eql1</code> delegate, including all
 types coming from Java. This is clearly unacceptable. It would lead to a situation where,
 rather than migrating existing libraries to use safe equality, the only upgrade path is to have parallel libraries, with the new version only catering to types deriving <code>Eql1</code> and the old version dealing with everything else. Such a split of the ecosystem would be very problematic, which means the cure is likely to be worse than the disease.</p>
 <p>For these reasons, it looks like a two-parameter type class is the only way forward because it can take the existing ecosystem where it is and migrate it towards a future where more and more code uses safe equality.</p>

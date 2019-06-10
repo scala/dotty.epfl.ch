@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2452,9 +2452,9 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Implied instances, extension methods and context bounds
+            <p>Delegates, extension methods and context bounds
 allow a concise and natural expression of <em>typeclasses</em>. Typeclasses are just traits
-with canonical implementations defined by implied instances. Here are some examples of standard typeclasses:</p>
+with canonical implementations defined by delegates. Here are some examples of standard typeclasses:</p>
 <h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids">Semigroups and monoids:</a></h3>
 <pre><code class="language-scala">trait SemiGroup[T] {
   def (x: T) combine (y: T): T
@@ -2466,12 +2466,12 @@ object Monoid {
   def apply[T] given Monoid[T] = the[Monoid[T]]
 }
 
-implied for Monoid[String] {
+delegate for Monoid[String] {
   def (x: String) combine (y: String): String = x.concat(y)
   def unit: String = &quot;&quot;
 }
 
-implied for Monoid[Int] {
+delegate for Monoid[Int] {
   def (x: Int) combine (y: Int): Int = x + y
   def unit: Int = 0
 }
@@ -2491,14 +2491,14 @@ trait Monad[F[_]] extends Functor[F] {
   def pure[A](x: A): F[A]
 }
 
-implied ListMonad for Monad[List] {
+delegate ListMonad for Monad[List] {
   def (xs: List[A]) flatMap [A, B] (f: A =&gt; List[B]): List[B] =
     xs.flatMap(f)
   def pure[A](x: A): List[A] =
     List(x)
 }
 
-implied ReaderMonad[Ctx] for Monad[[X] =&gt;&gt; Ctx =&gt; X] {
+delegate ReaderMonad[Ctx] for Monad[[X] =&gt; Ctx =&gt; X] {
   def (r: Ctx =&gt; A) flatMap [A, B] (f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
     ctx =&gt; f(r(ctx))(ctx)
   def pure[A](x: A): Ctx =&gt; A =

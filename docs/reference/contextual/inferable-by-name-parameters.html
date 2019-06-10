@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>By-Name Context Parameters</title>
+        <title>Implicit By-Name Parameters</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Implied Instances</a>
+<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Inferable Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Implied Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Context Queries</a>
+<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Inferable By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2446,20 +2446,20 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">By-Name Context Parameters</h1>
+        <h1 id="doc-page-title">Implicit By-Name Parameters</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/inferable-by-name-parameters.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Context parameters can be declared by-name to avoid a divergent inferred expansion. Example:</p>
+            <p>Implicit parameters can be declared by-name to avoid a divergent inferred expansion. Example:</p>
 <pre><code class="language-scala">trait Codec[T] {
   def write(x: T): Unit
 }
 
-implied intCodec for Codec[Int] = ???
+delegate intCodec for Codec[Int] = ???
 
-implied optionCodec[T] for Codec[Option[T]] given (ev: =&gt; Codec[T]) {
+delegate optionCodec[T] for Codec[Option[T]] given (ev: =&gt; Codec[T]) {
   def write(xo: Option[T]) = xo match {
     case Some(x) =&gt; ev.write(x)
     case None =&gt;
@@ -2471,25 +2471,25 @@ val s = the[Codec[Option[Int]]]
 s.write(Some(33))
 s.write(None)
 </code></pre>
-<p>As is the case for a normal by-name parameter, the argument for the context parameter <code>ev</code>
+<p>As is the case for a normal by-name parameter, the argument for the implicit parameter <code>ev</code>
 is evaluated on demand. In the example above, if the option value <code>x</code> is <code>None</code>, it is
 not evaluated at all.</p>
-<p>The synthesized argument for a context parameter is backed by a local val
+<p>The synthesized argument for an implicit parameter is backed by a local val
 if this is necessary to prevent an otherwise diverging expansion.</p>
-<p>The precise steps for synthesizing an argument for a by-name context parameter of type <code>=&gt; T</code> are as follows.</p>
+<p>The precise steps for synthesizing an argument for an implicit by-name parameter of type <code>=&gt; T</code> are as follows.</p>
 <ol>
 <li>
-<p>Create a new implied instance of type <code>T</code>:</p>
-<pre><code class="language-scala">implied lv for T = ???
+<p>Create a new delegate for type <code>T</code>:</p>
+<pre><code class="language-scala">delegate lv for T = ???
 </code></pre>
 <p>where <code>lv</code> is an arbitrary fresh name.</p>
 </li>
 <li>
-<p>This instance is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an inferred argument to a by-name parameter.</p>
+<p>This delegate is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an argument to an implicit by-name parameter.</p>
 </li>
 <li>
-<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to the implied instance <code>lv</code>, replace <code>E</code> by</p>
-<pre><code class="language-scala">{ implied lv for T = E; lv }
+<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to the delegate <code>lv</code>, replace <code>E</code> by</p>
+<pre><code class="language-scala">{ delegate lv for T = E; lv }
 </code></pre>
 <p>Otherwise, return <code>E</code> unchanged.</p>
 </li>
@@ -2498,7 +2498,7 @@ if this is necessary to prevent an otherwise diverging expansion.</p>
 <pre><code class="language-scala">val s = the[Test.Codec[Option[Int]]](
   optionCodec[Int](intCodec))
 </code></pre>
-<p>No local instance was generated because the synthesized argument is not recursive.</p>
+<p>No local delegate was generated because the synthesized argument is not recursive.</p>
 <h3><a href="#reference" id="reference">Reference</a></h3>
 <p>For more info, see <a href="https://github.com/lampepfl/dotty/issues/1998">Issue #1998</a>
 and the associated <a href="https://docs.scala-lang.org/sips/byname-implicits.html">Scala SIP</a>.</p>
