@@ -2476,7 +2476,6 @@ performance.</li>
 <p>This is our 16th scheduled release according to our
 <a href="https://dotty.epfl.ch/docs/contributing/release.html">6-week release schedule</a>.</p>
 <h1><a href="#whats-new-in-the-0160-rc3-technology-preview" id="whats-new-in-the-0160-rc3-technology-preview">What’s new in the 0.16.0-RC3 technology preview?</a></h1>
-<!-- https://github.com/lampepfl/dotty/pulls?q=is%3Apr+closed%3A%3E2019-05-23+is%3Aclosed+sort%3Acomments-desc -->
 <h2><a href="#syntax-change-type-lambdas" id="syntax-change-type-lambdas">Syntax Change: Type Lambdas</a></h2>
 <p>We reconsider the syntax of type lambdas in an effort to provide an improved
 visual cue for two categories of types: types that relate to normal function
@@ -2500,7 +2499,7 @@ the future we pick <code>?</code> as a replacement syntax for wildcard types, si
 aligns with Java's syntax.</p>
 <p>For more information please read our documentation on
 <a href="https://dotty.epfl.ch/docs/reference/changed-features/wildcards.html">Wildcards</a>.</p>
-<h1><a href="#syntax-change-contextual-abstractions" id="syntax-change-contextual-abstractions">Syntax Change: Contextual Abstractions</a></h1>
+<h2><a href="#syntax-change-contextual-abstractions" id="syntax-change-contextual-abstractions">Syntax Change: Contextual Abstractions</a></h2>
 <p>We reconsider the syntax for contextual abstractions introducing <code>delegates</code>
 (formerly known as <code>implied</code>). <code>delegate</code>, in the context of contextual
 abstraction means that we declare a <em>representative of a type</em>. We use
@@ -2540,12 +2539,31 @@ in the enclosing class:</p>
 </code></pre>
 <p>For those who are interested in the discussions and more test cases,
 <a href="https://github.com/lampepfl/dotty/pull/4672/">#4672</a> introduced PFTs.</p>
-<h2><a href="#lazy-vals-are-now-thread-safe-by-default" id="lazy-vals-are-now-thread-safe-by-default">lazy vals are now thread-safe by default</a></h2>
+<h2><a href="#lazy-vals-are-now-thread-safe-by-default" id="lazy-vals-are-now-thread-safe-by-default"><code>lazy val</code>s are now thread-safe by default</a></h2>
 <p>Previously thread-safety was required using <code>@volatile</code> but that would not be
 consistent with Scala 2. The old behavior of non-volatile lazy vals can be
 recovered by using the newly-introduced <code>@threadUnsafe</code>.</p>
 <p>For more information please read our documentation on the
 <a href="https://dotty.epfl.ch/docs/reference/other-new-features/threadUnsafe-annotation.html">threadUnsafe annotation</a>.</p>
+<h2><a href="#add-support-for-java-compatible-enums" id="add-support-for-java-compatible-enums">Add support for Java-compatible enums</a></h2>
+<p>We add support for Java-compatible enumerations. The users can just extend
+<code>java.lang.Enum[T]</code>.</p>
+<pre><code class="language-scala">enum A extends java.lang.Enum[A] {
+  case MONDAY, TUESDAY, SATURDAY
+}
+
+enum B(val gravity: Double) extends java.lang.Enum[B] {
+  case EARTH extends B(9.8)
+  case JUPITER extends B(100)
+  case MOON extends B(4.3)
+  case Foo extends B(10)
+}
+</code></pre>
+<p>For more information please check the <a href="https://github.com/lampepfl/dotty/tree/master/tests/run/enum-java">test case</a> and
+also the relevant PRs <a href="https://github.com/lampepfl/dotty/pull/6602">#6602</a> and
+<a href="https://github.com/lampepfl/dotty/pull/6629">#6629</a>.</p>
+<p>In the test, the enums are defined in the <code>MainScala.scala</code> file and used from a
+Java source, <code>Test.java</code>.</p>
 <h2><a href="#introducing-for-clauses-for-importing-delegate-imports-by-type" id="introducing-for-clauses-for-importing-delegate-imports-by-type">Introducing <code>for</code> clauses for importing delegate imports by type</a></h2>
 <p>Since delegate instances can be anonymous it is not always practical to import
 them by their name, and wildcard imports are typically used instead. By-type
