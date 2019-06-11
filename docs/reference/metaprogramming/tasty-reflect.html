@@ -2560,6 +2560,15 @@ example, collects the pattern variables of a tree.</p>
 </code></pre>
 <p>A <code>TreeTraverser</code> extends a <code>TreeAccumulator</code> and performs the same traversal
 but without returning any value. Finally a <code>TreeMap</code> performs a transformation.</p>
+<h4><a href="#let" id="let">Let</a></h4>
+<p><code>scala.tasty.reflect.utils.TreeUtils</code> also offers a method <code>let</code> that allows us
+to bind the <code>rhs</code> to a <code>val</code> and use it in <code>body</code>. Additionally, <code>lets</code> binds
+the given <code>terms</code> to names and use them in the <code>body</code>. Their type definitions
+are shown below:</p>
+<pre><code class="language-scala">def let(rhs: Term)(body: Ident =&gt; Term): Term = ...
+
+def lets(terms: List[Term])(body: List[Term] =&gt; Term): Term = ...
+</code></pre>
 <h2><a href="#tasty-reflect-api" id="tasty-reflect-api">TASTy Reflect API</a></h2>
 <p>TASTy Reflect provides the following types:</p>
 <pre><code class="language-none">+- Tree -+- PackageClause
