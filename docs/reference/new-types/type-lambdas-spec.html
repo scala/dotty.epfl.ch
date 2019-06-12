@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-11 -->
+<!-- This page was last generated on 2019-06-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2459,7 +2459,7 @@ HkTypeParam       ::=  {Annotation} [‘+’ | ‘-’] (Id[HkTypeParamClause] |
 TypeBounds        ::=  [‘&gt;:’ Type] [‘&lt;:’ Type]
 </code></pre>
 <h3><a href="#type-checking" id="type-checking">Type Checking</a></h3>
-<p>A type lambda such <code>[X] =&gt;&gt; F[X]</code> defines a function from types to types. The parameter(s) may carry bounds and variance annotations.
+<p>A type lambda such as <code>[X] =&gt;&gt; F[X]</code> defines a function from types to types. The parameter(s) may carry bounds and variance annotations.
 If a parameter is is bounded, as in <code>[X &gt;: L &lt;: H] =&gt;&gt; F[X]</code> it is checked that arguments to the parameters conform to the bounds <code>L</code> and <code>H</code>.
 Only the upper bound <code>H</code> can be F-bounded, i.e. <code>X</code> can appear in it.</p>
 <p>A variance annotation on a parameter indicates a subtyping relationship on type instances. For instance, given</p>
@@ -2519,7 +2519,7 @@ to be compared with type lambdas.</p>
 <pre><code class="language-scala">[F &gt;: Nothing &lt;: [X] =&gt;&gt; Coll[X]]
 </code></pre>
 <p><strong>Note</strong>: The decision to treat <code>Nothing</code> as universal bottom type is provisional, and might be changed afer further discussion.</p>
-<p><strong>Note</strong>: Scala 2 and 3 differ in that Scala 2 also treats <code>Any</code> as universal top-type. This is not done in Scala 3. See also the discussion on <a href="./kind-polymorphism.html">kind polymorphism</a></p>
+<p><strong>Note</strong>: Scala 2 and 3 differ in that Scala 2 also treats <code>Any</code> as universal top-type. This is not done in Scala 3. See also the discussion on <a href="../other-new-features/kind-polymorphism.html">kind polymorphism</a></p>
 <h2><a href="#curried-type-parameters" id="curried-type-parameters">Curried Type Parameters</a></h2>
 <p>The body of a type lambda can again be a type lambda. Example:</p>
 <pre><code class="language-scala">type TL = [X] =&gt;&gt; [Y] =&gt;&gt; (X, Y)
