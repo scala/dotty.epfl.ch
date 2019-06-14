@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-12 -->
+<!-- This page was last generated on 2019-06-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2606,6 +2606,78 @@ This is either a product (<code>Case</code>) or a sum (<code>Cases</code>) of pr
                     </div>
                 </div><!-- end member -->
                 
+                <div id="code(self)(args)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'code(self)(args)');">[+]</span>
+                        <span class="member-annotations">
+                            @Body 
+                        </span>
+                        <span class="member-modifiers">
+                            inline
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                code
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        self: =&gt;
+                                    </span>
+                                    StringContext
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        args: =&gt;
+                                    </span>
+                                    <repeated>
+<span class="no-left no-right">[</span>
+Any
+<span class="no-left">]</span>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: String</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-code(self)(args)">
+                            <p>Returns the string representations for code passed in the interpolated values</p>
+<pre><code class="language-scala">inline def logged(p1: =&gt; Any) = {
+  val c = code&quot;code: $p1&quot;
+  val res = p1
+  (c, p1)
+}
+logged(indentity(&quot;foo&quot;))
+</code></pre>
+<p>is equivalent to:</p>
+<pre><code class="language-scala">(&quot;code: indentity(&quot;foo&quot;)&quot;, indentity(&quot;foo&quot;))
+</code></pre>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="constValue" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'constValue');">[+]</span>
@@ -2711,9 +2783,9 @@ T
                     </div>
                 </div><!-- end member -->
                 
-                <div id="error(msg,objs)" class="member ">
+                <div id="error(msg)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'error(msg,objs)');">[+]</span>
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'error(msg)');">[+]</span>
                         <span class="member-annotations">
                             @Body 
                         </span>
@@ -2739,17 +2811,6 @@ T
                                     </span>
                                     String
                                     
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        objs:
-                                    </span>
-                                    <repeated>
-<span class="no-left no-right">[</span>
-Any
-<span class="no-left">]</span>
-                                    
                                 
                             <span class="no-left">)</span>
                             
@@ -2763,8 +2824,15 @@ Any
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-error(msg,objs)">
-                            
+                        <div class="member-body-long" id ="long-body-error(msg)">
+                            <p>The error method is used to produce user-defined compile errors during inline expansion.
+If an inline expansion results in a call error(msgStr) the compiler produces an error message containing the given msgStr.</p>
+<pre><code class="language-scala">error(&quot;My error message&quot;)
+</code></pre>
+<p>or</p>
+<pre><code class="language-scala">error(code&quot;My error of this code: ${println(&quot;foo&quot;)}&quot;)
+</code></pre>
+
                         </div>
                     </div>
                 </div><!-- end member -->

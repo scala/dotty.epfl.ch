@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-12 -->
+<!-- This page was last generated on 2019-06-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2755,10 +2755,21 @@ can safely use it to scrutinize its return type (<code>S[S[Z]]</code> in this ca
 <h4><a href="#error" id="error"><code>error</code></a></h4>
 <p>The <code>error</code> method is used to produce user-defined compile errors during inline expansion.
 It has the following signature:</p>
-<pre><code class="language-scala">inline def error(inline msg: String, objs: Any*): Nothing
+<pre><code class="language-scala">inline def error(inline msg: String): Nothing
 </code></pre>
 <p>If an inline expansion results in a call <code>error(msgStr)</code> the compiler
 produces an error message containing the given <code>msgStr</code>.</p>
+<pre><code class="language-scala">inline def fail() = {
+  error(&quot;failed for a reason&quot;)
+}
+fail() // error: failed for a reason
+</code></pre>
+<p>or</p>
+<pre><code class="language-scala">inline def fail(p1: =&gt; Any) = {
+  error(code&quot;failed on: $p1&quot;)
+}
+fail(indentity(&quot;foo&quot;)) // error: failed on: indentity(&quot;foo&quot;)
+</code></pre>
 <h2><a href="#implicit-matches" id="implicit-matches">Implicit Matches</a></h2>
 <p>It is foreseen that many areas of typelevel programming can be done with rewrite
 methods instead of implicits. But sometimes implicits are unavoidable. The
