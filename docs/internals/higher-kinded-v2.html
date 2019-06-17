@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-15 -->
+<!-- This page was last generated on 2019-06-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2585,7 +2585,7 @@ parameter (named $hkArg$0).  Other suffixes are <code>P</code> for covariant typ
 parameters, and <code>N</code> for contravariant type parameters. Lambda traits can have
 more than one type parameter. For instance, here is a trait with contravariant
 and covariant type parameters:</p>
-<pre><code class="language-scala">trait Lambda$NP[type -$hkArg$0, +$hkArg1] { type +Apply } extends Lambda$IP with Lambda$NI
+<pre><code class="language-scala">trait Lambda$NP[type -$hkArg$0, +$hkArg$1] { type +Apply } extends Lambda$IP with Lambda$NI
 </code></pre>
 <p>Aside: the <code>+</code> prefix in front of <code>Apply</code> indicates that <code>Apply</code> is a covariant
 type field. Dotty admits variance annotations on type members.</p>
@@ -2593,9 +2593,9 @@ type field. Dotty admits variance annotations on type members.</p>
 hierarchy: Traits which have covariant or contravariant type parameters are
 subtypes of traits which don't. The supertraits of <code>Lambda$NP</code> would themselves
 be written as follows.</p>
-<pre><code class="language-scala">trait Lambda$IP[type $hkArg$0, +$hkArg1] { type +Apply } extends Lambda$II
-trait Lambda$NI[type -$hkArg$0, $hkArg1] { type +Apply } extends Lambda$II
-trait Lambda$II[type $hkArg$0, $hkArg1] { type +Apply }
+<pre><code class="language-scala">trait Lambda$IP[type $hkArg$0, +$hkArg$1] { type +Apply } extends Lambda$II
+trait Lambda$NI[type -$hkArg$0, $hkArg$1] { type +Apply } extends Lambda$II
+trait Lambda$II[type $hkArg$0, $hkArg$1] { type +Apply }
 </code></pre>
 <p><code>Lambda</code> traits are special in that they influence how type applications are
 expanded: If the standard type application <code>T[X1, ..., Xn]</code> leads to a subtype
@@ -2644,7 +2644,7 @@ type constructors. Consider the higher-kinded type declaration</p>
 <p>The type parameters of <code>Rep</code> are the type parameters of its upper bound, so
 <code>Rep</code> is a unary type constructor.</p>
 <p>More generally, a higher-kinded type declaration</p>
-<pre><code class="language-scala">type T[v1 X1 &gt;: S1 &lt;: U1, ..., vn XN &gt;: S1 &lt;: UN] &gt;: SR &lt;: UR
+<pre><code class="language-scala">type T[v1 X1 &gt;: S1 &lt;: U1, ..., vn XN &gt;: SN &lt;: UN] &gt;: SR &lt;: UR
 </code></pre>
 <p>is encoded as</p>
 <pre><code class="language-scala">type T &lt;: LambdaV1...Vn { self =&gt;
