@@ -2452,12 +2452,12 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Initial implementation in (#3464)[https://github.com/lampepfl/dotty/pull/3464].</p>
+            <p>Initial implementation in <a href="https://github.com/lampepfl/dotty/pull/3464">#3464</a></p>
 <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <pre><code>FunArgTypes       ::=  InfixType
                     |  ‘(’ [ FunArgType {‘,’ FunArgType } ] ‘)’
-                    |  '(' TypedFunParam {',' TypedFunParam } ')'
-TypedFunParam     ::=  id ':' Type
+                    |  ‘(’ TypedFunParam {',' TypedFunParam } ‘)’
+TypedFunParam     ::=  id ‘:’ Type
 </code></pre>
 <p>Dependent function types associate to the right, e.g.
 <code>(s: S) ⇒ (t: T) ⇒ U</code> is the same as <code>(s: S) ⇒ ((t: T) ⇒ U)</code>.</p>
@@ -2481,9 +2481,9 @@ documentation</a>.</p>
 <h2><a href="#examples" id="examples">Examples</a></h2>
 <ul>
 <li>
-<p>(depfuntype.scala)[https://github.com/lampepfl/dotty/blob/0.10.x/tests/pos/depfuntype.scala]</p>
+<p><a href="https://github.com/lampepfl/dotty/blob/master/tests/pos/depfuntype.scala">depfuntype.scala</a></p>
 </li>
-<li>(eff-dependent.scala)[https://github.com/lampepfl/dotty/blob/0.10.x/tests/run/eff-dependent.scala]</li>
+<li><a href="https://github.com/lampepfl/dotty/blob/master/tests/run/eff-dependent.scala">eff-dependent.scala</a></li>
 </ul>
 <h3><a href="#type-checking" id="type-checking">Type Checking</a></h3>
 <p>After desugaring no additional typing rules are required for dependent function types.</p>

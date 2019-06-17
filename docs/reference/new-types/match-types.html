@@ -2505,7 +2505,7 @@ We will leave it out in places where it does not matter for the discussion. Scru
   T' = [Xs := Is] T
 </code></pre>
 <p>An instantiation <code>Is</code> is <em>minimal</em> for <code>Xs</code> if all type variables in <code>Xs</code> that appear
-covariantly and nonvariantly in <code>Is</code> are as small as possible and all type variables in <code>Xs</code> that appear contravariantly in <code>Is</code> are as large as possible. Here, &quot;small&quot; and &quot;large&quot; are understood wrt <code>&lt;:</code>.</p>
+covariantly and nonvariantly in <code>Is</code> are as small as possible and all type variables in <code>Xs</code> that appear contravariantly in <code>Is</code> are as large as possible. Here, &quot;small&quot; and &quot;large&quot; are understood with respect to  <code>&lt;:</code>.</p>
 <p>For simplicity, we have omitted constraint handling so far. The full formulation of subtyping tests describes them as a function from a constraint and a pair of types to
 either <em>success</em> and a new constraint or <em>failure</em>. In the context of reduction, the subtyping test <code>S &lt;: [Xs := Is] P</code> is understood to leave the bounds of all variables
 in the input constraint unchanged, i.e. existing variables in the constraint cannot be instantiated by matching the scrutinee against the patterns.</p>
@@ -2515,15 +2515,15 @@ in the input constraint unchanged, i.e. existing variables in the constraint can
 <p>if</p>
 <pre><code>  Match(S, C1, ..., Cn)  can-reduce  i, T
 </code></pre>
-<p>and, for <code>j</code> in <code>1..i-1</code>: <code>C_j</code> is disjoint from <code>C_i</code>, or else <code>S</code> cannot possibly match <code>C_j</code>.
-See the section on overlapping patterns for an elaboration of &quot;disjoint&quot; and &quot;cannot possibly match&quot;.</p>
+<p>and, for <code>j</code> in <code>1..i-1</code>: <code>Cj</code> is disjoint from <code>Ci</code>, or else <code>S</code> cannot possibly match <code>Cj</code>.
+See the section on <a href="#overlapping-patterns">overlapping patterns</a> for an elaboration of &quot;disjoint&quot; and &quot;cannot possibly match&quot;.</p>
 <h2><a href="#subtyping-rules-for-match-types" id="subtyping-rules-for-match-types">Subtyping Rules for Match Types</a></h2>
 <p>The following rules apply to match types. For simplicity, we omit environments and constraints.</p>
 <p>The first rule is a structural comparison between two match types:</p>
-<pre><code>  Match(S, C1, ..., Cn) &lt;: Match(T, D1, ..., Dm)
+<pre><code>  Match(S, C1, ..., Cm) &lt;: Match(T, D1, ..., Dn)
 </code></pre>
 <p><code></code>if</p>
-<pre><code>  S &lt;: T,  m &lt;= n,  Ci &lt;: Di for i in 1..n
+<pre><code>  S &lt;: T,  m &gt;= n,  Ci &lt;: Di for i in 1..n
 </code></pre>
 <p>I.e. scrutinees and corresponding cases must be subtypes, no case re-ordering is allowed, but the subtype can have more cases than the supertype.</p>
 <p>The second rule states that a match type and its redux are mutual subtypes</p>
@@ -2567,7 +2567,7 @@ before we just had constraints over type parameters.</p>
 <p>Assuming this extension, we can then try to typecheck as usual. E.g. to typecheck the first case <code>case _: A =&gt; 1</code> of the definition of <code>m</code> above, GADT matching will produce the constraint <code>x.type &lt;: A</code>. Therefore, <code>M[x.type]</code> reduces to the singleton type <code>1</code>. The right hand side <code>1</code> of the case conforms to this type, so the case typechecks.</p>
 <p>Typechecking the second case hits a snag, though. In general, the assumption <code>x.type &lt;: B</code> is not enough to prove that
 <code>M[x.type]</code> reduces to <code>2</code>. However we can reduce <code>M[x.type]</code> to <code>2</code> if the types <code>A</code> and <code>B</code> do not overlap.
-So correspondence of match terms to match types is feasible only in the case of non-overlapping patterns.</p>
+So correspondence of match terms to match types is feasible only in the case of non-overlapping patterns (see next section about <a href="#overlapping-patterns">overlapping patterns</a>)</p>
 <p>For simplicity, we have disregarded the <code>null</code> value in this discussion. <code>null</code> does not cause a fundamental problem but complicates things somewhat because some forms of patterns do not match <code>null</code>.</p>
 <h2><a href="#overlapping-patterns" id="overlapping-patterns">Overlapping Patterns</a></h2>
 <p>A complete defininition of when two patterns or types overlap still needs to be worked out. Some examples we want to cover are:</p>
@@ -2576,10 +2576,10 @@ So correspondence of match terms to match types is feasible only in the case of 
 <li>A final class <code>C</code> overlaps with a trait <code>T</code> only if <code>C</code> extends <code>T</code> directly or indirectly.</li>
 <li>A class overlaps with a sealed trait <code>T</code> only if it overlaps with one of the known subclasses of <code>T</code>.</li>
 <li>An abstract type or type parameter <code>A</code> overlaps with a type <code>B</code> only if <code>A</code>'s upper bound overlaps with <code>B</code>.</li>
-<li>A union type <code>A_1 | A_2</code> overlaps with <code>B</code> only if <code>A_1</code> overlaps with <code>B</code> or <code>A_2</code> overlaps with <code>B</code>.</li>
-<li>An intersection type <code>A_1 &amp; A_2</code> overlaps with <code>B</code> only if both <code>A_1</code> and <code>A_2</code> overlap with <code>B</code>.</li>
-<li>If <code>C[X_1, ..., X_n]</code> is a case class, then the instance type <code>C[A_1, ..., A_n]</code> overlaps with the instance type <code>C[B_1, ..., B_n]</code> only if for every index <code>i</code> in <code>1..n</code>,
-if <code>X_i</code> is the type of a parameter of the class, then <code>A_i</code> overlaps with <code>B_i</code>.</li>
+<li>A union type <code>A1 | ... | An</code> overlaps with <code>B</code> only if at least one of <code>Ai</code> for <code>i</code> in <code>1..n</code> overlaps with <code>B</code>.</li>
+<li>An intersection type <code>A1 &amp; ... &amp; An</code> overlaps with <code>B</code> only if all of <code>Ai</code> for <code>i</code> in <code>1..n</code> overlap with <code>B</code>.</li>
+<li>If <code>C[X1, ..., Xn]</code> is a case class, then the instance type <code>C[A1, ..., An]</code> overlaps with the instance type <code>C[B1, ..., Bn]</code> only if for every index <code>i</code> in <code>1..n</code>,
+if <code>Xi</code> is the type of a parameter of the class, then <code>Ai</code> overlaps with <code>Bi</code>.</li>
 </ul>
 <p>The last rule in particular is needed to detect non-overlaps for cases where the scrutinee and the patterns are tuples. I.e. <code>(Int, String)</code> does not overlap <code>(Int, Int)</code> since
 <code>String</code> does not overlap <code>Int</code>.</p>
