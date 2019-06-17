@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Implicit By-Name Parameters</title>
+        <title>Implicit Function Types</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
+<li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-function-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2446,62 +2446,140 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Implicit By-Name Parameters</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/inferable-by-name-parameters.md">
+        <h1 id="doc-page-title">Implicit Function Types</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/implicit-function-types.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Implicit parameters can be declared by-name to avoid a divergent inferred expansion. Example:</p>
-<pre><code class="language-scala">trait Codec[T] {
-  def write(x: T): Unit
-}
-
-delegate intCodec for Codec[Int] = ???
-
-delegate optionCodec[T] for Codec[Option[T]] given (ev: =&gt; Codec[T]) {
-  def write(xo: Option[T]) = xo match {
-    case Some(x) =&gt; ev.write(x)
-    case None =&gt;
-  }
-}
-
-val s = the[Codec[Option[Int]]]
-
-s.write(Some(33))
-s.write(None)
+            <p><em>Implicit functions</em> are functions with (only) implicit parameters.
+Their types are <em>implicit function types</em>. Here is an example of an implicit function type:</p>
+<pre><code class="language-scala">type Executable[T] = given ExecutionContext =&gt; T
 </code></pre>
-<p>As is the case for a normal by-name parameter, the argument for the implicit parameter <code>ev</code>
-is evaluated on demand. In the example above, if the option value <code>x</code> is <code>None</code>, it is
-not evaluated at all.</p>
-<p>The synthesized argument for an implicit parameter is backed by a local val
-if this is necessary to prevent an otherwise diverging expansion.</p>
-<p>The precise steps for synthesizing an argument for an implicit by-name parameter of type <code>=&gt; T</code> are as follows.</p>
+<p>An implicit function is applied to synthesized arguments, in
+the same way a method with a given clause is applied. For instance:</p>
+<pre><code class="language-scala">  delegate ec for ExecutionContext = ...
+
+  def f(x: Int): Executable[Int] = ...
+
+  f(2) given ec    // explicit argument
+  f(2)             // argument is inferred
+</code></pre>
+<p>Conversely, if the expected type of an expression <code>E</code> is an implicit function type
+<code>given (T_1, ..., T_n) =&gt; U</code> and <code>E</code> is not already an
+implicit function literal, <code>E</code> is converted to an implicit function literal by rewriting to</p>
+<pre><code class="language-scala">  given (x_1: T1, ..., x_n: Tn) =&gt; E
+</code></pre>
+<p>where the names <code>x_1</code>, ..., <code>x_n</code> are arbitrary. This expansion is performed
+before the expression <code>E</code> is typechecked, which means that <code>x_1</code>, ..., <code>x_n</code>
+are available as delegates in <code>E</code>.</p>
+<p>Like their types, implicit function literals are written with a <code>given</code> prefix. They differ from normal function literals in two ways:</p>
 <ol>
-<li>
-<p>Create a new delegate for type <code>T</code>:</p>
-<pre><code class="language-scala">delegate lv for T = ???
-</code></pre>
-<p>where <code>lv</code> is an arbitrary fresh name.</p>
-</li>
-<li>
-<p>This delegate is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an argument to an implicit by-name parameter.</p>
-</li>
-<li>
-<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to the delegate <code>lv</code>, replace <code>E</code> by</p>
-<pre><code class="language-scala">{ delegate lv for T = E; lv }
-</code></pre>
-<p>Otherwise, return <code>E</code> unchanged.</p>
-</li>
+<li>Their parameters are defined with a given clause.</li>
+<li>Their types are implicit function types.</li>
 </ol>
-<p>In the example above, the definition of <code>s</code> would be expanded as follows.</p>
-<pre><code class="language-scala">val s = the[Test.Codec[Option[Int]]](
-  optionCodec[Int](intCodec))
+<p>For example, continuing with the previous definitions,</p>
+<pre><code class="language-scala">  def g(arg: Executable[Int]) = ...
+
+  g(22)      // is expanded to g(given ev =&gt; 22)
+
+  g(f(2))    // is expanded to g(given ev =&gt; f(2) given ev)
+
+  g(given ctx =&gt; f(22) given ctx) // is left as it is
 </code></pre>
-<p>No local delegate was generated because the synthesized argument is not recursive.</p>
+<h3><a href="#example-builder-pattern" id="example-builder-pattern">Example: Builder Pattern</a></h3>
+<p>Implicit function types have considerable expressive power. For
+instance, here is how they can support the &quot;builder pattern&quot;, where
+the aim is to construct tables like this:</p>
+<pre><code class="language-scala">  table {
+    row {
+      cell(&quot;top left&quot;)
+      cell(&quot;top right&quot;)
+    }
+    row {
+      cell(&quot;bottom left&quot;)
+      cell(&quot;bottom right&quot;)
+    }
+  }
+</code></pre>
+<p>The idea is to define classes for <code>Table</code> and <code>Row</code> that allow
+addition of elements via <code>add</code>:</p>
+<pre><code class="language-scala">  class Table {
+    val rows = new ArrayBuffer[Row]
+    def add(r: Row): Unit = rows += r
+    override def toString = rows.mkString(&quot;Table(&quot;, &quot;, &quot;, &quot;)&quot;)
+  }
+
+  class Row {
+    val cells = new ArrayBuffer[Cell]
+    def add(c: Cell): Unit = cells += c
+    override def toString = cells.mkString(&quot;Row(&quot;, &quot;, &quot;, &quot;)&quot;)
+  }
+
+  case class Cell(elem: String)
+</code></pre>
+<p>Then, the <code>table</code>, <code>row</code> and <code>cell</code> constructor methods can be defined
+with implicit function types as parameters to avoid the plumbing boilerplate
+that would otherwise be necessary.</p>
+<pre><code class="language-scala">  def table(init: given Table =&gt; Unit) = {
+    delegate t for Table
+    init
+    t
+  }
+
+  def row(init: given Row =&gt; Unit) given (t: Table) = {
+    delegate r for Row
+    init
+    t.add(r)
+  }
+
+  def cell(str: String) given (r: Row) =
+    r.add(new Cell(str))
+</code></pre>
+<p>With that setup, the table construction code above compiles and expands to:</p>
+<pre><code class="language-scala">  table { given ($t: Table) =&gt;
+    row { given ($r: Row) =&gt;
+      cell(&quot;top left&quot;) given $r
+      cell(&quot;top right&quot;) given $r
+    } given $t
+    row { given ($r: Row) =&gt;
+      cell(&quot;bottom left&quot;) given $r
+      cell(&quot;bottom right&quot;) given $r
+    } given $t
+  }
+</code></pre>
+<h3><a href="#example-postconditions" id="example-postconditions">Example: Postconditions</a></h3>
+<p>As a larger example, here is a way to define constructs for checking arbitrary postconditions using an extension method <code>ensuring</code>so that the checked result can be referred to simply by <code>result</code>. The example combines opaque aliases, implicit function types, and extension methods to provide a zero-overhead abstraction.</p>
+<pre><code class="language-scala">object PostConditions {
+  opaque type WrappedResult[T] = T
+
+  def result[T] given (r: WrappedResult[T]): T = r
+
+  def (x: T) ensuring [T] (condition: given WrappedResult[T] =&gt; Boolean): T =
+    assert(condition) given x
+}
+import PostConditions.{ensuring, result}
+
+val s = List(1, 2, 3).sum.ensuring(result == 6)
+</code></pre>
+<p><strong>Explanations</strong>: We use an implicit function type <code>given WrappedResult[T] =&gt; Boolean</code>
+as the type of the condition of <code>ensuring</code>. An argument to <code>ensuring</code> such as
+<code>(result == 6)</code> will therefore have a delegate for type <code>WrappedResult[T]</code> in
+scope to pass along to the <code>result</code> method. <code>WrappedResult</code> is a fresh type, to make sure
+that we do not get unwanted delegates in scope (this is good practice in all cases
+where implicit parameters are involved). Since <code>WrappedResult</code> is an opaque type alias, its
+values need not be boxed, and since <code>ensuring</code> is added as an extension method, its argument
+does not need boxing either. Hence, the implementation of <code>ensuring</code> is as about as efficient
+as the best possible code one could write by hand:</p>
+<pre><code>{ val result = List(1, 2, 3).sum
+  assert(result == 6)
+  result
+}
+</code></pre>
 <h3><a href="#reference" id="reference">Reference</a></h3>
-<p>For more info, see <a href="https://github.com/lampepfl/dotty/issues/1998">Issue #1998</a>
-and the associated <a href="https://docs.scala-lang.org/sips/byname-implicits.html">Scala SIP</a>.</p>
+<p>For more info, see the <a href="https://www.scala-lang.org/blog/2016/12/07/implicit-function-types.html">blog article</a>,
+(which uses a different syntax that has been superseded).</p>
+<p><a href="./implicit-function-types-spec.html">More details</a></p>
 
         </div>
     </div><!-- end content-body -->

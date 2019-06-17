@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Implicit Function Types - More Details</title>
+        <title>Implicit By-Name Parameters</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
+<li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-function-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2446,70 +2446,62 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Implicit Function Types - More Details</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/query-types-spec.md">
+        <h1 id="doc-page-title">Implicit By-Name Parameters</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/implicit-by-name-parameters.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <h2><a href="#syntax" id="syntax">Syntax</a></h2>
-<pre><code>Type              ::=  ...
-                    |  `given' FunArgTypes `=&gt;' Type
-Expr              ::=  ...
-                    |  `given' FunParams `=&gt;' Expr
-</code></pre>
-<p>Implicit function types associate to the right, e.g.
-<code>given S =&gt; given T =&gt; U</code> is the same as <code>given S =&gt; (given T =&gt; U)</code>.</p>
-<h2><a href="#implementation" id="implementation">Implementation</a></h2>
-<p>Implicit function types are shorthands for class types that define <code>apply</code>
-methods with implicit parameters. Specifically, the <code>N</code>-ary function type
-<code>T1, ..., TN =&gt; R</code> is a shorthand for the class type
-<code>ImplicitFunctionN[T1 , ... , TN, R]</code>. Such class types are assumed to have the following definitions, for any value of <code>N &gt;= 1</code>:</p>
-<pre><code class="language-scala">package scala
-trait ImplicitFunctionN[-T1 , ... , -TN, +R] {
-  def apply given (x1: T1 , ... , xN: TN): R
+            <p>Implicit parameters can be declared by-name to avoid a divergent inferred expansion. Example:</p>
+<pre><code class="language-scala">trait Codec[T] {
+  def write(x: T): Unit
 }
-</code></pre>
-<p>Implicit function types erase to normal function types, so these classes are
-generated on the fly for typechecking, but not realized in actual code.</p>
-<p>Implicit function literals <code>given (x1: T1, ..., xn: Tn) =&gt; e</code> map
-implicit parameters <code>xi</code> of types <code>Ti</code> to the result of evaluating expression <code>e</code>.
-The scope of each implicit parameter <code>xi</code> is <code>e</code>. The parameters must have pairwise distinct names.</p>
-<p>If the expected type of the implicit function literal is of the form
-<code>scala.ImplicitFunctionN[S1, ..., Sn, R]</code>, the expected type of <code>e</code> is <code>R</code> and
-the type <code>Ti</code> of any of the parameters <code>xi</code> can be omitted, in which case <code>Ti = Si</code> is assumed. If the expected type of the implicit function literal is
-some other type, all implicit parameter types must be explicitly given, and the expected type of <code>e</code> is undefined.
-The type of the implicit function literal is <code>scala.ImplicitFunctionN[S1, ...,Sn, T]</code>, where <code>T</code> is the widened
-type of <code>e</code>. <code>T</code> must be equivalent to a type which does not refer to any of
-the implicit parameters <code>xi</code>.</p>
-<p>The implicit function literal is evaluated as the instance creation
-expression:</p>
-<pre><code class="language-scala">new scala.ImplicitFunctionN[T1, ..., Tn, T] {
-  def apply given (x1: T1, ..., xn: Tn): T = e
+
+delegate intCodec for Codec[Int] = ???
+
+delegate optionCodec[T] for Codec[Option[T]] given (ev: =&gt; Codec[T]) {
+  def write(xo: Option[T]) = xo match {
+    case Some(x) =&gt; ev.write(x)
+    case None =&gt;
+  }
 }
+
+val s = the[Codec[Option[Int]]]
+
+s.write(Some(33))
+s.write(None)
 </code></pre>
-<p>In the case of a single untyped parameter, <code>given (x) =&gt; e</code> can be
-abbreviated to <code>given x =&gt; e</code>.</p>
-<p>An implicit parameter may also be a wildcard represented by an underscore <code>_</code>. In
-that case, a fresh name for the parameter is chosen arbitrarily.</p>
-<p>Note: The closing paragraph of the
-<a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#anonymous-functions">Anonymous Functions section</a>
-of Scala 2.12 is subsumed by implicit function types and should be removed.</p>
-<p>Implicit function literals <code>given (x1: T1, ..., xn: Tn) =&gt; e</code> are
-automatically created for any expression <code>e</code> whose expected type is
-<code>scala.ImplicitFunctionN[T1, ..., Tn, R]</code>, unless <code>e</code> is
-itself a implicit function literal. This is analogous to the automatic
-insertion of <code>scala.Function0</code> around expressions in by-name argument position.</p>
-<p>Implicit function types generalize to <code>N &gt; 22</code> in the same way that function types do, see <a href="https://dotty.epfl.ch/docs/reference/dropped-features/limit22.html">the corresponding
-documentation</a>.</p>
-<h2><a href="#examples" id="examples">Examples</a></h2>
-<p>See the section on Expressiveness from <a href="https://dl.acm.org/citation.cfm?id=3158130">Simplicitly: foundations and
-applications of implicit function
-types</a>. I've extracted it in [this
-Gist](<a href="https://gist.github.com/OlivierBlanvillain/234d3927fe9e9c6fba074b53a7bd9">https://gist.github.com/OlivierBlanvillain/234d3927fe9e9c6fba074b53a7bd9</a>
-592), it might easier to access than the pdf.</p>
-<h3><a href="#type-checking" id="type-checking">Type Checking</a></h3>
-<p>After desugaring no additional typing rules are required for implicit function types.</p>
+<p>As is the case for a normal by-name parameter, the argument for the implicit parameter <code>ev</code>
+is evaluated on demand. In the example above, if the option value <code>x</code> is <code>None</code>, it is
+not evaluated at all.</p>
+<p>The synthesized argument for an implicit parameter is backed by a local val
+if this is necessary to prevent an otherwise diverging expansion.</p>
+<p>The precise steps for synthesizing an argument for an implicit by-name parameter of type <code>=&gt; T</code> are as follows.</p>
+<ol>
+<li>
+<p>Create a new delegate for type <code>T</code>:</p>
+<pre><code class="language-scala">delegate lv for T = ???
+</code></pre>
+<p>where <code>lv</code> is an arbitrary fresh name.</p>
+</li>
+<li>
+<p>This delegate is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an argument to an implicit by-name parameter.</p>
+</li>
+<li>
+<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to the delegate <code>lv</code>, replace <code>E</code> by</p>
+<pre><code class="language-scala">{ delegate lv for T = E; lv }
+</code></pre>
+<p>Otherwise, return <code>E</code> unchanged.</p>
+</li>
+</ol>
+<p>In the example above, the definition of <code>s</code> would be expanded as follows.</p>
+<pre><code class="language-scala">val s = the[Test.Codec[Option[Int]]](
+  optionCodec[Int](intCodec))
+</code></pre>
+<p>No local delegate was generated because the synthesized argument is not recursive.</p>
+<h3><a href="#reference" id="reference">Reference</a></h3>
+<p>For more info, see <a href="https://github.com/lampepfl/dotty/issues/1998">Issue #1998</a>
+and the associated <a href="https://docs.scala-lang.org/sips/byname-implicits.html">Scala SIP</a>.</p>
 
         </div>
     </div><!-- end content-body -->

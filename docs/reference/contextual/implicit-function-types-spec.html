@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Delegate Imports</title>
+        <title>Implicit Function Types - More Details</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
+<li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-function-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2446,76 +2446,70 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Delegate Imports</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-implied.md">
+        <h1 id="doc-page-title">Implicit Function Types - More Details</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/implicit-function-types-spec.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>A special form of import is used to import delegates. Example:</p>
-<pre><code class="language-scala">object A {
-  class TC
-  delegate tc for TC
-  def f given TC = ???
-}
-object B {
-  import A._
-  import delegate A._
-}
+            <h2><a href="#syntax" id="syntax">Syntax</a></h2>
+<pre><code>Type              ::=  ...
+                    |  `given' FunArgTypes `=&gt;' Type
+Expr              ::=  ...
+                    |  `given' FunParams `=&gt;' Expr
 </code></pre>
-<p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the delegate <code>tc</code>. Conversely, the second import <code>import delegate A._</code> will import <em>only</em> that delegate.</p>
-<p>Generally, a normal import clause brings all definitions except delegates into scope whereas a delegate import brings only delegates into scope.</p>
-<p>There are two main benefits arising from these rules:</p>
-<ul>
-<li>It is made clearer where delegates in scope are coming from.
-In particular, it is not possible to hide imported delegates in a long list of regular imports.</li>
-<li>It enables importing all delegates
-without importing anything else. This is particularly important since delegates
-can be anonymous, so the usual recourse of using named imports is not
-practical.</li>
-</ul>
-<h3><a href="#importing-by-type" id="importing-by-type">Importing By Type</a></h3>
-<p>Since delegates can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
-<pre><code class="language-scala">import delegate A.{for TC}
-</code></pre>
-<p>This imports any delegate in <code>A</code> that has a type which conforms tp <code>TC</code>. There can be several bounding types following a <code>for</code> and bounding types can contain wildcards.
-For instance, assuming the object</p>
-<pre><code class="language-scala">object Delegates {
-  delegate intOrd for Ordering[Int]
-  delegate [T: Ordering] listOrd for Ordering[List[T]]
-  delegate ec for ExecutionContext = ...
-  delegate im for Monoid[Int]
+<p>Implicit function types associate to the right, e.g.
+<code>given S =&gt; given T =&gt; U</code> is the same as <code>given S =&gt; (given T =&gt; U)</code>.</p>
+<h2><a href="#implementation" id="implementation">Implementation</a></h2>
+<p>Implicit function types are shorthands for class types that define <code>apply</code>
+methods with implicit parameters. Specifically, the <code>N</code>-ary function type
+<code>T1, ..., TN =&gt; R</code> is a shorthand for the class type
+<code>ImplicitFunctionN[T1 , ... , TN, R]</code>. Such class types are assumed to have the following definitions, for any value of <code>N &gt;= 1</code>:</p>
+<pre><code class="language-scala">package scala
+trait ImplicitFunctionN[-T1 , ... , -TN, +R] {
+  def apply given (x1: T1 , ... , xN: TN): R
 }
 </code></pre>
-<p>the import</p>
-<pre><code>import delegate Delegates.{for Ordering[_], ExecutionContext}
+<p>Implicit function types erase to normal function types, so these classes are
+generated on the fly for typechecking, but not realized in actual code.</p>
+<p>Implicit function literals <code>given (x1: T1, ..., xn: Tn) =&gt; e</code> map
+implicit parameters <code>xi</code> of types <code>Ti</code> to the result of evaluating expression <code>e</code>.
+The scope of each implicit parameter <code>xi</code> is <code>e</code>. The parameters must have pairwise distinct names.</p>
+<p>If the expected type of the implicit function literal is of the form
+<code>scala.ImplicitFunctionN[S1, ..., Sn, R]</code>, the expected type of <code>e</code> is <code>R</code> and
+the type <code>Ti</code> of any of the parameters <code>xi</code> can be omitted, in which case <code>Ti = Si</code> is assumed. If the expected type of the implicit function literal is
+some other type, all implicit parameter types must be explicitly given, and the expected type of <code>e</code> is undefined.
+The type of the implicit function literal is <code>scala.ImplicitFunctionN[S1, ...,Sn, T]</code>, where <code>T</code> is the widened
+type of <code>e</code>. <code>T</code> must be equivalent to a type which does not refer to any of
+the implicit parameters <code>xi</code>.</p>
+<p>The implicit function literal is evaluated as the instance creation
+expression:</p>
+<pre><code class="language-scala">new scala.ImplicitFunctionN[T1, ..., Tn, T] {
+  def apply given (x1: T1, ..., xn: Tn): T = e
+}
 </code></pre>
-<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> delegates but leave out the <code>im</code> delegate, since it fits none of the specified bounds.</p>
-<p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
-<pre><code>import delegate Instances.{im, for Ordering[_]}
-</code></pre>
-<p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>. By-type imports cannot be mixed with a wildcard import in the same import clause.</p>
-<h3><a href="#migration" id="migration">Migration</a></h3>
-<p>The rules for delegate imports given above have the consequence that a library
-would have to migrate in lockstep with all its users from old style implicits and
-normal imports to delegate definitions and imports.</p>
-<p>The following modifications avoid this hurdle to migration.</p>
-<ol>
-<li>
-<p>A delegate import also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a normal import or by a delegate import.</p>
-</li>
-<li>
-<p>In Scala 3.1, old-style implicits accessed through a normal import
-will give a deprecation warning.</p>
-</li>
-<li>In some version after 3.1, old-style implicits accessed through a normal import
-will give a compiler error.</li>
-</ol>
-<p>These rules mean that library users can use <code>import delegate</code> to access old-style implicits in Scala 3.0,
-and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-representation clauses once their user base has migrated.</p>
+<p>In the case of a single untyped parameter, <code>given (x) =&gt; e</code> can be
+abbreviated to <code>given x =&gt; e</code>.</p>
+<p>An implicit parameter may also be a wildcard represented by an underscore <code>_</code>. In
+that case, a fresh name for the parameter is chosen arbitrarily.</p>
+<p>Note: The closing paragraph of the
+<a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#anonymous-functions">Anonymous Functions section</a>
+of Scala 2.12 is subsumed by implicit function types and should be removed.</p>
+<p>Implicit function literals <code>given (x1: T1, ..., xn: Tn) =&gt; e</code> are
+automatically created for any expression <code>e</code> whose expected type is
+<code>scala.ImplicitFunctionN[T1, ..., Tn, R]</code>, unless <code>e</code> is
+itself a implicit function literal. This is analogous to the automatic
+insertion of <code>scala.Function0</code> around expressions in by-name argument position.</p>
+<p>Implicit function types generalize to <code>N &gt; 22</code> in the same way that function types do, see <a href="https://dotty.epfl.ch/docs/reference/dropped-features/limit22.html">the corresponding
+documentation</a>.</p>
+<h2><a href="#examples" id="examples">Examples</a></h2>
+<p>See the section on Expressiveness from <a href="https://dl.acm.org/citation.cfm?id=3158130">Simplicitly: foundations and
+applications of implicit function
+types</a>. I've extracted it in [this
+Gist](<a href="https://gist.github.com/OlivierBlanvillain/234d3927fe9e9c6fba074b53a7bd9">https://gist.github.com/OlivierBlanvillain/234d3927fe9e9c6fba074b53a7bd9</a>
+592), it might easier to access than the pdf.</p>
+<h3><a href="#type-checking" id="type-checking">Type Checking</a></h3>
+<p>After desugaring no additional typing rules are required for implicit function types.</p>
 
         </div>
     </div><!-- end content-body -->

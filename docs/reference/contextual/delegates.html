@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
+<li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-function-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2447,13 +2447,13 @@
 
     <div id="content-body" class="doc-page-body">
         <h1 id="doc-page-title">Delegates</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/instance-defs.md">
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/delegates.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
             <p>Delegates define &quot;canonical&quot; values of certain types
-that serve for synthesizing arguments to <a href="./inferable-params.html">given clauses</a>. Example:</p>
+that serve for synthesizing arguments to <a href="./given-clauses.html">given clauses</a>. Example:</p>
 <pre><code class="language-scala">trait Ord[T] {
   def compare(x: T, y: T): Int
   def (x: T) &lt; (y: T) = compare(x, y) &lt; 0
@@ -2480,7 +2480,7 @@ delegate ListOrd[T] for Ord[List[T]] given (ord: Ord[T]) {
 a delegate for the type <code>Ord[Int]</code> whereas <code>ListOrd[T]</code> defines delegates
 for <code>Ord[List[T]]</code> for all types <code>T</code> that come with a delegate for <code>Ord[T]</code> themselves.
 The <code>given</code> clause in <code>ListOrd</code> defines an implicit parameter.
-Given clauses are further explained in the <a href="./inferable-params.html">next section</a>.</p>
+Given clauses are further explained in the <a href="./given-clauses.html">next section</a>.</p>
 <h2><a href="#anonymous-delegates" id="anonymous-delegates">Anonymous Delegates</a></h2>
 <p>The name of a delegate can be left out. So the delegate definitions
 of the last section can also be expressed like this:</p>
@@ -2498,6 +2498,8 @@ The first time <code>global</code> is accessed, a new <code>ForkJoinPool</code> 
 returned for this and all subsequent accesses to <code>global</code>.</p>
 <p>Alias delegates can be anonymous, e.g.</p>
 <pre><code class="language-scala">delegate for Position = enclosingTree.position
+delegate for Context given (outer: Context) =
+  outer.withOwner(currentOwner)
 </code></pre>
 <p>An alias delegate can have type parameters and given clauses just like any other delegate, but it can only implement a single type.</p>
 <h2><a href="#delegate-instantiation" id="delegate-instantiation">Delegate Instantiation</a></h2>

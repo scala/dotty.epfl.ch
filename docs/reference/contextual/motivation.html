@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
+<li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-function-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2487,13 +2487,13 @@ implicit def i2(x: T): C[T] = ...
 <p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce four fundamental changes:</p>
 <ol>
 <li>
-<p><a href="./instance-defs.html">Delegates</a> are a new way to define basic terms that can be synthesized.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
+<p><a href="./delegates.html">Delegates</a> are a new way to define basic terms that can be synthesized.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
 </li>
 <li>
-<p><a href="./inferable-params.html">Given Clauses</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several implicit parameter sections, and to have implicit parameters followed by normal ones.</p>
+<p><a href="./given-clauses.html">Given Clauses</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several implicit parameter sections, and to have implicit parameters followed by normal ones.</p>
 </li>
 <li>
-<p><a href="./import-implied.html">Delegate Imports</a> are a new class of imports that specifically import delegates and nothing else. Delegates <em>must be</em> imported with  <code>import delegate</code>, a plain import will no longer bring them into scope.</p>
+<p><a href="./import-delegate.html">Delegate Imports</a> are a new class of imports that specifically import delegates and nothing else. Delegates <em>must be</em> imported with  <code>import delegate</code>, a plain import will no longer bring them into scope.</p>
 </li>
 <li><a href="./conversions.html">Implicit Conversions</a> are now expressed as delegates of a standard <code>Conversion</code> class. All other forms of implicit conversions will be phased out.</li>
 </ol>
@@ -2505,8 +2505,8 @@ implicit def i2(x: T): C[T] = ...
 <li><a href="./derivation.html">Typeclass Derivation</a> introduces constructs to automatically derive typeclass delegates for ADTs.</li>
 <li><a href="./multiversal-equality.html">Multiversal Equality</a> introduces a special typeclass
 to support type safe equality.</li>
-<li><a href="./query-types.html">Implicit Function Types</a> provide a way to abstract over given clauses.</li>
-<li><a href="./inferable-by-name-parameters.html">Implicit By-Name Parameters</a> are an essential tool to define recursive synthesized values without looping.</li>
+<li><a href="./implicit-function-types.html">Implicit Function Types</a> provide a way to abstract over given clauses.</li>
+<li><a href="./implicit-by-name-parameters.html">Implicit By-Name Parameters</a> are an essential tool to define recursive synthesized values without looping.</li>
 <li><a href="./relationship-implicits.html">Relationship with Scala 2 Implicits</a> discusses the relationship between old-style implicits and new-style delegates and given clauses and how to migrate from one to the other.</li>
 </ul>
 <p>Overall, the new design achieves a better separation of term inference from the rest of the language: There is a single way to define delegates instead of a multitude of forms all taking an <code>implicit</code> modifier. There is a single way to introduce implicit parameters and arguments instead of conflating implicit with normal arguments. There is a separate way to import delegates that does not allow them to hide in a sea of normal imports. And there is a single way to define an implicit conversion which is clearly marked as such and does not require special syntax.</p>

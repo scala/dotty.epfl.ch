@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Given Clauses</title>
+        <title>Delegate Imports</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/instance-defs.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-params.html">Given Clauses</a>
+<li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-implied.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -174,11 +174,11 @@
 </li>
 <li><a href="../../../.././docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/query-types.html">Implicit Function Types</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-function-types.html">Implicit Function Types</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/conversions.html">Implicit Conversions</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/inferable-by-name-parameters.html">Implicit By-Name Parameters</a>
+<li><a href="../../../.././docs/reference/contextual/implicit-by-name-parameters.html">Implicit By-Name Parameters</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></li>
 </ul>
@@ -2446,96 +2446,76 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Given Clauses</h1>
-        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/inferable-params.md">
+        <h1 id="doc-page-title">Delegate Imports</h1>
+        <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-delegate.md">
             Edit this page on GitHub
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Functional programming tends to express most dependencies as simple function parameterization.
-This is clean and powerful, but it sometimes leads to functions that take many parameters and
-call trees where the same value is passed over and over again in long call chains to many
-functions. Given clauses can help here since they enable the compiler to synthesize
-repetitive arguments instead of the programmer having to write them explicitly.</p>
-<p>For example, given the <a href="./instance-defs.html">delegates</a> defined previously,
-a maximum function that works for any arguments for which an ordering exists can be defined as follows:</p>
-<pre><code class="language-scala">def max[T](x: T, y: T) given (ord: Ord[T]): T =
-  if (ord.compare(x, y) &lt; 1) y else x
-</code></pre>
-<p>Here, <code>ord</code> is an <em>implicit parameter</em> introduced with a <code>given</code> clause.
-The <code>max</code> method can be applied as follows:</p>
-<pre><code class="language-scala">max(2, 3) given IntOrd
-</code></pre>
-<p>The <code>given IntOrd</code> part passes <code>IntOrd</code> as an argument for the <code>ord</code> parameter. But the point of
-implicit parameters is that this argument can also be left out (and it usually is). So the following
-applications are equally valid:</p>
-<pre><code class="language-scala">max(2, 3)
-max(List(1, 2, 3), Nil)
-</code></pre>
-<h2><a href="#anonymous-given-clauses" id="anonymous-given-clauses">Anonymous Given Clauses</a></h2>
-<p>In many situations, the name of an implicit parameter need not be
-mentioned explicitly at all, since it is used only in synthesized arguments for
-other implicit parameters. In that case one can avoid defining a parameter name
-and just provide its type. Example:</p>
-<pre><code class="language-scala">def maximum[T](xs: List[T]) given Ord[T]: T =
-  xs.reduceLeft(max)
-</code></pre>
-<p><code>maximum</code> takes an implicit parameter of type <code>Ord</code> only to pass it on as an
-inferred argument to <code>max</code>. The name of the parameter is left out.</p>
-<p>Generally, implicit parameters may be defined either as a parameter list <code>(p_1: T_1, ..., p_n: T_n)</code>
-or as a sequence of types, separated by commas.</p>
-<h2><a href="#inferring-complex-arguments" id="inferring-complex-arguments">Inferring Complex Arguments</a></h2>
-<p>Here are two other methods that have an implicit parameter of type <code>Ord[T]</code>:</p>
-<pre><code class="language-scala">def descending[T] given (asc: Ord[T]): Ord[T] = new Ord[T] {
-  def compare(x: T, y: T) = asc.compare(y, x)
+            <p>A special form of import is used to import delegates. Example:</p>
+<pre><code class="language-scala">object A {
+  class TC
+  delegate tc for TC
+  def f given TC = ???
 }
-
-def minimum[T](xs: List[T]) given Ord[T] =
-  maximum(xs) given descending
+object B {
+  import A._
+  import delegate A._
+}
 </code></pre>
-<p>The <code>minimum</code> method's right hand side passes <code>descending</code> as an explicit argument to <code>maximum(xs)</code>.
-With this setup, the following calls are all well-formed, and they all normalize to the last one:</p>
-<pre><code class="language-scala">minimum(xs)
-maximum(xs) given descending
-maximum(xs) given (descending given ListOrd)
-maximum(xs) given (descending given (ListOrd given IntOrd))
+<p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
+of <code>A</code> <em>except</em> the delegate <code>tc</code>. Conversely, the second import <code>import delegate A._</code> will import <em>only</em> that delegate.</p>
+<p>Generally, a normal import clause brings all definitions except delegates into scope whereas a delegate import brings only delegates into scope.</p>
+<p>There are two main benefits arising from these rules:</p>
+<ul>
+<li>It is made clearer where delegates in scope are coming from.
+In particular, it is not possible to hide imported delegates in a long list of regular imports.</li>
+<li>It enables importing all delegates
+without importing anything else. This is particularly important since delegates
+can be anonymous, so the usual recourse of using named imports is not
+practical.</li>
+</ul>
+<h3><a href="#importing-by-type" id="importing-by-type">Importing By Type</a></h3>
+<p>Since delegates can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
+<pre><code class="language-scala">import delegate A.{for TC}
 </code></pre>
-<h2><a href="#multiple-given-clauses" id="multiple-given-clauses">Multiple Given Clauses</a></h2>
-<p>There can be several given clauses in a definition. Example:</p>
-<pre><code class="language-scala">def f given (u: Universe) given (x: u.Context) = ...
+<p>This imports any delegate in <code>A</code> that has a type which conforms tp <code>TC</code>. There can be several bounding types following a <code>for</code> and bounding types can contain wildcards.
+For instance, assuming the object</p>
+<pre><code class="language-scala">object Delegates {
+  delegate intOrd for Ordering[Int]
+  delegate [T: Ordering] listOrd for Ordering[List[T]]
+  delegate ec for ExecutionContext = ...
+  delegate im for Monoid[Int]
+}
 </code></pre>
-<p>However, all <code>given</code> clauses in a definition must come after any normal parameter clauses.
-Multiple given clauses are matched left-to-right in applications. Example:</p>
-<pre><code class="language-scala">delegate global for Universe { type Context = ... }
-delegate ctx for global.Context { ... }
+<p>the import</p>
+<pre><code class="language-scala">import delegate Delegates.{for Ordering[_], ExecutionContext}
 </code></pre>
-<p>Then the following calls are all valid (and normalize to the last one)</p>
-<pre><code class="language-scala">f
-(f given global)
-(f given global) given ctx
+<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> delegates but leave out the <code>im</code> delegate, since it fits none of the specified bounds.</p>
+<p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
+<pre><code class="language-scala">import delegate Instances.{im, for Ordering[_]}
 </code></pre>
-<p>But <code>f given ctx</code> would give a type error.</p>
-<h2><a href="#summoning-delegates" id="summoning-delegates">Summoning Delegates</a></h2>
-<p>A method <code>the</code> in <code>Predef</code> returns the delegate for a given type. For example,
-the delegate for <code>Ord[List[Int]]</code> is produced by</p>
-<pre><code class="language-scala">the[Ord[List[Int]]]  // reduces to ListOrd given IntOrd
-</code></pre>
-<p>The <code>the</code> method is simply defined as the (non-widening) identity function over a implicit parameter.</p>
-<pre><code class="language-scala">def the[T] given (x: T): x.type = x
-</code></pre>
-<h2><a href="#syntax" id="syntax">Syntax</a></h2>
-<p>Here is the new syntax of parameters and arguments seen as a delta from the <a href="http://dotty.epfl.ch/docs/internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
-<pre><code>ClsParamClauses     ::=  ...
-                      |  {ClsParamClause} {GivenClsParamClause}
-GivenClsParamClause ::=  ‘given’ (‘(’ ClsParams ‘)’ | GivenTypes)
-DefParamClauses     ::=  ...
-                      |  {DefParamClause} {GivenParamClause}
-GivenParamClause    ::=  ‘given’ (‘(’ DefParams ‘)’ | GivenTypes)
-GivenTypes          ::=  AnnotType {‘,’ AnnotType}
-
-InfixExpr           ::=  ...
-                      |  InfixExpr ‘given’ (InfixExpr | ParArgumentExprs)
-</code></pre>
+<p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>. By-type imports cannot be mixed with a wildcard import in the same import clause.</p>
+<h3><a href="#migration" id="migration">Migration</a></h3>
+<p>The rules for delegate imports given above have the consequence that a library
+would have to migrate in lockstep with all its users from old style implicits and
+normal imports to delegate definitions and imports.</p>
+<p>The following modifications avoid this hurdle to migration.</p>
+<ol>
+<li>
+<p>A delegate import also brings old style implicits into scope. So, in Scala 3.0
+an old-style implicit definition can be brought into scope either by a normal import or by a delegate import.</p>
+</li>
+<li>
+<p>In Scala 3.1, old-style implicits accessed through a normal import
+will give a deprecation warning.</p>
+</li>
+<li>In some version after 3.1, old-style implicits accessed through a normal import
+will give a compiler error.</li>
+</ol>
+<p>These rules mean that library users can use <code>import delegate</code> to access old-style implicits in Scala 3.0,
+and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
+representation clauses once their user base has migrated.</p>
 
         </div>
     </div><!-- end content-body -->
