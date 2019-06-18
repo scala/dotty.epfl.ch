@@ -2684,7 +2684,7 @@ tree machinery:</p>
 <pre><code class="language-scala">    delegate for Liftable[Int] {
       def toExpr(n: Int): Expr[Int] = n match {
         case Int.MinValue    =&gt; '{ Int.MinValue }
-        case _ if n &lt; 0      =&gt; '{ - ${ toExpr(n) } }
+        case _ if n &lt; 0      =&gt; '{ - ${ toExpr(-n) } }
         case 0               =&gt; '{ 0 }
         case _ if n % 2 == 0 =&gt; '{ ${ toExpr(n / 2) } * 2 }
         case _               =&gt; '{ ${ toExpr(n / 2) } * 2 + 1 }
