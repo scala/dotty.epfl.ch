@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-19 -->
+<!-- This page was last generated on 2019-06-20 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2471,6 +2471,32 @@ fix the problem with <code>.withSpan(tree.span)</code>. The following fix is an 
 <ul>
 <li><a href="https://github.com/lampepfl/dotty/pull/6581">https://github.com/lampepfl/dotty/pull/6581</a></li>
 </ul>
+<h2><a href="#unresolved-symbols-in-pickling" id="unresolved-symbols-in-pickling">unresolved symbols in pickling</a></h2>
+<p>Here is the usually stacktrace for unresolved symbols in pickling:</p>
+<pre><code>[error] java.lang.AssertionError: assertion failed: unresolved symbols: value pos (line 5565) when pickling scalatest/scalatest-test.dotty/target/scala-0.17/src_managed/test/org/scalatest/AssertionsSpec.scala
+[error] 	at dotty.DottyPredef$.assertFail(DottyPredef.scala:16)
+[error] 	at dotty.tools.dotc.core.tasty.TreePickler.pickle(TreePickler.scala:699)
+[error] 	at dotty.tools.dotc.transform.Pickler.run$$anonfun$10$$anonfun$8(Pickler.scala:60)
+[error] 	at dotty.runtime.function.JProcedure1.apply(JProcedure1.java:15)
+[error] 	at dotty.runtime.function.JProcedure1.apply(JProcedure1.java:10)
+[error] 	at scala.collection.immutable.List.foreach(List.scala:392)
+[error] 	at dotty.tools.dotc.transform.Pickler.run$$anonfun$2(Pickler.scala:83)
+[error] 	at dotty.runtime.function.JProcedure1.apply(JProcedure1.java:15)
+[error] 	at dotty.runtime.function.JProcedure1.apply(JProcedure1.java:10)
+[error] 	at scala.collection.immutable.List.foreach(List.scala:392)
+[error] 	at dotty.tools.dotc.transform.Pickler.run(Pickler.scala:83)
+[error] 	at dotty.tools.dotc.core.Phases$Phase.runOn$$anonfun$1(Phases.scala:316)
+[error] 	at scala.collection.immutable.List.map(List.scala:286)
+[error] 	at dotty.tools.dotc.core.Phases$Phase.runOn(Phases.scala:318)
+[error] 	at dotty.tools.dotc.transform.Pickler.runOn(Pickler.scala:87)
+</code></pre>
+<p>From the stack trace, we know <code>pos</code> at line 5565 cannot be resolved. For the
+compiler, it means that the name <code>pos</code> (usually a local name, but could also be
+a class member) is used in the code but its definition cannot be found.</p>
+<p>A possible cause of the problem is that the macro implementation accidentally
+dropped the definition of the referenced name.</p>
+<p>If you are confident that the macro implementation is correct, then it might be
+a bug of the compiler. Try to minimize the code and report a compiler bug.</p>
 
         </div>
     </div><!-- end content-body -->
