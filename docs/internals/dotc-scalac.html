@@ -2511,12 +2511,6 @@ if (sym is Flags.PackageClass)  // dotc (*)
 <li>Example: <code>Module</code> is valid for both module values and module classes,
 <code>ModuleVal</code> / <code>ModuleClass</code> for either of the two.</li>
 <li><code>flags.is(Method | Param)</code>: true if <code>flags</code> has either of the two</li>
-<li><code>flags.is(allOf(Method | Deferred))</code>: true if <code>flags</code> has both. <code>allOf</code>
-creates a <code>FlagConjunction</code>, so a different overload of <code>is</code> is chosen.
-<ul>
-<li>Careful: <code>flags.is(Method &amp; Deferred)</code> is always true, because <code>Method &amp; Deferred</code> is empty.</li>
-</ul>
-</li>
 </ul>
 <h3><a href="#tree" id="tree">Tree</a></h3>
 <ul>
