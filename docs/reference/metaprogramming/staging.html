@@ -2533,6 +2533,9 @@ stagedSum.run.apply(Array(1, 2, 3)) // Returns 6
 compilation we need make available the compiler to the runtime:</p>
 <pre><code class="language-shell">sbt:dotty&gt; dotr -classpath out -with-compiler Test
 </code></pre>
+<p>Or, from SBT:</p>
+<pre><code class="language-scala">libraryDependencies += &quot;ch.epfl.lamp&quot; %% &quot;dotty-compiler&quot; % scalaVersion.value
+</code></pre>
 
         </div>
     </div><!-- end content-body -->
