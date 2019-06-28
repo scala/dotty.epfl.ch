@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-06-27 -->
+<!-- This page was last generated on 2019-06-28 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1249,6 +1249,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor object" href="../../../.././api/scala/internal/Chars$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/internal/Chars$.html">Chars</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor class" href="../../../.././api/scala/internal/MatchCase.html">C</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/internal/MatchCase.html">MatchCase</a>
@@ -1546,6 +1564,42 @@
 
                 
                 <li id="show-hidden-by-default" onclick="toggleHiddenByDefault(this);">+ expand rest</li>
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/scala/quoted/package$/NoResult$.html">O</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/quoted/package$/NoResult$.html">NoResult</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../.././api/scala/quoted/QuoteContext.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
                 <li class="hidden-by-default  with-companion ">
                 <!-- end li setter -->
 
@@ -1714,6 +1768,38 @@
                         <a class="letter-anchor object" href="../../../.././api/scala/quoted/matching/ExprSeq$.html">O</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/quoted/matching/ExprSeq$.html">ExprSeq</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+            </ul>
+        </li>
+    
+        <li class="index-entity entity-package">
+            <h1><a class="entity-name" href="../../../.././api/scala/quoted/show/index.html">scala.quoted.show</a></h1>
+            <ul class="package-entities">
+                <div id="cover-block"></div>
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class=" with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/scala/quoted/show/SyntaxHighlight$.html">O</a>
+                        
+                        <a class="letter-anchor trait" href="../../../.././api/scala/quoted/show/SyntaxHighlight.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/quoted/show/SyntaxHighlight.html">SyntaxHighlight</a>
                 </li>
 
                 
@@ -2340,24 +2426,6 @@
                  <!-- end != "package" -->
 
             
-                
-
-                
-                <li class="">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../../../.././api/scala/tasty/util/SyntaxHighlightUtils$.html">O</a>
-                    </div>
-                    <a class="entity-name" href="../../../.././api/scala/tasty/util/SyntaxHighlightUtils$.html">SyntaxHighlightUtils</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
             </ul>
         </li>
     
@@ -2508,26 +2576,32 @@ method passing quoted arguments, constant arguments or inline arguments.</p>
 <p>The framework as discussed so far allows code to be staged, i.e. be prepared
 to be executed at a later stage. To run that code, there is another method
 in class <code>Expr</code> called <code>run</code>. Note that <code>$</code> and <code>run</code> both map from <code>Expr[T]</code>
-to <code>T</code> but only <code>$</code> is subject to the PCP, whereas <code>run</code> is just a normal method.</p>
-<pre><code class="language-scala">sealed abstract class Expr[T] {
-  def run  given (toolbox: Toolbox): T       // run staged code
-  def show given (toolbox: Toolbox): String  // show staged code
-}
+to <code>T</code> but only <code>$</code> is subject to the PCP, whereas <code>run</code> is just a normal method.
+Run provides a <code>QuoteContext</code> that can be used to show the expression in the scope of <code>run</code>.
+On the other hand <code>withQuoteContext</code> provides a <code>QuoteContext</code> without evauating the expression.</p>
+<pre><code class="language-scala">package scala.quoted
+
+def run[T](expr: given QuoteContext =&gt; Expr[T]) given (toolbox: Toolbox): T = ...
+
+def withQuoteContext[T](thunk: given QuoteContext =&gt; T) given (toolbox: Toolbox): T = ...
 </code></pre>
 <h2><a href="#example" id="example">Example</a></h2>
 <p>Now take exactly the same example as in <a href="./macros.html">Macros</a>. Assume that we
 do not want to pass an array statically but generated code at run-time and pass
 the value, also at run-time. Note, how we make a future-stage function of type
-<code>Expr[Array[Int] =&gt; Int]</code> in line 4 below. Invoking the <code>.show</code> or <code>.run</code> we can
-either show the code or run it respectivelly.</p>
+<code>Expr[Array[Int] =&gt; Int]</code> in line 4 below. Using <code>run { ... }</code> we can evaluate an
+expression at runtime. Within the scope of <code>run</code> we can also invoke <code>show</code> on an expression
+to get a source-like representation of the expression.</p>
 <pre><code class="language-scala">// make available the necessary toolbox for runtime code generation
 implicit val toolbox: scala.quoted.Toolbox = scala.quoted.Toolbox.make(getClass.getClassLoader)
 
-val stagedSum: Expr[Array[Int] =&gt; Int] = '{ (arr: Array[Int]) =&gt; ${sum('arr)}}
+val f: Array[Int] =&gt; Int = run {
+  val stagedSum: Expr[Array[Int] =&gt; Int] = '{ (arr: Array[Int]) =&gt; ${sum('arr)}}
+  println(stagedSum.show) // Prints &quot;(arr: Array[Int]) =&gt; { var sum = 0; ... }&quot;
+  stagedSum
+}
 
-println(stagedSum.show)
-
-stagedSum.run.apply(Array(1, 2, 3)) // Returns 6
+f.apply(Array(1, 2, 3)) // Returns 6
 </code></pre>
 <p>Note that if we need to run the main (in an object called <code>Test</code>) after
 compilation we need make available the compiler to the runtime:</p>
