@@ -2509,7 +2509,7 @@
         <div id="entity-container">
             <div id="entity-title">
                 <span id="entity-annotations">
-                    
+                    @compileTimeOnly 
                 </span>
                 <span id="entity-modifiers">
                     
@@ -2535,7 +2535,11 @@
 
             
             <div id="entity-body" class="entity-section">
-                <p>Artifact of type splicing</p>
+                <p>Artifact of pickled type splices</p>
+<p>During quote reification a quote <code>'{ ... F[$t] ... }</code> will be transformed into
+<code>'{ @quoteTypeTag type T$1 = $t ... F[T$1] ... }</code> to have a tree for <code>$t</code>.
+This artifact is removed durring quote unpickling.</p>
+<p>See ReifyQuotes.scala and PickledQuotes.scala</p>
 
             </div>
             

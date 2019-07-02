@@ -2593,7 +2593,7 @@
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'quoteTypeTag');">[+]</span>
                         <span class="member-annotations">
-                            
+                            @compileTimeOnly 
                         </span>
                         <span class="member-modifiers">
                             
@@ -2616,7 +2616,11 @@
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-quoteTypeTag">
-                            <p>Artifact of type splicing</p>
+                            <p>Artifact of pickled type splices</p>
+<p>During quote reification a quote <code>'{ ... F[$t] ... }</code> will be transformed into
+<code>'{ @quoteTypeTag type T$1 = $t ... F[T$1] ... }</code> to have a tree for <code>$t</code>.
+This artifact is removed durring quote unpickling.</p>
+<p>See ReifyQuotes.scala and PickledQuotes.scala</p>
 
                         </div>
                     </div>
