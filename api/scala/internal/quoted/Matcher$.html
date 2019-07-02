@@ -2512,7 +2512,7 @@
                     
                 </span>
                 <span id="entity-modifiers">
-                    opaque
+                    
                 </span>
                 <span id="entity-kind">
                     object
@@ -2556,119 +2556,9 @@
 
             <div id="entity-members" class="entity-section ">
                 
-                <div id="Matching$" class="member private">
+                <div id="unapply(scrutineeExpr)(patternExpr,reflection)" class="member ">
                     <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Matching$');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            private
-                        </span>
-                        <span class="member-kind">
-                            object
-                        </span>
-                        <span class="member-name ">
-                            
-                                <a href="../../../../.././api/scala/internal/quoted/Matcher$/Matching$.html">Matching</a>
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Matching$">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Matching" class="member private">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Matching');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            private opaque
-                        </span>
-                        <span class="member-kind">
-                            type
-                        </span>
-                        <span class="member-name ">
-                            
-                                Matching
-                            
-                        </span>
-
-                        
-
-                        
-                        
-                        
-                        <span class="type-alias">
-                            <span class="equals"> = </span>
-                            Option
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/scala/Tuple.html">Tuple</a>
-<span class="no-left">]</span>
-                        </span>
-                        
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Matching">
-                            <p>Result of matching a part of an expression</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="debug" class="member private">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'debug');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            private final
-                        </span>
-                        <span class="member-kind">
-                            val
-                        </span>
-                        <span class="member-name ">
-                            
-                                debug
-                            
-                        </span>
-
-                        
-
-                        
-
-                        
-                        <span class="no-left">: [31mfalse[0m</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-debug">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="unapply(scrutineeExpr)(patternExpr,qctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'unapply(scrutineeExpr)(patternExpr,qctx)');">[+]</span>
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'unapply(scrutineeExpr)(patternExpr,reflection)');">[+]</span>
                         <span class="member-annotations">
                             
                         </span>
@@ -2717,9 +2607,9 @@ Nothing<span class="bounds"> &lt;: </span>Any
                                     
                                 
                                     <span class="">
-                                        qctx:
+                                        reflection:
                                     </span>
-                                    <a href="../../../../.././api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                    <a href="../../../../.././api/scala/tasty/Reflection.html">Reflection</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -2737,20 +2627,8 @@ Tup
                     </div><!-- end member-title -->
 
                     <div class="member-body">
-                        <div class="member-body-long" id ="long-body-unapply(scrutineeExpr)(patternExpr,qctx)">
-                            <p>Pattern matches an the scrutineeExpr aquainsnt the patternExpr and returns a tuple
-with the matched holes if successful.</p>
-<p>Examples:
-- <code>Matcher.unapply('{ f(0, myInt) })('{ f(0, myInt) }, _)</code>
-will return <code>Some(())</code> (where <code>()</code> is a tuple of arity 0)
-- <code>Matcher.unapply('{ f(0, myInt) })('{ f(patternHole[Int], patternHole[Int]) }, _)</code>
-will return <code>Some(Tuple2('{0}, '{ myInt }))</code>
-- <code>Matcher.unapply('{ f(0, &quot;abc&quot;) })('{ f(0, patternHole[Int]) }, _)</code>
-will return <code>None</code> due to the missmatch of types in the hole</p>
-<p>Holes:
-- scala.internal.Quoted.patternHole[T]: hole that matches an expression <code>x</code> of type <code>Expr[U]</code>
-if <code>U &lt;:&lt; T</code> and returns <code>x</code> as part of the match.</p>
-
+                        <div class="member-body-long" id ="long-body-unapply(scrutineeExpr)(patternExpr,reflection)">
+                            
                         </div>
                     </div>
                 </div><!-- end member -->
