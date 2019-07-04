@@ -2453,7 +2453,7 @@ trait ImplicitFunctionN[-T1 , ... , -TN, +R] {
 <p>Implicit function types erase to normal function types, so these classes are
 generated on the fly for typechecking, but not realized in actual code.</p>
 <p>Implicit function literals <code>given (x1: T1, ..., xn: Tn) =&gt; e</code> map
-implicit parameters <code>xi</code> of types <code>Ti</code> to the result of evaluating expression <code>e</code>.
+implicit parameters <code>xi</code> of types <code>Ti</code> to the result of evaluating the expression <code>e</code>.
 The scope of each implicit parameter <code>xi</code> is <code>e</code>. The parameters must have pairwise distinct names.</p>
 <p>If the expected type of the implicit function literal is of the form
 <code>scala.ImplicitFunctionN[S1, ..., Sn, R]</code>, the expected type of <code>e</code> is <code>R</code> and
@@ -2463,7 +2463,7 @@ The type of the implicit function literal is <code>scala.ImplicitFunctionN[S1, .
 type of <code>e</code>. <code>T</code> must be equivalent to a type which does not refer to any of
 the implicit parameters <code>xi</code>.</p>
 <p>The implicit function literal is evaluated as the instance creation
-expression:</p>
+expression</p>
 <pre><code class="language-scala">new scala.ImplicitFunctionN[T1, ..., Tn, T] {
   def apply given (x1: T1, ..., xn: Tn): T = e
 }

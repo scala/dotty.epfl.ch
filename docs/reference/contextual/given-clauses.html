@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Given Clauses</title>
+        <title>Given Parameters</title>
 
         <link rel="icon" type="image/png" href="../../../.././images/favicon.png">
 
@@ -2426,7 +2426,7 @@
 
 
     <div id="content-body" class="doc-page-body">
-        <h1 id="doc-page-title">Given Clauses</h1>
+        <h1 id="doc-page-title">Given Parameters</h1>
         <a id="edit-on-github" href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/given-clauses.md">
             Edit this page on GitHub
         </a>
@@ -2437,7 +2437,7 @@ This is clean and powerful, but it sometimes leads to functions that take many p
 call trees where the same value is passed over and over again in long call chains to many
 functions. Given clauses can help here since they enable the compiler to synthesize
 repetitive arguments instead of the programmer having to write them explicitly.</p>
-<p>For example, given the <a href="./delegates.html">delegates</a> defined previously,
+<p>For example, with the <a href="./delegates.html">given instances</a> defined previously,
 a maximum function that works for any arguments for which an ordering exists can be defined as follows:</p>
 <pre><code class="language-scala">def max[T](x: T, y: T) given (ord: Ord[T]): T =
   if (ord.compare(x, y) &lt; 1) y else x
@@ -2486,8 +2486,8 @@ maximum(xs) given (descending given (ListOrd given IntOrd))
 </code></pre>
 <p>However, all <code>given</code> clauses in a definition must come after any normal parameter clauses.
 Multiple given clauses are matched left-to-right in applications. Example:</p>
-<pre><code class="language-scala">delegate global for Universe { type Context = ... }
-delegate ctx for global.Context { ... }
+<pre><code class="language-scala">given global as Universe { type Context = ... }
+given ctx as global.Context { ... }
 </code></pre>
 <p>Then the following calls are all valid (and normalize to the last one)</p>
 <pre><code class="language-scala">f
@@ -2495,9 +2495,9 @@ delegate ctx for global.Context { ... }
 (f given global) given ctx
 </code></pre>
 <p>But <code>f given ctx</code> would give a type error.</p>
-<h2><a href="#summoning-delegates" id="summoning-delegates">Summoning Delegates</a></h2>
-<p>A method <code>the</code> in <code>Predef</code> returns the delegate for a given type. For example,
-the delegate for <code>Ord[List[Int]]</code> is produced by</p>
+<h2><a href="#summoning-instances" id="summoning-instances">Summoning Instances</a></h2>
+<p>A method <code>the</code> in <code>Predef</code> returns the given instance of a specific type. For example,
+the given instance for <code>Ord[List[Int]]</code> is produced by</p>
 <pre><code class="language-scala">the[Ord[List[Int]]]  // reduces to ListOrd given IntOrd
 </code></pre>
 <p>The <code>the</code> method is simply defined as the (non-widening) identity function over a implicit parameter.</p>

@@ -2432,17 +2432,17 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Implicit conversions are defined by delegates for the <code>scala.Conversion</code> class.
+            <p>Implicit conversions are defined by given instances of the <code>scala.Conversion</code> class.
 This class is defined in package <code>scala</code> as follows:</p>
 <pre><code class="language-scala">abstract class Conversion[-T, +U] extends (T =&gt; U)
 </code></pre>
 <p>For example, here is an implicit conversion from <code>String</code> to <code>Token</code>:</p>
-<pre><code class="language-scala">delegate for Conversion[String, Token] {
+<pre><code class="language-scala">given as Conversion[String, Token] {
   def apply(str: String): Token = new KeyWord(str)
 }
 </code></pre>
-<p>Using an alias delegate this can be expressed more concisely as:</p>
-<pre><code class="language-scala">delegate for Conversion[String, Token] = new KeyWord(_)
+<p>Using an alias this can be expressed more concisely as:</p>
+<pre><code class="language-scala">given as Conversion[String, Token] = new KeyWord(_)
 </code></pre>
 <p>An implicit conversion is applied automatically by the compiler in three situations:</p>
 <ol>
@@ -2451,18 +2451,18 @@ This class is defined in package <code>scala</code> as follows:</p>
 <li>In an application <code>e.m(args)</code> with <code>e</code> of type <code>T</code>, if <code>T</code> does define
 some member(s) named <code>m</code>, but none of these members can be applied to the arguments <code>args</code>.</li>
 </ol>
-<p>In the first case, the compiler looks for a delegate for
-<code>scala.Conversion</code> that maps an argument of type <code>T</code> to type <code>S</code>. In the second and third
-case, it looks for a delegate for <code>scala.Conversion</code> that maps an argument of type <code>T</code>
+<p>In the first case, the compiler looks for a given <code>scala.Conversion</code> that maps
+an argument of type <code>T</code> to type <code>S</code>. In the second and third
+case, it looks for a given <code>scala.Conversion</code> that maps an argument of type <code>T</code>
 to a type that defines a member <code>m</code> which can be applied to <code>args</code> if present.
-If such a delegate <code>C</code> is found, the expression <code>e</code> is replaced by <code>C.apply(e)</code>.</p>
+If such an instance <code>C</code> is given, the expression <code>e</code> is replaced by <code>C.apply(e)</code>.</p>
 <h2><a href="#examples" id="examples">Examples</a></h2>
 <ol>
 <li>The <code>Predef</code> package contains &quot;auto-boxing&quot; conversions that map
 primitive number types to subclasses of <code>java.lang.Number</code>. For instance, the
 conversion from <code>Int</code> to <code>java.lang.Integer</code> can be defined as follows:</li>
 </ol>
-<pre><code class="language-scala">delegate int2Integer for Conversion[Int, java.lang.Integer] =
+<pre><code class="language-scala">given int2Integer as Conversion[Int, java.lang.Integer] =
  java.lang.Integer.valueOf(_)
 </code></pre>
 <ol>
@@ -2484,9 +2484,9 @@ conversion from <code>Int</code> to <code>java.lang.Integer</code> can be define
     //
     //   CompletionArg.fromStatusCode(statusCode)
 
-    delegate fromString     for Conversion[String, CompletionArg]               = Error(_)
-    delegate fromFuture     for Conversion[Future[HttpResponse], CompletionArg] = Response(_)
-    delegate fromStatusCode for Conversion[Future[StatusCode], CompletionArg]   = Status(_)
+    given fromString     as Conversion[String, CompletionArg]               = Error(_)
+    given fromFuture     as Conversion[Future[HttpResponse], CompletionArg] = Response(_)
+    given fromStatusCode as Conversion[Future[StatusCode], CompletionArg]   = Status(_)
   }
   import CompletionArg._
 

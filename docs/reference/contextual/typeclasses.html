@@ -2432,9 +2432,9 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Delegates, extension methods and context bounds
+            <p>Given instances, extension methods and context bounds
 allow a concise and natural expression of <em>typeclasses</em>. Typeclasses are just traits
-with canonical implementations defined by delegates. Here are some examples of standard typeclasses:</p>
+with canonical implementations defined by given instances. Here are some examples of standard typeclasses:</p>
 <h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids">Semigroups and monoids:</a></h3>
 <pre><code class="language-scala">trait SemiGroup[T] {
   def (x: T) combine (y: T): T
@@ -2446,12 +2446,12 @@ object Monoid {
   def apply[T] given Monoid[T] = the[Monoid[T]]
 }
 
-delegate for Monoid[String] {
+given as Monoid[String] {
   def (x: String) combine (y: String): String = x.concat(y)
   def unit: String = &quot;&quot;
 }
 
-delegate for Monoid[Int] {
+given as Monoid[Int] {
   def (x: Int) combine (y: Int): Int = x + y
   def unit: Int = 0
 }
@@ -2471,14 +2471,14 @@ trait Monad[F[_]] extends Functor[F] {
   def pure[A](x: A): F[A]
 }
 
-delegate ListMonad for Monad[List] {
+given ListMonad as Monad[List] {
   def (xs: List[A]) flatMap [A, B] (f: A =&gt; List[B]): List[B] =
     xs.flatMap(f)
   def pure[A](x: A): List[A] =
     List(x)
 }
 
-delegate ReaderMonad[Ctx] for Monad[[X] =&gt;&gt; Ctx =&gt; X] {
+given ReaderMonad[Ctx] as Monad[[X] =&gt;&gt; Ctx =&gt; X] {
   def (r: Ctx =&gt; A) flatMap [A, B] (f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
     ctx =&gt; f(r(ctx))(ctx)
   def pure[A](x: A): Ctx =&gt; A =

@@ -2432,16 +2432,16 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Typeclass derivation is a way to generate delegates for certain type classes automatically or with minimal code hints. A type class in this sense is any trait or class with a type parameter that describes the type being operated on. Commonly used examples are <code>Eql</code>, <code>Ordering</code>, <code>Show</code>, or <code>Pickling</code>. Example:</p>
+            <p>Typeclass derivation is a way to generate given instances for certain type classes automatically or with minimal code hints. A type class in this sense is any trait or class with a type parameter that describes the type being operated on. Commonly used examples are <code>Eql</code>, <code>Ordering</code>, <code>Show</code>, or <code>Pickling</code>. Example:</p>
 <pre><code class="language-scala">enum Tree[T] derives Eql, Ordering, Pickling {
   case Branch(left: Tree[T], right: Tree[T])
   case Leaf(elem: T)
 }
 </code></pre>
-<p>The <code>derives</code> clause generates delegates for the <code>Eql</code>, <code>Ordering</code>, and <code>Pickling</code> traits in the companion object <code>Tree</code>:</p>
-<pre><code class="language-scala">delegate [T: Eql]      for Eql[Tree[T]]      = Eql.derived
-delegate [T: Ordering] for Ordering[Tree[T]] = Ordering.derived
-delegate [T: Pickling] for Pickling[Tree[T]] = Pickling.derived
+<p>The <code>derives</code> clause generates given instances for the <code>Eql</code>, <code>Ordering</code>, and <code>Pickling</code> traits in the companion object <code>Tree</code>:</p>
+<pre><code class="language-scala">given [T: Eql]      as Eql[Tree[T]]      = Eql.derived
+given [T: Ordering] as Ordering[Tree[T]] = Ordering.derived
+given [T: Pickling] as Pickling[Tree[T]] = Pickling.derived
 </code></pre>
 <h3><a href="#deriving-types" id="deriving-types">Deriving Types</a></h3>
 <p>Besides for enums, typeclasses can also be derived for other sets of classes and objects that form an algebraic data type. These are:</p>
@@ -2456,13 +2456,13 @@ sealed trait Option[T] derives Eql
 case class Some[T] extends Option[T]
 case object None extends Option[Nothing]
 </code></pre>
-<p>The generated typeclass delegates are placed in the companion objects <code>Labelled</code> and <code>Option</code>, respectively.</p>
+<p>The generated typeclass instances are placed in the companion objects <code>Labelled</code> and <code>Option</code>, respectively.</p>
 <h3><a href="#derivable-types" id="derivable-types">Derivable Types</a></h3>
 <p>A trait or class can appear in a <code>derives</code> clause if its companion object defines a method named <code>derived</code>. The type and implementation of a <code>derived</code> method are arbitrary, but typically it has a definition like this:</p>
 <pre><code class="language-scala">  def derived[T] given Mirror.Of[T] = ...
 </code></pre>
 <p>That is, the <code>derived</code> method takes an implicit parameter of (some subtype of) type <code>Mirror</code> that defines the shape of the deriving type <code>T</code> and it computes the typeclass implementation according
-to that shape. A <code>Mirror</code> delegate is generated automatically for</p>
+to that shape. A given <code>Mirror</code> instance is generated automatically for</p>
 <ul>
 <li>case classes and objects,</li>
 <li>enums and enum cases,</li>
@@ -2509,9 +2509,9 @@ object Shape {
 <p>Note that an empty element tuple is represented as type <code>Unit</code>. A single-element tuple
 is represented as <code>T *: Unit</code> since there is no direct syntax for such tuples: <code>(T)</code> is just <code>T</code> in parentheses, not a tuple.</p>
 <h3><a href="#the-generic-typeclass" id="the-generic-typeclass">The Generic Typeclass</a></h3>
-<p>For every class <code>C[T_1,...,T_n]</code> with a <code>derives</code> clause, the compiler generates in the companion object of <code>C</code> a delegate for <code>Generic[C[T_1,...,T_n]]</code> that follows
+<p>For every class <code>C[T_1,...,T_n]</code> with a <code>derives</code> clause, the compiler generates in the companion object of <code>C</code> a given instance for <code>Generic[C[T_1,...,T_n]]</code> that follows
 the outline below:</p>
-<pre><code class="language-scala">delegate [T_1, ..., T_n] for Generic[C[T_1,...,T_n]] {
+<pre><code class="language-scala">given [T_1, ..., T_n] as Generic[C[T_1,...,T_n]] {
   type Shape = ...
   ...
 }
@@ -2527,7 +2527,7 @@ For instance, the definition</p>
 <pre><code class="language-scala">object Result {
   import scala.compiletime.Shape._
 
-  delegate [T, E] for Generic[Result[T, E]] {
+  given [T, E] as Generic[Result[T, E]] {
     type Shape = Cases[(
       Case[Ok[T], T *: Unit],
       Case[Err[E], E *: Unit]
@@ -2701,7 +2701,7 @@ this signals a compilation error: the user tried a generic derivation of <code>E
 calling the <code>error</code> method defined in <code>scala.compiletime</code>.</p>
 <p><strong>Note:</strong> At the moment our error diagnostics for metaprogramming does not support yet interpolated string arguments for the <code>scala.compiletime.error</code> method that is called in the second case above. As an alternative, one can simply leave off the second case, then a missing typeclass would result in a &quot;failure to reduce match&quot; error.</p>
 <p><strong>Example:</strong> Here is a slightly polished and compacted version of the code that's generated by inline expansion for the derived <code>Eql</code> delegate for class <code>Tree</code>.</p>
-<pre><code class="language-scala">delegate [T] for Eql[Tree[T]] given (elemEq: Eql[T]) {
+<pre><code class="language-scala">given [T] as Eql[Tree[T]] where (elemEq: Eql[T]) {
   def eql(x: Tree[T], y: Tree[T]): Boolean = {
     val ev = the[Generic[Tree[T]]]
     val mx = ev.reflect(x)

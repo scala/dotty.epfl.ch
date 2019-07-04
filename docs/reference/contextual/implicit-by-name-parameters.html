@@ -2437,9 +2437,9 @@
   def write(x: T): Unit
 }
 
-delegate intCodec for Codec[Int] = ???
+given intCodec as Codec[Int] = ???
 
-delegate optionCodec[T] for Codec[Option[T]] given (ev: =&gt; Codec[T]) {
+given optionCodec[T] as Codec[Option[T]] given (ev: =&gt; Codec[T]) {
   def write(xo: Option[T]) = xo match {
     case Some(x) =&gt; ev.write(x)
     case None =&gt;
@@ -2459,26 +2459,27 @@ if this is necessary to prevent an otherwise diverging expansion.</p>
 <p>The precise steps for synthesizing an argument for an implicit by-name parameter of type <code>=&gt; T</code> are as follows.</p>
 <ol>
 <li>
-<p>Create a new delegate for type <code>T</code>:</p>
-<pre><code class="language-scala">delegate lv for T = ???
+<p>Create a new given instance of type <code>T</code>:</p>
+<pre><code class="language-scala">given lv as T = ???
 </code></pre>
 <p>where <code>lv</code> is an arbitrary fresh name.</p>
 </li>
 <li>
-<p>This delegate is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an argument to an implicit by-name parameter.</p>
+<p>This given instance is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an argument to an implicit by-name parameter.</p>
 </li>
 <li>
-<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to the delegate <code>lv</code>, replace <code>E</code> by</p>
-<pre><code class="language-scala">{ delegate lv for T = E; lv }
+<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to <code>lv</code>, replace <code>E</code> by</p>
+<pre><code class="language-scala">{ given lv as T = E; lv }
 </code></pre>
 <p>Otherwise, return <code>E</code> unchanged.</p>
 </li>
 </ol>
 <p>In the example above, the definition of <code>s</code> would be expanded as follows.</p>
 <pre><code class="language-scala">val s = the[Test.Codec[Option[Int]]](
-  optionCodec[Int](intCodec))
+  optionCodec[Int](intCodec)
+)
 </code></pre>
-<p>No local delegate was generated because the synthesized argument is not recursive.</p>
+<p>No local given instance was generated because the synthesized argument is not recursive.</p>
 <h3><a href="#reference" id="reference">Reference</a></h3>
 <p>For more info, see <a href="https://github.com/lampepfl/dotty/issues/1998">Issue #1998</a>
 and the associated <a href="https://docs.scala-lang.org/sips/byname-implicits.html">Scala SIP</a>.</p>
