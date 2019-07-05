@@ -1,0 +1,21 @@
+<h1><a href="#test-vulpix-framework" id="test-vulpix-framework">Test Vulpix Framework</a></h1>
+<p>If you are modifying the Vulpix framework and need a playground with dummy tests to try out your modifications, do the following.</p>
+<p>Create the directory structure for the playground:</p>
+<pre><code class="language-bash">mkdir -pv tests/playground/run tests/playground/neg
+echo &quot;stuff&quot; &gt; tests/playground/neg/Sample.scala
+echo 'object Test { def main(args: Array[String]): Unit = {println(&quot;Hi&quot;)} }' &gt; tests/playground/run/Sample.scala
+</code></pre>
+<p>In <code>CompilationTests.scala</code>:</p>
+<pre><code class="language-scala">  @Test def exampleNeg: Unit = {
+    implicit val testGroup: TestGroup = TestGroup(&quot;exampleNeg&quot;)
+    compileFilesInDir(&quot;tests/playground/neg&quot;, defaultOptions).checkExpectedErrors()
+  }
+
+  @Test def exampleRun: Unit = {
+    implicit val testGroup: TestGroup = TestGroup(&quot;exampleRun&quot;)
+    compileFilesInDir(&quot;tests/playground/run&quot;, defaultOptions).checkRuns()
+  }
+</code></pre>
+<p>SBT:</p>
+<pre><code class="language-scala">testOnly dotty.tools.dotc.CompilationTests -- *example*
+</code></pre>

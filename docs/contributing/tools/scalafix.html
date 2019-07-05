@@ -1,0 +1,8 @@
+<h1><a href="#working-with-scalafix" id="working-with-scalafix">Working with Scalafix</a></h1>
+<p>First, create a new rule as follows (command from <a href="https://scalacenter.github.io/scalafix/docs/developers/setup.html">https://scalacenter.github.io/scalafix/docs/developers/setup.html</a>):</p>
+<pre><code class="language-bash">sbt new scalacenter/scalafix.g8 --repo=&quot;Repository Name&quot;
+</code></pre>
+<p>To run the rule against some codebase:</p>
+<pre><code class="language-bash">scalafix -r file:scalafix/rules/src/main/scala/fix/YourRule.scala your/code/base/
+</code></pre>
+<p>Where <code>YourRule.scala</code> is the rule you developed and <code>your/code/base</code> is the code base you are running the rule against.</p>

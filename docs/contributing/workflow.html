@@ -290,17 +290,37 @@
         
         <li><a class="toggle-children" onclick='clickToc(this, "contributing");'>Contributing</a>
 <ul id="active-toc-entry">
-    <li><a href="../../.././docs/contributing/getting-started.html">Getting Started</a>
+    <li><a href="../../.././docs/contributing/contribute-knowledge.html">Contribute Knowledge</a>
+</li>
+<li><a href="../../.././docs/contributing/getting-started.html">Getting Started</a>
 </li>
 <li><a href="../../.././docs/contributing/workflow.html">Workflow</a>
 </li>
-<li><a href="../../.././docs/contributing/eclipse.html">Eclipse</a>
-</li>
-<li><a href="../../.././docs/contributing/intellij-idea.html">IntelliJ IDEA</a>
-</li>
 <li><a href="../../.././docs/contributing/testing.html">Testing</a>
 </li>
-<li><a href="../../.././docs/contributing/release.html">Release Model</a></li>
+<li><a href="../../.././docs/contributing/debugging.html">Debugging</a>
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "contributing");'>IDEs and Tools</a>
+<ul id="">
+    <li><a href="../../.././docs/contributing/tools/eclipse.html">Eclipse</a>
+</li>
+<li><a href="../../.././docs/contributing/tools/intellij-idea.html">IntelliJ IDEA</a>
+</li>
+<li><a href="../../.././docs/contributing/tools/mill.html">Mill</a>
+</li>
+<li><a href="../../.././docs/contributing/tools/sbt.html">Sbt</a>
+</li>
+<li><a href="../../.././docs/contributing/tools/scalafix.html">Scalafix</a></li>
+</ul>
+
+</li>
+<li><a class="toggle-children" onclick='clickToc(this, "contributing");'>Procedures</a>
+<ul id="">
+    <li><a href="../../.././docs/contributing/procedures/release.html">Release Model</a>
+</li>
+<li><a href="../../.././docs/contributing/procedures/vulpix.html">Modifying the Test Framework</a></li>
+</ul>
+</li>
 </ul>
 </li>
         
@@ -2478,6 +2498,20 @@ u: dotty.tools.dotc.core.Types.Type = TypeBounds(TypeRef(ThisType(TypeRef(NoPref
 <p>Many objects in the dotc compiler implement a <code>Showable</code> trait (e.g. <code>Tree</code>,
 <code>Symbol</code>, <code>Type</code>). These objects may be prettyprinted using the <code>.show</code>
 method</p>
+<h2><a href="#sbt-commands-cheat-sheet" id="sbt-commands-cheat-sheet">SBT Commands Cheat Sheet</a></h2>
+<p>The basics of working with Dotty codebase are documented <a href="http://dotty.epfl.ch/docs/contributing/getting-started.html">here</a> and <a href="http://dotty.epfl.ch/docs/contributing/workflow.html">here</a>. Below is a cheat sheet of some frequently used commands (to be used from SBT console – <code>sbt</code>).</p>
+<table>
+<thead>
+<tr><th>Command</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>dotc ../issues/Playground.scala</code></td><td>Compile the given file – path relative to the Dotty directory. Output the compiled class files to the Dotty directory itself.</td></tr>
+<tr><td><code>dotr Playground</code></td><td>Run the compiled class <code>Playground</code>. Dotty directory is on classpath by default.</td></tr>
+<tr><td><code>repl</code></td><td>Start REPL</td></tr>
+<tr><td><code>testOnly dotty.tools.dotc.CompilationTests -- *pos</code></td><td>Run test (method) <code>pos</code> from <code>CompilationTests</code> suite.</td></tr>
+<tr><td><code>testCompilation sample</code></td><td>In all test suites, run test files containing the word <code>sample</code> in their title.</td></tr>
+</tbody>
+</table>
 
         </div>
     </div><!-- end content-body -->

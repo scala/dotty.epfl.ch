@@ -1,0 +1,33 @@
+<h1><a href="#divergences-between-scala-2-and-dotty" id="divergences-between-scala-2-and-dotty">Divergences between Scala 2 and Dotty</a></h1>
+<p>The following issues encountered when compiling Scala 2 code as-is under Dotty:</p>
+<h2><a href="#scalafix-candidates" id="scalafix-candidates">Scalafix candidates</a></h2>
+<ul>
+<li>If a method is defined <code>toSet()</code>, it cannot be called <code>toSet</code>.</li>
+<li>“result type of implicit definition needs to be given explicitly”</li>
+<li>There are no <code>'Symbol</code>s in Scala 3, you must construct symbols via <code>new Symbol(&quot;foo&quot;)</code> instead of old <code>'foo</code></li>
+</ul>
+<h2><a href="#trivial" id="trivial">Trivial</a></h2>
+<ul>
+<li>Scala 2.13 libraries cannot be used from Dotty because the dotty-library is compiled against the 2.12 standard library which is not binary-compatible with the 2.13 one. We can't be compatible with both at the same time.</li>
+<li>To use Scala 2.12 dependencies from SBT with Dotty, use <code>withDottyCompat</code> as documented <a href="https://github.com/lampepfl/dotty-example-project#getting-your-project-to-compile-with-dotty">here</a>.</li>
+<li>Feature warnings about implicits <code>scala.language.implicitConversions</code> are output by default, unlike in Scala 2. This creates noise. Unclear how to turn off.</li>
+</ul>
+<p>Implicit conversions must be applied explicitly:</p>
+<pre><code class="language-scala">  implicit def IterablePath[T](s: Iterable[T])(implicit conv: T =&gt; RelPath): RelPath = {
+    s.foldLeft(rel){_ / conv(_)}
+  }
+</code></pre>
+<p>Stronger compile time guarantees on variance.  Scala 2 does not assert variance on default parameters to parameters of the function value type.  E.g. in geny:</p>
+<pre><code class="language-Scala"># Dotty
+def count(f: A =&gt; Boolean = (a: A) =&gt; true): Int =
+|                                ^^^^^^^^^^^^^^
+|covariant type A occurs in contravariant position in type =&gt; A =&gt; Boolean of method count$default$1
+</code></pre>
+<p>Fix:</p>
+<pre><code class="language-Scala"># Dotty
+def count[B &gt;: A](f: B =&gt; Boolean = (_: B) =&gt; true): Int =
+</code></pre>
+<h2><a href="#tricky" id="tricky">Tricky</a></h2>
+<ul>
+<li>Scala 3 macros are completely different from Scala 2 ones, requires a migration strategy of its own</li>
+</ul>

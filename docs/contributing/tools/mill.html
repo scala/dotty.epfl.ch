@@ -1,0 +1,12 @@
+<p>Here's an example of how to test a project that uses mill:</p>
+<pre><code class="language-bash">mill utest.jvm[2.12.8].test
+</code></pre>
+<ul>
+<li><code>utest.jvm</code> - the name of the compiled module (obtain from <code>build.sc</code>)</li>
+<li><code>2.12.8</code> – Scala cross-compile version</li>
+<li><code>test</code> – task to run on the module specified with the specified Scala version</li>
+</ul>
+<p>To get mill of the most recent version, first, find it in <a href="https://github.com/lihaoyi/mill/releases">https://github.com/lihaoyi/mill/releases</a> (e.g. <code>0.4.2-1-020e28</code>). Copy the download link and substitute it in the following command instead of <code>https://github.com/lihaoyi/mill/releases/download/0.4.1/0.4.1</code>:</p>
+<pre><code># From http://www.lihaoyi.com/mill/
+sudo sh -c '(echo &quot;#!/usr/bin/env sh&quot; &amp;&amp; curl -L https://github.com/lihaoyi/mill/releases/download/0.4.1/0.4.1) &gt; /usr/local/bin/mill &amp;&amp; chmod +x /usr/local/bin/mill'
+</code></pre>
