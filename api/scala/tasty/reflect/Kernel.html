@@ -2482,7 +2482,7 @@
          |                             +- Typed
          |                             +- Assign
          |                             +- Block
-         |                             +- Lambda
+         |                             +- Closure
          |                             +- If
          |                             +- Match
          |                             +- ImpliedMatch
@@ -3249,6 +3249,52 @@
                     </div>
                 </div><!-- end member -->
                 
+                <div id="Closure" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Closure');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            type
+                        </span>
+                        <span class="member-name ">
+                            
+                                Closure
+                            
+                        </span>
+
+                        
+
+                        
+                        
+                        
+                        <span class="type-alias">
+                            <span class="equals"> = </span>
+                            Nothing<span class="bounds"> &lt;: </span><a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Term">Term</a>
+                        </span>
+                        
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Closure">
+                            <p>A lambda <code>(...) =&gt; ...</code> in the source code is represented as
+a local method and a closure:</p>
+<p>{
+def m(...) = ...
+closure(m)
+}</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="Comment" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'Comment');">[+]</span>
@@ -3903,47 +3949,6 @@
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-Inlined">
                             <p>Tree representing the scope of an inlined tree</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Lambda" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'Lambda');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            type
-                        </span>
-                        <span class="member-name ">
-                            
-                                Lambda
-                            
-                        </span>
-
-                        
-
-                        
-                        
-                        
-                        <span class="type-alias">
-                            <span class="equals"> = </span>
-                            Nothing<span class="bounds"> &lt;: </span><a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Term">Term</a>
-                        </span>
-                        
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Lambda">
-                            <p>Tree representing a lambda <code>(...) =&gt; ...</code> in the source code</p>
 
                         </div>
                     </div>
@@ -10668,6 +10673,282 @@ represents a type but has <code>TypeBound</code>a inside.</p>
                     </div>
                 </div><!-- end member -->
                 
+                <div id="Closure_apply(meth,tpe)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'Closure_apply(meth,tpe)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                Closure_apply
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        meth:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Term">Term</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        tpe:
+                                    </span>
+                                    Option
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Type">Type</a>
+<span class="no-left">]</span>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Closure">Closure</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Closure_apply(meth,tpe)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="Closure_copy(original)(meth,tpe)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'Closure_copy(original)(meth,tpe)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                Closure_copy
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        original:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Tree">Tree</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        meth:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Tree">Tree</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        tpe:
+                                    </span>
+                                    Option
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Type">Type</a>
+<span class="no-left">]</span>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Closure">Closure</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Closure_copy(original)(meth,tpe)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="Closure_meth(self)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'Closure_meth(self)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                Closure_meth
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        self:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Closure">Closure</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Term">Term</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Closure_meth(self)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="Closure_tpeOpt(self)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'Closure_tpeOpt(self)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                Closure_tpeOpt
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        self:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Closure">Closure</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Option
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Type">Type</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-Closure_tpeOpt(self)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="Comment_expanded(self)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'Comment_expanded(self)');">[+]</span>
@@ -17008,282 +17289,6 @@ List
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-Inlined_copy(original)(call,bindings,expansion)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Lambda_apply(meth,tpt)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Lambda_apply(meth,tpt)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                Lambda_apply
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        meth:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Term">Term</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        tpt:
-                                    </span>
-                                    Option
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/scala/tasty/reflect/Kernel.html#TypeTree">TypeTree</a>
-<span class="no-left">]</span>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Lambda">Lambda</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Lambda_apply(meth,tpt)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Lambda_copy(original)(meth,tpt)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Lambda_copy(original)(meth,tpt)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                Lambda_copy
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        original:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Tree">Tree</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        meth:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Tree">Tree</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        tpt:
-                                    </span>
-                                    Option
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/scala/tasty/reflect/Kernel.html#TypeTree">TypeTree</a>
-<span class="no-left">]</span>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Lambda">Lambda</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Lambda_copy(original)(meth,tpt)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Lambda_meth(self)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Lambda_meth(self)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                Lambda_meth
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        self:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Lambda">Lambda</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Term">Term</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Lambda_meth(self)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="Lambda_tptOpt(self)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'Lambda_tptOpt(self)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                Lambda_tptOpt
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        self:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Lambda">Lambda</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Option
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/scala/tasty/reflect/Kernel.html#TypeTree">TypeTree</a>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-Lambda_tptOpt(self)(ctx)">
                             
                         </div>
                     </div>
@@ -33496,6 +33501,69 @@ def o: Outer
                     </div>
                 </div><!-- end member -->
                 
+                <div id="matchClosure(tree)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'matchClosure(tree)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                matchClosure
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tree:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Tree">Tree</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Option
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Closure">Closure</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-matchClosure(tree)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="matchConstant(constant)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'matchConstant(constant)');">[+]</span>
@@ -34221,69 +34289,6 @@ Unit<span class="and-or-separator"> | </span>Null<span class="and-or-separator">
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-matchInlined(tree)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="matchLambda(tree)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'matchLambda(tree)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                matchLambda
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tree:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Tree">Tree</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Option
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/scala/tasty/reflect/Kernel.html#Lambda">Lambda</a>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-matchLambda(tree)(ctx)">
                             
                         </div>
                     </div>
