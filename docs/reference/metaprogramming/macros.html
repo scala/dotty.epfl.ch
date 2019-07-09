@@ -2024,6 +2024,24 @@
 
                     <div class="entity-kinds">
                         
+                        <a class="letter-anchor trait" href="../../../.././api/scala/tasty/reflect/ImplicitsOps.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/tasty/reflect/ImplicitsOps.html">ImplicitsOps</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="hidden-by-default ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
                         <a class="letter-anchor trait" href="../../../.././api/scala/tasty/reflect/ImportSelectorOps.html">T</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/tasty/reflect/ImportSelectorOps.html">ImportSelectorOps</a>
@@ -2889,6 +2907,18 @@ while (i &lt; arr.length) {
   i += 1
 }
 sum
+</code></pre>
+<h3><a href="#find-implicits-within-a-macro" id="find-implicits-within-a-macro">Find implicits within a macro</a></h3>
+<p>Similarly to the <code>implicit match</code> construct, it is possible to make implicit search available
+in a quote context. For this we simply provide `scala.quoted.matching.searchImplicitExpr:</p>
+<pre><code class="language-scala">inline def setFor[T]: Set[T] = ${ setForExpr[T] }
+
+def setForExpr[T: Type] given QuoteContext: Expr[Set[T]] = {
+  searchImplicitExpr[Ordering[T]] match {
+    case Some(ord) =&gt; '{ new TreeSet[T]()($ord) }
+    case _ =&gt; '{ new HashSet[T] }
+  }
+}
 </code></pre>
 <h3><a href="#relationship-with-whitebox-inline" id="relationship-with-whitebox-inline">Relationship with Whitebox Inline</a></h3>
 <p><a href="./inline.html">Inline</a> documents inlining. The code below introduces a whitebox
