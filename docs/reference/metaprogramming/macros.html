@@ -1522,30 +1522,6 @@
 
             
                 
-
-                
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../../../.././api/scala/quoted/QuoteError$.html">O</a>
-                        
-                        <a class="letter-anchor class" href="../../../.././api/scala/quoted/QuoteError.html">C</a>
-                    </div>
-                    <a class="entity-name" href="../../../.././api/scala/quoted/QuoteError.html">QuoteError</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-                 <!-- end != "package" -->
-
-            
-                
                  <!-- end != "package" -->
 
             
@@ -2652,7 +2628,7 @@ in the sense that they could all be defined in a user program without
 knowing anything about the representation of <code>Expr</code> trees. For
 instance, here is a possible instance of <code>Liftable[Boolean]</code>:</p>
 <pre><code class="language-scala">    delegate for Liftable[Boolean] {
-      def toExpr(b: Boolean) given QuoteContext: Expr[Boolean] =
+      def toExpr(b: Boolean) =
         if (b) '{ true } else '{ false }
     }
 </code></pre>
@@ -2660,7 +2636,7 @@ instance, here is a possible instance of <code>Liftable[Boolean]</code>:</p>
 possible implementation of <code>Liftable[Int]</code> that does not use the underlying
 tree machinery:</p>
 <pre><code class="language-scala">    delegate for Liftable[Int] {
-      def toExpr(n: Int) given QuoteContext: Expr[Int] = n match {
+      def toExpr(n: Int) = n match {
         case Int.MinValue    =&gt; '{ Int.MinValue }
         case _ if n &lt; 0      =&gt; '{ - ${ toExpr(-n) } }
         case 0               =&gt; '{ 0 }
@@ -2672,7 +2648,7 @@ tree machinery:</p>
 <p>Since <code>Liftable</code> is a type class, its instances can be conditional. For example,
 a <code>List</code> is liftable if its element type is:</p>
 <pre><code class="language-scala">    delegate [T: Liftable] for Liftable[List[T]] {
-      def toExpr(xs: List[T]) given QuoteContext: Expr[List[T]] = xs match {
+      def toExpr(xs: List[T]) = xs match {
         case head :: tail =&gt; '{ ${ toExpr(head) } :: ${ toExpr(tail) } }
         case Nil =&gt; '{ Nil: List[T] }
       }
