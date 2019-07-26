@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Given Instances</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Given Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -2564,7 +2564,7 @@ constants to their values.</p>
 <p>With the right extractors, the &quot;AsFunction&quot; conversion
 that maps expressions over functions to functions over expressions can
 be implemented in user code:</p>
-<pre><code class="language-scala">    delegate AsFunction1[T, U] for Conversion[Expr[T =&gt; U], Expr[T] =&gt; Expr[U]] {
+<pre><code class="language-scala">    given AsFunction1[T, U] as Conversion[Expr[T =&gt; U], Expr[T] =&gt; Expr[U]] {
       def apply(f: Expr[T =&gt; U]): Expr[T] =&gt; Expr[U] =
        (x: Expr[T]) =&gt; f match {
          case Lambda(g) =&gt; g(x)

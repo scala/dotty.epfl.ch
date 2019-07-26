@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Given Instances</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Given Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -2562,7 +2562,7 @@ For instance, the user-level definition of <code>reflect</code>:</p>
 <pre><code class="language-scala">    def reflect[T: Type, U: Type](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
       '{ (x: ${ the[Type[T]] }) =&gt; ${ f('x) } }
 </code></pre>
-<p>The <code>the</code> query succeeds because there is a delegate of
+<p>The <code>the</code> query succeeds because there is a given instance of
 type <code>Type[T]</code> available (namely the given parameter corresponding
 to the context bound <code>: Type</code>), and the reference to that value is
 phase-correct. If that was not the case, the phase inconsistency for
@@ -2587,7 +2587,7 @@ a compiler through staging.</p>
 <p>Here’s a compiler that maps an expression given in the interpreted
 language to quoted Scala code of type <code>Expr[Int]</code>.
 The compiler takes an environment that maps variable names to Scala <code>Expr</code>s.</p>
-<pre><code class="language-scala">    import delegate scala.quoted._
+<pre><code class="language-scala">    import given scala.quoted._
 
     def compile(e: Exp, env: Map[String, Expr[Int]]): Expr[Int] = e match {
       case Num(n) =&gt;
@@ -2611,14 +2611,14 @@ correct.</p>
 <p>The <code>toExpr</code> extension method is defined in package <code>quoted</code>:</p>
 <pre><code class="language-scala">    package quoted
 
-    delegate ExprOps {
+    given ExprOps {
       def (x: T) toExpr[T: Liftable] given QuoteContext: Expr[T] = the[Liftable[T]].toExpr(x)
       ...
     }
 </code></pre>
 <p>The extension says that values of types implementing the <code>Liftable</code> type class can be
-converted (&quot;lifted&quot;) to <code>Expr</code> values using <code>toExpr</code>, provided a delegate import of <code>scala.quoted._</code> is in scope.</p>
-<p>Dotty comes with delegate definitions of <code>Liftable</code> for
+converted (&quot;lifted&quot;) to <code>Expr</code> values using <code>toExpr</code>, provided a given import of <code>scala.quoted._</code> is in scope.</p>
+<p>Dotty comes with given instances of <code>Liftable</code> for
 several types including <code>Boolean</code>, <code>String</code>, and all primitive number
 types. For example, <code>Int</code> values can be converted to <code>Expr[Int]</code>
 values by wrapping the value in a <code>Literal</code> tree node. This makes use
@@ -2627,16 +2627,16 @@ efficiency. But the <code>Liftable</code> instances are nevertheless not <em>mag
 in the sense that they could all be defined in a user program without
 knowing anything about the representation of <code>Expr</code> trees. For
 instance, here is a possible instance of <code>Liftable[Boolean]</code>:</p>
-<pre><code class="language-scala">    delegate for Liftable[Boolean] {
-      def toExpr(b: Boolean) =
+<pre><code class="language-scala">    given as Liftable[Boolean] {
+      def toExpr(b: Boolean) given QuoteContext: Expr[Boolean] =
         if (b) '{ true } else '{ false }
     }
 </code></pre>
 <p>Once we can lift bits, we can work our way up. For instance, here is a
 possible implementation of <code>Liftable[Int]</code> that does not use the underlying
 tree machinery:</p>
-<pre><code class="language-scala">    delegate for Liftable[Int] {
-      def toExpr(n: Int) = n match {
+<pre><code class="language-scala">    given as Liftable[Int] {
+      def toExpr(n: Int) given QuoteContext: Expr[Int] = n match {
         case Int.MinValue    =&gt; '{ Int.MinValue }
         case _ if n &lt; 0      =&gt; '{ - ${ toExpr(-n) } }
         case 0               =&gt; '{ 0 }
@@ -2647,8 +2647,8 @@ tree machinery:</p>
 </code></pre>
 <p>Since <code>Liftable</code> is a type class, its instances can be conditional. For example,
 a <code>List</code> is liftable if its element type is:</p>
-<pre><code class="language-scala">    delegate [T: Liftable] for Liftable[List[T]] {
-      def toExpr(xs: List[T]) = xs match {
+<pre><code class="language-scala">    given [T: Liftable] as Liftable[List[T]] {
+      def toExpr(xs: List[T]) given QuoteContext: Expr[List[T]] = xs match {
         case head :: tail =&gt; '{ ${ toExpr(head) } :: ${ toExpr(tail) } }
         case Nil =&gt; '{ Nil: List[T] }
       }
@@ -2686,7 +2686,7 @@ implicit search. For instance, to implement</p>
 <pre><code class="language-scala">    the[Type[List[T]]]
 </code></pre>
 <p>where <code>T</code> is not defined in the current stage, we construct the type constructor
-of <code>List</code> applied to the splice of the result of searching for a delegate for <code>Type[T]</code>:</p>
+of <code>List</code> applied to the splice of the result of searching for a given instance for <code>Type[T]</code>:</p>
 <pre><code class="language-scala">    '[ List[ ${ the[Type[T]] } ] ]
 </code></pre>
 <p>This is exactly the algorithm that Scala 2 uses to search for type tags.

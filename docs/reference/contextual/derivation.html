@@ -158,13 +158,13 @@
 <ul id="">
     <li><a href="../../../.././docs/reference/contextual/motivation.html">Overview</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/delegates.html">Delegates</a>
+<li><a href="../../../.././docs/reference/contextual/delegates.html">Given Instances</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/given-clauses.html">Given Clauses</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/context-bounds.html">Context Bounds</a>
 </li>
-<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Delegate Imports</a>
+<li><a href="../../../.././docs/reference/contextual/import-delegate.html">Given Imports</a>
 </li>
 <li><a href="../../../.././docs/reference/contextual/extension-methods.html">Extension Methods</a>
 </li>
@@ -2579,14 +2579,14 @@ the names of the cases and their parameters).</p>
 instance itself (which is a <code>Product</code>) to the second parameter of the mirror. That operation does not involve any copying and is thus quite efficient. The second and third versions of <code>mirror</code> are typically invoked by typeclass methods that create instances from mirrors. An example would be an <code>unpickle</code> method that first creates an array of elements, then creates
 a mirror over that array, and finally uses the <code>reify</code> method in <code>Reflected</code> to create the ADT instance. The fourth version of <code>mirror</code> is used to create mirrors of instances that do not have any elements.</p>
 <h3><a href="#how-to-write-generic-typeclasses" id="how-to-write-generic-typeclasses">How to Write Generic Typeclasses</a></h3>
-<p>Based on the machinery developed so far it becomes possible to define type classes generically. This means that the <code>derived</code> method will compute a type class delegate for any ADT that has a <code>Generic</code> delegate, recursively.
+<p>Based on the machinery developed so far it becomes possible to define type classes generically. This means that the <code>derived</code> method will compute a type class instance for any ADT that has a given <code>Generic</code> instance, recursively.
 The implementation of these methods typically uses three new type-level constructs in Dotty: inline methods, inline matches, and implicit matches. As an example, here is one possible implementation of a generic <code>Eql</code> type class, with explanations. Let's assume <code>Eql</code> is defined by the following trait:</p>
 <pre><code class="language-scala">trait Eql[T] {
   def eql(x: T, y: T): Boolean
 }
 </code></pre>
-<p>We need to implement a method <code>Eql.derived</code> that produces a delegate for <code>Eql[T]</code> provided
-there exists a delegate for <code>Generic[T]</code>. Here's a possible solution:</p>
+<p>We need to implement a method <code>Eql.derived</code> that produces a given instance for <code>Eql[T]</code> provided
+a given <code>Generic[T]</code>. Here's a possible solution:</p>
 <pre><code class="language-scala">  inline def derived[T] given (ev: Generic[T]): Eql[T] = new Eql[T] {
     def eql(x: T, y: T): Boolean = {
       val mx = ev.reflect(x)                    // (1)
@@ -2601,7 +2601,7 @@ there exists a delegate for <code>Generic[T]</code>. Here's a possible solution:
     }
   }
 </code></pre>
-<p>The implementation of the inline method <code>derived</code> creates a delegate for <code>Eql[T]</code> and implements its <code>eql</code> method. The right-hand side of <code>eql</code> mixes compile-time and runtime elements. In the code above, runtime elements are marked with a number in parentheses, i.e
+<p>The implementation of the inline method <code>derived</code> creates a given instance for <code>Eql[T]</code> and implements its <code>eql</code> method. The right-hand side of <code>eql</code> mixes compile-time and runtime elements. In the code above, runtime elements are marked with a number in parentheses, i.e
 <code>(1)</code>, <code>(2)</code>, <code>(3)</code>. Compile-time calls that expand to runtime code are marked with a number in brackets, i.e. <code>[4]</code>, <code>[5]</code>. The implementation of <code>eql</code> consists of the following steps.</p>
 <ol>
 <li>Map the compared values <code>x</code> and <code>y</code> to their mirrors using the <code>reflect</code> method of the implicitly passed <code>Generic</code> <code>(1)</code>, <code>(2)</code>.</li>
@@ -2665,14 +2665,14 @@ to <code>eqlElems</code> <code>[13]</code>.</li>
     case ev: Eql[T] =&gt;
       ev.eql(x, y)                              // (15)
     case _ =&gt;
-      error(&quot;No `Eql` delegate was found for $T&quot;)
+      error(&quot;No `Eql` instance was found for $T&quot;)
   }
 </code></pre>
-<p><code>tryEql</code> is an inline method that takes an element type <code>T</code> and two element values of that type as arguments. It is defined using an <code>implicit match</code> that tries to find a delegate for <code>Eql[T]</code>. If a delegate <code>ev</code> is found, it proceeds by comparing the arguments using <code>ev.eql</code>. On the other hand, if no delegate is found
-this signals a compilation error: the user tried a generic derivation of <code>Eql</code> for a class with an element type that does not have an <code>Eql</code> delegate itself. The error is signaled by
+<p><code>tryEql</code> is an inline method that takes an element type <code>T</code> and two element values of that type as arguments. It is defined using an <code>implicit match</code> that tries to find a given instance for <code>Eql[T]</code>. If an instance <code>ev</code> is found, it proceeds by comparing the arguments using <code>ev.eql</code>. On the other hand, if no instance is found
+this signals a compilation error: the user tried a generic derivation of <code>Eql</code> for a class with an element type that does not have an <code>Eql</code> instance itself. The error is signaled by
 calling the <code>error</code> method defined in <code>scala.compiletime</code>.</p>
 <p><strong>Note:</strong> At the moment our error diagnostics for metaprogramming does not support yet interpolated string arguments for the <code>scala.compiletime.error</code> method that is called in the second case above. As an alternative, one can simply leave off the second case, then a missing typeclass would result in a &quot;failure to reduce match&quot; error.</p>
-<p><strong>Example:</strong> Here is a slightly polished and compacted version of the code that's generated by inline expansion for the derived <code>Eql</code> delegate for class <code>Tree</code>.</p>
+<p><strong>Example:</strong> Here is a slightly polished and compacted version of the code that's generated by inline expansion for the derived <code>Eql</code> instance for class <code>Tree</code>.</p>
 <pre><code class="language-scala">given [T] as Eql[Tree[T]] where (elemEq: Eql[T]) {
   def eql(x: Tree[T], y: Tree[T]): Boolean = {
     val ev = the[Generic[Tree[T]]]
@@ -2691,18 +2691,18 @@ calling the <code>error</code> method defined in <code>scala.compiletime</code>.
   }
 }
 </code></pre>
-<p>One important difference between this approach and Scala-2 typeclass derivation frameworks such as Shapeless or Magnolia is that no automatic attempt is made to generate typeclass delegates for elements recursively using the generic derivation framework. There must be a delegate for <code>Eql[T]</code> (which can of course be produced in turn using <code>Eql.derived</code>), or the compilation will fail. The advantage of this more restrictive approach to typeclass derivation is that it avoids uncontrolled transitive typeclass derivation by design. This keeps code sizes smaller, compile times lower, and is generally more predictable.</p>
-<h3><a href="#deriving-delegates-elsewhere" id="deriving-delegates-elsewhere">Deriving Delegates Elsewhere</a></h3>
-<p>Sometimes one would like to derive a typeclass delegate for an ADT after the ADT is defined, without being able to change the code of the ADT itself.
-To do this, simply define a delegate with the <code>derived</code> method of the typeclass as right-hand side. E.g, to implement <code>Ordering</code> for <code>Option</code>, define:</p>
-<pre><code class="language-scala">delegate [T: Ordering]: Ordering[Option[T]] = Ordering.derived
+<p>One important difference between this approach and Scala-2 typeclass derivation frameworks such as Shapeless or Magnolia is that no automatic attempt is made to generate typeclass instances for elements recursively using the generic derivation framework. There must be a given instance for <code>Eql[T]</code> (which can of course be produced in turn using <code>Eql.derived</code>), or the compilation will fail. The advantage of this more restrictive approach to typeclass derivation is that it avoids uncontrolled transitive typeclass derivation by design. This keeps code sizes smaller, compile times lower, and is generally more predictable.</p>
+<h3><a href="#deriving-instances-elsewhere" id="deriving-instances-elsewhere">Deriving Instances Elsewhere</a></h3>
+<p>Sometimes one would like to derive a typeclass instance for an ADT after the ADT is defined, without being able to change the code of the ADT itself.
+To do this, simply define an instance with the <code>derived</code> method of the typeclass as right-hand side. E.g, to implement <code>Ordering</code> for <code>Option</code>, define:</p>
+<pre><code class="language-scala">instance [T: Ordering] as Ordering[Option[T]] = Ordering.derived
 </code></pre>
 <p>Usually, the <code>Ordering.derived</code> clause has an implicit parameter of type
 <code>Generic[Option[T]]</code>. Since the <code>Option</code> trait has a <code>derives</code> clause,
-the necessary delegate is already present in the companion object of <code>Option</code>.
-If the ADT in question does not have a <code>derives</code> clause, a <code>Generic</code> delegate
+the necessary instance is already present in the companion object of <code>Option</code>.
+If the ADT in question does not have a <code>derives</code> clause, a <code>Generic</code> instance
 would still be synthesized by the compiler at the point where <code>derived</code> is called.
-This is similar to the situation with type tags or class tags: If no delegate
+This is similar to the situation with type tags or class tags: If no instance
 is found, the compiler will synthesize one.</p>
 <h3><a href="#syntax" id="syntax">Syntax</a></h3>
 <pre><code>Template          ::=  InheritClauses [TemplateBody]
@@ -2713,7 +2713,7 @@ ConstrApps        ::=  ConstrApp {‘with’ ConstrApp}
 </code></pre>
 <h3><a href="#discussion" id="discussion">Discussion</a></h3>
 <p>The typeclass derivation framework is quite small and low-level. There are essentially
-two pieces of infrastructure in the compiler-generated <code>Generic</code> delegates:</p>
+two pieces of infrastructure in the compiler-generated <code>Generic</code> instances:</p>
 <ul>
 <li>a type representing the shape of an ADT,</li>
 <li>a way to map between ADT instances and generic mirrors.</li>
