@@ -2484,9 +2484,9 @@
 assertPositioned(tree)
 </code></pre>
 <p>But you can also do:</p>
-<pre><code class="language-scala">assertPositioned(tree.reporting(t =&gt; t.show))
+<pre><code class="language-scala">assertPositioned(tree.reporting(s&quot;Tree is: $result&quot;))
 </code></pre>
-<p><code>(a: A).reporting(f: A =&gt; String): A</code> is defined on all types. Its job is to print a <code>String</code> produced by the argument function and return the value it is called on unchanged.</p>
+<p><code>def (a: A) reporting(f: given WrappedResult[T] =&gt; String, p: Printer = Printers.default): A</code> is defined on all types. The function <code>f</code> can be written without the argument since the argument is <code>given</code>. The <code>result</code> variable is a part of the <code>WrapperResult</code> – a tiny framework powering the <code>reporting</code> function. Basically, whenever you are using <code>reporting</code> on an object <code>A</code>, you can use the <code>result: A</code> variable from this function and it will be equal to the object you are calling <code>reporting</code> on.</p>
 <h2><a href="#printing-out-trees-after-phases" id="printing-out-trees-after-phases">Printing out trees after phases</a></h2>
 <p>To print out the trees you are compiling after Frontend (scanner, parser, namer, typer) phase:</p>
 <pre><code>dotc -Xprint:frontend ../issues/Playground.scala
