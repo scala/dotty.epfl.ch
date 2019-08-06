@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-08-05 -->
+<!-- This page was last generated on 2019-08-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2405,6 +2405,7 @@
 <li><a href="#how-to-disable-color">How to disable color</a></li>
 <li><a href="#reporting-as-a-non-intrusive-println">Reporting as a non-intrusive println</a></li>
 <li><a href="#printing-out-trees-after-phases">Printing out trees after phases</a></li>
+<li><a href="#printing-out-stack-traces-of-compile-time-errors">Printing out stack traces of compile time errors</a></li>
 <li><a href="#configuring-the-printer-output">Configuring the printer output</a></li>
 <li><a href="#figuring-out-an-object-creation-site">Figuring out an object creation site</a>
 <ul>
@@ -2473,6 +2474,27 @@ assertPositioned(tree)
 <pre><code>dotc -Xprint:all ../issues/Playground.scala
 </code></pre>
 <p>To find out the list of all the phases and their names, check out <a href="https://github.com/lampepfl/dotty/blob/10526a7d0aa8910729b6036ee51942e05b71abf6/compiler/src/dotty/tools/dotc/Compiler.scala#L34">this</a> line in <code>Compiler.scala</code>. Each <code>Phase</code> object has <code>phaseName</code> defined on it, this is the phase name.</p>
+<h2><a href="#printing-out-stack-traces-of-compile-time-errors" id="printing-out-stack-traces-of-compile-time-errors">Printing out stack traces of compile time errors</a></h2>
+<p>You can use the flag <code>-Ydebug-error</code> to get the stack trace of all the compile-time errors. Consider the following file:</p>
+<pre><code class="language-scala">object Foo
+object Foo
+</code></pre>
+<p>Clearly we cannot define an object <code>Foo</code> twice. Now compile it as follows: <code>dotc -Ydebug-error ../issues/Playground.scala</code> (use whatever path you saved it under). The result will be as follows:</p>
+<pre><code class="language-scala">-- Error: ../issues/Playground.scala:2:0 ---------------------------------------
+2 |object Foo
+  |^
+  |object Foo has already been compiled once during this run
+java.lang.Thread.getStackTrace(Thread.java:1552)
+dotty.tools.dotc.reporting.Reporting.error(Reporter.scala:139)
+dotty.tools.dotc.core.Contexts$Context.error(Contexts.scala:71)
+dotty.tools.dotc.typer.Namer.errorName$2(Namer.scala:300)
+dotty.tools.dotc.typer.Namer.checkNoConflict$1(Namer.scala:306)
+dotty.tools.dotc.typer.Namer.createSymbol(Namer.scala:353)
+dotty.tools.dotc.typer.Namer.recur$1(Namer.scala:490)
+dotty.tools.dotc.typer.Namer.recur$3$$anonfun$2(Namer.scala:495)
+...
+</code></pre>
+<p>So, the error happened in the Namer's <code>checkNoConflict</code> method (after which all the stack frames represent the mechanics of issuing an error, not an intent that produced the error in the first place).</p>
 <h2><a href="#configuring-the-printer-output" id="configuring-the-printer-output">Configuring the printer output</a></h2>
 <p>Printing from the <code>show</code> and <code>-Xprint</code> is done from the Printers framework (discussed in more details below). The following settings influence the output of the printers:</p>
 <pre><code class="language-scala">val printLines        = BooleanSetting(&quot;-print-lines&quot;        , &quot;Show source code line numbers.&quot;) withAbbreviation &quot;--print-lines&quot;
