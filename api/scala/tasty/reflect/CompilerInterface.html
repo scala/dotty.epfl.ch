@@ -2491,9 +2491,10 @@
 +- TypeOrBounds -+- TypeBounds
                  |
                  +- Type -------+- ConstantType
-                                +- SymRef
                                 +- TermRef
                                 +- TypeRef
+                                +- NamedTermRef
+                                +- NamedTypeRef
                                 +- SuperType
                                 +- Refinement
                                 +- AppliedType
@@ -4451,6 +4452,88 @@ closure(m)
                     </div>
                 </div><!-- end member -->
                 
+                <div id="NamedTermRef" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'NamedTermRef');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            type
+                        </span>
+                        <span class="member-name ">
+                            
+                                NamedTermRef
+                            
+                        </span>
+
+                        
+
+                        
+                        
+                        
+                        <span class="type-alias">
+                            <span class="equals"> = </span>
+                            Nothing<span class="bounds"> &lt;: </span><a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
+                        </span>
+                        
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-NamedTermRef">
+                            <p>Type of a reference to a term by it's name</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="NamedTypeRef" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'NamedTypeRef');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            type
+                        </span>
+                        <span class="member-name ">
+                            
+                                NamedTypeRef
+                            
+                        </span>
+
+                        
+
+                        
+                        
+                        
+                        <span class="type-alias">
+                            <span class="equals"> = </span>
+                            Nothing<span class="bounds"> &lt;: </span><a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
+                        </span>
+                        
+                        
+
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-NamedTypeRef">
+                            <p>Type of a reference to a type by it's name</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="New" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'New');">[+]</span>
@@ -5762,47 +5845,6 @@ closure(m)
                     </div>
                 </div><!-- end member -->
                 
-                <div id="SymRef" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'SymRef');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            type
-                        </span>
-                        <span class="member-name ">
-                            
-                                SymRef
-                            
-                        </span>
-
-                        
-
-                        
-                        
-                        
-                        <span class="type-alias">
-                            <span class="equals"> = </span>
-                            Nothing<span class="bounds"> &lt;: </span><a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
-                        </span>
-                        
-                        
-
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-SymRef">
-                            <p>Type of a reference to a symbol</p>
-
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="Symbol" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'Symbol');">[+]</span>
@@ -5921,7 +5963,7 @@ Then can be compared with == to know if the definition is the same.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-TermRef">
-                            <p>Type of a reference to a term</p>
+                            <p>Type of a reference to a term symbol</p>
 
                         </div>
                     </div>
@@ -6702,7 +6744,7 @@ Then can be compared with == to know if the definition is the same.</p>
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-TypeRef">
-                            <p>Type of a reference to a type</p>
+                            <p>Type of a reference to a type symbol</p>
 
                         </div>
                     </div>
@@ -16069,7 +16111,7 @@ List
                                     <span class="no-left">
                                         tmref:
                                     </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TermRef">TermRef</a>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#NamedTermRef">NamedTermRef</a>
                                     
                                 
                             <span class="no-left">)</span>
@@ -19486,6 +19528,314 @@ String
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-NamedArg_value(self)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="NamedTermRef_apply(qual,name)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'NamedTermRef_apply(qual,name)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                NamedTermRef_apply
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        qual:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
+                                    
+                                        <span class="no-left">, </span>
+                                    
+                                
+                                    <span class="">
+                                        name:
+                                    </span>
+                                    String
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#NamedTermRef">NamedTermRef</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-NamedTermRef_apply(qual,name)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="NamedTermRef_name(self)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'NamedTermRef_name(self)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                NamedTermRef_name
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        self:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#NamedTermRef">NamedTermRef</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: String</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-NamedTermRef_name(self)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="NamedTermRef_qualifier(self)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'NamedTermRef_qualifier(self)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                NamedTermRef_qualifier
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        self:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#NamedTermRef">NamedTermRef</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-NamedTermRef_qualifier(self)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="NamedTypeRef_name(self)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'NamedTypeRef_name(self)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                NamedTypeRef_name
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        self:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#NamedTypeRef">NamedTypeRef</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: String</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-NamedTypeRef_name(self)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="NamedTypeRef_qualifier(self)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'NamedTypeRef_qualifier(self)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                NamedTypeRef_qualifier
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        self:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#NamedTypeRef">NamedTypeRef</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-NamedTypeRef_qualifier(self)(ctx)">
                             
                         </div>
                     </div>
@@ -25827,66 +26177,6 @@ String
                     </div>
                 </div><!-- end member -->
                 
-                <div id="SymRef_qualifier(self)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'SymRef_qualifier(self)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                SymRef_qualifier
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        self:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#SymRef">SymRef</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-SymRef_qualifier(self)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="Symbol_annots(self)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button visible" onclick="toggleMemberBody(this, 'Symbol_annots(self)(ctx)');">[+]</span>
@@ -26984,134 +27274,6 @@ String
                         <div class="member-body-long" id ="long-body-Symbol_protectedWithin(self)(ctx)">
                             <p>This symbol is protected within the resulting type.</p>
 
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="TermRef_apply(qual,name)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'TermRef_apply(qual,name)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                TermRef_apply
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        qual:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
-                                    
-                                        <span class="no-left">, </span>
-                                    
-                                
-                                    <span class="">
-                                        name:
-                                    </span>
-                                    String
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TermRef">TermRef</a></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-TermRef_apply(qual,name)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="TermRef_name(self)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'TermRef_name(self)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                TermRef_name
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        self:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TermRef">TermRef</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: String</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-TermRef_name(self)(ctx)">
-                            
                         </div>
                     </div>
                 </div><!-- end member -->
@@ -30225,66 +30387,6 @@ String
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-TypeLambda_resType(self)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="TypeRef_name(self)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'TypeRef_name(self)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                TypeRef_name
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        self:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeRef">TypeRef</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: String</span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-TypeRef_name(self)(ctx)">
                             
                         </div>
                     </div>
@@ -35423,6 +35525,132 @@ Unit<span class="and-or-separator"> | </span>Null<span class="and-or-separator">
                     </div>
                 </div><!-- end member -->
                 
+                <div id="matchNamedTermRef(tpe)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'matchNamedTermRef(tpe)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                matchNamedTermRef
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tpe:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Option
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#NamedTermRef">NamedTermRef</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-matchNamedTermRef(tpe)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="matchNamedTypeRef(tpe)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'matchNamedTypeRef(tpe)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                matchNamedTypeRef
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tpe:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Option
+<span class="no-left no-right">[</span>
+<a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#NamedTypeRef">NamedTypeRef</a>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-matchNamedTypeRef(tpe)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <div id="matchNew(tree)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'matchNew(tree)(ctx)');">[+]</span>
@@ -37486,134 +37714,6 @@ Unit<span class="and-or-separator"> | </span>Null<span class="and-or-separator">
                     </div>
                 </div><!-- end member -->
                 
-                <div id="matchSymRef(tpe)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'matchSymRef(tpe)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                matchSymRef
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tpe:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Option
-<span class="no-left no-right">[</span>
-<a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#SymRef">SymRef</a>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-matchSymRef(tpe)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
-                <div id="matchSymRef_unapply(tpe)(ctx)" class="member ">
-                    <div class="member-title">
-                        <span class="expand-button " onclick="toggleMemberBody(this, 'matchSymRef_unapply(tpe)(ctx)');">[+]</span>
-                        <span class="member-annotations">
-                            
-                        </span>
-                        <span class="member-modifiers">
-                            
-                        </span>
-                        <span class="member-kind">
-                            def
-                        </span>
-                        <span class="member-name ">
-                            
-                                matchSymRef_unapply
-                            
-                        </span>
-
-                        
-                            
-                            <span class="no-left">(</span>
-                                
-                                
-                                    <span class="no-left">
-                                        tpe:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                            <span class="no-left">(</span>
-                                
-                                <span class="no-left keyword">implicit</span>
-                                
-                                
-                                    <span class="no-left">
-                                        ctx:
-                                    </span>
-                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                    
-                                
-                            <span class="no-left">)</span>
-                            
-                        
-
-                        
-
-                        
-                        <span class="no-left">: Option
-<span class="no-left no-right">[</span>
-<span class="no-right">(</span>
-<a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Symbol">Symbol</a><span>, </span><a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
-<span class="no-left">)</span>
-<span class="no-left">]</span></span>
-                        
-                    </div><!-- end member-title -->
-
-                    <div class="member-body">
-                        <div class="member-body-long" id ="long-body-matchSymRef_unapply(tpe)(ctx)">
-                            
-                        </div>
-                    </div>
-                </div><!-- end member -->
-                
                 <div id="matchTerm(tree)(ctx)" class="member ">
                     <div class="member-title">
                         <span class="expand-button " onclick="toggleMemberBody(this, 'matchTerm(tree)(ctx)');">[+]</span>
@@ -37735,6 +37835,71 @@ Unit<span class="and-or-separator"> | </span>Null<span class="and-or-separator">
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-matchTermRef(tpe)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="matchTermRef_unapply(tpe)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'matchTermRef_unapply(tpe)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                matchTermRef_unapply
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tpe:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Option
+<span class="no-left no-right">[</span>
+<span class="no-right">(</span>
+<a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Symbol">Symbol</a><span>, </span><a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
+<span class="no-left">)</span>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-matchTermRef_unapply(tpe)(ctx)">
                             
                         </div>
                     </div>
@@ -38806,6 +38971,71 @@ Unit<span class="and-or-separator"> | </span>Null<span class="and-or-separator">
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-matchTypeRef(tpe)(ctx)">
+                            
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
+                <div id="matchTypeRef_unapply(tpe)(ctx)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button " onclick="toggleMemberBody(this, 'matchTypeRef_unapply(tpe)(ctx)');">[+]</span>
+                        <span class="member-annotations">
+                            
+                        </span>
+                        <span class="member-modifiers">
+                            
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                matchTypeRef_unapply
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        tpe:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                            <span class="no-left">(</span>
+                                
+                                <span class="no-left keyword">implicit</span>
+                                
+                                
+                                    <span class="no-left">
+                                        ctx:
+                                    </span>
+                                    <a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Option
+<span class="no-left no-right">[</span>
+<span class="no-right">(</span>
+<a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#Symbol">Symbol</a><span>, </span><a href="../../../../.././api/scala/tasty/reflect/CompilerInterface.html#TypeOrBounds">TypeOrBounds</a>
+<span class="no-left">)</span>
+<span class="no-left">]</span></span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-matchTypeRef_unapply(tpe)(ctx)">
                             
                         </div>
                     </div>
