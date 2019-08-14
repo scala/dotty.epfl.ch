@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-08-12 -->
+<!-- This page was last generated on 2019-08-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2410,8 +2410,8 @@ generation of code will be type-correct. Using TASTy Reflect will break these
 guarantees and may fail at macro expansion time, hence additional explicit
 checks must be done.</p>
 <p>To provide reflection capabilities in macros we need to add an implicit
-parameter of type <code>scala.quoted.QuoteContext</code> and import <code>tasty._</code> from it in the scope where it
-is used.</p>
+parameter of type <code>scala.quoted.QuoteContext</code> and import <code>tasty._</code> from it in
+the scope where it is used.</p>
 <pre><code class="language-scala">import scala.quoted._
 
 inline def natConst(x: =&gt; Int): Int = ${natConstImpl('{x})}
@@ -2431,17 +2431,21 @@ trees. For example the <code>Literal(_)</code> extractor used below.</p>
   import qctx.tasty._
   val xTree: Term = x.unseal
   xTree match {
-    case Term.Literal(Constant.Int(n)) =&gt;
-      if (n &lt;= 0)
-        QuoteError(&quot;Parameter must be natural number&quot;)
-      n.toExpr
+    case Inlined(_, _, Literal(Constant(n: Int))) =&gt;
+      if (n &lt;= 0) {
+        qctx.error(&quot;Parameter must be natural number&quot;)
+        '{0}
+      } else {
+        xTree.seal.cast[Int]
+      }
     case _ =&gt;
-      QuoteError(&quot;Parameter must be a known constant&quot;)
+      qctx.error(&quot;Parameter must be a known constant&quot;)
+      '{0}
   }
 }
 </code></pre>
-<p>To easily know which extractors are needed, the <code>qctx.tasty.Term.show</code> method
-returns the string representation of the extractors.</p>
+<p>To easily know which extractors are needed, the <code>showExtractors</code> method on a
+<code>qctx.tasty.Term</code> returns the string representation of the extractors.</p>
 <p>The method <code>qctx.tasty.Term.seal[T]</code> provides a way to go back to a
 <code>quoted.Expr[Any]</code>. Note that the type is <code>Expr[Any]</code>. Consequently, the type
 must be set explicitly with a checked <code>cast</code> call. If the type does not conform
