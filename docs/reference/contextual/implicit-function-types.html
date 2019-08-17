@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-08-16 -->
+<!-- This page was last generated on 2019-08-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2501,9 +2501,10 @@ that would otherwise be necessary.</p>
 
   def result[T] given (r: WrappedResult[T]): T = r
 
-  def (x: T)
-      ensuring[T](condition: given WrappedResult[T] =&gt; Boolean): T =
-    assert(condition) given x
+  def (x: T) ensuring[T](condition: given WrappedResult[T] =&gt; Boolean): T = {
+    assert(condition given x)
+    x
+  }
 }
 import PostConditions.{ensuring, result}
 
