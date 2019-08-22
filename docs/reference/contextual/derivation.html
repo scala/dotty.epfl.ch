@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-08-21 -->
+<!-- This page was last generated on 2019-08-22 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1416,24 +1416,6 @@
                 
 
                 
-                <li class="">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../../../.././api/scala/quoted/package$/NoResult$.html">O</a>
-                    </div>
-                    <a class="entity-name" href="../../../.././api/scala/quoted/package$/NoResult$.html">NoResult</a>
-                </li>
-
-                
-
-                 <!-- end != "package" -->
-
-            
-                
-
-                
                 <li class=" with-companion ">
                 <!-- end li setter -->
 
@@ -1452,30 +1434,6 @@
 
             
                 
-                 <!-- end != "package" -->
-
-            
-                
-                 <!-- end != "package" -->
-
-            
-                
-
-                
-                <li class="hidden-by-default  with-companion ">
-                <!-- end li setter -->
-
-                    <div class="entity-kinds">
-                        
-                        <a class="letter-anchor object" href="../../../.././api/scala/quoted/Toolbox$.html">O</a>
-                        
-                        <a class="letter-anchor trait" href="../../../.././api/scala/quoted/Toolbox.html">T</a>
-                    </div>
-                    <a class="entity-name" href="../../../.././api/scala/quoted/Toolbox.html">Toolbox</a>
-                </li>
-
-                
-
                  <!-- end != "package" -->
 
             
@@ -1658,6 +1616,74 @@
                         <a class="letter-anchor trait" href="../../../.././api/scala/quoted/show/SyntaxHighlight.html">T</a>
                     </div>
                     <a class="entity-name" href="../../../.././api/scala/quoted/show/SyntaxHighlight.html">SyntaxHighlight</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+            </ul>
+        </li>
+    
+        <li class="index-entity entity-package">
+            <h1><a class="entity-name" href="../../../.././api/scala/quoted/staging/index.html">scala.quoted.staging</a></h1>
+            <ul class="package-entities">
+                <div id="cover-block"></div>
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../.././api/scala/quoted/staging/RunScopeException.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/quoted/staging/RunScopeException.html">RunScopeException</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class=" with-companion ">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor object" href="../../../.././api/scala/quoted/staging/Toolbox$.html">O</a>
+                        
+                        <a class="letter-anchor trait" href="../../../.././api/scala/quoted/staging/Toolbox.html">T</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/quoted/staging/Toolbox.html">Toolbox</a>
+                </li>
+
+                
+
+                 <!-- end != "package" -->
+
+            
+                
+
+                
+                <li class="">
+                <!-- end li setter -->
+
+                    <div class="entity-kinds">
+                        
+                        <a class="letter-anchor class" href="../../../.././api/scala/quoted/staging/ToolboxNotFoundException.html">C</a>
+                    </div>
+                    <a class="entity-name" href="../../../.././api/scala/quoted/staging/ToolboxNotFoundException.html">ToolboxNotFoundException</a>
                 </li>
 
                 
@@ -2407,7 +2433,7 @@ on. Common examples are <code>Eq</code>, <code>Ordering</code>, or <code>Show</c
   case Leaf[T](elem: T)
 }
 </code></pre>
-<p>The <code>derives</code> clause generates the follwoing given instances for the <code>Eq</code>, <code>Ordering</code> and <code>Show</code> type classes in the
+<p>The <code>derives</code> clause generates the following given instances for the <code>Eq</code>, <code>Ordering</code> and <code>Show</code> type classes in the
 companion object of <code>Tree</code>,</p>
 <pre><code class="language-scala">given [T: Eq]       as Eq[Tree[T]]    = Eq.derived
 given [T: Ordering] as Ordering[Tree] = Ordering.derived
@@ -2432,7 +2458,7 @@ derivation support.</p>
     type MirroredType
  
     /** the type of the elements of the mirrored type */
-    type MirroedElemTypes
+    type MirroredElemTypes
 
     /** The mirrored *-type */
     type MirroredMonoType
@@ -2458,8 +2484,8 @@ derivation support.</p>
     }
   }
 </code></pre>
-<p>Product types (ie. case classes and objects, and enum cases) have mirrors which are subtypes of <code>Mirror.Product</code>. Sum
-types (ie. sealed class or traits with product children, and enums) have mirrors which are subtypes of <code>Mirror.Sum</code>.</p>
+<p>Product types (i.e. case classes and objects, and enum cases) have mirrors which are subtypes of <code>Mirror.Product</code>. Sum
+types (i.e. sealed class or traits with product children, and enums) have mirrors which are subtypes of <code>Mirror.Sum</code>.</p>
 <p>For the <code>Tree</code> ADT from above the following <code>Mirror</code> instances will be automatically provided by the compiler,</p>
 <pre><code class="language-scala">// Mirror for Tree
 Mirror.Sum {
@@ -2521,8 +2547,8 @@ following form,</p>
 <p>That is, the <code>derived</code> method takes a given parameter of (some subtype of) type <code>Mirror</code> which defines the shape of
 the deriving type <code>T</code>, and computes the type class implementation according to that shape. This is all that the
 provider of an ADT with a <code>derives</code> clause has to know about the derivation of a type class instance.</p>
-<p>Note that <code>derived</code> methods may have given <code>Mirror</code> arguments indirectly (eg. by having a given argument which in turn
-has a given <code>Mirror</code>, or not at all (eg. they might use some completely different user-provided mechanism, for
+<p>Note that <code>derived</code> methods may have given <code>Mirror</code> arguments indirectly (e.g. by having a given argument which in turn
+has a given <code>Mirror</code>, or not at all (e.g. they might use some completely different user-provided mechanism, for
 instance using Dotty macros or runtime reflection). We expect that (direct or indirect) <code>Mirror</code> based implementations
 will be the most common and that is what this document emphasises.</p>
 <p>Type class authors will most likely use higher level derivation or generic programming libraries to implement
