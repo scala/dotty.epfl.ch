@@ -88,7 +88,7 @@
     </a>
     <div id="project-details">
         <h1 id="project-name"><a href="../../../../../.././docs/">Dotty Documentation</a></h1>
-        <h2 id="project-version">0.18.0-bin-SNAPSHOT</h2>
+        <h2 id="project-version">0.18.1-bin-SNAPSHOT</h2>
     </div>
 
     
@@ -2544,14 +2544,18 @@
                         
                         <span class="no-left">: List
 <span class="no-left no-right">[</span>
-String
+String<span class="and-or-separator"> | </span>Int
 <span class="no-left">]</span></span>
                         
                     </div><!-- end member-title -->
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-paramSigs">
-                            <p>The (JVM) erased signatures of the parameters</p>
+                            <p>The signatures of the method parameters.</p>
+<p>Each <em>type parameter section</em> is represented by a single Int corresponding
+to the number of type parameters in the section.
+Each <em>term parameter</em> is represented by a String corresponding to the fully qualified
+name of the parameter type.</p>
 
                         </div>
                     </div>
@@ -2586,7 +2590,7 @@ String
 
                     <div class="member-body">
                         <div class="member-body-long" id ="long-body-resultSig">
-                            <p>The (JVM) erased result type</p>
+                            <p>The signature of the result type</p>
 
                         </div>
                     </div>
