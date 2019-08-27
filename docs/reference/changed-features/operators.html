@@ -218,7 +218,9 @@
 </li>
 <li><a href="../../../.././docs/reference/other-new-features/tupled-function.html">Tupled Function</a>
 </li>
-<li><a href="../../../.././docs/reference/other-new-features/threadUnsafe-annotation.html">threadUnsafe Annotation</a></li>
+<li><a href="../../../.././docs/reference/other-new-features/threadUnsafe-annotation.html">threadUnsafe Annotation</a>
+</li>
+<li><a href="../../../.././docs/reference/other-new-features/control-syntax.html">New Control Syntax</a></li>
 </ul>
 
 </li>
@@ -265,6 +267,8 @@
 <li><a href="../../../.././docs/reference/dropped-features/existential-types.html">Existential Types</a>
 </li>
 <li><a href="../../../.././docs/reference/dropped-features/type-projection.html">Type Projection</a>
+</li>
+<li><a href="../../../.././docs/reference/dropped-features/do-while.html">Do-While</a>
 </li>
 <li><a href="../../../.././docs/reference/dropped-features/procedure-syntax.html">Procedure Syntax</a>
 </li>
@@ -2424,7 +2428,8 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>There are two annotations that regulate operators: <code>infix</code> and <code>alpha</code>.</p>
+            <p>The rules for infix operators have changed. There are two annotations that regulate operators: <code>infix</code> and <code>alpha</code>.
+Furthermore, a syntax change allows infix operators to be written on the left in a multi-line expression.</p>
 <h2><a href="#the-alpha-annotation" id="the-alpha-annotation">The @alpha Annotation</a></h2>
 <p>An <code>@alpha</code> annotation on a method definition defines an alternate name for the implementation of that method: Example:</p>
 <pre><code class="language-scala">object VecOps {
@@ -2539,6 +2544,42 @@ val x: String or Int = ...
 <li>To smooth migration to Scala 3.0, alphanumeric operations will only be deprecated from Scala 3.1 onwards,
 or if the <code>-strict</code> option is given in Dotty/Scala 3.</li>
 </ol>
+<h2><a href="#syntax-change" id="syntax-change">Syntax Change</a></h2>
+<p>Infix operators can now appear at the start of lines in a multi-line expression. Examples:</p>
+<pre><code class="language-scala">val str = &quot;hello&quot;
+  ++ &quot; world&quot;
+  ++ &quot;!&quot;
+
+def condition =
+     x &gt; 0
+  || xs.exists(_ &gt; 0)
+  || xs.isEmpty
+</code></pre>
+<p>Previously, these expressions would have been rejected, since the compiler's semicolon inference
+would have treated the continuations <code>++ &quot; world&quot;</code> or <code>|| xs.isEmpty</code> as separate statements.</p>
+<p>To make this syntax work, the rules are modified to not infer semicolons in front of leading infix operators.
+A <em>leading infix operator</em> is
+- a symbolic identifier such as <code>+</code>, or <code>approx_==</code>, or an identifier in backticks,
+- that starts a new line,
+- that precedes a token on the same line that can start an expression,
+- and that is immediately followed by at least one space character <code>' '</code>.</p>
+<p>Example:</p>
+<pre><code class="language-scala">    freezing
+  | boiling
+</code></pre>
+<p>This is recognized as a single infix operation. Compare with:</p>
+<pre><code class="language-scala">    freezing
+  !boiling
+</code></pre>
+<p>This is seen as two statements, <code>freezing</code> and <code>!boiling</code>. The difference is that only the operator in the first example
+is followed by a space.</p>
+<p>Another example:</p>
+<pre><code class="language-scala">  println(&quot;hello&quot;)
+  ???
+  ??? match { case 0 =&gt; 1 }
+</code></pre>
+<p>This code is recognized as three different statements. <code>???</code> is syntactically a symbolic identifier, but
+neither of its occurrences is followed by a space and a token that can start an expression.</p>
 
         </div>
     </div><!-- end content-body -->
