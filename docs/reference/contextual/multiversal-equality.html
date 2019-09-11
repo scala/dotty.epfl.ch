@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-10 -->
+<!-- This page was last generated on 2019-09-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2457,24 +2457,20 @@ new Box(1) == 1             // error: can't compare
 <p>The precise rules for equality checking are as follows.</p>
 <p>If the <code>strictEquality</code> feature is enabled then
 a comparison using <code>x == y</code> or <code>x != y</code> between values <code>x: T</code> and <code>y: U</code>
-is legal if</p>
-<ol>
-<li>there is a given instance for <code>Eql[T, U]</code>, or</li>
-<li>one of <code>T</code>, <code>U</code> is <code>Null</code>.</li>
-</ol>
+is legal if there is a given instance for <code>Eql[T, U]</code>.</p>
 <p>In the default case where the <code>strictEquality</code> feature is not enabled the comparison is
 also legal if</p>
 <ol>
-<li><code>T</code> and <code>U</code> the same, or</li>
-<li>one of <code>T</code> and <code>U</code>is a subtype of the <em>lifted</em> version of the other type, or</li>
-<li>neither <code>T</code> nor <code>U</code> have a _reflexive <code>Eql</code> given.</li>
+<li><code>T</code> and <code>U</code> are the same, or</li>
+<li>one of <code>T</code>, <code>U</code> is a subtype of the <em>lifted</em> version of the other type, or</li>
+<li>neither <code>T</code> nor <code>U</code> have a <em>reflexive</em> <code>Eql</code> given.</li>
 </ol>
 <p>Explanations:</p>
 <ul>
 <li><em>lifting</em> a type <code>S</code> means replacing all references to  abstract types
 in covariant positions of <code>S</code> by their upper bound, and to replacing
 all refinement types in covariant positions of <code>S</code> by their parent.</li>
-<li>a type <code>T</code> has a _reflexive <code>Eql</code> given if the implicit search for <code>Eql[T, T]</code>
+<li>a type <code>T</code> has a <em>reflexive</em> <code>Eql</code> given if the implicit search for <code>Eql[T, T]</code>
 succeeds.</li>
 </ul>
 <h2><a href="#predefined-eql-instances" id="predefined-eql-instances">Predefined Eql Instances</a></h2>
@@ -2482,7 +2478,7 @@ succeeds.</li>
 - the primitive types <code>Byte</code>, <code>Short</code>, <code>Char</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>,  and <code>Unit</code>,
 - <code>java.lang.Number</code>, <code>java.lang.Boolean</code>, and <code>java.lang.Character</code>,
 - <code>scala.collection.Seq</code>, and <code>scala.collection.Set</code>.</p>
-<p>Given instances are defined so that every one of these types has a reflexive <code>Eql</code> given, and the following holds:</p>
+<p>Given instances are defined so that every one of these types has a <em>reflexive</em> <code>Eql</code> given, and the following holds:</p>
 <ul>
 <li>Primitive numeric types can be compared with each other.</li>
 <li>Primitive numeric types can be compared with subtypes of <code>java.lang.Number</code> (and <em>vice versa</em>).</li>
