@@ -2381,14 +2381,14 @@ functions. Given clauses can help here since they enable the compiler to synthes
 repetitive arguments instead of the programmer having to write them explicitly.</p>
 <p>For example, with the <a href="./delegates.html">given instances</a> defined previously,
 a maximum function that works for any arguments for which an ordering exists can be defined as follows:</p>
-<pre><code class="language-scala">def max[T](x: T, y: T) given (ord: Ord[T]): T =
+<pre><code class="language-scala">def max[T](x: T, y: T)(given ord: Ord[T]): T =
   if (ord.compare(x, y) &lt; 0) y else x
 </code></pre>
 <p>Here, <code>ord</code> is an <em>implicit parameter</em> introduced with a <code>given</code> clause.
 The <code>max</code> method can be applied as follows:</p>
-<pre><code class="language-scala">max(2, 3) given IntOrd
+<pre><code class="language-scala">max(2, 3)(given IntOrd)
 </code></pre>
-<p>The <code>given IntOrd</code> part passes <code>IntOrd</code> as an argument for the <code>ord</code> parameter. But the point of
+<p>The <code>(given IntOrd)</code> part passes <code>IntOrd</code> as an argument for the <code>ord</code> parameter. But the point of
 implicit parameters is that this argument can also be left out (and it usually is). So the following
 applications are equally valid:</p>
 <pre><code class="language-scala">max(2, 3)
@@ -2399,64 +2399,67 @@ max(List(1, 2, 3), Nil)
 mentioned explicitly at all, since it is used only in synthesized arguments for
 other implicit parameters. In that case one can avoid defining a parameter name
 and just provide its type. Example:</p>
-<pre><code class="language-scala">def maximum[T](xs: List[T]) given Ord[T]: T =
+<pre><code class="language-scala">def maximum[T](xs: List[T])(given Ord[T]): T =
   xs.reduceLeft(max)
 </code></pre>
 <p><code>maximum</code> takes an implicit parameter of type <code>Ord</code> only to pass it on as an
 inferred argument to <code>max</code>. The name of the parameter is left out.</p>
-<p>Generally, implicit parameters may be defined either as a parameter list <code>(p_1: T_1, ..., p_n: T_n)</code>
-or as a sequence of types, separated by commas.</p>
+<p>Generally, implicit parameters may be defined either as a full parameter list <code>(given p_1: T_1, ..., p_n: T_n)</code> or just as a sequence of types <code>(given T_1, ..., T_n)</code>.
+Vararg given parameters are not allowed.</p>
 <h2><a href="#inferring-complex-arguments" id="inferring-complex-arguments">Inferring Complex Arguments</a></h2>
 <p>Here are two other methods that have an implicit parameter of type <code>Ord[T]</code>:</p>
-<pre><code class="language-scala">def descending[T] given (asc: Ord[T]): Ord[T] = new Ord[T] {
+<pre><code class="language-scala">def descending[T](given asc: Ord[T]): Ord[T] = new Ord[T] {
   def compare(x: T, y: T) = asc.compare(y, x)
 }
 
-def minimum[T](xs: List[T]) given Ord[T] =
-  maximum(xs) given descending
+def minimum[T](xs: List[T])(given Ord[T]) =
+  maximum(xs)(given descending)
 </code></pre>
 <p>The <code>minimum</code> method's right hand side passes <code>descending</code> as an explicit argument to <code>maximum(xs)</code>.
 With this setup, the following calls are all well-formed, and they all normalize to the last one:</p>
 <pre><code class="language-scala">minimum(xs)
-maximum(xs) given descending
-maximum(xs) given (descending given ListOrd)
-maximum(xs) given (descending given (ListOrd given IntOrd))
+maximum(xs)(given descending)
+maximum(xs)(given descending(given ListOrd))
+maximum(xs)(given descending(given ListOrd(given IntOrd)))
 </code></pre>
 <h2><a href="#multiple-given-clauses" id="multiple-given-clauses">Multiple Given Clauses</a></h2>
-<p>There can be several given clauses in a definition. Example:</p>
-<pre><code class="language-scala">def f given (u: Universe) given (x: u.Context) = ...
+<p>There can be several <code>given</code> parameter clauses in a definition and <code>given</code> parameter clauses can be freely
+mixed with normal ones. Example:</p>
+<pre><code class="language-scala">def f(u: Universe)(given c: u.Context)(given s: ctx.Symbol, k: ctx.Kind) = ...
 </code></pre>
-<p>However, all <code>given</code> clauses in a definition must come after any normal parameter clauses.
-Multiple given clauses are matched left-to-right in applications. Example:</p>
-<pre><code class="language-scala">given global as Universe { type Context = ... }
-given ctx as global.Context { ... }
+<p>Multiple given clauses are matched left-to-right in applications. Example:</p>
+<pre><code class="language-scala">object global extends Universe { type Context = ... }
+given ctx  : global.Context { type Symbol = ...; type Kind = ... }
+given sym  : ctx.Symbol
+given kind : ctx.Kind
 </code></pre>
 <p>Then the following calls are all valid (and normalize to the last one)</p>
 <pre><code class="language-scala">f
-(f given global)
-(f given global) given ctx
+f(global)
+f(global)(given ctx)
+f(global)(given ctx)(given sym, kind)
 </code></pre>
-<p>But <code>f given ctx</code> would give a type error.</p>
+<p>But <code>f(global)(given sym, kind)</code> would give a type error.</p>
 <h2><a href="#summoning-instances" id="summoning-instances">Summoning Instances</a></h2>
-<p>A method <code>the</code> in <code>Predef</code> returns the given instance of a specific type. For example,
+<p>The method <code>summon</code> in <code>Predef</code> returns the given instance of a specific type. For example,
 the given instance for <code>Ord[List[Int]]</code> is produced by</p>
-<pre><code class="language-scala">the[Ord[List[Int]]]  // reduces to ListOrd given IntOrd
+<pre><code class="language-scala">summon[Ord[List[Int]]]  // reduces to ListOrd given IntOrd
 </code></pre>
-<p>The <code>the</code> method is simply defined as the (non-widening) identity function over a implicit parameter.</p>
-<pre><code class="language-scala">def the[T] given (x: T): x.type = x
+<p>The <code>summon</code> method is simply defined as the (non-widening) identity function over a implicit parameter.</p>
+<pre><code class="language-scala">def summon[T](given x: T): x.type = x
 </code></pre>
 <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <p>Here is the new syntax of parameters and arguments seen as a delta from the <a href="../../internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
 <pre><code>ClsParamClauses     ::=  ...
                       |  {ClsParamClause} {GivenClsParamClause}
-GivenClsParamClause ::=  ‘given’ (‘(’ ClsParams ‘)’ | GivenTypes)
+GivenClsParamClause ::=  ‘(’ ‘given’ (ClsParams | GivenTypes) ‘)’
 DefParamClauses     ::=  ...
                       |  {DefParamClause} {GivenParamClause}
-GivenParamClause    ::=  ‘given’ (‘(’ DefParams ‘)’ | GivenTypes)
+GivenParamClause    ::=  ‘(’ ‘given’ (DefParams | GivenTypes) ‘)’
 GivenTypes          ::=  AnnotType {‘,’ AnnotType}
 
-InfixExpr           ::=  ...
-                      |  InfixExpr ‘given’ (InfixExpr | ParArgumentExprs)
+ParArgumentExprs    ::=  ...
+                      |  ‘(’ ‘given’ ExprsInParens ‘)’
 </code></pre>
 
         </div>

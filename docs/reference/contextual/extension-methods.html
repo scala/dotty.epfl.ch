@@ -2408,7 +2408,7 @@ or inherited or imported in a scope enclosing the application.</li>
 }
 </code></pre>
 <p>We can make the extension method available by defining a given <code>StringSeqOps</code> instance, like this:</p>
-<pre><code class="language-scala">given ops1 as StringSeqOps
+<pre><code class="language-scala">given ops1: StringSeqOps
 </code></pre>
 <p>Then</p>
 <pre><code class="language-scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
@@ -2492,7 +2492,7 @@ def (xs: List[List[T]]) flattened [T] =
   xs.foldLeft[List[T]](Nil)(_ ++ _)
 
 def (x: T) + [T : Numeric](y: T): T =
-  the[Numeric[T]].plus(x, y)
+  summon[Numeric[T]].plus(x, y)
 </code></pre>
 <p>As usual, type parameters of the extension method follow the defined method name. Nevertheless, such type parameters can already be used in the preceding parameter clause.</p>
 <h3><a href="#syntax" id="syntax">Syntax</a></h3>

@@ -2725,6 +2725,64 @@ If an inline expansion results in a call error(msgStr) the compiler produces an 
                     </div>
                 </div><!-- end member -->
                 
+                <div id="summonFrom(f)" class="member ">
+                    <div class="member-title">
+                        <span class="expand-button visible" onclick="toggleMemberBody(this, 'summonFrom(f)');">[+]</span>
+                        <span class="member-annotations">
+                            @Body 
+                        </span>
+                        <span class="member-modifiers">
+                            inline
+                        </span>
+                        <span class="member-kind">
+                            def
+                        </span>
+                        <span class="member-name ">
+                            
+                                summonFrom
+                            
+                        </span>
+
+                        
+                            
+                            <span class="no-left">(</span>
+                                
+                                
+                                    <span class="no-left">
+                                        f:
+                                    </span>
+                                    Nothing<span class="right-arrow"> =&gt; </span>Any
+                                    
+                                
+                            <span class="no-left">)</span>
+                            
+                        
+
+                        
+
+                        
+                        <span class="no-left">: Any</span>
+                        
+                    </div><!-- end member-title -->
+
+                    <div class="member-body">
+                        <div class="member-body-long" id ="long-body-summonFrom(f)">
+                            <p>Summons first given matching one of the listed cases. E.g. in</p>
+<pre><code>given B { ... }
+
+summonFrom {
+  case given A =&gt; 1
+  case given B =&gt; 2
+  case given C =&gt; 3
+  case _ =&gt; 4
+}
+</code></pre>
+<p>the returned value would be <code>2</code>.</p>
+
+                        </div>
+                    </div>
+                </div><!-- end member -->
+                
                 <script>
                     function toggleMembersBody(span, arg){
                         var members = document.getElementById("entity-" + arg);

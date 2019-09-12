@@ -2379,16 +2379,16 @@
   def write(x: T): Unit
 }
 
-given intCodec as Codec[Int] = ???
+given intCodec: Codec[Int] = ???
 
-given optionCodec[T] as Codec[Option[T]] given (ev: =&gt; Codec[T]) {
+given optionCodec[T](given ev: =&gt; Codec[T]): Codec[Option[T]] {
   def write(xo: Option[T]) = xo match {
     case Some(x) =&gt; ev.write(x)
     case None =&gt;
   }
 }
 
-val s = the[Codec[Option[Int]]]
+val s = summon[Codec[Option[Int]]]
 
 s.write(Some(33))
 s.write(None)
@@ -2402,7 +2402,7 @@ if this is necessary to prevent an otherwise diverging expansion.</p>
 <ol>
 <li>
 <p>Create a new given instance of type <code>T</code>:</p>
-<pre><code class="language-scala">given lv as T = ???
+<pre><code class="language-scala">given lv: T = ???
 </code></pre>
 <p>where <code>lv</code> is an arbitrary fresh name.</p>
 </li>
@@ -2411,13 +2411,13 @@ if this is necessary to prevent an otherwise diverging expansion.</p>
 </li>
 <li>
 <p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to <code>lv</code>, replace <code>E</code> by</p>
-<pre><code class="language-scala">{ given lv as T = E; lv }
+<pre><code class="language-scala">{ given lv: T = E; lv }
 </code></pre>
 <p>Otherwise, return <code>E</code> unchanged.</p>
 </li>
 </ol>
 <p>In the example above, the definition of <code>s</code> would be expanded as follows.</p>
-<pre><code class="language-scala">val s = the[Test.Codec[Option[Int]]](
+<pre><code class="language-scala">val s = summon[Test.Codec[Option[Int]]](
   optionCodec[Int](intCodec)
 )
 </code></pre>
