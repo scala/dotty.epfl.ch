@@ -2739,7 +2739,7 @@ with <code>given</code>, the variable <code>x</code> is bound to the implicit va
 <p><code>summonFrom</code> applications must be reduced at compile time.</p>
 <p>Consequently, if we summon an <code>Ordering[String]</code> the code above will return a
 new instance of <code>TreeSet[String]</code>.</p>
-<pre><code class="language-scala">the[Ordering[String]]
+<pre><code class="language-scala">summon[Ordering[String]]
 
 println(setFor[String].getClass) // prints class scala.collection.immutable.TreeSet
 </code></pre>
