@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-12 -->
+<!-- This page was last generated on 2019-09-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2374,7 +2374,9 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Given instances (or, simply, &quot;givens&quot;) define &quot;canonical&quot; values of certain types
+            <p><strong>Note</strong> The syntax described in this section is currently under revision.
+<a href="../contextual-new/delegates.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
+<p>Given instances (or, simply, &quot;givens&quot;) define &quot;canonical&quot; values of certain types
 that serve for synthesizing arguments to <a href="./given-clauses.html">given clauses</a>. Example:</p>
 <pre><code class="language-scala">trait Ord[T] {
   def compare(x: T, y: T): Int
@@ -2382,12 +2384,12 @@ that serve for synthesizing arguments to <a href="./given-clauses.html">given cl
   def (x: T) &gt; (y: T) = compare(x, y) &gt; 0
 }
 
-given intOrd: Ord[Int] {
+given IntOrd as Ord[Int] {
   def compare(x: Int, y: Int) =
     if (x &lt; y) -1 else if (x &gt; y) +1 else 0
 }
 
-given listOrd[T](given ord: Ord[T]): Ord[List[T]] {
+given ListOrd[T] as Ord[List[T]] given (ord: Ord[T]) {
 
   def compare(xs: List[T], ys: List[T]): Int = (xs, ys) match {
     case (Nil, Nil) =&gt; 0
@@ -2399,30 +2401,30 @@ given listOrd[T](given ord: Ord[T]): Ord[List[T]] {
   }
 }
 </code></pre>
-<p>This code defines a trait <code>Ord</code> with two given instances. <code>intOrd</code> defines
-a given for the type <code>Ord[Int]</code> whereas <code>listOrd[T]</code> defines givens
+<p>This code defines a trait <code>Ord</code> with two given instances. <code>IntOrd</code> defines
+a given for the type <code>Ord[Int]</code> whereas <code>ListOrd[T]</code> defines givens
 for <code>Ord[List[T]]</code> for all types <code>T</code> that come with a given instance for <code>Ord[T]</code> themselves.
-The <code>(given ord: Ord[T])</code> clause in <code>listOrd</code> defines an implicit parameter.
-Given clauses are further explained in the <a href="./given-clauses.html">next section</a>.</p>
+The <code>given (ord: Ord[T])</code> clause in <code>ListOrd</code> defines an implicit parameter.
+Given clauses are further explained in <a href="./given-clauses.html">given clauses</a>.</p>
 <h2><a href="#anonymous-given-instances" id="anonymous-given-instances">Anonymous Given Instances</a></h2>
 <p>The name of a given instance can be left out. So the definitions
 of the last section can also be expressed like this:</p>
-<pre><code class="language-scala">given Ord[Int] { ... }
-given [T](given Ord[T]): Ord[List[T]] { ... }
+<pre><code class="language-scala">given as Ord[Int] { ... }
+given [T] as Ord[List[T]] given Ord[T] { ... }
 </code></pre>
 <p>If the name of a given is missing, the compiler will synthesize a name from
 the type(s) in the <code>as</code> clause.</p>
 <h2><a href="#alias-givens" id="alias-givens">Alias Givens</a></h2>
 <p>An alias can be used to define a given instance that is equal to some expression. E.g.:</p>
-<pre><code class="language-scala">given global: ExecutionContext = new ForkJoinPool()
+<pre><code class="language-scala">given global as ExecutionContext = new ForkJoinPool()
 </code></pre>
 <p>This creates a given <code>global</code> of type <code>ExecutionContext</code> that resolves to the right
 hand side <code>new ForkJoinPool()</code>.
 The first time <code>global</code> is accessed, a new <code>ForkJoinPool</code> is created, which is then
 returned for this and all subsequent accesses to <code>global</code>.</p>
 <p>Alias givens can be anonymous, e.g.</p>
-<pre><code class="language-scala">given Position = enclosingTree.position
-given (given outer: Context): Context = outer.withOwner(currentOwner)
+<pre><code class="language-scala">given as Position = enclosingTree.position
+given as Context given (outer: Context) = outer.withOwner(currentOwner)
 </code></pre>
 <p>An alias given can have type parameters and given clauses just like any other given instance, but it can only implement a single type.</p>
 <h2><a href="#given-instance-initialization" id="given-instance-initialization">Given Instance Initialization</a></h2>
@@ -2434,13 +2436,17 @@ If a <code>given</code> definition has type parameters or a given clause, a fres
 <p>Here is the new syntax of given instances, seen as a delta from the <a href="../../internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
 <pre><code>TmplDef          ::=  ...
                   |   ‘given’ GivenDef
-GivenDef         ::=  [GivenSig (‘:’ | &lt;:)] Type ‘=’ Expr
-                  |   [GivenSig ‘:’] [ConstrApp {‘,’ ConstrApp }] [TemplateBody]
-GivenSig         ::=  [id] [DefTypeParamClause] {GivenParamClause}
-GivenParamClause ::=  ‘(’ ‘given’ (DefParams | GivenTypes) ‘)’
+GivenDef         ::=  [id] [DefTypeParamClause] GivenBody
+GivenBody        ::=  [‘as’ ConstrApp {‘,’ ConstrApp }] {GivenParamClause} [TemplateBody]
+                   |  ‘as’ Type {GivenParamClause} ‘=’ Expr
+ConstrApp        ::=  SimpleConstrApp
+                   |  ‘(’ SimpleConstrApp {‘given’ (PrefixExpr | ParArgumentExprs)} ‘)’
+SimpleConstrApp  ::=  AnnotType {ArgumentExprs}
+GivenParamClause ::=  ‘given’ (‘(’ [DefParams] ‘)’ | GivenTypes)
 GivenTypes       ::=  AnnotType {‘,’ AnnotType}
 </code></pre>
-<p>The identifier <code>id</code> can be omitted only if some types are implemented or the template body defines at least one extension method.</p>
+<p>The identifier <code>id</code> can be omitted only if either the <code>as</code> part or the template body is present.
+If the <code>as</code> part is missing, the template body must define at least one extension method.</p>
 
         </div>
     </div><!-- end content-body -->

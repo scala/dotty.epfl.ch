@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-12 -->
+<!-- This page was last generated on 2019-09-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2374,20 +2374,22 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
+            <p><strong>Note</strong> The syntax described in this section is currently under revision.
+<a href="../contextual-new/relationship-implicits.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
+<p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
 <h2><a href="#simulating-contextual-abstraction-with-implicits" id="simulating-contextual-abstraction-with-implicits">Simulating Contextual Abstraction with Implicits</a></h2>
 <h3><a href="#given-instances" id="given-instances">Given Instances</a></h3>
 <p>Given instances can be mapped to combinations of implicit objects, classes and implicit methods.</p>
 <ol>
 <li>Given instances without parameters are mapped to implicit objects. E.g.,
-<pre><code class="language-scala">  given intOrd: Ord[Int] { ... }
+<pre><code class="language-scala">  given IntOrd as Ord[Int] { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="language-scala">  implicit object IntOrd extends Ord[Int] { ... }
 </code></pre>
 </li>
 <li>Parameterized given instances are mapped to combinations of classes and implicit methods. E.g.,
-<pre><code class="language-scala">  given listOrd[T](given (ord: Ord[T]): Ord[List[T]] { ... }
+<pre><code class="language-scala">  given ListOrd[T] as Ord[List[T]] given (ord: Ord[T]) { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="language-scala">  class ListOrd[T](implicit ord: Ord[T]) extends Ord[List[T]] { ... }
@@ -2400,10 +2402,10 @@ reference without caching it.</li>
 </ol>
 <p>Examples:</p>
 <pre><code>```scala
-  given global: ExecutionContext = new ForkJoinContext()
+  given global as ExecutionContext = new ForkJoinContext()
 
   val ctx: Context
-  given Context = ctx
+  given as Context = ctx
 ```
 would map to
 ```scala
@@ -2413,14 +2415,14 @@ would map to
 </code></pre>
 <h3><a href="#anonymous-given-instances" id="anonymous-given-instances">Anonymous Given Instances</a></h3>
 <p>Anonymous given instances get compiler synthesized names, which are generated in a reproducible way from the implemented type(s). For example, if the names of the <code>IntOrd</code> and <code>ListOrd</code> givens above were left out, the following names would be synthesized instead:</p>
-<pre><code class="language-scala">  given given_Ord_Int : Ord[Int] { ... }
-  given given_Ord_List[T] : Ord[List[T]] { ... }
+<pre><code class="language-scala">  given Ord_Int_given as Ord[Int] { ... }
+  given Ord_List_given[T] as Ord[List[T]] { ... }
 </code></pre>
 <p>The synthesized type names are formed from</p>
 <ul>
-<li>the prefix <code>given_</code>,</li>
 <li>the simple name(s) of the implemented type(s), leaving out any prefixes,</li>
-<li>the simple name(s) of the toplevel argument type constructors to these types.</li>
+<li>the simple name(s) of the toplevel argument type constructors to these types</li>
+<li>the suffix <code>_given</code>.</li>
 </ul>
 <p>Anonymous given instances that define extension methods without also implementing a type
 get their name from the name of the first extension method and the toplevel type
@@ -2429,17 +2431,17 @@ constructor of its first parameter. For example, the given instance</p>
     def (xs: List[T]) second[T] = ...
   }
 </code></pre>
-<p>gets the synthesized name <code>given_second_of_List_T</code>.</p>
+<p>gets the synthesized name <code>second_of_List_T_given</code>.</p>
 <h3><a href="#given-clauses" id="given-clauses">Given Clauses</a></h3>
 <p>Given clauses corresponds largely to Scala-2's implicit parameter clauses. E.g.</p>
-<pre><code class="language-scala">  def max[T](x: T, y: T)(given ord: Ord[T]): T
+<pre><code class="language-scala">  def max[T](x: T, y: T) given (ord: Ord[T]): T
 </code></pre>
 <p>would be written</p>
 <pre><code class="language-scala">  def max[T](x: T, y: T)(implicit ord: Ord[T]): T
 </code></pre>
 <p>in Scala 2. The main difference concerns applications of such parameters.
 Explicit arguments to parameters of given clauses <em>must</em> be written using <code>given</code>,
-mirroring the definition syntax. E.g, <code>max(2, 3)(given IntOrd</code>).
+mirroring the definition syntax. E.g, <code>max(2, 3) given IntOrd</code>.
 Scala 2 uses normal applications <code>max(2, 3)(IntOrd)</code> instead. The Scala 2 syntax has some inherent ambiguities and restrictions which are overcome by the new syntax. For instance, multiple implicit parameter lists are not available in the old syntax, even though they can be simulated using auxiliary objects in the &quot;Aux&quot; pattern.</p>
 <p>The <code>the</code> method corresponds to <code>implicitly</code> in Scala 2.
 It is precisely the same as the <code>the</code> method in Shapeless.
@@ -2473,7 +2475,7 @@ will map to given clauses instead.</p>
 <pre><code class="language-scala">  implicit def stringToToken(str: String): Token = new Keyword(str)
 </code></pre>
 <p>one can write</p>
-<pre><code class="language-scala">  given stringToToken: Conversion[String, Token] {
+<pre><code class="language-scala">  given stringToToken as Conversion[String, Token] {
     def apply(str: String): Token = new KeyWord(str)
   }
 </code></pre>
@@ -2486,7 +2488,7 @@ E.g., Scala 2's</p>
 </code></pre>
 <p>can be expressed in Dotty as</p>
 <pre><code class="language-scala">  lazy val pos: Position = tree.sourcePos
-  given Position = pos
+  given as Position = pos
 </code></pre>
 <h3><a href="#abstract-implicits" id="abstract-implicits">Abstract Implicits</a></h3>
 <p>An abstract implicit <code>val</code> or <code>def</code> in Scala 2 can be expressed in Dotty using a regular abstract definition and an alias given. E.g., Scala 2's</p>
@@ -2494,7 +2496,7 @@ E.g., Scala 2's</p>
 </code></pre>
 <p>can be expressed in Dotty as</p>
 <pre><code class="language-scala">  def symDeco: SymDeco
-  given SymDeco = symDeco
+  given as SymDeco = symDeco
 </code></pre>
 <h2><a href="#implementation-status-and-timeline" id="implementation-status-and-timeline">Implementation Status and Timeline</a></h2>
 <p>The Dotty implementation implements both Scala-2's implicits and the new abstractions. In fact, support for Scala-2's implicits is an essential part of the common language subset between 2.13/2.14 and Dotty.

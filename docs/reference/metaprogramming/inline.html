@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-12 -->
+<!-- This page was last generated on 2019-09-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2692,7 +2692,9 @@ fail() // error: failed for a reason
 }
 fail(indentity(&quot;foo&quot;)) // error: failed on: indentity(&quot;foo&quot;)
 </code></pre>
-<h2><a href="#summoning-implicits-selectively" id="summoning-implicits-selectively">Summoning Implicits Selectively</a></h2>
+<h2><a href="#implicit-matches" id="implicit-matches">Implicit Matches</a></h2>
+<p><strong>Note</strong> The syntax described in this section is currently under revision.
+<a href="../metaprogramming-new/inline.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
 <p>It is foreseen that many areas of typelevel programming can be done with rewrite
 methods instead of implicits. But sometimes implicits are unavoidable. The
 problem so far was that the Prolog-like programming style of implicit search
@@ -2721,29 +2723,31 @@ seems like a lot of ceremony.</p>
 <p>There are some proposals to improve the situation in specific areas, for
 instance by allowing more elaborate schemes to specify priorities. But they all
 keep the viral nature of implicit search programs based on logic programming.</p>
-<p>By contrast, the new <code>summonFrom</code> construct makes implicit search available
+<p>By contrast, the new <code>implicit match</code> construct makes implicit search available
 in a functional context. To solve the problem of creating the right set, one
 would use it as follows:</p>
-<pre><code class="language-scala">import scala.compiletime.summonFrom
-
-inline def setFor[T]: Set[T] = summonFrom match {
-  case given ord: Ordering[T] =&gt; new TreeSet[T]
-  case _                      =&gt; new HashSet[T]
+<pre><code class="language-scala">inline def setFor[T]: Set[T] = implicit match {
+  case ord: Ordering[T] =&gt; new TreeSet[T]
+  case _                =&gt; new HashSet[T]
 }
 </code></pre>
-<p>A <code>summonFrom</code> call takes a pattern matching closure as argument. All patterns
-in the closure are type ascriptions of the form <code>identifier : Type</code>.</p>
+<p>An implicit match uses the <code>implicit</code> keyword in the place of the scrutinee. Its
+patterns are type ascriptions of the form <code>identifier : Type</code>.</p>
 <p>Patterns are tried in sequence. The first case with a pattern <code>x: T</code> such that
-an implicit value of type <code>T</code> can be summoned is chosen. If the pattern is prefixed
-with <code>given</code>, the variable <code>x</code> is bound to the implicit value for the remainder of the case. It can in turn be used as an implicit in the right hand side of the case. It is an error if one of the tested patterns gives rise to an ambiguous implicit search.</p>
-<p><code>summonFrom</code> applications must be reduced at compile time.</p>
+an implicit value of type <code>T</code> can be summoned is chosen. The variable <code>x</code> is
+then bound to the implicit value for the remainder of the case. It can in turn
+be used as an implicit in the right hand side of the case. It is an error if one
+of the tested patterns gives rise to an ambiguous implicit search.</p>
+<p>An implicit matches is considered to be a special kind of a inline match. This
+means it can only occur in the body of an inline method, and it must be reduced
+at compile time.</p>
 <p>Consequently, if we summon an <code>Ordering[String]</code> the code above will return a
 new instance of <code>TreeSet[String]</code>.</p>
 <pre><code class="language-scala">summon[Ordering[String]]
 
 println(setFor[String].getClass) // prints class scala.collection.immutable.TreeSet
 </code></pre>
-<p><strong>Note</strong> <code>summonFrom</code> applications can raise ambiguity errors. Consider the following
+<p><strong>Note</strong> implicit matches can raise ambiguity errors. Consider the following
 code with two implicit values in scope of type <code>A</code>. The single pattern match
 case of the implicit match with type ascription of an <code>A</code> raises the ambiguity
 error.</p>
@@ -2751,13 +2755,14 @@ error.</p>
 implicit val a1: A = new A
 implicit val a2: A = new A
 
-inline def f: Any = summonFrom {
+inline def f: Any = implicit match {
   case _: A =&gt; ???  // error: ambiguous implicits
 }
 </code></pre>
 <h3><a href="#reference" id="reference">Reference</a></h3>
-<p>For more info, see <a href="https://github.com/lampepfl/dotty/pull/4768">PR #4768</a>,
-which explains how <code>summonFrom</code>'s predecessor (implicit matches) can be used for typelevel programming and code specialization and <a href="https://github.com/lampepfl/dotty/pull/7201">PR #7201</a> which explains the new <code>summonFrom</code> syntax.</p>
+<p>For more info, see <a href="https://github.com/lampepfl/dotty/pull/4768">PR #4927</a>,
+which explains how inline methods can be used for typelevel programming and code
+specialization.</p>
 
         </div>
     </div><!-- end content-body -->

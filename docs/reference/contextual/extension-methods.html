@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-12 -->
+<!-- This page was last generated on 2019-09-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2374,7 +2374,9 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
+            <p><strong>Note</strong> The syntax described in this section is currently under revision.
+<a href="../contextual-new/extension-methods.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
+<p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
 <pre><code class="language-scala">case class Circle(x: Double, y: Double, radius: Double)
 
 def (c: Circle) circumference: Double = c.radius * math.Pi * 2
@@ -2408,7 +2410,7 @@ or inherited or imported in a scope enclosing the application.</li>
 }
 </code></pre>
 <p>We can make the extension method available by defining a given <code>StringSeqOps</code> instance, like this:</p>
-<pre><code class="language-scala">given ops1: StringSeqOps
+<pre><code class="language-scala">given ops1 as StringSeqOps
 </code></pre>
 <p>Then</p>
 <pre><code class="language-scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
@@ -2492,7 +2494,7 @@ def (xs: List[List[T]]) flattened [T] =
   xs.foldLeft[List[T]](Nil)(_ ++ _)
 
 def (x: T) + [T : Numeric](y: T): T =
-  summon[Numeric[T]].plus(x, y)
+  the[Numeric[T]].plus(x, y)
 </code></pre>
 <p>As usual, type parameters of the extension method follow the defined method name. Nevertheless, such type parameters can already be used in the preceding parameter clause.</p>
 <h3><a href="#syntax" id="syntax">Syntax</a></h3>

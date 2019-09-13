@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-12 -->
+<!-- This page was last generated on 2019-09-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2374,17 +2374,19 @@
         </a>
         <hr/>
         <div id="doc-page-container">
-            <p>Implicit conversions are defined by given instances of the <code>scala.Conversion</code> class.
+            <p><strong>Note</strong> The syntax described in this section is currently under revision.
+<a href="../contextual-new/conversions.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
+<p>Implicit conversions are defined by given instances of the <code>scala.Conversion</code> class.
 This class is defined in package <code>scala</code> as follows:</p>
 <pre><code class="language-scala">abstract class Conversion[-T, +U] extends (T =&gt; U)
 </code></pre>
 <p>For example, here is an implicit conversion from <code>String</code> to <code>Token</code>:</p>
-<pre><code class="language-scala">given Conversion[String, Token] {
+<pre><code class="language-scala">given as Conversion[String, Token] {
   def apply(str: String): Token = new KeyWord(str)
 }
 </code></pre>
 <p>Using an alias this can be expressed more concisely as:</p>
-<pre><code class="language-scala">given Conversion[String, Token] = new KeyWord(_)
+<pre><code class="language-scala">given as Conversion[String, Token] = new KeyWord(_)
 </code></pre>
 <p>An implicit conversion is applied automatically by the compiler in three situations:</p>
 <ol>
@@ -2404,7 +2406,7 @@ If such an instance <code>C</code> is given, the expression <code>e</code> is re
 primitive number types to subclasses of <code>java.lang.Number</code>. For instance, the
 conversion from <code>Int</code> to <code>java.lang.Integer</code> can be defined as follows:</li>
 </ol>
-<pre><code class="language-scala">given int2Integer: Conversion[Int, java.lang.Integer] =
+<pre><code class="language-scala">given int2Integer as Conversion[Int, java.lang.Integer] =
  java.lang.Integer.valueOf(_)
 </code></pre>
 <ol>
@@ -2426,9 +2428,9 @@ conversion from <code>Int</code> to <code>java.lang.Integer</code> can be define
     //
     //   CompletionArg.fromStatusCode(statusCode)
 
-    given fromString     : Conversion[String, CompletionArg]               = Error(_)
-    given fromFuture     : Conversion[Future[HttpResponse], CompletionArg] = Response(_)
-    given fromStatusCode : Conversion[Future[StatusCode], CompletionArg]   = Status(_)
+    given fromString     as Conversion[String, CompletionArg]               = Error(_)
+    given fromFuture     as Conversion[Future[HttpResponse], CompletionArg] = Response(_)
+    given fromStatusCode as Conversion[Future[StatusCode], CompletionArg]   = Status(_)
   }
   import CompletionArg._
 
