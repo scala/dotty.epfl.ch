@@ -2376,9 +2376,11 @@
         <div id="doc-page-container">
             <h2><a href="#syntax" id="syntax">Syntax</a></h2>
 <pre><code>Type              ::=  ...
-                    |  `(' `given' FunArgTypes `)' `=&gt;' Type
-Expr              ::=  ...
-                    |  `(' `given' FunParams `)' `=&gt;' Expr
+                    |  FunArgTypes ‘=&gt;’ Typee
+FunArgTypes       ::=  InfixType
+                    |  ‘(’ [ ‘[given]’ FunArgType {‘,’ FunArgType } ] ‘)’
+                    |  ‘(’ ‘[given]’ TypedFunParam {‘,’ TypedFunParam } ‘)’
+Bindings          ::=  ‘(’ [[‘given’] Binding {‘,’ Binding}] ‘)’
 </code></pre>
 <p>Implicit function types associate to the right, e.g.
 <code>(given S) =&gt; (given T) =&gt; U</code> is the same as <code>(given S) =&gt; ((given T) =&gt; U)</code>.</p>

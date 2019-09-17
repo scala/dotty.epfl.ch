@@ -2747,16 +2747,15 @@ new instance of <code>TreeSet[String]</code>.</p>
 
 println(setFor[String].getClass) // prints class scala.collection.immutable.TreeSet
 </code></pre>
-<p><strong>Note</strong> implicit matches can raise ambiguity errors. Consider the following
-code with two implicit values in scope of type <code>A</code>. The single pattern match
-case of the implicit match with type ascription of an <code>A</code> raises the ambiguity
-error.</p>
+<p><strong>Note</strong> <code>summonFrom</code> applications can raise ambiguity errors. Consider the following
+code with two implicit values in scope of type <code>A</code>. The pattern match in <code>f</code> will raise
+an ambiguity error of <code>f</code> is applied.</p>
 <pre><code class="language-scala">class A
 implicit val a1: A = new A
 implicit val a2: A = new A
 
-inline def f: Any = implicit match {
-  case _: A =&gt; ???  // error: ambiguous implicits
+inline def f: Any = summonFrom {
+  case given _: A =&gt; ???  // error: ambiguous implicits
 }
 </code></pre>
 <h3><a href="#reference" id="reference">Reference</a></h3>

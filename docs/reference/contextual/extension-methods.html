@@ -2433,9 +2433,9 @@ from <code>T</code> to a type containing <code>m</code>. If there is more than o
 </ol>
 <p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
 <code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is given  (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
-<h3><a href="#given-instances-for-extension-methods" id="given-instances-for-extension-methods">Given Instances for Extension Methods</a></h3>
-<p>Given instances that define extension methods can also be defined without an <code>as</code> clause. E.g.,</p>
-<pre><code class="language-scala">given StringOps {
+<h3><a href="#given-instances-defining-only-extension-methods" id="given-instances-defining-only-extension-methods">Given Instances Defining Only Extension Methods</a></h3>
+<p>Given instances that define extension methods can also be defined without a parent clause. E.g.,</p>
+<pre><code class="language-scala">given stringOps: {
   def (xs: Seq[String]) longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max
     xs.filter(_.length == maxLength)
@@ -2446,18 +2446,18 @@ given {
   def (xs: List[T]) second[T] = xs.tail.head
 }
 </code></pre>
-<p>If such given instances are anonymous (as in the second clause), their name is synthesized from the name of the first defined extension method.</p>
-<h3><a href="#given-instances-with-collective-parameters" id="given-instances-with-collective-parameters">Given Instances with Collective Parameters</a></h3>
-<p>If a given instance has several extension methods one can pull out the left parameter section
+<p>If an extensions is anonymous (as in the second clause), its name is synthesized from the name of the first defined extension method.</p>
+<h3><a href="#given-extensions-with-collective-parameters" id="given-extensions-with-collective-parameters">Given Extensions with Collective Parameters</a></h3>
+<p>If a given extension defines several extension methods one can pull out the left parameter section
 as well as any type parameters of these extension methods into the given instance itself.
 For instance, here is a given instance with two extension methods.</p>
-<pre><code class="language-scala">given ListOps {
+<pre><code class="language-scala">given listOps: {
   def (xs: List[T]) second[T]: T = xs.tail.head
   def (xs: List[T]) third[T]: T = xs.tail.tail.head
 }
 </code></pre>
-<p>The repetition in the parameters can be avoided by moving the parameters into the given instance itself. The following version is a shorthand for the code above.</p>
-<pre><code class="language-scala">given ListOps[T](xs: List[T]) {
+<p>The repetition in the parameters can be avoided by moving the parameters in front of the opening brace. The following version is a shorthand for the code above.</p>
+<pre><code class="language-scala">given listOps: [T](xs: List[T]) {
   def second: T = xs.tail.head
   def third: T = xs.tail.tail.head
 }
@@ -2498,12 +2498,13 @@ def (x: T) + [T : Numeric](y: T): T =
 </code></pre>
 <p>As usual, type parameters of the extension method follow the defined method name. Nevertheless, such type parameters can already be used in the preceding parameter clause.</p>
 <h3><a href="#syntax" id="syntax">Syntax</a></h3>
-<p>The required syntax extension just adds one clause for extension methods relative
-to the <a href="../../internals/syntax.html">current syntax</a>.</p>
+<p>Here are the required syntax extensions compared to the
+<a href="../../internals/syntax.html">current syntax</a>.</p>
 <pre><code>DefSig            ::=  ...
                     |  ‘(’ DefParam ‘)’ [nl] id [DefTypeParamClause] DefParamClauses
-GivenBody         ::=  ...
-                    |  ‘(’ DefParam ‘)’ TemplateBody
+GivenDef          ::=  ...
+                    |  [id ‘:’] [ExtParamClause] TemplateBody
+ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’ {GivenParamClause}
 </code></pre>
 
         </div>

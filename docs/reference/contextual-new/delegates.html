@@ -2438,7 +2438,7 @@ GivenDef         ::=  [GivenSig (‘:’ | &lt;:)] Type ‘=’ Expr
                   |   [GivenSig ‘:’] [ConstrApp {‘,’ ConstrApp }] [TemplateBody]
 GivenSig         ::=  [id] [DefTypeParamClause] {GivenParamClause}
 GivenParamClause ::=  ‘(’ ‘given’ (DefParams | GivenTypes) ‘)’
-GivenTypes       ::=  AnnotType {‘,’ AnnotType}
+GivenTypes       ::=  Type {‘,’ Type}
 </code></pre>
 <p>The identifier <code>id</code> can be omitted only if some types are implemented or the template body defines at least one extension method.</p>
 

@@ -2581,7 +2581,7 @@ correct.</p>
 <p>The <code>toExpr</code> extension method is defined in package <code>quoted</code>:</p>
 <pre><code class="language-scala">    package quoted
 
-    given ExprOps {
+    given {
       def (x: T) toExpr[T: Liftable] given QuoteContext: Expr[T] = summon[Liftable[T]].toExpr(x)
       ...
     }
@@ -2849,7 +2849,7 @@ while (i &lt; arr.length) {
 sum
 </code></pre>
 <h3><a href="#find-implicits-within-a-macro" id="find-implicits-within-a-macro">Find implicits within a macro</a></h3>
-<p>Similarly to the <code>implicit match</code> construct, it is possible to make implicit search available
+<p>Similarly to the <code>summonFrom</code> construct, it is possible to make implicit search available
 in a quote context. For this we simply provide `scala.quoted.matching.searchImplicitExpr:</p>
 <pre><code class="language-scala">inline def setFor[T]: Set[T] = ${ setForExpr[T] }
 

@@ -2511,7 +2511,7 @@ authors of the higher level derivation libraries that we expect typical type cla
 worked out example of such a library, see <a href="https://github.com/milessabin/shapeless/tree/shapeless-3">shapeless 3</a>).</p>
 <h4><a href="#how-to-write-a-type-class-derived-method-using-low-level-mechanisms" id="how-to-write-a-type-class-derived-method-using-low-level-mechanisms">How to write a type class <code>derived</code> method using low level mechanisms</a></h4>
 <p>The low-level method we will use to implement a type class <code>derived</code> method in this example exploits three new
-type-level constructs in Dotty: inline methods, inline matches, and given matches. Given this definition of the
+type-level constructs in Dotty: inline methods, inline matches, and implicit searches via <code>summonFrom</code>. Given this definition of the
 <code>Eq</code> type class,</p>
 <pre><code class="language-scala">trait Eq[T] {
   def eqv(x: T, y: T): Boolean

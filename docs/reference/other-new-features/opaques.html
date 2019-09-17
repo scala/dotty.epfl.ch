@@ -2389,7 +2389,7 @@
   }
 
   // Extension methods define opaque types' public APIs
-  given LogarithmOps {
+  given logarithmOps: {
     def (x: Logarithm) toDouble: Double = math.exp(x)
     def (x: Logarithm) + (y: Logarithm): Logarithm = Logarithm(math.exp(x) + math.exp(y))
     def (x: Logarithm) * (y: Logarithm): Logarithm = Logarithm(x + y)
@@ -2417,7 +2417,7 @@ following operations would be valid because they use functionality implemented i
   l * 2                   // error: found: Int(2), required: Logarithm
   l / l2                  // error: `/` is not a member fo Logarithm
 </code></pre>
-<p>Aside: the <code>any2stringadd =&gt; _</code> import suppression is necessary since otherwise the universal <code>+</code> operation in <code>Predef</code> would take precedence over the <code>+</code> extension method in <code>LogarithmOps</code>. We plan to resolve this wart by eliminating <code>any2stringadd</code>.</p>
+<p>Aside: the <code>any2stringadd =&gt; _</code> import suppression is necessary since otherwise the universal <code>+</code> operation in <code>Predef</code> would take precedence over the <code>+</code> extension method in <code>logarithmOps</code>. We plan to resolve this wart by eliminating <code>any2stringadd</code>.</p>
 <h3><a href="#bounds-for-opaque-type-aliases" id="bounds-for-opaque-type-aliases">Bounds For Opaque Type Aliases</a></h3>
 <p>Opaque type aliases can also come with bounds. Example:</p>
 <pre><code class="language-scala">object Access {
