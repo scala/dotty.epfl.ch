@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-17 -->
+<!-- This page was last generated on 2019-09-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2558,7 +2558,7 @@ correct.</p>
 <pre><code class="language-scala">    package quoted
 
     given {
-      def (x: T) toExpr[T: Liftable] given QuoteContext: Expr[T] = summon[Liftable[T]].toExpr(x)
+      def (x: T) toExpr[T: Liftable](given QuoteContext): Expr[T] = summon[Liftable[T]].toExpr(x)
       ...
     }
 </code></pre>
@@ -2573,16 +2573,16 @@ efficiency. But the <code>Liftable</code> instances are nevertheless not <em>mag
 in the sense that they could all be defined in a user program without
 knowing anything about the representation of <code>Expr</code> trees. For
 instance, here is a possible instance of <code>Liftable[Boolean]</code>:</p>
-<pre><code class="language-scala">    given as Liftable[Boolean] {
-      def toExpr(b: Boolean) given QuoteContext: Expr[Boolean] =
+<pre><code class="language-scala">    given Liftable[Boolean] {
+      def toExpr(b: Boolean)(given QuoteContext): Expr[Boolean] =
         if (b) '{ true } else '{ false }
     }
 </code></pre>
 <p>Once we can lift bits, we can work our way up. For instance, here is a
 possible implementation of <code>Liftable[Int]</code> that does not use the underlying
 tree machinery:</p>
-<pre><code class="language-scala">    given as Liftable[Int] {
-      def toExpr(n: Int) given QuoteContext: Expr[Int] = n match {
+<pre><code class="language-scala">    given Liftable[Int] {
+      def toExpr(n: Int)(given QuoteContext): Expr[Int] = n match {
         case Int.MinValue    =&gt; '{ Int.MinValue }
         case _ if n &lt; 0      =&gt; '{ - ${ toExpr(-n) } }
         case 0               =&gt; '{ 0 }
@@ -2593,8 +2593,8 @@ tree machinery:</p>
 </code></pre>
 <p>Since <code>Liftable</code> is a type class, its instances can be conditional. For example,
 a <code>List</code> is liftable if its element type is:</p>
-<pre><code class="language-scala">    given [T: Liftable] as Liftable[List[T]] {
-      def toExpr(xs: List[T]) given QuoteContext: Expr[List[T]] = xs match {
+<pre><code class="language-scala">    given [T: Liftable] : Liftable[List[T]] {
+      def toExpr(xs: List[T])(given QuoteContext): Expr[List[T]] = xs match {
         case head :: tail =&gt; '{ ${ toExpr(head) } :: ${ toExpr(tail) } }
         case Nil =&gt; '{ Nil: List[T] }
       }
@@ -2829,7 +2829,7 @@ sum
 in a quote context. For this we simply provide `scala.quoted.matching.searchImplicitExpr:</p>
 <pre><code class="language-scala">inline def setFor[T]: Set[T] = ${ setForExpr[T] }
 
-def setForExpr[T: Type] given QuoteContext: Expr[Set[T]] = {
+def setForExpr[T: Type](given QuoteContext): Expr[Set[T]] = {
   searchImplicitExpr[Ordering[T]] match {
     case Some(ord) =&gt; '{ new TreeSet[T]()($ord) }
     case _ =&gt; '{ new HashSet[T] }

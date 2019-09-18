@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-17 -->
+<!-- This page was last generated on 2019-09-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2483,7 +2483,7 @@ from a <code>digits</code> string. Here is a possible implementation:</p>
 </code></pre>
 <p>To accept <code>BigFloat</code> literals, all that's needed in addition is a given instance of type
 <code>FromDigits.Floating[BigFloat]</code>:</p>
-<pre><code class="language-scala">  given FromDigits as FromDigits.Floating[BigFloat] {
+<pre><code class="language-scala">  given FromDigits : FromDigits.Floating[BigFloat] {
     def fromDigits(digits: String) = apply(digits)
   }
 } // end BigFloat
@@ -2511,7 +2511,7 @@ To do this, replace the <code>FromDigits</code> instance in the <code>BigFloat</
     def fromDigits(digits: String) = apply(digits)
   }
 
-  given as FromDigits {
+  given FromDigits {
     override inline def fromDigits(digits: String) = ${
       fromDigitsImpl('digits)
     }

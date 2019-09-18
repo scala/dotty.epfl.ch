@@ -2404,7 +2404,7 @@ performance.</li>
 <p>If you run the above with command line arguments &quot;Jack 25&quot;, the output will be &quot;Hello Jack, you are 25 years old&quot;. And here is how you can define a custom parser for your own class:</p>
 <pre><code class="language-scala">case class Address(city: String, street: String)
 
-given as scala.util.FromString[Address] {
+given scala.util.FromString[Address] {
   /** Can throw java.lang.IllegalArgumentException */
   def fromString(s: String): T =
     s.split(&quot;,&quot;).toList match {

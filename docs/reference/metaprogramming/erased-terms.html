@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-17 -->
+<!-- This page was last generated on 2019-09-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2389,17 +2389,17 @@ semantics and they are completely erased.</p>
 <h1><a href="#how-to-define-erased-terms" id="how-to-define-erased-terms">How to define erased terms?</a></h1>
 <p>Parameters of methods and functions can be declared as erased, placing <code>erased</code>
 in front of a parameter list (like <code>given</code>).</p>
-<pre><code class="language-scala">def methodWithErasedEv erased (ev: Ev): Int = 42
+<pre><code class="language-scala">def methodWithErasedEv(erased ev: Ev): Int = 42
 
 val lambdaWithErasedEv: erased Ev =&gt; Int =
-  erased (ev: Ev) =&gt; 42
+ (erased ev: Ev) =&gt; 42
 </code></pre>
 <p><code>erased</code> parameters will not be usable for computations, though they can be used
 as arguments to other <code>erased</code> parameters.</p>
-<pre><code class="language-scala">def methodWithErasedInt1 erased (i: Int): Int =
+<pre><code class="language-scala">def methodWithErasedInt1(erased i: Int): Int =
   i + 42 // ERROR: can not use i
 
-def methodWithErasedInt2 erased (i: Int): Int =
+def methodWithErasedInt2(erased i: Int): Int =
   methodWithErasedInt1(i) // OK
 </code></pre>
 <p>Not only parameters can be marked as erased, <code>val</code> and <code>def</code> can also be marked
@@ -2412,7 +2412,7 @@ methodWithErasedEv(erasedEvidence)
 <p>As <code>erased</code> are guaranteed not to be used in computations, they can and will be
 erased.</p>
 <pre><code class="language-scala">// becomes def methodWithErasedEv(): Int at runtime
-def methodWithErasedEv erased (ev: Ev): Int = ...
+def methodWithErasedEv(erased ev: Ev): Int = ...
 
 def evidence1: Ev = ...
 erased def erasedEvidence2: Ev = ... // does not exist at runtime
@@ -2458,8 +2458,8 @@ object IsOn {
 
 class Machine[S &lt;: State] private {
   // ev will disappear from both functions
-  def turnedOn given erased (ev: IsOff[S]): Machine[On] = new Machine[On]
-  def turnedOff given erased (ev: IsOn[S]): Machine[Off] = new Machine[Off]
+  def turnedOn(given erased ev: IsOff[S]): Machine[On] = new Machine[On]
+  def turnedOff(given erased ev: IsOn[S]): Machine[Off] = new Machine[Off]
 }
 
 object Machine {

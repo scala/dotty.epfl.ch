@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-17 -->
+<!-- This page was last generated on 2019-09-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2510,7 +2510,7 @@ constants to their values.</p>
 <p>With the right extractors, the &quot;AsFunction&quot; conversion
 that maps expressions over functions to functions over expressions can
 be implemented in user code:</p>
-<pre><code class="language-scala">    given AsFunction1[T, U] as Conversion[Expr[T =&gt; U], Expr[T] =&gt; Expr[U]] {
+<pre><code class="language-scala">    given AsFunction1[T, U] : Conversion[Expr[T =&gt; U], Expr[T] =&gt; Expr[U]] {
       def apply(f: Expr[T =&gt; U]): Expr[T] =&gt; Expr[U] =
        (x: Expr[T]) =&gt; f match {
          case Lambda(g) =&gt; g(x)

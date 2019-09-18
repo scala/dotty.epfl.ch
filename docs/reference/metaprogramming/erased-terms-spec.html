@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-17 -->
+<!-- This page was last generated on 2019-09-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2362,12 +2362,12 @@
 <pre><code class="language-scala">erased val x = ...
 erased def f = ...
 
-def g erased (x: Int) = ...
+def g(erased x: Int) = ...
 
-erased (x: Int) =&gt; ...
-def h(x: erased Int =&gt; Int) = ...
+(erased x: Int) =&gt; ...
+def h(x: (erased Int) =&gt; Int) = ...
 
-class K erased (x: Int) { ... }
+class K(erased x: Int) { ... }
 </code></pre>
 </li>
 <li>A reference to an <code>erased</code> definition can only be used
@@ -2378,24 +2378,24 @@ class K erased (x: Int) { ... }
 </li>
 <li>Functions
 <ul>
-<li><code>erased (x1: T1, x2: T2, ..., xN: TN) =&gt; y : erased (T1, T2, ..., TN) =&gt; R</code></li>
-<li><code>given erased (x1: T1, x2: T2, ..., xN: TN) =&gt; y : given erased (T1, T2, ..., TN) =&gt; R</code></li>
-<li><code>given erased T1 =&gt; R &lt;:&lt; erased T1 =&gt; R</code></li>
-<li><code>given erased (T1, T2) =&gt; R &lt;:&lt; erased (T1, T2) =&gt; R</code></li>
+<li><code>(erased x1: T1, x2: T2, ..., xN: TN) =&gt; y : (erased T1, T2, ..., TN) =&gt; R</code></li>
+<li><code>(given erased x1: T1, x2: T2, ..., xN: TN) =&gt; y : (given erased T1, T2, ..., TN) =&gt; R</code></li>
+<li><code>(given erased T1) =&gt; R &lt;:&lt; erased T1 =&gt; R</code></li>
+<li><code>(given erased T1, T2) =&gt; R &lt;:&lt; (erased T1, T2) =&gt; R</code></li>
 <li>...</li>
 </ul>
-<p>Note that there is no subtype relation between <code>erased T =&gt; R</code> and <code>T =&gt; R</code> (or <code>given erased T =&gt; R</code> and <code>given T =&gt; R</code>)</p>
+<p>Note that there is no subtype relation between <code>(erased T) =&gt; R</code> and <code>T =&gt; R</code> (or <code>(given erased T) =&gt; R</code> and <code>(given T) =&gt; R</code>)</p>
 </li>
 <li>
 <p>Eta expansion</p>
-<p>if <code>def f erased (x: T): U</code> then <code>f: erased (T) =&gt; U</code>.</p>
+<p>if <code>def f(erased x: T): U</code> then <code>f: (erased T) =&gt; U</code>.</p>
 </li>
 <li>Erasure Semantics
 <ul>
 <li>All <code>erased</code> parameters are removed from the function</li>
 <li>All argument to <code>erased</code> parameters are not passed to the function</li>
 <li>All <code>erased</code> definitions are removed</li>
-<li>All <code>erased (T1, T2, ..., TN) =&gt; R</code> and <code>(given erased T1, T2, ..., TN) =&gt; R</code> become <code>() =&gt; R</code></li>
+<li>All <code>(erased T1, T2, ..., TN) =&gt; R</code> and <code>(given erased T1, T2, ..., TN) =&gt; R</code> become <code>() =&gt; R</code></li>
 </ul>
 </li>
 <li>
@@ -2405,7 +2405,7 @@ class K erased (x: Int) { ... }
 <li>Overriding
 <ul>
 <li>Member definitions overriding each other must both be <code>erased</code> or not be <code>erased</code></li>
-<li><code>def foo(x: T): U</code> cannot be overridden by <code>def foo erased (x: T): U</code> an vice-versa</li>
+<li><code>def foo(x: T): U</code> cannot be overridden by <code>def foo(erased x: T): U</code> an vice-versa</li>
 </ul>
 </li>
 </ol>

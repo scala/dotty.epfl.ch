@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-17 -->
+<!-- This page was last generated on 2019-09-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2505,9 +2505,9 @@ SubtypeBounds     ::=  [‘&gt;:’ Type] [‘&lt;:’ Type] | INT              
 TypeParamBounds   ::=  SubtypeBounds {‘:’ Type}                                 ContextBounds(typeBounds, tps)
 </code></pre>
 <h3><a href="#expressions" id="expressions">Expressions</a></h3>
-<pre><code class="language-ebnf">Expr              ::=  [ClosureMods] FunParams ‘=&gt;’ Expr                        Function(args, expr), Function(ValDef([implicit], id, TypeTree(), EmptyTree), expr)
+<pre><code class="language-ebnf">Expr              ::=  [‘implicit’] FunParams ‘=&gt;’ Expr                                     Function(args, expr), Function(ValDef([implicit], id, TypeTree(), EmptyTree), expr)
                     |  Expr1
-BlockResult       ::=  [ClosureMods] FunParams ‘=&gt;’ Block
+BlockResult       ::=  [‘implicit’] FunParams ‘=&gt;’ Block
                     |  Expr1
 FunParams         ::=  Bindings
                     |  id

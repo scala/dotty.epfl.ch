@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-17 -->
+<!-- This page was last generated on 2019-09-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2411,9 +2411,9 @@ Run provides a <code>QuoteContext</code> that can be used to show the expression
 On the other hand <code>withQuoteContext</code> provides a <code>QuoteContext</code> without evauating the expression.</p>
 <pre><code class="language-scala">package scala.quoted.staging
 
-def run[T](expr: given QuoteContext =&gt; Expr[T]) given (toolbox: Toolbox): T = ...
+def run[T](expr:(given QuoteContext) =&gt; Expr[T])(given toolbox: Toolbox): T = ...
 
-def withQuoteContext[T](thunk: given QuoteContext =&gt; T) given (toolbox: Toolbox): T = ...
+def withQuoteContext[T](thunk:(given QuoteContext) =&gt; T)(given toolbox: Toolbox): T = ...
 </code></pre>
 <h2><a href="#create-a-new-dotty-project-with-staging-enabled" id="create-a-new-dotty-project-with-staging-enabled">Create a new Dotty project with staging enabled</a></h2>
 <pre><code class="language-shell">sbt new lampepfl/dotty-staging.g8
@@ -2430,7 +2430,7 @@ to get a source-like representation of the expression.</p>
 <pre><code class="language-scala">import scala.quoted.staging._
 
 // make available the necessary toolbox for runtime code generation
-given as Toolbox = Toolbox.make(getClass.getClassLoader)
+given Toolbox = Toolbox.make(getClass.getClassLoader)
 
 val f: Array[Int] =&gt; Int = run {
   val stagedSum: Expr[Array[Int] =&gt; Int] = '{ (arr: Array[Int]) =&gt; ${sum('arr)}}
