@@ -2401,7 +2401,7 @@ maximum(xs)(given descending(given ListOrd(given IntOrd)))
 <h2><a href="#multiple-given-clauses" id="multiple-given-clauses">Multiple Given Clauses</a></h2>
 <p>There can be several <code>given</code> parameter clauses in a definition and <code>given</code> parameter clauses can be freely
 mixed with normal ones. Example:</p>
-<pre><code class="language-scala">def f(u: Universe)(given c: u.Context)(given s: ctx.Symbol, k: ctx.Kind) = ...
+<pre><code class="language-scala">def f(u: Universe)(given ctx: u.Context)(given s: ctx.Symbol, k: ctx.Kind) = ...
 </code></pre>
 <p>Multiple given clauses are matched left-to-right in applications. Example:</p>
 <pre><code class="language-scala">object global extends Universe { type Context = ... }
