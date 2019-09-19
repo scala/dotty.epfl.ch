@@ -2417,7 +2417,7 @@ given scala.util.FromString[Address] {
   println(s&quot;You are living at $addr&quot;)
 </code></pre>
 <p>The motivation for the <code>@main</code> functions is to make Scala scripting friendly. So far we do not plan to support something more complex than the above – we believe if a user needs a complex command line parsing capability, they can always fall back to the conventional <code>def main(args: Array[String])</code> syntax plus a dedicated library like <a href="https://github.com/scopt/scopt">scopt</a>. The changes described above, however, are already enough to make script development much less tedious than before.</p>
-<p>To learn more, see the <a href="http://dotty.epfl.ch/docs/reference/changed-features/main-functions.html">documentation</a>.</p>
+<p>To learn more, see the <a href="https://dotty.epfl.ch/docs/reference/changed-features/main-functions.html">documentation</a>.</p>
 <h2><a href="#allow-infix-operators-at-the-start-of-the-line" id="allow-infix-operators-at-the-start-of-the-line">Allow infix operators at the start of the line</a></h2>
 <p>A small change yet relevant to many. Now, you can write the following code:</p>
 <pre><code class="language-scala">def isABorC(x: Char) = x == 'A'
@@ -2533,7 +2533,7 @@ given as FromDigits[Digits] = (digits: String) =&gt; Digits(digits.toList)
   println(x)  // Digits(List('1', '2', '3', '4'))
 </code></pre>
 <p>If a number is written in place where a non-numeric type is expected and there is an <code>FromDigits</code> given in scope, this given will be used to convert the number (presented as <code>String</code>) to that type.</p>
-<p>For precise rules, semantics and a larger example of <code>BigFloat</code>, see <a href="http://dotty.epfl.ch/docs/reference/changed-features/numeric-literals.html">the documentation</a>.</p>
+<p>For precise rules, semantics and a larger example of <code>BigFloat</code>, see <a href="https://dotty.epfl.ch/docs/reference/changed-features/numeric-literals.html">the documentation</a>.</p>
 <h2><a href="#metaprogramming-progress" id="metaprogramming-progress">Metaprogramming Progress</a></h2>
 <p>We are making steady progress with the language metaprogramming features. The metaprogramming spotlights of this release are as follows:</p>
 <ul>
@@ -2546,12 +2546,12 @@ given as FromDigits[Digits] = (digits: String) =&gt; Digits(digits.toList)
 <li>Runtime staging factored out to a separate library in <a href="https://github.com/lampepfl/dotty/pull/7080">#7080</a>.</li>
 </ul>
 <h2><a href="#type-class-derivation" id="type-class-derivation">Type class Derivation</a></h2>
-<p>Type class derivation has received a major rework and an <a href="http://dotty.epfl.ch/docs/reference/contextual/derivation.html">updated documentation</a>. We have dropped the usage of the <code>Shape</code> type to describe the shape of a type. Instead, all the relevant information is now encoded in the <code>Mirror</code> type and its subtypes as tuples.</p>
-<p>For more information, see the <a href="http://dotty.epfl.ch/docs/reference/contextual/derivation.html">documentation</a>.</p>
+<p>Type class derivation has received a major rework and an <a href="https://dotty.epfl.ch/docs/reference/contextual/derivation.html">updated documentation</a>. We have dropped the usage of the <code>Shape</code> type to describe the shape of a type. Instead, all the relevant information is now encoded in the <code>Mirror</code> type and its subtypes as tuples.</p>
+<p>For more information, see the <a href="https://dotty.epfl.ch/docs/reference/contextual/derivation.html">documentation</a>.</p>
 <h2><a href="#other" id="other">Other</a></h2>
 <ul>
 <li>This release also features the new version of the SBT Dotty Plugin – 0.3.4. It contains some bug fixes – see <a href="https://github.com/lampepfl/dotty/pull/7120">#7120</a> for details.</li>
-<li>Scala Days 2019 talks related to Dotty are now <a href="http://dotty.epfl.ch/docs/resources/talks.html">mentioned</a> at our website – this allows to systematize the knowledge about the next generation of Scala in one place – see <a href="https://github.com/lampepfl/dotty/pull/6984">#6984</a>.</li>
+<li>Scala Days 2019 talks related to Dotty are now <a href="https://dotty.epfl.ch/docs/resources/talks.html">mentioned</a> at our website – this allows to systematize the knowledge about the next generation of Scala in one place – see <a href="https://github.com/lampepfl/dotty/pull/6984">#6984</a>.</li>
 <li>ScalaJS needs your help! We would like to have robust support for ScalaJS in Dotty, which unfortunately is not the case so far. If you are interested in contributing, please see <a href="https://gist.github.com/sjrd/e0823a5bddbcef43999cdaa032b1220c">the getting started tutorial</a> and <a href="https://github.com/lampepfl/dotty/issues/7113">the discussion</a>.</li>
 </ul>
 <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think">Let us know what you think!</a></h1>

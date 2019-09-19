@@ -2406,7 +2406,7 @@ scala&gt; Foo(1) plus Foo(2)
 val res3: Int = 3
 </code></pre>
 <p>To smoothen the migration, the deprecation warnings will only be emitted if you compile with the <code>-strict</code> flag under Scala 3. Alphanumeric methods that are defined without the <code>@infix</code> annotation used in an infix position will be deprecated by default starting with Scala 3.1.</p>
-<p>For more information, see the the <a href="http://dotty.epfl.ch/docs/reference/changed-features/operators.html#the-infix-annotation">documentation</a>. Note that the <code>@alpha</code> annotation also described in the documentation is planned for the future and is not available in this release.</p>
+<p>For more information, see the the <a href="https://dotty.epfl.ch/docs/reference/changed-features/operators.html#the-infix-annotation">documentation</a>. Note that the <code>@alpha</code> annotation also described in the documentation is planned for the future and is not available in this release.</p>
 <h2><a href="#given-clause-comes-last" id="given-clause-comes-last"><code>given</code> clause comes last</a></h2>
 <p>In the previous release, you could write something like this:</p>
 <pre><code class="language-scala">implied for String = &quot;foo&quot;
@@ -2446,7 +2446,7 @@ f(1)(3)
                                      // than the right hand side expression's type Any
 </code></pre>
 <p>For the migration purposes, the above change will only take effect in Scala 3.1. You can use it in Scala 3 with the <code>-strict</code> flag.</p>
-<p>For more information, see the <a href="http://dotty.epfl.ch/docs/reference/changed-features/pattern-bindings.html">documentation</a>.</p>
+<p>For more information, see the <a href="https://dotty.epfl.ch/docs/reference/changed-features/pattern-bindings.html">documentation</a>.</p>
 <h2><a href="#further-improvements-to-generalised-algebraic-data-types-gadts-support" id="further-improvements-to-generalised-algebraic-data-types-gadts-support">Further improvements to Generalised Algebraic Data Types (GADTs) support</a></h2>
 <p>In this release, we've further improved our support for GADTs. Most notably, we now support variant GADTs, thus fixing <a href="https://github.com/lampepfl/dotty/issues/2985">#2985</a>:</p>
 <pre><code class="language-scala">enum Expr[+T] {
