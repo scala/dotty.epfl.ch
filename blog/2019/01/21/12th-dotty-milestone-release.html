@@ -2399,7 +2399,7 @@ List(1,2).combine(List(3,4)) // == List(1,2,3,4)
 </code></pre>
 <p>This works because the <code>combine</code> extension methods of <code>IntSemigroup</code> and <code>ListSemigroup</code> are available
 from the relevant implicit scopes.</p>
-<p>Read the <a href="https://dotty.epfl.ch/docs/reference/other-new-features/extension-methods.html">full documentation</a> about generic extension methods, higher-kinded extension methods, and more.</p>
+<p>Read the <a href="https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html">full documentation</a> about generic extension methods, higher-kinded extension methods, and more.</p>
 <h3><a href="#tasty-reflect-goodies" id="tasty-reflect-goodies">TASTy Reflect goodies</a></h3>
 <p>We implement a new decompiler for TASTy files and we also offer a new VS Code Extension.
 The decompiler allows to view both decompiled scala source code and the pretty printed TASTy tree when opening a .tasty file.
@@ -2414,7 +2414,7 @@ We also connect the new lower-level reflection layer to the existing principled 
 <li><code>unseal</code> that unseals an <code>Expr[T]</code> (non traversable code) into a <code>Term</code> and</li>
 <li><code>seal</code> that seals back a <code>Term</code> into an <code>Expr[T]</code>.</li>
 </ul>
-<p>Read the <a href="https://dotty.epfl.ch/docs/reference/other-new-features/tasty-reflect.html">relevant documentation</a> to learn how to go from quotes and splices to TASTys Reflect trees and back .</p>
+<p>Read the <a href="https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-reflect.html">relevant documentation</a> to learn how to go from quotes and splices to TASTys Reflect trees and back .</p>
 <h3><a href="#alignments-with-the-scala-improvement-process" id="alignments-with-the-scala-improvement-process">Alignments with the Scala Improvement Process</a></h3>
 <p>In this version we improve the implementation of by-name implicits making it compliant with the <a href="https://docs.scala-lang.org/sips/byname-implicits.html">By-name Implicits</a> SIP and we implement the <code>ValueOf</code> operator which yields the unique value of types with a single inhabitant, effectively syncing it up with the <a href="https://docs.scala-lang.org/sips/42.type.html">Literal-Based Singleton Types</a> SIP.</p>
 <h3><a href="#improvements-to-gadt-support" id="improvements-to-gadt-support">Improvements to GADT support</a></h3>

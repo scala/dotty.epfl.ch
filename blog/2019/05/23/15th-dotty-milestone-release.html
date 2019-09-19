@@ -2367,7 +2367,7 @@ performance.</li>
 <p>You can learn more about Dotty on our <a href="https://dotty.epfl.ch">website</a>.</p>
 <!--more-->
 <p>This is our 15th scheduled release according to our
-<a href="https://dotty.epfl.ch/docs/contributing/release.html">6-week release schedule</a>.</p>
+<a href="https://dotty.epfl.ch/docs/contributing/procedures/release.html">6-week release schedule</a>.</p>
 <h1><a href="#whats-new-in-the-0150-rc1-technology-preview" id="whats-new-in-the-0150-rc1-technology-preview">What’s new in the 0.15.0-RC1 technology preview?</a></h1>
 <h2><a href="#full-bootstrap" id="full-bootstrap">Full Bootstrap</a></h2>
 <p>Bootstrapping Dotty is a big milestone for us and in compiler construction in general. Firstly, we feel more confident that our compiler works as is (even without reusing the new features). Secondly, in the immediate future, we will be able to reuse many of the features that dotty proposes within dotty itself. For example, we have no fewer than 2641 occurrences of the text string (implicit ctx: Context) in the compiler that we can scrap with <a href="https://www.scala-lang.org/blog/2016/12/07/implicit-function-types.html">Contextual Function types</a>. Big milestones have high risk/high gain and we must be attentive. That is the reason that we will wait a bit until we start using new features. Consequently, at the moment we cross-compile the build with 2.12 on the CI so that we don't accidentally start using Dotty features in case we need to revise the bootstrap process (we'll start using Dotty features eventually, but let's wait until we're confident that this setup works well enough).</p>
