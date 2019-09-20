@@ -1927,7 +1927,7 @@ implementation method <code>fromDigitsImpl</code>. Here is its definition:</p>
       case Const(ds) =&gt;
         try {
           val BigFloat(m, e) = apply(ds)
-          '{BigFloat(${m.toExpr}, ${e.toExpr})}
+          '{BigFloat(${Expr(m)}, ${Expr(e)})}
         }
         catch {
           case ex: FromDigits.FromDigitsException =&gt;

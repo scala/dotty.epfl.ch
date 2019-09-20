@@ -1802,7 +1802,7 @@ trees. For example the <code>Literal(_)</code> extractor used below.</p>
 <code>quoted.Expr[Any]</code>. Note that the type is <code>Expr[Any]</code>. Consequently, the type
 must be set explicitly with a checked <code>cast</code> call. If the type does not conform
 to it an exception will be thrown. In the code above, we could have replaced
-<code>n.toExpr</code> by <code>xTree.seal.cast[Int]</code>.</p>
+<code>Expr(n)</code> by <code>xTree.seal.cast[Int]</code>.</p>
 <h3><a href="#obtaining-the-underlying-argument" id="obtaining-the-underlying-argument" class="anchor"></a>Obtaining the underlying argument</h3>
 <p>A macro can access the tree of the actual argument passed on the call-site. The
 <code>underlyingArgument</code> method on a <code>Term</code> object will give access to the tree
