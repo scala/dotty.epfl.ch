@@ -1750,9 +1750,7 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="../contextual-new/extension-methods.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
-<p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
+    <p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
 <pre><code class="scala">case class Circle(x: Double, y: Double, radius: Double)
 
 def (c: Circle) circumference: Double = c.radius * math.Pi * 2
@@ -1786,7 +1784,7 @@ or inherited or imported in a scope enclosing the application.</li>
 }
 </code></pre>
 <p>We can make the extension method available by defining a given <code>StringSeqOps</code> instance, like this:</p>
-<pre><code class="scala">given ops1 as StringSeqOps
+<pre><code class="scala">given ops1: StringSeqOps
 </code></pre>
 <p>Then</p>
 <pre><code class="scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
@@ -1809,8 +1807,8 @@ from <code>T</code> to a type containing <code>m</code>. If there is more than o
 </ol>
 <p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
 <code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is given  (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
-<h3><a href="#given-instances-defining-only-extension-methods" id="given-instances-defining-only-extension-methods" class="anchor"></a>Given Instances Defining Only Extension Methods</h3>
-<p>Given instances that define extension methods can also be defined without a parent clause. E.g.,</p>
+<h3><a href="#given-instances-for-extension-methods" id="given-instances-for-extension-methods" class="anchor"></a>Given Instances for Extension Methods</h3>
+<p>Given instances that define extension methods can also be defined without a parent. E.g.,</p>
 <pre><code class="scala">given stringOps: {
   def (xs: Seq[String]) longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max
@@ -1822,9 +1820,9 @@ given {
   def (xs: List[T]) second[T] = xs.tail.head
 }
 </code></pre>
-<p>If an extensions is anonymous (as in the second clause), its name is synthesized from the name of the first defined extension method.</p>
-<h3><a href="#given-extensions-with-collective-parameters" id="given-extensions-with-collective-parameters" class="anchor"></a>Given Extensions with Collective Parameters</h3>
-<p>If a given extension defines several extension methods one can pull out the left parameter section
+<p>If such given instances are anonymous (as in the second clause), their name is synthesized from the name of the first defined extension method.</p>
+<h3><a href="#given-instances-with-collective-parameters" id="given-instances-with-collective-parameters" class="anchor"></a>Given Instances with Collective Parameters</h3>
+<p>If a given instance has no parent but several extension methods one can pull out the left parameter section
 as well as any type parameters of these extension methods into the given instance itself.
 For instance, here is a given instance with two extension methods.</p>
 <pre><code class="scala">given listOps: {
@@ -1832,7 +1830,7 @@ For instance, here is a given instance with two extension methods.</p>
   def (xs: List[T]) third[T]: T = xs.tail.tail.head
 }
 </code></pre>
-<p>The repetition in the parameters can be avoided by moving the parameters in front of the opening brace. The following version is a shorthand for the code above.</p>
+<p>The repetition in the parameters can be avoided by hoisting the parameters up into the given instance itself. The following version is a shorthand for the code above.</p>
 <pre><code class="scala">given listOps: [T](xs: List[T]) {
   def second: T = xs.tail.head
   def third: T = xs.tail.tail.head
@@ -1870,16 +1868,16 @@ def (xs: List[List[T]]) flattened [T] =
   xs.foldLeft[List[T]](Nil)(_ ++ _)
 
 def (x: T) + [T : Numeric](y: T): T =
-  the[Numeric[T]].plus(x, y)
+  summon[Numeric[T]].plus(x, y)
 </code></pre>
 <p>As usual, type parameters of the extension method follow the defined method name. Nevertheless, such type parameters can already be used in the preceding parameter clause.</p>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<p>Here are the required syntax extensions compared to the
-<a href="../../internals/syntax.html">current syntax</a>.</p>
+<p>The required syntax extension just adds one clause for extension methods relative
+to the <a href="../../internals/syntax.html">current syntax</a>.</p>
 <pre><code class="nohighlight">DefSig            ::=  ...
                     |  ‘(’ DefParam ‘)’ [nl] id [DefTypeParamClause] DefParamClauses
 GivenDef          ::=  ...
-                    |  [id ‘:’] [ExtParamClause] TemplateBody
+                       [GivenSig ‘:’] [ExtParamClause] TemplateBody
 ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’ {GivenParamClause}
 </code></pre>
 

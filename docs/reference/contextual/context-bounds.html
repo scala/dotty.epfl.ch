@@ -1750,17 +1750,15 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="../contextual-new/context-bounds.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
-<h2><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h2>
+    <h2><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h2>
 <p>A context bound is a shorthand for expressing the common pattern of an implicit parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
 <pre><code class="scala">def maximum[T: Ord](xs: List[T]): T = xs.reduceLeft(max)
 </code></pre>
-<p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates an implicit parameter <code>given Ord[T]</code>. The implicit parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
-<pre><code class="scala">def f[T: C1 : C2, U: C3](x: T) given (y: U, z: V): R
+<p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates an implicit parameter <code>(given Ord[T])</code>. The implicit parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
+<pre><code class="scala">def f[T: C1 : C2, U: C3](x: T)(given y: U, z: V): R
 </code></pre>
 <p>would expand to</p>
-<pre><code class="scala">def f[T, U](x: T) given (y: U, z: V) given C1[T], C2[T], C3[U]: R
+<pre><code class="scala">def f[T, U](x: T)(given y: U, z: V)(given C1[T], C2[T], C3[U]): R
 </code></pre>
 <p>Context bounds can be combined with subtype bounds. If both are present, subtype bounds come first, e.g.</p>
 <pre><code class="scala">def g[T &lt;: B : C](x: T): R = ...

@@ -1750,9 +1750,7 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="../contextual-new/typeclasses.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
-<p>Given instances, extension methods and context bounds
+    <p>Given instances, extension methods and context bounds
 allow a concise and natural expression of <em>typeclasses</em>. Typeclasses are just traits
 with canonical implementations defined by given instances. Here are some examples of standard typeclasses:</p>
 <h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids" class="anchor"></a>Semigroups and monoids:</h3>
@@ -1763,15 +1761,15 @@ trait Monoid[T] extends SemiGroup[T] {
   def unit: T
 }
 object Monoid {
-  def apply[T] given Monoid[T] = the[Monoid[T]]
+  def apply[T](given Monoid[T]) = summon[Monoid[T]]
 }
 
-given as Monoid[String] {
+given Monoid[String] {
   def (x: String) combine (y: String): String = x.concat(y)
   def unit: String = &quot;&quot;
 }
 
-given as Monoid[Int] {
+given Monoid[Int] {
   def (x: Int) combine (y: Int): Int = x + y
   def unit: Int = 0
 }
@@ -1791,14 +1789,14 @@ trait Monad[F[_]] extends Functor[F] {
   def pure[A](x: A): F[A]
 }
 
-given ListMonad as Monad[List] {
+given listMonad: Monad[List] {
   def (xs: List[A]) flatMap [A, B] (f: A =&gt; List[B]): List[B] =
     xs.flatMap(f)
   def pure[A](x: A): List[A] =
     List(x)
 }
 
-given ReaderMonad[Ctx] as Monad[[X] =&gt;&gt; Ctx =&gt; X] {
+given readerMonad[Ctx]: Monad[[X] =&gt;&gt; Ctx =&gt; X] {
   def (r: Ctx =&gt; A) flatMap [A, B] (f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
     ctx =&gt; f(r(ctx))(ctx)
   def pure[A](x: A): Ctx =&gt; A =

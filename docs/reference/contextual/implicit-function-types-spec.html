@@ -1750,16 +1750,15 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="../contextual-new/implicit-function-types-spec.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
-<h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
-<pre><code class="scala">Type              ::=  ...
-                    |  `given' FunArgTypes `=&gt;' Type
-Expr              ::=  ...
-                    |  `given' FunParams `=&gt;' Expr
-</code></pre>
+    <h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
+<p>Type              ::=  ...
+|  FunArgTypes ‘=&gt;’ Typee
+FunArgTypes       ::=  InfixType
+|  ‘(’ [ ‘[given]’ FunArgType {‘,’ FunArgType } ] ‘)’
+|  ‘(’ ‘[given]’ TypedFunParam {‘,’ TypedFunParam } ‘)’
+Bindings          ::=  ‘(’ [[‘given’] Binding {‘,’ Binding}] ‘)’</p>
 <p>Implicit function types associate to the right, e.g.
-<code>given S =&gt; given T =&gt; U</code> is the same as <code>given S =&gt; (given T =&gt; U)</code>.</p>
+<code>(given S) =&gt; (given T) =&gt; U</code> is the same as <code>(given S) =&gt; ((given T) =&gt; U)</code>.</p>
 <h2><a href="#implementation" id="implementation" class="anchor"></a>Implementation</h2>
 <p>Implicit function types are shorthands for class types that define <code>apply</code>
 methods with implicit parameters. Specifically, the <code>N</code>-ary function type
@@ -1767,12 +1766,12 @@ methods with implicit parameters. Specifically, the <code>N</code>-ary function 
 <code>ImplicitFunctionN[T1 , ... , TN, R]</code>. Such class types are assumed to have the following definitions, for any value of <code>N &gt;= 1</code>:</p>
 <pre><code class="scala">package scala
 trait ImplicitFunctionN[-T1 , ... , -TN, +R] {
-  def apply given (x1: T1 , ... , xN: TN): R
+  def apply(given x1: T1 , ... , xN: TN): R
 }
 </code></pre>
 <p>Implicit function types erase to normal function types, so these classes are
 generated on the fly for typechecking, but not realized in actual code.</p>
-<p>Implicit function literals <code>given (x1: T1, ..., xn: Tn) =&gt; e</code> map
+<p>Implicit function literals <code>(given x1: T1, ..., xn: Tn) =&gt; e</code> map
 implicit parameters <code>xi</code> of types <code>Ti</code> to the result of evaluating the expression <code>e</code>.
 The scope of each implicit parameter <code>xi</code> is <code>e</code>. The parameters must have pairwise distinct names.</p>
 <p>If the expected type of the implicit function literal is of the form
@@ -1785,17 +1784,15 @@ the implicit parameters <code>xi</code>.</p>
 <p>The implicit function literal is evaluated as the instance creation
 expression</p>
 <pre><code class="scala">new scala.ImplicitFunctionN[T1, ..., Tn, T] {
-  def apply given (x1: T1, ..., xn: Tn): T = e
+  def apply(given x1: T1, ..., xn: Tn): T = e
 }
 </code></pre>
-<p>In the case of a single untyped parameter, <code>given (x) =&gt; e</code> can be
-abbreviated to <code>given x =&gt; e</code>.</p>
 <p>An implicit parameter may also be a wildcard represented by an underscore <code>_</code>. In
 that case, a fresh name for the parameter is chosen arbitrarily.</p>
 <p>Note: The closing paragraph of the
 <a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#anonymous-functions">Anonymous Functions section</a>
 of Scala 2.12 is subsumed by implicit function types and should be removed.</p>
-<p>Implicit function literals <code>given (x1: T1, ..., xn: Tn) =&gt; e</code> are
+<p>Implicit function literals <code>(given x1: T1, ..., xn: Tn) =&gt; e</code> are
 automatically created for any expression <code>e</code> whose expected type is
 <code>scala.ImplicitFunctionN[T1, ..., Tn, R]</code>, unless <code>e</code> is
 itself a implicit function literal. This is analogous to the automatic

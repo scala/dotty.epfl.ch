@@ -1750,9 +1750,7 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="../contextual-new/multiversal-equality.html">Here is the new version which will be implemented in Dotty 0.19</a>.</p>
-<p>Previously, Scala had universal equality: Two values of any types
+    <p>Previously, Scala had universal equality: Two values of any types
 could be compared with each other with <code>==</code> and <code>!=</code>. This came from
 the fact that <code>==</code> and <code>!=</code> are implemented in terms of Java's
 <code>equals</code> method, which can also compare values of any two reference
@@ -1775,7 +1773,7 @@ that derives <code>Eql</code>, e.g.</p>
 <pre><code class="scala">class T derives Eql
 </code></pre>
 <p>Alternatively, one can also provide an <code>Eql</code> given instance directly, like this:</p>
-<pre><code class="scala">given as Eql[T, T] = Eql.derived
+<pre><code class="scala">given Eql[T, T] = Eql.derived
 </code></pre>
 <p>This definition effectively says that values of type <code>T</code> can (only) be
 compared to other values of type <code>T</code> when using <code>==</code> or <code>!=</code>. The definition
@@ -1797,10 +1795,10 @@ object Eql {
 <p>One can have several <code>Eql</code> givens for a type. For example, the four
 definitions below make values of type <code>A</code> and type <code>B</code> comparable with
 each other, but not comparable to anything else:</p>
-<pre><code class="scala">given as Eql[A, A] = Eql.derived
-given as Eql[B, B] = Eql.derived
-given as Eql[A, B] = Eql.derived
-given as Eql[B, A] = Eql.derived
+<pre><code class="scala">given Eql[A, A] = Eql.derived
+given Eql[B, B] = Eql.derived
+given Eql[A, B] = Eql.derived
+given Eql[B, A] = Eql.derived
 </code></pre>
 <p>The <code>scala.Eql</code> object defines a number of <code>Eql</code> givens that together
 define a rule book for what standard types can be compared (more details below).</p>
@@ -1824,7 +1822,7 @@ done with an import</p>
 </code></pre>
 <p>By the usual rules if <a href="./derivation.html">typeclass derivation</a>,
 this generates the following <code>Eql</code> instance in the companion object of <code>Box</code>:</p>
-<pre><code class="scala">given [T, U] as Eql[Box[T], Box[U]] given Eql[T, U] = Eql.derived
+<pre><code class="scala">given [T, U](given Eql[T, U]) : Eql[Box[T], Box[U]] = Eql.derived
 </code></pre>
 <p>That is, two boxes are comparable with <code>==</code> or <code>!=</code> if their elements are. Examples:</p>
 <pre><code class="scala">new Box(1) == new Box(1L)   // ok since there is an instance for `Eql[Int, Long]`
@@ -1889,13 +1887,13 @@ we are dealing with a refinement of pre-existing, universal equality. It's best 
 <p>This generic version of <code>contains</code> is the one used in the current (Scala 2.12) version of <code>List</code>.
 It looks different but it admits exactly the same applications as the <code>contains(x: Any)</code> definition we started with.
 However, we can make it more useful (i.e. restrictive) by adding an <code>Eql</code> parameter:</p>
-<pre><code class="scala">  def contains[U &gt;: T](x: U) given Eql[T, U]: Boolean // (1)
+<pre><code class="scala">  def contains[U &gt;: T](x: U)(given Eql[T, U]): Boolean // (1)
 </code></pre>
 <p>This version of <code>contains</code> is equality-safe! More precisely, given
 <code>x: T</code>, <code>xs: List[T]</code> and <code>y: U</code>, then <code>xs.contains(y)</code> is type-correct if and only if
 <code>x == y</code> is type-correct.</p>
 <p>Unfortunately, the crucial ability to &quot;lift&quot; equality type checking from simple equality and pattern matching to arbitrary user-defined operations gets lost if we restrict ourselves to an equality class with a single type parameter. Consider the following signature of <code>contains</code> with a hypothetical <code>Eql1[T]</code> type class:</p>
-<pre><code class="scala">  def contains[U &gt;: T](x: U) given Eql1[U]: Boolean   // (2)
+<pre><code class="scala">  def contains[U &gt;: T](x: U)(given Eql1[U]): Boolean   // (2)
 </code></pre>
 <p>This version could be applied just as widely as the original <code>contains(x: Any)</code> method,
 since the <code>Eql1[Any]</code> fallback is always available! So we have gained nothing. What got lost in the transition to a single parameter type class was the original rule that <code>Eql[A, B]</code> is available only if neither <code>A</code> nor <code>B</code> have a reflexive <code>Eql</code> given. That rule simply cannot be expressed if there is a single type parameter for <code>Eql</code>.</p>
