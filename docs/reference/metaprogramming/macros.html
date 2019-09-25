@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-09-24 -->
+<!-- This page was last generated on 2019-09-25 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1860,21 +1860,18 @@ environment, with some restrictions and caveats since such accesses involve
 serialization. However, this does not constitute a fundamental gain in
 expressiveness.</p>
 <h3><a href="#from-exprs-to-functions-and-back" id="from-exprs-to-functions-and-back" class="anchor"></a>From <code>Expr</code>s to Functions and Back</h3>
-<p>The <code>Expr</code> companion object contains an implicit <code>AsFunction</code> conversion that turns a tree
+<p>The <code>Expr</code> companion object contains a <code>betaReduce</code> conversion that turns a tree
 describing a function into a function mapping trees to trees.</p>
 <pre><code class="scala">object Expr {
   ...
-  implicit class AsFunction[...](...) { ... }
+  def betaReduce[...](...)(...): ... = ...
 }
 </code></pre>
-<p>This decorator gives <code>Expr</code> the <code>apply</code> operation of an applicative functor, where <code>Expr</code>s
-over function types can be applied to <code>Expr</code> arguments. The definition
-of <code>AsFunction(f).apply(x)</code> is assumed to be functionally the same as
+<p>The definition of <code>Expr.betaReduce(f)(x)</code> is assumed to be functionally the same as
 <code>'{($f)($x)}</code>, however it should optimize this call by returning the
-result of beta-reducing <code>f(x)</code> if <code>f</code> is a known lambda expression.</p>
-<p>The <code>AsFunction</code> decorator distributes applications of <code>Expr</code> over function
-arrows:</p>
-<pre><code class="scala">AsFunction(_).apply: Expr[S =&gt; T] =&gt; (Expr[S] =&gt; Expr[T])
+result of beta-reducing <code>f(x)</code> if <code>f</code> is a known lambda expression.
+<code>Expr.betaReduce</code> distributes applications of <code>Expr</code> over function arrows:</p>
+<pre><code class="scala">Expr.betaReduce(_): Expr[(T1, ..., Tn) =&gt; R] =&gt; ((Expr[T1], ..., Expr[Tn]) =&gt; Expr[R])
 </code></pre>
 <p>Its dual, let’s call it <code>reflect</code>, can be defined as follows:</p>
 <pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] = '{
