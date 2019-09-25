@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Significant Indentation</title>
+        <title>Optional Braces</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -151,7 +151,7 @@
 <li class="leaf"><a href="../../.././docs/reference/other-new-features/tupled-function.html">Tupled Function</a></li>
 <li class="leaf"><a href="../../.././docs/reference/other-new-features/threadUnsafe-annotation.html">threadUnsafe Annotation</a></li>
 <li class="leaf"><a href="../../.././docs/reference/other-new-features/control-syntax.html">New Control Syntax</a></li>
-<li class="leaf"><a href="../../.././docs/reference/other-new-features/indentation.html">Significant Indentation</a></li>
+<li class="leaf"><a href="../../.././docs/reference/other-new-features/indentation.html">Optional Braces</a></li>
   </ul>
 </li>
 
@@ -1742,7 +1742,7 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Significant Indentation</h1>
+        <h1>Optional Braces</h1>
         <div class="byline">
             <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/other-new-features/indentation.md">
                 <i class="far fa-edit"></i>
@@ -1750,8 +1750,11 @@
             </a>
         </div>
     </header>
-    <p>As an experimental feature, Scala 3 treats indentation as significant. Indentation is significant everywhere except inside regions delineated by brackets <code>[...]</code> or parentheses <code>(...)</code>.</p>
-<p>Where indentation is significant, the compiler will insert <code>&lt;indent&gt;</code> or <code>&lt;outdent&gt;</code>
+    <p><strong>Note</strong> The syntax described in this section is currently under revision.
+<a href="./indentation-new.html">Here is the new version which will be implemented in Dotty 0.20</a>.</p>
+<p>As an experimental feature, Scala 3 treats indentation as significant and allows
+some occurrences of braces <code>{...}</code> to be optional.</p>
+<p>The compiler will insert <code>&lt;indent&gt;</code> or <code>&lt;outdent&gt;</code>
 tokens at certain line breaks. Grammatically, pairs of <code>&lt;indent&gt;</code> and <code>&lt;outdent&gt;</code> tokens have the same effect as pairs of braces <code>{</code> and <code>}</code>.</p>
 <p>The algorithm makes use of a stack <code>IW</code> of previously encountered indentation widths. The stack initially holds a single element with a zero indentation width. The <em>current indentation width</em> is the indentation width of the top of the stack.</p>
 <p>There are two rules:</p>
@@ -1759,12 +1762,17 @@ tokens at certain line breaks. Grammatically, pairs of <code>&lt;indent&gt;</cod
 <li>
 <p>An <code>&lt;indent&gt;</code> is inserted at a line break, if</p>
 <ul>
+<li>An indentation region can start at the current position in the source, and</li>
 <li>the first token on the next line has an indentation width strictly greater
-than the current indentation width, and</li>
-<li>the last token on the previous line can start an indentation region.</li>
+than the current indentation width</li>
 </ul>
-<p>The following tokens can start an indentation region:</p>
-<pre><code class="nohighlight">:  =  =&gt;  &lt;-  if  then  else  while  do  try  catch  finally  for  yield  match
+<p>An indentation region can start</p>
+<ul>
+<li>at points where a set of definitions enclosed in braces is expected in a
+class, object, given, or enum definition, in an enum case, or after a package clause, or</li>
+<li>after one of the following tokens:</li>
+</ul>
+<pre><code class="nohighlight">=  =&gt;  &lt;-  if  then  else  while  do  try  catch  finally  for  yield  match
 </code></pre>
 <p>If an <code>&lt;indent&gt;</code> is inserted, the indentation width of the token on the next line
 is pushed onto <code>IW</code>, which makes it the new current indentation width.</p>
@@ -1789,6 +1797,8 @@ match the indentation of some previous line in the enclosing indentation region.
   else   // error: `else` does not align correctly
      x
 </code></pre>
+<p>Indentation tokens are only inserted in regions where newline statement separators are also inferred:
+at the toplevel, inside braces <code>{...}</code>, but not inside parentheses <code>(...)</code>, patterns or types.</p>
 <h3><a href="#spaces-vs-tabs" id="spaces-vs-tabs" class="anchor"></a>Spaces vs Tabs</h3>
 <p>Indentation prefixes can consist of spaces and/or tabs. Indentation widths are the indentation prefixes themselves, ordered by the string prefix relation. So, so for instance &quot;2 tabs, followed by 4 spaces&quot; is strictly less than &quot;2 tabs, followed by 5 spaces&quot;, but &quot;2 tabs, followed by 4 spaces&quot; is incomparable to &quot;6 tabs&quot; or to &quot;4 spaces, followed by 2 tabs&quot;. It is an error if the indentation width of some line is incomparable with the indentation width of the region that's current at that point. To avoid such errors, it is a good idea not to mix spaces and tabs in the same source file.</p>
 <h3><a href="#indentation-and-braces" id="indentation-and-braces" class="anchor"></a>Indentation and Braces</h3>
@@ -1801,22 +1811,6 @@ indentation width of the first token that starts a new line after the opening br
 <li>On encountering a closing brace <code>}</code>, as many <code>&lt;outdent&gt;</code> tokens as necessary are
 inserted to close all open indentation regions inside the pair of braces.</li>
 </ol>
-<h3><a href="#indentation-marker-" id="indentation-marker-" class="anchor"></a>Indentation Marker <code>:</code></h3>
-<p>A colon <code>:</code> at the end of a line is one of the possible tokens that opens an indentation region. Examples:</p>
-<pre><code class="scala">times(10):
-  println(&quot;ah&quot;)
-  println(&quot;ha&quot;)
-</code></pre>
-<p>or</p>
-<pre><code class="scala">xs.map:
-  x =&gt;
-      val y = x - 1
-      y * y
-</code></pre>
-<p>Colons at the end of lines are their own token, distinct from normal <code>:</code>.
-The Scala grammar is changed so that colons at end of lines are accepted at all points
-where an opening brace is legal, except if the previous token can already start an
-indentation region. Special provisions are taken so that method result types can still use a colon on the end of a line, followed by the actual type on the next.</p>
 <h3><a href="#special-treatment-of-case-clauses" id="special-treatment-of-case-clauses" class="anchor"></a>Special Treatment of Case Clauses</h3>
 <p>The indentation rules for <code>match</code> expressions and <code>catch</code> clauses are refined as follows:</p>
 <ul>
@@ -1858,7 +1852,7 @@ occurs at the start of a line and is followed by an identifier or one of the res
 <p>It is recommended that <code>end</code> markers are used for code where the extent of an indentation region is not immediately apparent &quot;at a glance&quot;. Typically this is the case if an indentation region spans 20 lines or more.</p>
 <h3><a href="#example" id="example" class="anchor"></a>Example</h3>
 <p>Here is a (somewhat meta-circular) example of code using indentation. It provides a concrete representation of indentation widths as defined above together with efficient operations for constructing and comparing indentation widths.</p>
-<pre><code class="scala">enum IndentWidth:
+<pre><code class="scala">enum IndentWidth
   case Run(ch: Char, n: Int)
   case Conc(l: IndentWidth, r: Run)
 
@@ -1873,7 +1867,8 @@ occurs at the start of a line and is followed by an identifier or one of the res
           case Conc(l2, r2) =&gt; l1 == l2 &amp;&amp; r1 &lt;= r2
           case _            =&gt; false
 
-  def &lt; (that: IndentWidth): Boolean = this &lt;= that &amp;&amp; !(that &lt;= this)
+  def &lt; (that: IndentWidth): Boolean =
+    this &lt;= that &amp;&amp; !(that &lt;= this)
 
   override def toString: String =
     this match
@@ -1887,13 +1882,11 @@ occurs at the start of a line and is followed by an identifier or one of the res
       case Conc(l, r) =&gt;
         s&quot;$l, $r&quot;
 
-object IndentWidth:
+object IndentWidth
   private inline val MaxCached = 40
 
-  private val spaces = IArray.tabulate(MaxCached + 1):
-    new Run(' ', _)
-  private val tabs = IArray.tabulate(MaxCached + 1):
-    new Run('\t', _)
+  private val spaces = IArray.tabulate(MaxCached + 1)(new Run(' ', _))
+  private val tabs = IArray.tabulate(MaxCached + 1)(new Run('\t', _))
 
   def Run(ch: Char, n: Int): Run =
     if n &lt;= MaxCached &amp;&amp; ch == ' ' then
@@ -1905,6 +1898,7 @@ object IndentWidth:
   end Run
 
   val Zero = Run(' ', 0)
+end IndentWidth
 </code></pre>
 <h3><a href="#settings-and-rewrites" id="settings-and-rewrites" class="anchor"></a>Settings and Rewrites</h3>
 <p>Significant indentation is enabled by default. It can be turned off by giving any of the options <code>-noindent</code>, <code>old-syntax</code> and <code>language:Scala2</code>. If indentation is turned off, it is nevertheless checked that indentation conforms to the logical program structure as defined by braces. If that is not the case, the compiler issues an error (or, in the case of <code>-language:Scala2</code>, a migration warning).</p>
@@ -1913,6 +1907,23 @@ When invoked with options <code>-rewrite -indent</code> it will rewrite braces t
 indented regions where possible. When invoked with with options <code>-rewrite -noindent</code> it will rewrite in the reverse direction, inserting braces for indentation regions.
 The <code>-indent</code> option only works on <a href="./control-syntax.html">new-style syntax</a>. So to go from old-style syntax to new-style indented code one has to invoke the compiler twice, first with options <code>-rewrite -new-syntax</code>, then again with options
 <code>-rewrite-indent</code>. To go in the opposite direction, from indented code to old-style syntax, it's <code>-rewrite -noindent</code>, followed by <code>-rewrite -old-syntax</code>.</p>
+<h3><a href="#variant-indentation-marker-" id="variant-indentation-marker-" class="anchor"></a>Variant: Indentation Marker <code>:</code></h3>
+<p>Generally, the possible indentation regions coincide with those regions where braces <code>{...}</code> are also legal, no matter whether the braces enclose an expression or a set of definitions. There is one exception, though: Arguments to function can be enclosed in braces but they cannot be simply indented instead. Making indentation always significant for function arguments would be too restrictive and fragile.</p>
+<p>To allow such arguments to be written without braces, a variant of the indentation scheme is implemented under
+option <code>-Yindent-colons</code>. This variant is more contentious and less stable than the rest of the significant indentation scheme. In this variant, a colon <code>:</code> at the end of a line is also one of the possible tokens that opens an indentation region. Examples:</p>
+<pre><code class="scala">times(10):
+  println(&quot;ah&quot;)
+  println(&quot;ha&quot;)
+</code></pre>
+<p>or</p>
+<pre><code class="scala">xs.map:
+  x =&gt;
+      val y = x - 1
+      y * y
+</code></pre>
+<p>Colons at the end of lines are their own token, distinct from normal <code>:</code>.
+The Scala grammar is changed in this variant so that colons at end of lines are accepted at all points
+where an opening brace enclosing a function argument is legal. Special provisions are taken so that method result types can still use a colon on the end of a line, followed by the actual type on the next.</p>
 
 </main>
 </div>
