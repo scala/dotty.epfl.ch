@@ -2009,7 +2009,7 @@
 
                 
                 
-                <div id="asBindDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-asBindDef-ctx-">
+                <div id="caseFields(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-caseFields-ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2022,7 +2022,7 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                asBindDef
+                                caseFields
                             
                         </h3>
                         <!-- Type parameters -->
@@ -2048,24 +2048,24 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#BindSymbol">BindSymbol</a></span>
+                            <span class="return-type">: List<span class="type-params">[<a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a>]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-asBindDef-ctx-">
+                    <div class="short collapse show collapse-caseFields-ctx-">
                         
-                            <p>Unsafe cast as to BindSymbol. Use IsBindSymbol to safely check and cast to BindSymbol</p>
+                            <p>Fields of a case class type -- only the ones declared in primary constructor</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-asBindDef-ctx-">
+                    <div class="details collapse collapse-caseFields-ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Unsafe cast as to BindSymbol. Use IsBindSymbol to safely check and cast to BindSymbol</p>
+                            <p>Fields of a case class type -- only the ones declared in primary constructor</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -2109,7 +2109,7 @@
 
                 
                 
-                <div id="asClassDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-asClassDef-ctx-">
+                <div id="classMethod(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-classMethod-name--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2122,13 +2122,26 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                asClassDef
+                                classMethod
                             
                         </h3>
                         <!-- Type parameters -->
                         
                         <!-- Method parameters -->
                         
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            name:
+                                            
+                                            String
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
                             
                                 <span class="params implicit">
                                     (
@@ -2148,24 +2161,24 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#ClassDefSymbol">ClassDefSymbol</a></span>
+                            <span class="return-type">: List<span class="type-params">[<a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a>]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-asClassDef-ctx-">
+                    <div class="short collapse show collapse-classMethod-name--ctx-">
                         
-                            <p>Unsafe cast as to ClassSymbol. Use IsClassDefSymbol to safely check and cast to ClassSymbol</p>
+                            <p>Get non-private named methods defined directly inside the class</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-asClassDef-ctx-">
+                    <div class="details collapse collapse-classMethod-name--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Unsafe cast as to ClassSymbol. Use IsClassDefSymbol to safely check and cast to ClassSymbol</p>
+                            <p>Get non-private named methods defined directly inside the class</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -2209,7 +2222,7 @@
 
                 
                 
-                <div id="asDefDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-asDefDef-ctx-">
+                <div id="classMethods(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-classMethods-ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2222,7 +2235,7 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                asDefDef
+                                classMethods
                             
                         </h3>
                         <!-- Type parameters -->
@@ -2248,324 +2261,24 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#DefDefSymbol">DefDefSymbol</a></span>
+                            <span class="return-type">: List<span class="type-params">[<a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a>]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-asDefDef-ctx-">
+                    <div class="short collapse show collapse-classMethods-ctx-">
                         
-                            <p>Unsafe cast as to DefSymbol. Use IsDefDefSymbol to safely check and cast to DefSymbol</p>
+                            <p>Get all non-private methods defined directly inside the class, exluding constructors</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-asDefDef-ctx-">
+                    <div class="details collapse collapse-classMethods-ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Unsafe cast as to DefSymbol. Use IsDefDefSymbol to safely check and cast to DefSymbol</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="asPackageDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-asPackageDef-ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                asPackageDef
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#PackageDefSymbol">PackageDefSymbol</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-asPackageDef-ctx-">
-                        
-                            <p>Unsafe cast as to PackageSymbol. Use IsPackageSymbol to safely check and cast to PackageSymbol</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-asPackageDef-ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Unsafe cast as to PackageSymbol. Use IsPackageSymbol to safely check and cast to PackageSymbol</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="asTypeDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-asTypeDef-ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                asTypeDef
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#TypeDefSymbol">TypeDefSymbol</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-asTypeDef-ctx-">
-                        
-                            <p>Unsafe cast as to TypeSymbol. Use IsTypeDefSymbol to safely check and cast to TypeSymbol</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-asTypeDef-ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Unsafe cast as to TypeSymbol. Use IsTypeDefSymbol to safely check and cast to TypeSymbol</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="asValDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-asValDef-ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                asValDef
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#ValDefSymbol">ValDefSymbol</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-asValDef-ctx-">
-                        
-                            <p>Unsafe cast as to ValSymbol. Use IsValDefSymbol to safely check and cast to ValSymbol</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-asValDef-ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Unsafe cast as to ValSymbol. Use IsValDefSymbol to safely check and cast to ValSymbol</p>
+                            <p>Get all non-private methods defined directly inside the class, exluding constructors</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -2666,6 +2379,519 @@
                         
                         
                             <p>The comment for this symbol, if any</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="companionClass(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-companionClass-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                companionClass
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-companionClass-ctx-">
+                        
+                            <p>The symbol of the companion class</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-companionClass-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>The symbol of the companion class</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="companionModule(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-companionModule-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                companionModule
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-companionModule-ctx-">
+                        
+                            <p>The symbol of the companion module</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-companionModule-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>The symbol of the companion module</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="exists(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-exists-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                exists
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Boolean</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-exists-ctx-">
+                        
+                            <p>Does this symbol represent a definition?</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-exists-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Does this symbol represent a definition?</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="field(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-field-name--ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                field
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            name:
+                                            
+                                            String
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-field-name--ctx-">
+                        
+                            <p>Field with the given name directly declared in the class</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-field-name--ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Field with the given name directly declared in the class</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="fields(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-fields-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                fields
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: List<span class="type-params">[<a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a>]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-fields-ctx-">
+                        
+                            <p>Fields directly declared in the class</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-fields-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Fields directly declared in the class</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -3301,7 +3527,7 @@
 
                 
                 
-                <div id="isClass(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isClass-ctx-">
+                <div id="isBind(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isBind-ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3314,7 +3540,7 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                isClass
+                                isBind
                             
                         </h3>
                         <!-- Type parameters -->
@@ -3346,17 +3572,19 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isClass-ctx-">
+                    <div class="short collapse show collapse-isBind-ctx-">
                         
-                            <p></p>
+                            <p>Is this the definition of a Bind pattern?</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isClass-ctx-">
+                    <div class="details collapse collapse-isBind-ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Is this the definition of a Bind pattern?</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -3497,6 +3725,106 @@
 
                 
                 
+                <div id="isClassDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isClassDef-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                isClassDef
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Boolean</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-isClassDef-ctx-">
+                        
+                            <p>Is this the definition of a ClassDef tree?</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-isClassDef-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Is this the definition of a ClassDef tree?</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
                 <div id="isDefDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isDefDef-ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -3544,7 +3872,8 @@
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-isDefDef-ctx-">
                         
-                            <p></p>
+                            <p>Is this the definition of a DefDef tree?</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -3552,7 +3881,8 @@
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Is this the definition of a DefDef tree?</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -3791,6 +4121,206 @@
 
                 
                 
+                <div id="isNoSymbol(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isNoSymbol-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                isNoSymbol
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Boolean</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-isNoSymbol-ctx-">
+                        
+                            <p>Does this symbol represent a no definition?</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-isNoSymbol-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Does this symbol represent a no definition?</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="isPackageDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isPackageDef-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                isPackageDef
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Boolean</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-isPackageDef-ctx-">
+                        
+                            <p>Is this the definition of a PackageDef tree?</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-isPackageDef-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Is this the definition of a PackageDef tree?</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
                 <div id="isRefinementClass(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isRefinementClass-ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -3936,7 +4466,8 @@
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-isTerm-ctx-">
                         
-                            <p></p>
+                            <p>Is this the definition of a term?</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -3944,7 +4475,8 @@
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Is this the definition of a term?</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -4034,11 +4566,211 @@
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-isType-ctx-">
                         
-                            <p></p>
+                            <p>Is this the definition of a type?</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
                     <div class="details collapse collapse-isType-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Is this the definition of a type?</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="isTypeDef(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isTypeDef-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                isTypeDef
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Boolean</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-isTypeDef-ctx-">
+                        
+                            <p>Is this the definition of a TypeDef tree</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-isTypeDef-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Is this the definition of a TypeDef tree</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="isTypeParam(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isTypeParam-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                isTypeParam
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Boolean</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-isTypeParam-ctx-">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-isTypeParam-ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4132,7 +4864,8 @@
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-isValDef-ctx-">
                         
-                            <p></p>
+                            <p>Is this the definition of a ValDef tree?</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -4140,7 +4873,8 @@
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Is this the definition of a ValDef tree?</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -4239,6 +4973,319 @@
                         
                         
                             
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="method(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-method-name--ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                method
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            name:
+                                            
+                                            String
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: List<span class="type-params">[<a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a>]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-method-name--ctx-">
+                        
+                            <p>Get named non-private methods declared or inherited</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-method-name--ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Get named non-private methods declared or inherited</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="methods(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-methods-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                methods
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: List<span class="type-params">[<a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a>]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-methods-ctx-">
+                        
+                            <p>Get all non-private methods declared or inherited</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-methods-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Get all non-private methods declared or inherited</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="moduleClass(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-moduleClass-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                moduleClass
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#Symbol">Symbol</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-moduleClass-ctx-">
+                        
+                            <p>The class symbol of the companion module class</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-moduleClass-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>The class symbol of the companion module class</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -4438,6 +5485,106 @@
                         
                         
                             <p>Owner of this symbol. The owner is the symbol in which this symbol is defined</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="pattern(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-pattern-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                pattern
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#Pattern">Pattern</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-pattern-ctx-">
+                        
+                            <p>Pattern of this definition</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-pattern-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Pattern of this definition</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -4738,6 +5885,215 @@
                         
                         
                             <p>This symbol is protected within the resulting type</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="signature(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-signature-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                signature
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#Signature">Signature</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-signature-ctx-">
+                        
+                            <p>Signature of this defintion</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-signature-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Signature of this defintion</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="tree(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-tree-ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                tree
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#Tree">Tree</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-tree-ctx-">
+                        
+                            <p>Tree of this definition</p>
+<p>if this symbol <code>isPackageDef</code> it will return a <code>PackageDef</code>,
+if this symbol <code>isClassDef</code> it will return a <code>ClassDef</code>,
+if this symbol <code>isTy...</code>
+</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-tree-ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Tree of this definition</p>
+<p>if this symbol <code>isPackageDef</code> it will return a <code>PackageDef</code>,
+if this symbol <code>isClassDef</code> it will return a <code>ClassDef</code>,
+if this symbol <code>isTypeDef</code> it will return a <code>TypeDef</code>,
+if this symbol <code>isValDef</code> it will return a <code>ValDef</code>,
+if this symbol <code>isDefDef</code> it will return a <code>DefDef</code></p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
