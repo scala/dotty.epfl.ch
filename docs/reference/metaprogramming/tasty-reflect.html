@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-10-09 -->
+<!-- This page was last generated on 2019-10-10 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1507,7 +1507,19 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor trait" href="../../.././api/scala/tasty/reflect/Printers.html">T</a>
+                                    <a class="letter-anchor trait" href="../../.././api/scala/tasty/reflect/PrinterOps.html">T</a>
+                                </div>
+                                <a class="entity-name" href="../../.././api/scala/tasty/reflect/PrinterOps.html">PrinterOps</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="../../.././api/scala/tasty/reflect/Printers.html">C</a>
                                 </div>
                                 <a class="entity-name" href="../../.././api/scala/tasty/reflect/Printers.html">Printers</a>
                             </li>
@@ -1769,18 +1781,18 @@ the scope where it is used.</p>
 inline def natConst(x: =&gt; Int): Int = ${natConstImpl('{x})}
 
 def natConstImpl(x: Expr[Int])(given qctx: QuoteContext): Expr[Int] = {
-  import qctx.tasty._
+  import qctx.tasty.{_, given}
   ...
 }
 </code></pre>
 <h3><a href="#sealing-and-unsealing" id="sealing-and-unsealing" class="anchor"></a>Sealing and Unsealing</h3>
-<p><code>import qctx.tasty._</code> will provide an <code>unseal</code> extension method on <code>quoted.Expr</code>
+<p><code>import qctx.tasty.{_, given}</code> will provide an <code>unseal</code> extension method on <code>quoted.Expr</code>
 and <code>quoted.Type</code> which returns a <code>qctx.tasty.Term</code> that represents the tree of
 the expression and <code>qctx.tasty.TypeTree</code> that represents the tree of the type
 respectively. It will also import all extractors and methods on TASTy Reflect
 trees. For example the <code>Literal(_)</code> extractor used below.</p>
 <pre><code class="scala">def natConstImpl(x: Expr[Int])(given qctx: QuoteContext): Expr[Int] = {
-  import qctx.tasty._
+  import qctx.tasty.{_, given}
   val xTree: Term = x.unseal
   xTree match {
     case Inlined(_, _, Literal(Constant(n: Int))) =&gt;
@@ -1811,7 +1823,7 @@ operation expression passed while calling the <code>macro</code> below.</p>
 <pre><code class="scala">inline def macro(param: =&gt; Boolean): Unit = ${ macroImpl('param) }
 
 def macroImpl(param: Expr[Boolean])(given qctx: QuoteContext): Expr[Unit] = {
-  import qctx.tasty._
+  import qctx.tasty.{_, given}
   import util._
 
   param.unseal.underlyingArgument match {
@@ -1829,7 +1841,7 @@ expansion site. The example below shows how we can obtain position information
 such as the start line, the end line or even the source code at the expansion
 point.</p>
 <pre><code class="scala">def macroImpl()(qctx: QuoteContext): Expr[Unit] = {
-  import qctx.tasty._
+  import qctx.tasty.{_, given}
   val pos = rootPosition
 
   val path = pos.sourceFile.jpath.toString
