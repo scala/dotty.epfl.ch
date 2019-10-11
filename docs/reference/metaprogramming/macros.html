@@ -985,9 +985,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="../../.././api/scala/internal/quoted/TypeTag$.html">O</a>
+                                    <a class="letter-anchor object" href="../../.././api/scala/internal/quoted/Type$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="../../.././api/scala/internal/quoted/TypeTag$.html">TypeTag</a>
+                                <a class="entity-name" href="../../.././api/scala/internal/quoted/Type$.html">Type</a>
                             </li>
                             
 
@@ -1064,18 +1064,6 @@
                             
 
                         
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="../../.././api/scala/quoted/Type.html">T</a>
-                                </div>
-                                <a class="entity-name" href="../../.././api/scala/quoted/Type.html">Type</a>
-                            </li>
-                            
-
-                        
                              <!-- ignore: companions are handled below -->
                             
 
@@ -1085,11 +1073,11 @@
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="../../.././api/scala/quoted/TypeTag$.html">O</a>
+                                    <a class="letter-anchor object" href="../../.././api/scala/quoted/Type$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="../../.././api/scala/quoted/TypeTag.html">T</a>
+                                    <a class="letter-anchor trait" href="../../.././api/scala/quoted/Type.html">T</a>
                                 </div>
-                                <a class="entity-name" href="../../.././api/scala/quoted/TypeTag.html">TypeTag</a>
+                                <a class="entity-name" href="../../.././api/scala/quoted/Type.html">Type</a>
                             </li>
                             
 
@@ -1859,19 +1847,19 @@ ${'[T]} = T
 two fundamental types:</p>
 <ul>
 <li><code>Expr[T]</code>: abstract syntax trees representing expressions of type <code>T</code></li>
-<li><code>TypeTag[T]</code>: type structures representing type <code>T</code>.</li>
+<li><code>Type[T]</code>: type structures representing type <code>T</code>.</li>
 </ul>
 <p>Quoting takes expressions of type <code>T</code> to expressions of type <code>Expr[T]</code>
-and it takes types <code>T</code> to expressions of type <code>TypeTag[T]</code>. Splicing
+and it takes types <code>T</code> to expressions of type <code>Type[T]</code>. Splicing
 takes expressions of type <code>Expr[T]</code> to expressions of type <code>T</code> and it
-takes expressions of type <code>TypeTag[T]</code> to types <code>T</code>.</p>
+takes expressions of type <code>Type[T]</code> to types <code>T</code>.</p>
 <p>The two types can be defined in package <code>scala.quoted</code> as follows:</p>
 <pre><code class="scala">package scala.quoted
 
-sealed trait Expr[+T]
-sealed trait TypeTag[T]
+sealed abstract class Expr[+T]
+sealed abstract class Type[T]
 </code></pre>
-<p>Both <code>Expr</code> and <code>TypeTag</code> are abstract and sealed, so all constructors for
+<p>Both <code>Expr</code> and <code>Type</code> are abstract and sealed, so all constructors for
 these types are provided by the system. One way to construct values of
 these types is by quoting, the other is by type-specific lifting
 operations that will be discussed later on.</p>
@@ -1936,26 +1924,26 @@ as for expressions. This might seem too restrictive. Indeed, the
 definition of <code>reflect</code> above is not phase correct since there is a
 quote but no splice between the parameter binding of <code>T</code> and its
 usage. But the code can be made phase correct by adding a binding
-of a <code>TypeTag[T]</code> tag:</p>
-<pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U]) given (t: TypeTag[T]): Expr[T =&gt; U] =
+of a <code>Type[T]</code> tag:</p>
+<pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U]) given (t: Type[T]): Expr[T =&gt; U] =
   '{ (x: $t) =&gt; ${ f('x) } }
 </code></pre>
 <p>In this version of <code>reflect</code>, the type of <code>x</code> is now the result of
-splicing the <code>TypeTag</code> value <code>t</code>. This operation <em>is</em> splice correct -- there
+splicing the <code>Type</code> value <code>t</code>. This operation <em>is</em> splice correct -- there
 is one quote and one splice between the use of <code>t</code> and its definition.</p>
 <p>To avoid clutter, the Scala implementation tries to convert any phase-incorrect
-reference to a type <code>T</code> to a type-splice, by rewriting <code>T</code> to <code>${ summon[TypeTag[T]] }</code>.
+reference to a type <code>T</code> to a type-splice, by rewriting <code>T</code> to <code>${ summon[Type[T]] }</code>.
 For instance, the user-level definition of <code>reflect</code>:</p>
-<pre><code class="scala">def reflect[T: TypeTag, U: TypeTag](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
+<pre><code class="scala">def reflect[T: Type, U: Type](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
   '{ (x: T) =&gt; ${ f('x) } }
 </code></pre>
 <p>would be rewritten to</p>
-<pre><code class="scala">def reflect[T: TypeTag, U: TypeTag](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
-  '{ (x: ${ summon[TypeTag[T]] }) =&gt; ${ f('x) } }
+<pre><code class="scala">def reflect[T: Type, U: Type](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
+  '{ (x: ${ summon[Type[T]] }) =&gt; ${ f('x) } }
 </code></pre>
 <p>The <code>the</code> query succeeds because there is a given instance of
-type <code>TypeTag[T]</code> available (namely the given parameter corresponding
-to the context bound <code>: TypeTag</code>), and the reference to that value is
+type <code>Type[T]</code> available (namely the given parameter corresponding
+to the context bound <code>: Type</code>), and the reference to that value is
 phase-correct. If that was not the case, the phase inconsistency for
 <code>T</code> would be reported as an error.</p>
 <h3><a href="#lifting-expressions" id="lifting-expressions" class="anchor"></a>Lifting Expressions</h3>
@@ -2048,7 +2036,7 @@ a <code>List</code> is liftable if its element type is:</p>
 <p>In the end, <code>Liftable</code> resembles very much a serialization
 framework. Like the latter it can be derived systematically for all
 collections, case classes and enums. Note also that the synthesis
-of <em>type-tag</em> values of type <code>TypeTag[T]</code> is essentially the type-level
+of <em>type-tag</em> values of type <code>Type[T]</code> is essentially the type-level
 analogue of lifting.</p>
 <p>Using lifting, we can now give the missing definition of <code>showExpr</code> in the introductory example:</p>
 <pre><code class="scala">def showExpr[T](expr: Expr[T]): Expr[String] = {
@@ -2065,24 +2053,24 @@ stages.</p>
 <h3><a href="#lifting-types" id="lifting-types" class="anchor"></a>Lifting Types</h3>
 <p>The previous section has shown that the metaprogramming framework has
 to be able to take a type <code>T</code> and convert it to a type tree of type
-<code>TypeTag[T]</code> that can be reified. This means that all free variables of
+<code>Type[T]</code> that can be reified. This means that all free variables of
 the type tree refer to types and values defined in the current stage.</p>
 <p>For a reference to a global class, this is easy: Just issue the fully
 qualified name of the class. Members of reifiable types are handled by
 just reifying the containing type together with the member name. But
 what to do for references to type parameters or local type definitions
 that are not defined in the current stage? Here, we cannot construct
-the <code>TypeTag[T]</code> tree directly, so we need to get it from a recursive
+the <code>Type[T]</code> tree directly, so we need to get it from a recursive
 implicit search. For instance, to implement</p>
-<pre><code class="scala">summon[TypeTag[List[T]]]
+<pre><code class="scala">summon[Type[List[T]]]
 </code></pre>
 <p>where <code>T</code> is not defined in the current stage, we construct the type constructor
-of <code>List</code> applied to the splice of the result of searching for a given instance for <code>TypeTag[T]</code>:</p>
-<pre><code class="scala">'[ List[ ${ summon[TypeTag[T]] } ] ]
+of <code>List</code> applied to the splice of the result of searching for a given instance for <code>Type[T]</code>:</p>
+<pre><code class="scala">'[ List[ ${ summon[Type[T]] } ] ]
 </code></pre>
 <p>This is exactly the algorithm that Scala 2 uses to search for type tags.
 In fact Scala 2's type tag feature can be understood as a more ad-hoc version of
-<code>scala.quoted.TypeTag</code>. As was the case for type tags, the implicit search for a <code>TypeTag</code>
+<code>quoted.Type</code>. As was the case for type tags, the implicit search for a <code>quoted.Type</code>
 is handled by the compiler, using the algorithm sketched above.</p>
 <h3><a href="#relationship-with-inline" id="relationship-with-inline" class="anchor"></a>Relationship with Inline</h3>
 <p>Seen by itself, principled meta-programming looks more like a framework for
@@ -2208,7 +2196,7 @@ the code it runs produces one.</p>
 <p>Assume we have two methods, one <code>map</code> that takes an <code>Expr[Array[T]]</code> and a
 function <code>f</code> and one <code>sum</code> that performs a sum by delegating to <code>map</code>.</p>
 <pre><code class="scala">object Macros {
-  def map[T](arr: Expr[Array[T]], f: Expr[T] =&gt; Expr[Unit])(implicit t: TypeTag[T]): Expr[Unit] = '{
+  def map[T](arr: Expr[Array[T]], f: Expr[T] =&gt; Expr[Unit])(implicit t: Type[T]): Expr[Unit] = '{
     var i: Int = 0
     while (i &lt; ($arr).length) {
       val element: $t = ($arr)(i)
@@ -2274,7 +2262,7 @@ sum
 in a quote context. For this we simply provide `scala.quoted.matching.searchImplicitExpr:</p>
 <pre><code class="scala">inline def setFor[T]: Set[T] = ${ setForExpr[T] }
 
-def setForExpr[T: TypeTag](given QuoteContext): Expr[Set[T]] = {
+def setForExpr[T: Type](given QuoteContext): Expr[Set[T]] = {
   searchImplicitExpr[Ordering[T]] match {
     case Some(ord) =&gt; '{ new TreeSet[T]()($ord) }
     case _ =&gt; '{ new HashSet[T] }
