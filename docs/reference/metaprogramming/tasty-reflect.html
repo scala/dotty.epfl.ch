@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-10-10 -->
+<!-- This page was last generated on 2019-10-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -985,9 +985,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="../../.././api/scala/internal/quoted/Type$.html">O</a>
+                                    <a class="letter-anchor object" href="../../.././api/scala/internal/quoted/TypeTag$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="../../.././api/scala/internal/quoted/Type$.html">Type</a>
+                                <a class="entity-name" href="../../.././api/scala/internal/quoted/TypeTag$.html">TypeTag</a>
                             </li>
                             
 
@@ -1064,6 +1064,18 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="../../.././api/scala/quoted/Type.html">T</a>
+                                </div>
+                                <a class="entity-name" href="../../.././api/scala/quoted/Type.html">Type</a>
+                            </li>
+                            
+
+                        
                              <!-- ignore: companions are handled below -->
                             
 
@@ -1073,11 +1085,11 @@
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="../../.././api/scala/quoted/Type$.html">O</a>
+                                    <a class="letter-anchor object" href="../../.././api/scala/quoted/TypeTag$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="../../.././api/scala/quoted/Type.html">T</a>
+                                    <a class="letter-anchor trait" href="../../.././api/scala/quoted/TypeTag.html">T</a>
                                 </div>
-                                <a class="entity-name" href="../../.././api/scala/quoted/Type.html">Type</a>
+                                <a class="entity-name" href="../../.././api/scala/quoted/TypeTag.html">TypeTag</a>
                             </li>
                             
 
@@ -1787,12 +1799,12 @@
         </div>
     </header>
     <p>TASTy Reflect enables inspection and construction of Typed Abstract Syntax Trees
-(Typed-AST). It may be used on quoted expressions (<code>quoted.Expr</code>) and quoted
-types (<code>quoted.Type</code>) from <a href="./macros.html">Macros</a> or on full TASTy files.</p>
+(Typed-AST). It may be used on quoted expressions (<code>scala.quoted.Expr</code>) and quoted
+types (<code>scala.quoted.TypeTag</code>) from <a href="./macros.html">Macros</a> or on full TASTy files.</p>
 <p>If you are writing macros, please first read <a href="./macros.html">Macros</a>.
 You may find all you need without using TASTy Reflect.</p>
 <h2><a href="#api-from-quotes-and-splices-to-tasty-reflect-trees-and-back" id="api-from-quotes-and-splices-to-tasty-reflect-trees-and-back" class="anchor"></a>API: From quotes and splices to TASTy reflect trees and back</h2>
-<p>With <code>quoted.Expr</code> and <code>quoted.Type</code> we can compute code but also analyze code
+<p>With <code>scala.quoted.Expr</code> and <code>scala.quoted.TypeTag</code> we can compute code but also analyze code
 by inspecting the ASTs. <a href="./macros.html">Macros</a> provides the guarantee that the
 generation of code will be type-correct. Using TASTy Reflect will break these
 guarantees and may fail at macro expansion time, hence additional explicit
@@ -1810,8 +1822,8 @@ def natConstImpl(x: Expr[Int])(given qctx: QuoteContext): Expr[Int] = {
 }
 </code></pre>
 <h3><a href="#sealing-and-unsealing" id="sealing-and-unsealing" class="anchor"></a>Sealing and Unsealing</h3>
-<p><code>import qctx.tasty.{_, given}</code> will provide an <code>unseal</code> extension method on <code>quoted.Expr</code>
-and <code>quoted.Type</code> which returns a <code>qctx.tasty.Term</code> that represents the tree of
+<p><code>import qctx.tasty.{_, given}</code> will provide an <code>unseal</code> extension method on <code>scala.quoted.Expr</code>
+and <code>scala.quoted.TypeTag</code> which returns a <code>qctx.tasty.Term</code> that represents the tree of
 the expression and <code>qctx.tasty.TypeTree</code> that represents the tree of the type
 respectively. It will also import all extractors and methods on TASTy Reflect
 trees. For example the <code>Literal(_)</code> extractor used below.</p>
@@ -1835,7 +1847,7 @@ trees. For example the <code>Literal(_)</code> extractor used below.</p>
 <p>To easily know which extractors are needed, the <code>showExtractors</code> method on a
 <code>qctx.tasty.Term</code> returns the string representation of the extractors.</p>
 <p>The method <code>qctx.tasty.Term.seal[T]</code> provides a way to go back to a
-<code>quoted.Expr[Any]</code>. Note that the type is <code>Expr[Any]</code>. Consequently, the type
+<code>scala.quoted.Expr[Any]</code>. Note that the type is <code>Expr[Any]</code>. Consequently, the type
 must be set explicitly with a checked <code>cast</code> call. If the type does not conform
 to it an exception will be thrown. In the code above, we could have replaced
 <code>Expr(n)</code> by <code>xTree.seal.cast[Int]</code>.</p>
