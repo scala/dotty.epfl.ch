@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-10-15 -->
+<!-- This page was last generated on 2019-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2143,7 +2143,7 @@ in a functional context. To solve the problem of creating the right set, one
 would use it as follows:</p>
 <pre><code class="scala">import scala.compiletime.summonFrom
 
-inline def setFor[T]: Set[T] = summonFrom match {
+inline def setFor[T]: Set[T] = summonFrom {
   case given ord: Ordering[T] =&gt; new TreeSet[T]
   case _                      =&gt; new HashSet[T]
 }
