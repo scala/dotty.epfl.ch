@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>The Meta-theory of Symmetric Meta-programming</title>
+        <title>Dropped: private[this] and protected[this]</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -85,7 +85,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul >
+  <ul class="toggled">
     <li class="leaf"><a href="../../.././docs/reference/overview.html">Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -179,7 +179,7 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Dropped Features</a>
-  <ul >
+  <ul class="toggled">
     <li class="leaf"><a href="../../.././docs/reference/dropped-features/delayed-init.html">DelayedInit</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/macros.html">Macros</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/existential-types.html">Existential Types</a></li>
@@ -1779,226 +1779,21 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>The Meta-theory of Symmetric Meta-programming</h1>
+        <h1>Dropped: private[this] and protected[this]</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/metaprogramming/simple-smp.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/dropped-features/this-qualifier.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p>This note presents a simplified variant of
-<a href="./macros.html">principled meta-programming</a>
-and sketches its soundness proof. The variant treats only dialogues
-between two stages. A program can have quotes which can contain
-splices (which can contain quotes, which can contain splices, and so
-on). Or the program could start with a splice with embedded
-quotes. The essential restriction is that (1) a term can contain top-level
-quotes or top-level splices, but not both, and (2) quotes cannot appear
-directly inside quotes and splices cannot appear directly inside
-splices. In other words, the universe is restricted to two phases
-only.</p>
-<p>Under this restriction we can simplify the typing rules so that there are
-always exactly two environments instead of having a stack of environments.
-The variant presented here differs from the full calculus also in that we
-replace evaluation contexts with contextual typing rules. While this
-is more verbose, it makes it easier to set up the meta theory.</p>
-<h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
-<pre><code class="nohighlight">Terms         t  ::=  x                 variable
-                      (x: T) =&gt; t       lambda
-                      t t               application
-                      ’t                quote
-                      ~t                splice
-
-Simple terms  u  ::=  x  |  (x: T) =&gt; u  |  u u
-
-Values        v  ::=  (x: T) =&gt; t       lambda
-                      ’u                quoted value
-
-Types         T  ::=  A                 base type
-                      T -&gt; T            function type
-                      ’T                quoted type
-</code></pre>
-<h2><a href="#operational-semantics" id="operational-semantics" class="anchor"></a>Operational semantics</h2>
-<h3><a href="#evaluation" id="evaluation" class="anchor"></a>Evaluation</h3>
-<pre><code class="nohighlight">            ((x: T) =&gt; t) v  --&gt;  [x := v]t
-
-                         t1  --&gt;  t2
-                       ---------------
-                       t1 t  --&gt;  t2 t
-
-                         t1  --&gt;  t2
-                       ---------------
-                       v t1  --&gt;  v t2
-
-                         t1  ==&gt;  t2
-                        -------------
-                        ’t1  --&gt;  ’t2
-</code></pre>
-<h3><a href="#splicing" id="splicing" class="anchor"></a>Splicing</h3>
-<pre><code class="nohighlight">                        ~’u  ==&gt;  u
-
-                         t1  ==&gt;  t2
-               -------------------------------
-               (x: T) =&gt; t1  ==&gt;  (x: T) =&gt; t2
-
-                         t1  ==&gt;  t2
-                       ---------------
-                       t1 t  ==&gt;  t2 t
-
-                         t1  ==&gt;  t2
-                       ---------------
-                       u t1  ==&gt;  u t2
-
-                         t1  --&gt;  t2
-                        -------------
-                        ~t1  ==&gt;  ~t2
-
-</code></pre>
-<h2><a href="#typing-rules" id="typing-rules" class="anchor"></a>Typing Rules</h2>
-<p>Typing judgments are of the form  <code>E1 * E2 |- t: T</code> where <code>E1, E2</code> are environments and
-<code>*</code> is one of <code>~</code> and <code>’</code>.</p>
-<pre><code class="nohighlight">                          x: T in E2
-                       ---------------
-                       E1 * E2 |- x: T
-
-
-                   E1 * E2, x: T1 |- t: T2
-               --------------------------------
-               E1 * E2 |- (x: T1) =&gt; t: T -&gt; T2
-
-
-         E1 * E2 |- t1: T2 -&gt; T    E1 * E2 |- t2: T2
-         -------------------------------------------
-                     E1 * E2 |- t1 t2: T
-
-
-                       E2 ’ E1 |- t: T
-                      -----------------
-                      E1 ~ E2 |- ’t: ’T
-
-
-                       E2 ~ E1 |- t: ’T
-                       ----------------
-                       E1 ’ E2 |- ~t: T
-</code></pre>
-<p>(Curiously, this looks a bit like a Christmas tree).</p>
-<h2><a href="#soundness" id="soundness" class="anchor"></a>Soundness</h2>
-<p>The meta-theory typically requires mutual inductions over two judgments.</p>
-<h3><a href="#progress-theorem" id="progress-theorem" class="anchor"></a>Progress Theorem</h3>
-<ol>
-<li>If <code>E1 ~ |- t: T</code> then either <code>t = v</code> for some value <code>v</code> or <code>t --&gt; t2</code> for some term <code>t2</code>.</li>
-<li>If <code>’ E2 |- t: T</code> then either <code>t = u</code> for some simple term <code>u</code> or <code>t ==&gt; t2</code> for some term <code>t2</code>.</li>
-</ol>
-<p>Proof by structural induction over terms.</p>
-<p>To prove (1):</p>
+    <p>The <code>private[this]</code> and <code>protected[this]</code> access modifiers are deprecated and will be phased out.</p>
+<p>Previously, these modifier were needed</p>
 <ul>
-<li>the cases for variables, lambdas and applications are as in STL.</li>
-<li>If <code>t = ’t2</code>, then by inversion we have <code>’ E1 |- t2: T2</code> for some type <code>T2</code>.
-By the second I.H., we have one of:
-<ul>
-<li><code>t2 = u</code>, hence <code>’t2</code> is a value,</li>
-<li><code>t2 ==&gt; t3</code>, hence <code>’t2 --&gt; ’t3</code>.</li>
+<li>for avoiding the generation of getters and setters</li>
+<li>for excluding code under a <code>private[this]</code> from variance checks. (Scala 2 also excludes <code>protected[this]</code> but this was found to be unsound and was therefore removed).</li>
 </ul>
-</li>
-<li>The case <code>t = ~t2</code> is not typable.</li>
-</ul>
-<p>To prove (2):</p>
-<ul>
-<li>If <code>t = x</code> then <code>t</code> is a simple term.</li>
-<li>If <code>t = (x: T) =&gt; t2</code>, then either <code>t2</code> is a simple term, in which case <code>t</code> is as well.
-Or by the second I.H. <code>t2 ==&gt; t3</code>, in which case <code>t ==&gt; (x: T) =&gt; t3</code>.</li>
-<li>
-<p>If <code>t = t1 t2</code> then one of three cases applies:</p>
-<ul>
-<li><code>t1</code> and <code>t2</code> are a simple term, then <code>t</code> is as well a simple term.</li>
-<li><code>t1</code> is not a simple term. Then by the second IH, <code>t1 ==&gt; t12</code>, hence <code>t ==&gt; t12 t2</code>.</li>
-<li><code>t1</code> is a simple term but <code>t2</code> is not. Then by the second IH. <code>t2 ==&gt; t22</code>, hence <code>t ==&gt; t1 t22</code>.</li>
-</ul>
-</li>
-<li>The case <code>t = ’t2</code> is not typable.</li>
-<li>
-<p>If <code>t = ~t2</code> then by inversion we have <code>E2 ~ |- t2: ’T2</code>, for some some type <code>T2</code>.
-By the first I.H., we have one of</p>
-<ul>
-<li><code>t2 = v</code>. Since <code>t2: ’T2</code>, we must have <code>v = ’u</code>, for some simple term <code>u</code>, hence <code>t = ~’u</code>.
-By quote-splice reduction, <code>t ==&gt; u</code>.</li>
-<li><code>t2 --&gt; t3</code>. Then by the context rule for <code>’t</code>, <code>t ==&gt; ’t3</code>.</li>
-</ul>
-</li>
-</ul>
-<h3><a href="#substitution-lemma" id="substitution-lemma" class="anchor"></a>Substitution Lemma</h3>
-<ol>
-<li>If <code>E1 ~ E2 |- s: S</code> and <code>E1 ~ E2, x: S |- t: T</code> then <code>E1 ~ E2 |- [x := s]t: T</code>.</li>
-<li>If <code>E1 ~ E2 |- s: S</code> and <code>E2, x: S ’ E1 |- t: T</code> then <code>E2 ’ E1 |- [x := s]t: T</code>.</li>
-</ol>
-<p>The proofs are by induction on typing derivations for <code>t</code>, analogous
-to the proof for STL (with (2) a bit simpler than (1) since we do not
-need to swap lambda bindings with the bound variable <code>x</code>). The
-arguments that link the two hypotheses are as follows.</p>
-<p>To prove (1), let <code>t = ’t1</code>. Then <code>T = ’T1</code> for some type <code>T1</code> and the last typing rule is</p>
-<pre><code class="nohighlight">                    E2, x: S ’ E1 |- t1: T1
-                   -------------------------
-                   E1 ~ E2, x: S |- ’t1: ’T1
-</code></pre>
-<p>By the second I.H. <code>E2 ’ E1 |- [x := s]t1: T1</code>.  By typing, <code>E1 ~ E2 |- ’[x := s]t1: ’T1</code>.
-Since <code>[x := s]t = [x := s](’t1) = ’[x := s]t1</code> we get <code>[x := s]t: ’T1</code>.</p>
-<p>To prove (2), let <code>t = ~t1</code>. Then the last typing rule is</p>
-<pre><code class="nohighlight">                    E1 ~ E2, x: S |- t1: ’T
-                    -----------------------
-                    E2, x: S ’ E1 |- ~t1: T
-</code></pre>
-<p>By the first I.H., <code>E1 ~ E2 |- [x := s]t1: ’T</code>. By typing, <code>E2 ’ E1 |- ~[x := s]t1: T</code>.
-Since <code>[x := s]t = [x := s](~t1) = ~[x := s]t1</code> we get <code>[x := s]t: T</code>.</p>
-<h3><a href="#preservation-theorem" id="preservation-theorem" class="anchor"></a>Preservation Theorem</h3>
-<ol>
-<li>If <code>E1 ~ E2 |- t1: T</code> and <code>t1 --&gt; t2</code> then <code>E1 ~ E2 |- t2: T</code>.</li>
-<li>If <code>E1 ’ E2 |- t1: T</code> and <code>t1 ==&gt; t2</code> then <code>E1 ’ E2 |- t2: T</code>.</li>
-</ol>
-<p>The proof is by structural induction on evaluation derivations. The proof of (1) is analogous
-to the proof for STL, using the substitution lemma for the beta reduction case, with the addition of reduction of quoted terms, which goes as follows:</p>
-<ul>
-<li>Assume the last rule was
-<pre><code class="nohighlight">                    t1  ==&gt;  t2
-                   -------------
-                   ’t1  --&gt;  ’t2
-</code></pre>
-<p>By inversion of typing rules, we must have <code>T = ’T1</code> for some type <code>T1</code> such that <code>t1: T1</code>.
-By the second I.H., <code>t2: T1</code>, hence <code>’t2:</code>T1`.</p>
-</li>
-</ul>
-<p>To prove (2):</p>
-<ul>
-<li>
-<p>Assume the last rule was <code>~’u ==&gt; u</code>. The typing proof of <code>~’u</code> must have the form</p>
-<pre><code class="nohighlight">                  E1 ’ E2 |- u: T
-                 -----------------
-                 E1 ~ E2 |- ’u: ’T
-                 -----------------
-                 E1 ’ E2 |- ~’u: T
-</code></pre>
-<p>Hence, <code>E1 ’ E2 |- u: T</code>.</p>
-</li>
-<li>Assume the last rule was
-<pre><code class="nohighlight">                      t1  ==&gt;  t2
-            -------------------------------
-            (x: S) =&gt; t1  ==&gt;  (x: T) =&gt; t2
-</code></pre>
-<p>By typing inversion, <code>E1 ' E2, x: S |- t1: T1</code> for some type <code>T1</code> such that <code>T = S -&gt; T1</code>.
-By the I.H, <code>t2: T1</code>. By the typing rule for lambdas the result follows.</p>
-</li>
-<li>
-<p>The context rules for applications are equally straightforward.</p>
-</li>
-<li>Assume the last rule was
-<pre><code class="nohighlight">                      t1  ==&gt;  t2
-                     -------------
-                     ~t1  ==&gt;  ~t2
-</code></pre>
-<p>By inversion of typing rules, we must have <code>t1: ’T</code>.
-By the first I.H., <code>t2: ’T</code>, hence <code>~t2: T</code>.</p>
-</li>
-</ul>
+<p>The compiler now infers for <code>private</code> members the fact that they are only accessed via <code>this</code>. Such members are treated as if they had been declared <code>private[this]</code>. <code>protected[this]</code> is dropped without a replacement.</p>
 
 </main>
 </div>
