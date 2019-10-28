@@ -1854,6 +1854,7 @@ than the current indentation width, and</li>
 <p>If an <code>&lt;outdent&gt;</code> is inserted, the top element if popped from <code>IW</code>.
 If the indentation width of the token on the next line is still less than the new current indentation width, step (2) repeats. Therefore, several <code>&lt;outdent&gt;</code> tokens
 may be inserted in a row.</p>
+<p>An <code>&lt;outdent&gt;</code> is also inserted if the next statement following a statement sequence starting with an <code>&lt;indent&gt;</code> closes an indentation region, i.e. is one of <code>then</code>, <code>else</code>, <code>do</code>, <code>catch</code>, <code>finally</code>, <code>yield</code>, <code>}</code> or <code>case</code>.</p>
 </li>
 </ol>
 <p>It is an error if the indentation width of the token following an <code>&lt;outdent&gt;</code> does not
