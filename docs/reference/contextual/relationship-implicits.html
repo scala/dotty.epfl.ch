@@ -1831,6 +1831,8 @@ given given_Ord_List[T] : Ord[List[T]] { ... }
 <li>the simple name(s) of the implemented type(s), leaving out any prefixes,</li>
 <li>the simple name(s) of the toplevel argument type constructors to these types.</li>
 </ul>
+<p>Tuples are treated as transparent, i.e. a type <code>F[(X, Y)]</code> would get the synthesized name
+<code>F_X_Y</code>. Directly implemented function types <code>A =&gt; B</code> are represented as <code>A_to_B</code>. Function types used as arguments to other type constructors are represented as <code>Function</code>.</p>
 <p>Anonymous given instances that define extension methods without also implementing a type
 get their name from the name of the first extension method and the toplevel type
 constructor of its first parameter. For example, the given instance</p>

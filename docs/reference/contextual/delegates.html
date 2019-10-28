@@ -1824,7 +1824,7 @@ of the last section can also be expressed like this:</p>
 given [T](given Ord[T]): Ord[List[T]] { ... }
 </code></pre>
 <p>If the name of a given is missing, the compiler will synthesize a name from
-the type(s) in the <code>as</code> clause.</p>
+the implemented type(s).</p>
 <h2><a href="#alias-givens" id="alias-givens" class="anchor"></a>Alias Givens</h2>
 <p>An alias can be used to define a given instance that is equal to some expression. E.g.:</p>
 <pre><code class="scala">given global: ExecutionContext = new ForkJoinPool()
