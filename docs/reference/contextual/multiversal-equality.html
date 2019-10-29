@@ -1857,7 +1857,7 @@ done with an import</p>
 <p>Instead of defining <code>Eql</code> instances directly, it is often more convenient to derive them. Example:</p>
 <pre><code class="scala">class Box[T](x: T) derives Eql
 </code></pre>
-<p>By the usual rules if <a href="./derivation.html">typeclass derivation</a>,
+<p>By the usual rules of <a href="./derivation.html">typeclass derivation</a>,
 this generates the following <code>Eql</code> instance in the companion object of <code>Box</code>:</p>
 <pre><code class="scala">given [T, U](given Eql[T, U]) : Eql[Box[T], Box[U]] = Eql.derived
 </code></pre>
