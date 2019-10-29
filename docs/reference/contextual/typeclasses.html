@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-10-28 -->
+<!-- This page was last generated on 2019-10-29 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1816,25 +1816,25 @@ def sum[T: Monoid](xs: List[T]): T =
 </code></pre>
 <h3><a href="#functors-and-monads" id="functors-and-monads" class="anchor"></a>Functors and monads:</h3>
 <pre><code class="scala">trait Functor[F[_]] {
-  def (x: F[A]) map [A, B] (f: A =&gt; B): F[B]
+  def [A, B](x: F[A]) map (f: A =&gt; B): F[B]
 }
 
 trait Monad[F[_]] extends Functor[F] {
-  def (x: F[A]) flatMap [A, B] (f: A =&gt; F[B]): F[B]
-  def (x: F[A]) map [A, B] (f: A =&gt; B) = x.flatMap(f `andThen` pure)
+  def [A, B](x: F[A]) flatMap (f: A =&gt; F[B]): F[B]
+  def [A, B](x: F[A]) map (f: A =&gt; B) = x.flatMap(f `andThen` pure)
 
   def pure[A](x: A): F[A]
 }
 
 given listMonad: Monad[List] {
-  def (xs: List[A]) flatMap [A, B] (f: A =&gt; List[B]): List[B] =
+  def [A, B](xs: List[A]) flatMap (f: A =&gt; List[B]): List[B] =
     xs.flatMap(f)
   def pure[A](x: A): List[A] =
     List(x)
 }
 
 given readerMonad[Ctx]: Monad[[X] =&gt;&gt; Ctx =&gt; X] {
-  def (r: Ctx =&gt; A) flatMap [A, B] (f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
+  def [A, B](r: Ctx =&gt; A) flatMap (f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
     ctx =&gt; f(r(ctx))(ctx)
   def pure[A](x: A): Ctx =&gt; A =
     ctx =&gt; x
