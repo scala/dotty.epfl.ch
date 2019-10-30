@@ -1766,7 +1766,7 @@
 
 <div id="content-wrapper">
     <script>
-    document.title = "Dotty Docs - Type";
+    document.title = "Dotty Docs - IsPolyType";
 </script>
 <main class="container api">
     <header>
@@ -1778,7 +1778,7 @@
             object
         </span>
         <h1>
-            Type
+            IsPolyType
             
         </h1>
         <span class="name-suffix">
@@ -1826,7 +1826,7 @@
 
                 
                 
-                <div id="apply(clazz)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-apply-clazz--ctx-">
+                <div id="unapply(tpe)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-unapply-tpe--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1839,7 +1839,7 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                apply
+                                unapply
                             
                         </h3>
                         <!-- Type parameters -->
@@ -1851,9 +1851,9 @@
                                     (
                                                                     
                                         <span class="param">
-                                            clazz:
+                                            tpe:
                                             
-                                            Class<span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
+                                            <a href="../../../../.././api/scala/tasty/reflect/Core.html#TypeOrBounds">TypeOrBounds</a>
                                         </span>
                                         
                                     
@@ -1878,23 +1878,25 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: <a href="../../../../.././api/scala/tasty/reflect/Core.html#Type">Type</a></span>
+                            <span class="return-type">: Option<span class="type-params">[<a href="../../../../.././api/scala/tasty/reflect/Core.html#PolyType">PolyType</a>]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-apply-clazz--ctx-">
+                    <div class="short collapse show collapse-unapply-tpe--ctx-">
                         
-                            <p></p>
+                            <p>Matches any PolyType and returns it</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-apply-clazz--ctx-">
+                    <div class="details collapse collapse-unapply-tpe--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Matches any PolyType and returns it</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
