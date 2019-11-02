@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Named Type Arguments - More Details</title>
+        <title>Escapes in interpolations</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -1767,38 +1767,19 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Named Type Arguments - More Details</h1>
+        <h1>Escapes in interpolations</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/other-new-features/named-typeargs-spec.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/changed-features/interpolation-escapes.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
-<p>The addition to the grammar is:</p>
-<pre><code class="nohighlight">SimpleExpr1       ::=  ...
-                    |  SimpleExpr (TypeArgs | NamedTypeArgs)
-NamedTypeArgs     ::=  ‘[’ NamedTypeArg {‘,’ NamedTypeArg} ‘]’
-NamedTypeArg      ::=  id ‘=’ Type
+    <p>In Scala 2 there was no straightforward way to represnt a single quote character <code>&quot;</code> in a single quoted interpolation. A \ character can't be used for that because interpolators themselves decide how to handle escaping, so the parser doesn't know whether or not the &quot; shold be escaped or used as a terminator.</p>
+<p>In Dotty, you can use the <code>$</code> meta character of interpolations to escape a <code>&quot;</code> character.</p>
+<pre><code class="scala">  val inventor = &quot;Thomas Edison&quot;
+  val interpolation = s&quot;as $inventor said: $&quot;The three great essentials to achieve anything worth while are: Hard work, Stick-to-itiveness, and Common sense.$&quot;&quot;
 </code></pre>
-<p>Note in particular that named arguments cannot be passed to type constructors:</p>
-<pre><code class="scala">class C[T]
-
-val x: C[T = Int] = // error
-  new C[T = Int] // error
-
-class E extends C[T = Int] // error
-</code></pre>
-<h2><a href="#compatibility-considerations" id="compatibility-considerations" class="anchor"></a>Compatibility considerations</h2>
-<p>Named type arguments do not have an impact on binary compatibility, but they
-have an impact on source compatibility: if the name of a method type parameter
-is changed, any existing named reference to this parameter will break. This
-means that the names of method type parameters are now part of the public API
-of a library.</p>
-<p>(Unimplemented proposal: to mitigate this,
-<a href="https://www.scala-lang.org/api/current/scala/deprecatedName.html"><code>scala.deprecatedName</code></a>
-could be extended to also be applicable on method type parameters.)</p>
 
 </main>
 </div>
