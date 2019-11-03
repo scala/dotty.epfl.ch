@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-11-02 -->
+<!-- This page was last generated on 2019-11-03 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -146,6 +146,7 @@
 <li class="leaf"><a href="../.././docs/reference/other-new-features/creator-applications.html">Creator Applications</a></li>
 <li class="leaf"><a href="../.././docs/reference/other-new-features/export.html">Export Clauses</a></li>
 <li class="leaf"><a href="../.././docs/reference/other-new-features/opaques.html">Opaque Type Aliases</a></li>
+<li class="leaf"><a href="../.././docs/reference/other-new-features/open-classes.html">Open Classes</a></li>
 <li class="leaf"><a href="../.././docs/reference/other-new-features/parameter-untupling.html">Parameter Untupling</a></li>
 <li class="leaf"><a href="../.././docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a></li>
 <li class="leaf"><a href="../.././docs/reference/other-new-features/tupled-function.html">Tupled Function</a></li>
@@ -1932,6 +1933,104 @@ List(1, 2, 3) reverse
 
                 
                 
+                <div id="adhocExtensions$" class="member object public " data-toggle="collapse" data-target=".collapse-adhocExtensions-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">object&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                <a href="../.././api/scalaShadowing/language$/adhocExtensions$.html">adhocExtensions</a>
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-adhocExtensions-">
+                        
+                            <p>Where imported, ad hoc extensions of non-open classes in other
+compilation units are allowed.</p>
+<p>'''Why control the feature?''' Ad-hoc extensions should us...
+</p>
+<p>
+</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-adhocExtensions-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Where imported, ad hoc extensions of non-open classes in other
+compilation units are allowed.</p>
+<p>'''Why control the feature?''' Ad-hoc extensions should usually be avoided
+since they typically cannot reply on an &quot;internal&quot; contract between a class
+and its extensions. Only open classes need to specify such a contract.
+Ad-hoc extensions might break for future versions of the extended class,
+since the extended class is free to change its implementation without
+being constrained by an internal contract.</p>
+<p>'''Why allow it?''' An ad-hoc extension can sometimes be necessary,
+for instance when mocking a class in a testing framework, or to work
+around a bug or missing feature in the original class. Nevertheless,
+such extensions should be limited in scope and clearly documented.
+That's why the language import is required for them.</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
                 <div id="experimental$" class="member object public " data-toggle="collapse" data-target=".collapse-experimental-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -2134,7 +2233,7 @@ they encounter so they can be improved in future releases.</p>
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-strictEquality-">
                         
-                            <p>Where imported loose equality using eqAny is disabled</p>
+                            <p>Where imported, loose equality using eqAny is disabled</p>
 
                         
                     </div>
@@ -2143,7 +2242,7 @@ they encounter so they can be improved in future releases.</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Where imported loose equality using eqAny is disabled</p>
+                            <p>Where imported, loose equality using eqAny is disabled</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
