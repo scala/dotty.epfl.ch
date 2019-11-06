@@ -1784,7 +1784,7 @@ TypeBounds        ::=  [‘&gt;:’ Type] [‘&lt;:’ Type]
 </code></pre>
 <h3><a href="#type-checking" id="type-checking" class="anchor"></a>Type Checking</h3>
 <p>A type lambda such as <code>[X] =&gt;&gt; F[X]</code> defines a function from types to types. The parameter(s) may carry bounds and variance annotations.
-If a parameter is is bounded, as in <code>[X &gt;: L &lt;: H] =&gt;&gt; F[X]</code> it is checked that arguments to the parameters conform to the bounds <code>L</code> and <code>H</code>.
+If a parameter is bounded, as in <code>[X &gt;: L &lt;: H] =&gt;&gt; F[X]</code> it is checked that arguments to the parameters conform to the bounds <code>L</code> and <code>H</code>.
 Only the upper bound <code>H</code> can be F-bounded, i.e. <code>X</code> can appear in it.</p>
 <p>A variance annotation on a parameter indicates a subtyping relationship on type instances. For instance, given</p>
 <pre><code class="scala">type TL1 = [+A] =&gt;&gt; F[A]
