@@ -1927,7 +1927,7 @@ object IndentWidth
 end IndentWidth
 </code></pre>
 <h3><a href="#settings-and-rewrites" id="settings-and-rewrites" class="anchor"></a>Settings and Rewrites</h3>
-<p>Significant indentation is enabled by default. It can be turned off by giving any of the options <code>-noindent</code>, <code>old-syntax</code> and <code>language:Scala2</code>. If indentation is turned off, it is nevertheless checked that indentation conforms to the logical program structure as defined by braces. If that is not the case, the compiler issues an error (or, in the case of <code>-language:Scala2</code>, a migration warning).</p>
+<p>Significant indentation is enabled by default. It can be turned off by giving any of the options <code>-noindent</code>, <code>old-syntax</code> and <code>language:Scala2</code>. If indentation is turned off, it is nevertheless checked that indentation conforms to the logical program structure as defined by braces. If that is not the case, the compiler issues an error (or, in the case of <code>-language:Scala2Compat</code>, a migration warning).</p>
 <p>The Dotty compiler can rewrite source code to indented code and back.
 When invoked with options <code>-rewrite -indent</code> it will rewrite braces to
 indented regions where possible. When invoked with with options <code>-rewrite -noindent</code> it will rewrite in the reverse direction, inserting braces for indentation regions.
