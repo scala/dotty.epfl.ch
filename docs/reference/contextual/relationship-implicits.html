@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-11-14 -->
+<!-- This page was last generated on 2019-11-15 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1797,18 +1797,19 @@ final implicit def ListOrd[T](implicit ord: Ord[T]): ListOrd[T] = new ListOrd[T]
 </code></pre>
 </li>
 <li>Alias givens map to implicit methods or implicit lazy vals. If an alias has neither type parameters nor a given clause,
-it is treated as a lazy val, unless the right hand side is a simple reference, in which case we can use a forwarder to that
-reference without caching it.</li>
+it is treated as a lazy val, unless the right hand side is a simple reference, in which case we can use a forwarder to
+that reference without caching it.</li>
 </ol>
 <p>Examples:</p>
-<p>```scala
-given global: ExecutionContext = new ForkJoinContext()</p>
-<p>val ctx: Context
+<pre><code class="scala">given global: ExecutionContext = new ForkJoinContext()
+
+val ctx: Context
 given Context = ctx
-<code>would map to</code>scala
-final implicit lazy val global: ExecutionContext = new ForkJoinContext()
+</code></pre>
+<p>would map to</p>
+<pre><code class="scala">final implicit lazy val global: ExecutionContext = new ForkJoinContext()
 final implicit def given_Context = ctx
-```</p>
+</code></pre>
 <h3><a href="#anonymous-given-instances" id="anonymous-given-instances" class="anchor"></a>Anonymous Given Instances</h3>
 <p>Anonymous given instances get compiler synthesized names, which are generated in a reproducible way from the implemented type(s). For example, if the names of the <code>IntOrd</code> and <code>ListOrd</code> givens above were left out, the following names would be synthesized instead:</p>
 <pre><code class="scala">given given_Ord_Int : Ord[Int] { ... }
