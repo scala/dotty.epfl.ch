@@ -1905,7 +1905,7 @@ println(&quot;.&quot;)
 end largeMethod
 </code></pre>
 <p>An <code>end</code> marker consists of the identifier <code>end</code> which follows an <code>&lt;outdent&gt;</code> token, and is in turn followed on the same line by exactly one other token, which is either an identifier or one of the reserved words</p>
-<pre><code class="scala">if  while  for  match  try  new
+<pre><code class="scala">if  while  for  match  try  new  given
 </code></pre>
 <p>If <code>end</code> is followed by a reserved word, the compiler checks that the marker closes an indentation region belonging to a construct that starts with the reserved word. If it is followed by an identifier <em>id</em>, the compiler checks that the marker closes a definition
 that defines <em>id</em> or a package clause that refers to <em>id</em>.</p>
