@@ -1984,7 +1984,7 @@ no code that can be executed at runtime. That's why we define an intermediary cl
 <code>FromDigits</code> that contains a fallback implementation which is then overridden by the inline
 method in the <code>FromDigits</code> given instance. That method is defined in terms of a macro
 implementation method <code>fromDigitsImpl</code>. Here is its definition:</p>
-<pre><code class="scala">  private def fromDigitsImpl(digits: Expr[String]) given (ctx: QuoteContext): Expr[BigFloat] =
+<pre><code class="scala">  private def fromDigitsImpl(digits: Expr[String])(given ctx: QuoteContext): Expr[BigFloat] =
     digits match {
       case Const(ds) =&gt;
         try {

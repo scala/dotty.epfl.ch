@@ -1871,41 +1871,6 @@ from <code>T</code> to a type containing <code>m</code>. If there is more than o
 </ol>
 <p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
 <code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is given  (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
-<h3><a href="#given-instances-for-extension-methods" id="given-instances-for-extension-methods" class="anchor"></a>Given Instances for Extension Methods</h3>
-<p>Given instances that define extension methods can also be defined without a parent. E.g.,</p>
-<pre><code class="scala">given stringOps: {
-  def (xs: Seq[String]) longestStrings: Seq[String] = {
-    val maxLength = xs.map(_.length).max
-    xs.filter(_.length == maxLength)
-  }
-}
-
-given {
-  def [T](xs: List[T]) second = xs.tail.head
-}
-</code></pre>
-<p>If such given instances are anonymous (as in the second clause), their name is synthesized from the name of the first defined extension method.</p>
-<h3><a href="#given-instances-with-collective-parameters" id="given-instances-with-collective-parameters" class="anchor"></a>Given Instances with Collective Parameters</h3>
-<p>If a given instance has no parent but several extension methods one can pull out the left parameter section
-as well as any type parameters of these extension methods into the given instance itself.
-For instance, here is a given instance with two extension methods.</p>
-<pre><code class="scala">given listOps: {
-  def [T](xs: List[T]) second: T = xs.tail.head
-  def [T](xs: List[T]) third: T = xs.tail.tail.head
-}
-</code></pre>
-<p>The repetition in the parameters can be avoided by hoisting the parameters up into the given instance itself. The following version is a shorthand for the code above.</p>
-<pre><code class="scala">given listOps: [T](xs: List[T]) {
-  def second: T = xs.tail.head
-  def third: T = xs.tail.tail.head
-}
-</code></pre>
-<p>This syntax just adds convenience at the definition site. Applications of such extension methods are exactly the same as if their parameters were repeated in each extension method.
-Examples:</p>
-<pre><code class="scala">val xs = List(1, 2, 3)
-xs.second[Int]
-ListOps.third[T](xs)
-</code></pre>
 <h3><a href="#operators" id="operators" class="anchor"></a>Operators</h3>
 <p>The extension method syntax also applies to the definition of operators.
 In each case the definition syntax mirrors the way the operator is applied.
@@ -1937,14 +1902,50 @@ def [T: Numeric](x: T) + (y: T): T =
 <p>If an extension method has type parameters, they come immediately after the <code>def</code> and are followed by the extended parameter. When calling a  generic extension method, any explicitly given type arguments follow the method name. So the <code>second</code> method can be instantiated as follows:</p>
 <pre><code class="scala">List(1, 2, 3).second[Int]
 </code></pre>
+<h3><a href="#given-instances-for-extension-methods" id="given-instances-for-extension-methods" class="anchor"></a>Given Instances for Extension Methods</h3>
+<p><code>given</code> extensions are given instances that define extension methods and nothing else. Examples:</p>
+<pre><code class="scala">given stringOps: extension (xs: Seq[String]) {
+  def longestStrings: Seq[String] = {
+    val maxLength = xs.map(_.length).max
+    xs.filter(_.length == maxLength)
+  }
+}
+
+given listOps: extension [T](xs: List[T]) {
+  def second = xs.tail.head
+  def third: T = xs.tail.tail.head
+}
+
+given extension [T](xs: List[T])(given Ordering[T]) {
+  def largest(n: Int) = xs.sorted.takeRight(n)
+}
+</code></pre>
+<p>If a given extension is anonymous (as in the last clause), its name is synthesized from the name of the first defined extension method.</p>
+<p>The extensions above are equivalent to the following regular given instances where the implemented parent is <code>AnyRef</code> and the parameters in the <code>extension</code> clause are repeated in each extension method definition:</p>
+<pre><code class="scala">given stringOps: AnyRef {
+  def (xs: Seq[String]) longestStrings: Seq[String] = {
+    val maxLength = xs.map(_.length).max
+    xs.filter(_.length == maxLength)
+  }
+}
+given listOps: AnyRef {
+  def [T](xs: List[T]) second = xs.tail.head
+  def [T](xs: List[T]) third: T = xs.tail.tail.head
+}
+given given_largest_of_List_T: AnyRef {
+  def [T](xs: List[T]) largest (given Ordering[T])(n: Int) =
+    xs.sorted.takeRight(n)
+}
+</code></pre>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<p>The required syntax extension just adds one clause for extension methods relative
-to the <a href="../../internals/syntax.html">current syntax</a>.</p>
+<p>Here are the syntax changes for extension methods and given extensions relative
+to the <a href="../../internals/syntax.html">current syntax</a>. <code>extension</code> is a soft keyword, recognized only after a <code>given</code>. It can be used as an identifier everywhere else.</p>
 <pre><code class="nohighlight">DefSig            ::=  ...
                     |  ExtParamClause [nl] id DefParamClauses
 GivenDef          ::=  ...
-                       [GivenSig ‘:’] [ExtParamClause] TemplateBody
-ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’ {GivenParamClause}
+                       [id ‘:’] ‘extension’ ExtParamClause {GivenParamClause} ExtMethods
+ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’
+ExtMethods        ::=  [nl] ‘{’ ‘def’ DefDef {semi ‘def’ DefDef} ‘}’
 </code></pre>
 
 </main>

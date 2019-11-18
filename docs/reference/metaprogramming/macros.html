@@ -1951,7 +1951,7 @@ definition of <code>reflect</code> above is not phase correct since there is a
 quote but no splice between the parameter binding of <code>T</code> and its
 usage. But the code can be made phase correct by adding a binding
 of a <code>Type[T]</code> tag:</p>
-<pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U]) given (t: Type[T]): Expr[T =&gt; U] =
+<pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U])(given t: Type[T]): Expr[T =&gt; U] =
   '{ (x: $t) =&gt; ${ f('x) } }
 </code></pre>
 <p>In this version of <code>reflect</code>, the type of <code>x</code> is now the result of
