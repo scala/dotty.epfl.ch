@@ -1865,8 +1865,7 @@ given (given outer: Context): Context = outer.withOwner(currentOwner)
 <p>An alias given can have type parameters and given clauses just like any other given instance, but it can only implement a single type.</p>
 <h2><a href="#given-instance-initialization" id="given-instance-initialization" class="anchor"></a>Given Instance Initialization</h2>
 <p>A given instance without type parameters or given clause is initialized on-demand, the first
-time it is accessed. It is not required to ensure safe publication, which means that
-different threads might create different instances for the same <code>given</code> definition.
+time it is accessed.
 If a <code>given</code> definition has type parameters or a given clause, a fresh instance is created for each reference.</p>
 <h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
 <p>Here is the new syntax of given instances, seen as a delta from the <a href="../../internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
