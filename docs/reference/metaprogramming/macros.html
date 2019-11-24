@@ -1838,12 +1838,12 @@ prints it again in an error message if it evaluates to <code>false</code>.</p>
 inline def assert(expr: =&gt; Boolean): Unit =
   ${ assertImpl('expr) }
 
-def assertImpl(expr: Expr[Boolean]) = '{
+def assertImpl(expr: Expr[Boolean])(given QuoteContext) = '{
   if (!$expr)
     throw new AssertionError(s&quot;failed assertion: ${${ showExpr(expr) }}&quot;)
 }
 
-def showExpr(expr: Expr[Boolean]): Expr[String] =
+def showExpr(expr: Expr[Boolean])(given QuoteContext): Expr[String] =
   '{ &quot;&lt;some source code&gt;&quot; } // Better implementation later in this document
 </code></pre>
 <p>If <code>e</code> is an expression, then <code>'{e}</code> represents the typed
@@ -2009,20 +2009,21 @@ def compile(e: Exp, env: Map[String, Expr[Int]]): Expr[Int] = e match {
 <pre><code class="scala">'{ val y = 3; (2 + y) + 4 }
 </code></pre>
 <p>The body of the first clause, <code>case Num(n) =&gt; Expr(n)</code>, looks suspicious. <code>n</code>
-is declared as an <code>Int</code>, yet it is converted to an <code>Expr[Int]</code> with <code>toExpr</code>.
+is declared as an <code>Int</code>, yet it is converted to an <code>Expr[Int]</code> with <code>Expr()</code>.
 Shouldn’t <code>n</code> be quoted? In fact this would not
 work since replacing <code>n</code> by <code>'n</code> in the clause would not be phase
 correct.</p>
-<p>The <code>toExpr</code> extension method is defined in package <code>quoted</code>:</p>
+<p>The <code>Expr.apply</code> method is defined in package <code>quoted</code>:</p>
 <pre><code class="scala">package quoted
 
-given {
-  def (x: T) toExpr[T: Liftable](given QuoteContext): Expr[T] = summon[Liftable[T]].toExpr(x)
+object Expr {
+  ...
+  def apply[T: Liftable](x: T)(given QuoteContext): Expr[T] = summon[Liftable[T]].toExpr(x)
   ...
 }
 </code></pre>
-<p>The extension says that values of types implementing the <code>Liftable</code> type class can be
-converted (&quot;lifted&quot;) to <code>Expr</code> values using <code>toExpr</code>, provided a given import of <code>scala.quoted._</code> is in scope.</p>
+<p>This method says that values of types implementing the <code>Liftable</code> type class can be
+converted (&quot;lifted&quot;) to <code>Expr</code> values using <code>Expr.apply</code>.</p>
 <p>Dotty comes with given instances of <code>Liftable</code> for
 several types including <code>Boolean</code>, <code>String</code>, and all primitive number
 types. For example, <code>Int</code> values can be converted to <code>Expr[Int]</code>
