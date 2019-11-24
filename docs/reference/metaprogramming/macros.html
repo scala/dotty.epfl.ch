@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-11-22 -->
+<!-- This page was last generated on 2019-11-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1992,7 +1992,7 @@ val letExp = Let(&quot;x&quot;, Num(3), exp)
 <p>Here’s a compiler that maps an expression given in the interpreted
 language to quoted Scala code of type <code>Expr[Int]</code>.
 The compiler takes an environment that maps variable names to Scala <code>Expr</code>s.</p>
-<pre><code class="scala">import given scala.quoted._
+<pre><code class="scala">import scala.quoted.{given, _}
 
 def compile(e: Exp, env: Map[String, Expr[Int]]): Expr[Int] = e match {
   case Num(n) =&gt;
@@ -2071,9 +2071,9 @@ analogue of lifting.</p>
 }
 </code></pre>
 <p>That is, the <code>showExpr</code> method converts its <code>Expr</code> argument to a string (<code>code</code>), and lifts
-the result back to an <code>Expr[String]</code> using the <code>toExpr</code> method.</p>
-<p><strong>Note</strong>: the <code>toExpr</code> extension method can be ommited by importing an implicit
-conversion with <code>import given scala.quoted.autolift._</code>. The programmer is able to
+the result back to an <code>Expr[String]</code> using <code>Expr.apply</code>.</p>
+<p><strong>Note</strong>: Lifting <code>String</code> to <code>Expr[String]</code> using <code>Expr(code)</code> can be ommited by importing an implicit
+conversion with <code>import scala.quoted.autolift.given</code>. The programmer is able to
 declutter slightly the code at the cost of readable <em>phase distinction</em> between
 stages.</p>
 <h3><a href="#lifting-types" id="lifting-types" class="anchor"></a>Lifting Types</h3>
