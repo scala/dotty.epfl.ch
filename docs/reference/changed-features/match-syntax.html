@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Dropped: Symbol Literals</title>
+        <title>Match Expressions</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -158,7 +158,7 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Other Changed Features</a>
-  <ul >
+  <ul class="toggled">
     <li class="leaf"><a href="../../.././docs/reference/changed-features/numeric-literals.html" >Numeric Literals</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/structural-types.html" >Structural Types</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/operators.html" >Operators</a></li>
@@ -168,7 +168,7 @@
 <li class="leaf"><a href="../../.././docs/reference/changed-features/implicit-resolution.html" >Implicit Resolution</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/implicit-conversions.html" >Implicit Conversions</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/overload-resolution.html" >Overload Resolution</a></li>
-<li class="leaf"><a href="../../.././docs/reference/changed-features/match-syntax.html" >Match Expressions</a></li>
+<li class="leaf"><a href="../../.././docs/reference/changed-features/match-syntax.html" class="toggled">Match Expressions</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/vararg-patterns.html" >Vararg Patterns</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/pattern-bindings.html" >Pattern Bindings</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/pattern-matching.html" >Pattern Matching</a></li>
@@ -181,7 +181,7 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Dropped Features</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/dropped-features/delayed-init.html" >DelayedInit</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/macros.html" >Macros</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/existential-types.html" >Existential Types</a></li>
@@ -193,7 +193,7 @@
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/class-shadowing.html" >Class Shadowing</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/limit22.html" >Limit 22</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/xml.html" >XML literals</a></li>
-<li class="leaf"><a href="../../.././docs/reference/dropped-features/symlits.html" class="toggled">Symbol Literals</a></li>
+<li class="leaf"><a href="../../.././docs/reference/dropped-features/symlits.html" >Symbol Literals</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/auto-apply.html" >Auto-Application</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/weak-conformance.html" >Weak Conformance</a></li>
 <li class="leaf"><a href="../../.././docs/reference/dropped-features/nonlocal-returns.html" >Nonlocal Returns</a></li>
@@ -1805,16 +1805,52 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Dropped: Symbol Literals</h1>
+        <h1>Match Expressions</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/dropped-features/symlits.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/changed-features/match-syntax.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p>Symbol literals are no longer supported. The <code>scala.Symbol</code> class still exists, so a
-literal translation of the symbol literal <code>'xyz</code> is <code>Symbol(&quot;xyz&quot;)</code>. However, it is recommended to use a plain string literal <code>&quot;xyz&quot;</code> instead. (The <code>Symbol</code> class will be deprecated and removed in the future).</p>
+    <p>The syntactical precedence of match expressions has been changed.
+<code>match</code> is still a keyword, but it is used like an alphabetical operator. This has several consequences:</p>
+<ol>
+<li>
+<p><code>match</code> expressions can be chained:</p>
+<pre><code class="scala">xs match {
+  case Nil =&gt; &quot;empty&quot;
+  case x :: xs1 =&gt; &quot;nonempty&quot;
+} match {
+  case &quot;empty&quot; =&gt; 0
+  case &quot;nonempty&quot; =&gt; 1
+}
+
+</code></pre>
+</li>
+<li>
+<p><code>match</code> may follow a period:</p>
+<pre><code class="scala">if xsDefined
+   &amp;&amp; xs.match {
+        case Nil =&gt; false
+        case _ =&gt; true
+      }
+then &quot;nonempty&quot;
+else &quot;empty&quot;
+
+</code></pre>
+</li>
+<li>The scrutinee of a match expression must be an <code>InfixExpr</code>. Previously the scrutinee could be followed by a type ascription <code>: T</code>, but this is no longer supported. So <code>x : T match { ... }</code> now has to be
+written <code>(x: T) match { ... }</code>.</li>
+</ol>
+<h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
+<p>The new syntax of match expressions is as follows.</p>
+<pre><code class="nohighlight">InfixExpr    ::=  ...
+               |  InfixExpr MatchClause
+SimpleExpr   ::=  ...
+               |  SimpleExpr ‘.’ MatchClause
+MatchClause  ::=  ‘match’ ‘{’ CaseClauses ‘}’
+</code></pre>
 
 </main>
 </div>

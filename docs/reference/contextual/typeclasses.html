@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-11-29 -->
+<!-- This page was last generated on 2019-12-01 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -168,6 +168,7 @@
 <li class="leaf"><a href="../../.././docs/reference/changed-features/implicit-resolution.html" >Implicit Resolution</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/implicit-conversions.html" >Implicit Conversions</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/overload-resolution.html" >Overload Resolution</a></li>
+<li class="leaf"><a href="../../.././docs/reference/changed-features/match-syntax.html" >Match Expressions</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/vararg-patterns.html" >Vararg Patterns</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/pattern-bindings.html" >Pattern Bindings</a></li>
 <li class="leaf"><a href="../../.././docs/reference/changed-features/pattern-matching.html" >Pattern Matching</a></li>
@@ -1816,25 +1817,22 @@
 allow a concise and natural expression of <em>typeclasses</em>. Typeclasses are just traits
 with canonical implementations defined by given instances. Here are some examples of standard typeclasses:</p>
 <h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids" class="anchor"></a>Semigroups and monoids:</h3>
-<pre><code class="scala">trait SemiGroup[T] {
+<pre><code class="scala">trait SemiGroup[T] with
   def (x: T) combine (y: T): T
-}
-trait Monoid[T] extends SemiGroup[T] {
-  def unit: T
-}
-object Monoid {
-  def apply[T](given Monoid[T]) = summon[Monoid[T]]
-}
 
-given Monoid[String] {
+trait Monoid[T] extends SemiGroup[T] with
+  def unit: T
+
+object Monoid with
+  def apply[T](given Monoid[T]) = summon[Monoid[T]]
+
+given Monoid[String] with
   def (x: String) combine (y: String): String = x.concat(y)
   def unit: String = &quot;&quot;
-}
 
-given Monoid[Int] {
+given Monoid[Int] with
   def (x: Int) combine (y: Int): Int = x + y
   def unit: Int = 0
-}
 
 def sum[T: Monoid](xs: List[T]): T =
     xs.foldLeft(Monoid[T].unit)(_.combine(_))
