@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-12-03 -->
+<!-- This page was last generated on 2019-12-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1828,10 +1828,10 @@
   }
 
   // Extension methods define opaque types' public APIs
-  given logarithmOps: {
-    def (x: Logarithm) toDouble: Double = math.exp(x)
-    def (x: Logarithm) + (y: Logarithm): Logarithm = Logarithm(math.exp(x) + math.exp(y))
-    def (x: Logarithm) * (y: Logarithm): Logarithm = Logarithm(x + y)
+  given logarithmOps: (x: Logarithm) extended with {
+    def toDouble: Double = math.exp(x)
+    def + (y: Logarithm): Logarithm = Logarithm(math.exp(x) + math.exp(y))
+    def * (y: Logarithm): Logarithm = Logarithm(x + y)
   }
 }
 </code></pre>

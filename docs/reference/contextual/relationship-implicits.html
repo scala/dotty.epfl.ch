@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-12-03 -->
+<!-- This page was last generated on 2019-12-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1860,11 +1860,11 @@ given given_Ord_List[T] : Ord[List[T]] { ... }
 </ul>
 <p>Tuples are treated as transparent, i.e. a type <code>F[(X, Y)]</code> would get the synthesized name
 <code>F_X_Y</code>. Directly implemented function types <code>A =&gt; B</code> are represented as <code>A_to_B</code>. Function types used as arguments to other type constructors are represented as <code>Function</code>.</p>
-<p>Anonymous given instances that define extension methods without also implementing a type
+<p>Anonymous given instances that define extension methods
 get their name from the name of the first extension method and the toplevel type
 constructor of its first parameter. For example, the given instance</p>
-<pre><code class="scala">given {
-  def (xs: List[T]) second[T] = ...
+<pre><code class="scala">given [T] (xs: List[T]) extended with {
+  def second = ...
 }
 </code></pre>
 <p>gets the synthesized name <code>given_second_of_List_T</code>.</p>

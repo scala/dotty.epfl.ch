@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-12-03 -->
+<!-- This page was last generated on 2019-12-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1834,7 +1834,7 @@ implicit def i2(x: T): C[T] = ...
 <li>
 <p>The syntax of implicit definitions is too minimal. It consists of a single modifier, <code>implicit</code>, that can be attached to a large number of language constructs. A problem with this for newcomers is that it conveys mechanism instead of intent. For instance, a typeclass instance is an implicit object or val if unconditional and an implicit def with implicit parameters referring to some class if conditional. This describes precisely what the implicit definitions translate to -- just drop the <code>implicit</code> modifier, and that's it! But the cues that define intent are rather indirect and can be easily misread, as demonstrated by the definitions of <code>i1</code> and <code>i2</code> above.</p>
 </li>
-<li>The syntax of implicit parameters also has shortcomings. It starts with the position of <code>implicit</code> as a pseudo-modifier that applies to a whole parameter section instead of a single parameter. This represents an irregular case with respect to the rest of Scala's syntax. Furthermore, while implicit <em>parameters</em> are designated specifically, arguments are not. Passing an argument to an implicit parameter looks like a regular application <code>f(arg)</code>. This is problematic because it means there can be confusion regarding what parameter gets instantiated in a call. For instance, in
+<li>The syntax of implicit parameters also has shortcomings. While implicit <em>parameters</em> are designated specifically, arguments are not. Passing an argument to an implicit parameter looks like a regular application <code>f(arg)</code>. This is problematic because it means there can be confusion regarding what parameter gets instantiated in a call. For instance, in
 <pre><code class="scala">def currentMap(implicit ctx: Context): Map[String, Int]
 </code></pre>
 <p>one cannot write <code>currentMap(&quot;abc&quot;)</code> since the string &quot;abc&quot; is taken as explicit argument to the implicit <code>ctx</code> parameter. One has to write <code>currentMap.apply(&quot;abc&quot;)</code> instead, which is awkward and irregular. For the same reason, a method definition can only have one implicit parameter section and it must always come last. This restriction not only reduces orthogonality, but also prevents some useful program constructs, such as a method with a regular parameter whose type depends on an implicit value. Finally, it's also a bit annoying that implicit parameters must have a name, even though in many cases that name is never referenced.</p>

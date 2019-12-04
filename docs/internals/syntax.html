@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-12-03 -->
+<!-- This page was last generated on 2019-12-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2002,7 +2002,7 @@ SimpleExpr        ::=  Path
                     |  ‘$’ ‘{’ Block ‘}’
                     |  Quoted
                     |  quoteId     // only inside splices
-                    |  ‘new’ ConstrApp {`with` ConstrApp} [TemplateBody]        New(constr | templ)
+                    |  ‘new’ ConstrApp {‘with’ ConstrApp} [[‘with’] TemplateBody] New(constr | templ)
                     |  ‘new’ TemplateBody
                     |  ‘(’ ExprsInParens ‘)’                                    Parens(exprs)
                     |  SimpleExpr ‘.’ id                                        Select(expr, id)
@@ -2165,15 +2165,15 @@ ClassDef          ::=  id ClassConstr [Template]                                
 ClassConstr       ::=  [ClsTypeParamClause] [ConstrMods] ClsParamClauses        with DefDef(_, &lt;init&gt;, Nil, vparamss, EmptyTree, EmptyTree) as first stat
 ConstrMods        ::=  {Annotation} [AccessModifier]
 ObjectDef         ::=  id [Template]                                            ModuleDef(mods, name, template)  // no constructor
-EnumDef           ::=  id ClassConstr InheritClauses EnumBody                   EnumDef(mods, name, tparams, template)
+EnumDef           ::=  id ClassConstr InheritClauses [‘with’] EnumBody          EnumDef(mods, name, tparams, template)
 GivenDef          ::=  [GivenSig (‘:’ | &lt;:)] Type ‘=’ Expr
-                    |  [GivenSig ‘:’] [ConstrApp {‘,’ ConstrApp }] [TemplateBody]
-                    |  [[id ‘:’] ‘extension’ ExtParamClause {GivenParamClause}
-                       ExtMethods
+                    |  [GivenSig ‘:’] ConstrApps [[‘with’] TemplateBody]
+                    |  [id ‘:’] ExtParamClause {GivenParamClause}
+                       ‘extended’ ‘with’ ExtMethods
 GivenSig          ::=  [id] [DefTypeParamClause] {GivenParamClause}
 ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’
 ExtMethods        ::=  [nl] ‘{’ ‘def’ DefDef {semi ‘def’ DefDef} ‘}’
-Template          ::=  InheritClauses [TemplateBody]                            Template(constr, parents, self, stats)
+Template          ::=  InheritClauses [[‘with’] TemplateBody]                   Template(constr, parents, self, stats)
 InheritClauses    ::=  [‘extends’ ConstrApps] [‘derives’ QualId {‘,’ QualId}]
 ConstrApps        ::=  ConstrApp {(‘,’ | ‘with’) ConstrApp}
 ConstrApp         ::=  AnnotType {ParArgumentExprs}                             Apply(tp, args)
@@ -2181,8 +2181,7 @@ ConstrExpr        ::=  SelfInvocation
                     |  ‘{’ SelfInvocation {semi BlockStat} ‘}’
 SelfInvocation    ::=  ‘this’ ArgumentExprs {ArgumentExprs}
 
-TemplateBody      ::=  [nl | ‘with’]
-                       ‘{’ [SelfType] TemplateStat {semi TemplateStat} ‘}’      (self, stats)
+TemplateBody      ::=  [nl] ‘{’ [SelfType] TemplateStat {semi TemplateStat} ‘}’      (self, stats)
 TemplateStat      ::=  Import
                     |  Export
                     |  {Annotation [nl]} {Modifier} Def
