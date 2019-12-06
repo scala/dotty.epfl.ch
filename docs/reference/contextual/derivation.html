@@ -1980,7 +1980,7 @@ resolved at compile-time and only the left-hand side of the matching case will b
 types refined as revealed by the match.</p>
 <p>In the sum case, <code>eqSum</code>, we use the runtime <code>ordinal</code> values of the arguments to <code>eqv</code> to first check if the two
 values are of the same subtype of the ADT (3) and then, if they are, to further test for equality based on the <code>Eq</code>
-instance for the appropriate ADT subtype using the auxilliary method <code>check</code> (4).</p>
+instance for the appropriate ADT subtype using the auxiliary method <code>check</code> (4).</p>
 <pre><code class="scala">def eqSum[T](s: Mirror.SumOf[T], elems: List[Eq[_]]): Eq[T] =
   new Eq[T] {
     def eqv(x: T, y: T): Boolean = {
