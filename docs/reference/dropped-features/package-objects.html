@@ -1839,6 +1839,8 @@ implicit object Cops {
 in a source file <code>src.scala</code>, it could be invoked from the command line using a command like <code>scala src$package</code>. Since the
 &quot;program name&quot; is mangled it is recommended to always put <code>main</code> methods in explicitly named objects.</p>
 <p><strong>Note 3:</strong> The notion of <code>private</code> is independent of whether a definition is wrapped or not. A <code>private</code> toplevel definition is always visible from everywhere in the enclosing package.</p>
+<p><strong>Note 4:</strong> If several toplevel definitions are overloaded variants with the same name,
+they must all come from the same source file.</p>
 
 </main>
 </div>
