@@ -1869,7 +1869,7 @@ if and only if the export is tagged with <code>given</code>.</li>
 <p>It is a compile-time error if a simple or renaming selector does not identify any eligible
 members.</p>
 <p>Type members are aliased by type definitions, and term members are aliased by method definitions. Export aliases copy the type and value parameters of the members they refer to.
-Export aliases are always <code>final</code>. Aliases of given instances are again defined as givens (and aliases of old-style implicits are <code>implicit</code>). There are no other modifiers that can be given to an alias. This has the following consequences for overriding:</p>
+Export aliases are always <code>final</code>. Aliases of given instances are again defined as givens (and aliases of old-style implicits are <code>implicit</code>). Aliases of inline methods or values are again defined <code>inline</code>. There are no other modifiers that can be given to an alias. This has the following consequences for overriding:</p>
 <ul>
 <li>Export aliases cannot be overridden, since they are final.</li>
 <li>Export aliases cannot override concrete members in base classes, since they are
@@ -1905,7 +1905,6 @@ Consider the following example:</p>
 object a { val b = new B }
 export a._
 export b._
-}
 </code></pre>
 <p>Is the <code>export b._</code> clause legal? If yes, what does it export? Is it equivalent to <code>export a.b._</code>? What about if we swap the last two clauses?</p>
 <pre><code class="nohighlight">export b._
