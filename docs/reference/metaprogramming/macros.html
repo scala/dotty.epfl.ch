@@ -2281,11 +2281,11 @@ sum
 </code></pre>
 <h3><a href="#find-implicits-within-a-macro" id="find-implicits-within-a-macro" class="anchor"></a>Find implicits within a macro</h3>
 <p>Similarly to the <code>summonFrom</code> construct, it is possible to make implicit search available
-in a quote context. For this we simply provide `scala.quoted.matching.searchImplicitExpr:</p>
+in a quote context. For this we simply provide `scala.quoted.matching.summonExpr:</p>
 <pre><code class="scala">inline def setFor[T]: Set[T] = ${ setForExpr[T] }
 
 def setForExpr[T: Type](given QuoteContext): Expr[Set[T]] = {
-  searchImplicitExpr[Ordering[T]] match {
+  summonExpr[Ordering[T]] match {
     case Some(ord) =&gt; '{ new TreeSet[T]()($ord) }
     case _ =&gt; '{ new HashSet[T] }
   }
