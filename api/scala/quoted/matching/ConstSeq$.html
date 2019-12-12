@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-12-11 -->
+<!-- This page was last generated on 2019-12-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1927,7 +1927,8 @@
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-unapply-expr--qctx-">
                         
-                            <p>Matches literal sequence of literal constant value expressions</p>
+                            <p>Matches literal sequence of literal constant value expressions and return a sequence of values.</p>
+<p>Usage:</p>
 
                         
                     </div>
@@ -1936,7 +1937,15 @@
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Matches literal sequence of literal constant value expressions</p>
+                            <p>Matches literal sequence of literal constant value expressions and return a sequence of values.</p>
+<p>Usage:</p>
+<pre><code class="scala">inline def sum(args: Int*): Int = ${ sumExpr('args) }
+def sumExpr(argsExpr: Expr[Seq[Int]])(given QuoteContext): Expr[Int] = argsExpr match
+  case ConstSeq(args) =&gt;
+    // args: Seq[Int]
+    ...
+}
+</code></pre>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps

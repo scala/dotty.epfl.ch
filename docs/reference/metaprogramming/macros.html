@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-12-11 -->
+<!-- This page was last generated on 2019-12-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2316,6 +2316,71 @@ try to expand a macro but fail because the macro has not been compiled yet are s
 If there are any suspended files when the compilation ends, the compiler will automatically restart
 compilation of the suspended files using the output of the previous (partial) compilation as macro classpath.
 In case all files are suspended due to cyclic dependencies the compilation will fail with an error.</p>
+<h3><a href="#pattern-matching-on-quoted-expressions" id="pattern-matching-on-quoted-expressions" class="anchor"></a>Pattern matching on quoted expressions</h3>
+<p>It is possible to deconstruct or extract values out of <code>Expr</code> using pattern matching.</p>
+<h4><a href="#scalaquotedmatching" id="scalaquotedmatching" class="anchor"></a>scala.quoted.matching</h4>
+<p>In <code>scala.quoted.matching</code> contains object that can help extract values from <code>Expr</code>.</p>
+<ul>
+<li><code>scala.quoted.matching.Const</code>: matches an expression a literal value and returns the value.</li>
+<li><code>scala.quoted.matching.ExprSeq</code>: matches an explicit sequence of expresions and returns them. These sequences are useful to get individual <code>Expr[T]</code> out of a varargs expression of type <code>Expr[Seq[T]]</code>.</li>
+<li><code>scala.quoted.matching.ConstSeq</code>:  matches an explicit sequence of literal values and returns them.</li>
+</ul>
+<p>These could be used in the following way to optimize any call to <code>sum</code> that has statically known values.</p>
+<pre><code class="scala">inline def sum(args: =&gt;Int*): Int = ${ sumExpr('args) }
+private def sumExpr(argsExpr: Expr[Seq[Int]])(given QuoteContext): Expr[Int] = argsExpr.underlyingArgument match {
+  case ConstSeq(args) =&gt; // args is of type Seq[Int]
+    Expr(args.sum) // precompute result of sum
+  case ExprSeq(argExprs) =&gt; // argExprs is of type Seq[Expr[Int]]
+    val staticSum: Int = argExprs.map {
+      case Const(arg) =&gt; arg
+      case _ =&gt; 0
+    }.sum
+    val dynamicSum: Seq[Expr[Int]] = argExprs.filter {
+      case Const(_) =&gt; false
+      case arg =&gt; true
+    }
+    dynamicSum.foldLeft(Expr(staticSum))((acc, arg) =&gt; '{ $acc + $arg })
+  case _ =&gt;
+    '{ $argsExpr.sum }
+}
+</code></pre>
+<h4><a href="#quoted-patterns" id="quoted-patterns" class="anchor"></a>Quoted patterns</h4>
+<p>Quoted pattens allow to deconstruct complex code that contains a precise structure, types or methods.
+Patterns <code>'{ ... }</code> can be placed in any location where Scala expects a pattern.</p>
+<p>For example</p>
+<pre><code class="scala">optimize {
+  sum(sum(1, a, 2), 3, b)
+} // should be optimized to 6 + a + b
+</code></pre>
+<pre><code class="scala">def sum(args: =&gt;Int*): Int = args.sum
+inline def optimize(arg: Int): Int = ${ optimizeExpr('arg) }
+private def optimizeExpr(body: Expr[Int])(given QuoteContext): Expr[Int] = body match {
+  // Match a call to sum without any arguments
+  case '{ sum() } =&gt; Expr(0)
+  // Match a call to sum with an argument $n of type Int. n will be the Expr[Int] representing the argument.
+  case '{ sum($n) } =&gt; n
+  // Match a call to sum and extracts all its args in an `Expr[Seq[Int]]`
+  case '{ sum(${ExprSeq(args)}: _*) } =&gt; sumExpr(args)
+  case body =&gt; body
+}
+private def sumExpr(args1: Seq[Expr[Int]])(given QuoteContext): Expr[Int] = {
+    def flatSumArgs(arg: Expr[Int]): Seq[Expr[Int]] = arg match {
+      case '{ sum(${ExprSeq(subArgs)}: _*) } =&gt; subArgs.flatMap(flatSumArgs)
+      case arg =&gt; Seq(arg)
+    }
+    val args2 = args1.flatMap(flatSumArgs)
+    val staticSum: Int = args2.map {
+      case Const(arg) =&gt; arg
+      case _ =&gt; 0
+    }.sum
+    val dynamicSum: Seq[Expr[Int]] = args2.filter {
+      case Const(_) =&gt; false
+      case arg =&gt; true
+    }
+    dynamicSum.foldLeft(Expr(staticSum))((acc, arg) =&gt; '{ $acc + $arg })
+}
+</code></pre>
+<h3><a href="#more-details" id="more-details" class="anchor"></a>More details</h3>
 <p><a href="./macros-spec.html">More details</a></p>
 
 </main>
