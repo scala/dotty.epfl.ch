@@ -1874,11 +1874,11 @@ assertPositioned(tree)
 </code></pre>
 <p><code>def (a: A) reporting(f: given WrappedResult[T] =&gt; String, p: Printer = Printers.default): A</code> is defined on all types. The function <code>f</code> can be written without the argument since the argument is <code>given</code>. The <code>result</code> variable is a part of the <code>WrapperResult</code> – a tiny framework powering the <code>reporting</code> function. Basically, whenever you are using <code>reporting</code> on an object <code>A</code>, you can use the <code>result: A</code> variable from this function and it will be equal to the object you are calling <code>reporting</code> on.</p>
 <h2><a href="#printing-out-trees-after-phases" id="printing-out-trees-after-phases" class="anchor"></a>Printing out trees after phases</h2>
-<p>To print out the trees you are compiling after Frontend (scanner, parser, namer, typer) phase:</p>
-<pre><code class="shell">dotc -Xprint:frontend ../issues/Playground.scala
+<p>To print out the trees you are compiling after the FrontEnd (scanner, parser, namer, typer) phases:</p>
+<pre><code class="shell">dotc -Xprint:typer ../issues/Playground.scala
 </code></pre>
 <p>To print out the trees after Frontend and CollectSuperCalls phases:</p>
-<pre><code class="shell">dotc -Xprint:frontend,collectSuperCalls ../issues/Playground.scala
+<pre><code class="shell">dotc -Xprint:typer,collectSuperCalls ../issues/Playground.scala
 </code></pre>
 <p>To print out the trees after all phases:</p>
 <pre><code class="shell">dotc -Xprint:all ../issues/Playground.scala
@@ -1933,7 +1933,7 @@ val YtestPickler      = BooleanSetting(&quot;-Ytest-pickler&quot;      , &quot;s
 <p>And is to be used as:</p>
 <pre><code class="scala">dotc -Yprint-pos  ../issues/Playground.scala
 </code></pre>
-<p>If used, all the trees output with <code>show</code> or via <code>-Xprint:frontend</code> will also have positions attached to them, e.g.:</p>
+<p>If used, all the trees output with <code>show</code> or via <code>-Xprint:typer</code> will also have positions attached to them, e.g.:</p>
 <pre><code class="scala">package &lt;empty&gt;@&lt;Playground.scala:1&gt; {
   module object Playground {
     def main(
@@ -1956,7 +1956,7 @@ val YtestPickler      = BooleanSetting(&quot;-Ytest-pickler&quot;      , &quot;s
 <h2><a href="#figuring-out-an-object-creation-site" id="figuring-out-an-object-creation-site" class="anchor"></a>Figuring out an object creation site</h2>
 <h3><a href="#via-id" id="via-id" class="anchor"></a>Via ID</h3>
 <p>Every <a href="https://github.com/lampepfl/dotty/blob/10526a7d0aa8910729b6036ee51942e05b71abf6/compiler/src/dotty/tools/dotc/ast/Positioned.scala">Positioned</a> (a parent class of <code>Tree</code>) object has a <code>uniqueId</code> field. It is an integer that is unique for that tree and doesn't change from compile run to compile run. You can output these IDs from any printer (such as the ones used by <code>.show</code> and <code>-Xprint</code>) via <code>-Yshow-tree-ids</code> flag, e.g.:</p>
-<pre><code class="shell">dotc -Xprint:frontend -Yshow-tree-ids  ../issues/Playground.scala
+<pre><code class="shell">dotc -Xprint:typer -Yshow-tree-ids  ../issues/Playground.scala
 </code></pre>
 <p>Gives:</p>
 <pre><code class="scala">package &lt;empty&gt;#1047 {
@@ -2076,7 +2076,7 @@ a)bort, s)tack, r)esume
 <pre><code class="scala">trace.force(i&quot;typing $tree&quot;, typr, show = true) { // ...
 </code></pre>
 <h3><a href="#reporter" id="reporter" class="anchor"></a>Reporter</h3>
-<p>Defined in <a href="https://github.com/lampepfl/dotty/blob/10526a7d0aa8910729b6036ee51942e05b71abf6/compiler/src/dotty/tools/dotc/reporting/Reporter.scala">Reporter.scala</a>. Enables calls such as <code>ctx.log</code>, <code>ctx.error</code> etc. To enable, run dotc with <code>-Ylog:frontend</code> option.</p>
+<p>Defined in <a href="https://github.com/lampepfl/dotty/blob/10526a7d0aa8910729b6036ee51942e05b71abf6/compiler/src/dotty/tools/dotc/reporting/Reporter.scala">Reporter.scala</a>. Enables calls such as <code>ctx.log</code>, <code>ctx.error</code> etc. To enable, run dotc with <code>-Ylog:typer</code> option.</p>
 
 </main>
 </div>
