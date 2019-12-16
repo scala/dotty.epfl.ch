@@ -1814,7 +1814,7 @@ with union types: e.g. <code>val x: String|Null = null</code>.</p>
 <p>The implementation of the feature in dotty can be conceptually divided in several parts:
 1. changes to the type hierarchy so that <code>Null</code> is only a subtype of <code>Any</code>
 2. a &quot;translation layer&quot; for Java interop that exposes the nullability in Java APIs
-3. a &quot;magic&quot; <code>JavaNull</code> type (an alias for <code>Null</code>) that is recognized by the compiler and
+3. a &quot;magic&quot; <code>UncheckedNull</code> type (an alias for <code>Null</code>) that is recognized by the compiler and
 allows unsound member selections (trading soundness for usability)</p>
 <h2><a href="#feature-flag" id="feature-flag" class="anchor"></a>Feature Flag</h2>
 <p>Explicit nulls are disabled by default. They can be enabled via <code>-Yexplicit-nulls</code> defined in
@@ -1828,9 +1828,9 @@ to include <em>only</em> <code>Null</code> and <code>Any</code>
 <h2><a href="#java-interop" id="java-interop" class="anchor"></a>Java Interop</h2>
 <p>The problem we're trying to solve here is: if we see a Java method <code>String foo(String)</code>,
 what should that method look like to Scala?
-- since we should be able to pass <code>null</code> into Java methods, the argument type should be <code>String|JavaNull</code>
-- since Java methods might return <code>null</code>, the return type should be <code>String|JavaNull</code></p>
-<p><code>JavaNull</code> here is a type alias for <code>Null</code> with &quot;magic&quot; properties (see below).</p>
+- since we should be able to pass <code>null</code> into Java methods, the argument type should be <code>String|UncheckedNull</code>
+- since Java methods might return <code>null</code>, the return type should be <code>String|UncheckedNull</code></p>
+<p><code>UncheckedNull</code> here is a type alias for <code>Null</code> with &quot;magic&quot; properties (see below).</p>
 <p>At a high-level:
 - we track the loading of Java fields and methods as they're loaded by the compiler
 - we do this in two places: <code>Namer</code> (for Java sources) and <code>ClassFileParser</code> (for bytecode)
@@ -1843,24 +1843,24 @@ produces what the type of the symbol should be in the explicit nulls world.</p>
 <ol>
 <li>If the symbol is a Enum value definition or a <code>TYPE_</code> field, we don't nullify the type</li>
 <li>If it is <code>toString()</code> method or the constructor, or it has a <code>@NotNull</code> annotation,
-we nullify the type, without a <code>JavaNull</code> at the outmost level.</li>
+we nullify the type, without a <code>UncheckedNull</code> at the outmost level.</li>
 <li>Otherwise, we nullify the type in regular way.</li>
 </ol>
 <p>See <code>JavaNullMap</code> in <code>JavaNullInterop.scala</code> for more details about how we nullify different types.</p>
-<h2><a href="#javanull" id="javanull" class="anchor"></a>JavaNull</h2>
-<p><code>JavaNull</code> is just an alias for <code>Null</code>, but with magic power. <code>JavaNull</code>'s magic (anti-)power is that
+<h2><a href="#uncheckednull" id="uncheckednull" class="anchor"></a>UncheckedNull</h2>
+<p><code>UncheckedNull</code> is just an alias for <code>Null</code>, but with magic power. <code>UncheckedNull</code>'s magic (anti-)power is that
 it's unsound.</p>
-<pre><code class="scala">val s: String|JavaNull = &quot;hello&quot;
+<pre><code class="scala">val s: String|UncheckedNull = &quot;hello&quot;
 s.length // allowed, but might throw NPE
 </code></pre>
-<p><code>JavaNull</code> is defined as <code>JavaNullAlias</code> in <code>Definitions.scala</code>.
+<p><code>UncheckedNull</code> is defined as <code>UncheckedNullAlias</code> in <code>Definitions.scala</code>.
 The logic to allow member selections is defined in <code>findMember</code> in <code>Types.scala</code>:
 - if we're finding a member in a type union
-- and the union contains <code>JavaNull</code> on the r.h.s. after normalization (see below)
+- and the union contains <code>UncheckedNull</code> on the r.h.s. after normalization (see below)
 - then we can continue with <code>findMember</code> on the l.h.s of the union (as opposed to failing)</p>
 <h2><a href="#working-with-nullable-unions" id="working-with-nullable-unions" class="anchor"></a>Working with Nullable Unions</h2>
 <p>Within <code>Types.scala</code>, we defined some extractors to work with nullable unions:
-<code>OrNull</code> and <code>OrJavaNull</code>.</p>
+<code>OrNull</code> and <code>OrUncheckedNull</code>.</p>
 <pre><code class="scala">(tp: Type) match {
   case OrNull(tp1) =&gt; // if tp is a nullable union: tp1 | Null
   case _ =&gt; // otherwise
@@ -1871,13 +1871,13 @@ are methods of the <code>Type</code> class, so call them with <code>this</code> 
 <ul>
 <li><code>stripNull</code> syntactically strips all <code>Null</code> types in the union:
 e.g. <code>String|Null =&gt; String</code>.</li>
-<li><code>stripJavaNull</code> is like <code>stripNull</code> but only removes <code>JavaNull</code> from the union.
+<li><code>stripUncheckedNull</code> is like <code>stripNull</code> but only removes <code>UncheckedNull</code> from the union.
 This is needed when we want to &quot;revert&quot; the Java nullification function.</li>
-<li><code>stripAllJavaNull</code> collapses all <code>JavaNull</code> unions within this type, and not just the outermost
-ones (as <code>stripJavaNull</code> does).</li>
+<li><code>stripAllUncheckedNull</code> collapses all <code>UncheckedNull</code> unions within this type, and not just the outermost
+ones (as <code>stripUncheckedNull</code> does).</li>
 <li><code>isNullableUnion</code> determines whether <code>this</code> is a nullable union.</li>
-<li><code>isJavaNullableUnion</code> determines whether <code>this</code> is syntactically a union of the form
-<code>T|JavaNull</code>.</li>
+<li><code>isUncheckedNullableUnion</code> determines whether <code>this</code> is syntactically a union of the form
+<code>T|UncheckedNull</code>.</li>
 </ul>
 <h2><a href="#flow-typing" id="flow-typing" class="anchor"></a>Flow Typing</h2>
 <p>As typing happens, we accumulate a set of <code>NotNullInfo</code>s in the <code>Context</code> (see

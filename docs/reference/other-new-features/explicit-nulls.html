@@ -1877,7 +1877,7 @@ remain implicitly nullable.</p>
 <p>Specifically, we patch
 * the type of fields
 * the argument type and return type of methods</p>
-<p><code>JavaNull</code> is an alias for <code>Null</code> with magic properties (see below). We illustrate the rules with following examples:</p>
+<p><code>UncheckedNull</code> is an alias for <code>Null</code> with magic properties (see below). We illustrate the rules with following examples:</p>
 <ul>
 <li>
 <p>The first two rules are easy: we nullify reference types but not value types.</p>
@@ -1888,7 +1888,7 @@ remain implicitly nullable.</p>
 </code></pre>
 <p>==&gt;</p>
 <pre><code class="scala">class C {
-  val s: String|JavaNull
+  val s: String|UncheckedNull
   val x: Int
 }
 </code></pre>
@@ -1898,7 +1898,7 @@ remain implicitly nullable.</p>
 <pre><code class="java">class C&lt;T&gt; { T foo() { return null; } }
 </code></pre>
 <p>==&gt;</p>
-<pre><code class="scala">class C[T] { def foo(): T|JavaNull }
+<pre><code class="scala">class C[T] { def foo(): T|UncheckedNull }
 </code></pre>
 <p>Notice this is rule is sometimes too conservative, as witnessed by</p>
 <pre><code class="scala">class InScala {
@@ -1913,20 +1913,20 @@ remain implicitly nullable.</p>
 class BoxFactory&lt;T&gt; { Box&lt;T&gt; makeBox(); }
 </code></pre>
 <p>==&gt;</p>
-<pre><code class="scala">class Box[T] { def get(): T|JavaNull }
-class BoxFactory[T] { def makeBox(): Box[T]|JavaNull }
+<pre><code class="scala">class Box[T] { def get(): T|UncheckedNull }
+class BoxFactory[T] { def makeBox(): Box[T]|UncheckedNull }
 </code></pre>
 <p>Suppose we have a <code>BoxFactory[String]</code>. Notice that calling <code>makeBox()</code> on it returns a
-<code>Box[String]|JavaNull</code>, not a <code>Box[String|JavaNull]|JavaNull</code>. This seems at first
+<code>Box[String]|UncheckedNull</code>, not a <code>Box[String|UncheckedNull]|UncheckedNull</code>. This seems at first
 glance unsound (&quot;What if the box itself has <code>null</code> inside?&quot;), but is sound because calling
-<code>get()</code> on a <code>Box[String]</code> returns a <code>String|JavaNull</code>.</p>
+<code>get()</code> on a <code>Box[String]</code> returns a <code>String|UncheckedNull</code>.</p>
 <p>Notice that we need to patch <em>all</em> Java-defined classes that transitively appear in the
 argument or return type of a field or method accessible from the Scala code being compiled.
 Absent crazy reflection magic, we think that all such Java classes <em>must</em> be visible to
 the Typer in the first place, so they will be patched.</p>
 </li>
 <li>
-<p>We will append <code>JavaNull</code> to the type arguments if the generic class is defined in Scala.</p>
+<p>We will append <code>UncheckedNull</code> to the type arguments if the generic class is defined in Scala.</p>
 <pre><code class="java">class BoxFactory&lt;T&gt; {
   Box&lt;T&gt; makeBox(); // Box is Scala-defined
   List&lt;Box&lt;List&lt;T&gt;&gt;&gt; makeCrazyBoxes(); // List is Java-defined
@@ -1934,15 +1934,15 @@ the Typer in the first place, so they will be patched.</p>
 </code></pre>
 <p>==&gt;</p>
 <pre><code class="scala">class BoxFactory[T] {
-  def makeBox(): Box[T | JavaNull] | JavaNull
-  def makeCrazyBoxes(): List[Box[List[T] | JavaNull]] | JavaNull
+  def makeBox(): Box[T | UncheckedNull] | UncheckedNull
+  def makeCrazyBoxes(): List[Box[List[T] | UncheckedNull]] | UncheckedNull
 }
 </code></pre>
-<p>In this case, since <code>Box</code> is Scala-defined, and we will get <code>Box[T|JavaNull]|JavaNull</code>.
+<p>In this case, since <code>Box</code> is Scala-defined, and we will get <code>Box[T|UncheckedNull]|UncheckedNull</code>.
 This is needed because our nullability function is only applied (modularly) to the Java
 classes, but not to the Scala ones, so we need a way to tell <code>Box</code> that it contains a
 nullable value.</p>
-<p>The <code>List</code> is Java-defined, so we don't append <code>JavaNull</code> to its type argument. But we
+<p>The <code>List</code> is Java-defined, so we don't append <code>UncheckedNull</code> to its type argument. But we
 still need to nullify its inside.</p>
 </li>
 <li>
@@ -1966,7 +1966,7 @@ still need to nullify its inside.</p>
 </code></pre>
 </li>
 <li>
-<p>We don't append <code>JavaNull</code> to a field and the return type of a method which is annotated with a
+<p>We don't append <code>UncheckedNull</code> to a field and the return type of a method which is annotated with a
 <code>NotNull</code> annotation.</p>
 <pre><code class="java">class C {
   @NotNull String name;
@@ -1977,8 +1977,8 @@ still need to nullify its inside.</p>
 <p>==&gt;</p>
 <pre><code class="scala">class C {
   val name: String
-  def getNames(prefix: String | JavaNull): List[String] // we still need to nullify the paramter types
-  def getBoxedName(): Box[String | JavaNull] // we don't append `JavaNull` to the outmost level, but we still need to nullify inside
+  def getNames(prefix: String | UncheckedNull): List[String] // we still need to nullify the paramter types
+  def getBoxedName(): Box[String | UncheckedNull] // we don't append `UncheckedNull` to the outmost level, but we still need to nullify inside
 }
 </code></pre>
 <p>The annotation must be from the list below to be recognized as NotNull by the compiler.
@@ -2004,20 +2004,20 @@ Check <code>Definitions.scala</code> for an updated list.</p>
 </code></pre>
 </li>
 </ul>
-<h3><a href="#javanull" id="javanull" class="anchor"></a>JavaNull</h3>
+<h3><a href="#uncheckednull" id="uncheckednull" class="anchor"></a>UncheckedNull</h3>
 <p>To enable method chaining on Java-returned values, we have the special type alias for <code>Null</code>:</p>
-<pre><code class="scala">type JavaNull = Null
+<pre><code class="scala">type UncheckedNull = Null
 </code></pre>
-<p><code>JavaNull</code> behaves just like <code>Null</code>, except it allows (unsound) member selections:</p>
+<p><code>UncheckedNull</code> behaves just like <code>Null</code>, except it allows (unsound) member selections:</p>
 <pre><code class="scala">// Assume someJavaMethod()'s original Java signature is
 // String someJavaMethod() {}
 val s2: String = someJavaMethod().trim().substring(2).toLowerCase() // unsound
 </code></pre>
-<p>Here, all of <code>trim</code>, <code>substring</code> and <code>toLowerCase</code> return a <code>String|JavaNull</code>.
-The Typer notices the <code>JavaNull</code> and allows the member selection to go through.
+<p>Here, all of <code>trim</code>, <code>substring</code> and <code>toLowerCase</code> return a <code>String|UncheckedNull</code>.
+The Typer notices the <code>UncheckedNull</code> and allows the member selection to go through.
 However, if <code>someJavaMethod</code> were to return <code>null</code>, then the first member selection
 would throw a <code>NPE</code>.</p>
-<p>Without <code>JavaNull</code>, the chaining becomes too cumbersome</p>
+<p>Without <code>UncheckedNull</code>, the chaining becomes too cumbersome</p>
 <pre><code class="scala">val ret = someJavaMethod()
 val s2 = if (ret != null) {
   val tmp = ret.trim()
