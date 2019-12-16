@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2019-12-15 -->
+<!-- This page was last generated on 2019-12-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2379,6 +2379,43 @@ private def sumExpr(args1: Seq[Expr[Int]])(given QuoteContext): Expr[Int] = {
       case arg =&gt; true
     }
     dynamicSum.foldLeft(Expr(staticSum))((acc, arg) =&gt; '{ $acc + $arg })
+}
+</code></pre>
+<h4><a href="#recovering-precise-types-using-patterns" id="recovering-precise-types-using-patterns" class="anchor"></a>Recovering precise types using patterns</h4>
+<p>Sometimes it is necessary to get a more precise type for an expression. This can be achived using the following pattern match.</p>
+<pre><code class="scala">def f(exp: Expr[Any]) =
+  expr match
+    case '{ $x: $t } =&gt;
+      // If the pattern match succeeds, then there is some type `T` such that
+      // - `x` is bound to a variable of type `Expr[T]`
+      // - `t` is bound to a given instance of type `Type[T]`
+      // That is, we have `x: Expr[T]` and `given t: Type[T]`, for some (unknown) type `T`.
+</code></pre>
+<p>This might be used to then perform an implicit search as in:</p>
+<pre><code class="scala">inline def (sc: StringContext) showMe(args: =&gt;Any*): String = ${ showMeExpr('sc, 'args) }
+
+private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(given qctx: QuoteContext): Expr[String] = {
+  argsExpr match {
+    case ExprSeq(argExprs) =&gt;
+      val argShowedExprs = argExprs.map {
+        case '{ $arg: $tp } =&gt;
+          val showTp = '[Show[$tp]]
+          summonExpr(given showTp)) match {
+            case Some(showExpr) =&gt; '{ $showExpr.show($arg) }
+            case None =&gt; qctx.error(s&quot;could not find implicit for ${showTp.show}&quot;, arg); '{???}
+          }
+      }
+      val newArgsExpr = Expr.ofSeq(argShowedExprs)
+      '{ $sc.s($newArgsExpr: _*) }
+    case _ =&gt;
+      // `new StringContext(...).showMeExpr(args: _*)` not an explicit `showMeExpr&quot;...&quot;`
+      qctx.error(s&quot;Args must be explicit&quot;, argsExpr)
+      '{???}
+  }
+}
+
+trait Show[-T] {
+  def show(x: T): String
 }
 </code></pre>
 <h3><a href="#more-details" id="more-details" class="anchor"></a>More details</h3>
