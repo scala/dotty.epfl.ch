@@ -1791,7 +1791,7 @@
 
 given intCodec: Codec[Int] = ???
 
-given optionCodec[T](given ev: =&gt; Codec[T]): Codec[Option[T]] {
+given optionCodec[T]: (ev: =&gt; Codec[T]) =&gt; Codec[Option[T]] {
   def write(xo: Option[T]) = xo match {
     case Some(x) =&gt; ev.write(x)
     case None =&gt;

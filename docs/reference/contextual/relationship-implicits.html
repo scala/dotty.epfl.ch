@@ -1797,7 +1797,7 @@
 </code></pre>
 </li>
 <li>Parameterized given instances are mapped to combinations of classes and implicit methods. E.g.,
-<pre><code class="scala">  given listOrd[T](given ord: Ord[T]): Ord[List[T]] { ... }
+<pre><code class="scala">  given listOrd[T]: (ord: Ord[T]) =&gt; Ord[List[T]] { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="scala">class ListOrd[T](implicit ord: Ord[T]) extends Ord[List[T]] { ... }
