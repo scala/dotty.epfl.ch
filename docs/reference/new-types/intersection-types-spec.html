@@ -1829,7 +1829,7 @@ intersection inside the constructor, using the following two rules:</p>
 <p>When <code>C</code> is covariant, <code>C[A &amp; B] &lt;: C[A] &amp; C[B]</code> can be derived:</p>
 <pre><code class="nohighlight">    A &lt;: A                  B &lt;: B
   ----------               ---------
-  A &amp; B &lt;: A               A &amp; B &lt; B
+  A &amp; B &lt;: A               A &amp; B &lt;: B
 ---------------         -----------------
 C[A &amp; B] &lt;: C[A]          C[A &amp; B] &lt;: C[B]
 ------------------------------------------
@@ -1838,7 +1838,7 @@ C[A &amp; B] &lt;: C[A]          C[A &amp; B] &lt;: C[B]
 <p>When <code>C</code> is contravariant, <code>C[A | B] &lt;: C[A] &amp; C[B]</code> can be derived:</p>
 <pre><code class="nohighlight">    A &lt;: A                        B &lt;: B
   ----------                     ---------
-  A &lt;: A | B                     B &lt; A | B
+  A &lt;: A | B                     B &lt;: A | B
 -------------------           ----------------
 C[A | B] &lt;: C[A]              C[A | B] &lt;: C[B]
 --------------------------------------------------
@@ -1857,10 +1857,11 @@ glb(A, B)                 =    A                     if A extends B
 glb(A, B)                 =    B                     if B extends A
 glb(A, _)                 =    A                     if A is not a trait
 glb(_, B)                 =    B                     if B is not a trait
-glb(A, _)                 =    A
+glb(A, _)                 =    A                     // use first
 </code></pre>
 <p>In the above, <code>|T|</code> means the erased type of <code>T</code>, <code>JArray</code> refers to
 the type of Java Array.</p>
+<p>See also: <code>TypeErasure#erasedGlb</code></p>
 <h2><a href="#relationship-with-compound-type-with" id="relationship-with-compound-type-with" class="anchor"></a>Relationship with Compound Type (<code>with</code>)</h2>
 <p>Intersection types <code>A &amp; B</code> replace compound types <code>A with B</code> in Scala 2. For the
 moment, the syntax <code>A with B</code> is still allowed and interpreted as <code>A &amp; B</code>, but
