@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-01-01 -->
+<!-- This page was last generated on 2020-01-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1802,9 +1802,9 @@ a maximum function that works for any arguments for which an ordering exists can
 </code></pre>
 <p>Here, <code>ord</code> is an <em>implicit parameter</em> introduced with a <code>given</code> clause.
 The <code>max</code> method can be applied as follows:</p>
-<pre><code class="scala">max(2, 3)(given IntOrd)
+<pre><code class="scala">max(2, 3)(given intOrd)
 </code></pre>
-<p>The <code>(given IntOrd)</code> part passes <code>IntOrd</code> as an argument for the <code>ord</code> parameter. But the point of
+<p>The <code>(given intOrd)</code> part passes <code>intOrd</code> as an argument for the <code>ord</code> parameter. But the point of
 implicit parameters is that this argument can also be left out (and it usually is). So the following
 applications are equally valid:</p>
 <pre><code class="scala">max(2, 3)
@@ -1835,8 +1835,8 @@ def minimum[T](xs: List[T])(given Ord[T]) =
 With this setup, the following calls are all well-formed, and they all normalize to the last one:</p>
 <pre><code class="scala">minimum(xs)
 maximum(xs)(given descending)
-maximum(xs)(given descending(given ListOrd))
-maximum(xs)(given descending(given ListOrd(given IntOrd)))
+maximum(xs)(given descending(given listOrd))
+maximum(xs)(given descending(given listOrd(given intOrd)))
 </code></pre>
 <h2><a href="#multiple-given-clauses" id="multiple-given-clauses" class="anchor"></a>Multiple Given Clauses</h2>
 <p>There can be several <code>given</code> parameter clauses in a definition and <code>given</code> parameter clauses can be freely
@@ -1859,9 +1859,9 @@ f(global)(given ctx)(given sym, kind)
 <h2><a href="#summoning-instances" id="summoning-instances" class="anchor"></a>Summoning Instances</h2>
 <p>The method <code>summon</code> in <code>Predef</code> returns the given instance of a specific type. For example,
 the given instance for <code>Ord[List[Int]]</code> is produced by</p>
-<pre><code class="scala">summon[Ord[List[Int]]]  // reduces to ListOrd given IntOrd
+<pre><code class="scala">summon[Ord[List[Int]]]  // reduces to listOrd given intOrd
 </code></pre>
-<p>The <code>summon</code> method is simply defined as the (non-widening) identity function over a implicit parameter.</p>
+<p>The <code>summon</code> method is simply defined as the (non-widening) identity function over an implicit parameter.</p>
 <pre><code class="scala">def summon[T](given x: T): x.type = x
 </code></pre>
 <h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>

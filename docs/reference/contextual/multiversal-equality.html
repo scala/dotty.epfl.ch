@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-01-01 -->
+<!-- This page was last generated on 2020-01-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1924,7 +1924,7 @@ we are dealing with a refinement of pre-existing, universal equality. It's best 
 <p>does not work, since it refers to the covariant parameter <code>T</code> in a nonvariant context. The only variance-correct way to use the type parameter <code>T</code> in <code>contains</code> is as a lower bound:</p>
 <pre><code class="scala">  def contains[U &gt;: T](x: U): Boolean
 </code></pre>
-<p>This generic version of <code>contains</code> is the one used in the current (Scala 2.12) version of <code>List</code>.
+<p>This generic version of <code>contains</code> is the one used in the current (Scala 2.13) version of <code>List</code>.
 It looks different but it admits exactly the same applications as the <code>contains(x: Any)</code> definition we started with.
 However, we can make it more useful (i.e. restrictive) by adding an <code>Eql</code> parameter:</p>
 <pre><code class="scala">  def contains[U &gt;: T](x: U)(given Eql[T, U]): Boolean // (1)

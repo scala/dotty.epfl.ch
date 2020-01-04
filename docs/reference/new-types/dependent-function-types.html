@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-01-01 -->
+<!-- This page was last generated on 2020-01-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1803,7 +1803,7 @@ val extractor: (e: Entry) =&gt; e.Key = extractKey  // a dependent function valu
 </code></pre>
 <p>Scala already has <em>dependent methods</em>, i.e. methods where the result
 type refers to some of the parameters of the method. Method
-<code>extractKey</code> is an example. Its result type, <code>e.key</code> refers its
+<code>extractKey</code> is an example. Its result type, <code>e.Key</code> refers its
 parameter <code>e</code> (we also say, <code>e.Key</code> <em>depends</em> on <code>e</code>). But so far it
 was not possible to turn such methods into function values, so that
 they can be passed as parameters to other functions, or returned as
@@ -1812,8 +1812,8 @@ because there was no type that could describe them.</p>
 <p>In Dotty this is now possible. The type of the <code>extractor</code> value above is</p>
 <pre><code class="scala">(e: Entry) =&gt; e.Key
 </code></pre>
-<p>This type describes function values that take any argument <code>x</code> of type
-<code>Entry</code> and return a result of type <code>x.Key</code>.</p>
+<p>This type describes function values that take any argument <code>e</code> of type
+<code>Entry</code> and return a result of type <code>e.Key</code>.</p>
 <p>Recall that a normal function type <code>A =&gt; B</code> is represented as an
 instance of the <code>Function1</code> trait (i.e. <code>Function1[A, B]</code>) and
 analogously for functions with more parameters. Dependent functions

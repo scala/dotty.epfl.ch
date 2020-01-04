@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-01-01 -->
+<!-- This page was last generated on 2020-01-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1856,10 +1856,10 @@ constructor of its first parameter. For example, the given instance</p>
 Explicit arguments to parameters of given clauses <em>must</em> be written using <code>given</code>,
 mirroring the definition syntax. E.g, <code>max(2, 3)(given IntOrd</code>).
 Scala 2 uses normal applications <code>max(2, 3)(IntOrd)</code> instead. The Scala 2 syntax has some inherent ambiguities and restrictions which are overcome by the new syntax. For instance, multiple implicit parameter lists are not available in the old syntax, even though they can be simulated using auxiliary objects in the &quot;Aux&quot; pattern.</p>
-<p>The <code>the</code> method corresponds to <code>implicitly</code> in Scala 2.
+<p>The <code>summon</code> method corresponds to <code>implicitly</code> in Scala 2.
 It is precisely the same as the <code>the</code> method in Shapeless.
-The difference between <code>the</code> (in both versions) and <code>implicitly</code> is
-that <code>the</code> can return a more precise type than the type that was
+The difference between <code>summon</code> (or <code>the</code>) and <code>implicitly</code> is
+that <code>summon</code> can return a more precise type than the type that was
 asked for.</p>
 <h3><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h3>
 <p>Context bounds are the same in both language versions. They expand to the respective forms of implicit parameters.</p>
@@ -1871,7 +1871,7 @@ will map to given clauses instead.</p>
 <pre><code class="scala">def (c: Circle) circumference: Double = c.radius * math.Pi * 2
 </code></pre>
 <p>could be simulated to some degree by</p>
-<pre><code class="scala">implicit class CircleDeco(c: Circle) extends AnyVal {
+<pre><code class="scala">implicit class CircleDecorator(c: Circle) extends AnyVal {
   def circumference: Double = c.radius * math.Pi * 2
 }
 </code></pre>
@@ -1905,11 +1905,11 @@ given Position = pos
 </code></pre>
 <h3><a href="#abstract-implicits" id="abstract-implicits" class="anchor"></a>Abstract Implicits</h3>
 <p>An abstract implicit <code>val</code> or <code>def</code> in Scala 2 can be expressed in Dotty using a regular abstract definition and an alias given. E.g., Scala 2's</p>
-<pre><code class="scala">implicit def symDeco: SymDeco
+<pre><code class="scala">implicit def symDecorator: SymDecorator
 </code></pre>
 <p>can be expressed in Dotty as</p>
-<pre><code class="scala">def symDeco: SymDeco
-given SymDeco = symDeco
+<pre><code class="scala">def symDecorator: SymDecorator
+given SymDecorator = symDecorator
 </code></pre>
 <h2><a href="#implementation-status-and-timeline" id="implementation-status-and-timeline" class="anchor"></a>Implementation Status and Timeline</h2>
 <p>The Dotty implementation implements both Scala-2's implicits and the new abstractions. In fact, support for Scala-2's implicits is an essential part of the common language subset between 2.13/2.14 and Dotty.
