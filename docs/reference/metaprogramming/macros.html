@@ -2011,7 +2011,7 @@ in the sense that they could all be defined in a user program without
 knowing anything about the representation of <code>Expr</code> trees. For
 instance, here is a possible instance of <code>Liftable[Boolean]</code>:</p>
 <pre><code class="scala">given Liftable[Boolean] {
-  def toExpr(b: Boolean)(given QuoteContext): Expr[Boolean] =
+  def toExpr(b: Boolean) =
     if (b) '{ true } else '{ false }
 }
 </code></pre>
@@ -2019,7 +2019,7 @@ instance, here is a possible instance of <code>Liftable[Boolean]</code>:</p>
 possible implementation of <code>Liftable[Int]</code> that does not use the underlying
 tree machinery:</p>
 <pre><code class="scala">given Liftable[Int] {
-  def toExpr(n: Int)(given QuoteContext): Expr[Int] = n match {
+  def toExpr(n: Int) = n match {
     case Int.MinValue    =&gt; '{ Int.MinValue }
     case _ if n &lt; 0      =&gt; '{ - ${ toExpr(-n) } }
     case 0               =&gt; '{ 0 }
@@ -2030,9 +2030,9 @@ tree machinery:</p>
 </code></pre>
 <p>Since <code>Liftable</code> is a type class, its instances can be conditional. For example,
 a <code>List</code> is liftable if its element type is:</p>
-<pre><code class="scala">given [T: Liftable] : Liftable[List[T]] {
-  def toExpr(xs: List[T])(given QuoteContext): Expr[List[T]] = xs match {
-    case head :: tail =&gt; '{ ${ toExpr(head) } :: ${ toExpr(tail) } }
+<pre><code class="scala">given [T: Liftable : Type] : Liftable[List[T]] {
+  def toExpr(xs: List[T]) = xs match {
+    case head :: tail =&gt; '{ ${ Expr(head) } :: ${ toExpr(tail) } }
     case Nil =&gt; '{ Nil: List[T] }
   }
 }
@@ -2043,7 +2043,7 @@ collections, case classes and enums. Note also that the synthesis
 of <em>type-tag</em> values of type <code>Type[T]</code> is essentially the type-level
 analogue of lifting.</p>
 <p>Using lifting, we can now give the missing definition of <code>showExpr</code> in the introductory example:</p>
-<pre><code class="scala">def showExpr[T](expr: Expr[T]): Expr[String] = {
+<pre><code class="scala">def showExpr[T](expr: Expr[T])(given QuoteContext): Expr[String] = {
   val code: String = expr.show
   Expr(code)
 }
