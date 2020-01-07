@@ -1815,7 +1815,7 @@ object Logger {
 <p>The <code>Config</code> object contains a definition of the <strong>inline value</strong> <code>logging</code>.
 This means that <code>logging</code> is treated as a <em>constant value</em>, equivalent to its
 right-hand side <code>false</code>. The right-hand side of such an <code>inline val</code> must itself
-be a <a href="https://scala-lang.org/files/archive/spec/2.12/06-expressions.html#constant-expressions">constant expression</a>.
+be a <a href="https://scala-lang.org/files/archive/spec/2.13/06-expressions.html#constant-expressions">constant expression</a>.
 Used in this way, <code>inline</code> is equivalent to Java and Scala 2's <code>final</code>. Note that <code>final</code>, meaning
 <em>inlined constant</em>, is still supported in Dotty, but will be phased out.</p>
 <p>The <code>Logger</code> object contains a definition of the <strong>inline method</strong> <code>log</code>. This
@@ -1873,16 +1873,16 @@ straight inline code without any loop or recursion.</p>
     val y = power(x, n / 2)
     if (n % 2 == 0) y * y else y * y * x
   }
-
-  power(expr, 10)
-    // translates to
-    //
-    //    val x = expr
-    //    val y1 = x * x   // ^2
-    //    val y2 = y1 * y1 // ^4
-    //    val y3 = y2 * x  // ^5
-    //    y3 * y3          // ^10
 }
+
+power(expr, 10)
+// translates to
+//
+//    val x = expr
+//    val y1 = x * x   // ^2
+//    val y2 = y1 * y1 // ^4
+//    val y3 = y2 * x  // ^5
+//    y3 * y3          // ^10
 </code></pre>
 <p>Parameters of inline methods can have an <code>inline</code> modifier as well. This means
 that actual arguments to these parameters must be constant expressions.
