@@ -1936,19 +1936,19 @@
 
 <div id="content-wrapper">
     <script>
-    document.title = "Dotty Docs - Sum";
+    document.title = "Dotty Docs - Unpickler";
 </script>
 <main class="container api">
     <header>
-        <span class="letter-anchor trait">T</span>
+        <span class="letter-anchor object">O</span>
         <span class="name-prefix">
             <span class="modifiers">
                 
             </span>
-            trait
+            object
         </span>
         <h1>
-            Sum
+            Unpickler
             
         </h1>
         <span class="name-suffix">
@@ -1956,7 +1956,7 @@
                 extends
                 
                     Object
-                    with <a href="../../../.././api/scala/deriving$/Mirror.html">Mirror</a>
+                    with Serializable
                     
                 
             
@@ -1965,7 +1965,7 @@
     <!-- Description -->
     
         <div id="description">
-            <p>The Mirror for a sum type</p>
+            <p>Provides methods to unpickle <code>Expr</code> and <code>Type</code> trees.</p>
 
         </div>
     
@@ -1977,7 +1977,7 @@
                 
                     Object, 
                 
-                    <a href="../../../.././api/scala/deriving$/Mirror.html">Mirror</a>
+                    Serializable
                 
             </span>
         </div>
@@ -2001,7 +2001,250 @@
 
                 
                 
-                <div id="ordinal(x)" class="member def public " data-toggle="collapse" data-target=".collapse-ordinal-x-">
+                <div id="PickledExprArgs" class="member type public " data-toggle="collapse" data-target=".collapse-PickledExprArgs">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">type&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                PickledExprArgs
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                            <span class="type-alias">&nbsp;= Seq<span class="type-params">[Seq<span class="type-params">[Any]</span><span class="right-arrow"> =&gt; </span>implicit <a href="../../../.././api/scala/quoted/QuoteContext.html">QuoteContext</a><span class="right-arrow"> =&gt; </span><a href="../../../.././api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Any]</span><span class="and-or-separator"> | </span><a href="../../../.././api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>]</span></span>
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-PickledExprArgs">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-PickledExprArgs">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="PickledQuote" class="member type public " data-toggle="collapse" data-target=".collapse-PickledQuote">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">type&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                PickledQuote
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                            <span class="type-alias">&nbsp;= List<span class="type-params">[String]</span></span>
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-PickledQuote">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-PickledQuote">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="PickledTypeArgs" class="member type public " data-toggle="collapse" data-target=".collapse-PickledTypeArgs">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">type&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                PickledTypeArgs
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                            <span class="type-alias">&nbsp;= Seq<span class="type-params">[Seq<span class="type-params">[Any]</span><span class="right-arrow"> =&gt; </span><a href="../../../.././api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>]</span></span>
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-PickledTypeArgs">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-PickledTypeArgs">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="unpickleExpr(repr,args)" class="member def public " data-toggle="collapse" data-target=".collapse-unpickleExpr-repr_args-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2014,10 +2257,14 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                ordinal
+                                unpickleExpr
                             
                         </h3>
                         <!-- Type parameters -->
+                        
+                            <span class="type-params">
+                                [T]
+                            </span>
                         
                         <!-- Method parameters -->
                         
@@ -2026,9 +2273,16 @@
                                     (
                                                                     
                                         <span class="param">
-                                            x:
+                                            repr:
                                             
-                                            <a href="../../../.././api/scala/deriving$/Mirror.html#MirroredMonoType">MirroredMonoType</a>
+                                            <a href="../../../.././api/scala/internal/quoted/Unpickler$.html#PickledQuote">PickledQuote</a>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            args:
+                                            
+                                            <a href="../../../.././api/scala/internal/quoted/Unpickler$.html#PickledExprArgs">PickledExprArgs</a>
                                         </span>
                                         
                                     
@@ -2038,24 +2292,137 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: Int</span>
+                            <span class="return-type">: implicit <a href="../../../.././api/scala/quoted/QuoteContext.html">QuoteContext</a><span class="right-arrow"> =&gt; </span><a href="../../../.././api/scala/quoted/Expr.html">Expr</a><span class="type-params">[T]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-ordinal-x-">
+                    <div class="short collapse show collapse-unpickleExpr-repr_args-">
                         
-                            <p>The ordinal number of the case class of <code>x</code>. For enums, <code>ordinal(x) == x.ordinal</code></p>
+                            <p>Unpickle <code>repr</code> which represents a pickled <code>Expr</code> tree,
+replacing splice nodes with <code>args</code></p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-ordinal-x-">
+                    <div class="details collapse collapse-unpickleExpr-repr_args-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>The ordinal number of the case class of <code>x</code>. For enums, <code>ordinal(x) == x.ordinal</code></p>
+                            <p>Unpickle <code>repr</code> which represents a pickled <code>Expr</code> tree,
+replacing splice nodes with <code>args</code></p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="unpickleType(repr,args)" class="member def public " data-toggle="collapse" data-target=".collapse-unpickleType-repr_args-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                unpickleType
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                            <span class="type-params">
+                                [T]
+                            </span>
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            repr:
+                                            
+                                            <a href="../../../.././api/scala/internal/quoted/Unpickler$.html#PickledQuote">PickledQuote</a>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            args:
+                                            
+                                            <a href="../../../.././api/scala/internal/quoted/Unpickler$.html#PickledTypeArgs">PickledTypeArgs</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: implicit <a href="../../../.././api/scala/quoted/QuoteContext.html">QuoteContext</a><span class="right-arrow"> =&gt; </span><a href="../../../.././api/scala/quoted/Type.html">Type</a><span class="type-params">[T]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-unpickleType-repr_args-">
+                        
+                            <p>Unpickle <code>repr</code> which represents a pickled <code>Type</code> tree,
+replacing splice nodes with <code>args</code></p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-unpickleType-repr_args-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Unpickle <code>repr</code> which represents a pickled <code>Type</code> tree,
+replacing splice nodes with <code>args</code></p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
