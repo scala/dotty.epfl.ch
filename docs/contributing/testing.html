@@ -1872,6 +1872,17 @@ Modify blacklist and whitelists in <code>compiler/test/dotc</code> to enable or 
 &gt; testCompilation --from-tasty
 </code></pre>
 <p>This mode can be run under <code>dotty-compiler-bootstrapped/testCompilation</code> to test on a bootstrapped Dotty compiler.</p>
+<h3><a href="#semanticdb-tests" id="semanticdb-tests" class="anchor"></a>SemanticDB tests</h3>
+<p>The output of the <code>extractSemanticDB</code> phase, enabled with <code>-Ysemanticdb</code> is tested with the bootstrapped JUnit test
+<code>dotty.tools.dotc.semanticdb.SemanticdbTests</code>. It uses source files in <code>tests/semanticdb/expect</code> to generate
+two kinds of output file that are compared with &quot;expect files&quot;: placement of semanticdb symbol occurrences inline in
+sourcecode (<code>*.expect.scala</code>), for human verification by inspection; and secondly metap formatted output which outputs
+all information stored in semanticdb (<code>metac.expect</code>).
+Expect files are used as regression tests to detect changes in the compiler.</p>
+<p>The test suite will create a new file if it detects any difference, which can be compared with the
+original expect file, or if the user wants to globally replace all expect files for semanticdb they can use
+<code>dotty-compiler-bootstrapped/test:runMain dotty.tools.dotc.semanticdb.updateExpect</code>, and compare the changes via version
+control.</p>
 
 </main>
 </div>
