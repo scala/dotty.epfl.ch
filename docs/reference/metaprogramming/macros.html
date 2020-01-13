@@ -2553,7 +2553,7 @@ private def sumExpr(args1: Seq[Expr[Int]])(given QuoteContext): Expr[Int] = {
       // That is, we have `x: Expr[T]` and `given t: Type[T]`, for some (unknown) type `T`.
 </code></pre>
 <p>This might be used to then perform an implicit search as in:</p>
-<pre><code class="scala">inline def (sc: StringContext) showMe(args: =&gt;Any*): String = ${ showMeExpr('sc, 'args) }
+<pre><code class="scala">inline def (sc: StringContext).showMe(args: =&gt;Any*): String = ${ showMeExpr('sc, 'args) }
 
 private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(given qctx: QuoteContext): Expr[String] = {
   argsExpr match {

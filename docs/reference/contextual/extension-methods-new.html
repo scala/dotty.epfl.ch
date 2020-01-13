@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Opaque Type Aliases</title>
+        <title>Extension Methods</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -109,13 +109,13 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
-  <ul >
+  <ul class="toggled">
     <li class="leaf"><a href="../../.././docs/reference/contextual/motivation.html" >Overview</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/delegates.html" >Given Instances</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
-<li class="leaf"><a href="../../.././docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
+<li class="leaf"><a href="../../.././docs/reference/contextual/extension-methods.html" class="toggled">Extension Methods</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
@@ -140,11 +140,11 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Other New Features</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/other-new-features/trait-parameters.html" >Trait Parameters</a></li>
 <li class="leaf"><a href="../../.././docs/reference/other-new-features/creator-applications.html" >Creator Applications</a></li>
 <li class="leaf"><a href="../../.././docs/reference/other-new-features/export.html" >Export Clauses</a></li>
-<li class="leaf"><a href="../../.././docs/reference/other-new-features/opaques.html" class="toggled">Opaque Type Aliases</a></li>
+<li class="leaf"><a href="../../.././docs/reference/other-new-features/opaques.html" >Opaque Type Aliases</a></li>
 <li class="leaf"><a href="../../.././docs/reference/other-new-features/open-classes.html" >Open Classes</a></li>
 <li class="leaf"><a href="../../.././docs/reference/other-new-features/parameter-untupling.html" >Parameter Untupling</a></li>
 <li class="leaf"><a href="../../.././docs/reference/other-new-features/kind-polymorphism.html" >Kind Polymorphism</a></li>
@@ -1961,102 +1961,154 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Opaque Type Aliases</h1>
+        <h1>Extension Methods</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/other-new-features/opaques.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/extension-methods-new.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p>Opaque types aliases provide type abstraction without any overhead. Example:</p>
-<pre><code class="scala">object Logarithms {
+    <p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
+<pre><code class="scala">case class Circle(x: Double, y: Double, radius: Double)
 
-  opaque type Logarithm = Double
-
-  object Logarithm {
-
-    // These are the ways to lift to the logarithm type
-    def apply(d: Double): Logarithm = math.log(d)
-
-    def safe(d: Double): Option[Logarithm] =
-      if (d &gt; 0.0) Some(math.log(d)) else None
-  }
-
-  // Extension methods define opaque types' public APIs
-  given logarithmOps: (x: Logarithm) extended with {
-    def toDouble: Double = math.exp(x)
-    def + (y: Logarithm): Logarithm = Logarithm(math.exp(x) + math.exp(y))
-    def * (y: Logarithm): Logarithm = x + y
-  }
-}
+def (c: Circle).circumference: Double = c.radius * math.Pi * 2
 </code></pre>
-<p>This introduces <code>Logarithm</code> as a new type, which is implemented as <code>Double</code> but is different from it. The fact that <code>Logarithm</code> is the same as <code>Double</code> is only known in the scope where
-<code>Logarithm</code> is defined which in this case is object <code>Logarithms</code>.</p>
-<p>The public API of <code>Logarithm</code> consists of the <code>apply</code> and <code>safe</code> methods that convert from doubles to <code>Logarithm</code> values, an extension method <code>toDouble</code> that converts the other way,
-and operations <code>+</code> and <code>*</code> on logarithm values. The implementations of these functions
-type-check because within object <code>Logarithms</code>, the type <code>Logarithm</code> is just an alias of <code>Double</code>.</p>
-<p>Outside its scope, <code>Logarithm</code> is treated as a new abstract type. So the
-following operations would be valid because they use functionality implemented in the <code>Logarithm</code> object.</p>
-<pre><code class="scala">import Logarithms._
-import Predef.{any2stringadd =&gt; _, _}
-
-val l = Logarithm(1.0)
-val l2 = Logarithm(2.0)
-val l3 = l * l2
-val l4 = l + l2
+<p>Like regular methods, extension methods can be invoked with infix <code>.</code>:</p>
+<pre><code class="scala">val circle = Circle(0, 0, 1)
+circle.circumference
 </code></pre>
-<p>But the following operations would lead to type errors:</p>
-<pre><code class="scala">val d: Double = l       // error: found: Logarithm, required: Double
-val l2: Logarithm = 1.0 // error: found: Double, required: Logarithm
-l * 2                   // error: found: Int(2), required: Logarithm
-l / l2                  // error: `/` is not a member fo Logarithm
+<h3><a href="#translation-of-extension-methods" id="translation-of-extension-methods" class="anchor"></a>Translation of Extension Methods</h3>
+<p>Extension methods are methods that have a parameter clause in front of the defined
+identifier. They translate to methods where the leading parameter section is moved
+to after the defined identifier. So, the definition of <code>circumference</code> above translates
+to the plain method, and can also be invoked as such:</p>
+<pre><code class="scala">def circumference(c: Circle): Double = c.radius * math.Pi * 2
+
+assert(circle.circumference == circumference(circle))
 </code></pre>
-<p>Aside: the <code>any2stringadd =&gt; _</code> import suppression is necessary since otherwise the universal <code>+</code> operation in <code>Predef</code> would take precedence over the <code>+</code> extension method in <code>logarithmOps</code>. We plan to resolve this wart by eliminating <code>any2stringadd</code>.</p>
-<h3><a href="#bounds-for-opaque-type-aliases" id="bounds-for-opaque-type-aliases" class="anchor"></a>Bounds For Opaque Type Aliases</h3>
-<p>Opaque type aliases can also come with bounds. Example:</p>
-<pre><code class="scala">object Access {
-
-  opaque type Permissions = Int
-  opaque type PermissionChoice = Int
-  opaque type Permission &lt;: Permissions &amp; PermissionChoice = Int
-
-  def (x: Permissions) &amp; (y: Permissions): Permissions = x | y
-  def (x: PermissionChoice) | (y: PermissionChoice): PermissionChoice = x | y
-  def (x: Permissions).is(y: Permissions) = (x &amp; y) == y
-  def (x: Permissions).isOneOf(y: PermissionChoice) = (x &amp; y) != 0
-
-  val NoPermission: Permission = 0
-  val ReadOnly: Permission = 1
-  val WriteOnly: Permission = 2
-  val ReadWrite: Permissions = ReadOnly | WriteOnly
-  val ReadOrWrite: PermissionChoice = ReadOnly | WriteOnly
-}
-</code></pre>
-<p>The <code>Access</code> object defines three opaque types:</p>
+<h3><a href="#translation-of-calls-to-extension-methods" id="translation-of-calls-to-extension-methods" class="anchor"></a>Translation of Calls to Extension Methods</h3>
+<p>When is an extension method applicable? There are two possibilities.</p>
 <ul>
-<li><code>Permission</code>, representing a single permission,</li>
-<li><code>Permissions</code>, representing a conjunction (logical &quot;and&quot;) of permissions,</li>
-<li><code>PermissionChoice</code>, representing a disjunction (logical &quot;or&quot;) of permissions.</li>
+<li>An extension method is applicable if it is visible under a simple name, by being defined
+or inherited or imported in a scope enclosing the application.</li>
+<li>An extension method is applicable if it is a member of some given instance at the point of the application.</li>
 </ul>
-<p>All three opaque types have the same underlying representation type <code>Int</code>. The
-<code>Permission</code> type has an upper bound <code>Permissions &amp; PermissionChoice</code>. This makes
-it known outside the <code>Access</code> object that <code>Permission</code> is a subtype of the other
-two types.  Hence, the following usage scenario type-checks.</p>
-<pre><code class="scala">object User {
-  import Access._
-
-  case class Item(rights: Permissions)
-
-  val x = Item(ReadOnly)  // OK, since Permission &lt;: Permissions
-
-  assert( x.rights.is(ReadWrite) == false )
-  assert( x.rights.isOneOf(ReadOrWrite) == true )
+<p>As an example, consider an extension method <code>longestStrings</code> on <code>Seq[String]</code> defined in a trait <code>StringSeqOps</code>.</p>
+<pre><code class="scala">trait StringSeqOps {
+  def (xs: Seq[String]).longestStrings = {
+    val maxLength = xs.map(_.length).max
+    xs.filter(_.length == maxLength)
+  }
 }
 </code></pre>
-<p>On the other hand, the call <code>x.rights.isOneOf(ReadWrite)</code> would give a type error
-since <code>Permissions</code> and <code>PermissionChoice</code> are different, unrelated types outside <code>Access</code>.</p>
-<p><a href="opaques-details.html">More details</a></p>
+<p>We can make the extension method available by defining a given <code>StringSeqOps</code> instance, like this:</p>
+<pre><code class="scala">given ops1: StringSeqOps
+</code></pre>
+<p>Then</p>
+<pre><code class="scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
+</code></pre>
+<p>is legal everywhere <code>ops1</code> is available. Alternatively, we can define <code>longestStrings</code> as a member of a normal object. But then the method has to be brought into scope to be usable as an extension method.</p>
+<pre><code class="scala">object ops2 extends StringSeqOps
+import ops2.longestStrings
+List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
+</code></pre>
+<p>The precise rules for resolving a selection to an extension method are as follows.</p>
+<p>Assume a selection <code>e.m[Ts]</code> where <code>m</code> is not a member of <code>e</code>, where the type arguments <code>[Ts]</code> are optional,
+and where <code>T</code> is the expected type. The following two rewritings are tried in order:</p>
+<ol>
+<li>The selection is rewritten to <code>m[Ts](e)</code>.</li>
+<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is a given instance <code>i</code>
+in either the current scope or in the implicit scope of <code>T</code>, and <code>i</code> defines an extension
+method named <code>m</code>, then selection is expanded to <code>i.m[Ts](e)</code>.
+This second rewriting is attempted at the time where the compiler also tries an implicit conversion
+from <code>T</code> to a type containing <code>m</code>. If there is more than one way of rewriting, an ambiguity error results.</li>
+</ol>
+<p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
+<code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is given  (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
+<h3><a href="#operators" id="operators" class="anchor"></a>Operators</h3>
+<p>The extension method syntax also applies to the definition of operators.
+In this case it is allowed and preferable to omit the period between the leading parameter list
+and the operator. In each case the definition syntax mirrors the way the operator is applied.
+Examples:</p>
+<pre><code class="scala">def (x: String) &lt; (y: String) = ...
+def (x: Elem) +: (xs: Seq[Elem]) = ...
+def (x: Number) min (y: Number) = ...
+
+&quot;ab&quot; &lt; &quot;c&quot;
+1 +: List(2, 3)
+x min 3
+</code></pre>
+<p>The three definitions above translate to</p>
+<pre><code class="scala">def &lt; (x: String)(y: String) = ...
+def +: (xs: Seq[Elem])(x: Elem) = ...
+def min(x: Number)(y: Number) = ...
+</code></pre>
+<p>Note the swap of the two parameters <code>x</code> and <code>xs</code> when translating
+the right-binding operator <code>+:</code> to an extension method. This is analogous
+to the implementation of right binding operators as normal methods.</p>
+<h3><a href="#generic-extensions" id="generic-extensions" class="anchor"></a>Generic Extensions</h3>
+<p>The <code>StringSeqOps</code> examples extended a specific instance of a generic type. It is also possible to extend a generic type by adding type parameters to an extension method. Examples:</p>
+<pre><code class="scala">def [T](xs: List[T]) second =
+  xs.tail.head
+
+def [T](xs: List[List[T]]) flattened =
+  xs.foldLeft[List[T]](Nil)(_ ++ _)
+
+def [T: Numeric](x: T) + (y: T): T =
+  summon[Numeric[T]].plus(x, y)
+</code></pre>
+<p>If an extension method has type parameters, they come immediately after the <code>def</code> and are followed by the extended parameter. When calling a  generic extension method, any explicitly given type arguments follow the method name. So the <code>second</code> method can be instantiated as follows:</p>
+<pre><code class="scala">List(1, 2, 3).second[Int]
+</code></pre>
+<h3><a href="#collective-extensions" id="collective-extensions" class="anchor"></a>Collective Extensions</h3>
+<p>A collective extension defines one or more concrete methods that have the same type parameters
+and prefix parameter. Examples:</p>
+<pre><code class="scala">extension stringOps on (xs: Seq[String]) {
+  def longestStrings: Seq[String] = {
+    val maxLength = xs.map(_.length).max
+    xs.filter(_.length == maxLength)
+  }
+}
+
+extension listOps on [T](xs: List[T]) {
+  def second = xs.tail.head
+  def third: T = xs.tail.tail.head
+}
+
+extension on [T](xs: List[T])(given Ordering[T]) {
+  def largest(n: Int) = xs.sorted.takeRight(n)
+}
+</code></pre>
+<p>If a given extension is anonymous (as in the last clause), its name is synthesized from the name of the first defined extension method.</p>
+<p>The extensions above are equivalent to the following regular given instances where the implemented parent is <code>AnyRef</code> and the parameters in the <code>extension</code> clause are repeated in each extension method definition:</p>
+<pre><code class="scala">given stringOps: AnyRef {
+  def (xs: Seq[String]).longestStrings: Seq[String] = {
+    val maxLength = xs.map(_.length).max
+    xs.filter(_.length == maxLength)
+  }
+}
+given listOps: AnyRef {
+  def [T](xs: List[T]) second = xs.tail.head
+  def [T](xs: List[T]) third: T = xs.tail.tail.head
+}
+given extension_largest_List_T: AnyRef {
+  def [T](xs: List[T]) largest (given Ordering[T])(n: Int) =
+    xs.sorted.takeRight(n)
+}
+</code></pre>
+<p><code>extension</code> and <code>on</code> are soft keywords. They can also be used as a regular identifiers.</p>
+<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
+<p>Here are the syntax changes for extension methods and given extensions relative
+to the <a href="../../internals/syntax.html">current syntax</a>. <code>extension</code> is a soft keyword, recognized only in tandem with <code>on</code>. It can be used as an identifier everywhere else.</p>
+<pre><code class="nohighlight">DefSig            ::=  ...
+                    |  ExtParamClause [nl] [‘.’] id DefParamClauses
+ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’
+TmplDef           ::=  ...
+                    |  ‘extension’ ExtensionDef
+ExtensionDef      ::=  [id] ‘on’ ExtParamClause {GivenParamClause} ExtMethods
+ExtMethods        ::=  ‘{’ ‘def’ DefDef {semi ‘def’ DefDef} ‘}’
+</code></pre>
 
 </main>
 </div>

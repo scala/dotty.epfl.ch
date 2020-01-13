@@ -2072,7 +2072,7 @@ that would otherwise be necessary.</p>
 
   def result[T](given r: WrappedResult[T]): T = r
 
-  def (x: T) ensuring[T](condition: (given WrappedResult[T]) =&gt; Boolean): T = {
+  def (x: T).ensuring[T](condition: (given WrappedResult[T]) =&gt; Boolean): T = {
     assert(condition(given x))
     x
   }
