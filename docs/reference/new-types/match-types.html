@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-01-10 -->
+<!-- This page was last generated on 2020-01-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -1984,7 +1984,7 @@ Elem[Nil.type]     =:=  Nothing
 </code></pre>
 <p>Here <code>=:=</code> is understood to mean that left and right hand sides are mutually subtypes of each other.</p>
 <p>In general, a match type is of the form</p>
-<pre><code class="scala">S match { P1 =&gt; Tn ... Pn =&gt; Tn }
+<pre><code class="scala">S match { P1 =&gt; T1 ... Pn =&gt; Tn }
 </code></pre>
 <p>where <code>S</code>, <code>T1</code>, ..., <code>Tn</code> are types and <code>P1</code>, ..., <code>Pn</code> are type patterns. Type variables
 in patterns start as usual with a lower case letter.</p>
@@ -2005,7 +2005,7 @@ in patterns start as usual with a lower case letter.</p>
 <p>In this definition, every instance of <code>Concat[A, B]</code>, whether reducible or not, is known to be a subtype of <code>Tuple</code>. This is necessary to make the recursive invocation <code>x *: Concat[xs, Ys]</code> type check, since <code>*:</code> demands a <code>Tuple</code> as its right operand.</p>
 <h2><a href="#representation-of-match-types" id="representation-of-match-types" class="anchor"></a>Representation of Match Types</h2>
 <p>The internal representation of a match type</p>
-<pre><code class="nohighlight">S match { P1 =&gt; Tn ... Pn =&gt; Tn }
+<pre><code class="nohighlight">S match { P1 =&gt; T1 ... Pn =&gt; Tn }
 </code></pre>
 <p>is <code>Match(S, C1, ..., Cn) &lt;: B</code> where each case <code>Ci</code> is of the form</p>
 <pre><code class="nohighlight">[Xs] =&gt; P =&gt; T
