@@ -2001,6 +2001,13 @@ called variadic extractors, which enables variadic patterns.</p>
 </ul>
 <p>The former form of <code>unapply</code> has higher precedence, and <em>single match</em> has higher
 precedence over <em>name-based match</em>.</p>
+<p>A usage of a fixed-arity extractor is irrefutable if one of the following condition holds:</p>
+<ul>
+<li><code>U = true</code></li>
+<li>the extractor is used as a product match</li>
+<li><code>U = Some[T]</code> (for Scala2 compatibility)</li>
+<li><code>U &lt;: R</code> and <code>U &lt;: { def isEmpty: false }</code></li>
+</ul>
 <h3><a href="#variadic-extractors" id="variadic-extractors" class="anchor"></a>Variadic Extractors</h3>
 <p>Variadic extractors expose the following signature:</p>
 <pre><code class="Scala">def unapplySeq[A](x: T)(implicit x: B): U
@@ -2019,6 +2026,12 @@ precedence over <em>name-based match</em>.</p>
 <p>and <code>S</code> conforms to one of the two matches above.</p>
 <p>The former form of <code>unapplySeq</code> has higher priority, and <em>sequence match</em> has higher
 precedence over <em>product-sequence match</em>.</p>
+<p>A usage of a variadic extractor is irrefutable if one of the following condition holds:</p>
+<ul>
+<li>the extractor is used directly as a sequence match or product-sequence match</li>
+<li><code>U = Some[T]</code> (for Scala2 compatibility)</li>
+<li><code>U &lt;: R</code> and <code>U &lt;: { def isEmpty: false }</code></li>
+</ul>
 <h2><a href="#boolean-match" id="boolean-match" class="anchor"></a>Boolean Match</h2>
 <ul>
 <li><code>U =:= Boolean</code></li>
