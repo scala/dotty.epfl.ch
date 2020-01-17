@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-01-16 -->
+<!-- This page was last generated on 2020-01-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2124,7 +2124,7 @@ For instance, the user-level definition of <code>reflect</code>:</p>
 <pre><code class="scala">def reflect[T: Type, U: Type](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
   '{ (x: ${ summon[Type[T]] }) =&gt; ${ f('x) } }
 </code></pre>
-<p>The <code>the</code> query succeeds because there is a given instance of
+<p>The <code>summon</code> query succeeds because there is a given instance of
 type <code>Type[T]</code> available (namely the given parameter corresponding
 to the context bound <code>: Type</code>), and the reference to that value is
 phase-correct. If that was not the case, the phase inconsistency for
