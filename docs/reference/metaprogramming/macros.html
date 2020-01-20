@@ -2101,21 +2101,22 @@ result of beta-reducing <code>f(x)</code> if <code>f</code> is a known lambda ex
 different directions here for <code>f</code> and <code>x</code>.  The reference to <code>f</code> is
 legal because it is quoted, then spliced, whereas the reference to <code>x</code>
 is legal because it is spliced, then quoted.</p>
-<h3><a href="#types-and-the-pcp" id="types-and-the-pcp" class="anchor"></a>Types and the PCP</h3>
-<p>In principle, The phase consistency principle applies to types as well
-as for expressions. This might seem too restrictive. Indeed, the
-definition of <code>reflect</code> above is not phase correct since there is a
+<h3><a href="#lifting-types" id="lifting-types" class="anchor"></a>Lifting Types</h3>
+<p>Types are not directly affected by the phase consistency principle.
+It is possible to use types defined at any level in any other level.
+But, if a type is used in a subsequent stage it will need to be lifted to a <code>Type</code>.
+The resulting value of <code>Type</code> will be subject to PCP.
+Indeed, the definition of <code>reflect</code> above uses <code>T</code> in the next stage, there is a
 quote but no splice between the parameter binding of <code>T</code> and its
-usage. But the code can be made phase correct by adding a binding
-of a <code>Type[T]</code> tag:</p>
+usage. But the code can be rewritten by adding a binding of a <code>Type[T]</code> tag:</p>
 <pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U])(given t: Type[T]): Expr[T =&gt; U] =
   '{ (x: $t) =&gt; ${ f('x) } }
 </code></pre>
 <p>In this version of <code>reflect</code>, the type of <code>x</code> is now the result of
 splicing the <code>Type</code> value <code>t</code>. This operation <em>is</em> splice correct -- there
 is one quote and one splice between the use of <code>t</code> and its definition.</p>
-<p>To avoid clutter, the Scala implementation tries to convert any phase-incorrect
-reference to a type <code>T</code> to a type-splice, by rewriting <code>T</code> to <code>${ summon[Type[T]] }</code>.
+<p>To avoid clutter, the Scala implementation tries to convert any type
+reference to a type <code>T</code> in subsequent phases to a type-splice, by rewriting <code>T</code> to <code>${ summon[Type[T]] }</code>.
 For instance, the user-level definition of <code>reflect</code>:</p>
 <pre><code class="scala">def reflect[T: Type, U: Type](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
   '{ (x: T) =&gt; ${ f('x) } }
@@ -2234,7 +2235,7 @@ the result back to an <code>Expr[String]</code> using <code>Expr.apply</code>.</
 conversion with <code>import scala.quoted.autolift.given</code>. The programmer is able to
 declutter slightly the code at the cost of readable <em>phase distinction</em> between
 stages.</p>
-<h3><a href="#lifting-types" id="lifting-types" class="anchor"></a>Lifting Types</h3>
+<h3><a href="#lifting-types-1" id="lifting-types-1" class="anchor"></a>Lifting Types</h3>
 <p>The previous section has shown that the metaprogramming framework has
 to be able to take a type <code>T</code> and convert it to a type tree of type
 <code>Type[T]</code> that can be reified. This means that all free variables of
