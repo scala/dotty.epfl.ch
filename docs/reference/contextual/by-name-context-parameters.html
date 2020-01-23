@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Import Given</title>
+        <title>By-Name Context Parameters</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -85,7 +85,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/overview.html" >Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -109,12 +109,12 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/contextual/motivation.html" >Overview</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/delegates.html" >Given Instances</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" class="toggled">Given Imports</a></li>
+<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
@@ -1961,109 +1961,65 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Import Given</h1>
+        <h1>By-Name Context Parameters</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-delegate.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/by-name-context-parameters.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./given-imports.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>A special form of import wildcard selector is used to import given instances. Example:</p>
-<pre><code class="scala">object A {
-  class TC
-  given tc: TC
-  def f(given TC) = ???
+    <p>Context parameters can be declared by-name to avoid a divergent inferred expansion. Example:</p>
+<pre><code class="scala">trait Codec[T] {
+  def write(x: T): Unit
 }
-object B {
-  import A._
-  import A.given
-}
-</code></pre>
-<p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the given instance <code>tc</code>. Conversely, the second import <code>import A.given</code> will import <em>only</em> that given instance.
-The two import clauses can also be merged into one:</p>
-<pre><code class="scala">object B
-  import A.{given, _}
-</code></pre>
-<p>Generally, a normal wildcard selector <code>_</code> brings all definitions other than given instances into scope whereas a <code>given</code> selector brings all given instances into scope.</p>
-<p>There are two main benefits arising from these rules:</p>
-<ul>
-<li>It is made clearer where givens in scope are coming from.
-In particular, it is not possible to hide imported givens in a long list of regular wildcard imports.</li>
-<li>It enables importing all givens
-without importing anything else. This is particularly important since givens
-can be anonymous, so the usual recourse of using named imports is not
-practical.</li>
-</ul>
-<h3><a href="#importing-by-type" id="importing-by-type" class="anchor"></a>Importing By Type</h3>
-<p>Since givens can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
-<pre><code class="scala">import A.{given TC}
-</code></pre>
-<p>This imports any given in <code>A</code> that has a type which conforms to <code>TC</code>. Importing givens of several types <code>T1,...,Tn</code>
-is expressed by multiple <code>given</code> selectors.</p>
-<pre><code class="nohighlight">import A.{given T1, ..., given Tn}
-</code></pre>
-<p>Importing all given instances of a parameterized type is expressed by wildcard arguments.
-For instance, assuming the object</p>
-<pre><code class="scala">object Instances {
-  given intOrd: Ordering[Int]
-  given [T: Ordering] listOrd: Ordering[List[T]]
-  given ec: ExecutionContext = ...
-  given im: Monoid[Int]
-}
-</code></pre>
-<p>the import</p>
-<pre><code class="scala">import Instances.{given Ordering[?], given ExecutionContext}
-</code></pre>
-<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> instances but leave out the <code>im</code> instance, since it fits none of the specified bounds.</p>
-<p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
-<pre><code class="scala">import Instances.{im, given Ordering[?]}
-</code></pre>
-<p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>.</p>
-<p>Bounded wildcard selectors also work for normal imports and exports. For instance, consider the following <code>enum</code> definition:</p>
-<pre><code class="scala">enum Color {
-  case Red, Green, Blue, Magenta
 
-  def isPrimary(c: Color): Boolean = ...
+given intCodec as Codec[Int] = ???
+
+given optionCodec[T] with (ev: =&gt; Codec[T]) as Codec[Option[T]] {
+  def write(xo: Option[T]) = xo match {
+    case Some(x) =&gt; ev.write(x)
+    case None =&gt;
+  }
 }
-export Color.{_: Color}
+
+val s = summon[Codec[Option[Int]]]
+
+s.write(Some(33))
+s.write(None)
 </code></pre>
-<p>The export clause makes all four three <code>Color</code> values available as unqualified constants, but
-leaves the <code>isPrimary</code> method alone.</p>
-<h3><a href="#migration" id="migration" class="anchor"></a>Migration</h3>
-<p>The rules for imports stated above have the consequence that a library
-would have to migrate in lockstep with all its users from old style implicits and
-normal imports to given instances and imports.</p>
-<p>The following modifications avoid this hurdle to migration.</p>
+<p>As is the case for a normal by-name parameter, the argument for the context parameter <code>ev</code>
+is evaluated on demand. In the example above, if the option value <code>x</code> is <code>None</code>, it is
+not evaluated at all.</p>
+<p>The synthesized argument for a context parameter is backed by a local val
+if this is necessary to prevent an otherwise diverging expansion.</p>
+<p>The precise steps for synthesizing an argument for a by-name context parameter of type <code>=&gt; T</code> are as follows.</p>
 <ol>
 <li>
-<p>A <code>given</code> import selector also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a <code>_</code> wildcard import or by a <code>given</code> import.</p>
+<p>Create a new given of type <code>T</code>:</p>
+<pre><code class="scala">given lv as T = ???
+</code></pre>
+<p>where <code>lv</code> is an arbitrary fresh name.</p>
 </li>
 <li>
-<p>In Scala 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a deprecation warning.</p>
+<p>This given is not immediately available as candidate for argument inference (making it immediately available could result in a loop in the synthesized computation). But it becomes available in all nested contexts that look again for an argument to a by-name context parameter.</p>
 </li>
-<li>In some version after 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a compiler error.</li>
-</ol>
-<p>These rules mean that library users can use <code>given</code> imports to access old-style implicits in Scala 3.0,
-and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-representation clauses once their user base has migrated.</p>
-<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<pre><code class="nohighlight">Import            ::=  ‘import’ ImportExpr {‘,’ ImportExpr}
-ImportExpr        ::=  StableId ‘.’ ImportSpec
-ImportSpec        ::=  id
-                    | ‘_’
-                    | ‘given’
-                    | ‘{’ ImportSelectors) ‘}’
-ImportSelectors   ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’] [‘,’ ImportSelectors]
-                    |  WildCardSelector {‘,’ WildCardSelector}
-WildCardSelector  ::=  ‘given’ [InfixType]
-                    |  ‘_' [‘:’ InfixType]
-Export            ::=  ‘export’ ImportExpr {‘,’ ImportExpr}
+<li>
+<p>If this search succeeds with expression <code>E</code>, and <code>E</code> contains references to <code>lv</code>, replace <code>E</code> by</p>
+<pre><code class="scala">{ given lv as T = E; lv }
 </code></pre>
+<p>Otherwise, return <code>E</code> unchanged.</p>
+</li>
+</ol>
+<p>In the example above, the definition of <code>s</code> would be expanded as follows.</p>
+<pre><code class="scala">val s = summon[Test.Codec[Option[Int]]](
+  optionCodec[Int].with(intCodec)
+)
+</code></pre>
+<p>No local given instance was generated because the synthesized argument is not recursive.</p>
+<h3><a href="#reference" id="reference" class="anchor"></a>Reference</h3>
+<p>For more info, see <a href="https://github.com/lampepfl/dotty/issues/1998">Issue #1998</a>
+and the associated <a href="https://docs.scala-lang.org/sips/byname-implicits.html">Scala SIP</a>.</p>
 
 </main>
 </div>

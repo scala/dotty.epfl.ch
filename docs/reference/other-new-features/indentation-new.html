@@ -2017,10 +2017,10 @@ than the current indentation width</li>
 <p>An indentation region can start</p>
 <ul>
 <li>after the condition of an <code>if-else</code>, or</li>
-<li>after the leading parameter(s) of a given extension method clause, or</li>
+<li>after a &quot;: at end of line&quot; token (see below)</li>
 <li>after one of the following tokens:</li>
 </ul>
-<pre><code class="nohighlight">=  =&gt;  &lt;-  if  then  else  while  do  try  catch  finally  for  yield  match  return  with
+<pre><code class="nohighlight">=  =&gt;  &lt;-  if  then  else  while  do  try  catch  finally  for  yield  match  return
 </code></pre>
 <p>If an <code>&lt;indent&gt;</code> is inserted, the indentation width of the token on the next line
 is pushed onto <code>IW</code>, which makes it the new current indentation width.</p>
@@ -2048,56 +2048,53 @@ match the indentation of some previous line in the enclosing indentation region.
 </code></pre>
 <p>Indentation tokens are only inserted in regions where newline statement separators are also inferred:
 at the toplevel, inside braces <code>{...}</code>, but not inside parentheses <code>(...)</code>, patterns or types.</p>
-<h3><a href="#new-role-of-with" id="new-role-of-with" class="anchor"></a>New Role of With</h3>
-<p>To make bracews optional for constructs like class bodies, the syntax of the language is changed so that a class body or similar construct may optionally be prefixed with <code>with</code>. Since <code>with</code> can start an indentation region, this means that all of the following syntaxes are allowed and are equivalent:</p>
-<pre><code class="scala">trait A {
-  def f: Any
-}
-class C(x: Int) extends A {
-  def f = x
-}
-type T = A {
-  def f: Int
-}
-</code></pre>
-<hr />
-<pre><code class="scala">trait A with {
-  def f: Int
-}
-class C(x: Int) extends A with {
-  def f = x
-}
-type T = A with {
-  def f: Int
-}
-</code></pre>
-<hr />
-<pre><code class="scala">trait A with
+<h3><a href="#optional-braces-around-template-bodies" id="optional-braces-around-template-bodies" class="anchor"></a>Optional Braces Around Template Bodies</h3>
+<p>The Scala grammar uses the term <em>template body</em> for the definitions of a class, trait, object, given instance or extension that are normally enclosed in braces. The braces around a template body can also be omitted by means of the following rule:</p>
+<p>If at the point where a template body can start there is a <code>:</code> that occurs at the end
+of a line, and that is followed by at least one indented statement, the recognized
+token is changed from &quot;:&quot; to &quot;: at end of line&quot;. The latter token is one of the tokens
+that can start an indentation region. The Scala grammar is changed so an optional &quot;: at end of line&quot; is allowed in front of a template body.</p>
+<p>Analogous rules apply for enum bodies, type refinements, definitions in an instance creation expressions, and local packages containing nested definitions.</p>
+<p>With these new rules, the following constructs are all valid:</p>
+<pre><code class="scala">trait A:
   def f: Int
 
-class C(x: Int) extends A with
+class C(x: Int) extends A:
   def f = x
 
-type T = A with
+object O:
+  def f = 3
+
+enum Color:
+  case Red, Green, Blue
+
+type T = A:
   def f: Int
+
+given [T] with Ord[T] as Ord[List[T]]:
+  def compare(x: List[T], y: List[T]) = ???
+
+extension on (xs: List[Int]):
+  def second: Int = xs.tail.head
+
+new A:
+  def f = 3
+
+package p:
+  def a = 1
+package q:
+  def b = 2
 </code></pre>
 <p>The syntax changes allowing this are as follows:</p>
-<pre><code class="nohighlight">TemplateBody ::=  [‘with’] ‘{’ [SelfType] TemplateStat {semi TemplateStat} ‘}’
-EnumBody     ::=  [‘with’] ‘{’ [SelfType] EnumStat {semi EnumStat} ‘}’
-Packaging    ::=  ‘package’ QualId [‘with’] ‘{’ TopStatSeq ‘}’
-RefinedType  ::=  AnnotType {[‘with’] Refinement}
+<pre><code class="nohighlight">TemplateBody ::=  [colonEol] ‘{’ [SelfType] TemplateStat {semi TemplateStat} ‘}’
+EnumBody     ::=  [colonEol] ‘{’ [SelfType] EnumStat {semi EnumStat} ‘}’
+Packaging    ::=  ‘package’ QualId [colonEol] ‘{’ TopStatSeq ‘}’
+RefinedType  ::=  AnnotType {[colonEol] Refinement}
 </code></pre>
-<p>It is assumed here that braces following a <code>with</code> can be transparently replaced by an
-indentation region.</p>
-<p>With the new indentation rules, the previously allowed syntax</p>
-<pre><code class="nohighlight">class A extends B with
-                C
-</code></pre>
-<p>becomes illegal since <code>C</code> above would be terated as a nested statement inside <code>A</code>. More generally, a <code>with</code> that separates parent constructors cannot be at the end of a line. One has to write</p>
-<pre><code class="nohighlight">class A extends B
-           with C
-</code></pre>
-<p>instead (or replace the &quot;<code>with</code>&quot; by a &quot;<code>,</code>&quot;). When compiling in Scala-2 mode, a migration warning is issued for the illegal syntax and a (manual) rewrite is suggested.</p>
+<p>Here, <code>colonEol</code> stands for &quot;: at end of line&quot;, as described above.
+The lexical analyzer is modified so that a <code>:</code> at the end of a line
+is reported as <code>colonEol</code> if the parser is at a point where a <code>colonEol</code> is
+valid as next token.</p>
 <h3><a href="#spaces-vs-tabs" id="spaces-vs-tabs" class="anchor"></a>Spaces vs Tabs</h3>
 <p>Indentation prefixes can consist of spaces and/or tabs. Indentation widths are the indentation prefixes themselves, ordered by the string prefix relation. So, so for instance &quot;2 tabs, followed by 4 spaces&quot; is strictly less than &quot;2 tabs, followed by 5 spaces&quot;, but &quot;2 tabs, followed by 4 spaces&quot; is incomparable to &quot;6 tabs&quot; or to &quot;4 spaces, followed by 2 tabs&quot;. It is an error if the indentation width of some line is incomparable with the indentation width of the region that's current at that point. To avoid such errors, it is a good idea not to mix spaces and tabs in the same source file.</p>
 <h3><a href="#indentation-and-braces" id="indentation-and-braces" class="anchor"></a>Indentation and Braces</h3>

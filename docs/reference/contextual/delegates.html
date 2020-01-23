@@ -1969,7 +1969,9 @@
             </a>
         </div>
     </header>
-    <p>Given instances (or, simply, &quot;givens&quot;) define &quot;canonical&quot; values of certain types
+    <p><strong>Note</strong> The syntax described in this section is currently under revision.
+<a href="./givens.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
+<p>Given instances (or, simply, &quot;givens&quot;) define &quot;canonical&quot; values of certain types
 that serve for synthesizing arguments to <a href="./given-clauses.html">given clauses</a>. Example:</p>
 <pre><code class="scala">trait Ord[T] {
   def compare(x: T, y: T): Int
@@ -1982,7 +1984,7 @@ given intOrd: Ord[Int] {
     if (x &lt; y) -1 else if (x &gt; y) +1 else 0
 }
 
-given listOrd[T]: (ord: Ord[T]) =&gt; Ord[List[T]] {
+given listOrd[T](given ord: Ord[T]): Ord[List[T]] {
 
   def compare(xs: List[T], ys: List[T]): Int = (xs, ys) match {
     case (Nil, Nil) =&gt; 0
@@ -1997,15 +1999,13 @@ given listOrd[T]: (ord: Ord[T]) =&gt; Ord[List[T]] {
 <p>This code defines a trait <code>Ord</code> with two given instances. <code>intOrd</code> defines
 a given for the type <code>Ord[Int]</code> whereas <code>listOrd[T]</code> defines givens
 for <code>Ord[List[T]]</code> for all types <code>T</code> that come with a given instance for <code>Ord[T]</code> themselves.
-The <code>(ord: Ord[T]) =&gt;</code> clause in <code>listOrd</code> defines a condition: There must be a
-given instance of type <code>Ord[T]</code> so that a given instance of type <code>List[Ord[T]]</code> can
-be synthesized. Such conditions are expanded by the compiler to implicit
-parameters, which are explained in the <a href="./given-clauses.html">next section</a>.</p>
+The <code>(given ord: Ord[T])</code> clause in <code>listOrd</code> defines an implicit parameter.
+Given clauses are further explained in the <a href="./given-clauses.html">next section</a>.</p>
 <h2><a href="#anonymous-given-instances" id="anonymous-given-instances" class="anchor"></a>Anonymous Given Instances</h2>
 <p>The name of a given instance can be left out. So the definitions
 of the last section can also be expressed like this:</p>
 <pre><code class="scala">given Ord[Int] { ... }
-given [T]: Ord[T] =&gt; Ord[List[T]] { ... }
+given [T](given Ord[T]): Ord[List[T]] { ... }
 </code></pre>
 <p>If the name of a given is missing, the compiler will synthesize a name from
 the implemented type(s).</p>
@@ -2019,7 +2019,7 @@ The first time <code>global</code> is accessed, a new <code>ForkJoinPool</code> 
 returned for this and all subsequent accesses to <code>global</code>.</p>
 <p>Alias givens can be anonymous, e.g.</p>
 <pre><code class="scala">given Position = enclosingTree.position
-given (outer: Context) =&gt; Context = outer.withOwner(currentOwner)
+given (given outer: Context): Context = outer.withOwner(currentOwner)
 </code></pre>
 <p>An alias given can have type parameters and given clauses just like any other given instance, but it can only implement a single type.</p>
 <h2><a href="#given-instance-initialization" id="given-instance-initialization" class="anchor"></a>Given Instance Initialization</h2>

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Import Given</title>
+        <title>Context Functions - More Details</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -85,7 +85,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/overview.html" >Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -109,12 +109,12 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/contextual/motivation.html" >Overview</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/delegates.html" >Given Instances</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" class="toggled">Given Imports</a></li>
+<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
@@ -1961,109 +1961,66 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Import Given</h1>
+        <h1>Context Functions - More Details</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-delegate.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/context-functions-spec.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./given-imports.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>A special form of import wildcard selector is used to import given instances. Example:</p>
-<pre><code class="scala">object A {
-  class TC
-  given tc: TC
-  def f(given TC) = ???
-}
-object B {
-  import A._
-  import A.given
-}
-</code></pre>
-<p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the given instance <code>tc</code>. Conversely, the second import <code>import A.given</code> will import <em>only</em> that given instance.
-The two import clauses can also be merged into one:</p>
-<pre><code class="scala">object B
-  import A.{given, _}
-</code></pre>
-<p>Generally, a normal wildcard selector <code>_</code> brings all definitions other than given instances into scope whereas a <code>given</code> selector brings all given instances into scope.</p>
-<p>There are two main benefits arising from these rules:</p>
-<ul>
-<li>It is made clearer where givens in scope are coming from.
-In particular, it is not possible to hide imported givens in a long list of regular wildcard imports.</li>
-<li>It enables importing all givens
-without importing anything else. This is particularly important since givens
-can be anonymous, so the usual recourse of using named imports is not
-practical.</li>
-</ul>
-<h3><a href="#importing-by-type" id="importing-by-type" class="anchor"></a>Importing By Type</h3>
-<p>Since givens can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
-<pre><code class="scala">import A.{given TC}
-</code></pre>
-<p>This imports any given in <code>A</code> that has a type which conforms to <code>TC</code>. Importing givens of several types <code>T1,...,Tn</code>
-is expressed by multiple <code>given</code> selectors.</p>
-<pre><code class="nohighlight">import A.{given T1, ..., given Tn}
-</code></pre>
-<p>Importing all given instances of a parameterized type is expressed by wildcard arguments.
-For instance, assuming the object</p>
-<pre><code class="scala">object Instances {
-  given intOrd: Ordering[Int]
-  given [T: Ordering] listOrd: Ordering[List[T]]
-  given ec: ExecutionContext = ...
-  given im: Monoid[Int]
+    <h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
+<p>Type              ::=  ...
+|  FunArgTypes ‘?=&gt;’ Type
+Expr              ::=  ...
+|  FunParams ‘?=&gt;’ Expr</p>
+<p>Context function types associate to the right, e.g.
+<code>S ?=&gt; T ?=&gt; U</code> is the same as <code>S ?=&gt; (T ?=&gt; U)</code>.</p>
+<h2><a href="#implementation" id="implementation" class="anchor"></a>Implementation</h2>
+<p>Context function types are shorthands for class types that define <code>apply</code>
+methods with context parameters. Specifically, the <code>N</code>-ary function type
+<code>T1, ..., TN =&gt; R</code> is a shorthand for the class type
+<code>ContextFunctionN[T1 , ... , TN, R]</code>. Such class types are assumed to have the following definitions, for any value of <code>N &gt;= 1</code>:</p>
+<pre><code class="scala">package scala
+trait ContextFunctionN[-T1 , ... , -TN, +R] {
+  def apply with (x1: T1 , ... , xN: TN) : R
 }
 </code></pre>
-<p>the import</p>
-<pre><code class="scala">import Instances.{given Ordering[?], given ExecutionContext}
-</code></pre>
-<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> instances but leave out the <code>im</code> instance, since it fits none of the specified bounds.</p>
-<p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
-<pre><code class="scala">import Instances.{im, given Ordering[?]}
-</code></pre>
-<p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>.</p>
-<p>Bounded wildcard selectors also work for normal imports and exports. For instance, consider the following <code>enum</code> definition:</p>
-<pre><code class="scala">enum Color {
-  case Red, Green, Blue, Magenta
-
-  def isPrimary(c: Color): Boolean = ...
+<p>Context function types erase to normal function types, so these classes are
+generated on the fly for typechecking, but not realized in actual code.</p>
+<p>Context function literals <code>(x1: T1, ..., xn: Tn) ?=&gt; e</code> map
+context parameters <code>xi</code> of types <code>Ti</code> to the result of evaluating the expression <code>e</code>.
+The scope of each context parameter <code>xi</code> is <code>e</code>. The parameters must have pairwise distinct names.</p>
+<p>If the expected type of the context function literal is of the form
+<code>scala.ContextFunctionN[S1, ..., Sn, R]</code>, the expected type of <code>e</code> is <code>R</code> and
+the type <code>Ti</code> of any of the parameters <code>xi</code> can be omitted, in which case <code>Ti = Si</code> is assumed. If the expected type of the context function literal is
+some other type, all context parameter types must be explicitly given, and the expected type of <code>e</code> is undefined.
+The type of the context function literal is <code>scala.ContextFunctionN[S1, ...,Sn, T]</code>, where <code>T</code> is the widened
+type of <code>e</code>. <code>T</code> must be equivalent to a type which does not refer to any of
+the context parameters <code>xi</code>.</p>
+<p>The context function literal is evaluated as the instance creation
+expression</p>
+<pre><code class="scala">new scala.ContextFunctionN[T1, ..., Tn, T] {
+  def apply with (x1: T1, ..., xn: Tn) : T = e
 }
-export Color.{_: Color}
 </code></pre>
-<p>The export clause makes all four three <code>Color</code> values available as unqualified constants, but
-leaves the <code>isPrimary</code> method alone.</p>
-<h3><a href="#migration" id="migration" class="anchor"></a>Migration</h3>
-<p>The rules for imports stated above have the consequence that a library
-would have to migrate in lockstep with all its users from old style implicits and
-normal imports to given instances and imports.</p>
-<p>The following modifications avoid this hurdle to migration.</p>
-<ol>
-<li>
-<p>A <code>given</code> import selector also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a <code>_</code> wildcard import or by a <code>given</code> import.</p>
-</li>
-<li>
-<p>In Scala 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a deprecation warning.</p>
-</li>
-<li>In some version after 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a compiler error.</li>
-</ol>
-<p>These rules mean that library users can use <code>given</code> imports to access old-style implicits in Scala 3.0,
-and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-representation clauses once their user base has migrated.</p>
-<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<pre><code class="nohighlight">Import            ::=  ‘import’ ImportExpr {‘,’ ImportExpr}
-ImportExpr        ::=  StableId ‘.’ ImportSpec
-ImportSpec        ::=  id
-                    | ‘_’
-                    | ‘given’
-                    | ‘{’ ImportSelectors) ‘}’
-ImportSelectors   ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’] [‘,’ ImportSelectors]
-                    |  WildCardSelector {‘,’ WildCardSelector}
-WildCardSelector  ::=  ‘given’ [InfixType]
-                    |  ‘_' [‘:’ InfixType]
-Export            ::=  ‘export’ ImportExpr {‘,’ ImportExpr}
-</code></pre>
+<p>A context parameter may also be a wildcard represented by an underscore <code>_</code>. In that case, a fresh name for the parameter is chosen arbitrarily.</p>
+<p>Note: The closing paragraph of the
+<a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#anonymous-functions">Anonymous Functions section</a>
+of Scala 2.12 is subsumed by context function types and should be removed.</p>
+<p>Context function literals <code>(x1: T1, ..., xn: Tn) ?=&gt; e</code> are
+automatically created for any expression <code>e</code> whose expected type is
+<code>scala.ContextFunctionN[T1, ..., Tn, R]</code>, unless <code>e</code> is
+itself a context function literal. This is analogous to the automatic
+insertion of <code>scala.Function0</code> around expressions in by-name argument position.</p>
+<p>Context function types generalize to <code>N &gt; 22</code> in the same way that function types do, see <a href="../dropped-features/limit22.html">the corresponding
+documentation</a>.</p>
+<h2><a href="#examples" id="examples" class="anchor"></a>Examples</h2>
+<p>See the section on Expressiveness from <a href="https://dl.acm.org/citation.cfm?id=3158130">Simplicitly: foundations and
+applications of implicit function
+types</a>.</p>
+<h3><a href="#type-checking" id="type-checking" class="anchor"></a>Type Checking</h3>
+<p>After desugaring no additional typing rules are required for context function types.</p>
 
 </main>
 </div>

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Import Given</title>
+        <title>Overview</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -110,11 +110,11 @@
 <li class="section">
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
-    <li class="leaf"><a href="../../.././docs/reference/contextual/motivation.html" >Overview</a></li>
+    <li class="leaf"><a href="../../.././docs/reference/contextual/motivation.html" class="toggled">Overview</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/delegates.html" >Given Instances</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" class="toggled">Given Imports</a></li>
+<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
@@ -1961,109 +1961,81 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Import Given</h1>
+        <h1>Overview</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-delegate.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/motivation-new.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./given-imports.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>A special form of import wildcard selector is used to import given instances. Example:</p>
-<pre><code class="scala">object A {
-  class TC
-  given tc: TC
-  def f(given TC) = ???
-}
-object B {
-  import A._
-  import A.given
-}
-</code></pre>
-<p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the given instance <code>tc</code>. Conversely, the second import <code>import A.given</code> will import <em>only</em> that given instance.
-The two import clauses can also be merged into one:</p>
-<pre><code class="scala">object B
-  import A.{given, _}
-</code></pre>
-<p>Generally, a normal wildcard selector <code>_</code> brings all definitions other than given instances into scope whereas a <code>given</code> selector brings all given instances into scope.</p>
-<p>There are two main benefits arising from these rules:</p>
-<ul>
-<li>It is made clearer where givens in scope are coming from.
-In particular, it is not possible to hide imported givens in a long list of regular wildcard imports.</li>
-<li>It enables importing all givens
-without importing anything else. This is particularly important since givens
-can be anonymous, so the usual recourse of using named imports is not
-practical.</li>
-</ul>
-<h3><a href="#importing-by-type" id="importing-by-type" class="anchor"></a>Importing By Type</h3>
-<p>Since givens can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
-<pre><code class="scala">import A.{given TC}
-</code></pre>
-<p>This imports any given in <code>A</code> that has a type which conforms to <code>TC</code>. Importing givens of several types <code>T1,...,Tn</code>
-is expressed by multiple <code>given</code> selectors.</p>
-<pre><code class="nohighlight">import A.{given T1, ..., given Tn}
-</code></pre>
-<p>Importing all given instances of a parameterized type is expressed by wildcard arguments.
-For instance, assuming the object</p>
-<pre><code class="scala">object Instances {
-  given intOrd: Ordering[Int]
-  given [T: Ordering] listOrd: Ordering[List[T]]
-  given ec: ExecutionContext = ...
-  given im: Monoid[Int]
-}
-</code></pre>
-<p>the import</p>
-<pre><code class="scala">import Instances.{given Ordering[?], given ExecutionContext}
-</code></pre>
-<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> instances but leave out the <code>im</code> instance, since it fits none of the specified bounds.</p>
-<p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
-<pre><code class="scala">import Instances.{im, given Ordering[?]}
-</code></pre>
-<p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>.</p>
-<p>Bounded wildcard selectors also work for normal imports and exports. For instance, consider the following <code>enum</code> definition:</p>
-<pre><code class="scala">enum Color {
-  case Red, Green, Blue, Magenta
-
-  def isPrimary(c: Color): Boolean = ...
-}
-export Color.{_: Color}
-</code></pre>
-<p>The export clause makes all four three <code>Color</code> values available as unqualified constants, but
-leaves the <code>isPrimary</code> method alone.</p>
-<h3><a href="#migration" id="migration" class="anchor"></a>Migration</h3>
-<p>The rules for imports stated above have the consequence that a library
-would have to migrate in lockstep with all its users from old style implicits and
-normal imports to given instances and imports.</p>
-<p>The following modifications avoid this hurdle to migration.</p>
+    <h3><a href="#critique-of-the-status-quo" id="critique-of-the-status-quo" class="anchor"></a>Critique of the Status Quo</h3>
+<p>Scala's implicits are its most distinguished feature. They are <em>the</em> fundamental way to abstract over context. They represent a unified paradigm with a great variety of use cases, among them: implementing type classes, establishing context, dependency injection, expressing capabilities, computing new types and proving relationships between them.</p>
+<p>Following Haskell, Scala was the second popular language to have some form of implicits. Other languages have followed suit. E.g Rust's traits or Swift's protocol extensions. Design proposals are also on the table for Kotlin as <a href="https://github.com/Kotlin/KEEP/blob/e863b25f8b3f2e9b9aaac361c6ee52be31453ee0/proposals/compile-time-dependency-resolution.md">compile time dependency resolution</a>, for C# as <a href="https://github.com/dotnet/csharplang/issues/164">Shapes and Extensions</a>
+or for F# as <a href="https://github.com/MattWindsor91/visualfsharp/blob/hackathon-vs/examples/fsconcepts.md">Traits</a>. Implicits are also a common feature of theorem provers such as Coq or Agda.</p>
+<p>Even though these designs use widely different terminology, they are all variants of the core idea of <em>term inference</em>. Given a type, the compiler synthesizes a &quot;canonical&quot; term that has that type. Scala embodies the idea in a purer form than most other languages: An implicit parameter directly leads to an inferred argument term that could also be written down explicitly. By contrast, typeclass based designs are less direct since they hide term inference behind some form of type classification and do not offer the option of writing the inferred quantities (typically, dictionaries) explicitly.</p>
+<p>Given that term inference is where the industry is heading, and given that Scala has it in a very pure form, how come implicits are not more popular? In fact, it's fair to say that implicits are at the same time Scala's most distinguished and most controversial feature. I believe this is due to a number of aspects that together make implicits harder to learn than necessary and also make it harder to prevent abuses.</p>
+<p>Particular criticisms are:</p>
 <ol>
 <li>
-<p>A <code>given</code> import selector also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a <code>_</code> wildcard import or by a <code>given</code> import.</p>
+<p>Being very powerful, implicits are easily over-used and mis-used. This observation holds in almost all cases when we talk about <em>implicit conversions</em>, which, even though conceptually different, share the same syntax with other implicit definitions. For instance, regarding the two definitions</p>
+<pre><code class="scala">implicit def i1(implicit x: T): C[T] = ...
+implicit def i2(x: T): C[T] = ...
+</code></pre>
+<p>the first of these is a conditional implicit <em>value</em>, the second an implicit <em>conversion</em>. Conditional implicit values are a cornerstone for expressing type classes, whereas most applications of implicit conversions have turned out to be of dubious value. The problem is that many newcomers to the language start with defining implicit conversions since they are easy to understand and seem powerful and convenient. Scala 3 will put under a language flag both definitions and applications of &quot;undisciplined&quot; implicit conversions between types defined elsewhere. This is a useful step to push back against overuse of implicit conversions. But the problem remains that syntactically, conversions and values just look too similar for comfort.</p>
 </li>
 <li>
-<p>In Scala 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a deprecation warning.</p>
+<p>Another widespread abuse is over-reliance on implicit imports. This often leads to inscrutable type errors that go away with the right import incantation, leaving a feeling of frustration. Conversely, it is hard to see what implicits a program uses since implicits can hide anywhere in a long list of imports.</p>
 </li>
-<li>In some version after 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a compiler error.</li>
-</ol>
-<p>These rules mean that library users can use <code>given</code> imports to access old-style implicits in Scala 3.0,
-and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-representation clauses once their user base has migrated.</p>
-<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<pre><code class="nohighlight">Import            ::=  ‘import’ ImportExpr {‘,’ ImportExpr}
-ImportExpr        ::=  StableId ‘.’ ImportSpec
-ImportSpec        ::=  id
-                    | ‘_’
-                    | ‘given’
-                    | ‘{’ ImportSelectors) ‘}’
-ImportSelectors   ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’] [‘,’ ImportSelectors]
-                    |  WildCardSelector {‘,’ WildCardSelector}
-WildCardSelector  ::=  ‘given’ [InfixType]
-                    |  ‘_' [‘:’ InfixType]
-Export            ::=  ‘export’ ImportExpr {‘,’ ImportExpr}
+<li>
+<p>The syntax of implicit definitions is too minimal. It consists of a single modifier, <code>implicit</code>, that can be attached to a large number of language constructs. A problem with this for newcomers is that it conveys mechanism instead of intent. For instance, a typeclass instance is an implicit object or val if unconditional and an implicit def with implicit parameters referring to some class if conditional. This describes precisely what the implicit definitions translate to -- just drop the <code>implicit</code> modifier, and that's it! But the cues that define intent are rather indirect and can be easily misread, as demonstrated by the definitions of <code>i1</code> and <code>i2</code> above.</p>
+</li>
+<li>The syntax of implicit parameters also has shortcomings. While implicit <em>parameters</em> are designated specifically, arguments are not. Passing an argument to an implicit parameter looks like a regular application <code>f(arg)</code>. This is problematic because it means there can be confusion regarding what parameter gets instantiated in a call. For instance, in
+<pre><code class="scala">def currentMap(implicit ctx: Context): Map[String, Int]
 </code></pre>
+<p>one cannot write <code>currentMap(&quot;abc&quot;)</code> since the string &quot;abc&quot; is taken as explicit argument to the implicit <code>ctx</code> parameter. One has to write <code>currentMap.apply(&quot;abc&quot;)</code> instead, which is awkward and irregular. For the same reason, a method definition can only have one implicit parameter section and it must always come last. This restriction not only reduces orthogonality, but also prevents some useful program constructs, such as a method with a regular parameter whose type depends on an implicit value. Finally, it's also a bit annoying that implicit parameters must have a name, even though in many cases that name is never referenced.</p>
+</li>
+<li>Implicits pose challenges for tooling. The set of available implicits depends on context, so command completion has to take context into account. This is feasible in an IDE but docs like ScalaDoc that are based static web pages can only provide an approximation. Another problem is that failed implicit searches often give very unspecific error messages, in particular if some deeply recursive implicit search has failed. Note that the Dotty compiler has already made a lot of progress in the error diagnostics area. If a recursive search fails some levels down, it shows what was constructed and what is missing. Also, it suggests imports that can bring missing implicits in scope.</li>
+</ol>
+<p>None of the shortcomings is fatal, after all implicits are very widely used, and many libraries and applications rely on them. But together, they make code using implicits a lot more cumbersome and less clear than it could be.</p>
+<p>Historically, many of these shortcomings come from the way implicits were gradually &quot;discovered&quot; in Scala. Scala originally had only implicit conversions with the intended use case of &quot;extending&quot; a class or trait after it was defined, i.e. what is expressed by implicit classes in later versions of Scala. Implicit parameters and instance definitions came later in 2006 and we picked similar syntax since it seemed convenient. For the same reason, no effort was made to distinguish implicit imports or arguments from normal ones.</p>
+<p>Existing Scala programmers by and large have gotten used to the status quo and see little need for change. But for newcomers this status quo presents a big hurdle. I believe if we want to overcome that hurdle, we should take a step back and allow ourselves to consider a radically new design.</p>
+<h3><a href="#the-new-design" id="the-new-design" class="anchor"></a>The New Design</h3>
+<p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce four fundamental changes:</p>
+<ol>
+<li>
+<p><a href="./givens.html">Given Instances</a> are a new way to define basic terms that can be synthesized.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
+</li>
+<li>
+<p><a href="./context-parameters.html">With Clauses</a> define are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. It unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several with clauses in a definition.</p>
+</li>
+<li>
+<p><a href="./given-imports.html">&quot;Given&quot; Imports</a> are a new class of import selectors that specifically import
+givens and nothing else.</p>
+</li>
+<li><a href="./conversions.html">Implicit Conversions</a> are now expressed as given instances of a standard <code>Conversion</code> class. All other forms of implicit conversions will be phased out.</li>
+</ol>
+<p>This section also contains pages describing other language features that are related to context abstraction. These are:</p>
+<ul>
+<li><a href="./context-bounds.html">Context Bounds</a>, which carry over unchanged.</li>
+<li><a href="./extension-methods.html">Extension Methods</a> replace implicit classes in a way that integrates better with typeclasses.</li>
+<li><a href="./typeclasses.html">Implementing Typeclasses</a> demonstrates how some common typeclasses can be implemented using the new constructs.</li>
+<li><a href="./derivation.html">Typeclass Derivation</a> introduces constructs to automatically derive typeclass instances for ADTs.</li>
+<li><a href="./multiversal-equality.html">Multiversal Equality</a> introduces a special typeclass to support type safe equality.</li>
+<li><a href="./context-functions.html">Context Functions</a> provide a way to abstract over context parameters.</li>
+<li><a href="./by-name-context-parameters.html">By-Name Context Parameters</a> are an essential tool to define recursive synthesized values without looping.</li>
+<li><a href="./relationship-implicits.html">Relationship with Scala 2 Implicits</a> discusses the relationship between old-style implicits and new-style givens and how to migrate from one to the other.</li>
+</ul>
+<p>Overall, the new design achieves a better separation of term inference from the rest of the language: There is a single way to define givens instead of a multitude of forms all taking an <code>implicit</code> modifier. There is a single way to introduce implicit parameters and arguments instead of conflating implicit with normal arguments. There is a separate way to import givens that does not allow them to hide in a sea of normal imports. And there is a single way to define an implicit conversion which is clearly marked as such and does not require special syntax.</p>
+<p>This design thus avoids feature interactions and makes the language more consistent and orthogonal. It will make implicits easier to learn and harder to abuse. It will greatly improve the clarity of the 95% of Scala programs that use implicits. It has thus the potential to fulfil the promise of term inference in a principled way that is also accessible and friendly.</p>
+<p>Could we achieve the same goals by tweaking existing implicits? After having tried for a long time, I believe now that this is impossible.</p>
+<ul>
+<li>First, some of the problems are clearly syntactic and require different syntax to solve them.</li>
+<li>Second, there is the problem how to migrate. We cannot change the rules in mid-flight. At some stage of language evolution we need to accommodate both the new and the old rules. With a syntax change, this is easy: Introduce the new syntax with new rules, support the old syntax for a while to facilitate cross compilation, deprecate and phase out the old syntax at some later time. Keeping the same syntax does not offer this path, and in fact does not seem to offer any viable path for evolution</li>
+<li>Third, even if we would somehow succeed with migration, we still have the problem
+how to teach this. We cannot make existing tutorials go away. Almost all existing tutorials start with implicit conversions, which will go away; they use normal imports, which will go away, and they explain calls to methods with implicit parameters by expanding them to plain applications, which will also go away. This means that we'd have
+to add modifications and qualifications to all existing literature and courseware, likely causing more confusion with beginners instead of less. By contrast, with a new syntax there is a clear criterion: Any book or courseware that mentions <code>implicit</code> is outdated and should be updated.</li>
+</ul>
 
 </main>
 </div>

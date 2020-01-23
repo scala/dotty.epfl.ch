@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Import Given</title>
+        <title>Context Parameters</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -85,7 +85,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/overview.html" >Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -109,12 +109,12 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/contextual/motivation.html" >Overview</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/delegates.html" >Given Instances</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" class="toggled">Given Imports</a></li>
+<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
@@ -1961,108 +1961,118 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Import Given</h1>
+        <h1>Context Parameters</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-delegate.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/context-parameters.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./given-imports.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>A special form of import wildcard selector is used to import given instances. Example:</p>
-<pre><code class="scala">object A {
-  class TC
-  given tc: TC
-  def f(given TC) = ???
+    <p>Functional programming tends to express most dependencies as simple function parameterization.
+This is clean and powerful, but it sometimes leads to functions that take many parameters where the same value is passed over and over again in long call chains to many
+functions. Context parameters can help here since they enable the compiler to synthesize
+repetitive arguments instead of the programmer having to write them explicitly.</p>
+<p>For example, with the <a href="./givens.html">given instances</a> defined previously,
+a maximum function that works for any arguments for which an ordering exists can be defined as follows:</p>
+<pre><code class="scala">def max[T](x: T, y: T) with (ord: Ord[T]) : T =
+  if ord.compare(x, y) &lt; 0 then y else x
+</code></pre>
+<p>Here, <code>ord</code> is a <em>context parameter</em> introduced with a <code>with</code> clause.
+The <code>max</code> method can be applied as follows:</p>
+<pre><code class="scala">max(2, 3).with(intOrd)
+</code></pre>
+<p>The <code>.with(intOrd)</code> part passes <code>intOrd</code> as an argument for the <code>ord</code> parameter. But the point of
+context parameters is that this argument can also be left out (and it usually is). So the following
+applications are equally valid:</p>
+<pre><code class="scala">max(2, 3)
+max(List(1, 2, 3), Nil)
+</code></pre>
+<p>Formatting hint: For legibility it is recommended to always leave one space after a <code>with</code> clause before following it with another lexeme.</p>
+<h2><a href="#anonymous-context-parameters" id="anonymous-context-parameters" class="anchor"></a>Anonymous Context Parameters</h2>
+<p>In many situations, the name of a context parameter need not be
+mentioned explicitly at all, since it is used only in synthesized arguments for
+other context parameters. In that case one can avoid defining a parameter name
+and just provide its type. Example:</p>
+<pre><code class="scala">def maximum[T](xs: List[T]) with Ord[T] : T =
+  xs.reduceLeft(max)
+</code></pre>
+<p><code>maximum</code> takes a context parameter of type <code>Ord</code> only to pass it on as an
+inferred argument to <code>max</code>. The name of the parameter is left out.</p>
+<p>Generally, context parameters may be defined either as a full parameter list <code>(p_1: T_1, ..., p_n: T_n)</code> or just as a sequence of types <code>T_1, ..., T_n</code>. Vararg parameters are not supported in with clauses.</p>
+<p><strong>Note:</strong> According to the rules above, a <code>with</code> clause like <code>(A, B)</code> consisting of types in parentheses defines a context parameter of tuple type. But by analogy with <code>(a: A, b: B)</code> one might assume that it defines two context parameters
+of type <code>A</code> and <code>B</code> instead. To avoid confusion, the compiler could issue a warning in this case that clarifies the meaning. If a context parameter of tuple type is in fact intended, the warning can be avoided by switching to a named context parameter,
+e.g. <code>(ab: (A, B))</code> or enclosing the tuple in an extra set of parentheses, e.g. <code>((A, B))</code>.</p>
+<h2><a href="#inferring-complex-arguments" id="inferring-complex-arguments" class="anchor"></a>Inferring Complex Arguments</h2>
+<p>Here are two other methods that have a context parameter of type <code>Ord[T]</code>:</p>
+<pre><code class="scala">def descending[T] with (asc: Ord[T]) : Ord[T] = new Ord[T] {
+  def compare(x: T, y: T) = asc.compare(y, x)
 }
-object B {
-  import A._
-  import A.given
-}
-</code></pre>
-<p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the given instance <code>tc</code>. Conversely, the second import <code>import A.given</code> will import <em>only</em> that given instance.
-The two import clauses can also be merged into one:</p>
-<pre><code class="scala">object B
-  import A.{given, _}
-</code></pre>
-<p>Generally, a normal wildcard selector <code>_</code> brings all definitions other than given instances into scope whereas a <code>given</code> selector brings all given instances into scope.</p>
-<p>There are two main benefits arising from these rules:</p>
-<ul>
-<li>It is made clearer where givens in scope are coming from.
-In particular, it is not possible to hide imported givens in a long list of regular wildcard imports.</li>
-<li>It enables importing all givens
-without importing anything else. This is particularly important since givens
-can be anonymous, so the usual recourse of using named imports is not
-practical.</li>
-</ul>
-<h3><a href="#importing-by-type" id="importing-by-type" class="anchor"></a>Importing By Type</h3>
-<p>Since givens can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
-<pre><code class="scala">import A.{given TC}
-</code></pre>
-<p>This imports any given in <code>A</code> that has a type which conforms to <code>TC</code>. Importing givens of several types <code>T1,...,Tn</code>
-is expressed by multiple <code>given</code> selectors.</p>
-<pre><code class="nohighlight">import A.{given T1, ..., given Tn}
-</code></pre>
-<p>Importing all given instances of a parameterized type is expressed by wildcard arguments.
-For instance, assuming the object</p>
-<pre><code class="scala">object Instances {
-  given intOrd: Ordering[Int]
-  given [T: Ordering] listOrd: Ordering[List[T]]
-  given ec: ExecutionContext = ...
-  given im: Monoid[Int]
-}
-</code></pre>
-<p>the import</p>
-<pre><code class="scala">import Instances.{given Ordering[?], given ExecutionContext}
-</code></pre>
-<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> instances but leave out the <code>im</code> instance, since it fits none of the specified bounds.</p>
-<p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
-<pre><code class="scala">import Instances.{im, given Ordering[?]}
-</code></pre>
-<p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>.</p>
-<p>Bounded wildcard selectors also work for normal imports and exports. For instance, consider the following <code>enum</code> definition:</p>
-<pre><code class="scala">enum Color {
-  case Red, Green, Blue, Magenta
 
-  def isPrimary(c: Color): Boolean = ...
-}
-export Color.{_: Color}
+def minimum[T](xs: List[T]) with Ord[T] =
+  maximum(xs).with(descending)
 </code></pre>
-<p>The export clause makes all four three <code>Color</code> values available as unqualified constants, but
-leaves the <code>isPrimary</code> method alone.</p>
-<h3><a href="#migration" id="migration" class="anchor"></a>Migration</h3>
-<p>The rules for imports stated above have the consequence that a library
-would have to migrate in lockstep with all its users from old style implicits and
-normal imports to given instances and imports.</p>
-<p>The following modifications avoid this hurdle to migration.</p>
-<ol>
-<li>
-<p>A <code>given</code> import selector also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a <code>_</code> wildcard import or by a <code>given</code> import.</p>
-</li>
-<li>
-<p>In Scala 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a deprecation warning.</p>
-</li>
-<li>In some version after 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a compiler error.</li>
-</ol>
-<p>These rules mean that library users can use <code>given</code> imports to access old-style implicits in Scala 3.0,
-and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-representation clauses once their user base has migrated.</p>
-<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<pre><code class="nohighlight">Import            ::=  ‘import’ ImportExpr {‘,’ ImportExpr}
-ImportExpr        ::=  StableId ‘.’ ImportSpec
-ImportSpec        ::=  id
-                    | ‘_’
-                    | ‘given’
-                    | ‘{’ ImportSelectors) ‘}’
-ImportSelectors   ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’] [‘,’ ImportSelectors]
-                    |  WildCardSelector {‘,’ WildCardSelector}
-WildCardSelector  ::=  ‘given’ [InfixType]
-                    |  ‘_' [‘:’ InfixType]
-Export            ::=  ‘export’ ImportExpr {‘,’ ImportExpr}
+<p>The <code>minimum</code> method's right hand side passes <code>descending</code> as an explicit argument to <code>maximum(xs)</code>.
+With this setup, the following calls are all well-formed, and they all normalize to the last one:</p>
+<pre><code class="scala">minimum(xs)
+maximum(xs).with(descending)
+maximum(xs).with(descending.with(listOrd))
+maximum(xs).with(descending.with(listOrd.with(intOrd)))
+</code></pre>
+<h2><a href="#multiple-with-clauses" id="multiple-with-clauses" class="anchor"></a>Multiple With Clauses</h2>
+<p>There can be several <code>with</code> clauses in a definition. Example:</p>
+<pre><code class="scala">def f(u: Universe) with (ctx: u.Context) with (s: ctx.Symbol, k: ctx.Kind) = ...
+</code></pre>
+<p>Multiple with clauses are matched left-to-right in applications. Example:</p>
+<pre><code class="scala">object global extends Universe { type Context = ... }
+given ctx  as global.Context { type Symbol = ...; type Kind = ... }
+given sym  as ctx.Symbol
+given kind as ctx.Kind
+</code></pre>
+<p>Then the following calls are all valid (and normalize to the last one)</p>
+<pre><code class="scala">f(global)
+f(global).with(ctx)
+f(global).with(ctx).with(sym, kind)
+</code></pre>
+<p>But <code>f(global).with(sym, kind)</code> would give a type error.</p>
+<p><code>with</code> clauses can be freely interspersed with normal parameters, but a normal parameter clause cannot
+directly follow a <code>with</code> clause consisting only of types outside parentheses. So the following is illegal:</p>
+<pre><code class="scala">def f with A, B (x: C) = ...
+</code></pre>
+<p>But the following variants are valid:</p>
+<pre><code class="scala">def g with A, B with (x: C) = ...
+def h with (A, B) (x: C) = ...
+</code></pre>
+<h2><a href="#summoning-instances" id="summoning-instances" class="anchor"></a>Summoning Instances</h2>
+<p>The method <code>summon</code> in <code>Predef</code> returns the given of a specific type. For example,
+the given instance for <code>Ord[List[Int]]</code> is produced by</p>
+<pre><code class="scala">summon[Ord[List[Int]]]  // reduces to listOrd.with(intOrd)
+</code></pre>
+<p>The <code>summon</code> method is simply defined as the (non-widening) identity function over a context parameter.</p>
+<pre><code class="scala">def summon[T] with (x: T): x.type = x
+</code></pre>
+<h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
+<p>Here is the new syntax of parameters and arguments seen as a delta from the <a href="../../internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
+<pre><code class="nohighlight">ClsParamClauses     ::=  ...
+                      |  ClsParamClause ClsParamClauses
+                      |  ClsParamClauses1
+ClsParamClauses1    ::=  WithClsParamClause ClsParamClauses
+                      |  AnnotTypes ClsParamClauses1
+DefParamClauses     ::=  ...
+                      |  DefParamClause DefParamClauses
+                      |  DefParamClauses1
+DefParamClauses1    ::=  WithParamClause DefParamClauses
+                      |  AnnotTypes DefParamClauses1
+WithClsParamClause  ::=  ‘with’ (‘(’ (ClsParams | Types) ‘)’ | AnnotTypes)
+WithParamClause     ::=  ‘with’ (‘(’ (DefParams | Types) ‘)’ | AnnotTypes)
+Types               ::=  Type {‘,’ Type}
+AnnotTypes          ::=  AnnotType {‘,’ AnnotType}
+
+SimpleExpr          ::=  ...
+                      |  SimpleExpr ContextArguments
+ParArgumentExprss   ::=  {ParArgumentExprs | ContextArguments}
+ContextArguments    ::=  ‘.’ ‘with’ ArgumentExprs
+
 </code></pre>
 
 </main>

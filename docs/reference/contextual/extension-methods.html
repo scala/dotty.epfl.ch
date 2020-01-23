@@ -1974,7 +1974,7 @@
 <p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
 <pre><code class="scala">case class Circle(x: Double, y: Double, radius: Double)
 
-def (c: Circle) circumference: Double = c.radius * math.Pi * 2
+def (c: Circle).circumference: Double = c.radius * math.Pi * 2
 </code></pre>
 <p>Like regular methods, extension methods can be invoked with infix <code>.</code>:</p>
 <pre><code class="scala">val circle = Circle(0, 0, 1)
@@ -1998,14 +1998,14 @@ or inherited or imported in a scope enclosing the application.</li>
 </ul>
 <p>As an example, consider an extension method <code>longestStrings</code> on <code>Seq[String]</code> defined in a trait <code>StringSeqOps</code>.</p>
 <pre><code class="scala">trait StringSeqOps {
-  def (xs: Seq[String]) longestStrings = {
+  def (xs: Seq[String]).longestStrings = {
     val maxLength = xs.map(_.length).max
     xs.filter(_.length == maxLength)
   }
 }
 </code></pre>
 <p>We can make the extension method available by defining a given <code>StringSeqOps</code> instance, like this:</p>
-<pre><code class="scala">given ops1: StringSeqOps
+<pre><code class="scala">given ops1 as StringSeqOps
 </code></pre>
 <p>Then</p>
 <pre><code class="scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
@@ -2020,29 +2020,33 @@ List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestS
 and where <code>T</code> is the expected type. The following two rewritings are tried in order:</p>
 <ol>
 <li>The selection is rewritten to <code>m[Ts](e)</code>.</li>
-<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is a given instance <code>i</code>
-in either the current scope or in the implicit scope of <code>T</code>, and <code>i</code> defines an extension
-method named <code>m</code>, then selection is expanded to <code>i.m[Ts](e)</code>.
+<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is a given <code>g</code>
+in either the current scope or in the context scope of <code>T</code> such that <code>g</code> defines an extension
+method named <code>m</code>, then selection is expanded to <code>g.m[Ts](e)</code>.
 This second rewriting is attempted at the time where the compiler also tries an implicit conversion
 from <code>T</code> to a type containing <code>m</code>. If there is more than one way of rewriting, an ambiguity error results.</li>
 </ol>
 <p>So <code>circle.circumference</code> translates to <code>CircleOps.circumference(circle)</code>, provided
-<code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is given  (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
+<code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is given (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
 <h3><a href="#operators" id="operators" class="anchor"></a>Operators</h3>
 <p>The extension method syntax also applies to the definition of operators.
-In each case the definition syntax mirrors the way the operator is applied.
+In this case it is allowed and preferable to omit the period between the leading parameter list
+and the operator. In each case the definition syntax mirrors the way the operator is applied.
 Examples:</p>
 <pre><code class="scala">def (x: String) &lt; (y: String) = ...
 def (x: Elem) +: (xs: Seq[Elem]) = ...
+def (x: Number) min (y: Number) = ...
 
 &quot;ab&quot; &lt; &quot;c&quot;
 1 +: List(2, 3)
+x min 3
 </code></pre>
-<p>The two definitions above translate to</p>
+<p>The three definitions above translate to</p>
 <pre><code class="scala">def &lt; (x: String)(y: String) = ...
 def +: (xs: Seq[Elem])(x: Elem) = ...
+def min(x: Number)(y: Number) = ...
 </code></pre>
-<p>Note that swap of the two parameters <code>x</code> and <code>xs</code> when translating
+<p>Note the swap of the two parameters <code>x</code> and <code>xs</code> when translating
 the right-binding operator <code>+:</code> to an extension method. This is analogous
 to the implementation of right binding operators as normal methods.</p>
 <h3><a href="#generic-extensions" id="generic-extensions" class="anchor"></a>Generic Extensions</h3>
@@ -2059,50 +2063,53 @@ def [T: Numeric](x: T) + (y: T): T =
 <p>If an extension method has type parameters, they come immediately after the <code>def</code> and are followed by the extended parameter. When calling a  generic extension method, any explicitly given type arguments follow the method name. So the <code>second</code> method can be instantiated as follows:</p>
 <pre><code class="scala">List(1, 2, 3).second[Int]
 </code></pre>
-<h3><a href="#given-instances-for-extension-methods" id="given-instances-for-extension-methods" class="anchor"></a>Given Instances for Extension Methods</h3>
-<p><code>given</code> extensions are given instances that define extension methods and nothing else. Examples:</p>
-<pre><code class="scala">given stringOps: (xs: Seq[String]) extended with {
+<h3><a href="#collective-extensions" id="collective-extensions" class="anchor"></a>Collective Extensions</h3>
+<p>A collective extension defines one or more concrete methods that have the same type parameters
+and prefix parameter. Examples:</p>
+<pre><code class="scala">extension stringOps on (xs: Seq[String]) {
   def longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max
     xs.filter(_.length == maxLength)
   }
 }
 
-given listOps: [T](xs: List[T]) extended with {
+extension listOps on [T](xs: List[T]) {
   def second = xs.tail.head
   def third: T = xs.tail.tail.head
 }
 
-given [T](xs: List[T])(given Ordering[T]) extended with {
+extension on [T](xs: List[T]) with Ordering[T]) {
   def largest(n: Int) = xs.sorted.takeRight(n)
 }
 </code></pre>
-<p>If a given extension is anonymous (as in the last clause), its name is synthesized from the name of the first defined extension method.</p>
-<p>The extensions above are equivalent to the following regular given instances where the implemented parent is <code>AnyRef</code> and the parameters in the <code>extension</code> clause are repeated in each extension method definition:</p>
-<pre><code class="scala">given stringOps: AnyRef {
-  def (xs: Seq[String]) longestStrings: Seq[String] = {
+<p>If an extension is anonymous (as in the last clause), its name is synthesized from the name of the first defined extension method.</p>
+<p>The extensions above are equivalent to the following regular given instances where the implemented parent is <code>AnyRef</code> and the leading parameters are repeated in each extension method definition:</p>
+<pre><code class="scala">given stringOps as AnyRef {
+  def (xs: Seq[String]).longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max
     xs.filter(_.length == maxLength)
   }
 }
-given listOps: AnyRef {
+given listOps as AnyRef {
   def [T](xs: List[T]) second = xs.tail.head
   def [T](xs: List[T]) third: T = xs.tail.tail.head
 }
-given given_largest_of_List_T: AnyRef {
-  def [T](xs: List[T]) largest (given Ordering[T])(n: Int) =
+given extension_largest_List_T as AnyRef {
+  def [T](xs: List[T]) largest with (Ordering[T]) (n: Int) =
     xs.sorted.takeRight(n)
 }
 </code></pre>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<p>Here are the syntax changes for extension methods and given extensions relative
-to the <a href="../../internals/syntax.html">current syntax</a>. <code>extension</code> is a soft keyword, recognized only after a <code>given</code>. It can be used as an identifier everywhere else.</p>
+<p>Here are the syntax changes for extension methods and collective extensions relative
+to the <a href="../../internals/syntax.html">current syntax</a>. <code>extension</code> is a soft keyword, recognized only
+in tandem with <code>of</code>. It can be used as an identifier everywhere else.</p>
 <pre><code class="nohighlight">DefSig            ::=  ...
-                    |  ExtParamClause [nl] id DefParamClauses
-GivenDef          ::=  ...
-                       [id ‘:’] ‘extension’ ExtParamClause {GivenParamClause} ExtMethods
+                    |  ExtParamClause [nl] [‘.’] id DefParamClauses
 ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’
-ExtMethods        ::=  [nl] ‘{’ ‘def’ DefDef {semi ‘def’ DefDef} ‘}’
+TmplDef           ::=  ...
+                    |  ‘extension’ ExtensionDef
+ExtensionDef      ::=  [id] ‘on’ ExtParamClause {GivenParamClause} ‘with’ ExtMethods
+ExtMethods        ::=  ‘{’ ‘def’ DefDef {semi ‘def’ DefDef} ‘}’
 </code></pre>
 
 </main>

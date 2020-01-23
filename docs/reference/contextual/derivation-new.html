@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Import Given</title>
+        <title>Type Class Derivation</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -114,10 +114,10 @@
 <li class="leaf"><a href="../../.././docs/reference/contextual/delegates.html" >Given Instances</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" class="toggled">Given Imports</a></li>
+<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="../../.././docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="../../.././docs/reference/contextual/derivation.html" class="toggled">Typeclass Derivation</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1961,109 +1961,343 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Import Given</h1>
+        <h1>Type Class Derivation</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-delegate.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/derivation-new.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./given-imports.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>A special form of import wildcard selector is used to import given instances. Example:</p>
-<pre><code class="scala">object A {
-  class TC
-  given tc: TC
-  def f(given TC) = ???
-}
-object B {
-  import A._
-  import A.given
+    <p>Type class derivation is a way to automatically generate given instances for type classes which satisfy some simple
+conditions. A type class in this sense is any trait or class with a type parameter determining the type being operated
+on. Common examples are <code>Eq</code>, <code>Ordering</code>, or <code>Show</code>. For example, given the following <code>Tree</code> algebraic data type
+(ADT),</p>
+<pre><code class="scala">enum Tree[T] derives Eq, Ordering, Show {
+  case Branch[T](left: Tree[T], right: Tree[T])
+  case Leaf[T](elem: T)
 }
 </code></pre>
-<p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the given instance <code>tc</code>. Conversely, the second import <code>import A.given</code> will import <em>only</em> that given instance.
-The two import clauses can also be merged into one:</p>
-<pre><code class="scala">object B
-  import A.{given, _}
+<p>The <code>derives</code> clause generates the following given instances for the <code>Eq</code>, <code>Ordering</code> and <code>Show</code> type classes in the
+companion object of <code>Tree</code>,</p>
+<pre><code class="scala">given [T: Eq]       as Eq[Tree[T]]    = Eq.derived
+given [T: Ordering] as Ordering[Tree] = Ordering.derived
+given [T: Show]     as Show[Tree]     = Show.derived
 </code></pre>
-<p>Generally, a normal wildcard selector <code>_</code> brings all definitions other than given instances into scope whereas a <code>given</code> selector brings all given instances into scope.</p>
-<p>There are two main benefits arising from these rules:</p>
+<p>We say that <code>Tree</code> is the <em>deriving type</em> and that the <code>Eq</code>, <code>Ordering</code> and <code>Show</code> instances are <em>derived instances</em>.</p>
+<h3><a href="#types-supporting-derives-clauses" id="types-supporting-derives-clauses" class="anchor"></a>Types supporting <code>derives</code> clauses</h3>
+<p>All data types can have a <code>derives</code> clause. This document focuses primarily on data types which also have a given instance
+of the <code>Mirror</code> type class available. Given instances of the <code>Mirror</code> type class are generated automatically by the compiler
+for,</p>
 <ul>
-<li>It is made clearer where givens in scope are coming from.
-In particular, it is not possible to hide imported givens in a long list of regular wildcard imports.</li>
-<li>It enables importing all givens
-without importing anything else. This is particularly important since givens
-can be anonymous, so the usual recourse of using named imports is not
-practical.</li>
+<li>enums and enum cases</li>
+<li>case classes and case objects</li>
+<li>sealed classes or traits that have only case classes and case objects as children</li>
 </ul>
-<h3><a href="#importing-by-type" id="importing-by-type" class="anchor"></a>Importing By Type</h3>
-<p>Since givens can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
-<pre><code class="scala">import A.{given TC}
-</code></pre>
-<p>This imports any given in <code>A</code> that has a type which conforms to <code>TC</code>. Importing givens of several types <code>T1,...,Tn</code>
-is expressed by multiple <code>given</code> selectors.</p>
-<pre><code class="nohighlight">import A.{given T1, ..., given Tn}
-</code></pre>
-<p>Importing all given instances of a parameterized type is expressed by wildcard arguments.
-For instance, assuming the object</p>
-<pre><code class="scala">object Instances {
-  given intOrd: Ordering[Int]
-  given [T: Ordering] listOrd: Ordering[List[T]]
-  given ec: ExecutionContext = ...
-  given im: Monoid[Int]
-}
-</code></pre>
-<p>the import</p>
-<pre><code class="scala">import Instances.{given Ordering[?], given ExecutionContext}
-</code></pre>
-<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> instances but leave out the <code>im</code> instance, since it fits none of the specified bounds.</p>
-<p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
-<pre><code class="scala">import Instances.{im, given Ordering[?]}
-</code></pre>
-<p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>.</p>
-<p>Bounded wildcard selectors also work for normal imports and exports. For instance, consider the following <code>enum</code> definition:</p>
-<pre><code class="scala">enum Color {
-  case Red, Green, Blue, Magenta
+<p><code>Mirror</code> type class instances provide information at the type level about the components and labelling of the type.
+They also provide minimal term level infrastructure to allow higher level libraries to provide comprehensive
+derivation support.</p>
+<pre><code class="scala">sealed trait Mirror {
 
-  def isPrimary(c: Color): Boolean = ...
+  /** the type being mirrored */
+  type MirroredType
+
+  /** the type of the elements of the mirrored type */
+  type MirroredElemTypes
+
+  /** The mirrored *-type */
+  type MirroredMonoType
+
+  /** The name of the type */
+  type MirroredLabel &lt;: String
+
+  /** The names of the elements of the type */
+  type MirroredElemLabels &lt;: Tuple
 }
-export Color.{_: Color}
+
+object Mirror {
+  /** The Mirror for a product type */
+  trait Product extends Mirror {
+
+    /** Create a new instance of type `T` with elements taken from product `p`. */
+    def fromProduct(p: scala.Product): MirroredMonoType
+  }
+
+  trait Sum extends Mirror { self =&gt;
+    /** The ordinal number of the case class of `x`. For enums, `ordinal(x) == x.ordinal` */
+    def ordinal(x: MirroredMonoType): Int
+  }
+}
 </code></pre>
-<p>The export clause makes all four three <code>Color</code> values available as unqualified constants, but
-leaves the <code>isPrimary</code> method alone.</p>
-<h3><a href="#migration" id="migration" class="anchor"></a>Migration</h3>
-<p>The rules for imports stated above have the consequence that a library
-would have to migrate in lockstep with all its users from old style implicits and
-normal imports to given instances and imports.</p>
-<p>The following modifications avoid this hurdle to migration.</p>
-<ol>
-<li>
-<p>A <code>given</code> import selector also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a <code>_</code> wildcard import or by a <code>given</code> import.</p>
-</li>
-<li>
-<p>In Scala 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a deprecation warning.</p>
-</li>
-<li>In some version after 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a compiler error.</li>
-</ol>
-<p>These rules mean that library users can use <code>given</code> imports to access old-style implicits in Scala 3.0,
-and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-representation clauses once their user base has migrated.</p>
+<p>Product types (i.e. case classes and objects, and enum cases) have mirrors which are subtypes of <code>Mirror.Product</code>. Sum
+types (i.e. sealed class or traits with product children, and enums) have mirrors which are subtypes of <code>Mirror.Sum</code>.</p>
+<p>For the <code>Tree</code> ADT from above the following <code>Mirror</code> instances will be automatically provided by the compiler,</p>
+<pre><code class="scala">// Mirror for Tree
+Mirror.Sum {
+  type MirroredType = Tree
+  type MirroredElemTypes[T] = (Branch[T], Leaf[T])
+  type MirroredMonoType = Tree[_]
+  type MirroredLabels = &quot;Tree&quot;
+  type MirroredElemLabels = (&quot;Branch&quot;, &quot;Leaf&quot;)
+
+  def ordinal(x: MirroredMonoType): Int = x match {
+    case _: Branch[_] =&gt; 0
+    case _: Leaf[_] =&gt; 1
+  }
+}
+
+// Mirror for Branch
+Mirror.Product {
+  type MirroredType = Branch
+  type MirroredElemTypes[T] = (Tree[T], Tree[T])
+  type MirroredMonoType = Branch[_]
+  type MirroredLabels = &quot;Branch&quot;
+  type MirroredElemLabels = (&quot;left&quot;, &quot;right&quot;)
+
+  def fromProduct(p: Product): MirroredMonoType =
+    new Branch(...)
+}
+
+// Mirror for Leaf
+Mirror.Product {
+  type MirroredType = Leaf
+  type MirroredElemTypes[T] = Tuple1[T]
+  type MirroredMonoType = Leaf[_]
+  type MirroredLabels = &quot;Leaf&quot;
+  type MirroredElemLabels = Tuple1[&quot;elem&quot;]
+
+  def fromProduct(p: Product): MirroredMonoType =
+    new Leaf(...)
+}
+</code></pre>
+<p>Note the following properties of <code>Mirror</code> types,</p>
+<ul>
+<li>Properties are encoded using types rather than terms. This means that they have no runtime footprint unless used and
+also that they are a compile time feature for use with Dotty's metaprogramming facilities.</li>
+<li>The kinds of <code>MirroredType</code> and <code>MirroredElemTypes</code> match the kind of the data type the mirror is an instance for.
+This allows <code>Mirrors</code> to support ADTs of all kinds.</li>
+<li>There is no distinct representation type for sums or products (ie. there is no <code>HList</code> or <code>Coproduct</code> type as in
+Scala 2 versions of shapeless). Instead the collection of child types of a data type is represented by an ordinary,
+possibly parameterized, tuple type. Dotty's metaprogramming facilities can be used to work with these tuple types
+as-is, and higher level libraries can be built on top of them.</li>
+<li>The methods <code>ordinal</code> and <code>fromProduct</code> are defined in terms of <code>MirroredMonoType</code> which is the type of kind-<code>*</code>
+which is obtained from <code>MirroredType</code> by wildcarding its type parameters.</li>
+</ul>
+<h3><a href="#type-classes-supporting-automatic-deriving" id="type-classes-supporting-automatic-deriving" class="anchor"></a>Type classes supporting automatic deriving</h3>
+<p>A trait or class can appear in a <code>derives</code> clause if its companion object defines a method named <code>derived</code>. The
+signature and implementation of a <code>derived</code> method for a type class <code>TC[_]</code> are arbitrary but it is typically of the
+following form,</p>
+<pre><code class="scala">def derived[T] with Mirror.Of[T] : TC[T] = ...
+</code></pre>
+<p>That is, the <code>derived</code> method takes a context parameter of (some subtype of) type <code>Mirror</code> which defines the shape of
+the deriving type <code>T</code>, and computes the type class implementation according to that shape. This is all that the
+provider of an ADT with a <code>derives</code> clause has to know about the derivation of a type class instance.</p>
+<p>Note that <code>derived</code> methods may have given <code>Mirror</code> arguments indirectly (e.g. by having a context argument which in turn
+has a context <code>Mirror</code>, or not at all (e.g. they might use some completely different user-provided mechanism, for
+instance using Dotty macros or runtime reflection). We expect that (direct or indirect) <code>Mirror</code> based implementations
+will be the most common and that is what this document emphasises.</p>
+<p>Type class authors will most likely use higher level derivation or generic programming libraries to implement
+<code>derived</code> methods. An example of how a <code>derived</code> method might be implemented using <em>only</em> the low level facilities
+described above and Dotty's general metaprogramming features is provided below. It is not anticipated that type class
+authors would normally implement a <code>derived</code> method in this way, however this walkthrough can be taken as a guide for
+authors of the higher level derivation libraries that we expect typical type class authors will use (for a fully
+worked out example of such a library, see <a href="https://github.com/milessabin/shapeless/tree/shapeless-3">shapeless 3</a>).</p>
+<h4><a href="#how-to-write-a-type-class-derived-method-using-low-level-mechanisms" id="how-to-write-a-type-class-derived-method-using-low-level-mechanisms" class="anchor"></a>How to write a type class <code>derived</code> method using low level mechanisms</h4>
+<p>The low-level method we will use to implement a type class <code>derived</code> method in this example exploits three new
+type-level constructs in Dotty: inline methods, inline matches, and implicit searches via <code>summonFrom</code>. Given this definition of the
+<code>Eq</code> type class,</p>
+<pre><code class="scala">trait Eq[T] {
+  def eqv(x: T, y: T): Boolean
+}
+</code></pre>
+<p>we need to implement a method <code>Eq.derived</code> on the companion object of <code>Eq</code> that produces a given instance for <code>Eq[T]</code> given
+a <code>Mirror[T]</code>. Here is a possible implementation,</p>
+<pre><code class="scala">inline given derived[T] with (m: Mirror.Of[T]) as Eq[T] = {
+  val elemInstances = summonAll[m.MirroredElemTypes]           // (1)
+  inline m match {                                             // (2)
+    case s: Mirror.SumOf[T]     =&gt; eqSum(s, elemInstances)
+    case p: Mirror.ProductOf[T] =&gt; eqProduct(p, elemInstances)
+  }
+}
+</code></pre>
+<p>Note that <code>derived</code> is defined as an <code>inline</code> given. This means that the method will be expanded at
+call sites (for instance the compiler generated instance definitions in the companion objects of ADTs which have a
+<code>derived Eq</code> clause), and also that it can be used recursively if necessary, to compute instances for children.</p>
+<p>The body of this method (1) first materializes the <code>Eq</code> instances for all the child types of type the instance is
+being derived for. This is either all the branches of a sum type or all the fields of a product type. The
+implementation of <code>summonAll</code> is <code>inline</code> and uses Dotty's <code>summonFrom</code> construct to collect the instances as a
+<code>List</code>,</p>
+<pre><code class="scala">inline def summonAll[T]: T = summonFrom {
+  case t: T =&gt; t
+}
+
+inline def summonAll[T &lt;: Tuple]: List[Eq[_]] = inline erasedValue[T] match {
+  case _: Unit =&gt; Nil
+  case _: (t *: ts) =&gt; summon[Eq[t]] :: summonAll[ts]
+}
+</code></pre>
+<p>with the instances for children in hand the <code>derived</code> method uses an <code>inline match</code> to dispatch to methods which can
+construct instances for either sums or products (2). Note that because <code>derived</code> is <code>inline</code> the match will be
+resolved at compile-time and only the left-hand side of the matching case will be inlined into the generated code with
+types refined as revealed by the match.</p>
+<p>In the sum case, <code>eqSum</code>, we use the runtime <code>ordinal</code> values of the arguments to <code>eqv</code> to first check if the two
+values are of the same subtype of the ADT (3) and then, if they are, to further test for equality based on the <code>Eq</code>
+instance for the appropriate ADT subtype using the auxiliary method <code>check</code> (4).</p>
+<pre><code class="scala">def eqSum[T](s: Mirror.SumOf[T], elems: List[Eq[_]]): Eq[T] =
+  new Eq[T] {
+    def eqv(x: T, y: T): Boolean = {
+      val ordx = s.ordinal(x)                            // (3)
+      (s.ordinal(y) == ordx) &amp;&amp; check(elems(ordx))(x, y) // (4)
+    }
+  }
+</code></pre>
+<p>In the product case, <code>eqProduct</code> we test the runtime values of the arguments to <code>eqv</code> for equality as products based
+on the <code>Eq</code> instances for the fields of the data type (5),</p>
+<pre><code class="scala">def eqProduct[T](p: Mirror.ProductOf[T], elems: List[Eq[_]]): Eq[T] =
+  new Eq[T] {
+    def eqv(x: T, y: T): Boolean =
+      iterator(x).zip(iterator(y)).zip(elems.iterator).forall {  // (5)
+        case ((x, y), elem) =&gt; check(elem)(x, y)
+      }
+  }
+</code></pre>
+<p>Pulling this all together we have the following complete implementation,</p>
+<pre><code class="scala">import scala.deriving._
+import scala.compiletime.{erasedValue, summonFrom}
+
+inline def summon[T]: T = summonFrom {
+  case t: T =&gt; t
+}
+
+inline def summonAll[T &lt;: Tuple]: List[Eq[_]] = inline erasedValue[T] match {
+  case _: Unit =&gt; Nil
+  case _: (t *: ts) =&gt; summon[Eq[t]] :: summonAll[ts]
+}
+
+trait Eq[T] {
+  def eqv(x: T, y: T): Boolean
+}
+
+object Eq {
+  given Eq[Int] as {
+    def eqv(x: Int, y: Int) = x == y
+  }
+
+  def check(elem: Eq[_])(x: Any, y: Any): Boolean =
+    elem.asInstanceOf[Eq[Any]].eqv(x, y)
+
+  def iterator[T](p: T) = p.asInstanceOf[Product].productIterator
+
+  def eqSum[T](s: Mirror.SumOf[T], elems: List[Eq[_]]): Eq[T] =
+    new Eq[T] {
+      def eqv(x: T, y: T): Boolean = {
+        val ordx = s.ordinal(x)
+        (s.ordinal(y) == ordx) &amp;&amp; check(elems(ordx))(x, y)
+      }
+    }
+
+  def eqProduct[T](p: Mirror.ProductOf[T], elems: List[Eq[_]]): Eq[T] =
+    new Eq[T] {
+      def eqv(x: T, y: T): Boolean =
+        iterator(x).zip(iterator(y)).zip(elems.iterator).forall {
+          case ((x, y), elem) =&gt; check(elem)(x, y)
+        }
+    }
+
+  inline given derived[T] with (m: Mirror.Of[T]) as Eq[T] = {
+    val elemInstances = summonAll[m.MirroredElemTypes]
+    inline m match {
+      case s: Mirror.SumOf[T]     =&gt; eqSum(s, elemInstances)
+      case p: Mirror.ProductOf[T] =&gt; eqProduct(p, elemInstances)
+    }
+  }
+}
+</code></pre>
+<p>we can test this relative to a simple ADT like so,</p>
+<pre><code class="scala">enum Opt[+T] derives Eq {
+  case Sm(t: T)
+  case Nn
+}
+
+object Test extends App {
+  import Opt._
+  val eqoi = summon[Eq[Opt[Int]]]
+  assert(eqoi.eqv(Sm(23), Sm(23)))
+  assert(!eqoi.eqv(Sm(23), Sm(13)))
+  assert(!eqoi.eqv(Sm(23), Nn))
+}
+</code></pre>
+<p>In this case the code that is generated by the inline expansion for the derived <code>Eq</code> instance for <code>Opt</code> looks like the
+following, after a little polishing,</p>
+<pre><code class="scala">given derived$Eq[T] with (eqT: Eq[T]) as Eq[Opt[T]] =
+  eqSum(summon[Mirror[Opt[T]]],
+    List(
+      eqProduct(summon[Mirror[Sm[T]]], List(summon[Eq[T]]))
+      eqProduct(summon[Mirror[Nn.type]], Nil)
+    )
+  )
+</code></pre>
+<p>Alternative approaches can be taken to the way that <code>derived</code> methods can be defined. For example, more aggressively
+inlined variants using Dotty macros, whilst being more involved for type class authors to write than the example
+above, can produce code for type classes like <code>Eq</code> which eliminate all the abstraction artefacts (eg. the <code>Lists</code> of
+child instances in the above) and generate code which is indistinguishable from what a programmer might write by hand.
+As a third example, using a higher level library such as shapeless the type class author could define an equivalent
+<code>derived</code> method as,</p>
+<pre><code class="scala">given eqSum[A] with (inst: =&gt; K0.CoproductInstances[Eq, A]) as Eq[A] {
+  def eqv(x: A, y: A): Boolean = inst.fold2(x, y)(false)(
+    [t] =&gt; (eqt: Eq[t], t0: t, t1: t) =&gt; eqt.eqv(t0, t1)
+  )
+}
+
+given eqProduct[A] with (inst: K0.ProductInstances[Eq, A]) as Eq[A] {
+  def eqv(x: A, y: A): Boolean = inst.foldLeft2(x, y)(true: Boolean)(
+    [t] =&gt; (acc: Boolean, eqt: Eq[t], t0: t, t1: t) =&gt; Complete(!eqt.eqv(t0, t1))(false)(true)
+  )
+}
+
+
+inline def derived[A] with (gen: K0.Generic[A]) as Eq[A] = gen.derive(eqSum, eqProduct)
+</code></pre>
+<p>The framework described here enables all three of these approaches without mandating any of them.</p>
+<h3><a href="#deriving-instances-elsewhere" id="deriving-instances-elsewhere" class="anchor"></a>Deriving instances elsewhere</h3>
+<p>Sometimes one would like to derive a type class instance for an ADT after the ADT is defined, without being able to
+change the code of the ADT itself.  To do this, simply define an instance using the <code>derived</code> method of the type class
+as right-hand side. E.g, to implement <code>Ordering</code> for <code>Option</code> define,</p>
+<pre><code class="scala">given [T: Ordering] as Ordering[Option[T]] = Ordering.derived
+</code></pre>
+<p>Assuming the <code>Ordering.derived</code> method has a context parameter of type <code>Mirror[T]</code> it will be satisfied by the
+compiler generated <code>Mirror</code> instance for <code>Option</code> and the derivation of the instance will be expanded on the right
+hand side of this definition in the same way as an instance defined in ADT companion objects.</p>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<pre><code class="nohighlight">Import            ::=  ‘import’ ImportExpr {‘,’ ImportExpr}
-ImportExpr        ::=  StableId ‘.’ ImportSpec
-ImportSpec        ::=  id
-                    | ‘_’
-                    | ‘given’
-                    | ‘{’ ImportSelectors) ‘}’
-ImportSelectors   ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’] [‘,’ ImportSelectors]
-                    |  WildCardSelector {‘,’ WildCardSelector}
-WildCardSelector  ::=  ‘given’ [InfixType]
-                    |  ‘_' [‘:’ InfixType]
-Export            ::=  ‘export’ ImportExpr {‘,’ ImportExpr}
+<pre><code class="nohighlight">Template          ::=  InheritClauses [TemplateBody]
+EnumDef           ::=  id ClassConstr InheritClauses EnumBody
+InheritClauses    ::=  [‘extends’ ConstrApps] [‘derives’ QualId {‘,’ QualId}]
+ConstrApps        ::=  ConstrApp {‘with’ ConstrApp}
+                    |  ConstrApp {‘,’ ConstrApp}
 </code></pre>
+<h3><a href="#discussion" id="discussion" class="anchor"></a>Discussion</h3>
+<p>This type class derivation framework is intentionally very small and low-level. There are essentially two pieces of
+infrastructure in compiler-generated <code>Mirror</code> instances,</p>
+<ul>
+<li>type members encoding properties of the mirrored types.</li>
+<li>a minimal value level mechanism for working generically with terms of the mirrored types.</li>
+</ul>
+<p>The <code>Mirror</code> infrastructure can be seen as an extension of the existing <code>Product</code> infrastructure for case classes:
+typically <code>Mirror</code> types will be implemented by the ADTs companion object, hence the type members and the <code>ordinal</code> or
+<code>fromProduct</code> methods will be members of that object. The primary motivation for this design decision, and the
+decision to encode properties via types rather than terms was to keep the bytecode and runtime footprint of the
+feature small enough to make it possible to provide <code>Mirror</code> instances <em>unconditionally</em>.</p>
+<p>Whilst <code>Mirrors</code> encode properties precisely via type members, the value level <code>ordinal</code> and <code>fromProduct</code> are
+somewhat weakly typed (because they are defined in terms of <code>MirroredMonoType</code>) just like the members of <code>Product</code>.
+This means that code for generic type classes has to ensure that type exploration and value selection proceed in
+lockstep and it has to assert this conformance in some places using casts. If generic type classes are correctly
+written these casts will never fail.</p>
+<p>As mentioned, however, the compiler-provided mechansim is intentionally very low level and it is anticipated that
+higher level type class derivation and generic programming libraries will build on this and Dotty's other
+metaprogramming facilities to hide these low-level details from type class authors and general users. Type class
+derivation in the style of both shapeless and Magnolia are possible (a prototype of shapeless 3, which combines
+aspects of both shapeless 2 and Magnolia has been developed alongside this language feature) as is a more aggressively
+inlined style, supported by Dotty's new quote/splice macro and inlining facilities.</p>
 
 </main>
 </div>

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Import Given</title>
+        <title>Context Functions</title>
 
         <link rel="icon" type="image/png" href="../../.././images/favicon.png">
 
@@ -85,7 +85,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/overview.html" >Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -109,12 +109,12 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="../../.././docs/reference/contextual/motivation.html" >Overview</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/delegates.html" >Given Instances</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" class="toggled">Given Imports</a></li>
+<li class="leaf"><a href="../../.././docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="../../.././docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
@@ -1961,109 +1961,143 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Import Given</h1>
+        <h1>Context Functions</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/import-delegate.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/context-functions.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./given-imports.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>A special form of import wildcard selector is used to import given instances. Example:</p>
-<pre><code class="scala">object A {
-  class TC
-  given tc: TC
-  def f(given TC) = ???
-}
-object B {
-  import A._
-  import A.given
-}
+    <p><em>Context functions</em> are functions with (only) context parameters.
+Their types are <em>context function types</em>. Here is an example of a context function type:</p>
+<pre><code class="scala">type Executable[T] = ExecutionContext ?=&gt; T
 </code></pre>
-<p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
-of <code>A</code> <em>except</em> the given instance <code>tc</code>. Conversely, the second import <code>import A.given</code> will import <em>only</em> that given instance.
-The two import clauses can also be merged into one:</p>
-<pre><code class="scala">object B
-  import A.{given, _}
-</code></pre>
-<p>Generally, a normal wildcard selector <code>_</code> brings all definitions other than given instances into scope whereas a <code>given</code> selector brings all given instances into scope.</p>
-<p>There are two main benefits arising from these rules:</p>
-<ul>
-<li>It is made clearer where givens in scope are coming from.
-In particular, it is not possible to hide imported givens in a long list of regular wildcard imports.</li>
-<li>It enables importing all givens
-without importing anything else. This is particularly important since givens
-can be anonymous, so the usual recourse of using named imports is not
-practical.</li>
-</ul>
-<h3><a href="#importing-by-type" id="importing-by-type" class="anchor"></a>Importing By Type</h3>
-<p>Since givens can be anonymous it is not always practical to import them by their name, and wildcard imports are typically used instead. By-type imports provide a more specific alternative to wildcard imports, which makes it clearer what is imported. Example:</p>
-<pre><code class="scala">import A.{given TC}
-</code></pre>
-<p>This imports any given in <code>A</code> that has a type which conforms to <code>TC</code>. Importing givens of several types <code>T1,...,Tn</code>
-is expressed by multiple <code>given</code> selectors.</p>
-<pre><code class="nohighlight">import A.{given T1, ..., given Tn}
-</code></pre>
-<p>Importing all given instances of a parameterized type is expressed by wildcard arguments.
-For instance, assuming the object</p>
-<pre><code class="scala">object Instances {
-  given intOrd: Ordering[Int]
-  given [T: Ordering] listOrd: Ordering[List[T]]
-  given ec: ExecutionContext = ...
-  given im: Monoid[Int]
-}
-</code></pre>
-<p>the import</p>
-<pre><code class="scala">import Instances.{given Ordering[?], given ExecutionContext}
-</code></pre>
-<p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> instances but leave out the <code>im</code> instance, since it fits none of the specified bounds.</p>
-<p>By-type imports can be mixed with by-name imports. If both are present in an import clause, by-type imports come last. For instance, the import clause</p>
-<pre><code class="scala">import Instances.{im, given Ordering[?]}
-</code></pre>
-<p>would import <code>im</code>, <code>intOrd</code>, and <code>listOrd</code> but leave out <code>ec</code>.</p>
-<p>Bounded wildcard selectors also work for normal imports and exports. For instance, consider the following <code>enum</code> definition:</p>
-<pre><code class="scala">enum Color {
-  case Red, Green, Blue, Magenta
+<p>Context function are written using <code>?=&gt;</code> as the &quot;arrow&quot; sign.
+They are applied to synthesized arguments, in
+the same way methods with context parameters is applied. For instance:</p>
+<pre><code class="scala">  given ec as ExecutionContext = ...
 
-  def isPrimary(c: Color): Boolean = ...
+  def f(x: Int): Executable[Int] = ...
+
+  f(2).with(ec)    // explicit argument
+  f(2)             // argument is inferred
+</code></pre>
+<p>Conversely, if the expected type of an expression <code>E</code> is a context function type
+<code>(T_1, ..., T_n) ?=&gt; U</code> and <code>E</code> is not already an
+context function literal, <code>E</code> is converted to an context function literal by rewriting to</p>
+<pre><code class="scala">  (x_1: T1, ..., x_n: Tn) ?=&gt; E
+</code></pre>
+<p>where the names <code>x_1</code>, ..., <code>x_n</code> are arbitrary. This expansion is performed
+before the expression <code>E</code> is typechecked, which means that <code>x_1</code>, ..., <code>x_n</code>
+are available as givens in <code>E</code>.</p>
+<p>Like their types, context function literals are written using <code>?=&gt;</code> as the arrow between parameters and results. They differ from normal function literals in that their types are context function types.</p>
+<p>For example, continuing with the previous definitions,</p>
+<pre><code class="scala">  def g(arg: Executable[Int]) = ...
+
+  g(22)      // is expanded to g((ev: ExecutionContext) ?=&gt; 22)
+
+  g(f(2))    // is expanded to g((ev: ExecutionContext) ?=&gt; f(2).with(ev))
+
+  g((ctx: ExecutionContext) ?=&gt; f(22).with(ctx)) // is left as it is
+</code></pre>
+<h3><a href="#example-builder-pattern" id="example-builder-pattern" class="anchor"></a>Example: Builder Pattern</h3>
+<p>Context function types have considerable expressive power. For
+instance, here is how they can support the &quot;builder pattern&quot;, where
+the aim is to construct tables like this:</p>
+<pre><code class="scala">  table {
+    row {
+      cell(&quot;top left&quot;)
+      cell(&quot;top right&quot;)
+    }
+    row {
+      cell(&quot;bottom left&quot;)
+      cell(&quot;bottom right&quot;)
+    }
+  }
+</code></pre>
+<p>The idea is to define classes for <code>Table</code> and <code>Row</code> that allow
+addition of elements via <code>add</code>:</p>
+<pre><code class="scala">  class Table {
+    val rows = new ArrayBuffer[Row]
+    def add(r: Row): Unit = rows += r
+    override def toString = rows.mkString(&quot;Table(&quot;, &quot;, &quot;, &quot;)&quot;)
+  }
+
+  class Row {
+    val cells = new ArrayBuffer[Cell]
+    def add(c: Cell): Unit = cells += c
+    override def toString = cells.mkString(&quot;Row(&quot;, &quot;, &quot;, &quot;)&quot;)
+  }
+
+  case class Cell(elem: String)
+</code></pre>
+<p>Then, the <code>table</code>, <code>row</code> and <code>cell</code> constructor methods can be defined
+with context function types as parameters to avoid the plumbing boilerplate
+that would otherwise be necessary.</p>
+<pre><code class="scala">  def table(init: Table ?=&gt; Unit) = {
+    given t as Table
+    init
+    t
+  }
+
+  def row(init: Row ?=&gt; Unit) with (t: Table) = {
+    given r as Row
+    init
+    t.add(r)
+  }
+
+  def cell(str: String) with (r: Row) =
+    r.add(new Cell(str))
+</code></pre>
+<p>With that setup, the table construction code above compiles and expands to:</p>
+<pre><code class="scala">  table { ($t: Table) ?=&gt;
+
+    row { ($r: Row) ?=&gt;
+      cell(&quot;top left&quot;).with($r)
+      cell(&quot;top right&quot;).with($r)
+    }.with($t)
+
+    row { ($r: Row) ?=&gt;
+      cell(&quot;bottom left&quot;).with($r)
+      cell(&quot;bottom right&quot;).with($r)
+    }.with($t)
+  }
+</code></pre>
+<h3><a href="#example-postconditions" id="example-postconditions" class="anchor"></a>Example: Postconditions</h3>
+<p>As a larger example, here is a way to define constructs for checking arbitrary postconditions using an extension method <code>ensuring</code> so that the checked result can be referred to simply by <code>result</code>. The example combines opaque aliases, context function types, and extension methods to provide a zero-overhead abstraction.</p>
+<pre><code class="scala">object PostConditions {
+  opaque type WrappedResult[T] = T
+
+  def result[T] with (r: WrappedResult[T]) : T = r
+
+  def (x: T) ensuring[T](condition: WrappedResult[T] ?=&gt; Boolean): T = {
+    assert(condition.with(x))
+    x
+  }
 }
-export Color.{_: Color}
+import PostConditions.{ensuring, result}
+
+val s = List(1, 2, 3).sum.ensuring(result == 6)
 </code></pre>
-<p>The export clause makes all four three <code>Color</code> values available as unqualified constants, but
-leaves the <code>isPrimary</code> method alone.</p>
-<h3><a href="#migration" id="migration" class="anchor"></a>Migration</h3>
-<p>The rules for imports stated above have the consequence that a library
-would have to migrate in lockstep with all its users from old style implicits and
-normal imports to given instances and imports.</p>
-<p>The following modifications avoid this hurdle to migration.</p>
-<ol>
-<li>
-<p>A <code>given</code> import selector also brings old style implicits into scope. So, in Scala 3.0
-an old-style implicit definition can be brought into scope either by a <code>_</code> wildcard import or by a <code>given</code> import.</p>
-</li>
-<li>
-<p>In Scala 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a deprecation warning.</p>
-</li>
-<li>In some version after 3.1, old-style implicits accessed through a <code>_</code> wildcard import will give a compiler error.</li>
-</ol>
-<p>These rules mean that library users can use <code>given</code> imports to access old-style implicits in Scala 3.0,
-and will be gently nudged and then forced to do so in later versions. Libraries can then switch to
-representation clauses once their user base has migrated.</p>
-<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<pre><code class="nohighlight">Import            ::=  ‘import’ ImportExpr {‘,’ ImportExpr}
-ImportExpr        ::=  StableId ‘.’ ImportSpec
-ImportSpec        ::=  id
-                    | ‘_’
-                    | ‘given’
-                    | ‘{’ ImportSelectors) ‘}’
-ImportSelectors   ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’] [‘,’ ImportSelectors]
-                    |  WildCardSelector {‘,’ WildCardSelector}
-WildCardSelector  ::=  ‘given’ [InfixType]
-                    |  ‘_' [‘:’ InfixType]
-Export            ::=  ‘export’ ImportExpr {‘,’ ImportExpr}
+<p><strong>Explanations</strong>: We use a context function type <code>WrappedResult[T] ?=&gt; Boolean</code>
+as the type of the condition of <code>ensuring</code>. An argument to <code>ensuring</code> such as
+<code>(result == 6)</code> will therefore have a given of type <code>WrappedResult[T]</code> in
+scope to pass along to the <code>result</code> method. <code>WrappedResult</code> is a fresh type, to make sure
+that we do not get unwanted givens in scope (this is good practice in all cases
+where context parameters are involved). Since <code>WrappedResult</code> is an opaque type alias, its
+values need not be boxed, and since <code>ensuring</code> is added as an extension method, its argument
+does not need boxing either. Hence, the implementation of <code>ensuring</code> is as about as efficient
+as the best possible code one could write by hand:</p>
+<pre><code class="scala">{ val result = List(1, 2, 3).sum
+  assert(result == 6)
+  result
+}
 </code></pre>
+<h3><a href="#reference" id="reference" class="anchor"></a>Reference</h3>
+<p>For more info, see the <a href="https://www.scala-lang.org/blog/2016/12/07/implicit-function-types.html">blog article</a>,
+(which uses a different syntax that has been superseded).</p>
+<p><a href="./context-functions-spec.html">More details</a></p>
 
 </main>
 </div>

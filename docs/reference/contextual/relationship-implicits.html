@@ -1969,7 +1969,9 @@
             </a>
         </div>
     </header>
-    <p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
+    <p><strong>Note</strong> The syntax described in this section is currently under revision.
+<a href="./relationship-implicits-new.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
+<p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
 <h2><a href="#simulating-contextual-abstraction-with-implicits" id="simulating-contextual-abstraction-with-implicits" class="anchor"></a>Simulating Contextual Abstraction with Implicits</h2>
 <h3><a href="#given-instances" id="given-instances" class="anchor"></a>Given Instances</h3>
 <p>Given instances can be mapped to combinations of implicit objects, classes and implicit methods.</p>
@@ -1982,7 +1984,7 @@
 </code></pre>
 </li>
 <li>Parameterized given instances are mapped to combinations of classes and implicit methods. E.g.,
-<pre><code class="scala">  given listOrd[T]: (ord: Ord[T]) =&gt; Ord[List[T]] { ... }
+<pre><code class="scala">  given listOrd[T](given ord: Ord[T]): Ord[List[T]] { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="scala">class ListOrd[T](implicit ord: Ord[T]) extends Ord[List[T]] { ... }
@@ -2047,10 +2049,9 @@ The difference between <code>summon</code> (or <code>the</code>) and <code>impli
 that <code>summon</code> can return a more precise type than the type that was
 asked for.</p>
 <h3><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h3>
-<p>Context bounds are the same in both language versions. They expand to the respective forms of implicit parameters.</p>
-<p><strong>Note:</strong> To ease migration, context bounds in Dotty map for a limited time to old-style implicit parameters for which arguments can be passed either with <code>given</code> or
-with a normal application. Once old-style implicits are deprecated, context bounds
-will map to given clauses instead.</p>
+<p>Context bounds are the same in both language versions.
+They expand to <code>implicit</code> parameters in Scala 2 and also in Scala 3.0.
+They will expand to context parameters from Scala 3.1 on.</p>
 <h3><a href="#extension-methods" id="extension-methods" class="anchor"></a>Extension Methods</h3>
 <p>Extension methods have no direct counterpart in Scala 2, but they can be simulated with implicit classes. For instance, the extension method</p>
 <pre><code class="scala">def (c: Circle).circumference: Double = c.radius * math.Pi * 2
