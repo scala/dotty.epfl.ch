@@ -2010,7 +2010,7 @@
 <p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
 <pre><code class="scala">case class Circle(x: Double, y: Double, radius: Double)
 
-def (c: Circle).circumference: Double = c.radius * math.Pi * 2
+def (c: Circle) circumference: Double = c.radius * math.Pi * 2
 </code></pre>
 <p>Like regular methods, extension methods can be invoked with infix <code>.</code>:</p>
 <pre><code class="scala">val circle = Circle(0, 0, 1)
@@ -2114,7 +2114,7 @@ extension listOps on [T](xs: List[T]) {
   def third: T = xs.tail.tail.head
 }
 
-extension on [T](xs: List[T]) with Ordering[T]) {
+extension on [T](xs: List[T]) with Ordering[T] {
   def largest(n: Int) = xs.sorted.takeRight(n)
 }
 </code></pre>
