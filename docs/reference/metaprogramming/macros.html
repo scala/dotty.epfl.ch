@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-01-23 -->
+<!-- This page was last generated on 2020-01-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2473,7 +2473,7 @@ sum
 </code></pre>
 <h3><a href="#find-implicits-within-a-macro" id="find-implicits-within-a-macro" class="anchor"></a>Find implicits within a macro</h3>
 <p>Similarly to the <code>summonFrom</code> construct, it is possible to make implicit search available
-in a quote context. For this we simply provide `scala.quoted.matching.summonExpr:</p>
+in a quote context. For this we simply provide <code>scala.quoted.matching.summonExpr</code>:</p>
 <pre><code class="scala">inline def setFor[T]: Set[T] = ${ setForExpr[T] }
 
 def setForExpr[T: Type](given QuoteContext): Expr[Set[T]] = {

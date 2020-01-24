@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-01-23 -->
+<!-- This page was last generated on 2020-01-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -2297,6 +2297,9 @@ given eqProduct[A](given inst: K0.ProductInstances[Eq, A]): Eq[A] {
 inline def derived[A](given gen: K0.Generic[A]): Eq[A] = gen.derive(eqSum, eqProduct)
 </code></pre>
 <p>The framework described here enables all three of these approaches without mandating any of them.</p>
+<p>For a brief discussion on how to use macros to write a type class <code>derived</code>
+method please read more at <a href="./derivation-macro.html">How to write a type class <code>derived</code> method using
+macros</a>.</p>
 <h3><a href="#deriving-instances-elsewhere" id="deriving-instances-elsewhere" class="anchor"></a>Deriving instances elsewhere</h3>
 <p>Sometimes one would like to derive a type class instance for an ADT after the ADT is defined, without being able to
 change the code of the ADT itself.  To do this, simply define an instance using the <code>derived</code> method of the type class
