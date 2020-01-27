@@ -2101,9 +2101,20 @@ power(expr, 10)
 //    y3 * y3          // ^10
 </code></pre>
 <p>Parameters of inline methods can have an <code>inline</code> modifier as well. This means
-that actual arguments to these parameters must be constant expressions.
-For example:</p>
-<pre><code class="scala">inline def power(x: Double, inline n: Int): Double
+that actual arguments to these parameters will be inlined in the body of the <code>inline def</code>.
+<code>inline</code> parameter have call semantics equivalent to by-name parameters but allows for duplication
+of the code in the argument. It is usualy useful constant values need to be propagated to allow
+further optimizations/reductions.</p>
+<p>The following example shows the difference in translation between by-value, by-name and <code>inline</code>
+parameters:</p>
+<pre><code class="scala">inline def sumTwice(a: Int, b: =&gt;Int, inline c: Int) = a + a + b + b + c + c
+
+sumTwice(f(), g(), h())
+// translates to
+//
+//    val a = f()
+//    def b = g()
+//    a + a + b + b + h() + h()
 </code></pre>
 <h3><a href="#relationship-to-inline" id="relationship-to-inline" class="anchor"></a>Relationship to @inline</h3>
 <p>Scala also defines a <code>@inline</code> annotation which is used as a hint
@@ -2339,7 +2350,7 @@ singleton types, the compiler can evaluate the result of the operation.</p>
 import scala.compiletime.ops.boolean._
 
 val conjunction: true &amp;&amp; true = true
-val multiplication: 3 * 5 = 15 
+val multiplication: 3 * 5 = 15
 </code></pre>
 <p>Many of these singleton operation types are meant to be used infix (as in <a href="https://www.scala-lang.org/files/archive/spec/2.12/03-types.html#infix-types">SLS §
 3.2.8</a>),
