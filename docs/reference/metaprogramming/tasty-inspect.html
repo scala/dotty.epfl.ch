@@ -1536,42 +1536,6 @@
                     <a class="package-toggle" onclick="toggleSection(this);">
                         <i class="fas fa-angle-right"></i>
                     </a>
-                    <a class="entity-name" href="/api/scala/tasty/file/index.html">
-                        scala.tasty.file
-                    </a>
-                    <ul class="package-entities">
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/tasty/file/ConsumeTasty$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/file/ConsumeTasty$.html">ConsumeTasty</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/file/TastyConsumer.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/file/TastyConsumer.html">TastyConsumer</a>
-                            </li>
-                            
-
-                        
-                    </ul>
-                </li>
-            
-                <li class="index-entity entity-package section">
-                    <a class="package-toggle" onclick="toggleSection(this);">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
                     <a class="entity-name" href="/api/scala/tasty/reflect/index.html">
                         scala.tasty.reflect
                     </a>
@@ -1993,15 +1957,20 @@
             </a>
         </div>
     </header>
-    <p>TASTy files contain the full typed tree of a class including source positions
+    <pre><code class="scala">libraryDependencies += &quot;ch.epfl.lamp&quot; %% &quot;dotty-tasty-inspector&quot; % scalaVersion.value
+</code></pre>
+<p>TASTy files contain the full typed tree of a class including source positions
 and documentation. This is ideal for tools that analyze or extract semantic
 information of the code. To avoid the hassle of working directly with the TASTy
-file we provide the <code>TastyConsumer</code> which loads the contents and exposes it
+file we provide the <code>TastyInspector</code> which loads the contents and exposes it
 through the TASTy reflect API.</p>
 <h2><a href="#inspecting-tasty-files" id="inspecting-tasty-files" class="anchor"></a>Inspecting TASTy files</h2>
 <p>To inspect the TASTy Reflect trees of a TASTy file a consumer can be defined in
 the following way.</p>
-<pre><code class="scala">class Consumer extends TastyConsumer {
+<pre><code class="scala">import scala.tasty.Reflection
+import scala.tasty.file._
+
+class Consumer extends TastyInspector {
   final def apply(reflect: Reflection)(root: reflect.Tree): Unit = {
     import reflect._
     // Do something with the tree
@@ -2012,9 +1981,14 @@ the following way.</p>
 the class <code>foo.Bar</code> for a foo in the classpath.</p>
 <pre><code class="scala">object Test {
   def main(args: Array[String]): Unit = {
-    ConsumeTasty(&quot;&quot;, List(&quot;foo.Bar&quot;), new Consumer)
+    InspectTasty(&quot;&quot;, List(&quot;foo.Bar&quot;), new Consumer)
   }
 }
+</code></pre>
+<p>Note that if we need to run the main (in an object called <code>Test</code>) after
+compilation we need make available the compiler to the runtime:</p>
+<pre><code class="shell">dotc -with-compiler -d out Test.scala
+dotr -with-compiler -classpath out Test
 </code></pre>
 
 </main>
