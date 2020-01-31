@@ -1730,43 +1730,29 @@
         </div>
     </header>
     <h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
-<pre><code class="nohighlight">Type              ::=  ... |  HkTypeParamClause ‘=&gt;&gt;’ Type
-HkTypeParamClause ::=  ‘[’ HkTypeParam {‘,’ HkTypeParam} ‘]’
-HkTypeParam       ::=  {Annotation} [‘+’ | ‘-’] (Id[HkTypeParamClause] | ‘_’) TypeBounds
+<pre><code class="nohighlight">Type            ::=  ... |  TypeParamClause ‘=&gt;&gt;’ Type
+TypeParamClause ::=  ‘[’ TypeParam {‘,’ TypeParam} ‘]’
+TypeParam       ::=  {Annotation} (id [HkTypeParamClause] | ‘_’) TypeBounds
 TypeBounds        ::=  [‘&gt;:’ Type] [‘&lt;:’ Type]
 </code></pre>
 <h3><a href="#type-checking" id="type-checking" class="anchor"></a>Type Checking</h3>
 <p>A type lambda such as <code>[X] =&gt;&gt; F[X]</code> defines a function from types to types. The parameter(s) may carry bounds and variance annotations.
 If a parameter is bounded, as in <code>[X &gt;: L &lt;: H] =&gt;&gt; F[X]</code> it is checked that arguments to the parameters conform to the bounds <code>L</code> and <code>H</code>.
 Only the upper bound <code>H</code> can be F-bounded, i.e. <code>X</code> can appear in it.</p>
-<p>A variance annotation on a parameter indicates a subtyping relationship on type instances. For instance, given</p>
-<pre><code class="scala">type TL1 = [+A] =&gt;&gt; F[A]
-type TL2 = [-A] =&gt;&gt; F[A]
-</code></pre>
-<p>and two types <code>S &lt;: T</code>, we have</p>
-<pre><code class="scala">TL1[S] &lt;: TL1[T]
-TL2[T] &lt;: TL2[S]
-</code></pre>
-<p>It is checked that variance annotations on parameters of type lambdas are respected by the parameter occurrences on the type lambda's body.</p>
-<p><strong>Note</strong> No requirements hold for the variances of occurrences of type variables in their bounds. It is an open question whether we need to impose additional requirements here
-(<code>scalac</code> doesn't check variances in bounds either).</p>
 <h2><a href="#subtyping-rules" id="subtyping-rules" class="anchor"></a>Subtyping Rules</h2>
 <p>Assume two type lambdas</p>
-<pre><code class="scala">type TL1  =  [v1 X &gt;: L1 &lt;: U1] =&gt;&gt; R1
-type TL2  =  [v2 X &gt;: L2 &lt;: U2] =&gt;&gt; R2
+<pre><code class="scala">type TL1  =  [X &gt;: L1 &lt;: U1] =&gt;&gt; R1
+type TL2  =  [X &gt;: L2 &lt;: U2] =&gt;&gt; R2
 </code></pre>
-<p>where <code>v1</code> and <code>v2</code> are optional variance annotations: <code>+</code>, <code>-</code>, or absent.
-Then <code>TL1 &lt;: TL2</code>, if</p>
+<p>Then <code>TL1 &lt;: TL2</code>, if</p>
 <ul>
 <li>the type interval <code>L2..U2</code> is contained in the type interval <code>L1..U1</code> (i.e.
 <code>L1 &lt;: L2</code> and <code>U2 &lt;: U1</code>),</li>
-<li>either <code>v2</code> is absent or <code>v1 = v2</code></li>
 <li><code>R1 &lt;: R2</code></li>
 </ul>
 <p>Here we have relied on alpha renaming to bring match the two bound types <code>X</code>.</p>
 <p>A partially applied type constructor such as <code>List</code> is assumed to be equivalent to
-its eta expansion. I.e, <code>List = [+X] =&gt;&gt; List[X]</code>. This allows type constructors
-to be compared with type lambdas.</p>
+its eta expansion. I.e, <code>List = [X] =&gt;&gt; List[X]</code>. This allows type constructors to be compared with type lambdas.</p>
 <h2><a href="#relationship-with-parameterized-type-definitions" id="relationship-with-parameterized-type-definitions" class="anchor"></a>Relationship with Parameterized Type Definitions</h2>
 <p>A parameterized type definition</p>
 <pre><code class="scala">type T[X] = R
@@ -1774,6 +1760,15 @@ to be compared with type lambdas.</p>
 <p>is regarded as a shorthand for an unparameterized definition with a type lambda as right-hand side:</p>
 <pre><code class="scala">type T = [X] =&gt;&gt; R
 </code></pre>
+<p>If the a type definition carries <code>+</code> or <code>-</code> variance annotations,
+it is checked that the variance annotations are satisfied by the type lambda.
+For instance,</p>
+<pre><code class="scala">type F2[A, +B] = A =&gt; B
+</code></pre>
+<p>expands to</p>
+<pre><code class="scala">type F2 = [A, B] =&gt;&gt; A =&gt; B
+</code></pre>
+<p>and at the same time it is checked that the parameter <code>B</code> appears covariantly in <code>A =&gt; B</code>.</p>
 <p>A parameterized abstract type</p>
 <pre><code class="scala">type T[X] &gt;: L &lt;: U
 </code></pre>
@@ -1781,13 +1776,13 @@ to be compared with type lambdas.</p>
 <pre><code class="scala">type T &gt;: ([X] =&gt;&gt; L) &lt;: ([X] =&gt;&gt; U)
 </code></pre>
 <p>However, if <code>L</code> is <code>Nothing</code> it is not parameterized, since <code>Nothing</code> is treated as a bottom type for all kinds. For instance,</p>
-<pre><code class="scala">type T[-X] &lt;: X =&gt; ()
+<pre><code class="scala">type T[X] &lt;: X =&gt; X
 </code></pre>
 <p>is expanded to</p>
-<pre><code class="scala">type T &gt;: Nothing &lt;: ([-X] =&gt;&gt; X =&gt; ())
+<pre><code class="scala">type T &gt;: Nothing &lt;: ([X] =&gt;&gt; X =&gt; X)
 </code></pre>
 <p>instead of</p>
-<pre><code class="scala">type T &gt;: ([X] =&gt;&gt; Nothing) &lt;: ([-X] =&gt;&gt; X =&gt; ())
+<pre><code class="scala">type T &gt;: ([X] =&gt;&gt; Nothing) &lt;: ([X] =&gt;&gt; X =&gt; X)
 </code></pre>
 <p>The same expansions apply to type parameters. E.g.</p>
 <pre><code class="scala">[F[X] &lt;: Coll[X]]
@@ -1795,6 +1790,17 @@ to be compared with type lambdas.</p>
 <p>is treated as a shorthand for</p>
 <pre><code class="scala">[F &gt;: Nothing &lt;: [X] =&gt;&gt; Coll[X]]
 </code></pre>
+<p>Abstract types and opaque type aliases remember the variances they were created with. So the type</p>
+<pre><code class="scala">def F2[-A, +B]
+</code></pre>
+<p>is known to be contravariant in <code>A</code> and covariant in <code>B</code> and can be instantiated only
+with types that satisfy these constraints. Likewise</p>
+<pre><code class="scala">opaque type O[X] = List[X]
+</code></pre>
+<p><code>O</code> is known to be invariant (and not covariant, as its right hand side would suggest). On the other hand, a transparent alias</p>
+<pre><code class="scala">type O2[X] = List[X]
+</code></pre>
+<p>would be treated as covariant, <code>X</code> is used covariantly on its right-hand side.</p>
 <p><strong>Note</strong>: The decision to treat <code>Nothing</code> as universal bottom type is provisional, and might be changed afer further discussion.</p>
 <p><strong>Note</strong>: Scala 2 and 3 differ in that Scala 2 also treats <code>Any</code> as universal top-type. This is not done in Scala 3. See also the discussion on <a href="../other-new-features/kind-polymorphism.html">kind polymorphism</a></p>
 <h2><a href="#curried-type-parameters" id="curried-type-parameters" class="anchor"></a>Curried Type Parameters</h2>
