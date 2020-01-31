@@ -1720,19 +1720,19 @@
 
 <div id="content-wrapper">
     <script>
-    document.title = "Dotty Docs - TermToQuotedAPI";
+    document.title = "Dotty Docs - QuotedExprOps";
 </script>
 <main class="container api">
     <header>
-        <span class="letter-anchor class">C</span>
+        <span class="letter-anchor object">O</span>
         <span class="name-prefix">
             <span class="modifiers">
                 
             </span>
-            class
+            object
         </span>
         <h1>
-            TermToQuotedAPI
+            QuotedExprOps
             
         </h1>
         <span class="name-suffix">
@@ -1740,6 +1740,8 @@
                 extends
                 
                     Object
+                    with Serializable
+                    
                 
             
         </span>
@@ -1752,7 +1754,9 @@
             <h2>Supertypes</h2>
             <span>
                 
-                    Object
+                    Object, 
+                
+                    Serializable
                 
             </span>
         </div>
@@ -1760,37 +1764,6 @@
     <!-- Annotations -->
     
     <!-- Constructors -->
-    
-        <div id="constructors">
-            <h2>Constructors</h2>
-            
-                <div class="wide-table">
-                    
-                        <span class="member">
-                            <span class="left-column"></span>
-                            <span class="right-column">
-                                <h3>TermToQuotedAPI</h3>
-                                
-                                    <span class="params ">
-                                        (
-                                        
-                                        
-                                            <span class="param">
-                                                term:
-                                                
-                                                Term
-                                            </span>
-                                            
-                                        
-                                        )
-                                    </span>
-                                
-                            </span>
-                        </span>
-                    
-                </div>
-            
-        </div>
     
     <!-- Members -->
     <div id="members">
@@ -1807,45 +1780,88 @@
 
                 
                 
-                <div id="term" class="member val non-public " data-toggle="collapse" data-target=".collapse-term">
+                <div id="cast(expr)(tp,ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-cast-expr--tp_ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
-                            private
+                            
                         </span>
-                        <span class="member-kind">val&nbsp;</span>
+                        <span class="member-kind">def&nbsp;</span>
                     </span>
                     <!-- Right: name, type parameters, method parameters and return type -->
                     <span class="right-column">
                         <!-- Name -->
                         <h3 class="name">
                             
-                                term
+                                cast
                             
                         </h3>
                         <!-- Type parameters -->
                         
+                            <span class="type-params">
+                                [U]
+                            </span>
+                        
                         <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            expr:
+                                            
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            tp:
+                                            
+                                            <a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[U]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: <a href="/api/scala/tasty/Reflection.html#Term">Term</a></span>
+                            <span class="return-type">: <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[U]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-term">
+                    <div class="short collapse show collapse-cast-expr--tp_ctx-">
                         
-                            <p></p>
+                            <p>Checked cast to a <code>quoted.Expr[U]</code></p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-term">
+                    <div class="details collapse collapse-cast-expr--tp_ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Checked cast to a <code>quoted.Expr[U]</code></p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -1888,7 +1904,7 @@
 
                 
                 
-                <div id="seal(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-seal-ctx-">
+                <div id="unseal(expr)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-unseal-expr--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1901,13 +1917,26 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                seal
+                                unseal
                             
                         </h3>
                         <!-- Type parameters -->
                         
                         <!-- Method parameters -->
                         
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            expr:
+                                            
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
                             
                                 <span class="params implicit">
                                     (
@@ -1927,24 +1956,24 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Any]</span></span>
+                            <span class="return-type">: <a href="/api/scala/tasty/Reflection.html#Term">Term</a></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-seal-ctx-">
+                    <div class="short collapse show collapse-unseal-expr--ctx-">
                         
-                            <p>Convert <code>Term</code> to an <code>quoted.Expr[Any]</code></p>
+                            <p>View this expression <code>quoted.Expr[T]</code> as a <code>Term</code></p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-seal-ctx-">
+                    <div class="details collapse collapse-unseal-expr--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Convert <code>Term</code> to an <code>quoted.Expr[Any]</code></p>
+                            <p>View this expression <code>quoted.Expr[T]</code> as a <code>Term</code></p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
