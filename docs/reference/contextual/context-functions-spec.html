@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.22.0-bin-20200201-c4c847f-NIGHTLY</h2>
+                    <h2>0.22.0-bin-SNAPSHOT</h2>
                 </div>
             </a>
         </div>
@@ -1743,7 +1743,7 @@ methods with context parameters. Specifically, the <code>N</code>-ary function t
 <code>ContextFunctionN[T1 , ... , TN, R]</code>. Such class types are assumed to have the following definitions, for any value of <code>N &gt;= 1</code>:</p>
 <pre><code class="scala">package scala
 trait ContextFunctionN[-T1 , ... , -TN, +R] {
-  def apply with (x1: T1 , ... , xN: TN) : R
+  def apply(using x1: T1 , ... , xN: TN): R
 }
 </code></pre>
 <p>Context function types erase to normal function types, so these classes are
@@ -1761,7 +1761,7 @@ the context parameters <code>xi</code>.</p>
 <p>The context function literal is evaluated as the instance creation
 expression</p>
 <pre><code class="scala">new scala.ContextFunctionN[T1, ..., Tn, T] {
-  def apply with (x1: T1, ..., xn: Tn) : T = e
+  def apply(using x1: T1, ..., xn: Tn): T = e
 }
 </code></pre>
 <p>A context parameter may also be a wildcard represented by an underscore <code>_</code>. In that case, a fresh name for the parameter is chosen arbitrarily.</p>

@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.22.0-bin-20200201-c4c847f-NIGHTLY</h2>
+                    <h2>0.22.0-bin-SNAPSHOT</h2>
                 </div>
             </a>
         </div>
@@ -1763,7 +1763,7 @@ or inherited or imported in a scope enclosing the application.</li>
 }
 </code></pre>
 <p>We can make the extension method available by defining a given <code>StringSeqOps</code> instance, like this:</p>
-<pre><code class="scala">given ops1: StringSeqOps
+<pre><code class="scala">given ops1 as StringSeqOps
 </code></pre>
 <p>Then</p>
 <pre><code class="scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
@@ -1778,9 +1778,9 @@ List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestS
 and where <code>T</code> is the expected type. The following two rewritings are tried in order:</p>
 <ol>
 <li>The selection is rewritten to <code>m[Ts](e)</code>.</li>
-<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is a given instance <code>i</code>
-in either the current scope or in the implicit scope of <code>T</code>, and <code>i</code> defines an extension
-method named <code>m</code>, then selection is expanded to <code>i.m[Ts](e)</code>.
+<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is a given instance <code>g</code>
+in either the current scope or in the context scope of <code>T</code>, and <code>g</code> defines an extension
+method named <code>m</code>, then selection is expanded to <code>g.m[Ts](e)</code>.
 This second rewriting is attempted at the time where the compiler also tries an implicit conversion
 from <code>T</code> to a type containing <code>m</code>. If there is more than one way of rewriting, an ambiguity error results.</li>
 </ol>
@@ -1836,30 +1836,29 @@ extension listOps on [T](xs: List[T]) {
   def third: T = xs.tail.tail.head
 }
 
-extension on [T](xs: List[T])(given Ordering[T]) {
+extension on [T](xs: List[T])(using Ordering[T]) {
   def largest(n: Int) = xs.sorted.takeRight(n)
 }
 </code></pre>
-<p>If a given extension is anonymous (as in the last clause), its name is synthesized from the name of the first defined extension method.</p>
-<p>The extensions above are equivalent to the following regular given instances where the implemented parent is <code>AnyRef</code> and the parameters in the <code>extension</code> clause are repeated in each extension method definition:</p>
-<pre><code class="scala">given stringOps: AnyRef {
+<p>If an extension is anonymous (as in the last clause), its name is synthesized from the name of the first defined extension method.</p>
+<p>The extensions above are equivalent to the following regular given instances where the implemented parent is <code>AnyRef</code> and the leading parameters are repeated in each extension method definition:</p>
+<pre><code class="scala">given stringOps as AnyRef {
   def (xs: Seq[String]).longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max
     xs.filter(_.length == maxLength)
   }
 }
-given listOps: AnyRef {
-  def [T](xs: List[T]) second = xs.tail.head
-  def [T](xs: List[T]) third: T = xs.tail.tail.head
+given listOps as AnyRef {
+  def [T](xs: List[T]).second = xs.tail.head
+  def [T](xs: List[T]).third: T = xs.tail.tail.head
 }
-given extension_largest_List_T: AnyRef {
-  def [T](xs: List[T]) largest (given Ordering[T])(n: Int) =
+given extension_largest_List_T as AnyRef {
+  def [T](xs: List[T]).largest(using Ordering[T])(n: Int) =
     xs.sorted.takeRight(n)
 }
 </code></pre>
-<p><code>extension</code> and <code>on</code> are soft keywords. They can also be used as a regular identifiers.</p>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<p>Here are the syntax changes for extension methods and given extensions relative
+<p>Here are the syntax changes for extension methods and collective extensions relative
 to the <a href="../../internals/syntax.html">current syntax</a>. <code>extension</code> is a soft keyword, recognized only in tandem with <code>on</code>. It can be used as an identifier everywhere else.</p>
 <pre><code class="nohighlight">DefSig            ::=  ...
                     |  ExtParamClause [nl] [‘.’] id DefParamClauses

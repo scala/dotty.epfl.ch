@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.22.0-bin-20200201-c4c847f-NIGHTLY</h2>
+                    <h2>0.22.0-bin-SNAPSHOT</h2>
                 </div>
             </a>
         </div>
@@ -1742,14 +1742,14 @@
 </code></pre>
 </li>
 <li>Parameterized givens are mapped to combinations of classes and implicit methods. E.g.,
-<pre><code class="scala">  given listOrd[T] with (ord: Ord[T]) as Ord[List[T]] { ... }
+<pre><code class="scala">  given listOrd[T](using ord: Ord[T]) as Ord[List[T]] { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="scala">class ListOrd[T](implicit ord: Ord[T]) extends Ord[List[T]] { ... }
 final implicit def ListOrd[T](implicit ord: Ord[T]): ListOrd[T] = new ListOrd[T]
 </code></pre>
 </li>
-<li>Alias givens map to implicit methods or implicit lazy vals. If an alias has neither type nor implicit parameters,
+<li>Alias givens map to implicit methods or implicit lazy vals. If an alias has neither type nor context parameters,
 it is treated as a lazy val, unless the right hand side is a simple reference, in which case we can use a forwarder to
 that reference without caching it.</li>
 </ol>
@@ -1757,7 +1757,7 @@ that reference without caching it.</li>
 <pre><code class="scala">given global as ExecutionContext = new ForkJoinContext()
 
 val ctx: Context
-given as Context = ctx
+given Context = ctx
 </code></pre>
 <p>would map to</p>
 <pre><code class="scala">final implicit lazy val global: ExecutionContext = new ForkJoinContext()
@@ -1792,14 +1792,14 @@ given given_Ord_List[T] as Ord[List[T]] { ... }
 <p>gets the synthesized name <code>extension_second_List_T</code>.</p>
 <h3><a href="#given-clauses" id="given-clauses" class="anchor"></a>Given Clauses</h3>
 <p>Given clauses correspond largely to Scala-2's implicit parameter clauses. E.g.</p>
-<pre><code class="scala">def max[T](x: T, y: T) with (ord: Ord[T]) : T
+<pre><code class="scala">def max[T](x: T, y: T)(using ord: Ord[T]): T
 </code></pre>
 <p>would be written</p>
 <pre><code class="scala">def max[T](x: T, y: T)(implicit ord: Ord[T]): T
 </code></pre>
 <p>in Scala 2. The main difference concerns applications of such parameters.
-Explicit arguments to parameters of with clauses <em>must</em> be written using <code>.with(...)</code>,
-mirroring the definition syntax. E.g, <code>max(2, 3).with(IntOrd)</code>.
+Explicit arguments to parameters of using clauses <em>must</em> be written using <code>(using ...)</code>,
+mirroring the definition syntax. E.g, <code>max(2, 3)(using IntOrd)</code>.
 Scala 2 uses normal applications <code>max(2, 3)(IntOrd)</code> instead. The Scala 2 syntax has some inherent ambiguities and restrictions which are overcome by the new syntax. For instance, multiple implicit parameter lists are not available in the old syntax, even though they can be simulated using auxiliary objects in the &quot;Aux&quot; pattern.</p>
 <p>The <code>summon</code> method corresponds to <code>implicitly</code> in Scala 2.
 It is precisely the same as the <code>the</code> method in Shapeless.
@@ -1808,8 +1808,8 @@ that <code>summon</code> can return a more precise type than the type that was
 asked for.</p>
 <h3><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h3>
 <p>Context bounds are the same in both language versions. They expand to the respective forms of implicit parameters.</p>
-<p><strong>Note:</strong> To ease migration, context bounds in Dotty map for a limited time to old-style implicit parameters for which arguments can be passed either followin <code>.with(...)</code> or
-with a normal application. Once old-style implicits are deprecated, context bounds
+<p><strong>Note:</strong> To ease migration, context bounds in Dotty map for a limited time to old-style implicit parameters for which arguments can be passed either in a using clause or
+in a normal argument list. Once old-style implicits are deprecated, context bounds
 will map to with clauses instead.</p>
 <h3><a href="#extension-methods" id="extension-methods" class="anchor"></a>Extension Methods</h3>
 <p>Extension methods have no direct counterpart in Scala 2, but they can be simulated with implicit classes. For instance, the extension method</p>
@@ -1841,7 +1841,7 @@ will map to with clauses instead.</p>
 <pre><code class="scala">given stringToToken as Conversion[String, Token] = KeyWord(_)
 </code></pre>
 <h3><a href="#implicit-classes" id="implicit-classes" class="anchor"></a>Implicit Classes</h3>
-<p>Implicit classes in Scala 2 are often used to define extension methods, which are directly supported in Dotty. Other uses of implicit classes can be simulated by a pair of a regular class and a given as <code>Conversion</code> type.</p>
+<p>Implicit classes in Scala 2 are often used to define extension methods, which are directly supported in Dotty. Other uses of implicit classes can be simulated by a pair of a regular class and a given <code>Conversion</code> instance.</p>
 <h3><a href="#implicit-values" id="implicit-values" class="anchor"></a>Implicit Values</h3>
 <p>Implicit <code>val</code> definitions in Scala 2 can be expressed in Dotty using a regular <code>val</code> definition and an alias given.
 E.g., Scala 2's</p>
@@ -1849,7 +1849,7 @@ E.g., Scala 2's</p>
 </code></pre>
 <p>can be expressed in Dotty as</p>
 <pre><code class="scala">lazy val pos: Position = tree.sourcePos
-given as Position = pos
+given Position = pos
 </code></pre>
 <h3><a href="#abstract-implicits" id="abstract-implicits" class="anchor"></a>Abstract Implicits</h3>
 <p>An abstract implicit <code>val</code> or <code>def</code> in Scala 2 can be expressed in Dotty using a regular abstract definition and an alias given. E.g., Scala 2's</p>
@@ -1857,7 +1857,7 @@ given as Position = pos
 </code></pre>
 <p>can be expressed in Dotty as</p>
 <pre><code class="scala">def symDecorator: SymDecorator
-given as SymDecorator = symDecorator
+given SymDecorator = symDecorator
 </code></pre>
 <h2><a href="#implementation-status-and-timeline" id="implementation-status-and-timeline" class="anchor"></a>Implementation Status and Timeline</h2>
 <p>The Dotty implementation implements both Scala-2's implicits and the new abstractions. In fact, support for Scala-2's implicits is an essential part of the common language subset between 2.13/2.14 and Dotty.
