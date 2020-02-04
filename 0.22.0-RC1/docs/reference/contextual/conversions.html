@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-03 -->
+<!-- This page was last generated on 2020-02-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
     <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/conversions.html" class="toggled">Implicit Conversions</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,9 +1729,7 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./conversions-new.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>Implicit conversions are defined by given instances of the <code>scala.Conversion</code> class.
+    <p>Implicit conversions are defined by given instances of the <code>scala.Conversion</code> class.
 This class is defined in package <code>scala</code> as follows:</p>
 <pre><code class="scala">abstract class Conversion[-T, +U] extends (T =&gt; U)
 </code></pre>
@@ -1750,18 +1748,18 @@ This class is defined in package <code>scala</code> as follows:</p>
 <li>In an application <code>e.m(args)</code> with <code>e</code> of type <code>T</code>, if <code>T</code> does define
 some member(s) named <code>m</code>, but none of these members can be applied to the arguments <code>args</code>.</li>
 </ol>
-<p>In the first case, the compiler looks for a given <code>scala.Conversion</code> that maps
+<p>In the first case, the compiler looks for a given <code>scala.Conversion</code> instance that maps
 an argument of type <code>T</code> to type <code>S</code>. In the second and third
-case, it looks for a given <code>scala.Conversion</code> that maps an argument of type <code>T</code>
+case, it looks for a given <code>scala.Conversion</code> instance that maps an argument of type <code>T</code>
 to a type that defines a member <code>m</code> which can be applied to <code>args</code> if present.
-If such an instance <code>C</code> is given, the expression <code>e</code> is replaced by <code>C.apply(e)</code>.</p>
+If such an instance <code>C</code> is found, the expression <code>e</code> is replaced by <code>C.apply(e)</code>.</p>
 <h2><a href="#examples" id="examples" class="anchor"></a>Examples</h2>
 <ol>
 <li>The <code>Predef</code> package contains &quot;auto-boxing&quot; conversions that map
 primitive number types to subclasses of <code>java.lang.Number</code>. For instance, the
 conversion from <code>Int</code> to <code>java.lang.Integer</code> can be defined as follows:</li>
 </ol>
-<pre><code class="scala">given int2Integer: Conversion[Int, java.lang.Integer] =
+<pre><code class="scala">given int2Integer as Conversion[Int, java.lang.Integer] =
  java.lang.Integer.valueOf(_)
 </code></pre>
 <ol>
@@ -1783,9 +1781,9 @@ conversion from <code>Int</code> to <code>java.lang.Integer</code> can be define
     //
     //   CompletionArg.fromStatusCode(statusCode)
 
-    given fromString     : Conversion[String, CompletionArg]               = Error(_)
-    given fromFuture     : Conversion[Future[HttpResponse], CompletionArg] = Response(_)
-    given fromStatusCode : Conversion[Future[StatusCode], CompletionArg]   = Status(_)
+    given fromString     as Conversion[String, CompletionArg]               = Error(_)
+    given fromFuture     as Conversion[Future[HttpResponse], CompletionArg] = Response(_)
+    given fromStatusCode as Conversion[Future[StatusCode], CompletionArg]   = Status(_)
   }
   import CompletionArg._
 

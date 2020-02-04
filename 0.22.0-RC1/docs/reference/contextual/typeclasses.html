@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-03 -->
+<!-- This page was last generated on 2020-02-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
     <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/typeclasses.html" class="toggled">Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/0.22.0-RC1/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,53 +1729,56 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./typeclasses-new.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>Given instances, extension methods and context bounds
+    <p>Given instances, extension methods and context bounds
 allow a concise and natural expression of <em>typeclasses</em>. Typeclasses are just traits
 with canonical implementations defined by given instances. Here are some examples of standard typeclasses:</p>
 <h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids" class="anchor"></a>Semigroups and monoids:</h3>
-<pre><code class="scala">trait SemiGroup[T] with
-  def (x: T).combine(y: T): T
+<pre><code class="scala">trait SemiGroup[T] {
+  @infix def (x: T) combine (y: T): T
+}
 
-trait Monoid[T] extends SemiGroup[T] with
+trait Monoid[T] extends SemiGroup[T] {
   def unit: T
+}
 
-object Monoid with
-  def apply[T](given Monoid[T]) = summon[Monoid[T]]
+object Monoid {
+  def apply[T](using m: Monoid[T]) = m
+}
 
-given Monoid[String] with
-  def (x: String).combine(y: String): String = x.concat(y)
+given Monoid[String] {
+  def (x: String) combine (y: String): String = x.concat(y)
   def unit: String = &quot;&quot;
+}
 
-given Monoid[Int] with
-  def (x: Int).combine(y: Int): Int = x + y
+given Monoid[Int] {
+  def (x: Int) combine (y: Int): Int = x + y
   def unit: Int = 0
+}
 
 def sum[T: Monoid](xs: List[T]): T =
-    xs.foldLeft(Monoid[T].unit)(_.combine(_))
+    xs.foldLeft(Monoid[T].unit)(_ combine _)
 </code></pre>
 <h3><a href="#functors-and-monads" id="functors-and-monads" class="anchor"></a>Functors and monads:</h3>
 <pre><code class="scala">trait Functor[F[_]] {
-  def [A, B](x: F[A]) map (f: A =&gt; B): F[B]
+  def [A, B](x: F[A]).map(f: A =&gt; B): F[B]
 }
 
 trait Monad[F[_]] extends Functor[F] {
-  def [A, B](x: F[A]) flatMap (f: A =&gt; F[B]): F[B]
-  def [A, B](x: F[A]) map (f: A =&gt; B) = x.flatMap(f `andThen` pure)
+  def [A, B](x: F[A]).flatMap(f: A =&gt; F[B]): F[B]
+  def [A, B](x: F[A]).map(f: A =&gt; B) = x.flatMap(f `andThen` pure)
 
   def pure[A](x: A): F[A]
 }
 
-given listMonad: Monad[List] {
-  def [A, B](xs: List[A]) flatMap (f: A =&gt; List[B]): List[B] =
+given listMonad as Monad[List] {
+  def [A, B](xs: List[A]).flatMap(f: A =&gt; List[B]): List[B] =
     xs.flatMap(f)
   def pure[A](x: A): List[A] =
     List(x)
 }
 
-given readerMonad[Ctx]: Monad[[X] =&gt;&gt; Ctx =&gt; X] {
-  def [A, B](r: Ctx =&gt; A) flatMap (f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
+given readerMonad[Ctx] as Monad[[X] =&gt;&gt; Ctx =&gt; X] {
+  def [A, B](r: Ctx =&gt; A).flatMap(f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
     ctx =&gt; f(r(ctx))(ctx)
   def pure[A](x: A): Ctx =&gt; A =
     ctx =&gt; x
