@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
     <li class="leaf"><a href="/nightly/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" class="toggled">Multiversal Equality</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,9 +1729,7 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./multiversal-equality-new.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>Previously, Scala had universal equality: Two values of any types
+    <p>Previously, Scala had universal equality: Two values of any types
 could be compared with each other with <code>==</code> and <code>!=</code>. This came from
 the fact that <code>==</code> and <code>!=</code> are implemented in terms of Java's
 <code>equals</code> method, which can also compare values of any two reference
@@ -1773,7 +1771,7 @@ object Eql {
   object derived extends Eql[Any, Any]
 }
 </code></pre>
-<p>One can have several <code>Eql</code> givens for a type. For example, the four
+<p>One can have several <code>Eql</code> given instances for a type. For example, the four
 definitions below make values of type <code>A</code> and type <code>B</code> comparable with
 each other, but not comparable to anything else:</p>
 <pre><code class="scala">given Eql[A, A] = Eql.derived
@@ -1781,14 +1779,14 @@ given Eql[B, B] = Eql.derived
 given Eql[A, B] = Eql.derived
 given Eql[B, A] = Eql.derived
 </code></pre>
-<p>The <code>scala.Eql</code> object defines a number of <code>Eql</code> givens that together
+<p>The <code>scala.Eql</code> object defines a number of <code>Eql</code> given instances that together
 define a rule book for what standard types can be compared (more details below).</p>
 <p>There's also a &quot;fallback&quot; instance named <code>eqlAny</code> that allows comparisons
 over all types that do not themselves have an <code>Eql</code> given.  <code>eqlAny</code> is defined as follows:</p>
 <pre><code class="scala">def eqlAny[L, R]: Eql[L, R] = Eql.derived
 </code></pre>
-<p>Even though <code>eqlAny</code> is not declared a given instance, the compiler will still construct an <code>eqlAny</code> instance as answer to an implicit search for the
-type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have <code>Eql</code> given instances
+<p>Even though <code>eqlAny</code> is not declared a given, the compiler will still construct an <code>eqlAny</code> instance as answer to an implicit search for the
+type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have <code>Eql</code> instances
 defined on them, or the language feature <code>strictEquality</code> is enabled</p>
 <p>The primary motivation for having <code>eqlAny</code> is backwards compatibility,
 if this is of no concern, one can disable <code>eqlAny</code> by enabling the language
@@ -1803,7 +1801,7 @@ done with an import</p>
 </code></pre>
 <p>By the usual rules of <a href="./derivation.html">typeclass derivation</a>,
 this generates the following <code>Eql</code> instance in the companion object of <code>Box</code>:</p>
-<pre><code class="scala">given [T, U](given Eql[T, U]) : Eql[Box[T], Box[U]] = Eql.derived
+<pre><code class="scala">given [T, U](using Eql[T, U]) as Eql[Box[T], Box[U]] = Eql.derived
 </code></pre>
 <p>That is, two boxes are comparable with <code>==</code> or <code>!=</code> if their elements are. Examples:</p>
 <pre><code class="scala">new Box(1) == new Box(1L)   // ok since there is an instance for `Eql[Int, Long]`
@@ -1814,28 +1812,28 @@ new Box(1) == 1             // error: can't compare
 <p>The precise rules for equality checking are as follows.</p>
 <p>If the <code>strictEquality</code> feature is enabled then
 a comparison using <code>x == y</code> or <code>x != y</code> between values <code>x: T</code> and <code>y: U</code>
-is legal if there is a given instance for <code>Eql[T, U]</code>.</p>
+is legal if there is a given of type <code>Eql[T, U]</code>.</p>
 <p>In the default case where the <code>strictEquality</code> feature is not enabled the comparison is
 also legal if</p>
 <ol>
 <li><code>T</code> and <code>U</code> are the same, or</li>
 <li>one of <code>T</code>, <code>U</code> is a subtype of the <em>lifted</em> version of the other type, or</li>
-<li>neither <code>T</code> nor <code>U</code> have a <em>reflexive</em> <code>Eql</code> given.</li>
+<li>neither <code>T</code> nor <code>U</code> have a <em>reflexive</em> <code>Eql</code> instance.</li>
 </ol>
 <p>Explanations:</p>
 <ul>
 <li><em>lifting</em> a type <code>S</code> means replacing all references to  abstract types
 in covariant positions of <code>S</code> by their upper bound, and to replacing
 all refinement types in covariant positions of <code>S</code> by their parent.</li>
-<li>a type <code>T</code> has a <em>reflexive</em> <code>Eql</code> given if the implicit search for <code>Eql[T, T]</code>
+<li>a type <code>T</code> has a <em>reflexive</em> <code>Eql</code> instance if the implicit search for <code>Eql[T, T]</code>
 succeeds.</li>
 </ul>
 <h2><a href="#predefined-eql-instances" id="predefined-eql-instances" class="anchor"></a>Predefined Eql Instances</h2>
-<p>The <code>Eql</code> object defines givens for comparing
+<p>The <code>Eql</code> object defines instances for comparing
 - the primitive types <code>Byte</code>, <code>Short</code>, <code>Char</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Boolean</code>,  and <code>Unit</code>,
 - <code>java.lang.Number</code>, <code>java.lang.Boolean</code>, and <code>java.lang.Character</code>,
 - <code>scala.collection.Seq</code>, and <code>scala.collection.Set</code>.</p>
-<p>Given instances are defined so that every one of these types has a <em>reflexive</em> <code>Eql</code> given, and the following holds:</p>
+<p>Instances are defined so that every one of these types has a <em>reflexive</em> <code>Eql</code> instance, and the following holds:</p>
 <ul>
 <li>Primitive numeric types can be compared with each other.</li>
 <li>Primitive numeric types can be compared with subtypes of <code>java.lang.Number</code> (and <em>vice versa</em>).</li>
@@ -1868,23 +1866,23 @@ we are dealing with a refinement of pre-existing, universal equality. It's best 
 <p>This generic version of <code>contains</code> is the one used in the current (Scala 2.13) version of <code>List</code>.
 It looks different but it admits exactly the same applications as the <code>contains(x: Any)</code> definition we started with.
 However, we can make it more useful (i.e. restrictive) by adding an <code>Eql</code> parameter:</p>
-<pre><code class="scala">  def contains[U &gt;: T](x: U)(given Eql[T, U]): Boolean // (1)
+<pre><code class="scala">  def contains[U &gt;: T](x: U)(using Eql[T, U]): Boolean // (1)
 </code></pre>
 <p>This version of <code>contains</code> is equality-safe! More precisely, given
 <code>x: T</code>, <code>xs: List[T]</code> and <code>y: U</code>, then <code>xs.contains(y)</code> is type-correct if and only if
 <code>x == y</code> is type-correct.</p>
 <p>Unfortunately, the crucial ability to &quot;lift&quot; equality type checking from simple equality and pattern matching to arbitrary user-defined operations gets lost if we restrict ourselves to an equality class with a single type parameter. Consider the following signature of <code>contains</code> with a hypothetical <code>Eql1[T]</code> type class:</p>
-<pre><code class="scala">  def contains[U &gt;: T](x: U)(given Eql1[U]): Boolean   // (2)
+<pre><code class="scala">  def contains[U &gt;: T](x: U)(using Eql1[U]): Boolean   // (2)
 </code></pre>
 <p>This version could be applied just as widely as the original <code>contains(x: Any)</code> method,
-since the <code>Eql1[Any]</code> fallback is always available! So we have gained nothing. What got lost in the transition to a single parameter type class was the original rule that <code>Eql[A, B]</code> is available only if neither <code>A</code> nor <code>B</code> have a reflexive <code>Eql</code> given. That rule simply cannot be expressed if there is a single type parameter for <code>Eql</code>.</p>
+since the <code>Eql1[Any]</code> fallback is always available! So we have gained nothing. What got lost in the transition to a single parameter type class was the original rule that <code>Eql[A, B]</code> is available only if neither <code>A</code> nor <code>B</code> have a reflexive <code>Eql</code> instance. That rule simply cannot be expressed if there is a single type parameter for <code>Eql</code>.</p>
 <p>The situation is different under <code>-language:strictEquality</code>. In that case,
 the <code>Eql[Any, Any]</code> or <code>Eql1[Any]</code> instances would never be available, and the
 single and two-parameter versions would indeed coincide for most practical purposes.</p>
 <p>But assuming <code>-language:strictEquality</code> immediately and everywhere poses migration problems which might well be unsurmountable. Consider again <code>contains</code>, which is in the standard library. Parameterizing it with the <code>Eql</code> type class as in (1) is an immediate win since it rules out non-sensical applications while still allowing all sensible ones.
 So it can be done almost at any time, modulo binary compatibility concerns.
 On the other hand, parameterizing <code>contains</code> with <code>Eql1</code> as in (2) would make <code>contains</code>
-unusable for all types that have not yet declared an <code>Eql1</code> given, including all
+unusable for all types that have not yet declared an <code>Eql1</code> instance, including all
 types coming from Java. This is clearly unacceptable. It would lead to a situation where,
 rather than migrating existing libraries to use safe equality, the only upgrade path is to have parallel libraries, with the new version only catering to types deriving <code>Eql1</code> and the old version dealing with everything else. Such a split of the ecosystem would be very problematic, which means the cure is likely to be worse than the disease.</p>
 <p>For these reasons, it looks like a two-parameter type class is the only way forward because it can take the existing ecosystem where it is and migrate it towards a future where more and more code uses safe equality.</p>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul >
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1720,7 +1720,7 @@
 
 <div id="content-wrapper">
     <script>
-    document.title = "Dotty Docs - symbolOps";
+    document.title = "Dotty Docs - SymbolOps";
 </script>
 <main class="container api">
     <header>
@@ -1732,7 +1732,7 @@
             object
         </span>
         <h1>
-            symbolOps
+            SymbolOps
             
         </h1>
         <span class="name-suffix">
@@ -1747,6 +1747,11 @@
         </span>
     </header>
     <!-- Description -->
+    
+        <div id="description">
+            <p>Members of <code>Symbol</code></p>
+
+        </div>
     
     <!-- Supertypes -->
     
@@ -1780,7 +1785,7 @@
 
                 
                 
-                <div id="annots(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-annots-self--ctx-">
+                <div id="annots(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-annots-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1805,7 +1810,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -1838,14 +1843,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-annots-self--ctx-">
+                    <div class="short collapse show collapse-annots-sym--ctx-">
                         
                             <p>Annotations attached to this symbol</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-annots-self--ctx-">
+                    <div class="details collapse collapse-annots-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -1893,7 +1898,7 @@
 
                 
                 
-                <div id="caseFields(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-caseFields-self--ctx-">
+                <div id="caseFields(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-caseFields-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1918,7 +1923,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -1951,14 +1956,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-caseFields-self--ctx-">
+                    <div class="short collapse show collapse-caseFields-sym--ctx-">
                         
                             <p>Fields of a case class type -- only the ones declared in primary constructor</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-caseFields-self--ctx-">
+                    <div class="details collapse collapse-caseFields-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2006,7 +2011,7 @@
 
                 
                 
-                <div id="classMethod(self)(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-classMethod-self--name--ctx-">
+                <div id="classMethod(sym)(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-classMethod-sym--name--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2031,7 +2036,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2077,14 +2082,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-classMethod-self--name--ctx-">
+                    <div class="short collapse show collapse-classMethod-sym--name--ctx-">
                         
                             <p>Get non-private named methods defined directly inside the class</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-classMethod-self--name--ctx-">
+                    <div class="details collapse collapse-classMethod-sym--name--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2132,7 +2137,7 @@
 
                 
                 
-                <div id="classMethods(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-classMethods-self--ctx-">
+                <div id="classMethods(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-classMethods-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2157,7 +2162,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2190,14 +2195,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-classMethods-self--ctx-">
+                    <div class="short collapse show collapse-classMethods-sym--ctx-">
                         
                             <p>Get all non-private methods defined directly inside the class, exluding constructors</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-classMethods-self--ctx-">
+                    <div class="details collapse collapse-classMethods-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2245,7 +2250,7 @@
 
                 
                 
-                <div id="comment(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-comment-self--ctx-">
+                <div id="comment(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-comment-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2270,7 +2275,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2303,14 +2308,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-comment-self--ctx-">
+                    <div class="short collapse show collapse-comment-sym--ctx-">
                         
                             <p>The comment for this symbol, if any</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-comment-self--ctx-">
+                    <div class="details collapse collapse-comment-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2358,7 +2363,7 @@
 
                 
                 
-                <div id="companionClass(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-companionClass-self--ctx-">
+                <div id="companionClass(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-companionClass-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2383,7 +2388,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2416,14 +2421,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-companionClass-self--ctx-">
+                    <div class="short collapse show collapse-companionClass-sym--ctx-">
                         
                             <p>The symbol of the companion class</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-companionClass-self--ctx-">
+                    <div class="details collapse collapse-companionClass-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2471,7 +2476,7 @@
 
                 
                 
-                <div id="companionModule(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-companionModule-self--ctx-">
+                <div id="companionModule(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-companionModule-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2496,7 +2501,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2529,14 +2534,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-companionModule-self--ctx-">
+                    <div class="short collapse show collapse-companionModule-sym--ctx-">
                         
                             <p>The symbol of the companion module</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-companionModule-self--ctx-">
+                    <div class="details collapse collapse-companionModule-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2584,7 +2589,7 @@
 
                 
                 
-                <div id="exists(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-exists-self--ctx-">
+                <div id="exists(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-exists-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2609,7 +2614,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2642,14 +2647,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-exists-self--ctx-">
+                    <div class="short collapse show collapse-exists-sym--ctx-">
                         
                             <p>Does this symbol represent a definition?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-exists-self--ctx-">
+                    <div class="details collapse collapse-exists-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2697,7 +2702,7 @@
 
                 
                 
-                <div id="field(self)(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-field-self--name--ctx-">
+                <div id="field(sym)(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-field-sym--name--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2722,7 +2727,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2768,14 +2773,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-field-self--name--ctx-">
+                    <div class="short collapse show collapse-field-sym--name--ctx-">
                         
                             <p>Field with the given name directly declared in the class</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-field-self--name--ctx-">
+                    <div class="details collapse collapse-field-sym--name--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2823,7 +2828,7 @@
 
                 
                 
-                <div id="fields(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-fields-self--ctx-">
+                <div id="fields(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-fields-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2848,7 +2853,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2881,14 +2886,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-fields-self--ctx-">
+                    <div class="short collapse show collapse-fields-sym--ctx-">
                         
                             <p>Fields directly declared in the class</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-fields-self--ctx-">
+                    <div class="details collapse collapse-fields-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2936,7 +2941,7 @@
 
                 
                 
-                <div id="flags(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-flags-self--ctx-">
+                <div id="flags(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-flags-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2961,7 +2966,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -2994,14 +2999,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-flags-self--ctx-">
+                    <div class="short collapse show collapse-flags-sym--ctx-">
                         
                             <p>Flags of this symbol</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-flags-self--ctx-">
+                    <div class="details collapse collapse-flags-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3049,7 +3054,7 @@
 
                 
                 
-                <div id="fullName(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-fullName-self--ctx-">
+                <div id="fullName(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-fullName-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3074,7 +3079,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -3107,14 +3112,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-fullName-self--ctx-">
+                    <div class="short collapse show collapse-fullName-sym--ctx-">
                         
                             <p>The full name of this symbol up to the root package</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-fullName-self--ctx-">
+                    <div class="details collapse collapse-fullName-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3162,7 +3167,7 @@
 
                 
                 
-                <div id="isAbstractType(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isAbstractType-self--ctx-">
+                <div id="isAbstractType(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isAbstractType-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3187,7 +3192,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -3220,13 +3225,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isAbstractType-self--ctx-">
+                    <div class="short collapse show collapse-isAbstractType-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isAbstractType-self--ctx-">
+                    <div class="details collapse collapse-isAbstractType-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3273,7 +3278,7 @@
 
                 
                 
-                <div id="isAliasType(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isAliasType-self--ctx-">
+                <div id="isAliasType(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isAliasType-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3298,7 +3303,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -3331,13 +3336,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isAliasType-self--ctx-">
+                    <div class="short collapse show collapse-isAliasType-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isAliasType-self--ctx-">
+                    <div class="details collapse collapse-isAliasType-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3384,7 +3389,7 @@
 
                 
                 
-                <div id="isAnonymousClass(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isAnonymousClass-self--ctx-">
+                <div id="isAnonymousClass(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isAnonymousClass-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3409,7 +3414,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -3442,13 +3447,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isAnonymousClass-self--ctx-">
+                    <div class="short collapse show collapse-isAnonymousClass-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isAnonymousClass-self--ctx-">
+                    <div class="details collapse collapse-isAnonymousClass-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3495,7 +3500,7 @@
 
                 
                 
-                <div id="isAnonymousFunction(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isAnonymousFunction-self--ctx-">
+                <div id="isAnonymousFunction(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isAnonymousFunction-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3520,7 +3525,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -3553,13 +3558,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isAnonymousFunction-self--ctx-">
+                    <div class="short collapse show collapse-isAnonymousFunction-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isAnonymousFunction-self--ctx-">
+                    <div class="details collapse collapse-isAnonymousFunction-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3606,7 +3611,7 @@
 
                 
                 
-                <div id="isBind(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isBind-self--ctx-">
+                <div id="isBind(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isBind-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3631,7 +3636,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -3664,14 +3669,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isBind-self--ctx-">
+                    <div class="short collapse show collapse-isBind-sym--ctx-">
                         
                             <p>Is this the definition of a Bind pattern?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isBind-self--ctx-">
+                    <div class="details collapse collapse-isBind-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3719,7 +3724,7 @@
 
                 
                 
-                <div id="isClassConstructor(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isClassConstructor-self--ctx-">
+                <div id="isClassConstructor(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isClassConstructor-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3744,7 +3749,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -3777,13 +3782,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isClassConstructor-self--ctx-">
+                    <div class="short collapse show collapse-isClassConstructor-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isClassConstructor-self--ctx-">
+                    <div class="details collapse collapse-isClassConstructor-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3830,7 +3835,7 @@
 
                 
                 
-                <div id="isClassDef(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isClassDef-self--ctx-">
+                <div id="isClassDef(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isClassDef-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3855,7 +3860,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -3888,14 +3893,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isClassDef-self--ctx-">
+                    <div class="short collapse show collapse-isClassDef-sym--ctx-">
                         
                             <p>Is this the definition of a ClassDef tree?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isClassDef-self--ctx-">
+                    <div class="details collapse collapse-isClassDef-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3943,7 +3948,7 @@
 
                 
                 
-                <div id="isDefDef(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isDefDef-self--ctx-">
+                <div id="isDefDef(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isDefDef-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -3968,7 +3973,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4001,14 +4006,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isDefDef-self--ctx-">
+                    <div class="short collapse show collapse-isDefDef-sym--ctx-">
                         
                             <p>Is this the definition of a DefDef tree?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isDefDef-self--ctx-">
+                    <div class="details collapse collapse-isDefDef-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4056,7 +4061,7 @@
 
                 
                 
-                <div id="isDefinedInCurrentRun(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isDefinedInCurrentRun-self--ctx-">
+                <div id="isDefinedInCurrentRun(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isDefinedInCurrentRun-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4081,7 +4086,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4114,13 +4119,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isDefinedInCurrentRun-self--ctx-">
+                    <div class="short collapse show collapse-isDefinedInCurrentRun-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isDefinedInCurrentRun-self--ctx-">
+                    <div class="details collapse collapse-isDefinedInCurrentRun-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4167,7 +4172,7 @@
 
                 
                 
-                <div id="isLocalDummy(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isLocalDummy-self--ctx-">
+                <div id="isLocalDummy(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isLocalDummy-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4192,7 +4197,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4225,13 +4230,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isLocalDummy-self--ctx-">
+                    <div class="short collapse show collapse-isLocalDummy-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isLocalDummy-self--ctx-">
+                    <div class="details collapse collapse-isLocalDummy-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4278,7 +4283,7 @@
 
                 
                 
-                <div id="isNoSymbol(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isNoSymbol-self--ctx-">
+                <div id="isNoSymbol(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isNoSymbol-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4303,7 +4308,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4336,14 +4341,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isNoSymbol-self--ctx-">
+                    <div class="short collapse show collapse-isNoSymbol-sym--ctx-">
                         
                             <p>Does this symbol represent a no definition?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isNoSymbol-self--ctx-">
+                    <div class="details collapse collapse-isNoSymbol-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4391,7 +4396,7 @@
 
                 
                 
-                <div id="isPackageDef(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isPackageDef-self--ctx-">
+                <div id="isPackageDef(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isPackageDef-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4416,7 +4421,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4449,14 +4454,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isPackageDef-self--ctx-">
+                    <div class="short collapse show collapse-isPackageDef-sym--ctx-">
                         
                             <p>Is this the definition of a PackageDef tree?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isPackageDef-self--ctx-">
+                    <div class="details collapse collapse-isPackageDef-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4504,7 +4509,7 @@
 
                 
                 
-                <div id="isRefinementClass(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isRefinementClass-self--ctx-">
+                <div id="isRefinementClass(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isRefinementClass-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4529,7 +4534,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4562,13 +4567,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isRefinementClass-self--ctx-">
+                    <div class="short collapse show collapse-isRefinementClass-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isRefinementClass-self--ctx-">
+                    <div class="details collapse collapse-isRefinementClass-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4615,7 +4620,7 @@
 
                 
                 
-                <div id="isTerm(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isTerm-self--ctx-">
+                <div id="isTerm(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isTerm-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4640,7 +4645,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4673,14 +4678,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isTerm-self--ctx-">
+                    <div class="short collapse show collapse-isTerm-sym--ctx-">
                         
                             <p>Is this the definition of a term?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isTerm-self--ctx-">
+                    <div class="details collapse collapse-isTerm-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4728,7 +4733,7 @@
 
                 
                 
-                <div id="isType(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isType-self--ctx-">
+                <div id="isType(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isType-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4753,7 +4758,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4786,14 +4791,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isType-self--ctx-">
+                    <div class="short collapse show collapse-isType-sym--ctx-">
                         
                             <p>Is this the definition of a type?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isType-self--ctx-">
+                    <div class="details collapse collapse-isType-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4841,7 +4846,7 @@
 
                 
                 
-                <div id="isTypeDef(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isTypeDef-self--ctx-">
+                <div id="isTypeDef(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isTypeDef-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4866,7 +4871,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -4899,14 +4904,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isTypeDef-self--ctx-">
+                    <div class="short collapse show collapse-isTypeDef-sym--ctx-">
                         
                             <p>Is this the definition of a TypeDef tree</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isTypeDef-self--ctx-">
+                    <div class="details collapse collapse-isTypeDef-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -4954,7 +4959,7 @@
 
                 
                 
-                <div id="isTypeParam(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isTypeParam-self--ctx-">
+                <div id="isTypeParam(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isTypeParam-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -4979,7 +4984,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5012,13 +5017,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isTypeParam-self--ctx-">
+                    <div class="short collapse show collapse-isTypeParam-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isTypeParam-self--ctx-">
+                    <div class="details collapse collapse-isTypeParam-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5065,7 +5070,7 @@
 
                 
                 
-                <div id="isValDef(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isValDef-self--ctx-">
+                <div id="isValDef(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-isValDef-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -5090,7 +5095,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5123,14 +5128,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-isValDef-self--ctx-">
+                    <div class="short collapse show collapse-isValDef-sym--ctx-">
                         
                             <p>Is this the definition of a ValDef tree?</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-isValDef-self--ctx-">
+                    <div class="details collapse collapse-isValDef-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5178,7 +5183,7 @@
 
                 
                 
-                <div id="localContext(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-localContext-self--ctx-">
+                <div id="localContext(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-localContext-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -5203,7 +5208,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5236,13 +5241,13 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-localContext-self--ctx-">
+                    <div class="short collapse show collapse-localContext-sym--ctx-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-localContext-self--ctx-">
+                    <div class="details collapse collapse-localContext-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5289,7 +5294,7 @@
 
                 
                 
-                <div id="maybeOwner(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-maybeOwner-self--ctx-">
+                <div id="maybeOwner(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-maybeOwner-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -5314,7 +5319,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5347,14 +5352,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-maybeOwner-self--ctx-">
+                    <div class="short collapse show collapse-maybeOwner-sym--ctx-">
                         
                             <p>Owner of this symbol. The owner is the symbol in which this symbol is defined. Returns <code>NoSymbol</code> if this symbol does not have an owner.</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-maybeOwner-self--ctx-">
+                    <div class="details collapse collapse-maybeOwner-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5402,7 +5407,7 @@
 
                 
                 
-                <div id="method(self)(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-method-self--name--ctx-">
+                <div id="method(sym)(name)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-method-sym--name--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -5427,7 +5432,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5473,14 +5478,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-method-self--name--ctx-">
+                    <div class="short collapse show collapse-method-sym--name--ctx-">
                         
                             <p>Get named non-private methods declared or inherited</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-method-self--name--ctx-">
+                    <div class="details collapse collapse-method-sym--name--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5528,7 +5533,7 @@
 
                 
                 
-                <div id="methods(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-methods-self--ctx-">
+                <div id="methods(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-methods-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -5553,7 +5558,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5586,14 +5591,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-methods-self--ctx-">
+                    <div class="short collapse show collapse-methods-sym--ctx-">
                         
                             <p>Get all non-private methods declared or inherited</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-methods-self--ctx-">
+                    <div class="details collapse collapse-methods-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5641,7 +5646,7 @@
 
                 
                 
-                <div id="moduleClass(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-moduleClass-self--ctx-">
+                <div id="moduleClass(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-moduleClass-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -5666,7 +5671,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5699,14 +5704,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-moduleClass-self--ctx-">
+                    <div class="short collapse show collapse-moduleClass-sym--ctx-">
                         
                             <p>The class symbol of the companion module class</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-moduleClass-self--ctx-">
+                    <div class="details collapse collapse-moduleClass-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5754,7 +5759,7 @@
 
                 
                 
-                <div id="name(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-name-self--ctx-">
+                <div id="name(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-name-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -5779,7 +5784,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5812,14 +5817,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-name-self--ctx-">
+                    <div class="short collapse show collapse-name-sym--ctx-">
                         
                             <p>The name of this symbol</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-name-self--ctx-">
+                    <div class="details collapse collapse-name-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5867,7 +5872,7 @@
 
                 
                 
-                <div id="owner(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-owner-self--ctx-">
+                <div id="owner(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-owner-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -5892,7 +5897,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -5925,14 +5930,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-owner-self--ctx-">
+                    <div class="short collapse show collapse-owner-sym--ctx-">
                         
                             <p>Owner of this symbol. The owner is the symbol in which this symbol is defined. Throws if this symbol does not have an owner.</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-owner-self--ctx-">
+                    <div class="details collapse collapse-owner-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -5980,7 +5985,7 @@
 
                 
                 
-                <div id="pos(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-pos-self--ctx-">
+                <div id="pos(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-pos-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -6005,7 +6010,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -6038,14 +6043,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-pos-self--ctx-">
+                    <div class="short collapse show collapse-pos-sym--ctx-">
                         
                             <p>The position of this symbol</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-pos-self--ctx-">
+                    <div class="details collapse collapse-pos-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -6093,7 +6098,7 @@
 
                 
                 
-                <div id="privateWithin(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-privateWithin-self--ctx-">
+                <div id="privateWithin(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-privateWithin-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -6118,7 +6123,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -6151,14 +6156,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-privateWithin-self--ctx-">
+                    <div class="short collapse show collapse-privateWithin-sym--ctx-">
                         
                             <p>This symbol is private within the resulting type</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-privateWithin-self--ctx-">
+                    <div class="details collapse collapse-privateWithin-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -6206,7 +6211,7 @@
 
                 
                 
-                <div id="protectedWithin(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-protectedWithin-self--ctx-">
+                <div id="protectedWithin(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-protectedWithin-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -6231,7 +6236,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -6264,14 +6269,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-protectedWithin-self--ctx-">
+                    <div class="short collapse show collapse-protectedWithin-sym--ctx-">
                         
                             <p>This symbol is protected within the resulting type</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-protectedWithin-self--ctx-">
+                    <div class="details collapse collapse-protectedWithin-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -6319,7 +6324,359 @@
 
                 
                 
-                <div id="signature(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-signature-self--ctx-">
+                <div id="show(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-show-sym--ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                show
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            sym:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: String</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-show-sym--ctx-">
+                        
+                            <p>Shows the tree as fully typed source code</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-show-sym--ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Shows the tree as fully typed source code</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="showExtractors(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-showExtractors-sym--ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                showExtractors
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            sym:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: String</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-showExtractors-sym--ctx-">
+                        
+                            <p>Shows the tree as extractors</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-showExtractors-sym--ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Shows the tree as extractors</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="showWith(sym)(syntaxHighlight)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-showWith-sym--syntaxHighlight--ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                showWith
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            sym:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            syntaxHighlight:
+                                            
+                                            <a href="/api/scala/quoted/show/SyntaxHighlight.html">SyntaxHighlight</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: String</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-showWith-sym--syntaxHighlight--ctx-">
+                        
+                            <p>Shows the tree as fully typed source code</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-showWith-sym--syntaxHighlight--ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Shows the tree as fully typed source code</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="signature(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-signature-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -6344,7 +6701,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -6377,14 +6734,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-signature-self--ctx-">
+                    <div class="short collapse show collapse-signature-sym--ctx-">
                         
                             <p>Signature of this definition</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-signature-self--ctx-">
+                    <div class="details collapse collapse-signature-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -6432,7 +6789,7 @@
 
                 
                 
-                <div id="tree(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-tree-self--ctx-">
+                <div id="tree(sym)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-tree-sym--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -6457,7 +6814,7 @@
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            sym:
                                             
                                             <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
                                         </span>
@@ -6490,7 +6847,7 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-tree-self--ctx-">
+                    <div class="short collapse show collapse-tree-sym--ctx-">
                         
                             <p>Tree of this definition</p>
 <p>if this symbol <code>isPackageDef</code> it will return a <code>PackageDef</code>,
@@ -6501,7 +6858,7 @@ if this symbol <code>isTy...</code>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-tree-self--ctx-">
+                    <div class="details collapse collapse-tree-sym--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" class="toggled">Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,22 +1729,27 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./context-bounds-new.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<h2><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h2>
-<p>A context bound is a shorthand for expressing the common pattern of an implicit parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
+    <h2><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h2>
+<p>A context bound is a shorthand for expressing the common pattern of a context parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
 <pre><code class="scala">def maximum[T: Ord](xs: List[T]): T = xs.reduceLeft(max)
 </code></pre>
-<p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates an implicit parameter <code>(given Ord[T])</code>. The implicit parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
-<pre><code class="scala">def f[T: C1 : C2, U: C3](x: T)(given y: U, z: V): R
+<p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates a context parameter <code>with Ord[T]</code>. The context parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
+<pre><code class="scala">def f[T: C1 : C2, U: C3](x: T)(using y: U, z: V): R
 </code></pre>
 <p>would expand to</p>
-<pre><code class="scala">def f[T, U](x: T)(given y: U, z: V)(given C1[T], C2[T], C3[U]): R
+<pre><code class="scala">def f[T, U](x: T)(using y: U, z: V)(using C1[T], C2[T], C3[U]): R
 </code></pre>
 <p>Context bounds can be combined with subtype bounds. If both are present, subtype bounds come first, e.g.</p>
 <pre><code class="scala">def g[T &lt;: B : C](x: T): R = ...
 </code></pre>
-<h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
+<h3><a href="#migration" id="migration" class="anchor"></a>Migration</h3>
+<p>To ease migration, context bounds in Dotty map in Scala 3.0 to old-style implicit parameters
+for which arguments can be passed either with a <code>(using ...)</code> clause or with a normal application. From Scala 3.1 on, they will map to context parameters instead, as is described above.</p>
+<p>If the source version is <code>3.1</code> and the <code>-migration</code> command-line option is set, any pairing of an evidence
+context parameter stemming from a context bound with a normal argument will give a migration
+warning. The warning indicates that a <code>(using ...)</code> clause is needed instead. The rewrite can be
+done automatically under <code>-rewrite</code>.</p>
+<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
 <pre><code class="nohighlight">TypeParamBounds   ::=  [SubtypeBounds] {ContextBound}
 ContextBound      ::=  ‘:’ Type
 </code></pre>

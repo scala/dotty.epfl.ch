@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" class="toggled">Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,9 +1729,7 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./derivation-new.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>Type class derivation is a way to automatically generate given instances for type classes which satisfy some simple
+    <p>Type class derivation is a way to automatically generate given instances for type classes which satisfy some simple
 conditions. A type class in this sense is any trait or class with a type parameter determining the type being operated
 on. Common examples are <code>Eq</code>, <code>Ordering</code>, or <code>Show</code>. For example, given the following <code>Tree</code> algebraic data type
 (ADT),</p>
@@ -1742,13 +1740,13 @@ on. Common examples are <code>Eq</code>, <code>Ordering</code>, or <code>Show</c
 </code></pre>
 <p>The <code>derives</code> clause generates the following given instances for the <code>Eq</code>, <code>Ordering</code> and <code>Show</code> type classes in the
 companion object of <code>Tree</code>,</p>
-<pre><code class="scala">given [T: Eq]       : Eq[Tree[T]]    = Eq.derived
-given [T: Ordering] : Ordering[Tree] = Ordering.derived
-given [T: Show]     : Show[Tree]     = Show.derived
+<pre><code class="scala">given [T: Eq]       as Eq[Tree[T]]    = Eq.derived
+given [T: Ordering] as Ordering[Tree] = Ordering.derived
+given [T: Show]     as Show[Tree]     = Show.derived
 </code></pre>
 <p>We say that <code>Tree</code> is the <em>deriving type</em> and that the <code>Eq</code>, <code>Ordering</code> and <code>Show</code> instances are <em>derived instances</em>.</p>
 <h3><a href="#types-supporting-derives-clauses" id="types-supporting-derives-clauses" class="anchor"></a>Types supporting <code>derives</code> clauses</h3>
-<p>All data types can have a <code>derives</code> clause. This document focuses primarily on data types which also have an instance
+<p>All data types can have a <code>derives</code> clause. This document focuses primarily on data types which also have a given instance
 of the <code>Mirror</code> type class available. Instances of the <code>Mirror</code> type class are generated automatically by the compiler
 for,</p>
 <ul>
@@ -1849,13 +1847,13 @@ which is obtained from <code>MirroredType</code> by wildcarding its type paramet
 <p>A trait or class can appear in a <code>derives</code> clause if its companion object defines a method named <code>derived</code>. The
 signature and implementation of a <code>derived</code> method for a type class <code>TC[_]</code> are arbitrary but it is typically of the
 following form,</p>
-<pre><code class="scala">def derived[T](given Mirror.Of[T]): TC[T] = ...
+<pre><code class="scala">def derived[T](using Mirror.Of[T]): TC[T] = ...
 </code></pre>
-<p>That is, the <code>derived</code> method takes a given parameter of (some subtype of) type <code>Mirror</code> which defines the shape of
+<p>That is, the <code>derived</code> method takes a context parameter of (some subtype of) type <code>Mirror</code> which defines the shape of
 the deriving type <code>T</code>, and computes the type class implementation according to that shape. This is all that the
 provider of an ADT with a <code>derives</code> clause has to know about the derivation of a type class instance.</p>
-<p>Note that <code>derived</code> methods may have given <code>Mirror</code> arguments indirectly (e.g. by having a given argument which in turn
-has a given <code>Mirror</code>, or not at all (e.g. they might use some completely different user-provided mechanism, for
+<p>Note that <code>derived</code> methods may have context <code>Mirror</code> parameters indirectly (e.g. by having a context argument which in turn
+has a context <code>Mirror</code> parameter, or not at all (e.g. they might use some completely different user-provided mechanism, for
 instance using Dotty macros or runtime reflection). We expect that (direct or indirect) <code>Mirror</code> based implementations
 will be the most common and that is what this document emphasises.</p>
 <p>Type class authors will most likely use higher level derivation or generic programming libraries to implement
@@ -1872,9 +1870,9 @@ type-level constructs in Dotty: inline methods, inline matches, and implicit sea
   def eqv(x: T, y: T): Boolean
 }
 </code></pre>
-<p>we need to implement a method <code>Eq.derived</code> on the companion object of <code>Eq</code> that produces an instance for <code>Eq[T]</code> given
+<p>we need to implement a method <code>Eq.derived</code> on the companion object of <code>Eq</code> that produces a given instance for <code>Eq[T]</code> given
 a <code>Mirror[T]</code>. Here is a possible implementation,</p>
-<pre><code class="scala">inline given derived[T](given m: Mirror.Of[T]): Eq[T] = {
+<pre><code class="scala">inline given derived[T](using m: Mirror.Of[T]) as Eq[T] = {
   val elemInstances = summonAll[m.MirroredElemTypes]           // (1)
   inline m match {                                             // (2)
     case s: Mirror.SumOf[T]     =&gt; eqSum(s, elemInstances)
@@ -1882,14 +1880,14 @@ a <code>Mirror[T]</code>. Here is a possible implementation,</p>
   }
 }
 </code></pre>
-<p>Note that the <code>derived</code> method is defined as both <code>inline</code> and <code>given</code>. This means that the method will be expanded at
+<p>Note that <code>derived</code> is defined as an <code>inline</code> given. This means that the method will be expanded at
 call sites (for instance the compiler generated instance definitions in the companion objects of ADTs which have a
-<code>derived Eq</code> clause), and also that it can be used recursively if necessary, to compute instance for children.</p>
+<code>derived Eq</code> clause), and also that it can be used recursively if necessary, to compute instances for children.</p>
 <p>The body of this method (1) first materializes the <code>Eq</code> instances for all the child types of type the instance is
 being derived for. This is either all the branches of a sum type or all the fields of a product type. The
-implementation of <code>summonAll</code> is <code>inline</code> and uses Dotty's <code>given match</code> construct to collect the instances as a
+implementation of <code>summonAll</code> is <code>inline</code> and uses Dotty's <code>summonFrom</code> construct to collect the instances as a
 <code>List</code>,</p>
-<pre><code class="scala">inline def summon[T]: T = given match {
+<pre><code class="scala">inline def summonAll[T]: T = summonFrom {
   case t: T =&gt; t
 }
 
@@ -1925,9 +1923,9 @@ on the <code>Eq</code> instances for the fields of the data type (5),</p>
 </code></pre>
 <p>Pulling this all together we have the following complete implementation,</p>
 <pre><code class="scala">import scala.deriving._
-import scala.compiletime.erasedValue
+import scala.compiletime.{erasedValue, summonFrom}
 
-inline def summon[T]: T = given match {
+inline def summon[T]: T = summonFrom {
   case t: T =&gt; t
 }
 
@@ -1941,7 +1939,7 @@ trait Eq[T] {
 }
 
 object Eq {
-  given Eq[Int] {
+  given Eq[Int] as {
     def eqv(x: Int, y: Int) = x == y
   }
 
@@ -1966,7 +1964,7 @@ object Eq {
         }
     }
 
-  inline given derived[T](given m: Mirror.Of[T]): Eq[T] = {
+  inline given derived[T](using m: Mirror.Of[T]) as Eq[T] = {
     val elemInstances = summonAll[m.MirroredElemTypes]
     inline m match {
       case s: Mirror.SumOf[T]     =&gt; eqSum(s, elemInstances)
@@ -1991,7 +1989,7 @@ object Test extends App {
 </code></pre>
 <p>In this case the code that is generated by the inline expansion for the derived <code>Eq</code> instance for <code>Opt</code> looks like the
 following, after a little polishing,</p>
-<pre><code class="scala">given derived$Eq[T](given eqT: Eq[T]): Eq[Opt[T]] =
+<pre><code class="scala">given derived$Eq[T](using eqT: Eq[T]) as Eq[Opt[T]] =
   eqSum(summon[Mirror[Opt[T]]],
     List(
       eqProduct(summon[Mirror[Sm[T]]], List(summon[Eq[T]]))
@@ -2005,20 +2003,19 @@ above, can produce code for type classes like <code>Eq</code> which eliminate al
 child instances in the above) and generate code which is indistinguishable from what a programmer might write by hand.
 As a third example, using a higher level library such as shapeless the type class author could define an equivalent
 <code>derived</code> method as,</p>
-<pre><code class="scala">given eqSum[A](given inst: =&gt; K0.CoproductInstances[Eq, A]): Eq[A] {
+<pre><code class="scala">given eqSum[A](using inst: =&gt; K0.CoproductInstances[Eq, A]) as Eq[A] {
   def eqv(x: A, y: A): Boolean = inst.fold2(x, y)(false)(
     [t] =&gt; (eqt: Eq[t], t0: t, t1: t) =&gt; eqt.eqv(t0, t1)
   )
 }
 
-given eqProduct[A](given inst: K0.ProductInstances[Eq, A]): Eq[A] {
+given eqProduct[A](using inst: K0.ProductInstances[Eq, A]) as Eq[A] {
   def eqv(x: A, y: A): Boolean = inst.foldLeft2(x, y)(true: Boolean)(
     [t] =&gt; (acc: Boolean, eqt: Eq[t], t0: t, t1: t) =&gt; Complete(!eqt.eqv(t0, t1))(false)(true)
   )
 }
 
-
-inline def derived[A](given gen: K0.Generic[A]): Eq[A] = gen.derive(eqSum, eqProduct)
+inline def derived[A](using gen: K0.Generic[A]) as Eq[A] = gen.derive(eqSum, eqProduct)
 </code></pre>
 <p>The framework described here enables all three of these approaches without mandating any of them.</p>
 <p>For a brief discussion on how to use macros to write a type class <code>derived</code>
@@ -2028,9 +2025,9 @@ macros</a>.</p>
 <p>Sometimes one would like to derive a type class instance for an ADT after the ADT is defined, without being able to
 change the code of the ADT itself.  To do this, simply define an instance using the <code>derived</code> method of the type class
 as right-hand side. E.g, to implement <code>Ordering</code> for <code>Option</code> define,</p>
-<pre><code class="scala">given [T: Ordering] : Ordering[Option[T]] = Ordering.derived
+<pre><code class="scala">given [T: Ordering] as Ordering[Option[T]] = Ordering.derived
 </code></pre>
-<p>Assuming the <code>Ordering.derived</code> method has a given parameter of type <code>Mirror[T]</code> it will be satisfied by the
+<p>Assuming the <code>Ordering.derived</code> method has a context parameter of type <code>Mirror[T]</code> it will be satisfied by the
 compiler generated <code>Mirror</code> instance for <code>Option</code> and the derivation of the instance will be expanded on the right
 hand side of this definition in the same way as an instance defined in ADT companion objects.</p>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -85,7 +85,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="/docs/reference/overview.html" >Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -109,19 +109,19 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" class="toggled">Given Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,95 +1729,7 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./context-parameters.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>Functional programming tends to express most dependencies as simple function parameterization.
-This is clean and powerful, but it sometimes leads to functions that take many parameters and
-call trees where the same value is passed over and over again in long call chains to many
-functions. Given clauses can help here since they enable the compiler to synthesize
-repetitive arguments instead of the programmer having to write them explicitly.</p>
-<p>For example, with the <a href="./delegates.html">given instances</a> defined previously,
-a maximum function that works for any arguments for which an ordering exists can be defined as follows:</p>
-<pre><code class="scala">def max[T](x: T, y: T)(given ord: Ord[T]): T =
-  if (ord.compare(x, y) &lt; 0) y else x
-</code></pre>
-<p>Here, <code>ord</code> is an <em>implicit parameter</em> introduced with a <code>given</code> clause.
-The <code>max</code> method can be applied as follows:</p>
-<pre><code class="scala">max(2, 3)(given intOrd)
-</code></pre>
-<p>The <code>(given intOrd)</code> part passes <code>intOrd</code> as an argument for the <code>ord</code> parameter. But the point of
-implicit parameters is that this argument can also be left out (and it usually is). So the following
-applications are equally valid:</p>
-<pre><code class="scala">max(2, 3)
-max(List(1, 2, 3), Nil)
-</code></pre>
-<h2><a href="#anonymous-given-clauses" id="anonymous-given-clauses" class="anchor"></a>Anonymous Given Clauses</h2>
-<p>In many situations, the name of an implicit parameter need not be
-mentioned explicitly at all, since it is used only in synthesized arguments for
-other implicit parameters. In that case one can avoid defining a parameter name
-and just provide its type. Example:</p>
-<pre><code class="scala">def maximum[T](xs: List[T])(given Ord[T]): T =
-  xs.reduceLeft(max)
-</code></pre>
-<p><code>maximum</code> takes an implicit parameter of type <code>Ord</code> only to pass it on as an
-inferred argument to <code>max</code>. The name of the parameter is left out.</p>
-<p>Generally, implicit parameters may be defined either as a full parameter list <code>(given p_1: T_1, ..., p_n: T_n)</code> or just as a sequence of types <code>(given T_1, ..., T_n)</code>.
-Vararg given parameters are not supported.</p>
-<h2><a href="#inferring-complex-arguments" id="inferring-complex-arguments" class="anchor"></a>Inferring Complex Arguments</h2>
-<p>Here are two other methods that have an implicit parameter of type <code>Ord[T]</code>:</p>
-<pre><code class="scala">def descending[T](given asc: Ord[T]): Ord[T] = new Ord[T] {
-  def compare(x: T, y: T) = asc.compare(y, x)
-}
-
-def minimum[T](xs: List[T])(given Ord[T]) =
-  maximum(xs)(given descending)
-</code></pre>
-<p>The <code>minimum</code> method's right hand side passes <code>descending</code> as an explicit argument to <code>maximum(xs)</code>.
-With this setup, the following calls are all well-formed, and they all normalize to the last one:</p>
-<pre><code class="scala">minimum(xs)
-maximum(xs)(given descending)
-maximum(xs)(given descending(given listOrd))
-maximum(xs)(given descending(given listOrd(given intOrd)))
-</code></pre>
-<h2><a href="#multiple-given-clauses" id="multiple-given-clauses" class="anchor"></a>Multiple Given Clauses</h2>
-<p>There can be several <code>given</code> parameter clauses in a definition and <code>given</code> parameter clauses can be freely
-mixed with normal ones. Example:</p>
-<pre><code class="scala">def f(u: Universe)(given ctx: u.Context)(given s: ctx.Symbol, k: ctx.Kind) = ...
-</code></pre>
-<p>Multiple given clauses are matched left-to-right in applications. Example:</p>
-<pre><code class="scala">object global extends Universe { type Context = ... }
-given ctx  : global.Context { type Symbol = ...; type Kind = ... }
-given sym  : ctx.Symbol
-given kind : ctx.Kind
-</code></pre>
-<p>Then the following calls are all valid (and normalize to the last one)</p>
-<pre><code class="scala">f
-f(global)
-f(global)(given ctx)
-f(global)(given ctx)(given sym, kind)
-</code></pre>
-<p>But <code>f(global)(given sym, kind)</code> would give a type error.</p>
-<h2><a href="#summoning-instances" id="summoning-instances" class="anchor"></a>Summoning Instances</h2>
-<p>The method <code>summon</code> in <code>Predef</code> returns the given instance of a specific type. For example,
-the given instance for <code>Ord[List[Int]]</code> is produced by</p>
-<pre><code class="scala">summon[Ord[List[Int]]]  // reduces to listOrd given intOrd
-</code></pre>
-<p>The <code>summon</code> method is simply defined as the (non-widening) identity function over an implicit parameter.</p>
-<pre><code class="scala">def summon[T](given x: T): x.type = x
-</code></pre>
-<h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
-<p>Here is the new syntax of parameters and arguments seen as a delta from the <a href="../../internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
-<pre><code class="nohighlight">ClsParamClauses     ::=  ...
-                      |  {ClsParamClause} {GivenClsParamClause}
-GivenClsParamClause ::=  ‘(’ ‘given’ (ClsParams | GivenTypes) ‘)’
-DefParamClauses     ::=  ...
-                      |  {DefParamClause} {GivenParamClause}
-GivenParamClause    ::=  ‘(’ ‘given’ (DefParams | GivenTypes) ‘)’
-GivenTypes          ::=  AnnotType {‘,’ AnnotType}
-
-ParArgumentExprs    ::=  ...
-                      |  ‘(’ ‘given’ ExprsInParens ‘)’
-</code></pre>
+    <p>The contents of this page have <a href="./using-clauses.html">moved</a>.</p>
 
 </main>
 </div>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" class="toggled">Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,34 +1729,32 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./relationship-implicits-new.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
-<h2><a href="#simulating-contextual-abstraction-with-implicits" id="simulating-contextual-abstraction-with-implicits" class="anchor"></a>Simulating Contextual Abstraction with Implicits</h2>
+    <p>Many, but not all, of the new contextual abstraction features in Scala 3 can be mapped to Scala 2's implicits. This page gives a rundown on the relationships between new and old features.</p>
+<h2><a href="#simulating-scala-3-contextual-abstraction-concepts-with-scala-2-implicits" id="simulating-scala-3-contextual-abstraction-concepts-with-scala-2-implicits" class="anchor"></a>Simulating Scala 3 Contextual Abstraction Concepts with Scala 2 Implicits</h2>
 <h3><a href="#given-instances" id="given-instances" class="anchor"></a>Given Instances</h3>
 <p>Given instances can be mapped to combinations of implicit objects, classes and implicit methods.</p>
 <ol>
 <li>Given instances without parameters are mapped to implicit objects. E.g.,
-<pre><code class="scala">given intOrd: Ord[Int] { ... }
+<pre><code class="scala">given intOrd as Ord[Int] { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="scala">implicit object IntOrd extends Ord[Int] { ... }
 </code></pre>
 </li>
-<li>Parameterized given instances are mapped to combinations of classes and implicit methods. E.g.,
-<pre><code class="scala">  given listOrd[T](given ord: Ord[T]): Ord[List[T]] { ... }
+<li>Parameterized givens are mapped to combinations of classes and implicit methods. E.g.,
+<pre><code class="scala">  given listOrd[T](using ord: Ord[T]) as Ord[List[T]] { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="scala">class ListOrd[T](implicit ord: Ord[T]) extends Ord[List[T]] { ... }
 final implicit def ListOrd[T](implicit ord: Ord[T]): ListOrd[T] = new ListOrd[T]
 </code></pre>
 </li>
-<li>Alias givens map to implicit methods or implicit lazy vals. If an alias has neither type parameters nor a given clause,
+<li>Alias givens map to implicit methods or implicit lazy vals. If an alias has neither type nor context parameters,
 it is treated as a lazy val, unless the right hand side is a simple reference, in which case we can use a forwarder to
 that reference without caching it.</li>
 </ol>
 <p>Examples:</p>
-<pre><code class="scala">given global: ExecutionContext = new ForkJoinContext()
+<pre><code class="scala">given global as ExecutionContext = new ForkJoinContext()
 
 val ctx: Context
 given Context = ctx
@@ -1767,8 +1765,8 @@ final implicit def given_Context = ctx
 </code></pre>
 <h3><a href="#anonymous-given-instances" id="anonymous-given-instances" class="anchor"></a>Anonymous Given Instances</h3>
 <p>Anonymous given instances get compiler synthesized names, which are generated in a reproducible way from the implemented type(s). For example, if the names of the <code>IntOrd</code> and <code>ListOrd</code> givens above were left out, the following names would be synthesized instead:</p>
-<pre><code class="scala">given given_Ord_Int : Ord[Int] { ... }
-given given_Ord_List[T] : Ord[List[T]] { ... }
+<pre><code class="scala">given given_Ord_Int as Ord[Int] { ... }
+given given_Ord_List[T] as Ord[List[T]] { ... }
 </code></pre>
 <p>The synthesized type names are formed from</p>
 <ul>
@@ -1793,15 +1791,15 @@ given given_Ord_List[T] : Ord[List[T]] { ... }
 </code></pre>
 <p>gets the synthesized name <code>extension_second_List_T</code>.</p>
 <h3><a href="#given-clauses" id="given-clauses" class="anchor"></a>Given Clauses</h3>
-<p>Given clauses corresponds largely to Scala-2's implicit parameter clauses. E.g.</p>
-<pre><code class="scala">def max[T](x: T, y: T)(given ord: Ord[T]): T
+<p>Given clauses correspond largely to Scala-2's implicit parameter clauses. E.g.</p>
+<pre><code class="scala">def max[T](x: T, y: T)(using ord: Ord[T]): T
 </code></pre>
 <p>would be written</p>
 <pre><code class="scala">def max[T](x: T, y: T)(implicit ord: Ord[T]): T
 </code></pre>
 <p>in Scala 2. The main difference concerns applications of such parameters.
-Explicit arguments to parameters of given clauses <em>must</em> be written using <code>given</code>,
-mirroring the definition syntax. E.g, <code>max(2, 3)(given IntOrd</code>).
+Explicit arguments to parameters of using clauses <em>must</em> be written using <code>(using ...)</code>,
+mirroring the definition syntax. E.g, <code>max(2, 3)(using IntOrd)</code>.
 Scala 2 uses normal applications <code>max(2, 3)(IntOrd)</code> instead. The Scala 2 syntax has some inherent ambiguities and restrictions which are overcome by the new syntax. For instance, multiple implicit parameter lists are not available in the old syntax, even though they can be simulated using auxiliary objects in the &quot;Aux&quot; pattern.</p>
 <p>The <code>summon</code> method corresponds to <code>implicitly</code> in Scala 2.
 It is precisely the same as the <code>the</code> method in Shapeless.
@@ -1809,9 +1807,10 @@ The difference between <code>summon</code> (or <code>the</code>) and <code>impli
 that <code>summon</code> can return a more precise type than the type that was
 asked for.</p>
 <h3><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h3>
-<p>Context bounds are the same in both language versions.
-They expand to <code>implicit</code> parameters in Scala 2 and also in Scala 3.0.
-They will expand to context parameters from Scala 3.1 on.</p>
+<p>Context bounds are the same in both language versions. They expand to the respective forms of implicit parameters.</p>
+<p><strong>Note:</strong> To ease migration, context bounds in Dotty map for a limited time to old-style implicit parameters for which arguments can be passed either in a using clause or
+in a normal argument list. Once old-style implicits are deprecated, context bounds
+will map to with clauses instead.</p>
 <h3><a href="#extension-methods" id="extension-methods" class="anchor"></a>Extension Methods</h3>
 <p>Extension methods have no direct counterpart in Scala 2, but they can be simulated with implicit classes. For instance, the extension method</p>
 <pre><code class="scala">def (c: Circle).circumference: Double = c.radius * math.Pi * 2
@@ -1821,25 +1820,28 @@ They will expand to context parameters from Scala 3.1 on.</p>
   def circumference: Double = c.radius * math.Pi * 2
 }
 </code></pre>
-<p>Extension methods in given instances have no direct counterpart in Scala-2. The only way to simulate these is to make implicit classes available through imports. The Simulacrum macro library can automate this process in some cases.</p>
+<p>Abstract extension methods in traits that are implemented in given instances have no direct counterpart in Scala-2. The only way to simulate these is to make implicit classes available through imports. The Simulacrum macro library can automate this process in some cases.</p>
 <h3><a href="#typeclass-derivation" id="typeclass-derivation" class="anchor"></a>Typeclass Derivation</h3>
 <p>Typeclass derivation has no direct counterpart in the Scala 2 language. Comparable functionality can be achieved by macro-based libraries such as Shapeless, Magnolia, or scalaz-deriving.</p>
 <h3><a href="#implicit-function-types" id="implicit-function-types" class="anchor"></a>Implicit Function Types</h3>
 <p>Implicit function types have no analogue in Scala 2.</p>
 <h3><a href="#implicit-by-name-parameters" id="implicit-by-name-parameters" class="anchor"></a>Implicit By-Name Parameters</h3>
 <p>Implicit by-name parameters are not supported in Scala 2, but can be emulated to some degree by the <code>Lazy</code> type in Shapeless.</p>
-<h2><a href="#simulating-scala-2-implicits-in-dotty" id="simulating-scala-2-implicits-in-dotty" class="anchor"></a>Simulating Scala 2 Implicits in Dotty</h2>
+<h2><a href="#simulating-scala-2-implicits-in-scala-3" id="simulating-scala-2-implicits-in-scala-3" class="anchor"></a>Simulating Scala 2 Implicits in Scala 3</h2>
 <h3><a href="#implicit-conversions" id="implicit-conversions" class="anchor"></a>Implicit Conversions</h3>
 <p>Implicit conversion methods in Scala 2 can be expressed as given instances of the <code>scala.Conversion</code> class in Dotty. E.g. instead of</p>
 <pre><code class="scala">implicit def stringToToken(str: String): Token = new Keyword(str)
 </code></pre>
 <p>one can write</p>
-<pre><code class="scala">given stringToToken: Conversion[String, Token] {
-  def apply(str: String): Token = new KeyWord(str)
+<pre><code class="scala">given stringToToken as Conversion[String, Token] {
+  def apply(str: String): Token = KeyWord(str)
 }
 </code></pre>
+<p>or</p>
+<pre><code class="scala">given stringToToken as Conversion[String, Token] = KeyWord(_)
+</code></pre>
 <h3><a href="#implicit-classes" id="implicit-classes" class="anchor"></a>Implicit Classes</h3>
-<p>Implicit classes in Scala 2 are often used to define extension methods, which are directly supported in Dotty. Other uses of implicit classes can be simulated by a pair of a regular class and a given instance of <code>Conversion</code> type.</p>
+<p>Implicit classes in Scala 2 are often used to define extension methods, which are directly supported in Dotty. Other uses of implicit classes can be simulated by a pair of a regular class and a given <code>Conversion</code> instance.</p>
 <h3><a href="#implicit-values" id="implicit-values" class="anchor"></a>Implicit Values</h3>
 <p>Implicit <code>val</code> definitions in Scala 2 can be expressed in Dotty using a regular <code>val</code> definition and an alias given.
 E.g., Scala 2's</p>

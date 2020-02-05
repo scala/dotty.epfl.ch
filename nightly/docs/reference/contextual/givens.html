@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -85,7 +85,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul >
+  <ul class="toggled">
     <li class="leaf"><a href="/nightly/docs/reference/overview.html" >Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -109,19 +109,19 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
-  <ul >
+  <ul class="toggled">
     <li class="leaf"><a href="/nightly/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/givens.html" class="toggled">Given Instances</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1730,7 +1730,7 @@
         </div>
     </header>
     <p>Given instances (or, simply, &quot;givens&quot;) define &quot;canonical&quot; values of certain types
-that serve for synthesizing arguments to <a href="./context-parameters.html">context parameters</a>. Example:</p>
+that serve for synthesizing arguments to <a href="./using-clauses.html">context parameters</a>. Example:</p>
 <pre><code class="scala">trait Ord[T] {
   def compare(x: T, y: T): Int
   def (x: T) &lt; (y: T) = compare(x, y) &lt; 0
@@ -1759,7 +1759,7 @@ for <code>Ord[List[T]]</code> for all types <code>T</code> that come with a give
 themselves. The <code>using</code> clause in <code>listOrd</code> defines a condition: There must be a
 given of type <code>Ord[T]</code> for a given of type <code>List[Ord[T]]</code> to exist.
 Such conditions are expanded by the compiler to context
-parameters, which are explained in the <a href="./context-parameters.html">next section</a>.</p>
+parameters, which are explained in the <a href="./using-clauses.html">next section</a>.</p>
 <h2><a href="#anonymous-givens" id="anonymous-givens" class="anchor"></a>Anonymous Givens</h2>
 <p>The name of a given can be left out. So the definitions
 of the last section can also be expressed like this:</p>

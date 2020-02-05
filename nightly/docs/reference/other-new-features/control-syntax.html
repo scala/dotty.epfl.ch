@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul >
     <li class="leaf"><a href="/nightly/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,12 +1729,17 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./control-syntax-new.html">Here is the new version which will be implemented in Dotty 0.20</a>.</p>
-<p>Scala 3 has a new &quot;quiet&quot; syntax for control expressions that does not rely in
+    <p>Scala 3 has a new &quot;quiet&quot; syntax for control expressions that does not rely on
 enclosing the condition in parentheses, and also allows to drop parentheses or braces
 around the generators of a <code>for</code>-expression. Examples:</p>
-<pre><code class="scala">if x &lt; 0 then -x else x
+<pre><code class="scala">if x &lt; 0 then
+  &quot;negative&quot;
+else if x == 0
+  &quot;zero&quot;
+else
+  &quot;positive&quot;
+
+if x &lt; 0 then -x else x
 
 while x &gt;= 0 do x = f(x)
 
@@ -1749,14 +1754,11 @@ do
 </code></pre>
 <p>The rules in detail are:</p>
 <ul>
-<li>The condition of an <code>if</code>-expression can be written without enclosing parentheses if it is followed by a <code>then</code>.</li>
+<li>The condition of an <code>if</code>-expression can be written without enclosing parentheses if it is followed by a <code>then</code>
+or some <a href="./indentation.html">indented</a> code on a following line.</li>
 <li>The condition of a <code>while</code>-loop can be written without enclosing parentheses if it is followed by a <code>do</code>.</li>
 <li>The enumerators of a <code>for</code>-expression can be written without enclosing parentheses or braces if they are followed by a <code>yield</code> or <code>do</code>.</li>
 <li>A <code>do</code> in a <code>for</code>-expression expresses a <code>for</code>-loop.</li>
-<li>Newline characters are not statement separators in a condition of an <code>if</code> or a <code>while</code>.
-So the meaning of newlines is the same no matter whether parentheses are present
-or absent.</li>
-<li>Newline characters are potential statement separators in the enumerators of a <code>for</code>-expression.</li>
 </ul>
 <h3><a href="#rewrites" id="rewrites" class="anchor"></a>Rewrites</h3>
 <p>The Dotty compiler can rewrite source code from old syntax and new syntax and back.

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-04 -->
+<!-- This page was last generated on 2020-02-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200203-2ced64f-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" class="toggled">Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -1729,9 +1729,7 @@
             </a>
         </div>
     </header>
-    <p><strong>Note</strong> The syntax described in this section is currently under revision.
-<a href="./motovation-new.html">Here is the new version which will be implemented in Dotty 0.22</a>.</p>
-<h3><a href="#critique-of-the-status-quo" id="critique-of-the-status-quo" class="anchor"></a>Critique of the Status Quo</h3>
+    <h3><a href="#critique-of-the-status-quo" id="critique-of-the-status-quo" class="anchor"></a>Critique of the Status Quo</h3>
 <p>Scala's implicits are its most distinguished feature. They are <em>the</em> fundamental way to abstract over context. They represent a unified paradigm with a great variety of use cases, among them: implementing type classes, establishing context, dependency injection, expressing capabilities, computing new types and proving relationships between them.</p>
 <p>Following Haskell, Scala was the second popular language to have some form of implicits. Other languages have followed suit. E.g Rust's traits or Swift's protocol extensions. Design proposals are also on the table for Kotlin as <a href="https://github.com/Kotlin/KEEP/blob/e863b25f8b3f2e9b9aaac361c6ee52be31453ee0/proposals/compile-time-dependency-resolution.md">compile time dependency resolution</a>, for C# as <a href="https://github.com/dotnet/csharplang/issues/164">Shapes and Extensions</a>
 or for F# as <a href="https://github.com/MattWindsor91/visualfsharp/blob/hackathon-vs/examples/fsconcepts.md">Traits</a>. Implicits are also a common feature of theorem provers such as Coq or Agda.</p>
@@ -1757,7 +1755,7 @@ implicit def i2(x: T): C[T] = ...
 </code></pre>
 <p>one cannot write <code>currentMap(&quot;abc&quot;)</code> since the string &quot;abc&quot; is taken as explicit argument to the implicit <code>ctx</code> parameter. One has to write <code>currentMap.apply(&quot;abc&quot;)</code> instead, which is awkward and irregular. For the same reason, a method definition can only have one implicit parameter section and it must always come last. This restriction not only reduces orthogonality, but also prevents some useful program constructs, such as a method with a regular parameter whose type depends on an implicit value. Finally, it's also a bit annoying that implicit parameters must have a name, even though in many cases that name is never referenced.</p>
 </li>
-<li>Implicits pose challenges for tooling. The set of available implicits depends on context, so command completion has to take context into account. This is feasible in an IDE but docs like ScalaDoc that are based static web pages can only provide an approximation. Another problem is that failed implicit searches often give very unspecific error messages, in particular if some deeply recursive implicit search has failed. Note that the Dotty compiler already implements some improvements in this case, but challenges still remain.</li>
+<li>Implicits pose challenges for tooling. The set of available implicits depends on context, so command completion has to take context into account. This is feasible in an IDE but docs like ScalaDoc that are based static web pages can only provide an approximation. Another problem is that failed implicit searches often give very unspecific error messages, in particular if some deeply recursive implicit search has failed. Note that the Dotty compiler has already made a lot of progress in the error diagnostics area. If a recursive search fails some levels down, it shows what was constructed and what is missing. Also, it suggests imports that can bring missing implicits in scope.</li>
 </ol>
 <p>None of the shortcomings is fatal, after all implicits are very widely used, and many libraries and applications rely on them. But together, they make code using implicits a lot more cumbersome and less clear than it could be.</p>
 <p>Historically, many of these shortcomings come from the way implicits were gradually &quot;discovered&quot; in Scala. Scala originally had only implicit conversions with the intended use case of &quot;extending&quot; a class or trait after it was defined, i.e. what is expressed by implicit classes in later versions of Scala. Implicit parameters and instance definitions came later in 2006 and we picked similar syntax since it seemed convenient. For the same reason, no effort was made to distinguish implicit imports or arguments from normal ones.</p>
@@ -1766,13 +1764,14 @@ implicit def i2(x: T): C[T] = ...
 <p>The following pages introduce a redesign of contextual abstractions in Scala. They introduce four fundamental changes:</p>
 <ol>
 <li>
-<p><a href="./delegates.html">Given Instances</a> are a new way to define basic terms that can be synthesized.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
+<p><a href="./givens.html">Given Instances</a> are a new way to define basic terms that can be synthesized.  They replace implicit definitions. The core principle of the proposal is that, rather than mixing the <code>implicit</code> modifier with a large number of features, we have a single way to define terms that can be synthesized for types.</p>
 </li>
 <li>
-<p><a href="./given-clauses.html">Given Clauses</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. Both are introduced with the same keyword, <code>given</code>. This unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several implicit parameter sections, and to have implicit parameters followed by normal ones.</p>
+<p><a href="./using-clauses.html">Using Clauses</a> are a new syntax for implicit <em>parameters</em> and their <em>arguments</em>. It unambiguously aligns parameters and arguments, solving a number of language warts. It also allows us to have several <code>using</code> clauses in a definition.</p>
 </li>
 <li>
-<p><a href="./import-delegate.html">Given Imports</a> are a new class of imports that specifically import given instances and nothing else. Given instances <em>must be</em> imported with  <code>import given</code>, a plain import will no longer bring them into scope.</p>
+<p><a href="./given-imports.html">&quot;Given&quot; Imports</a> are a new class of import selectors that specifically import
+givens and nothing else.</p>
 </li>
 <li><a href="./conversions.html">Implicit Conversions</a> are now expressed as given instances of a standard <code>Conversion</code> class. All other forms of implicit conversions will be phased out.</li>
 </ol>
@@ -1783,11 +1782,11 @@ implicit def i2(x: T): C[T] = ...
 <li><a href="./typeclasses.html">Implementing Typeclasses</a> demonstrates how some common typeclasses can be implemented using the new constructs.</li>
 <li><a href="./derivation.html">Typeclass Derivation</a> introduces constructs to automatically derive typeclass instances for ADTs.</li>
 <li><a href="./multiversal-equality.html">Multiversal Equality</a> introduces a special typeclass to support type safe equality.</li>
-<li><a href="./implicit-function-types.html">Implicit Function Types</a> provide a way to abstract over given clauses.</li>
-<li><a href="./implicit-by-name-parameters.html">Implicit By-Name Parameters</a> are an essential tool to define recursive synthesized values without looping.</li>
+<li><a href="./context-functions.html">Context Functions</a> provide a way to abstract over context parameters.</li>
+<li><a href="./by-name-context-parameters.html">By-Name Context Parameters</a> are an essential tool to define recursive synthesized values without looping.</li>
 <li><a href="./relationship-implicits.html">Relationship with Scala 2 Implicits</a> discusses the relationship between old-style implicits and new-style givens and how to migrate from one to the other.</li>
 </ul>
-<p>Overall, the new design achieves a better separation of term inference from the rest of the language: There is a single way to define given instances instead of a multitude of forms all taking an <code>implicit</code> modifier. There is a single way to introduce implicit parameters and arguments instead of conflating implicit with normal arguments. There is a separate way to import given instances that does not allow them to hide in a sea of normal imports. And there is a single way to define an implicit conversion which is clearly marked as such and does not require special syntax.</p>
+<p>Overall, the new design achieves a better separation of term inference from the rest of the language: There is a single way to define givens instead of a multitude of forms all taking an <code>implicit</code> modifier. There is a single way to introduce implicit parameters and arguments instead of conflating implicit with normal arguments. There is a separate way to import givens that does not allow them to hide in a sea of normal imports. And there is a single way to define an implicit conversion which is clearly marked as such and does not require special syntax.</p>
 <p>This design thus avoids feature interactions and makes the language more consistent and orthogonal. It will make implicits easier to learn and harder to abuse. It will greatly improve the clarity of the 95% of Scala programs that use implicits. It has thus the potential to fulfil the promise of term inference in a principled way that is also accessible and friendly.</p>
 <p>Could we achieve the same goals by tweaking existing implicits? After having tried for a long time, I believe now that this is impossible.</p>
 <ul>
