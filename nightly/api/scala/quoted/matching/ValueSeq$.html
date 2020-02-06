@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-05 -->
+<!-- This page was last generated on 2020-02-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200205-3f919dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1601,6 +1601,42 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
+                            </li>
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1869,7 +1905,7 @@
                             <p>Matches literal sequence of literal constant value expressions and return a sequence of values.</p>
 <p>Usage:</p>
 <pre><code class="scala">inline def sum(args: Int*): Int = ${ sumExpr('args) }
-def sumExpr(argsExpr: Expr[Seq[Int]])(given QuoteContext): Expr[Int] = argsExpr match
+def sumExpr(argsExpr: Expr[Seq[Int]])(using QuoteContext): Expr[Int] = argsExpr match
   case ValueSeq(args) =&gt;
     // args: Seq[Int]
     ...

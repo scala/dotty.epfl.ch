@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-05 -->
+<!-- This page was last generated on 2020-02-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200205-3f919dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1601,6 +1601,42 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
+                            </li>
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1790,9 +1826,9 @@ Run provides a <code>QuoteContext</code> that can be used to show the expression
 On the other hand <code>withQuoteContext</code> provides a <code>QuoteContext</code> without evauating the expression.</p>
 <pre><code class="scala">package scala.quoted.staging
 
-def run[T](expr:(given QuoteContext) =&gt; Expr[T])(given toolbox: Toolbox): T = ...
+def run[T](expr: QuoteContext ?=&gt; Expr[T])(using toolbox: Toolbox): T = ...
 
-def withQuoteContext[T](thunk:(given QuoteContext) =&gt; T)(given toolbox: Toolbox): T = ...
+def withQuoteContext[T](thunk: QuoteContext ?=&gt; T)(using toolbox: Toolbox): T = ...
 </code></pre>
 <h2><a href="#create-a-new-dotty-project-with-staging-enabled" id="create-a-new-dotty-project-with-staging-enabled" class="anchor"></a>Create a new Dotty project with staging enabled</h2>
 <pre><code class="shell">sbt new lampepfl/dotty-staging.g8

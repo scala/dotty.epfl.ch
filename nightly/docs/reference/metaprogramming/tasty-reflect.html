@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-05 -->
+<!-- This page was last generated on 2020-02-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200205-3f919dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1601,6 +1601,42 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
+                            </li>
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1747,7 +1783,7 @@ the scope where it is used.</p>
 
 inline def natConst(x: =&gt; Int): Int = ${natConstImpl('{x})}
 
-def natConstImpl(x: Expr[Int])(given qctx: QuoteContext): Expr[Int] = {
+def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
   import qctx.tasty.{_, given}
   ...
 }
@@ -1758,7 +1794,7 @@ and <code>quoted.Type</code> which returns a <code>qctx.tasty.Term</code> that r
 the expression and <code>qctx.tasty.TypeTree</code> that represents the tree of the type
 respectively. It will also import all extractors and methods on TASTy Reflect
 trees. For example the <code>Literal(_)</code> extractor used below.</p>
-<pre><code class="scala">def natConstImpl(x: Expr[Int])(given qctx: QuoteContext): Expr[Int] = {
+<pre><code class="scala">def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
   import qctx.tasty.{_, given}
   val xTree: Term = x.unseal
   xTree match {
@@ -1789,7 +1825,7 @@ defining the expression passed. For example the code below matches a selection
 operation expression passed while calling the <code>macro</code> below.</p>
 <pre><code class="scala">inline def macro(param: =&gt; Boolean): Unit = ${ macroImpl('param) }
 
-def macroImpl(param: Expr[Boolean])(given qctx: QuoteContext): Expr[Unit] = {
+def macroImpl(param: Expr[Boolean])(using qctx: QuoteContext): Expr[Unit] = {
   import qctx.tasty.{_, given}
   import util._
 
@@ -1822,7 +1858,7 @@ point.</p>
   ...
 </code></pre>
 <h3><a href="#tree-utilities" id="tree-utilities" class="anchor"></a>Tree Utilities</h3>
-<p><code>scala.tasty.reflect.TreeUtils</code> contains three facilities for tree traversal and
+<p><code>scala.tasty.reflect</code> contains three facilities for tree traversal and
 transformations.</p>
 <p><code>TreeAccumulator</code> ties the knot of a traversal. By calling <code>foldOver(x, tree))</code>
 we can dive in the <code>tree</code> node and start accumulating values of type <code>X</code> (e.g.,
@@ -1841,7 +1877,7 @@ example, collects the pattern variables of a tree.</p>
 <p>A <code>TreeTraverser</code> extends a <code>TreeAccumulator</code> and performs the same traversal
 but without returning any value. Finally a <code>TreeMap</code> performs a transformation.</p>
 <h4><a href="#let" id="let" class="anchor"></a>Let</h4>
-<p><code>scala.tasty.reflect.utils.TreeUtils</code> also offers a method <code>let</code> that allows us
+<p><code>scala.tasty.Reflection</code> also offers a method <code>let</code> that allows us
 to bind the <code>rhs</code> to a <code>val</code> and use it in <code>body</code>. Additionally, <code>lets</code> binds
 the given <code>terms</code> to names and use them in the <code>body</code>. Their type definitions
 are shown below:</p>

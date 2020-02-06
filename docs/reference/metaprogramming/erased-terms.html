@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-05 -->
+<!-- This page was last generated on 2020-02-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200205-3f919dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1601,6 +1601,42 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeTraverser.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
+                            </li>
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1757,7 +1793,7 @@ m.turnedOn.turnedOn // ERROR
 //                 ^
 //                  State is must be Off
 </code></pre>
-<p>Note that in the code above the actual implicit arguments for <code>IsOff</code> are never
+<p>Note that in the code above the actual context arguments for <code>IsOff</code> are never
 used at runtime; they serve only to establish the right constraints at compile
 time. As these terms are never used at runtime there is not real need to have
 them around, but they still need to be present in some form in the generated
@@ -1805,14 +1841,14 @@ methodWithErasedEv(evidence1)
 which can be in a state <code>On</code> or <code>Off</code>. The machine can change state from <code>Off</code>
 to <code>On</code> with <code>turnedOn</code> only if it is currently <code>Off</code>, conversely from <code>On</code> to
 <code>Off</code> with <code>turnedOff</code> only if it is currently <code>On</code>. These last constraint are
-captured with the <code>IsOff[S]</code> and <code>IsOn[S]</code> implicit evidence only exist for
+captured with the <code>IsOff[S]</code> and <code>IsOn[S]</code> given evidence only exist for
 <code>IsOff[Off]</code> and <code>IsOn[On]</code>. For example, not allowing calling <code>turnedOff</code> on in
 an <code>Off</code> state as we would require an evidence <code>IsOn[Off]</code> that will not be
 found.</p>
-<p>As the implicit evidences of <code>turnedOn</code> and <code>turnedOff</code> are not used in the
+<p>As the given evidences of <code>turnedOn</code> and <code>turnedOff</code> are not used in the
 bodies of those functions we can mark them as <code>erased</code>. This will remove the
 evidence parameters at runtime, but we would still evaluate the <code>isOn</code> and
-<code>isOff</code> implicits that were found as arguments. As <code>isOn</code> and <code>isOff</code> are not
+<code>isOff</code> givens that were found as arguments. As <code>isOn</code> and <code>isOff</code> are not
 used except as <code>erased</code> arguments, we can mark them as <code>erased</code>, hence removing
 the evaluation of the <code>isOn</code> and <code>isOff</code> evidences.</p>
 <pre><code class="scala">import scala.annotation.implicitNotFound
@@ -1824,21 +1860,21 @@ final class Off extends State
 @implicitNotFound(&quot;State is must be Off&quot;)
 class IsOff[S &lt;: State]
 object IsOff {
-  // def isOff will not be called at runtime for turnedOn, the compiler will only require that this evidence exists
-  implicit def isOff: IsOff[Off] = new IsOff[Off]
+  // will not be called at runtime for turnedOn, the compiler will only require that this evidence exists
+  given IsOff[Off] = new IsOff[Off]
 }
 
 @implicitNotFound(&quot;State is must be On&quot;)
 class IsOn[S &lt;: State]
 object IsOn {
-  // erased val isOn will not exist at runtime, the compiler will only require that this evidence exists at compile time
-  erased implicit val isOn: IsOn[On] = new IsOn[On]
+  // will not exist at runtime, the compiler will only require that this evidence exists at compile time
+  erased given IsOn[On] = new IsOn[On]
 }
 
 class Machine[S &lt;: State] private {
   // ev will disappear from both functions
-  def turnedOn(given erased ev: IsOff[S]): Machine[On] = new Machine[On]
-  def turnedOff(given erased ev: IsOn[S]): Machine[Off] = new Machine[Off]
+  def turnedOn(using erased ev: IsOff[S]): Machine[On] = new Machine[On]
+  def turnedOff(using erased ev: IsOn[S]): Machine[Off] = new Machine[Off]
 }
 
 object Machine {

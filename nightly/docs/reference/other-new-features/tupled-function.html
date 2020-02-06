@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-05 -->
+<!-- This page was last generated on 2020-02-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200205-3f919dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1601,6 +1601,42 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
+                            </li>
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1749,7 +1785,7 @@ sealed trait TupledFunction[F, G] {
 <li><code>F</code> is a function type of arity <code>N</code></li>
 <li><code>G</code> is a function with a single tuple argument of size <code>N</code> and it's types are equal to the arguments of <code>F</code></li>
 <li>The return type of <code>F</code> is equal to the return type of <code>G</code></li>
-<li><code>F</code> and <code>G</code> are the same kind of function (both are <code>(...) =&gt; R</code> or both are <code>(given ...) =&gt; R</code>)</li>
+<li><code>F</code> and <code>G</code> are the same kind of function (both are <code>(...) =&gt; R</code> or both are <code>(...) ?=&gt; R</code>)</li>
 <li>If only one of <code>F</code> or <code>G</code> is instantiated the second one is inferred.</li>
 </ul>
 <h2><a href="#examples" id="examples" class="anchor"></a>Examples</h2>
@@ -1761,7 +1797,7 @@ sealed trait TupledFunction[F, G] {
  *  @tparam Args the tuple type with the same types as the function arguments of F
  *  @tparam R the return type of F
  */
-def [F, Args &lt;: Tuple, R](f: F).tupled(given tf: TupledFunction[F, Args =&gt; R]): Args =&gt; R = tf.tupled(f)
+def [F, Args &lt;: Tuple, R](f: F).tupled(using tf: TupledFunction[F, Args =&gt; R]): Args =&gt; R = tf.tupled(f)
 </code></pre>
 <p><code>TupledFunction</code> can be used to generalize the <code>Function.untupled</code> methods to functions of any arities (<a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-untupled.scala">full example</a>)</p>
 <pre><code class="scala">/** Creates an untupled version of this function: instead of single [[scala.Tuple]] argument,
@@ -1773,7 +1809,7 @@ def [F, Args &lt;: Tuple, R](f: F).tupled(given tf: TupledFunction[F, Args =&gt;
  *  @tparam Args the tuple type with the same types as the function arguments of F
  *  @tparam R the return type of F
  */
-def [F, Args &lt;: Tuple, R](f: Args =&gt; R).untupled(given tf: TupledFunction[F, Args =&gt; R]): F = tf.untupled(f)
+def [F, Args &lt;: Tuple, R](f: Args =&gt; R).untupled(using tf: TupledFunction[F, Args =&gt; R]): F = tf.untupled(f)
 </code></pre>
 <p><code>TupledFunction</code> can also be used to generalize the <a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-compose.scala"><code>Tuple1.compose</code></a> and <a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-andThen.scala"><code>Tuple1.andThen</code></a> methods to compose functions of larger arities and with functions that return tuples.</p>
 <pre><code class="scala">/** Composes two instances of TupledFunctions in a new TupledFunctions, with this function applied last
@@ -1784,7 +1820,7 @@ def [F, Args &lt;: Tuple, R](f: Args =&gt; R).untupled(given tf: TupledFunction[
  *  @tparam GArgs the tuple type with the same types as the function arguments of G
  *  @tparam R the return type of F
  */
-def [F, G, FArgs &lt;: Tuple, GArgs &lt;: Tuple, R](f: F).compose(g: G)(given tg: TupledFunction[G, GArgs =&gt; FArgs], tf: TupledFunction[F, FArgs =&gt; R]): GArgs =&gt; R = {
+def [F, G, FArgs &lt;: Tuple, GArgs &lt;: Tuple, R](f: F).compose(g: G)(using tg: TupledFunction[G, GArgs =&gt; FArgs], tf: TupledFunction[F, FArgs =&gt; R]): GArgs =&gt; R = {
   (x: GArgs) =&gt; tf.tupled(f)(tg.tupled(g)(x))
 }
 </code></pre>

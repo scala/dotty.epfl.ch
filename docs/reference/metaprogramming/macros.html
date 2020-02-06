@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-05 -->
+<!-- This page was last generated on 2020-02-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200204-46aec62-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200205-3f919dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1601,6 +1601,42 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeTraverser.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
+                            </li>
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1755,12 +1791,12 @@ prints it again in an error message if it evaluates to <code>false</code>.</p>
 inline def assert(expr: =&gt; Boolean): Unit =
   ${ assertImpl('expr) }
 
-def assertImpl(expr: Expr[Boolean])(given QuoteContext) = '{
+def assertImpl(expr: Expr[Boolean])(using QuoteContext) = '{
   if (!$expr)
     throw new AssertionError(s&quot;failed assertion: ${${ showExpr(expr) }}&quot;)
 }
 
-def showExpr(expr: Expr[Boolean])(given QuoteContext): Expr[String] =
+def showExpr(expr: Expr[Boolean])(using QuoteContext): Expr[String] =
   '{ &quot;&lt;some source code&gt;&quot; } // Better implementation later in this document
 </code></pre>
 <p>If <code>e</code> is an expression, then <code>'{e}</code> represents the typed
@@ -1869,7 +1905,7 @@ The resulting value of <code>Type</code> will be subject to PCP.
 Indeed, the definition of <code>reflect</code> above uses <code>T</code> in the next stage, there is a
 quote but no splice between the parameter binding of <code>T</code> and its
 usage. But the code can be rewritten by adding a binding of a <code>Type[T]</code> tag:</p>
-<pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U])(given t: Type[T]): Expr[T =&gt; U] =
+<pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U])(using t: Type[T]): Expr[T =&gt; U] =
   '{ (x: $t) =&gt; ${ f('x) } }
 </code></pre>
 <p>In this version of <code>reflect</code>, the type of <code>x</code> is now the result of
@@ -1936,7 +1972,7 @@ correct.</p>
 
 object Expr {
   ...
-  def apply[T: Liftable](x: T)(given QuoteContext): Expr[T] = summon[Liftable[T]].toExpr(x)
+  def apply[T: Liftable](x: T)(using QuoteContext): Expr[T] = summon[Liftable[T]].toExpr(x)
   ...
 }
 </code></pre>
@@ -1984,7 +2020,7 @@ collections, case classes and enums. Note also that the synthesis
 of <em>type-tag</em> values of type <code>Type[T]</code> is essentially the type-level
 analogue of lifting.</p>
 <p>Using lifting, we can now give the missing definition of <code>showExpr</code> in the introductory example:</p>
-<pre><code class="scala">def showExpr[T](expr: Expr[T])(given QuoteContext): Expr[String] = {
+<pre><code class="scala">def showExpr[T](expr: Expr[T])(using QuoteContext): Expr[String] = {
   val code: String = expr.show
   Expr(code)
 }
@@ -2088,12 +2124,12 @@ it is recommended to use an inline parameter. To illustrate this, consider an
 implementation of the <code>power</code> function that makes use of a statically known exponent:</p>
 <pre><code class="scala">inline def power(x: Double, inline n: Int) = ${ powerCode('x, 'n) }
 
-private def powerCode(x: Expr[Double], n: Expr[Int])(given QuoteContext): Expr[Double] =
+private def powerCode(x: Expr[Double], n: Expr[Int])(using QuoteContext): Expr[Double] =
   n.getValue match
     case Some(m) =&gt; powerCode(x, m)
     case None =&gt; '{ Math.pow($x, $y) }
 
-private def powerCode(x: Expr[Double], n: Int)(given QuoteContext): Expr[Double] =
+private def powerCode(x: Expr[Double], n: Int)(using QuoteContext): Expr[Double] =
   if (n == 0) '{ 1.0 }
   else if (n == 1) x
   else if (n % 2 == 0) '{ val y = $x * $x; ${ powerCode('y, n / 2) } }
@@ -2200,7 +2236,7 @@ sum
 in a quote context. For this we simply provide <code>scala.quoted.matching.summonExpr</code>:</p>
 <pre><code class="scala">inline def setFor[T]: Set[T] = ${ setForExpr[T] }
 
-def setForExpr[T: Type](given QuoteContext): Expr[Set[T]] = {
+def setForExpr[T: Type](using QuoteContext): Expr[Set[T]] = {
   summonExpr[Ordering[T]] match {
     case Some(ord) =&gt; '{ new TreeSet[T]()($ord) }
     case _ =&gt; '{ new HashSet[T] }
@@ -2213,7 +2249,7 @@ inline method that can calculate either a value of type <code>Int</code> or a va
 <code>String</code>.</p>
 <pre><code class="scala">inline def defaultOf(inline str: String) &lt;: Any = ${ defaultOfImpl('str) }
 
-def defaultOfImpl(strExpr: Expr[String])(given QuoteContext): Expr[Any] =
+def defaultOfImpl(strExpr: Expr[String])(using QuoteContext): Expr[Any] =
   strExpr.value match
     case &quot;int&quot; =&gt; '{1}
     case &quot;string&quot; =&gt; '{&quot;a&quot;}
@@ -2245,7 +2281,7 @@ In case all files are suspended due to cyclic dependencies the compilation will 
 </ul>
 <p>These could be used in the following way to optimize any call to <code>sum</code> that has statically known values.</p>
 <pre><code class="scala">inline def sum(args: =&gt;Int*): Int = ${ sumExpr('args) }
-private def sumExpr(argsExpr: Expr[Seq[Int]])(given QuoteContext): Expr[Int] = argsExpr.underlyingArgument match {
+private def sumExpr(argsExpr: Expr[Seq[Int]])(using QuoteContext): Expr[Int] = argsExpr.underlyingArgument match {
   case ConstSeq(args) =&gt; // args is of type Seq[Int]
     Expr(args.sum) // precompute result of sum
   case ExprSeq(argExprs) =&gt; // argExprs is of type Seq[Expr[Int]]
@@ -2272,7 +2308,7 @@ Patterns <code>'{ ... }</code> can be placed in any location where Scala expects
 </code></pre>
 <pre><code class="scala">def sum(args: Int*): Int = args.sum
 inline def optimize(arg: Int): Int = ${ optimizeExpr('arg) }
-private def optimizeExpr(body: Expr[Int])(given QuoteContext): Expr[Int] = body match {
+private def optimizeExpr(body: Expr[Int])(using QuoteContext): Expr[Int] = body match {
   // Match a call to sum without any arguments
   case '{ sum() } =&gt; Expr(0)
   // Match a call to sum with an argument $n of type Int. n will be the Expr[Int] representing the argument.
@@ -2281,7 +2317,7 @@ private def optimizeExpr(body: Expr[Int])(given QuoteContext): Expr[Int] = body 
   case '{ sum(${ExprSeq(args)}: _*) } =&gt; sumExpr(args)
   case body =&gt; body
 }
-private def sumExpr(args1: Seq[Expr[Int]])(given QuoteContext): Expr[Int] = {
+private def sumExpr(args1: Seq[Expr[Int]])(using QuoteContext): Expr[Int] = {
     def flatSumArgs(arg: Expr[Int]): Seq[Expr[Int]] = arg match {
       case '{ sum(${ExprSeq(subArgs)}: _*) } =&gt; subArgs.flatMap(flatSumArgs)
       case arg =&gt; Seq(arg)
@@ -2300,7 +2336,7 @@ private def sumExpr(args1: Seq[Expr[Int]])(given QuoteContext): Expr[Int] = {
 </code></pre>
 <h4><a href="#recovering-precise-types-using-patterns" id="recovering-precise-types-using-patterns" class="anchor"></a>Recovering precise types using patterns</h4>
 <p>Sometimes it is necessary to get a more precise type for an expression. This can be achived using the following pattern match.</p>
-<pre><code class="scala">def f(exp: Expr[Any])(given QuoteContext) =
+<pre><code class="scala">def f(exp: Expr[Any])(using QuoteContext) =
   expr match
     case '{ $x: $t } =&gt;
       // If the pattern match succeeds, then there is some type `T` such that
@@ -2311,7 +2347,7 @@ private def sumExpr(args1: Seq[Expr[Int]])(given QuoteContext): Expr[Int] = {
 <p>This might be used to then perform an implicit search as in:</p>
 <pre><code class="scala">inline def (sc: StringContext).showMe(args: =&gt;Any*): String = ${ showMeExpr('sc, 'args) }
 
-private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(given qctx: QuoteContext): Expr[String] = {
+private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using qctx: QuoteContext): Expr[String] = {
   argsExpr match {
     case ExprSeq(argExprs) =&gt;
       val argShowedExprs = argExprs.map {
