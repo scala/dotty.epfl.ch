@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-06 -->
+<!-- This page was last generated on 2020-02-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200205-3f919dd-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200206-4d2ef01-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1797,6 +1797,30 @@ also known that <code>o.T</code> is equal to <code>R</code>. This means the foll
 }
 def id(x: o.T): o.T = x
 </code></pre>
+<h3><a href="#toplevel-opaque-types" id="toplevel-opaque-types" class="anchor"></a>Toplevel Opaque Types</h3>
+<p>An opaque type on the toplevel is transparent in all other toplevel definitions in the sourcefile where it appears, but is opaque in nested
+objects and classes and in all other source files. Example:</p>
+<pre><code class="scala">// in test1.scala
+opaque type A = String
+val x: A = &quot;abc&quot;
+
+object obj {
+  val y: A = &quot;abc&quot;  // error: found: &quot;abc&quot;, required: A
+}
+
+// in test2.scala
+def z: String = x   // error: found: A, required: String
+</code></pre>
+<p>This behavior becomes clear if one recalls that toplevel definitions are placed in their own synthetic object. For instance, the code in <code>test1.scala</code> would expand to</p>
+<pre><code class="scala">object test1$package {
+  opaque type A = String
+  val x: A = &quot;abc&quot;
+}
+object obj {
+  val y: A = &quot;abc&quot;  // error: cannot assign &quot;abc&quot; to opaque type A
+}
+</code></pre>
+<p>The opaque type <code>A</code> is transparent in its scope, which includes the definition of <code>x</code>, but not the definitions of <code>obj</code> and <code>y</code>.</p>
 <h3><a href="#relationship-to-sip-35" id="relationship-to-sip-35" class="anchor"></a>Relationship to SIP 35</h3>
 <p>Opaque types in Dotty are an evolution from what is described in
 <a href="https://docs.scala-lang.org/sips/opaque-types.html">Scala SIP 35</a>.</p>
