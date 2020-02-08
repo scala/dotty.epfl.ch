@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-07 -->
+<!-- This page was last generated on 2020-02-08 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200206-4d2ef01-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200207-5674066-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1834,10 +1834,10 @@ Consequently, the code was inlined directly and the call was beta-reduced.</p>
   result
 }
 </code></pre>
-<p>Note, that the by-value parameter is evaluated only once, per the usual Scala
+<p>Note, that the by-value parameter <code>msg</code> is evaluated only once, per the usual Scala
 semantics, by binding the value and reusing the <code>msg</code> through the body of
-<code>factorial</code>. Also, note the special handling of setting to the private var
-<code>indent</code> by generating the setter method <code>def inline$indent_=</code>.</p>
+<code>factorial</code>. Also, note the special handling of the assignment to the private var
+<code>indent</code>. It is achieved by generating a setter method <code>def inline$indent_=</code> and calling it instead.</p>
 <h3><a href="#recursive-inline-methods" id="recursive-inline-methods" class="anchor"></a>Recursive Inline Methods</h3>
 <p>Inline methods can be recursive. For instance, when called with a constant
 exponent <code>n</code>, the following method for <code>power</code> will be implemented by
@@ -1939,12 +1939,12 @@ obj2.meth()    // OK
 <p>Here, the inline method <code>choose</code> returns an object of either of the two dynamic types
 <code>A</code> and <code>B</code>. If <code>choose</code> had been declared with a normal return type <code>: A</code>, the result
 of its expansion would always be of type <code>A</code>, even though the computed value might be
-of type <code>B</code>. The inline method is &quot;blackbox&quot;  in the sense that details of its
+of type <code>B</code>. The inline method is a &quot;blackbox&quot; in the sense that details of its
 implementation do not leak out. But with the specializing return type <code>&lt;: A</code>,
 the type of the expansion is the type of the expanded body. If the argument <code>b</code>
 is <code>true</code>, that type is <code>A</code>, otherwise it is <code>B</code>. Consequently, calling <code>meth</code> on <code>obj2</code>
 type-checks since <code>obj2</code> has the same type as the expansion of <code>choose(false)</code>, which is <code>B</code>.
-Inline methods with specializing return types are &quot;whitebox&quot; in that the type
+Inline methods with specializing return types are a &quot;whitebox&quot; in the sense that the type
 of an application of such a method can be more specialized than its declared
 return type, depending on how the method expands.</p>
 <p>In the following example, we see how the return type of <code>zero</code> is specialized to
@@ -2013,7 +2013,7 @@ val intTwo: 2 = natTwo
 <h2><a href="#the-scalacompiletime-package" id="the-scalacompiletime-package" class="anchor"></a>The <code>scala.compiletime</code> Package</h2>
 <p>The <code>scala.compiletime</code> package contains helper definitions that provide support for compile time operations over values. They are described in the following.</p>
 <h3><a href="#constvalue-constvalueopt-and-the-s-combinator" id="constvalue-constvalueopt-and-the-s-combinator" class="anchor"></a><code>constValue</code>, <code>constValueOpt</code>, and the <code>S</code> combinator</h3>
-<p><code>constvalue</code> is a function that produces the constant value represented by a
+<p><code>constValue</code> is a function that produces the constant value represented by a
 type.</p>
 <pre><code class="scala">import scala.compiletime.{constValue, S}
 
@@ -2077,7 +2077,7 @@ Match</em> section above. Here is how <code>toIntT</code> can be defined:</p>
 final val two = toIntT[Succ[Succ[Zero.type]]]
 </code></pre>
 <p><code>erasedValue</code> is an <code>erased</code> method so it cannot be used and has no runtime
-behavior. Since <code>toInt</code> performs static checks over the static type of <code>N</code> we
+behavior. Since <code>toIntT</code> performs static checks over the static type of <code>N</code> we
 can safely use it to scrutinize its return type (<code>S[S[Z]]</code> in this case).</p>
 <h3><a href="#error" id="error" class="anchor"></a><code>error</code></h3>
 <p>The <code>error</code> method is used to produce user-defined compile errors during inline expansion.
