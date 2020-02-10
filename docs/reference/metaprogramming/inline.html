@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-09 -->
+<!-- This page was last generated on 2020-02-10 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200208-ce39ddb-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200209-25cdd9e-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1861,20 +1861,23 @@ power(expr, 10)
 //    y3 * y3          // ^10
 </code></pre>
 <p>Parameters of inline methods can have an <code>inline</code> modifier as well. This means
-that actual arguments to these parameters will be inlined in the body of the <code>inline def</code>.
-<code>inline</code> parameter have call semantics equivalent to by-name parameters but allows for duplication
-of the code in the argument. It is usualy useful constant values need to be propagated to allow
-further optimizations/reductions.</p>
+that actual arguments to these parameters will be inlined in the body of the
+<code>inline def</code>. <code>inline</code> parameters have call semantics equivalent to by-name parameters
+but allow for duplication of the code in the argument. It is usually useful when constant
+values need to be propagated to allow further optimizations/reductions.</p>
 <p>The following example shows the difference in translation between by-value, by-name and <code>inline</code>
 parameters:</p>
-<pre><code class="scala">inline def sumTwice(a: Int, b: =&gt;Int, inline c: Int) = a + a + b + b + c + c
+<pre><code class="scala">inline def funkyAssertEquals(actual: Double, expected: =&gt;Double, inline delta: Double): Unit =
+  if (actual - expected).abs &gt; delta then
+    throw new AssertionError(s&quot;difference between ${expected} and ${actual} was larger than ${delta}&quot;)
 
-sumTwice(f(), g(), h())
+funkyAssertEquals(computeActual(), computeExpected(), computeDelta())
 // translates to
 //
-//    val a = f()
-//    def b = g()
-//    a + a + b + b + h() + h()
+//    val actual = computeActual()
+//    def expected = computeExpected()
+//    if (actual - expected).abs &gt; computeDelta() then
+//      throw new AssertionError(s&quot;difference between ${expected} and ${actual} was larger than ${computeDelta()}&quot;)
 </code></pre>
 <h3><a href="#relationship-to-inline" id="relationship-to-inline" class="anchor"></a>Relationship to @inline</h3>
 <p>Scala also defines a <code>@inline</code> annotation which is used as a hint
