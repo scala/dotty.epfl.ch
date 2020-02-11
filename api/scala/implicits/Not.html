@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-10 -->
+<!-- This page was last generated on 2020-02-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200209-25cdd9e-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200210-0dc07b0-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1792,8 +1792,8 @@
 for some other class <code>C</code> is available, and using an implicit <code>i2</code> if no implicit
 value of type <code>C</code> is available. If we do not want to prioritize <code>i1</code> and <code>i2</code> by
 putting them in different traits we can instead define the following:</p>
-<p>implicit def i1: D(implicit ev: C) = ...
-implicit def i2: D(implicit ev: Not[C]) = ...</p>
+<p>given i1: D(using ev: C) = ...
+given i2: D(using ev: Not[C]) = ...</p>
 <p><code>Not</code> is treated specially in implicit search, similar to the way logical negation
 is treated in Prolog: The implicit search for <code>Not[C]</code> succeeds if and only if the implicit
 search for <code>C</code> fails.</p>

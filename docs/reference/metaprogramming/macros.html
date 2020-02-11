@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-10 -->
+<!-- This page was last generated on 2020-02-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200209-25cdd9e-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200210-0dc07b0-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1812,7 +1812,7 @@ splices are evaluated and embedded as part of the formation of the
 quotation.</p>
 <p>Quotes and splices can also be applied directly to identifiers. An identifier
 <code>$x</code> starting with a <code>$</code> that appears inside a quoted expression or type is treated as a
-splice <code>${x}</code>. Analogously, an quoted identifier 'x that appears inside a splice
+splice <code>${x}</code>. Analogously, an quoted identifier <code>'x</code> that appears inside a splice
 is treated as a quote <code>'{x}</code>. See the Syntax section below for details.</p>
 <p>Quotes and splices are duals of each other. For arbitrary
 expressions <code>e</code> and types <code>T</code> we have:</p>
@@ -1853,7 +1853,7 @@ hand, we assume that all imports are fully expanded and that <code>_root_</code>
 not a free variable. So references to global definitions are
 allowed everywhere.</p>
 <p>The phase consistency principle can be motivated as follows: First,
-suppose the result of a program <code>P</code> is some quoted text <code>'{ ... x ... }</code> that refers to a free variable <code>x</code> in <code>P</code> This can be
+suppose the result of a program <code>P</code> is some quoted text <code>'{ ... x ... }</code> that refers to a free variable <code>x</code> in <code>P</code>. This can be
 represented only by referring to the original variable <code>x</code>. Hence, the
 result of the program will need to persist the program state itself as
 one of its parts. We don’t want to do this, hence this situation
@@ -2353,7 +2353,7 @@ private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using 
       val argShowedExprs = argExprs.map {
         case '{ $arg: $tp } =&gt;
           val showTp = '[Show[$tp]]
-          summonExpr(given showTp)) match {
+          summonExpr(using showTp)) match {
             case Some(showExpr) =&gt; '{ $showExpr.show($arg) }
             case None =&gt; qctx.error(s&quot;could not find implicit for ${showTp.show}&quot;, arg); '{???}
           }

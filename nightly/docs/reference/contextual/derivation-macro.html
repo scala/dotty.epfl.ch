@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-10 -->
+<!-- This page was last generated on 2020-02-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200209-25cdd9e-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200210-0dc07b0-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1781,7 +1781,7 @@ macros.</p>
 </code></pre>
 <p>we need to implement a method <code>Eq.derived</code> on the companion object of <code>Eq</code> that
 produces a quoted instance for <code>Eq[T]</code>. Here is a possible signature,</p>
-<pre><code class="scala">given derived[T: Type](given qctx: QuoteContext): Expr[Eq[T]]
+<pre><code class="scala">given derived[T: Type](using qctx: QuoteContext): Expr[Eq[T]]
 </code></pre>
 <p>and for comparison reasons we give the same signature we had with <code>inline</code>:</p>
 <pre><code class="scala">inline given derived[T]: (m: Mirror.Of[T]) =&gt; Eq[T] = ???
@@ -1790,10 +1790,10 @@ produces a quoted instance for <code>Eq[T]</code>. Here is a possible signature,
 to a <code>Type</code> by using the corresponding context bound. Also, not that we can
 summon the quoted <code>Mirror</code> inside the body of the <code>derived</code> this we can omit it
 from the signature. The body of the <code>derived</code> method is shown below:</p>
-<pre><code class="scala">given derived[T: Type](given qctx: QuoteContext): Expr[Eq[T]] = {
+<pre><code class="scala">given derived[T: Type](using qctx: QuoteContext): Expr[Eq[T]] = {
   import qctx.tasty.{_, given}
 
-  val ev: Expr[Mirror.Of[T]] = summonExpr(given '[Mirror.Of[T]]).get
+  val ev: Expr[Mirror.Of[T]] = summonExpr(using '[Mirror.Of[T]]).get
 
   ev match {
     case '{ $m: Mirror.ProductOf[T] { type MirroredElemTypes = $elementTypes }} =&gt;
@@ -1831,10 +1831,10 @@ quotes and more specifically of the refined type:</p>
 </code></pre>
 <p>The implementation of <code>summonAll</code> as a macro can be show below assuming that we
 have the given instances for our primitive types:</p>
-<pre><code class="scala">  def summonAll[T](t: Type[T])(given qctx: QuoteContext): List[Expr[Eq[_]]] = t match {
+<pre><code class="scala">  def summonAll[T](t: Type[T])(using qctx: QuoteContext): List[Expr[Eq[_]]] = t match {
     case '[String *: $tpes] =&gt; '{ summon[Eq[String]] }  :: summonAll(tpes)
     case '[Int *: $tpes]    =&gt; '{ summon[Eq[Int]] }     :: summonAll(tpes)
-    case '[$tpe *: $tpes]   =&gt; derived(given tpe, qctx) :: summonAll(tpes)
+    case '[$tpe *: $tpes]   =&gt; derived(using tpe, qctx) :: summonAll(tpes)
     case '[Unit] =&gt; Nil
   }
 </code></pre>
@@ -1853,7 +1853,7 @@ check we want to generate is the following:</p>
 One that hosts the top-level splice <code>eqv</code> and one that is the implementation.
 Alternatively and what is shown below is that we can call the <code>eqv</code> method
 directly. The <code>eqGen</code> can trigger the derivation.</p>
-<pre><code class="scala">inline def [T](x: =&gt;T) === (y: =&gt;T)(given eq: Eq[T]): Boolean = eq.eqv(x, y)
+<pre><code class="scala">inline def [T](x: =&gt;T) === (y: =&gt;T)(using eq: Eq[T]): Boolean = eq.eqv(x, y)
 
 implicit inline def eqGen[T]: Eq[T] = ${ Eq.derived[T] }
 </code></pre>
@@ -1895,17 +1895,17 @@ object Eq {
       def eqv(x: T, y: T): Boolean = body(x, y)
     }
 
-  def summonAll[T](t: Type[T])(given qctx: QuoteContext): List[Expr[Eq[_]]] = t match {
+  def summonAll[T](t: Type[T])(using qctx: QuoteContext): List[Expr[Eq[_]]] = t match {
     case '[String *: $tpes] =&gt; '{ summon[Eq[String]] }  :: summonAll(tpes)
     case '[Int *: $tpes]    =&gt; '{ summon[Eq[Int]] }     :: summonAll(tpes)
-    case '[$tpe *: $tpes]   =&gt; derived(given tpe, qctx) :: summonAll(tpes)
+    case '[$tpe *: $tpes]   =&gt; derived(using tpe, qctx) :: summonAll(tpes)
     case '[Unit] =&gt; Nil
   }
 
-  given derived[T: Type](given qctx: QuoteContext): Expr[Eq[T]] = {
+  given derived[T: Type](using qctx: QuoteContext): Expr[Eq[T]] = {
     import qctx.tasty.{_, given}
 
-    val ev: Expr[Mirror.Of[T]] = summonExpr(given '[Mirror.Of[T]]).get
+    val ev: Expr[Mirror.Of[T]] = summonExpr(using '[Mirror.Of[T]]).get
 
     ev match {
       case '{ $m: Mirror.ProductOf[T] { type MirroredElemTypes = $elementTypes }} =&gt;
@@ -1943,7 +1943,7 @@ object Eq {
 }
 
 object Macro3 {
-  inline def [T](x: =&gt;T) === (y: =&gt;T)(given eq: Eq[T]): Boolean = eq.eqv(x, y)
+  inline def [T](x: =&gt;T) === (y: =&gt;T)(using eq: Eq[T]): Boolean = eq.eqv(x, y)
 
   implicit inline def eqGen[T]: Eq[T] = ${ Eq.derived[T] }
 }
