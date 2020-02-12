@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-11 -->
+<!-- This page was last generated on 2020-02-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200210-0dc07b0-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200211-5b006fb-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1770,13 +1770,13 @@
 Splices can be of two forms:
 * A splice <code>${ ... : Expr[T] }</code> that can be placed in any expression position.
 * A splice <code>${ ... : Bind[T] }</code> that can be placed on names of <code>val</code>s, <code>var</code>s or <code>def</code>s</p>
-<pre><code class="scala">def foo(x: Expr[Int]) given tasty.Reflect: Expr[Int] = x match {
+<pre><code class="scala">def foo(x: Expr[Int])(using tasty.Reflect): Expr[Int] = x match {
   case '{ val $a: Int = $x; (${Bind(`a`)}: Int) + 1 } =&gt; '{ $x + 1 } // TODO needs fix for #6328, `a` is currently not in scope while typing
 }
 </code></pre>
 <p>In the example above we have <code>$a</code> which provides a <code>Bind[Int]</code>, <code>$x</code> which provides an <code>Expr[Int]</code> and <code>${Bind(</code>a<code>)}</code> which probides an <code>Expr[Int]</code> that is pattern matched against <code>Bind(</code>a<code>)</code> to check that it is a reference to <code>a</code>.</p>
 <p>Quoted patterns are transformed during typer to a call of <code>scala.internal.quoted.Expr.unapply</code> which splits the quoted code into the patterns and a reifiable quote that will be used as witnesses at runtime.</p>
-<pre><code class="scala">def foo(x: Expr[Int]) given tasty.Reflect: Expr[Int] = x match {
+<pre><code class="scala">def foo(x: Expr[Int])(using tasty.Reflect): Expr[Int] = x match {
   case scala.internal.quoted.Expr.unapply[Tuple3[Bind[Int], Expr[Int], Expr[Int]]](Tuple3(a, x, Bind(`a`), y))('{ @patternBindHole val a: Int = patternHole[Int]; patternHole[Int] + 1 }) =&gt;
 }
 </code></pre>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-11 -->
+<!-- This page was last generated on 2020-02-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200210-0dc07b0-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200211-5b006fb-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1898,7 +1898,7 @@ from a <code>digits</code> string. Here is a possible implementation:</p>
 </code></pre>
 <p>To accept <code>BigFloat</code> literals, all that's needed in addition is a given instance of type
 <code>FromDigits.Floating[BigFloat]</code>:</p>
-<pre><code class="scala">  given FromDigits : FromDigits.Floating[BigFloat] {
+<pre><code class="scala">  given FromDigits as FromDigits.Floating[BigFloat] {
     def fromDigits(digits: String) = apply(digits)
   }
 } // end BigFloat
