@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-12 -->
+<!-- This page was last generated on 2020-02-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200211-5b006fb-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200212-0aaa769-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1784,18 +1784,18 @@ the scope where it is used.</p>
 inline def natConst(x: =&gt; Int): Int = ${natConstImpl('{x})}
 
 def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
-  import qctx.tasty.{_, given}
+  import qctx.tasty.{_, given _}
   ...
 }
 </code></pre>
 <h3><a href="#sealing-and-unsealing" id="sealing-and-unsealing" class="anchor"></a>Sealing and Unsealing</h3>
-<p><code>import qctx.tasty.{_, given}</code> will provide an <code>unseal</code> extension method on <code>quoted.Expr</code>
+<p><code>import qctx.tasty.{_, given _}</code> will provide an <code>unseal</code> extension method on <code>quoted.Expr</code>
 and <code>quoted.Type</code> which returns a <code>qctx.tasty.Term</code> that represents the tree of
 the expression and <code>qctx.tasty.TypeTree</code> that represents the tree of the type
 respectively. It will also import all extractors and methods on TASTy Reflect
 trees. For example the <code>Literal(_)</code> extractor used below.</p>
 <pre><code class="scala">def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
-  import qctx.tasty.{_, given}
+  import qctx.tasty.{_, given _}
   val xTree: Term = x.unseal
   xTree match {
     case Inlined(_, _, Literal(Constant(n: Int))) =&gt;
@@ -1826,7 +1826,7 @@ operation expression passed while calling the <code>macro</code> below.</p>
 <pre><code class="scala">inline def macro(param: =&gt; Boolean): Unit = ${ macroImpl('param) }
 
 def macroImpl(param: Expr[Boolean])(using qctx: QuoteContext): Expr[Unit] = {
-  import qctx.tasty.{_, given}
+  import qctx.tasty.{_, given _}
   import util._
 
   param.unseal.underlyingArgument match {
@@ -1844,7 +1844,7 @@ expansion site. The example below shows how we can obtain position information
 such as the start line, the end line or even the source code at the expansion
 point.</p>
 <pre><code class="scala">def macroImpl()(qctx: QuoteContext): Expr[Unit] = {
-  import qctx.tasty.{_, given}
+  import qctx.tasty.{_, given _}
   val pos = rootPosition
 
   val path = pos.sourceFile.jpath.toString

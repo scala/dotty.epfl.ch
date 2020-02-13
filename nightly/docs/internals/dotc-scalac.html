@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-12 -->
+<!-- This page was last generated on 2020-02-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200211-5b006fb-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200212-0aaa769-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1778,7 +1778,7 @@ etc.)</li>
 may be <code>NoSymbol</code> (the two variants have symbols).</li>
 <li>Non-overloaded denotations have an <code>info</code></li>
 </ul>
-<p>Denotations of methods have a signature ([Signature.scala:7]), which
+<p>Denotations of methods have a signature (<a href="https://github.com/lampepfl/dotty/blob/a527f3b1e49c0d48148ccfb2eb52e3302fc4a349/compiler/src/dotty/tools/dotc/core/Signature.scala#L9-L33">Signature1</a>), which
 uniquely identifies overloaded methods.</p>
 <h4><a href="#denotation-vs-symdenotation" id="denotation-vs-symdenotation" class="anchor"></a>Denotation vs. SymDenotation</h4>
 <p>A <code>SymDenotation</code> is an extended denotation that has symbol-specific properties
@@ -1807,7 +1807,7 @@ flag tests instead, for example:</p>
 if (sym is Flags.PackageClass)  // dotc (*)
 </code></pre>
 <p><code>(*)</code> Symbols are implicitly converted to their denotation, see above. Each
-<code>SymDeotation</code> has flags that can be queried using the <code>is</code> method.</p>
+<code>SymDenotation</code> has flags that can be queried using the <code>is</code> method.</p>
 <h3><a href="#flags" id="flags" class="anchor"></a>Flags</h3>
 <ul>
 <li>Flags are instances of the value class <code>FlagSet</code>, which encapsulates a
