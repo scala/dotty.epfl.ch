@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-13 -->
+<!-- This page was last generated on 2020-02-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200212-0aaa769-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200213-26de50a-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -153,6 +153,7 @@
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
   </ul>
 </li>
 
@@ -1792,12 +1793,12 @@ max(a, b)(using intOrd)
 <pre><code class="scala">def max[T: Ordering](x: T, y: T): T = ...
 given [T: Ordering] as Ordering[List[T]] { ... }
 </code></pre>
-<h2><a href="#context-functions" id="context-functions" class="anchor"></a>Context Functions</h2>
-<p>Implicit function types <code>implicit A =&gt; B</code> have been replaced with context function types, which are written <code>A ?=&gt; B</code>. The syntax <code>(given A) =&gt; B</code> that was used in earlier Dotty versions is no longer supported.</p>
-<p>The same change applies to context function values. It's now</p>
-<pre><code class="scala">(x: A) ?=&gt; E
+<p>Parameters of context function values are also written with <code>using</code>. So it is</p>
+<pre><code class="scala">(using x: A) =&gt; E
 </code></pre>
 <p>instead of <code>(implicit x: A) =&gt; E</code> or <code>(given x: A) =&gt; E</code>.</p>
+<h2><a href="#context-functions-types" id="context-functions-types" class="anchor"></a>Context Functions Types</h2>
+<p>Implicit function types <code>implicit A =&gt; B</code> have been replaced with context function types, which are written <code>A ?=&gt; B</code>. The syntax <code>(given A) =&gt; B</code> that was used in earlier Dotty versions is no longer supported.</p>
 <h2><a href="#given-imports" id="given-imports" class="anchor"></a>Given Imports</h2>
 <p>The syntax of wildcard given import selectors is now <code>given _</code>. Examples</p>
 <pre><code class="scala">import a.{given _}

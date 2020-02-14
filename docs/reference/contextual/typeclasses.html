@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-13 -->
+<!-- This page was last generated on 2020-02-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200212-0aaa769-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200213-26de50a-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -153,6 +153,7 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
+<li class="leaf"><a href="/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
   </ul>
 </li>
 
@@ -1770,7 +1771,7 @@ allow a concise and natural expression of <em>typeclasses</em>. Typeclasses are 
 with canonical implementations defined by given instances. Here are some examples of standard typeclasses:</p>
 <h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids" class="anchor"></a>Semigroups and monoids:</h3>
 <pre><code class="scala">trait SemiGroup[T] {
-  @infix def (x: T) combine (y: T): T
+  def (x: T) combine (y: T): T
 }
 
 trait Monoid[T] extends SemiGroup[T] {
