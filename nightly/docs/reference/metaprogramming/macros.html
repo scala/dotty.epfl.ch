@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-14 -->
+<!-- This page was last generated on 2020-02-15 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200213-26de50a-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200214-5374d91-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1789,7 +1789,7 @@ a boolean expression tree as argument. <code>assertImpl</code> evaluates the exp
 prints it again in an error message if it evaluates to <code>false</code>.</p>
 <pre><code class="scala">import scala.quoted._
 
-inline def assert(expr: =&gt; Boolean): Unit =
+inline def assert(inline expr: Boolean): Unit =
   ${ assertImpl('expr) }
 
 def assertImpl(expr: Expr[Boolean])(using QuoteContext) = '{
