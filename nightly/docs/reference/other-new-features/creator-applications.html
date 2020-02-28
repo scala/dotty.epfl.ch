@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-27 -->
+<!-- This page was last generated on 2020-02-28 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200226-1955f75-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200227-63343d2-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1787,12 +1787,12 @@ of a class, even if there is no apply method implemented. Example:</p>
 StringBuilder(&quot;abc&quot;)  // same as new StringBuilder(&quot;abc&quot;)
 StringBuilder()       // same as new StringBuilder()
 </code></pre>
-<p>Creator applications generalize a functionality provided so far only for case classes, but the mechanism how this is achieved is different. Instead generating an apply method, the compiler adds a new possible interpretation to a function call <code>f(args)</code>. The previous rules are:</p>
+<p>Creator applications generalize a functionality provided so far only for case classes, but the mechanism how this is achieved is different. Instead of generating an apply method, the compiler adds a new possible interpretation to a function call <code>f(args)</code>. The previous rules are:</p>
 <p>Given a function call <code>f(args)</code>,</p>
 <ul>
 <li>if <code>f</code> is a method applicable to <code>args</code>, typecheck <code>f(args)</code> unchanged,</li>
 <li>otherwise, if <code>f</code> has an <code>apply</code> method applicable to <code>args</code> as a member, continue with <code>f.apply(args)</code>,</li>
-<li>otherwise, if <code>f</code> is of the form <code>p.m</code> and there is an implicit conversion <code>c</code> applicable to <code>p</code> so that <code>c(p).m</code> is applicable to <code>args</code>, continue with  <code>c(p).m(args)</code></li>
+<li>otherwise, if <code>f</code> is of the form <code>p.m</code> and there is an implicit conversion <code>c</code> applicable to <code>p</code> so that <code>c(p).m</code> is applicable to <code>args</code>, continue with <code>c(p).m(args)</code></li>
 </ul>
 <p>There's now a fourth rule following these rules:</p>
 <ul>

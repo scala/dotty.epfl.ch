@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-27 -->
+<!-- This page was last generated on 2020-02-28 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200226-1955f75-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200227-63343d2-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2095,7 +2095,7 @@ object App {
   ${ Macros.assertImpl('{ x != 0) } }
 }
 </code></pre>
-<p>The example is only phase correct because Macros is a global value and
+<p>The example is only phase correct because <code>Macros</code> is a global value and
 as such not subject to phase consistency checking. Conceptually that’s
 a bit unsatisfactory. If the PCP is so fundamental, it should be
 applicable without the global value exception. But in the example as
@@ -2217,7 +2217,7 @@ sum
 
 var sum = 0
 val f = x =&gt; '{sum += $x}
-${ _root_.Macros.map(arr,  '[Int], 'f)}
+${ _root_.Macros.map(arr, 'f)('[Int])}
 sum
 </code></pre>
 <p>then it will expand and splice inside quotes <code>map</code>:</p>
@@ -2284,10 +2284,10 @@ In case all files are suspended due to cyclic dependencies the compilation will 
 <h3><a href="#pattern-matching-on-quoted-expressions" id="pattern-matching-on-quoted-expressions" class="anchor"></a>Pattern matching on quoted expressions</h3>
 <p>It is possible to deconstruct or extract values out of <code>Expr</code> using pattern matching.</p>
 <h4><a href="#scalaquotedmatching" id="scalaquotedmatching" class="anchor"></a>scala.quoted.matching</h4>
-<p>In <code>scala.quoted.matching</code> contains object that can help extract values from <code>Expr</code>.</p>
+<p><code>scala.quoted.matching</code> contains objects that can help extracting values from <code>Expr</code>.</p>
 <ul>
-<li><code>scala.quoted.matching.Const</code>: matches an expression a literal value and returns the value.</li>
-<li><code>scala.quoted.matching.Value</code>: matches an expression a value and returns the value.</li>
+<li><code>scala.quoted.matching.Const</code>: matches an expression of a literal value and returns the value.</li>
+<li><code>scala.quoted.matching.Value</code>: matches an expression of a value and returns the value.</li>
 <li><code>scala.quoted.matching.ExprSeq</code>: matches an explicit sequence of expresions and returns them. These sequences are useful to get individual <code>Expr[T]</code> out of a varargs expression of type <code>Expr[Seq[T]]</code>.</li>
 <li><code>scala.quoted.matching.ConstSeq</code>:  matches an explicit sequence of literal values and returns them.</li>
 <li><code>scala.quoted.matching.ValueSeq</code>:  matches an explicit sequence of values and returns them.</li>

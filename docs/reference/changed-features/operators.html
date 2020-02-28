@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-02-27 -->
+<!-- This page was last generated on 2020-02-28 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200226-1955f75-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200227-63343d2-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1782,7 +1782,9 @@
 Furthermore, a syntax change allows infix operators to be written on the left in a multi-line expression.</p>
 <h2><a href="#the-alpha-annotation" id="the-alpha-annotation" class="anchor"></a>The @alpha Annotation</h2>
 <p>An <code>@alpha</code> annotation on a method definition defines an alternate name for the implementation of that method: Example:</p>
-<pre><code class="scala">object VecOps {
+<pre><code class="scala">import scala.annotation.alpha
+
+object VecOps {
   @alpha(&quot;append&quot;) def (xs: Vec[T]) ++= [T] (ys: Vec[T]): Vec[T] = ...
 }
 </code></pre>
@@ -1821,14 +1823,16 @@ an annotation will raise a deprecation warning.</p>
 should have an <code>@alpha</code> annotation. Lack of such an annotation will raise a deprecation warning.</p>
 </li>
 <li>
-<p>@alpha annotations must agree: If two definitions are members of an object or class with the same name and matching types, then either none of them has an <code>@alpha</code> annotation, or both have <code>@alpha</code> annotations with the same name.</p>
+<p><code>@alpha</code> annotations must agree: If two definitions are members of an object or class with the same name and matching types, then either none of them has an <code>@alpha</code> annotation, or both have <code>@alpha</code> annotations with the same name.</p>
 </li>
 <li>There must be a one-to-one relationship between external and internal names:
 If two definitions are members of an object or class with matching types and both have <code>@alpha</code> annotations with the same external name, then their internal method names must also be the same.</li>
 </ol>
 <h2><a href="#the-infix-annotation" id="the-infix-annotation" class="anchor"></a>The @infix Annotation</h2>
 <p>An <code>@infix</code> annotation on a method definition allows using the method as an infix operation. Example:</p>
-<pre><code class="scala">trait MultiSet[T] {
+<pre><code class="scala">import scala.annotation.alpha
+
+trait MultiSet[T] {
 
   @infix
   def union(other: MultiSet[T]): MultiSet[T]
@@ -1842,6 +1846,7 @@ If two definitions are members of an object or class with matching types and bot
 val s1, s2: MultiSet[Int]
 
 s1 union s2         // OK
+s1 `union` s2       // also OK but unusual
 s1.union(s2)        // also OK
 
 s1.difference(s2)   // OK
@@ -1849,6 +1854,7 @@ s1 `difference` s2  // OK
 s1 difference s2    // gives a deprecation warning
 
 s1 * s2             // OK
+s1 `*` s2           // also OK, but unusual
 s1.*(s2)            // also OK, but unusual
 </code></pre>
 <p>Infix operations involving alphanumeric operators are deprecated, unless
@@ -1861,7 +1867,7 @@ one of the following conditions holds:</p>
 <p>An alphanumeric operator is an operator consisting entirely of letters, digits, the <code>$</code> and <code>_</code> characters, or
 any unicode character <code>c</code> for which <code>java.lang.Character.isIdentifierPart(c)</code> returns <code>true</code>.</p>
 <p>Infix operations involving symbolic operators are always allowed, so <code>@infix</code> is redundant for methods with symbolic names.</p>
-<p>The @infix annotation can also be given to a type:</p>
+<p>The <code>@infix</code> annotation can also be given to a type:</p>
 <pre><code class="nohighlight">@infix type or[X, Y]
 val x: String or Int = ...
 </code></pre>
@@ -1886,12 +1892,12 @@ val x: String or Int = ...
 </code></pre>
 </li>
 <li>
-<p>@infix annotations can also be given to type, trait or class definitions that have exactly two type parameters. An infix type like</p>
+<p><code>@infix</code> annotations can also be given to type, trait or class definitions that have exactly two type parameters. An infix type like</p>
 <pre><code class="scala">@infix type op[X, Y]
 </code></pre>
 <p>can be applied using infix syntax, i.e. <code>A op B</code>.</p>
 </li>
-<li>To smooth migration to Scala 3.0, alphanumeric operations will only be deprecated from Scala 3.1 onwards,
+<li>To smooth migration to Scala 3.0, alphanumeric operators will only be deprecated from Scala 3.1 onwards,
 or if the <code>-strict</code> option is given in Dotty/Scala 3.</li>
 </ol>
 <h2><a href="#syntax-change" id="syntax-change" class="anchor"></a>Syntax Change</h2>
