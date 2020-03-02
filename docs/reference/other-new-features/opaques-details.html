@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-01 -->
+<!-- This page was last generated on 2020-03-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200229-58a5620-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200301-d989caf-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1789,7 +1789,7 @@ at the top-level. They cannot be defined in local blocks.</p>
 <p>The general form of a (monomorphic) opaque type alias is</p>
 <pre><code class="scala">opaque type T &gt;: L &lt;: U = R
 </code></pre>
-<p>where the lower bound <code>L</code> and the upper bound <code>U</code> may be missing, in which case they are assumed to be <code>scala.Nothing</code> and <code>scala.Any</code>, respectively. If bounds are given, it is checked that the right hand side <code>R</code> conforms to them, i.e. <code>L &lt;: R</code> and <code>R &lt;: U</code>.</p>
+<p>where the lower bound <code>L</code> and the upper bound <code>U</code> may be missing, in which case they are assumed to be <code>scala.Nothing</code> and <code>scala.Any</code>, respectively. If bounds are given, it is checked that the right hand side <code>R</code> conforms to them, i.e. <code>L &lt;: R</code> and <code>R &lt;: U</code>. F-bounds are not supported for opaque types: <code>T</code> is not allowed to appear in <code>L</code> or <code>U</code>.</p>
 <p>Inside the scope of the alias definition, the alias is transparent: <code>T</code> is treated
 as a normal alias of <code>R</code>. Outside its scope, the alias is treated as the abstract type</p>
 <pre><code class="scala">type T &gt;: L &lt;: U`
