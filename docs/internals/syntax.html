@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-03 -->
+<!-- This page was last generated on 2020-03-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200302-f6e057c-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200303-df0bb24-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2133,7 +2133,8 @@ EnumDef           ::=  id ClassConstr InheritClauses EnumBody                   
 GivenDef          ::=  [GivenSig] [‘_’ ‘&lt;:’] Type ‘=’ Expr
                     |  [GivenSig] ConstrApps [TemplateBody]
 GivenSig          ::=  [id] [DefTypeParamClause] {UsingParamClause} ‘as’
-ExtensionDef      ::=  [id] ‘on’ ExtParamClause {WithParamsOrTypes} ExtMethods
+ExtensionDef      ::=  [id] [‘on’ ExtParamClause {UsingParamClause}]
+                       TemplateBody
 ExtMethods        ::=  [nl] ‘{’ ‘def’ DefDef {semi ‘def’ DefDef} ‘}’
 ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’
 Template          ::=  InheritClauses [TemplateBody]                            Template(constr, parents, self, stats)
