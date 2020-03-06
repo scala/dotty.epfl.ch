@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-05 -->
+<!-- This page was last generated on 2020-03-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200304-16c30fb-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200305-84f2e41-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1943,9 +1943,15 @@ this object or its members via <code>this</code> or a simple identifier is also 
 <p>It is a compile-time error for a Java-compatible enum to have class cases.</p>
 <p>Cases such as <code>case C</code> expand to a <code>@static val</code> as opposed to a <code>val</code>. This allows them to be generated as static fields of the enum type, thus ensuring they are represented the same way as Java enums.</p>
 <h3><a href="#other-rules" id="other-rules" class="anchor"></a>Other Rules</h3>
+<ul>
+<li>
 <p>A normal case class which is not produced from an enum case is not allowed to extend
 <code>scala.Enum</code>. This ensures that the only cases of an enum are the ones that are
 explicitly declared in it.</p>
+</li>
+<li>If an enum case has an extends clause, the enum class must be one of the
+classes that's extended.</li>
+</ul>
 
 </main>
 </div>

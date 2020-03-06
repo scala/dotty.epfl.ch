@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-05 -->
+<!-- This page was last generated on 2020-03-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200304-16c30fb-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200305-84f2e41-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1832,22 +1832,31 @@ l / l2                  // error: `/` is not a member fo Logarithm
 
   def (x: Permissions) &amp; (y: Permissions): Permissions = x | y
   def (x: PermissionChoice) | (y: PermissionChoice): PermissionChoice = x | y
-  def (x: Permissions).is(y: Permissions) = (x &amp; y) == y
-  def (x: Permissions).isOneOf(y: PermissionChoice) = (x &amp; y) != 0
+  def (granted: Permissions).is(required: Permissions) = (granted &amp; required) == required
+  def (granted: Permissions).isOneOf(required: PermissionChoice) = (granted &amp; required) != 0
 
   val NoPermission: Permission = 0
-  val ReadOnly: Permission = 1
-  val WriteOnly: Permission = 2
-  val ReadWrite: Permissions = ReadOnly &amp; WriteOnly
-  val ReadOrWrite: PermissionChoice = ReadOnly | WriteOnly
+  val Read: Permission = 1
+  val Write: Permission = 2
+  val ReadWrite: Permissions = Read | Write
+  val ReadOrWrite: PermissionChoice = Read | Write
 }
 </code></pre>
 <p>The <code>Access</code> object defines three opaque types:</p>
 <ul>
 <li><code>Permission</code>, representing a single permission,</li>
-<li><code>Permissions</code>, representing a conjunction (logical &quot;and&quot;) of permissions,</li>
-<li><code>PermissionChoice</code>, representing a disjunction (logical &quot;or&quot;) of permissions.</li>
+<li><code>Permissions</code>, representing a set of permissions with the meaning &quot;all of these permissions granted&quot;,</li>
+<li><code>PermissionChoice</code>, representing a set of permissions with the meaning &quot;at least one of these permissions granted&quot;.</li>
 </ul>
+<p>Outside the <code>Access</code> object, values of type <code>Permissions</code> may be combined using the <code>&amp;</code> operator,
+where <code>x &amp; y</code> means &quot;all permissions in <code>x</code> <em>and</em> in <code>y</code> granted&quot;.
+Values of type <code>PermissionChoice</code> may be combined using the <code>|</code> operator,
+where <code>x | y</code> means &quot;a permission in <code>x</code> <em>or</em> in <code>y</code> granted&quot;.</p>
+<p>Note that inside the <code>Access</code> object, the <code>&amp;</code> and <code>|</code> operators always resolve to the corresponding methods of <code>Int</code>,
+because members always take precedence over extension methods.
+Because of that, the <code>|</code> extension method in <code>Access</code> does not cause infinite recursion.
+Also, the definition of <code>ReadWrite</code> must use <code>|</code>,
+even though an equivalent definition outside <code>Access</code> would use <code>&amp;</code>.</p>
 <p>All three opaque types have the same underlying representation type <code>Int</code>. The
 <code>Permission</code> type has an upper bound <code>Permissions &amp; PermissionChoice</code>. This makes
 it known outside the <code>Access</code> object that <code>Permission</code> is a subtype of the other
@@ -1857,13 +1866,21 @@ two types.  Hence, the following usage scenario type-checks.</p>
 
   case class Item(rights: Permissions)
 
-  val x = Item(ReadOnly)  // OK, since Permission &lt;: Permissions
+  val roItem = Item(Read)  // OK, since Permission &lt;: Permissions
+  val rwItem = Item(ReadWrite)
+  val noItem = Item(NoPermission)
 
-  assert( x.rights.is(ReadWrite) == false )
-  assert( x.rights.isOneOf(ReadOrWrite) == true )
+  assert( roItem.rights.is(ReadWrite) == false )
+  assert( roItem.rights.isOneOf(ReadOrWrite) == true )
+
+  assert( rwItem.rights.is(ReadWrite) == true )
+  assert( rwItem.rights.isOneOf(ReadOrWrite) == true )
+
+  assert( noItem.rights.is(ReadWrite) == false )
+  assert( noItem.rights.isOneOf(ReadOrWrite) == false )
 }
 </code></pre>
-<p>On the other hand, the call <code>x.rights.isOneOf(ReadWrite)</code> would give a type error
+<p>On the other hand, the call <code>roItem.rights.isOneOf(ReadWrite)</code> would give a type error
 since <code>Permissions</code> and <code>PermissionChoice</code> are different, unrelated types outside <code>Access</code>.</p>
 <p><a href="opaques-details.html">More details</a></p>
 
