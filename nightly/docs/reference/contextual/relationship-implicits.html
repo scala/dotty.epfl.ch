@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-15 -->
+<!-- This page was last generated on 2020-03-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200314-b08d746-NIGHTLY</h2>
+                    <h2>0.23.0-bin-20200315-adc44da-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1296,18 +1296,6 @@
                             
 
                         
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/autolift$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/autolift$.html">autolift</a>
-                            </li>
-                            
-
-                        
                     </ul>
                 </li>
             
@@ -1833,7 +1821,7 @@ final implicit def given_Context = ctx
 <h3><a href="#anonymous-given-instances" id="anonymous-given-instances" class="anchor"></a>Anonymous Given Instances</h3>
 <p>Anonymous given instances get compiler synthesized names, which are generated in a reproducible way from the implemented type(s). For example, if the names of the <code>IntOrd</code> and <code>ListOrd</code> givens above were left out, the following names would be synthesized instead:</p>
 <pre><code class="scala">given given_Ord_Int as Ord[Int] { ... }
-given given_Ord_List[T] as Ord[List[T]] { ... }
+given given_Ord_List_T[T](using ord: Ord[T]) as Ord[List[T]] { ... }
 </code></pre>
 <p>The synthesized type names are formed from</p>
 <ul>
