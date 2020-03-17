@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200316-6948038-NIGHTLY</h2>
+                    <h2>0.22.0</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul >
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -153,7 +153,6 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
-<li class="leaf"><a href="/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
   </ul>
 </li>
 
@@ -719,18 +718,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/internal/ContextResultCount.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/annotation/internal/ContextResultCount.html">ContextResultCount</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor class" href="/api/scala/annotation/internal/InlineParam.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/annotation/internal/InlineParam.html">InlineParam</a>
@@ -1130,30 +1117,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Const$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Const$.html">Const</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Consts$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Consts$.html">Consts</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1167,18 +1130,6 @@
 
                         
                              <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Lambda$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Lambda$.html">Lambda</a>
-                            </li>
                             
 
                         
@@ -1263,11 +1214,11 @@
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unliftable$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/ValueOfExpr$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/Unliftable.html">T</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/ValueOfExpr.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unliftable.html">Unliftable</a>
+                                <a class="entity-name" href="/api/scala/quoted/ValueOfExpr.html">ValueOfExpr</a>
                             </li>
                             
 
@@ -1277,21 +1228,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unlifted$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/autolift$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unlifted$.html">Unlifted</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                                <a class="entity-name" href="/api/scala/quoted/autolift$.html">autolift</a>
                             </li>
                             
 
@@ -1313,9 +1252,63 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Const$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Const$.html">Const</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor object" href="/api/scala/quoted/matching/ConstSeq$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/ExprSeq$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/ExprSeq$.html">ExprSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Sym$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/api/scala/quoted/matching/Sym.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Sym.html">Sym</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Value$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Value$.html">Value</a>
                             </li>
                             
 
@@ -1496,18 +1489,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/runtime/Tuple$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/runtime/Tuple$.html">Tuple</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1616,42 +1597,6 @@
                                     <a class="letter-anchor class" href="/api/scala/tasty/reflect/SourceCodePrinter.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/tasty/reflect/SourceCodePrinter.html">SourceCodePrinter</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeMap.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeTraverser.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
                             </li>
                             
 
@@ -1788,9 +1733,7 @@
 Furthermore, a syntax change allows infix operators to be written on the left in a multi-line expression.</p>
 <h2><a href="#the-alpha-annotation" id="the-alpha-annotation" class="anchor"></a>The @alpha Annotation</h2>
 <p>An <code>@alpha</code> annotation on a method definition defines an alternate name for the implementation of that method: Example:</p>
-<pre><code class="scala">import scala.annotation.alpha
-
-object VecOps {
+<pre><code class="scala">object VecOps {
   @alpha(&quot;append&quot;) def (xs: Vec[T]) ++= [T] (ys: Vec[T]): Vec[T] = ...
 }
 </code></pre>
@@ -1829,16 +1772,14 @@ an annotation will raise a deprecation warning.</p>
 should have an <code>@alpha</code> annotation. Lack of such an annotation will raise a deprecation warning.</p>
 </li>
 <li>
-<p><code>@alpha</code> annotations must agree: If two definitions are members of an object or class with the same name and matching types, then either none of them has an <code>@alpha</code> annotation, or both have <code>@alpha</code> annotations with the same name.</p>
+<p>@alpha annotations must agree: If two definitions are members of an object or class with the same name and matching types, then either none of them has an <code>@alpha</code> annotation, or both have <code>@alpha</code> annotations with the same name.</p>
 </li>
 <li>There must be a one-to-one relationship between external and internal names:
 If two definitions are members of an object or class with matching types and both have <code>@alpha</code> annotations with the same external name, then their internal method names must also be the same.</li>
 </ol>
 <h2><a href="#the-infix-annotation" id="the-infix-annotation" class="anchor"></a>The @infix Annotation</h2>
 <p>An <code>@infix</code> annotation on a method definition allows using the method as an infix operation. Example:</p>
-<pre><code class="scala">import scala.annotation.alpha
-
-trait MultiSet[T] {
+<pre><code class="scala">trait MultiSet[T] {
 
   @infix
   def union(other: MultiSet[T]): MultiSet[T]
@@ -1852,7 +1793,6 @@ trait MultiSet[T] {
 val s1, s2: MultiSet[Int]
 
 s1 union s2         // OK
-s1 `union` s2       // also OK but unusual
 s1.union(s2)        // also OK
 
 s1.difference(s2)   // OK
@@ -1860,7 +1800,6 @@ s1 `difference` s2  // OK
 s1 difference s2    // gives a deprecation warning
 
 s1 * s2             // OK
-s1 `*` s2           // also OK, but unusual
 s1.*(s2)            // also OK, but unusual
 </code></pre>
 <p>Infix operations involving alphanumeric operators are deprecated, unless
@@ -1873,7 +1812,7 @@ one of the following conditions holds:</p>
 <p>An alphanumeric operator is an operator consisting entirely of letters, digits, the <code>$</code> and <code>_</code> characters, or
 any unicode character <code>c</code> for which <code>java.lang.Character.isIdentifierPart(c)</code> returns <code>true</code>.</p>
 <p>Infix operations involving symbolic operators are always allowed, so <code>@infix</code> is redundant for methods with symbolic names.</p>
-<p>The <code>@infix</code> annotation can also be given to a type:</p>
+<p>The @infix annotation can also be given to a type:</p>
 <pre><code class="nohighlight">@infix type or[X, Y]
 val x: String or Int = ...
 </code></pre>
@@ -1898,12 +1837,12 @@ val x: String or Int = ...
 </code></pre>
 </li>
 <li>
-<p><code>@infix</code> annotations can also be given to type, trait or class definitions that have exactly two type parameters. An infix type like</p>
+<p>@infix annotations can also be given to type, trait or class definitions that have exactly two type parameters. An infix type like</p>
 <pre><code class="scala">@infix type op[X, Y]
 </code></pre>
 <p>can be applied using infix syntax, i.e. <code>A op B</code>.</p>
 </li>
-<li>To smooth migration to Scala 3.0, alphanumeric operators will only be deprecated from Scala 3.1 onwards,
+<li>To smooth migration to Scala 3.0, alphanumeric operations will only be deprecated from Scala 3.1 onwards,
 or if the <code>-strict</code> option is given in Dotty/Scala 3.</li>
 </ol>
 <h2><a href="#syntax-change" id="syntax-change" class="anchor"></a>Syntax Change</h2>

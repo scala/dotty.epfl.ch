@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200316-6948038-NIGHTLY</h2>
+                    <h2>0.22.0</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul >
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -153,7 +153,6 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
-<li class="leaf"><a href="/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
   </ul>
 </li>
 
@@ -719,18 +718,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/internal/ContextResultCount.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/annotation/internal/ContextResultCount.html">ContextResultCount</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor class" href="/api/scala/annotation/internal/InlineParam.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/annotation/internal/InlineParam.html">InlineParam</a>
@@ -1130,30 +1117,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Const$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Const$.html">Const</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Consts$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Consts$.html">Consts</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1167,18 +1130,6 @@
 
                         
                              <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Lambda$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Lambda$.html">Lambda</a>
-                            </li>
                             
 
                         
@@ -1263,11 +1214,11 @@
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unliftable$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/ValueOfExpr$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/Unliftable.html">T</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/ValueOfExpr.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unliftable.html">Unliftable</a>
+                                <a class="entity-name" href="/api/scala/quoted/ValueOfExpr.html">ValueOfExpr</a>
                             </li>
                             
 
@@ -1277,21 +1228,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unlifted$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/autolift$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unlifted$.html">Unlifted</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                                <a class="entity-name" href="/api/scala/quoted/autolift$.html">autolift</a>
                             </li>
                             
 
@@ -1313,9 +1252,63 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Const$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Const$.html">Const</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor object" href="/api/scala/quoted/matching/ConstSeq$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/ExprSeq$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/ExprSeq$.html">ExprSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Sym$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/api/scala/quoted/matching/Sym.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Sym.html">Sym</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Value$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Value$.html">Value</a>
                             </li>
                             
 
@@ -1496,18 +1489,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/runtime/Tuple$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/runtime/Tuple$.html">Tuple</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1616,42 +1597,6 @@
                                     <a class="letter-anchor class" href="/api/scala/tasty/reflect/SourceCodePrinter.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/tasty/reflect/SourceCodePrinter.html">SourceCodePrinter</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeMap.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeTraverser.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
                             </li>
                             
 
@@ -1785,28 +1730,28 @@
         </div>
     </header>
     <p>The framework expresses at the same time compile-time meta-programming and
-multi-stage programming. We can think of compile-time meta-programming as a
+multi-staging programming. We can think of compile-time meta-programming as a
 two stage compilation process: one that we write the code in top-level splices,
 that will be used for code generation (macros) and one that will perform all
 necessecary evaluations at compile-time and an object program that we will run
-as usual. What if we could synthesize code at run-time and offer one extra stage
-to the programmer? Then we can have a value of type <code>Expr[T]</code> at run-time that we
+as usual. What if we could synthesize code at runtime and offer one extra stage
+to the programmer? Then we can have a value of type <code>Expr[T]</code> at runtime that we
 can essentially treat as a typed-syntax tree that we can either <em>show</em> as a
 string (pretty-print) or compile and run. If the number of quotes exceeds the
-number of splices by more than one (effectively handling at run-time values of type
-<code>Expr[Expr[T]]</code>, <code>Expr[Expr[Expr[T]]]</code>, ...) then we talk about Multi-Stage
-Programming.</p>
+number of splices more than one (effectively handling at run-time values of type
+<code>Expr[Expr[T]]</code>, <code>Expr[Expr[Expr[T]]]</code>, ... we talk about Multi-Stage
+Programming).</p>
 <p>The motivation behind this <em>paradigm</em> is to let runtime information affect or
 guide code-generation.</p>
 <p>Intuition: The phase in which code is run is determined by the difference
 between the number of splice scopes and quote scopes in which it is embedded.</p>
 <ul>
 <li>
-<p>If there are more splices than quotes, the code is run at compile-time i.e.
+<p>If there are more splices than quotes, the code is run at &quot;compile-time&quot; i.e.
 as a macro. In the general case, this means running an interpreter that
 evaluates the code, which is represented as a typed abstract syntax tree. The
 interpreter can fall back to reflective calls when evaluating an application
-of a previously compiled method. If the splice excess is more than one, it
+of a previously compiled method.  If the splice excess is more than one, it
 would mean that a macro’s implementation code (as opposed to the code it
 expands to) invokes other macros. If macros are realized by interpretation,
 this would lead to towers of interpreters, where the first interpreter would
@@ -1842,30 +1787,23 @@ to be executed at a later stage. To run that code, there is another method
 in class <code>Expr</code> called <code>run</code>. Note that <code>$</code> and <code>run</code> both map from <code>Expr[T]</code>
 to <code>T</code> but only <code>$</code> is subject to the PCP, whereas <code>run</code> is just a normal method.
 Run provides a <code>QuoteContext</code> that can be used to show the expression in the scope of <code>run</code>.
-On the other hand <code>withQuoteContext</code> provides a <code>QuoteContext</code> without evaluating the expression.</p>
+On the other hand <code>withQuoteContext</code> provides a <code>QuoteContext</code> without evauating the expression.</p>
 <pre><code class="scala">package scala.quoted.staging
 
-def run[T](expr: QuoteContext ?=&gt; Expr[T])(using toolbox: Toolbox): T = ...
+def run[T](expr:(given QuoteContext) =&gt; Expr[T])(given toolbox: Toolbox): T = ...
 
-def withQuoteContext[T](thunk: QuoteContext ?=&gt; T)(using toolbox: Toolbox): T = ...
+def withQuoteContext[T](thunk:(given QuoteContext) =&gt; T)(given toolbox: Toolbox): T = ...
 </code></pre>
 <h2><a href="#create-a-new-dotty-project-with-staging-enabled" id="create-a-new-dotty-project-with-staging-enabled" class="anchor"></a>Create a new Dotty project with staging enabled</h2>
 <pre><code class="shell">sbt new lampepfl/dotty-staging.g8
 </code></pre>
 <p>From <a href="https://github.com/lampepfl/dotty-staging.g8">lampepfl/dotty-staging.g8</a>.</p>
 <p>It will create a project with the necessary dependencies and some examples.</p>
-<p>In case you prefer to create the project on your own, make sure to define the following dependency in your build.sbt</p>
-<pre><code class="scala">libraryDependencies += &quot;ch.epfl.lamp&quot; %% &quot;dotty-staging&quot; % scalaVersion.value
-</code></pre>
-<p>and in case you use <code>dotc</code>/<code>dotr</code> directly, then use the <code>-with-compiler</code> flag for both:</p>
-<pre><code class="shell">dotc -with-compiler -d out Test.scala
-dotr -with-compiler -classpath out Test
-</code></pre>
 <h2><a href="#example" id="example" class="anchor"></a>Example</h2>
 <p>Now take exactly the same example as in <a href="./macros.html">Macros</a>. Assume that we
-do not want to pass an array statically but generate code at run-time and pass
+do not want to pass an array statically but generated code at run-time and pass
 the value, also at run-time. Note, how we make a future-stage function of type
-<code>Expr[Array[Int] =&gt; Int]</code> in line 6 below. Using <code>run { ... }</code> we can evaluate an
+<code>Expr[Array[Int] =&gt; Int]</code> in line 4 below. Using <code>run { ... }</code> we can evaluate an
 expression at runtime. Within the scope of <code>run</code> we can also invoke <code>show</code> on an expression
 to get a source-like representation of the expression.</p>
 <pre><code class="scala">import scala.quoted.staging._
@@ -1880,6 +1818,14 @@ val f: Array[Int] =&gt; Int = run {
 }
 
 f.apply(Array(1, 2, 3)) // Returns 6
+</code></pre>
+<p>Note that if we need to run the main (in an object called <code>Test</code>) after
+compilation we need make available the compiler to the runtime:</p>
+<pre><code class="shell">dotc -with-compiler -d out Test.scala
+dotr -with-compiler -classpath out Test
+</code></pre>
+<p>Or, from SBT:</p>
+<pre><code class="scala">libraryDependencies += &quot;ch.epfl.lamp&quot; %% &quot;dotty-staging&quot; % scalaVersion.value
 </code></pre>
 
 </main>

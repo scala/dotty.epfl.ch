@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200316-6948038-NIGHTLY</h2>
+                    <h2>0.22.0</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul >
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -153,7 +153,6 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
-<li class="leaf"><a href="/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
   </ul>
 </li>
 
@@ -719,18 +718,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/internal/ContextResultCount.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/annotation/internal/ContextResultCount.html">ContextResultCount</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor class" href="/api/scala/annotation/internal/InlineParam.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/annotation/internal/InlineParam.html">InlineParam</a>
@@ -1130,30 +1117,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Const$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Const$.html">Const</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Consts$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Consts$.html">Consts</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1167,18 +1130,6 @@
 
                         
                              <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Lambda$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Lambda$.html">Lambda</a>
-                            </li>
                             
 
                         
@@ -1263,11 +1214,11 @@
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unliftable$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/ValueOfExpr$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/Unliftable.html">T</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/ValueOfExpr.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unliftable.html">Unliftable</a>
+                                <a class="entity-name" href="/api/scala/quoted/ValueOfExpr.html">ValueOfExpr</a>
                             </li>
                             
 
@@ -1277,21 +1228,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unlifted$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/autolift$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unlifted$.html">Unlifted</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                                <a class="entity-name" href="/api/scala/quoted/autolift$.html">autolift</a>
                             </li>
                             
 
@@ -1313,9 +1252,63 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Const$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Const$.html">Const</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor object" href="/api/scala/quoted/matching/ConstSeq$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/ExprSeq$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/ExprSeq$.html">ExprSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Sym$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/api/scala/quoted/matching/Sym.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Sym.html">Sym</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Value$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Value$.html">Value</a>
                             </li>
                             
 
@@ -1496,18 +1489,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/runtime/Tuple$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/runtime/Tuple$.html">Tuple</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1616,42 +1597,6 @@
                                     <a class="letter-anchor class" href="/api/scala/tasty/reflect/SourceCodePrinter.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/tasty/reflect/SourceCodePrinter.html">SourceCodePrinter</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeMap.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeTraverser.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
                             </li>
                             
 
@@ -1918,7 +1863,7 @@
 
                 
                 
-                <div id="apply(x)(qctx,lift)" class="member def public " data-toggle="collapse" data-target=".collapse-apply-x--qctx_lift-">
+                <div id="apply(x)(evidence$1,x$2)" class="member def public " data-toggle="collapse" data-target=".collapse-apply-x--evidence-1_x-2-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1962,16 +1907,16 @@
                                         <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            qctx:
+                                            evidence$1:
                                             
-                                            <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                            <a href="/api/scala/quoted/Liftable.html">Liftable</a><span class="type-params">[T]</span>
                                         </span>
                                         ,&nbsp;
                                     
                                         <span class="param">
-                                            lift:
+                                            x$2:
                                             
-                                            <a href="/api/scala/quoted/Liftable.html">Liftable</a><span class="type-params">[T]</span>
+                                            <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
                                         </span>
                                         
                                     
@@ -1987,14 +1932,14 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-apply-x--qctx_lift-">
+                    <div class="short collapse show collapse-apply-x--evidence-1_x-2-">
                         
                             <p>Lift a value into an expression containing the construction of that value</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-apply-x--qctx_lift-">
+                    <div class="details collapse collapse-apply-x--evidence-1_x-2-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2256,7 +2201,7 @@ by returning the result of beta-reducing <code>f(x1, ..., xn)</code> if <code>f<
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-betaReduceGiven-f--tf_tg_qctx-">
                         
-                            <p><code>Expr.betaReduceGiven(f)(x1, ..., xn)</code> is functionally the same as <code>'{($f)(using $x1, ..., $xn)}</code>, however it optimizes this call
+                            <p><code>Expr.betaReduceGiven(f)(x1, ..., xn)</code> is functionally the same as <code>'{($f)(given $x1, ..., $xn)}</code>, however it optimizes this call
 by returning the result o...</p>
 
                         
@@ -2266,10 +2211,10 @@ by returning the result o...</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p><code>Expr.betaReduceGiven(f)(x1, ..., xn)</code> is functionally the same as <code>'{($f)(using $x1, ..., $xn)}</code>, however it optimizes this call
-by returning the result of beta-reducing <code>f(using x1, ..., xn)</code> if <code>f</code> is a known lambda expression.</p>
+                            <p><code>Expr.betaReduceGiven(f)(x1, ..., xn)</code> is functionally the same as <code>'{($f)(given $x1, ..., $xn)}</code>, however it optimizes this call
+by returning the result of beta-reducing <code>f(given x1, ..., xn)</code> if <code>f</code> is a known lambda expression.</p>
 <p><code>Expr.betaReduceGiven</code> distributes applications of <code>Expr</code> over function arrows</p>
-<pre><code class="scala">Expr.betaReduceGiven(_): Expr[(T1, ..., Tn) ?=&gt; R] =&gt; ((Expr[T1], ..., Expr[Tn]) =&gt; Expr[R])
+<pre><code class="scala">Expr.betaReduceGiven(_): Expr[(given T1, ..., Tn) =&gt; R] =&gt; ((Expr[T1], ..., Expr[Tn]) =&gt; Expr[R])
 </code></pre>
 
                         
@@ -2746,7 +2691,9 @@ to an expressi...
 <code>Seq(e1, e2, ...)</code> where <code>ei: Expr[T]</code>
 to an expression equivalent to
 <code>'{ Seq($e1, $e2, ...) }</code> typed as an <code>Expr[Seq[T]]</code></p>
-<pre><code class="nohighlight"></code></pre>
+<p>Usage:</p>
+<pre><code class="scala">'{ List(${Expr.ofSeq(List(1, 2, 3))}: _*) } // equvalent to '{ List(1, 2, 3) }
+</code></pre>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -2790,7 +2737,7 @@ to an expression equivalent to
 
                 
                 
-                <div id="ofTuple(seq)(qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-ofTuple-seq--qctx-">
+                <div id="ofTuple(seq)(x$2)" class="member def public " data-toggle="collapse" data-target=".collapse-ofTuple-seq--x-2-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2830,7 +2777,7 @@ to an expression equivalent to
                                         <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            qctx:
+                                            x$2:
                                             
                                             <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
                                         </span>
@@ -2848,7 +2795,7 @@ to an expression equivalent to
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-ofTuple-seq--qctx-">
+                    <div class="short collapse show collapse-ofTuple-seq--x-2-">
                         
                             <p>Lifts this sequence of expressions into an expression of a tuple</p>
 <p>Transforms a sequence of expression
@@ -2859,7 +2806,7 @@ to an expression...
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-ofTuple-seq--qctx-">
+                    <div class="details collapse collapse-ofTuple-seq--x-2-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2911,7 +2858,7 @@ to an expression equivalent to
 
                 
                 
-                <div id="ofTuple(tup)(evidence$1,evidence$2,qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-ofTuple-tup--evidence-1_evidence-2_qctx-">
+                <div id="ofTuple(tup)(evidence$2,evidence$3,qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-ofTuple-tup--evidence-2_evidence-3_qctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2955,14 +2902,14 @@ to an expression equivalent to
                                         <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            evidence$1:
+                                            evidence$2:
                                             
                                             IsMappedBy<span class="type-params">[T]</span>
                                         </span>
                                         ,&nbsp;
                                     
                                         <span class="param">
-                                            evidence$2:
+                                            evidence$3:
                                             
                                             <a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[T]</span>
                                         </span>
@@ -2987,141 +2934,18 @@ to an expression equivalent to
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-ofTuple-tup--evidence-1_evidence-2_qctx-">
+                    <div class="short collapse show collapse-ofTuple-tup--evidence-2_evidence-3_qctx-">
                         
                             <p>Given a tuple of the form <code>(Expr[A1], ..., Expr[An])</code>, outputs a tuple <code>Expr[(A1, ..., An)]</code>.</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-ofTuple-tup--evidence-1_evidence-2_qctx-">
+                    <div class="details collapse collapse-ofTuple-tup--evidence-2_evidence-3_qctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
                             <p>Given a tuple of the form <code>(Expr[A1], ..., Expr[An])</code>, outputs a tuple <code>Expr[(A1, ..., An)]</code>.</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="summon(tpe)(qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-summon-tpe--qctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                summon
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                            <span class="type-params">
-                                [T]
-                            </span>
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            tpe:
-                                            
-                                            <a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[T]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            qctx:
-                                            
-                                            <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Option<span class="type-params">[<a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[T]</span>]</span></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-summon-tpe--qctx-">
-                        
-                            <p>Find an implicit of type <code>T</code> in the current scope given by <code>qctx</code>.
-Return <code>Some</code> containing the expression of the implicit or
-<code>None</code> if implicit resolution fail...</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-summon-tpe--qctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Find an implicit of type <code>T</code> in the current scope given by <code>qctx</code>.
-Return <code>Some</code> containing the expression of the implicit or
-<code>None</code> if implicit resolution failed.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps

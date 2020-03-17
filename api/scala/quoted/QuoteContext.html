@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200316-6948038-NIGHTLY</h2>
+                    <h2>0.22.0</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul >
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -153,7 +153,6 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
-<li class="leaf"><a href="/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
   </ul>
 </li>
 
@@ -719,18 +718,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/internal/ContextResultCount.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/annotation/internal/ContextResultCount.html">ContextResultCount</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor class" href="/api/scala/annotation/internal/InlineParam.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/annotation/internal/InlineParam.html">InlineParam</a>
@@ -1130,30 +1117,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Const$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Const$.html">Const</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Consts$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Consts$.html">Consts</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1167,18 +1130,6 @@
 
                         
                              <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Lambda$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Lambda$.html">Lambda</a>
-                            </li>
                             
 
                         
@@ -1263,11 +1214,11 @@
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unliftable$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/ValueOfExpr$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/Unliftable.html">T</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/ValueOfExpr.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unliftable.html">Unliftable</a>
+                                <a class="entity-name" href="/api/scala/quoted/ValueOfExpr.html">ValueOfExpr</a>
                             </li>
                             
 
@@ -1277,21 +1228,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unlifted$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/autolift$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unlifted$.html">Unlifted</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                                <a class="entity-name" href="/api/scala/quoted/autolift$.html">autolift</a>
                             </li>
                             
 
@@ -1313,9 +1252,63 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Const$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Const$.html">Const</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor object" href="/api/scala/quoted/matching/ConstSeq$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/ExprSeq$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/ExprSeq$.html">ExprSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Sym$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/api/scala/quoted/matching/Sym.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Sym.html">Sym</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Value$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Value$.html">Value</a>
                             </li>
                             
 
@@ -1496,18 +1489,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/runtime/Tuple$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/runtime/Tuple$.html">Tuple</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1616,42 +1597,6 @@
                                     <a class="letter-anchor class" href="/api/scala/tasty/reflect/SourceCodePrinter.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/tasty/reflect/SourceCodePrinter.html">SourceCodePrinter</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeMap.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeTraverser.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
                             </li>
                             
 
@@ -1874,100 +1819,6 @@ This API does not have the static type guarantiees that <code>Expr</code> and <c
     <div id="members">
         <h2>Members</h2>
         <div class="wide-table">
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="NestedContext" class="member type public " data-toggle="collapse" data-target=".collapse-NestedContext">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">type&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                NestedContext
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                        <!-- Return type -->
-                        
-                        <!-- Type alias -->
-                        
-                            <span class="type-alias">&nbsp;= <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a></span>
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-NestedContext">
-                        
-                            <p>Type of a QuoteContext profided by a splice within a quote that took this context.
-It is only required if working with the reflection API.</p>
-<p>Usually it is...
-</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-NestedContext">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Type of a QuoteContext profided by a splice within a quote that took this context.
-It is only required if working with the reflection API.</p>
-<p>Usually it is infered by the quotes an splices typing. But sometimes it is necessary
-to explicitly state that a context is nested as in the following example:</p>
-<pre><code class="scala">def run(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Unit =
-  def nested()(using qctx.NestedContext): Expr[Int] = '{  ${ makeExpr(tree) } + 1  }
-  '{  ${ nested() } + 2 }
-def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
-</code></pre>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
             
                 
                     
@@ -2377,7 +2228,7 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
                                         <span class="param">
                                             expr:
                                             
-                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Any]</span>
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
                                         </span>
                                         
                                     
@@ -2765,6 +2616,212 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
                     </div>
                     <!-- Fully detailed comment -->
                     <div class="details collapse collapse-notifyAll--">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="show(expr,syntaxHighlight)" class="member def public " data-toggle="collapse" data-target=".collapse-show-expr_syntaxHighlight-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                show
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            expr:
+                                            
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            syntaxHighlight:
+                                            
+                                            <a href="/api/scala/quoted/show/SyntaxHighlight.html">SyntaxHighlight</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: String</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-show-expr_syntaxHighlight-">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-show-expr_syntaxHighlight-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="show(tpe,syntaxHighlight)" class="member def public " data-toggle="collapse" data-target=".collapse-show-tpe_syntaxHighlight-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                show
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            tpe:
+                                            
+                                            <a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            syntaxHighlight:
+                                            
+                                            <a href="/api/scala/quoted/show/SyntaxHighlight.html">SyntaxHighlight</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: String</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-show-tpe_syntaxHighlight-">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-show-tpe_syntaxHighlight-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -3256,7 +3313,7 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
                                         <span class="param">
                                             expr:
                                             
-                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Any]</span>
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
                                         </span>
                                         
                                     
@@ -3284,106 +3341,6 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
                         
                         
                             <p>Report an error at the on the position of <code>expr</code> and throws a StopQuotedContext</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="unseal(qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-unseal-qctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                unseal
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            qctx:
-                                            
-                                            <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/tasty/Reflection.html#TypeTree">TypeTree</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-unseal-qctx-">
-                        
-                            <p>View this expression <code>quoted.Type[T]</code> as a <code>TypeTree</code></p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-unseal-qctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>View this expression <code>quoted.Type[T]</code> as a <code>TypeTree</code></p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -3516,102 +3473,6 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
 
                 
                 
-                <div id="wait(x$0)" class="member def public " data-toggle="collapse" data-target=".collapse-wait-x-0-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                wait
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            x$0:
-                                            
-                                            Long
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Unit</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-wait-x-0-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-wait-x-0-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
                 <div id="wait(x$0,x$1)" class="member def public " data-toggle="collapse" data-target=".collapse-wait-x-0_x-1-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -3669,6 +3530,102 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
                     </div>
                     <!-- Fully detailed comment -->
                     <div class="details collapse collapse-wait-x-0_x-1-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="wait(x$0)" class="member def public " data-toggle="collapse" data-target=".collapse-wait-x-0-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                wait
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            x$0:
+                                            
+                                            Long
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Unit</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-wait-x-0-">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-wait-x-0-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         

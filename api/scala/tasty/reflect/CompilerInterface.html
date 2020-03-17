@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0-bin-20200316-6948038-NIGHTLY</h2>
+                    <h2>0.22.0</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul >
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -153,7 +153,6 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
-<li class="leaf"><a href="/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
   </ul>
 </li>
 
@@ -719,18 +718,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/internal/ContextResultCount.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/annotation/internal/ContextResultCount.html">ContextResultCount</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor class" href="/api/scala/annotation/internal/InlineParam.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/annotation/internal/InlineParam.html">InlineParam</a>
@@ -1130,30 +1117,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Const$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Const$.html">Const</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Consts$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Consts$.html">Consts</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1167,18 +1130,6 @@
 
                         
                              <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Lambda$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Lambda$.html">Lambda</a>
-                            </li>
                             
 
                         
@@ -1263,11 +1214,11 @@
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unliftable$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/ValueOfExpr$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/Unliftable.html">T</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/ValueOfExpr.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unliftable.html">Unliftable</a>
+                                <a class="entity-name" href="/api/scala/quoted/ValueOfExpr.html">ValueOfExpr</a>
                             </li>
                             
 
@@ -1277,21 +1228,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Unlifted$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/autolift$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Unlifted$.html">Unlifted</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                                <a class="entity-name" href="/api/scala/quoted/autolift$.html">autolift</a>
                             </li>
                             
 
@@ -1313,9 +1252,63 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Const$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Const$.html">Const</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor object" href="/api/scala/quoted/matching/ConstSeq$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/ExprSeq$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/ExprSeq$.html">ExprSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Sym$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/api/scala/quoted/matching/Sym.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Sym.html">Sym</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Value$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/matching/Value$.html">Value</a>
                             </li>
                             
 
@@ -1496,18 +1489,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/runtime/Tuple$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/runtime/Tuple$.html">Tuple</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1616,42 +1597,6 @@
                                     <a class="letter-anchor class" href="/api/scala/tasty/reflect/SourceCodePrinter.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/tasty/reflect/SourceCodePrinter.html">SourceCodePrinter</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeMap.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeTraverser.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
                             </li>
                             
 
@@ -9101,7 +9046,7 @@ Then can be compared with == to know if the definition is the same.</p>
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-TypeDef">
                         
-                            <p>Tree representing a type (parameter or member) definition in the source code</p>
+                            <p>Tree representing a type (paramter or member) definition in the source code</p>
 
                         
                     </div>
@@ -9110,7 +9055,7 @@ Then can be compared with == to know if the definition is the same.</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Tree representing a type (parameter or member) definition in the source code</p>
+                            <p>Tree representing a type (paramter or member) definition in the source code</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -16874,300 +16819,6 @@ String<span>, </span>Option<span class="type-params">[<a href="/api/scala/tasty/
                         
                         
                             
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="Context_compilationUnitClassname(self)" class="member def public " data-toggle="collapse" data-target=".collapse-Context_compilationUnitClassname-self-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                Context_compilationUnitClassname
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: String</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-Context_compilationUnitClassname-self-">
-                        
-                            <p>Class name of the current CompilationUnit</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-Context_compilationUnitClassname-self-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Class name of the current CompilationUnit</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="Context_isJavaCompilationUnit(self)" class="member def public " data-toggle="collapse" data-target=".collapse-Context_isJavaCompilationUnit-self-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                Context_isJavaCompilationUnit
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Boolean</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-Context_isJavaCompilationUnit-self-">
-                        
-                            <p>Returns true if we've tried to reflect on a Java class.</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-Context_isJavaCompilationUnit-self-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Returns true if we've tried to reflect on a Java class.</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="Context_isScala2CompilationUnit(self)" class="member def public " data-toggle="collapse" data-target=".collapse-Context_isScala2CompilationUnit-self-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                Context_isScala2CompilationUnit
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Boolean</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-Context_isScala2CompilationUnit-self-">
-                        
-                            <p>Returns true if we've tried to reflect on a Scala2 (non-Tasty) class.</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-Context_isScala2CompilationUnit-self-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Returns true if we've tried to reflect on a Scala2 (non-Tasty) class.</p>
-
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -37573,244 +37224,6 @@ String<span>, </span>Option<span class="type-params">[<a href="/api/scala/tasty/
 
                 
                 
-                <div id="RecursiveThis_recThis(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-RecursiveThis_recThis-self--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                RecursiveThis_recThis
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#RecursiveType">RecursiveType</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/tasty/reflect/CompilerInterface.html#RecursiveThis">RecursiveThis</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-RecursiveThis_recThis-self--ctx-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-RecursiveThis_recThis-self--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="RecursiveType_apply(parentExp)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-RecursiveType_apply-parentExp--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                RecursiveType_apply
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            parentExp:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#RecursiveType">RecursiveType</a><span class="right-arrow"> =&gt; </span><a href="/api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/tasty/reflect/CompilerInterface.html#RecursiveType">RecursiveType</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-RecursiveType_apply-parentExp--ctx-">
-                        
-                            <p>Create a RecType, normalizing its contents. This means:</p>
-<ol>
-<li>Nested Rec types on the type's spine are merged with the outer one.</li>
-<li>Any refinement of the form <code>type T = z.T</code> on the spine of the type
-where <code>z</code> refers to the created rec-type is replaced by
-<code>type T</code>. This avoids infinite recursions later when we
-try to follow these references.</li>
-</ol>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-RecursiveType_apply-parentExp--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Create a RecType, normalizing its contents. This means:</p>
-<ol>
-<li>Nested Rec types on the type's spine are merged with the outer one.</li>
-<li>Any refinement of the form <code>type T = z.T</code> on the spine of the type
-where <code>z</code> refers to the created rec-type is replaced by
-<code>type T</code>. This avoids infinite recursions later when we
-try to follow these references.</li>
-</ol>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
                 <div id="RecursiveType_underlying(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-RecursiveType_underlying-self--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -42252,124 +41665,6 @@ try to follow these references.</li>
 
                 
                 
-                <div id="SuperType_apply(thistpe,supertpe)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-SuperType_apply-thistpe_supertpe--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                SuperType_apply
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            thistpe:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            supertpe:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/tasty/reflect/CompilerInterface.html#SuperType">SuperType</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-SuperType_apply-thistpe_supertpe--ctx-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-SuperType_apply-thistpe_supertpe--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
                 <div id="SuperType_supertpe(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-SuperType_supertpe-self--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -43246,119 +42541,6 @@ try to follow these references.</li>
                         
                         
                             <p>Fields of a case class type -- only the ones declared in primary constructor</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="Symbol_children(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-Symbol_children-self--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                Symbol_children
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Symbol">Symbol</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: List<span class="type-params">[<a href="/api/scala/tasty/reflect/CompilerInterface.html#Symbol">Symbol</a>]</span></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-Symbol_children-self--ctx-">
-                        
-                            <p>Case class or case object children of a sealed trait</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-Symbol_children-self--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Case class or case object children of a sealed trait</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -47174,145 +46356,6 @@ try to follow these references.</li>
 
                 
                 
-                <div id="Symbol_newVal(parent,name,flags,tpe,privateWithin)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-Symbol_newVal-parent_name_flags_tpe_privateWithin--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                Symbol_newVal
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            parent:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Symbol">Symbol</a>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            name:
-                                            
-                                            String
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            flags:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Flags">Flags</a>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            tpe:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            privateWithin:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Symbol">Symbol</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/tasty/reflect/CompilerInterface.html#Symbol">Symbol</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-Symbol_newVal-parent_name_flags_tpe_privateWithin--ctx-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-Symbol_newVal-parent_name_flags_tpe_privateWithin--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
                 <div id="Symbol_noSymbol(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-Symbol_noSymbol-ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -48538,7 +47581,7 @@ try to follow these references.</li>
 
                 
                 
-                <div id="Term_etaExpand(term)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-Term_etaExpand-term--ctx-">
+                <div id="Term_etaExpand(term)" class="member def public " data-toggle="collapse" data-target=".collapse-Term_etaExpand-term-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -48572,21 +47615,6 @@ try to follow these references.</li>
                                     )
                                 </span>
                             
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
                         
                         <!-- Return type -->
                         
@@ -48596,13 +47624,13 @@ try to follow these references.</li>
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-Term_etaExpand-term--ctx-">
+                    <div class="short collapse show collapse-Term_etaExpand-term-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-Term_etaExpand-term--ctx-">
+                    <div class="details collapse collapse-Term_etaExpand-term-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -55126,118 +54154,7 @@ try to follow these references.</li>
 
                 
                 
-                <div id="TypeRef_isOpaqueAlias(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-TypeRef_isOpaqueAlias-self--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                TypeRef_isOpaqueAlias
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#TypeRef">TypeRef</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Boolean</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-TypeRef_isOpaqueAlias-self--ctx-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-TypeRef_isOpaqueAlias-self--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="TypeRef_name(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-TypeRef_name-self--ctx-">
+                <div id="TypeRef_name(self)(x$2)" class="member def public " data-toggle="collapse" data-target=".collapse-TypeRef_name-self--x-2-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -55277,7 +54194,7 @@ try to follow these references.</li>
                                         <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            x$2:
                                             
                                             <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
                                         </span>
@@ -55295,13 +54212,13 @@ try to follow these references.</li>
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-TypeRef_name-self--ctx-">
+                    <div class="short collapse show collapse-TypeRef_name-self--x-2-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-TypeRef_name-self--ctx-">
+                    <div class="details collapse collapse-TypeRef_name-self--x-2-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -55413,117 +54330,6 @@ try to follow these references.</li>
                     </div>
                     <!-- Fully detailed comment -->
                     <div class="details collapse collapse-TypeRef_qualifier-self--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="TypeRef_translucentSuperType(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-TypeRef_translucentSuperType-self--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                TypeRef_translucentSuperType
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#TypeRef">TypeRef</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-TypeRef_translucentSuperType-self--ctx-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-TypeRef_translucentSuperType-self--ctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -56617,119 +55423,6 @@ or instantiated type variable.</p>
 
                 
                 
-                <div id="Type_isContextFunctionType(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-Type_isContextFunctionType-self--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                Type_isContextFunctionType
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Boolean</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-Type_isContextFunctionType-self--ctx-">
-                        
-                            <p>Is this type an context function type?</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-Type_isContextFunctionType-self--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Is this type an context function type?</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
                 <div id="Type_isDependentFunctionType(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-Type_isDependentFunctionType-self--ctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -57054,6 +55747,119 @@ or instantiated type variable.</p>
                             <span class="doc-key">Result</span>
                             <span class="doc-value"><p>true if the dealised type of <code>self</code> without refinement is <code>FunctionN[T1, T2, ..., Tn]</code></p>
 </span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="Type_isImplicitFunctionType(self)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-Type_isImplicitFunctionType-self--ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                Type_isImplicitFunctionType
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            self:
+                                            
+                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Boolean</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-Type_isImplicitFunctionType-self--ctx-">
+                        
+                            <p>Is this type an implicit function type?</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-Type_isImplicitFunctionType-self--ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Is this type an implicit function type?</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
                         {/% endif %}
                         {/% endcomment %}
                         -->
@@ -68172,124 +66978,6 @@ Otherwise apply the arguments to the closure.</p>
 
                 
                 
-                <div id="lambdaExtractor(term,paramTypes)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-lambdaExtractor-term_paramTypes--ctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                lambdaExtractor
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            term:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Term">Term</a>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            paramTypes:
-                                            
-                                            List<span class="type-params">[<a href="/api/scala/tasty/reflect/CompilerInterface.html#Type">Type</a>]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            ctx:
-                                            
-                                            <a href="/api/scala/tasty/reflect/CompilerInterface.html#Context">Context</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Option<span class="type-params">[List<span class="type-params">[<a href="/api/scala/tasty/reflect/CompilerInterface.html#Term">Term</a>]</span><span class="right-arrow"> =&gt; </span><a href="/api/scala/tasty/reflect/CompilerInterface.html#Term">Term</a>]</span></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-lambdaExtractor-term_paramTypes--ctx-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-lambdaExtractor-term_paramTypes--ctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
                 <div id="matchConstant(constant)" class="member def public " data-toggle="collapse" data-target=".collapse-matchConstant-constant-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -68878,7 +67566,7 @@ Return an <code>ImplicitSearchResult</code>.</p>
                                         <span class="param">
                                             args:
                                             
-                                            <a href="/api/scala/internal/quoted/Unpickler$.html#PickledArgs">PickledArgs</a>
+                                            <a href="/api/scala/internal/quoted/Unpickler$.html#PickledExprArgs">PickledExprArgs</a>
                                         </span>
                                         
                                     
@@ -68985,7 +67673,7 @@ replacing splice nodes with <code>args</code></p>
                                         <span class="param">
                                             args:
                                             
-                                            <a href="/api/scala/internal/quoted/Unpickler$.html#PickledArgs">PickledArgs</a>
+                                            <a href="/api/scala/internal/quoted/Unpickler$.html#PickledTypeArgs">PickledTypeArgs</a>
                                         </span>
                                         
                                     
