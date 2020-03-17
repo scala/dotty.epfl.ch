@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.22.0</h2>
+                    <h2>0.23.0-RC1</h2>
                 </div>
             </a>
         </div>
@@ -111,17 +111,17 @@
   <a onclick='toggleSection(this);'>Contextual Abstractions</a>
   <ul class="toggled">
     <li class="leaf"><a href="/docs/reference/contextual/motivation.html" >Overview</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/delegates.html" >Given Instances</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/given-clauses.html" >Given Clauses</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/import-delegate.html" >Given Imports</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" class="toggled">Extension Methods</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-function-types.html" >Implicit Function Types</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/implicit-by-name-parameters.html" >Implicit By-Name Parameters</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
   </ul>
 </li>
@@ -153,6 +153,7 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
+<li class="leaf"><a href="/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
   </ul>
 </li>
 
@@ -718,6 +719,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor class" href="/api/scala/annotation/internal/ContextResultCount.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/annotation/internal/ContextResultCount.html">ContextResultCount</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor class" href="/api/scala/annotation/internal/InlineParam.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/annotation/internal/InlineParam.html">InlineParam</a>
@@ -1117,6 +1130,30 @@
                         
                             
 
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Const$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/Const$.html">Const</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Consts$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/Consts$.html">Consts</a>
+                            </li>
+                            
+
+                        
+                            
+
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1130,6 +1167,18 @@
 
                         
                              <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Lambda$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/Lambda$.html">Lambda</a>
+                            </li>
                             
 
                         
@@ -1214,11 +1263,11 @@
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/ValueOfExpr$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Unliftable$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/ValueOfExpr.html">T</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/Unliftable.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/ValueOfExpr.html">ValueOfExpr</a>
+                                <a class="entity-name" href="/api/scala/quoted/Unliftable.html">Unliftable</a>
                             </li>
                             
 
@@ -1228,9 +1277,21 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/autolift$.html">O</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Unlifted$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/autolift$.html">autolift</a>
+                                <a class="entity-name" href="/api/scala/quoted/Unlifted$.html">Unlifted</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
                             </li>
                             
 
@@ -1252,63 +1313,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Const$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/matching/Const$.html">Const</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor object" href="/api/scala/quoted/matching/ConstSeq$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/ExprSeq$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/matching/ExprSeq$.html">ExprSeq</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Sym$.html">O</a>
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/quoted/matching/Sym.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/matching/Sym.html">Sym</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/Value$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/matching/Value$.html">Value</a>
                             </li>
                             
 
@@ -1489,6 +1496,18 @@
                         
                             
 
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/runtime/Tuple$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/runtime/Tuple$.html">Tuple</a>
+                            </li>
+                            
+
+                        
+                            
+
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1597,6 +1616,42 @@
                                     <a class="letter-anchor class" href="/api/scala/tasty/reflect/SourceCodePrinter.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/tasty/reflect/SourceCodePrinter.html">SourceCodePrinter</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/TreeTraverser.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
                             </li>
                             
 
@@ -1729,12 +1784,10 @@
             </a>
         </div>
     </header>
-    <p><strong>Note:</strong> The syntax of extension methods is about to change. Here is the
-<a href="./extension-methods-new.html">doc page with the new syntax</a>, supported from Dotty 0.22 onwards.</p>
-<p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
+    <p>Extension methods allow one to add methods to a type after the type is defined. Example:</p>
 <pre><code class="scala">case class Circle(x: Double, y: Double, radius: Double)
 
-def (c: Circle) circumference: Double = c.radius * math.Pi * 2
+def (c: Circle).circumference: Double = c.radius * math.Pi * 2
 </code></pre>
 <p>Like regular methods, extension methods can be invoked with infix <code>.</code>:</p>
 <pre><code class="scala">val circle = Circle(0, 0, 1)
@@ -1780,8 +1833,8 @@ List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestS
 and where <code>T</code> is the expected type. The following two rewritings are tried in order:</p>
 <ol>
 <li>The selection is rewritten to <code>m[Ts](e)</code>.</li>
-<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is a given <code>g</code>
-in either the current scope or in the context scope of <code>T</code> such that <code>g</code> defines an extension
+<li>If the first rewriting does not typecheck with expected type <code>T</code>, and there is a given instance <code>g</code>
+in either the current scope or in the context scope of <code>T</code>, and <code>g</code> defines an extension
 method named <code>m</code>, then selection is expanded to <code>g.m[Ts](e)</code>.
 This second rewriting is attempted at the time where the compiler also tries an implicit conversion
 from <code>T</code> to a type containing <code>m</code>. If there is more than one way of rewriting, an ambiguity error results.</li>
@@ -1790,8 +1843,7 @@ from <code>T</code> to a type containing <code>m</code>. If there is more than o
 <code>circle</code> has type <code>Circle</code> and <code>CircleOps</code> is given (i.e. it is visible at the point of call or it is defined in the companion object of <code>Circle</code>).</p>
 <h3><a href="#operators" id="operators" class="anchor"></a>Operators</h3>
 <p>The extension method syntax also applies to the definition of operators.
-In this case it is allowed and preferable to omit the period between the leading parameter list
-and the operator. In each case the definition syntax mirrors the way the operator is applied.
+This case is indicated by omitting the period between the leading parameter list and the operator. In each case the definition syntax mirrors the way the operator is applied.
 Examples:</p>
 <pre><code class="scala">def (x: String) &lt; (y: String) = ...
 def (x: Elem) +: (xs: Seq[Elem]) = ...
@@ -1801,6 +1853,7 @@ def (x: Number) min (y: Number) = ...
 1 +: List(2, 3)
 x min 3
 </code></pre>
+<p>For alphanumeric extension operators like <code>min</code> an <code>@infix</code> annotation is implied.</p>
 <p>The three definitions above translate to</p>
 <pre><code class="scala">def &lt; (x: String)(y: String) = ...
 def +: (xs: Seq[Elem])(x: Elem) = ...
@@ -1823,53 +1876,119 @@ def [T: Numeric](x: T) + (y: T): T =
 <p>If an extension method has type parameters, they come immediately after the <code>def</code> and are followed by the extended parameter. When calling a  generic extension method, any explicitly given type arguments follow the method name. So the <code>second</code> method can be instantiated as follows:</p>
 <pre><code class="scala">List(1, 2, 3).second[Int]
 </code></pre>
-<h3><a href="#collective-extensions" id="collective-extensions" class="anchor"></a>Collective Extensions</h3>
-<p>A collective extension defines one or more concrete methods that have the same type parameters
-and prefix parameter. Examples:</p>
-<pre><code class="scala">extension stringOps on (xs: Seq[String]) {
-  def longestStrings: Seq[String] = {
+<h3><a href="#extension-instances" id="extension-instances" class="anchor"></a>Extension Instances</h3>
+<p>It is quite common to wrap one or more extension methods in a given instance,
+in order to make them available as methods without needing to be imported explicitly.
+This pattern is supported by a special <code>extension</code> syntax. Example:</p>
+<pre><code class="scala">extension ops {
+  def (xs: Seq[String]).longestStrings: Seq[String] = {
     val maxLength = xs.map(_.length).max
     xs.filter(_.length == maxLength)
   }
+  def (xs: Seq[String]).longestString: String = xs.longestStrings.head
+  def [T](xs: List[T]).second: T = xs.tail.head
+}
+</code></pre>
+<p>An extension instance can only contain extension methods. Other definitions are not allowed. The name <code>ops</code>
+of the extension is optional. It can be left out:</p>
+<pre><code class="scala">extension {
+  def (xs: Seq[String]).longestStrings: Seq[String] = ...
+  def [T](xs: List[T]).second: T = ...
+}
+</code></pre>
+<p>If the name of an extension is not explicitly given, it is synthesized from the name and type of the first implemented extension method.</p>
+<p>Extension instances map directly to given instances. The <code>ops</code> extension above
+would expand to</p>
+<pre><code class="scala">given ops as AnyRef {
+  def (xs: Seq[String]).longestStrings: Seq[String] = ...
+  def (xs: Seq[String]).longestString: String = ...
+  def [T](xs: List[T]).second: T = ...
+}
+</code></pre>
+<p>The type &quot;implemented&quot; by this given instance is <code>AnyRef</code>, which
+is not a type one can summon by itself. This means that the instance can
+only be used for its extension methods.</p>
+<h3><a href="#collective-extensions" id="collective-extensions" class="anchor"></a>Collective Extensions</h3>
+<p>Sometimes, one wants to define several extension methods that share the same
+left-hand parameter type. In this case one can &quot;pull out&quot; the common parameters into the extension instance itself. Examples:</p>
+<pre><code class="scala">extension stringOps on (ss: Seq[String]) {
+  def longestStrings: Seq[String] = {
+    val maxLength = ss.map(_.length).max
+    ss.filter(_.length == maxLength)
+  }
+  def longestString: String = longestStrings.head
 }
 
 extension listOps on [T](xs: List[T]) {
-  def second = xs.tail.head
-  def third: T = xs.tail.tail.head
+  def second: T = xs.tail.head
+  def third: T = xs.tail.second
 }
 
 extension on [T](xs: List[T])(using Ordering[T]) {
   def largest(n: Int) = xs.sorted.takeRight(n)
 }
 </code></pre>
-<p>If an extension is anonymous (as in the last clause), its name is synthesized from the name of the first defined extension method.</p>
-<p>The extensions above are equivalent to the following regular given instances where the implemented parent is <code>AnyRef</code> and the leading parameters are repeated in each extension method definition:</p>
-<pre><code class="scala">given stringOps as AnyRef {
-  def (xs: Seq[String]).longestStrings: Seq[String] = {
-    val maxLength = xs.map(_.length).max
-    xs.filter(_.length == maxLength)
+<p><strong>Note</strong>: If a collective extension defines type parameters in its prefix
+(as the <code>listOps</code> extension above does), the extension methods themselves are not
+allowed to have additional type parameters. This restriction might be lifted in the
+future once we support multiple type parameter clauses in a method.</p>
+<p>Collective extensions like these are a shorthand for extension instances where
+the parameters following the <code>on</code> are repeated for each implemented method.
+For instance, the collective extensions above expand to the following extension instances:</p>
+<pre><code class="scala">extension stringOps {
+  def (ss: Seq[String]).longestStrings: Seq[String] = {
+    val maxLength = ss.map(_.length).max
+    ss.filter(_.length == maxLength)
   }
+  def (ss: Seq[String]).longestString: String =
+    ss.longestStrings.head
 }
-given listOps as AnyRef {
-  def [T](xs: List[T]).second = xs.tail.head
-  def [T](xs: List[T]).third: T = xs.tail.tail.head
+extension listOps {
+  def [T](xs: List[T]).second: T = xs.tail.head
+  def [T](xs: List[T]).third: T = xs.tail.second
 }
-given extension_largest_List_T as AnyRef {
+extension {
   def [T](xs: List[T]).largest(using Ordering[T])(n: Int) =
     xs.sorted.takeRight(n)
 }
 </code></pre>
+<p>One special tweak is shown in the <code>longestString</code> method of the <code>stringOps</code> extension. It's original definition was</p>
+<pre><code class="scala">def longestString: String = longestStrings.head
+</code></pre>
+<p>This uses <code>longestStrings</code> as an implicit extension method call on the joint
+parameter <code>ss</code>. The usage is made explicit when translating the method:</p>
+<pre><code class="scala">def (ss: Seq[String]).longestString: String =
+  ss.longestStrings.head
+</code></pre>
+<p>By contrast, the meaning of <code>this</code> in a collective extension is as usual
+a reference to the enclosing object (i.e. the one implementing the extension methods).
+It's not a reference to the shared parameter. So this means that the following
+implementation of <code>longestString</code> would be illegal:</p>
+<pre><code class="scala">def longestString: String = this.longestStrings.head   // error: missing parameter
+</code></pre>
+<p>But the following version would again be correct, since it calls the <code>longestString</code>
+method as a regular non-extension method, passing the prefix parameter <code>ss</code> as a regular parameter:</p>
+<pre><code class="scala">def longestString: String = this.longestStrings(ss).head
+</code></pre>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
 <p>Here are the syntax changes for extension methods and collective extensions relative
-to the <a href="../../internals/syntax.html">current syntax</a>. <code>extension</code> is a soft keyword, recognized only
-in tandem with <code>on</code>. It can be used as an identifier everywhere else.</p>
+to the <a href="../../internals/syntax.html">current syntax</a>.</p>
 <pre><code class="nohighlight">DefSig            ::=  ...
                     |  ExtParamClause [nl] [‘.’] id DefParamClauses
 ExtParamClause    ::=  [DefTypeParamClause] ‘(’ DefParam ‘)’
 TmplDef           ::=  ...
                     |  ‘extension’ ExtensionDef
-ExtensionDef      ::=  [id] ‘on’ ExtParamClause {GivenParamClause} ‘with’ ExtMethods
-ExtMethods        ::=  ‘{’ ‘def’ DefDef {semi ‘def’ DefDef} ‘}’
+ExtensionDef      ::=  [id] [‘on’ ExtParamClause {GivenParamClause}] TemplateBody
+</code></pre>
+<p>The template body of an extension must consist only of extension method definitions for a regular
+extension instance, and only of normal method definitions for a collective extension instance.
+It must not be empty.</p>
+<p><code>extension</code> and <code>on</code> are soft keywords, recognized only when they appear at the start of a
+statement in one of the patterns</p>
+<pre><code class="scala">extension on ...
+extension &lt;ident&gt; on ...
+extension { ...
+extension &lt;ident&gt; { ...
 </code></pre>
 
 </main>
