@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-19 -->
+<!-- This page was last generated on 2020-04-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1796,7 +1797,7 @@ evidence which only exists for <code>IsOff[Off]</code>. For example, not allowin
 final class On extends State
 final class Off extends State
 
-@implicitNotFound(&quot;State is must be Off&quot;)
+@implicitNotFound(&quot;State must be Off&quot;)
 class IsOff[S &lt;: State]
 object IsOff {
   implicit def isOff: IsOff[Off] = new IsOff[Off]
@@ -1810,7 +1811,7 @@ val m = new Machine[Off]
 m.turnedOn
 m.turnedOn.turnedOn // ERROR
 //                 ^
-//                  State is must be Off
+//                  State must be Off
 </code></pre>
 <p>Note that in the code above the actual context arguments for <code>IsOff</code> are never
 used at runtime; they serve only to establish the right constraints at compile
@@ -1876,14 +1877,14 @@ sealed trait State
 final class On extends State
 final class Off extends State
 
-@implicitNotFound(&quot;State is must be Off&quot;)
+@implicitNotFound(&quot;State must be Off&quot;)
 class IsOff[S &lt;: State]
 object IsOff {
   // will not be called at runtime for turnedOn, the compiler will only require that this evidence exists
   given IsOff[Off] = new IsOff[Off]
 }
 
-@implicitNotFound(&quot;State is must be On&quot;)
+@implicitNotFound(&quot;State must be On&quot;)
 class IsOn[S &lt;: State]
 object IsOn {
   // will not exist at runtime, the compiler will only require that this evidence exists at compile time
@@ -1908,11 +1909,11 @@ object Test {
 
     // m.turnedOff
     //            ^
-    //            State is must be On
+    //            State must be On
 
     // m.turnedOn.turnedOn
     //                    ^
-    //                    State is must be Off
+    //                    State must be Off
   }
 }
 </code></pre>
@@ -1926,11 +1927,11 @@ final class On extends State
 final class Off extends State
 
 class Machine[S &lt;: State] {
-  inline def turnOn() &lt;: Machine[On] = inline erasedValue[S] match {
+  transparent inline def turnOn(): Machine[On] = inline erasedValue[S] match {
     case _: Off  =&gt; new Machine[On]
     case _: On   =&gt; error(&quot;Turning on an already turned on machine&quot;)
   }
-  inline def turnOff() &lt;: Machine[Off] = inline erasedValue[S] match {
+  transparent inline def turnOff(): Machine[Off] = inline erasedValue[S] match {
     case _: On  =&gt; new Machine[Off]
     case _: Off   =&gt; error(&quot;Turning off an already turned off machine&quot;)
   }

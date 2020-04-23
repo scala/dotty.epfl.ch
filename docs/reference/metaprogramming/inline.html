@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-19 -->
+<!-- This page was last generated on 2020-04-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1898,6 +1899,45 @@ funkyAssertEquals(computeActual(), computeExpected(), computeDelta())
 //    if (actual - expected).abs &gt; computeDelta() then
 //      throw new AssertionError(s&quot;difference between ${expected} and ${actual} was larger than ${computeDelta()}&quot;)
 </code></pre>
+<h3><a href="#rules-for-overriding" id="rules-for-overriding" class="anchor"></a>Rules for Overriding</h3>
+<p>Inline methods can override other non-inline methods. The rules are as follows:</p>
+<ol>
+<li>If an inline method <code>f</code> implements or overrides another, non-inline method, the inline method can also be invoked at runtime. For instance, consider the scenario:</li>
+</ol>
+<pre><code class="scala">abstract class A {
+  def f(): Int
+  def g(): Int = f()
+}
+class B extends A {
+  inline def f() = 22
+  override inline def g() = f() + 11
+}
+val b = B()
+val a: A = b
+// inlined invocatons
+assert(b.f() == 22)
+assert(b.g() == 33)
+// dynamic invocations
+assert(a.f() == 22)
+assert(a.g() == 33)
+</code></pre>
+<p>The inlined invocations and the dynamically dispatched invocations give the same results.</p>
+<ol>
+<li>
+<p>Inline methods are effectively final.</p>
+</li>
+<li>Inline methods can also be abstract. An abstract inline method can be implemented only by other inline methods. It cannot be invoked directly:</li>
+</ol>
+<pre><code class="scala">abstract class A {
+  inline def f(): Int
+}
+object B extends A {
+  inline def f(): Int = 22
+}
+B.f()         // OK
+val a: A = B
+a.f()         // error: cannot inline f() in A.
+</code></pre>
 <h3><a href="#relationship-to-inline" id="relationship-to-inline" class="anchor"></a>Relationship to @inline</h3>
 <p>Scala also defines a <code>@inline</code> annotation which is used as a hint
 for the backend to inline. The <code>inline</code> modifier is a more powerful
@@ -1938,41 +1978,36 @@ constant expressions in the sense defined by the <a href="https://www.scala-lang
 6.24</a>,
 including <em>platform-specific</em> extensions such as constant folding of pure
 numeric computations.</p>
-<h2><a href="#specializing-inline-whitebox" id="specializing-inline-whitebox" class="anchor"></a>Specializing Inline (Whitebox)</h2>
-<p>Inline methods support the <code>&lt;: T</code> return type syntax. This means that the return type
-of the inline method is going to be specialized to a more precise type upon
-expansion. Example:</p>
+<h2><a href="#transparent-inline-methods" id="transparent-inline-methods" class="anchor"></a>Transparent Inline Methods</h2>
+<p>Inline methods can additionally be declared <code>transparent</code>.
+This means that the return type of the inline method can be
+specialized to a more precise type upon expansion. Example:</p>
 <pre><code class="scala">class A
 class B extends A {
-  def meth() = true
+  def m() = true
 }
 
-inline def choose(b: Boolean) &lt;: A = {
-  if (b) new A()
-  else new B()
-}
+transparent inline def choose(b: Boolean): A =
+  if b then A() else B
 
 val obj1 = choose(true)  // static type is A
 val obj2 = choose(false) // static type is B
 
-// obj1.meth() // compile-time error: `meth` is not defined on `A`
-obj2.meth()    // OK
+// obj1.m() // compile-time error: `m` is not defined on `A`
+obj2.m()    // OK
 </code></pre>
-<p>Here, the inline method <code>choose</code> returns an object of either of the two dynamic types
-<code>A</code> and <code>B</code>. If <code>choose</code> had been declared with a normal return type <code>: A</code>, the result
-of its expansion would always be of type <code>A</code>, even though the computed value might be
-of type <code>B</code>. The inline method is a &quot;blackbox&quot; in the sense that details of its
-implementation do not leak out. But with the specializing return type <code>&lt;: A</code>,
-the type of the expansion is the type of the expanded body. If the argument <code>b</code>
+<p>Here, the inline method <code>choose</code> returns an object of either of the two types <code>A</code> and <code>B</code>. If <code>choose</code> had been declared with a normal return type <code>: A</code>, the result
+of its expansion would always be of type <code>A</code>, even though the computed value might be of the subtype <code>B</code>. The inline method is a &quot;blackbox&quot; in the sense that details of its implementation do not leak out. But if a <code>transparent</code> modifier is given,
+the expansion is the type of the expanded body. If the argument <code>b</code>
 is <code>true</code>, that type is <code>A</code>, otherwise it is <code>B</code>. Consequently, calling <code>meth</code> on <code>obj2</code>
 type-checks since <code>obj2</code> has the same type as the expansion of <code>choose(false)</code>, which is <code>B</code>.
-Inline methods with specializing return types are a &quot;whitebox&quot; in the sense that the type
+Transparent inline methods are &quot;whitebox&quot; in the sense that the type
 of an application of such a method can be more specialized than its declared
 return type, depending on how the method expands.</p>
 <p>In the following example, we see how the return type of <code>zero</code> is specialized to
 the singleton type <code>0</code> permitting the addition to be ascribed with the correct
 type <code>1</code>.</p>
-<pre><code class="scala">inline def zero() &lt;: Int = 0
+<pre><code class="scala">transparent inline def zero(): Int = 0
 
 val one: 1 = zero() + 1
 </code></pre>
@@ -2005,7 +2040,7 @@ type of the result is taken. If not, a compile-time error is raised that
 reports that the match cannot be reduced.</p>
 <p>The example below defines an inline method with a
 single inline match expression that picks a case based on its static type:</p>
-<pre><code class="scala">inline def g(x: Any) &lt;: Any = inline x match {
+<pre><code class="scala">transparent inline def g(x: Any): Any = inline x match {
   case x: String =&gt; (x, x) // Tuple2[String, String](x, x)
   case x: Double =&gt; x
 }
@@ -2014,8 +2049,7 @@ g(1.0d) // Has type 1.0d which is a subtype of Double
 g(&quot;test&quot;) // Has type (String, String)
 </code></pre>
 <p>The scrutinee <code>x</code> is examined statically and the inline match is reduced
-accordingly returning the corresponding value (with the type specialized due to
-the <code>&lt;:</code> in the return type). This example performs a simple type test over the
+accordingly returning the corresponding value (with the type specialized because <code>g</code> is declared <code>transparent</code>). This example performs a simple type test over the
 scrutinee. The type can have a richer structure like the simple ADT below.
 <code>toInt</code> matches the structure of a number in <a href="https://en.wikipedia.org/wiki/Church_encoding">Church-encoding</a>
 and <em>computes</em> the corresponding integer.</p>
@@ -2023,7 +2057,7 @@ and <em>computes</em> the corresponding integer.</p>
 case object Zero extends Nat
 case class Succ[N &lt;: Nat](n: N) extends Nat
 
-inline def toInt(n: Nat) &lt;: Int = inline n match {
+transparent inline def toInt(n: Nat): Int = inline n match {
   case Zero =&gt; 0
   case Succ(n1) =&gt; toInt(n1) + 1
 }
@@ -2039,7 +2073,7 @@ val intTwo: 2 = natTwo
 type.</p>
 <pre><code class="scala">import scala.compiletime.{constValue, S}
 
-inline def toIntC[N] &lt;: Int =
+transparent inline def toIntC[N]: Int =
   inline constValue[N] match {
     case 0 =&gt; 0
     case _: S[n1] =&gt; 1 + toIntC[n1]
@@ -2091,10 +2125,11 @@ given a <em>type</em> representing a Peano number,
 return the integer <em>value</em> corresponding to it.
 Consider the definitions of numbers as in the <em>Inline
 Match</em> section above. Here is how <code>toIntT</code> can be defined:</p>
-<pre><code class="scala">inline def toIntT[N &lt;: Nat] &lt;: Int = inline scala.compiletime.erasedValue[N] match {
-  case _: Zero.type =&gt; 0
-  case _: Succ[n] =&gt; toIntT[n] + 1
-}
+<pre><code class="scala">transparent inline def toIntT[N &lt;: Nat]: Int =
+  inline scala.compiletime.erasedValue[N] match {
+    case _: Zero.type =&gt; 0
+    case _: Succ[n] =&gt; toIntT[n] + 1
+  }
 
 final val two = toIntT[Succ[Succ[Zero.type]]]
 </code></pre>
@@ -2222,7 +2257,7 @@ inline def f: Any = summonFrom {
 </code></pre>
 <h2><a href="#summoninline" id="summoninline" class="anchor"></a><code>summonInline</code></h2>
 <p>The shorthand <code>summonInline</code> provides a simple way to write a <code>summon</code> that is delayed until the call is inlined.</p>
-<pre><code class="scala">inline def summonInline[T] &lt;: T = summonFrom {
+<pre><code class="scala">transparent inline def summonInline[T]: T = summonFrom {
   case t: T =&gt; t
 }
 </code></pre>

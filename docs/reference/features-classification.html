@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1837,7 +1838,7 @@ the cases where creator applications cannot be used.</li>
 <li><a href="https://github.com/lampepfl/dotty/pull/5975">@infix and @alpha</a>
 make method application syntax uniform across code bases and require alphanumeric aliases for all symbolic names (proposed, not implemented).</li>
 </ul>
-<p>Unrestricted implicit conversions continue to be available in Scala 3.0, but will be deprecated and removed later. Unrestricted versions of the other constructs in the list above are available only under <code>-language:Scala2Compat</code>.</p>
+<p>Unrestricted implicit conversions continue to be available in Scala 3.0, but will be deprecated and removed later. Unrestricted versions of the other constructs in the list above are available only under <code>-source 3.0-migration</code>.</p>
 <p><strong>Status: now or never</strong></p>
 <p>These are essential restrictions. If we decide to adopt them, we should do it for 3.0. Otherwise we are faced with the awkward situation that the Scala 3 documentation has to describe a feature that will be restricted in the future.</p>
 <p><strong>Migration cost: low to high</strong></p>
@@ -1867,7 +1868,7 @@ make method application syntax uniform across code bases and require alphanumeri
 <li>DelayedInit, existential types, weak conformance.</li>
 </ul>
 </li>
-<li>Supported under <code>-language:Scala2Compat</code>:
+<li>Supported under <code>-source 3.0-migration</code>:
 <ul>
 <li>procedure syntax, class shadowing, symbol literals, auto application, auto tupling in a restricted form.</li>
 </ul>
@@ -1892,7 +1893,7 @@ and sometimes need to be manual (e.g. class shadowing, auto tupling). Sometimes 
 <li><a href="changed-features/eta-expansion.html">Eta expansion</a> is now performed universally also in the absence of an expected type. The postfix <code>_</code> operator is thus made redundant. It will be deprecated and dropped after Scala 3.0.</li>
 <li><a href="changed-features/implicit-resolution.html">Implicit Resolution</a>: The implicit resolution rules have been cleaned up to make them more useful and less surprising. Implicit scope is restricted to no longer include package prefixes.</li>
 </ul>
-<p>Most aspects of old-style implicit resolution are still available under <code>-language:Scala2Compat</code>. The other changes in this list are applied unconditionally.</p>
+<p>Most aspects of old-style implicit resolution are still available under <code>-source 3.0-migration</code>. The other changes in this list are applied unconditionally.</p>
 <p><strong>Status: strongly advisable</strong></p>
 <p>The features have been implemented in their new form in Scala 3.0's compiler. They provide clear improvements in simplicity and functionality compared to the status quo. Going back would require significant implementation effort for a net loss of functionality.</p>
 <p><strong>Migration cost: low to high</strong></p>

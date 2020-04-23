@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-19 -->
+<!-- This page was last generated on 2020-04-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/0.24.0-bin-SNAPSHOT/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/0.24.0-bin-SNAPSHOT/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/0.24.0-bin-SNAPSHOT/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/0.24.0-bin-SNAPSHOT/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/0.24.0-bin-SNAPSHOT/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/0.24.0-bin-SNAPSHOT/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1795,19 +1796,19 @@ at the top-level. They cannot be defined in local blocks.</p>
 <p>The general form of a (monomorphic) opaque type alias is</p>
 <pre><code class="scala">opaque type T &gt;: L &lt;: U = R
 </code></pre>
-<p>where the lower bound <code>L</code> and the upper bound <code>U</code> may be missing, in which case they are assumed to be <code>scala.Nothing</code> and <code>scala.Any</code>, respectively. If bounds are given, it is checked that the right hand side <code>R</code> conforms to them, i.e. <code>L &lt;: R</code> and <code>R &lt;: U</code>. F-bounds are not supported for opaque types: <code>T</code> is not allowed to appear in <code>L</code> or <code>U</code>.</p>
+<p>where the lower bound <code>L</code> and the upper bound <code>U</code> may be missing, in which case they are assumed to be <code>scala.Nothing</code> and <code>scala.Any</code>, respectively. If bounds are given, it is checked that the right hand side <code>R</code> conforms to them, i.e. <code>L &lt;: R</code> and <code>R &lt;: U</code>. F-bounds are not supported for opaque type aliases: <code>T</code> is not allowed to appear in <code>L</code> or <code>U</code>.</p>
 <p>Inside the scope of the alias definition, the alias is transparent: <code>T</code> is treated
 as a normal alias of <code>R</code>. Outside its scope, the alias is treated as the abstract type</p>
 <pre><code class="scala">type T &gt;: L &lt;: U
 </code></pre>
-<p>A special case arises if the opaque type is defined in an object. Example:</p>
+<p>A special case arises if the opaque type alias is defined in an object. Example:</p>
 <pre><code class="nohighlight">object o {
   opaque type T = R
 }
 </code></pre>
 <p>In this case we have inside the object (also for non-opaque types) that <code>o.T</code> is equal to
 <code>T</code> or its expanded form <code>o.this.T</code>. Equality is understood here as mutual subtyping, i.e.
-<code>o.T &lt;: o.this.T</code> and <code>o.this.T &lt;: T</code>. Furthermore, we have by the rules of opaque types
+<code>o.T &lt;: o.this.T</code> and <code>o.this.T &lt;: T</code>. Furthermore, we have by the rules of opaque type aliases
 that <code>o.this.T</code> equals <code>R</code>. The two equalities compose. That is, inside <code>o</code>, it is
 also known that <code>o.T</code> is equal to <code>R</code>. This means the following code type-checks:</p>
 <pre><code class="scala">object o {
@@ -1817,7 +1818,7 @@ also known that <code>o.T</code> is equal to <code>R</code>. This means the foll
 def id(x: o.T): o.T = x
 </code></pre>
 <h3><a href="#toplevel-opaque-types" id="toplevel-opaque-types" class="anchor"></a>Toplevel Opaque Types</h3>
-<p>An opaque type on the toplevel is transparent in all other toplevel definitions in the sourcefile where it appears, but is opaque in nested
+<p>An opaque type alias on the toplevel is transparent in all other toplevel definitions in the sourcefile where it appears, but is opaque in nested
 objects and classes and in all other source files. Example:</p>
 <pre><code class="scala">// in test1.scala
 opaque type A = String
@@ -1836,10 +1837,10 @@ def z: String = x   // error: found: A, required: String
   val x: A = &quot;abc&quot;
 }
 object obj {
-  val y: A = &quot;abc&quot;  // error: cannot assign &quot;abc&quot; to opaque type A
+  val y: A = &quot;abc&quot;  // error: cannot assign &quot;abc&quot; to opaque type alias A
 }
 </code></pre>
-<p>The opaque type <code>A</code> is transparent in its scope, which includes the definition of <code>x</code>, but not the definitions of <code>obj</code> and <code>y</code>.</p>
+<p>The opaque type alias <code>A</code> is transparent in its scope, which includes the definition of <code>x</code>, but not the definitions of <code>obj</code> and <code>y</code>.</p>
 <h3><a href="#relationship-to-sip-35" id="relationship-to-sip-35" class="anchor"></a>Relationship to SIP 35</h3>
 <p>Opaque types in Dotty are an evolution from what is described in
 <a href="https://docs.scala-lang.org/sips/opaque-types.html">Scala SIP 35</a>.</p>

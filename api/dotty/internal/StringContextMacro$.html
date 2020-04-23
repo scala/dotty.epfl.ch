@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-19 -->
+<!-- This page was last generated on 2020-04-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1835,6 +1836,87 @@
 
                 
                 
+                <div id="Reporter" class="member trait public " data-toggle="collapse" data-target=".collapse-Reporter">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">trait&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                <a href="/api/dotty/internal/StringContextMacro$/Reporter.html">Reporter</a>
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-Reporter">
+                        
+                            <p>This trait defines a tool to report errors/warnings that do not depend on Position.</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-Reporter">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>This trait defines a tool to report errors/warnings that do not depend on Position.</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
                 <div id="f(sc)(args)" class="member def public " data-toggle="collapse" data-target=".collapse-f-sc--args-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -1930,6 +2012,262 @@
                         {/% if c.result %}
                             <span class="doc-key">Result</span>
                             <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="interpolate(strCtxExpr,argsExpr)(qctx)" class="member def non-public " data-toggle="collapse" data-target=".collapse-interpolate-strCtxExpr_argsExpr--qctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            private
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                interpolate
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            strCtxExpr:
+                                            
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[StringContext]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            argsExpr:
+                                            
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Seq<span class="type-params">[Any]</span>]</span>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            qctx:
+                                            
+                                            <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[String]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-interpolate-strCtxExpr_argsExpr--qctx-">
+                        
+                            <p>Interpolates the arguments to the formatting String given inside a StringContext</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-interpolate-strCtxExpr_argsExpr--qctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Interpolates the arguments to the formatting String given inside a StringContext</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"><p>the Expr containing the formatted and interpolated String or an error/warning if the parameters are not correct</p>
+</span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="interpolate(parts0,args,argsExpr,reporter)(qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-interpolate-parts0_args_argsExpr_reporter--qctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                interpolate
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            parts0:
+                                            
+                                            List<span class="type-params">[String]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            args:
+                                            
+                                            Seq<span class="type-params">[<a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Any]</span>]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            argsExpr:
+                                            
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Seq<span class="type-params">[Any]</span>]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            reporter:
+                                            
+                                            <a href="/api/dotty/internal/StringContextMacro$/Reporter.html">Reporter</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            qctx:
+                                            
+                                            <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[String]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-interpolate-parts0_args_argsExpr_reporter--qctx-">
+                        
+                            <p>Helper function for the interpolate function above</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-interpolate-parts0_args_argsExpr_reporter--qctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Helper function for the interpolate function above</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"><p>the Expr containing the formatted and interpolated String or an error/warning report if the parameters are not correct</p>
+</span>
                         {/% endif %}
                         {/% endcomment %}
                         -->

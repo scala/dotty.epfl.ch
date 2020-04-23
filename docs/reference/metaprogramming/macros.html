@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-19 -->
+<!-- This page was last generated on 2020-04-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -2276,7 +2277,7 @@ def setForExpr[T: Type](using QuoteContext): Expr[Set[T]] = {
 <p><a href="./inline.html">Inline</a> documents inlining. The code below introduces a whitebox
 inline method that can calculate either a value of type <code>Int</code> or a value of type
 <code>String</code>.</p>
-<pre><code class="scala">inline def defaultOf(inline str: String) &lt;: Any = ${ defaultOfImpl('str) }
+<pre><code class="scala">transparent inline def defaultOf(inline str: String) = ${ defaultOfImpl('str) }
 
 def defaultOfImpl(strExpr: Expr[String])(using QuoteContext): Expr[Any] =
   strExpr.unliftOrError match

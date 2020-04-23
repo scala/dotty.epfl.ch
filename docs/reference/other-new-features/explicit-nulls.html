@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-19 -->
+<!-- This page was last generated on 2020-04-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1792,16 +1793,16 @@
 <p>Instead, to mark a type as nullable we use a <a href="https://dotty.epfl.ch/docs/reference/new-types/union-types.html">type union</a></p>
 <pre><code class="nohighlight">val x: String|Null = null // ok
 </code></pre>
-<p>Explicit nulls are enabled via a <code>-Yexplicit-nulls</code> flag, so they're an opt-in feature.</p>
+<p>Explicit nulls are enabled via a <code>-Yexplicit-nulls</code> flag.</p>
 <p>Read on for details.</p>
 <h2><a href="#new-type-hierarchy" id="new-type-hierarchy" class="anchor"></a>New Type Hierarchy</h2>
-<p>When explicit nulls are enabled, the type hierarchy changes so that <code>Null</code> is subtype only of
+<p>When explicit nulls are enabled, the type hierarchy changes so that <code>Null</code> is only a subtype of
 <code>Any</code>, as opposed to every reference type.</p>
 <p>This is the new type hierarchy:
 <img src="../../../images/explicit-nulls/explicit-nulls-type-hierarchy.png" alt="" title="Type Hierarchy for Explicit Nulls" /></p>
 <p>After erasure, <code>Null</code> remains a subtype of all reference types (as forced by the JVM).</p>
 <h2><a href="#unsoundness" id="unsoundness" class="anchor"></a>Unsoundness</h2>
-<p>The new type system is unsound with respect to <code>null</code>. This means there are still instances where an expressions has a non-nullable type like <code>String</code>, but its value is <code>null</code>.</p>
+<p>The new type system is unsound with respect to <code>null</code>. This means there are still instances where an expression has a non-nullable type like <code>String</code>, but its value is actually <code>null</code>.</p>
 <p>The unsoundness happens because uninitialized fields in a class start out as <code>null</code>:</p>
 <pre><code class="scala">class C {
   val f: String = foo(f)

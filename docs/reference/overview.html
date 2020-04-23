@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-19 -->
+<!-- This page was last generated on 2020-04-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1809,7 +1810,7 @@ Make the full programming language compatible with the foundational work on the 
 <li><a href="other-new-features/trait-parameters.html">Trait Parameters</a> replace <a href="dropped-features/early-initializers.html">early initializers</a> with a more generally useful construct.</li>
 <li><a href="contextual/delegates.html">Given Instances</a>
 replace implicit objects and defs, focussing on intent over mechanism.</li>
-<li><a href="contextual/given-clauses.html">Given Clauses</a> replace implicit parameters, avoiding their ambiguities.</li>
+<li><a href="contextual/using-clauses.html">Using Clauses</a> replace implicit parameters, avoiding their ambiguities.</li>
 <li><a href="contextual/extension-methods.html">Extension Methods</a> replace implicit classes with a clearer and simpler mechanism.</li>
 <li><a href="other-new-features/opaques.html">Opaque Type Aliases</a> replace most uses
 of value classes while guaranteeing absence of boxing.</li>
@@ -1834,7 +1835,7 @@ the cases where creator applications cannot be used.</li>
 <li><a href="https://github.com/lampepfl/dotty/pull/5975">@infix and @alpha</a>
 make method application syntax uniform across code bases and require alphanumeric aliases for all symbolic names (proposed, not implemented).</li>
 </ul>
-<p>Unrestricted implicit conversions continue to be available in Scala 3.0, but will be deprecated and removed later. Unrestricted versions of the other constructs in the list above are available only under <code>-language:Scala2Compat</code>.</p>
+<p>Unrestricted implicit conversions continue to be available in Scala 3.0, but will be deprecated and removed later. Unrestricted versions of the other constructs in the list above are available only under <code>-source 3.0-migration</code>.</p>
 <h2><a href="#dropped-constructs" id="dropped-constructs" class="anchor"></a>Dropped Constructs</h2>
 <p>These constructs are proposed to be dropped without a new construct replacing them. The motivation for dropping these constructs is to simplify the language and its implementation.</p>
 <ul>
@@ -1856,7 +1857,7 @@ make method application syntax uniform across code bases and require alphanumeri
 <li>DelayedInit, existential types, weak conformance.</li>
 </ul>
 </li>
-<li>Supported under <code>-language:Scala2Compat</code>:
+<li>Supported under <code>-source 3.0-migration</code>:
 <ul>
 <li>procedure syntax, class shadowing, symbol literals, auto application, auto tupling in a restricted form.</li>
 </ul>
@@ -1875,7 +1876,7 @@ make method application syntax uniform across code bases and require alphanumeri
 <li><a href="changed-features/eta-expansion.html">Eta expansion</a> is now performed universally also in the absence of an expected type. The postfix <code>_</code> operator is thus made redundant. It will be deprecated and dropped after Scala 3.0.</li>
 <li><a href="changed-features/implicit-resolution.html">Implicit Resolution</a>: The implicit resolution rules have been cleaned up to make them more useful and less surprising. Implicit scope is restricted to no longer include package prefixes.</li>
 </ul>
-<p>Most aspects of old-style implicit resolution are still available under <code>-language:Scala2Compat</code>. The other changes in this list are applied unconditionally.</p>
+<p>Most aspects of old-style implicit resolution are still available under <code>-source 3.0-migration</code>. The other changes in this list are applied unconditionally.</p>
 <h2><a href="#new-constructs" id="new-constructs" class="anchor"></a>New Constructs</h2>
 <p>These are additions to the language that make it more powerful or pleasant to use.</p>
 <ul>

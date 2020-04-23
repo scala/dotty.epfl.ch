@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-03-19 -->
+<!-- This page was last generated on 2020-04-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1871,8 +1872,8 @@ yield
 =&gt;&gt;       ?=&gt;
 </code></pre>
 <h3><a href="#soft-keywords" id="soft-keywords" class="anchor"></a>Soft keywords</h3>
-<pre><code class="nohighlight">as        derives   extension inline    on        opaque    open      using
-*         +         -
+<pre><code class="nohighlight">as  derives  end  extension  inline  on  opaque  open  transparent  using
+*  +  -
 </code></pre>
 <h2><a href="#context-free-syntax" id="context-free-syntax" class="anchor"></a>Context-free Syntax</h2>
 <p>The context-free syntax of Scala is given by the following EBNF
@@ -1999,6 +2000,7 @@ BlockStat         ::=  Import
                     |  {Annotation [nl]} [‘implicit’ | ‘lazy’] Def
                     |  {Annotation [nl]} {LocalModifier} TmplDef
                     |  Expr1
+                    |  EndMarker
 
 ForExpr           ::=  ‘for’ (‘(’ Enumerators ‘)’ | ‘{’ Enumerators ‘}’)        ForYield(enums, expr)
                        {nl} [‘yield’] Expr
@@ -2098,6 +2100,10 @@ ImportSelectors   ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’] [‘,’ Import
 WildCardSelector  ::=  ‘given’ (‘_' | InfixType)
                     |  ‘_'
 Export            ::=  ‘export’ [‘given’] ImportExpr {‘,’ ImportExpr}
+
+EndMarker         ::=  ‘end’ EndMarkerTag    -- when followed by EOL
+EndMarkerTag      ::=  id | ‘if’ | ‘while’ | ‘for’ | ‘match’ | ‘try’
+                    |  ‘new’ | ‘this’ | ‘given’ | ‘extension’ | ‘val’
 </code></pre>
 <h3><a href="#declarations-and-definitions" id="declarations-and-definitions" class="anchor"></a>Declarations and Definitions</h3>
 <pre><code class="ebnf">RefineDcl         ::=  ‘val’ ValDcl
@@ -2158,6 +2164,7 @@ TemplateStat      ::=  Import
                     |  {Annotation [nl]} {Modifier} Def
                     |  {Annotation [nl]} {Modifier} Dcl
                     |  Expr1
+                    |  EndMarker
                     |
 SelfType          ::=  id [‘:’ InfixType] ‘=&gt;’                                  ValDef(_, name, tpt, _)
                     |  ‘this’ ‘:’ InfixType ‘=&gt;’
@@ -2174,6 +2181,7 @@ TopStat           ::=  Import
                     |  {Annotation [nl]} {Modifier} Def
                     |  Packaging
                     |  PackageObject
+                    |  EndMarker
                     |
 Packaging         ::=  ‘package’ QualId [nl | colonEol] ‘{’ TopStatSeq ‘}’      Package(qid, stats)
 PackageObject     ::=  ‘package’ ‘object’ ObjectDef                             object with package in mods.
