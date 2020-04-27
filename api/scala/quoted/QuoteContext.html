@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-04-23 -->
+<!-- This page was last generated on 2020-04-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.24.0-bin-SNAPSHOT</h2>
+                    <h2>0.23.0</h2>
                 </div>
             </a>
         </div>
@@ -77,7 +77,6 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
-<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1916,7 +1915,7 @@ This API does not have the static type guarantiees that <code>Expr</code> and <c
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-NestedContext">
                         
-                            <p>Type of a QuoteContext provided by a splice within a quote that took this context.
+                            <p>Type of a QuoteContext profided by a splice within a quote that took this context.
 It is only required if working with the reflection API.</p>
 <p>Usually it is...
 </p>
@@ -1928,7 +1927,7 @@ It is only required if working with the reflection API.</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Type of a QuoteContext provided by a splice within a quote that took this context.
+                            <p>Type of a QuoteContext profided by a splice within a quote that took this context.
 It is only required if working with the reflection API.</p>
 <p>Usually it is infered by the quotes an splices typing. But sometimes it is necessary
 to explicitly state that a context is nested as in the following example:</p>
@@ -3428,6 +3427,95 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
 
                 
                 
+                <div id="wait()" class="member def public " data-toggle="collapse" data-target=".collapse-wait--">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                wait
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Unit</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-wait--">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-wait--">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
                 <div id="wait(x$0)" class="member def public " data-toggle="collapse" data-target=".collapse-wait-x-0-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -3478,95 +3566,6 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
                     </div>
                     <!-- Fully detailed comment -->
                     <div class="details collapse collapse-wait-x-0-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="wait()" class="member def public " data-toggle="collapse" data-target=".collapse-wait--">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                wait
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Unit</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-wait--">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-wait--">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         

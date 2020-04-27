@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-04-23 -->
+<!-- This page was last generated on 2020-04-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.24.0-bin-SNAPSHOT</h2>
+                    <h2>0.23.0</h2>
                 </div>
             </a>
         </div>
@@ -77,7 +77,6 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
-<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1828,7 +1827,7 @@ the implemented type(s).</p>
 <pre><code class="scala">given_Ord_Int
 given_Ord_List_T
 </code></pre>
-<p>The precise rules for synthesizing names are found <a href="./relationship-implicits.html#anonymous-given-instances">here</a>. These rules do not guarantee absence of name conflicts between
+<p>The precise rules for synthesizing names are found in [./relationship-implicit.html]. These rules do not guarantee absence of name conflicts between
 given instances of types that are &quot;too similar&quot;. To avoid conflicts one can
 use named instances.</p>
 <p><strong>Note</strong> To ensure robust binary compatibility, publicly available libraries should prefer named instances.</p>
@@ -1846,14 +1845,15 @@ given (using config: Config) as Factory = MemoizingFactory(config)
 </code></pre>
 <p>An alias given can have type parameters and context parameters just like any other given,
 but it can only implement a single type.</p>
-<h2><a href="#given-macros" id="given-macros" class="anchor"></a>Given Macros</h2>
-<p>Given aliases can have the <code>inline</code> and <code>transparent</code> modifiers.
-Example:</p>
-<pre><code class="scala">transparent inline given mkAnnotations[A, T] as Annotations[A, T] = ${
+<h2><a href="#given-whitebox-macro-instances" id="given-whitebox-macro-instances" class="anchor"></a>Given Whitebox Macro Instances</h2>
+<p>An <code>inline</code> alias given can be marked as a whitebox macro by writing
+<code>_ &lt;:</code> in front of the implemented type. Example:</p>
+<pre><code class="scala">inline given mkAnnotations[A, T] as _ &lt;: Annotations[A, T] = ${
   // code producing a value of a subtype of Annotations
 }
 </code></pre>
-<p>Since <code>mkAnnotations</code> is <code>transparent</code>, the type of an application is the type of its right hand side, which can be a proper subtype of the declared result type <code>Annotations[A, T]</code>.</p>
+<p>The type of an application of <code>mkAnnotations</code> is the type of its right hand side,
+which can be a proper subtype of the declared result type <code>Annotations[A, T]</code>.</p>
 <h2><a href="#given-instance-initialization" id="given-instance-initialization" class="anchor"></a>Given Instance Initialization</h2>
 <p>A given instance without type or context parameters is initialized on-demand, the first
 time it is accessed. If a given has type or context parameters, a fresh instance
@@ -1862,8 +1862,8 @@ is created for each reference.</p>
 <p>Here is the new syntax for given instances, seen as a delta from the <a href="../../internals/syntax.html">standard context free syntax of Scala 3</a>.</p>
 <pre><code class="nohighlight">TmplDef           ::=  ...
                    |   ‘given’ GivenDef
-GivenDef          ::=  [GivenSig] Type ‘=’ Expr
-                   |   [GivenSig] ConstrApps [TemplateBody]
+GivenDef          ::=  [GivenSig] [‘_’ ‘&lt;:’] Type ‘=’ Expr
+                   |   [GivenSig] ConstrApp {‘,’ ConstrApp } [TemplateBody]
 GivenSig          ::=  [id] [DefTypeParamClause] {UsingParamClause} ‘as’
 </code></pre>
 
