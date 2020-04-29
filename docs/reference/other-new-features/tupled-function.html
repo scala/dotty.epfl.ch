@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-04-27 -->
+<!-- This page was last generated on 2020-04-29 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0</h2>
+                    <h2>0.25.0-bin-SNAPSHOT</h2>
                 </div>
             </a>
         </div>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1802,15 +1803,16 @@ sealed trait TupledFunction[F, G] {
 <p>The compiler will synthesize an instance of <code>TupledFunction[F, G]</code> if:</p>
 <ul>
 <li><code>F</code> is a function type of arity <code>N</code></li>
-<li><code>G</code> is a function with a single tuple argument of size <code>N</code> and it's types are equal to the arguments of <code>F</code></li>
+<li><code>G</code> is a function with a single tuple argument of size <code>N</code> and its types are equal to the arguments of <code>F</code></li>
 <li>The return type of <code>F</code> is equal to the return type of <code>G</code></li>
-<li><code>F</code> and <code>G</code> are the same kind of function (both are <code>(...) =&gt; R</code> or both are <code>(...) ?=&gt; R</code>)</li>
+<li><code>F</code> and <code>G</code> are the same sort of function (both are <code>(...) =&gt; R</code> or both are <code>(...) ?=&gt; R</code>)</li>
 <li>If only one of <code>F</code> or <code>G</code> is instantiated the second one is inferred.</li>
 </ul>
 <h2><a href="#examples" id="examples" class="anchor"></a>Examples</h2>
-<p><code>TupledFunction</code> can be used to generalize the <code>Function1.tupled</code>, ... <code>Function22.tupled</code> methods to functions of any arities (<a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-tupled.scala">full example</a>)</p>
+<p><code>TupledFunction</code> can be used to generalize the <code>Function1.tupled</code>, ... <code>Function22.tupled</code> methods to functions of any arities.
+The following defines <code>tupled</code> as <a href="../contextual/extension-methods.html">extension method</a> (<a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-tupled.scala">full example</a>).</p>
 <pre><code class="scala">/** Creates a tupled version of this function: instead of N arguments,
- *  it accepts a single [[scala.Tuple]] argument.
+ *  it accepts a single [[scala.Tuple]] with N elements as argument.
  *
  *  @tparam F the function type
  *  @tparam Args the tuple type with the same types as the function arguments of F
@@ -1818,9 +1820,9 @@ sealed trait TupledFunction[F, G] {
  */
 def [F, Args &lt;: Tuple, R](f: F).tupled(using tf: TupledFunction[F, Args =&gt; R]): Args =&gt; R = tf.tupled(f)
 </code></pre>
-<p><code>TupledFunction</code> can be used to generalize the <code>Function.untupled</code> methods to functions of any arities (<a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-untupled.scala">full example</a>)</p>
-<pre><code class="scala">/** Creates an untupled version of this function: instead of single [[scala.Tuple]] argument,
- *  it accepts a N arguments.
+<p><code>TupledFunction</code> can be used to generalize the <code>Function.untupled</code> to a function of any arities (<a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-untupled.scala">full example</a>)</p>
+<pre><code class="scala">/** Creates an untupled version of this function: instead of a single argument of type [[scala.Tuple]] with N elements,
+ *  it accepts N arguments.
  *
  *  This is a generalization of [[scala.Function.untupled]] that work on functions of any arity
  *
@@ -1831,7 +1833,7 @@ def [F, Args &lt;: Tuple, R](f: F).tupled(using tf: TupledFunction[F, Args =&gt;
 def [F, Args &lt;: Tuple, R](f: Args =&gt; R).untupled(using tf: TupledFunction[F, Args =&gt; R]): F = tf.untupled(f)
 </code></pre>
 <p><code>TupledFunction</code> can also be used to generalize the <a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-compose.scala"><code>Tuple1.compose</code></a> and <a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-andThen.scala"><code>Tuple1.andThen</code></a> methods to compose functions of larger arities and with functions that return tuples.</p>
-<pre><code class="scala">/** Composes two instances of TupledFunctions in a new TupledFunctions, with this function applied last
+<pre><code class="scala">/** Composes two instances of TupledFunction into a new TupledFunction, with this function applied last.
  *
  *  @tparam F a function type
  *  @tparam G a function type

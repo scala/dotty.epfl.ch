@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-04-27 -->
+<!-- This page was last generated on 2020-04-29 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0</h2>
+                    <h2>0.25.0-bin-SNAPSHOT</h2>
                 </div>
             </a>
         </div>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1794,39 +1795,58 @@ def (c: Circle).circumference: Double = c.radius * math.Pi * 2
 circle.circumference
 </code></pre>
 <h3><a href="#translation-of-extension-methods" id="translation-of-extension-methods" class="anchor"></a>Translation of Extension Methods</h3>
-<p>Extension methods are methods that have a parameter clause in front of the defined
-identifier. They translate to methods where the leading parameter section is moved
-to after the defined identifier. So, the definition of <code>circumference</code> above translates
-to the plain method, and can also be invoked as such:</p>
+<p>Extension methods are methods that have a parameter clause in front of the defined identifier.
+They translate to functions where the leading parameter section is turned into the first argument list of the function.
+So, the definition of <code>circumference</code> above translates to the following function, and can also be invoked as such:</p>
 <pre><code class="scala">def circumference(c: Circle): Double = c.radius * math.Pi * 2
 
 assert(circle.circumference == circumference(circle))
 </code></pre>
 <h3><a href="#translation-of-calls-to-extension-methods" id="translation-of-calls-to-extension-methods" class="anchor"></a>Translation of Calls to Extension Methods</h3>
-<p>When is an extension method applicable? There are two possibilities.</p>
-<ul>
+<p>When is an extension method applicable? There are two possibilities:</p>
+<ol>
 <li>An extension method is applicable if it is visible under a simple name, by being defined
 or inherited or imported in a scope enclosing the application.</li>
 <li>An extension method is applicable if it is a member of some given instance at the point of the application.</li>
-</ul>
-<p>As an example, consider an extension method <code>longestStrings</code> on <code>Seq[String]</code> defined in a trait <code>StringSeqOps</code>.</p>
-<pre><code class="scala">trait StringSeqOps {
-  def (xs: Seq[String]).longestStrings = {
-    val maxLength = xs.map(_.length).max
-    xs.filter(_.length == maxLength)
-  }
+</ol>
+<p>Here is an example for the first rule:</p>
+<pre><code class="scala">trait IntOps {
+  def (i: Int).isZero: Boolean = i == 0
+
+  def (i: Int).safeMod(x: Int): Option[Int] =
+    // extension method defined in same scope IntOps
+    if x.isZero then None
+    else Some(i % x)
+}
+
+object IntOpsEx extends IntOps {
+  def (i: Int).safeDiv(x: Int): Option[Int] =
+    // extension method brought into scope via inheritance from IntOps
+    if x.isZero then None
+    else Some(i % x)
+}
+
+trait SafeDiv {
+  import IntOpsEx._ // brings safeDiv and safeMod into scope
+
+  def (i: Int) divide(d: Int) : Option[(Int, Int)] =
+     // extension methods imported and thus in scope
+    (i.safeDiv(d), i.safeMod(d)) match {
+      case (Some(d), Some(r)) =&gt; Some((d, r))
+      case _ =&gt; None
+    }
 }
 </code></pre>
-<p>We can make the extension method available by defining a given <code>StringSeqOps</code> instance, like this:</p>
-<pre><code class="scala">given ops1 as StringSeqOps
+<p>We build up on the above example to outline the second point.
+We can make an extension method available by defining a given instance containing it, like this:</p>
+<pre><code class="scala">given ops1 as IntOps // brings safeMod into scope
+
+1.safeMod(2)
 </code></pre>
-<p>Then</p>
-<pre><code class="scala">List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
-</code></pre>
-<p>is legal everywhere <code>ops1</code> is available. Alternatively, we can define <code>longestStrings</code> as a member of a normal object. But then the method has to be brought into scope to be usable as an extension method.</p>
-<pre><code class="scala">object ops2 extends StringSeqOps
-import ops2.longestStrings
-List(&quot;here&quot;, &quot;is&quot;, &quot;a&quot;, &quot;list&quot;).longestStrings
+<p>Then <code>safeMod</code> is legal everywhere <code>ops1</code> is available. Anonymous givens (and any other form of givens) are supported as well:</p>
+<pre><code class="scala">given SafeDiv //brings divide into scope (safeMod and safeDiv are not automatically exported)
+
+1.divide(2)
 </code></pre>
 <p>The precise rules for resolving a selection to an extension method are as follows.</p>
 <p>Assume a selection <code>e.m[Ts]</code> where <code>m</code> is not a member of <code>e</code>, where the type arguments <code>[Ts]</code> are optional,
@@ -1854,16 +1874,23 @@ def (x: Number) min (y: Number) = ...
 x min 3
 </code></pre>
 <p>For alphanumeric extension operators like <code>min</code> an <code>@infix</code> annotation is implied.</p>
+<!-- 
+TODO: what about @alpha for the non alphanumeric operators, should be required according to
+http://dotty.epfl.ch/docs/reference/changed-features/operators.html
+"Symbolic methods without @alpha annotations are deprecated"
+-->
 <p>The three definitions above translate to</p>
 <pre><code class="scala">def &lt; (x: String)(y: String) = ...
 def +: (xs: Seq[Elem])(x: Elem) = ...
 def min(x: Number)(y: Number) = ...
 </code></pre>
 <p>Note the swap of the two parameters <code>x</code> and <code>xs</code> when translating
-the right-binding operator <code>+:</code> to an extension method. This is analogous
+the right-associative operator <code>+:</code> to an extension method. This is analogous
 to the implementation of right binding operators as normal methods.</p>
 <h3><a href="#generic-extensions" id="generic-extensions" class="anchor"></a>Generic Extensions</h3>
-<p>The <code>StringSeqOps</code> examples extended a specific instance of a generic type. It is also possible to extend a generic type by adding type parameters to an extension method. Examples:</p>
+<p>The <code>IntOps</code> examples extended a non generic type.
+It is also possible to extend a specific instance of a generic type (e.g. Seq[String] -- see <code>stringOps</code> further below).
+Moreover, it is also possible to extend generic types by adding type parameters to an extension method. Examples:</p>
 <pre><code class="scala">def [T](xs: List[T]) second =
   xs.tail.head
 
@@ -1873,9 +1900,11 @@ def [T](xs: List[List[T]]) flattened =
 def [T: Numeric](x: T) + (y: T): T =
   summon[Numeric[T]].plus(x, y)
 </code></pre>
-<p>If an extension method has type parameters, they come immediately after the <code>def</code> and are followed by the extended parameter. When calling a  generic extension method, any explicitly given type arguments follow the method name. So the <code>second</code> method can be instantiated as follows:</p>
+<p>If an extension method has type parameters, they come immediately after the <code>def</code> and are followed by the extended parameter.
+When calling a generic extension method, any explicitly given type arguments follow the method name. So the <code>second</code> method can be instantiated as follows:</p>
 <pre><code class="scala">List(1, 2, 3).second[Int]
 </code></pre>
+<p>(it's only a showcase, the compiler could of course infer the type).</p>
 <h3><a href="#extension-instances" id="extension-instances" class="anchor"></a>Extension Instances</h3>
 <p>It is quite common to wrap one or more extension methods in a given instance,
 in order to make them available as methods without needing to be imported explicitly.

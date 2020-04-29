@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-04-27 -->
+<!-- This page was last generated on 2020-04-29 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.23.0</h2>
+                    <h2>0.25.0-bin-SNAPSHOT</h2>
                 </div>
             </a>
         </div>
@@ -77,6 +77,7 @@
 <li class="leaf"><a href="/docs/usage/sbt-projects.html" >sbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
 <li class="leaf"><a href="/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/docs/usage/language-versions.html" >Language Versions</a></li>
 <li class="leaf"><a href="/docs/usage/cbt-projects.html" >cbt-projects</a></li>
 <li class="leaf"><a href="/docs/usage/dottydoc.html" >Dottydoc</a></li>
   </ul>
@@ -1801,33 +1802,32 @@ some terminology and notational conventions:</p>
 <ul>
 <li><em>Class cases</em> are those cases that are parameterized, either with a type parameter section <code>[...]</code> or with one or more (possibly empty) parameter sections <code>(...)</code>.</li>
 <li><em>Simple cases</em> are cases of a non-generic enum that have neither parameters nor an extends clause or body. That is, they consist of a name only.</li>
-<li><em>Value cases</em> are all cases that do not have a parameter section but that do have a (possibly generated) extends clause and/or a body.</li>
+<li><em>Value cases</em> are all cases that do not have a parameter section but that do have a (possibly generated) <code>extends</code> clause and/or a body.</li>
 </ul>
 </li>
 </ul>
 <p>Simple cases and value cases are collectively called <em>singleton cases</em>.</p>
 <p>The desugaring rules imply that class cases are mapped to case classes, and singleton cases are mapped to <code>val</code> definitions.</p>
 <p>There are nine desugaring rules. Rule (1) desugar enum definitions. Rules
-(2) and (3) desugar simple cases. Rules (4) to (6) define extends clauses for cases that
-are missing them. Rules (7) to (9) define how such cases with extends clauses
-map into case classes or vals.</p>
+(2) and (3) desugar simple cases. Rules (4) to (6) define <code>extends</code> clauses for cases that
+are missing them. Rules (7) to (9) define how such cases with <code>extends</code> clauses
+map into <code>case class</code>es or <code>val</code>s.</p>
 <ol>
 <li>An <code>enum</code> definition
 <pre><code class="scala">enum E ... { &lt;defs&gt; &lt;cases&gt; }
 </code></pre>
-<p>expands to a <code>sealed</code> <code>abstract</code> class that extends the <code>scala.Enum</code> trait and
+<p>expands to a <code>sealed abstract</code> class that extends the <code>scala.Enum</code> trait and
 an associated companion object that contains the defined cases, expanded according
 to rules (2 - 8). The enum trait starts with a compiler-generated import that imports
 the names <code>&lt;caseIds&gt;</code> of all cases so that they can be used without prefix in the trait.</p>
 <pre><code class="scala">sealed abstract class E ... extends &lt;parents&gt; with scala.Enum {
   import E.{ &lt;caseIds&gt; }
-  &lt;defs&gt;
+   &lt;defs&gt;
 }
 object E { &lt;cases&gt; }
 </code></pre>
 </li>
-<li>A simple case consisting of a comma-separated list of enum names</li>
-</ol>
+<li>A simple case consisting of a comma-separated list of enum names
 <pre><code class="scala">case C_1, ..., C_n
 </code></pre>
 <p>expands to</p>
@@ -1835,7 +1835,7 @@ object E { &lt;cases&gt; }
 </code></pre>
 <p>Any modifiers or annotations on the original case extend to all expanded
 cases.</p>
-<ol>
+</li>
 <li>A simple case
 <pre><code class="scala">case C
 </code></pre>
@@ -1846,7 +1846,7 @@ cases.</p>
 below).</p>
 </li>
 <li>If <code>E</code> is an enum with type parameters
-<pre><code class="scala">V1 T1 &gt; L1 &lt;: U1 ,   ... ,    Vn Tn &gt;: Ln &lt;: Un      (n &gt; 0)
+<pre><code class="scala">V1 T1 &gt;: L1 &lt;: U1 ,   ... ,    Vn Tn &gt;: Ln &lt;: Un      (n &gt; 0)
 </code></pre>
 <p>where each of the variances <code>Vi</code> is either <code>'+'</code> or <code>'-'</code>, then a simple case</p>
 <pre><code class="scala">case C
@@ -1856,7 +1856,7 @@ below).</p>
 </code></pre>
 <p>where <code>Bi</code> is <code>Li</code> if <code>Vi = '+'</code> and <code>Ui</code> if <code>Vi = '-'</code>. This result is then further
 rewritten with rule (8). Simple cases of enums with non-variant type
-parameters are not permitted.</p>
+parameters are not permitted (however value cases with explicit <code>extends</code> clause are)</p>
 </li>
 <li>A class case without an extends clause
 <pre><code class="scala">case C &lt;type-params&gt; &lt;value-params&gt;
