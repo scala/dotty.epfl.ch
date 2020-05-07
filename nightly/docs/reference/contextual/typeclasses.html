@@ -1,0 +1,1983 @@
+<!-- This page was last generated on 2020-05-07 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Implementing Typeclasses</title>
+
+        <link rel="icon" type="image/png" href="/nightly/images/favicon.png">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+        <link rel="stylesheet" href="/nightly/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/nightly/css/dottydoc.css">
+        <link rel="stylesheet" href="/nightly/css/color-brewer.css"><!-- hljs theme -->
+
+        
+            <link rel="stylesheet" href="/nightly/css/toolbar.css">
+        
+            <link rel="stylesheet" href="/nightly/css/sidebar.css">
+        
+
+        <script src="/nightly/js/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+    <nav class="navbar navbar-expand navbar-dark fixed-top">
+        <a id="menu-icon" title="Menu" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </a>
+        <a id="search-icon" title="Search" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <span id="searchbar">
+            <input id="search-api-input" type="text" class="form-control" placeholder="Search API" aria-label="Search API">
+            <input id="baseurl-input" type="hidden" value="/nightly">
+        </span>
+        <div class="navbar-brand">
+            
+            <a href="/nightly/index.html">
+                <img class="project-logo" src="/nightly/images/dotty-logo.svg">
+            </a>
+            
+            <a href="/nightly/docs/index.html">
+                <div class="project-details">
+                    <h1>Dotty Documentation</h1>
+                    <h2>0.25.0-bin-20200506-93ef012-NIGHTLY</h2>
+                </div>
+            </a>
+        </div>
+
+        
+        <a id="github-link" title="Project repository" href="https://github.com/lampepfl/dotty">
+            
+            <i class="fab fa-github" aria-hidden="true"></i>
+            
+        </a>
+        
+    </nav>
+</header>
+
+<nav class="sidebar">
+    <ul class="toc">
+        <!-- Redacted documents -->
+        
+            <li class="leaf"><a href="/nightly/blog/index.html" >Blog</a></li>
+        
+            <li class="section">
+  <a onclick='toggleSection(this);'>Usage</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/usage/getting-started.html" >Getting Started</a></li>
+<li class="leaf"><a href="/nightly/docs/usage/sbt-projects.html" >sbt-projects</a></li>
+<li class="leaf"><a href="/nightly/docs/usage/ide-support.html" >IDE support for Dotty</a></li>
+<li class="leaf"><a href="/nightly/docs/usage/worksheet-mode.html" >Worksheet mode in Dotty IDE</a></li>
+<li class="leaf"><a href="/nightly/docs/usage/language-versions.html" >Language Versions</a></li>
+<li class="leaf"><a href="/nightly/docs/usage/cbt-projects.html" >cbt-projects</a></li>
+<li class="leaf"><a href="/nightly/docs/usage/dottydoc.html" >Dottydoc</a></li>
+  </ul>
+</li>
+
+        
+            <li class="section">
+  <a onclick='toggleSection(this);'>Reference</a>
+  <ul class="toggled">
+    <li class="leaf"><a href="/nightly/docs/reference/overview.html" >Overview</a></li>
+<li class="section">
+  <a onclick='toggleSection(this);'>New Types</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/reference/new-types/intersection-types.html" >Intersection types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/new-types/union-types.html" >Union types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/new-types/type-lambdas.html" >Type lambdas</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/new-types/match-types.html" >Match types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/new-types/dependent-function-types.html" >Dependent Function Types</a></li>
+  </ul>
+</li>
+
+<li class="section">
+  <a onclick='toggleSection(this);'>Enums</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/reference/enums/enums.html" >Enumerations</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/enums/adts.html" >Algebraic Data Types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/enums/desugarEnums.html" >Translation</a></li>
+  </ul>
+</li>
+
+<li class="section">
+  <a onclick='toggleSection(this);'>Contextual Abstractions</a>
+  <ul class="toggled">
+    <li class="leaf"><a href="/nightly/docs/reference/contextual/motivation.html" >Overview</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/givens.html" >Given Instances</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/using-clauses.html" >Using Clauses</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" class="toggled">Implementing Typeclasses</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/by-name-context-parameters.html" >By-Name Context Parameters</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/relationship-implicits.html" >Relationship with Scala 2 Implicits</a></li>
+  </ul>
+</li>
+
+<li class="section">
+  <a onclick='toggleSection(this);'>Metaprogramming</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/reference/metaprogramming/toc.html" >Overview</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/metaprogramming/inline.html" >Inline</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/metaprogramming/macros.html" >Macros</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/metaprogramming/staging.html" >Staging</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/metaprogramming/tasty-reflect.html" >TASTy Reflection</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/metaprogramming/tasty-inspect.html" >TASTy Inspection</a></li>
+  </ul>
+</li>
+
+<li class="section">
+  <a onclick='toggleSection(this);'>Other New Features</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/reference/other-new-features/trait-parameters.html" >Trait Parameters</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/creator-applications.html" >Creator Applications</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/export.html" >Export Clauses</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/opaques.html" >Opaque Type Aliases</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/open-classes.html" >Open Classes</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/parameter-untupling.html" >Parameter Untupling</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/kind-polymorphism.html" >Kind Polymorphism</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/tupled-function.html" >Tupled Function</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/threadUnsafe-annotation.html" >threadUnsafe Annotation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/safe-initialization.html" >Safe Initialization</a></li>
+  </ul>
+</li>
+
+<li class="section">
+  <a onclick='toggleSection(this);'>Other Changed Features</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/reference/changed-features/numeric-literals.html" >Numeric Literals</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/structural-types.html" >Structural Types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/operators.html" >Operators</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/wildcards.html" >Wildcard Types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/type-checking.html" >Type Checking</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/type-inference.html" >Type Inference</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/implicit-resolution.html" >Implicit Resolution</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/implicit-conversions.html" >Implicit Conversions</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/overload-resolution.html" >Overload Resolution</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/match-syntax.html" >Match Expressions</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/vararg-patterns.html" >Vararg Patterns</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/pattern-bindings.html" >Pattern Bindings</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/pattern-matching.html" >Pattern Matching</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/eta-expansion.html" >Eta Expansion</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/compiler-plugins.html" >Compiler Plugins</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/lazy-vals-init.html" >Lazy Vals initialization</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/changed-features/main-functions.html" >Main Functions</a></li>
+  </ul>
+</li>
+
+<li class="section">
+  <a onclick='toggleSection(this);'>Dropped Features</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/reference/dropped-features/delayed-init.html" >DelayedInit</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/macros.html" >Macros</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/existential-types.html" >Existential Types</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/type-projection.html" >Type Projection</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/do-while.html" >Do-While</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/procedure-syntax.html" >Procedure Syntax</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/package-objects.html" >Package Objects</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/early-initializers.html" >Early Initializers</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/class-shadowing.html" >Class Shadowing</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/limit22.html" >Limit 22</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/xml.html" >XML literals</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/symlits.html" >Symbol Literals</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/auto-apply.html" >Auto-Application</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/weak-conformance.html" >Weak Conformance</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/nonlocal-returns.html" >Nonlocal Returns</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/dropped-features/this-qualifier.html" >[this] Qualifier</a></li>
+  </ul>
+</li>
+
+  </ul>
+</li>
+
+        
+            <li class="section">
+  <a onclick='toggleSection(this);'>Contributing</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/contributing/contribute-knowledge.html" >Contribute Knowledge</a></li>
+<li class="leaf"><a href="/nightly/docs/contributing/getting-started.html" >Getting Started</a></li>
+<li class="leaf"><a href="/nightly/docs/contributing/workflow.html" >Workflow</a></li>
+<li class="leaf"><a href="/nightly/docs/contributing/testing.html" >Testing</a></li>
+<li class="leaf"><a href="/nightly/docs/contributing/debugging.html" >Debugging</a></li>
+<li class="section">
+  <a onclick='toggleSection(this);'>IDEs and Tools</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/contributing/tools/mill.html" >Mill</a></li>
+<li class="leaf"><a href="/nightly/docs/contributing/tools/scalafix.html" >Scalafix</a></li>
+  </ul>
+</li>
+
+<li class="section">
+  <a onclick='toggleSection(this);'>Procedures</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/contributing/procedures/release.html" >Release Model</a></li>
+<li class="leaf"><a href="/nightly/docs/contributing/procedures/vulpix.html" >Modifying the Test Framework</a></li>
+  </ul>
+</li>
+
+  </ul>
+</li>
+
+        
+            <li class="section">
+  <a onclick='toggleSection(this);'>Internals</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/internals/backend.html" >Backend</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/classpaths.html" >Classpaths</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/core-data-structures.html" >Core Data Structrues</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/contexts.html" >Contexts</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/dotc-scalac.html" >Dotc vs Scalac</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/higher-kinded-v2.html" >Higher-Kinded Types</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/overall-structure.html" >Overall Structure</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/periods.html" >Periods</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/syntax.html" >Syntax</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/type-system.html" >Type System</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/dotty-internals-1-notes.html" >Dotty Internals 1: Trees & Symbols (Meeting Notes)</a></li>
+<li class="leaf"><a href="/nightly/docs/internals/debug-macros.html" >Debug Macros</a></li>
+  </ul>
+</li>
+
+        
+            <li class="section">
+  <a onclick='toggleSection(this);'>Resources</a>
+  <ul >
+    <li class="leaf"><a href="/nightly/docs/resources/talks.html" >Talks</a></li>
+  </ul>
+</li>
+
+        
+        <!-- API documentation -->
+        
+        <li class="index-entities section">
+            <a onclick="toggleSection(this);">API</a>
+            <ul>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/dotty/index.html">
+                        dotty
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/dotty/DottyPredef$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/dotty/DottyPredef$.html">DottyPredef</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/dotty/internal/index.html">
+                        dotty.internal
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/dotty/internal/StringContextMacro$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/dotty/internal/StringContextMacro$.html">StringContextMacro</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/dotty/runtime/index.html">
+                        dotty.runtime
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/dotty/runtime/Arrays$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/dotty/runtime/Arrays$.html">Arrays</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/dotty/runtime/LazyVals$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/dotty/runtime/LazyVals$.html">LazyVals</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/index.html">
+                        scala
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/$times$colon$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/$times$colon.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/$times$colon.html">*:</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/Conversion.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/Conversion.html">Conversion</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/Enum.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/Enum.html">Enum</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/Eql$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/Eql.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/Eql.html">Eql</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/FunctionXXL.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/FunctionXXL.html">FunctionXXL</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/IArray$package$/IArray$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/IArray$package$/IArray$.html">IArray</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/NonEmptyTuple.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/NonEmptyTuple.html">NonEmptyTuple</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/PolyFunction.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/PolyFunction.html">PolyFunction</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/Product0$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/Product0.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/Product0.html">Product0</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/Selectable.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/Selectable.html">Selectable</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/Tuple$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/Tuple.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/Tuple.html">Tuple</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/TupledFunction$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/TupledFunction.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/TupledFunction.html">TupledFunction</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/deriving$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/deriving$.html">deriving</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/main.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/main.html">main</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/opaques$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/opaques$.html">opaques</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/annotation/index.html">
+                        scala.annotation
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/annotation/RefiningAnnotation.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/RefiningAnnotation.html">RefiningAnnotation</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/alpha.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/alpha.html">alpha</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/constructorOnly.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/constructorOnly.html">constructorOnly</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/infix.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/infix.html">infix</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/static.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/static.html">static</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/threadUnsafe.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/threadUnsafe.html">threadUnsafe</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/annotation/internal/index.html">
+                        scala.annotation.internal
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/Alias.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/Alias.html">Alias</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/AnnotationDefault.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/AnnotationDefault.html">AnnotationDefault</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/Body.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/Body.html">Body</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/Child.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/Child.html">Child</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/ContextResultCount.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/ContextResultCount.html">ContextResultCount</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/InlineParam.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/InlineParam.html">InlineParam</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/Repeated.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/Repeated.html">Repeated</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/SourceFile.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/SourceFile.html">SourceFile</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/WithBounds.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/WithBounds.html">WithBounds</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/sharable.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/sharable.html">sharable</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/internal/unshared.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/internal/unshared.html">unshared</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/compiletime/index.html">
+                        scala.compiletime
+                    </a>
+                    <ul class="package-entities">
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/compiletime/ops/index.html">
+                        scala.compiletime.ops
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/compiletime/ops/package$/any$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/compiletime/ops/package$/any$.html">any</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/compiletime/ops/package$/boolean$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/compiletime/ops/package$/boolean$.html">boolean</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/compiletime/ops/package$/int$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/compiletime/ops/package$/int$.html">int</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/compiletime/ops/package$/string$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/compiletime/ops/package$/string$.html">string</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/compiletime/testing/index.html">
+                        scala.compiletime.testing
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/compiletime/testing/Error$.html">O</a>
+                                    
+                                    <a class="letter-anchor case class" href="/nightly/api/scala/compiletime/testing/Error.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/compiletime/testing/Error.html">Error</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/compiletime/testing/ErrorKind$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/compiletime/testing/ErrorKind.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/compiletime/testing/ErrorKind.html">ErrorKind</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/implicits/index.html">
+                        scala.implicits
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/implicits/LowPriorityNot.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/implicits/LowPriorityNot.html">LowPriorityNot</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/implicits/Not$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/implicits/Not.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/implicits/Not.html">Not</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/internal/index.html">
+                        scala.internal
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/Chars$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/Chars$.html">Chars</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/MatchCase.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/MatchCase.html">MatchCase</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/TupledFunction$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/TupledFunction$.html">TupledFunction</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/TypeBox.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/TypeBox.html">TypeBox</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/internal/quoted/index.html">
+                        scala.internal.quoted
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/CompileTime$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/CompileTime$.html">CompileTime</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/Expr$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/Expr.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/Expr.html">Expr</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/Matcher$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/Matcher$.html">Matcher</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/Type$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/Type.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/Type.html">Type</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/Unpickler$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/Unpickler$.html">Unpickler</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/showName.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/showName.html">showName</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/quoted/index.html">
+                        scala.quoted
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Const$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Const$.html">Const</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Consts$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Consts$.html">Consts</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Expr$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/Expr.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Expr.html">Expr</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Lambda$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Lambda$.html">Lambda</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Liftable$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/quoted/Liftable.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Liftable.html">Liftable</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/QuoteContext.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/ScopeException.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/ScopeException.html">ScopeException</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/StopQuotedContext.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/StopQuotedContext.html">StopQuotedContext</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Type$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/Type.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Type.html">Type</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Unliftable$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/quoted/Unliftable.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Unliftable.html">Unliftable</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Unlifted$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Unlifted$.html">Unlifted</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Varargs$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Varargs$.html">Varargs</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/quoted/matching/index.html">
+                        scala.quoted.matching
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/matching/ConstSeq$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/matching/ValueSeq$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/matching/ValueSeq$.html">ValueSeq</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/quoted/show/index.html">
+                        scala.quoted.show
+                    </a>
+                    <ul class="package-entities">
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/show/SyntaxHighlight$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/quoted/show/SyntaxHighlight.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/show/SyntaxHighlight.html">SyntaxHighlight</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/quoted/unsafe/index.html">
+                        scala.quoted.unsafe
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/unsafe/UnsafeExpr$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/unsafe/UnsafeExpr$.html">UnsafeExpr</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/quoted/util/index.html">
+                        scala.quoted.util
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/quoted/util/ExprMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/util/ExprMap.html">ExprMap</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/util/Var$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/quoted/util/Var.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/util/Var.html">Var</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/reflect/index.html">
+                        scala.reflect
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/reflect/Selectable$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/reflect/Selectable.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/reflect/Selectable.html">Selectable</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/runtime/index.html">
+                        scala.runtime
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/runtime/DynamicTuple$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/DynamicTuple$.html">DynamicTuple</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/runtime/EnumValues.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/EnumValues.html">EnumValues</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/runtime/Tuple$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/Tuple$.html">Tuple</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/runtime/TupleXXL$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/runtime/TupleXXL.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/TupleXXL.html">TupleXXL</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/tasty/index.html">
+                        scala.tasty
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/tasty/Reflection.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/Reflection.html">Reflection</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/tasty/reflect/index.html">
+                        scala.tasty.reflect
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/CompilerInterface.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/CompilerInterface.html">CompilerInterface</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/tasty/reflect/ExprCastError.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/ExprCastError.html">ExprCastError</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/tasty/reflect/ExtractorsPrinter.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/ExtractorsPrinter.html">ExtractorsPrinter</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/Printer.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/Printer.html">Printer</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/tasty/reflect/SourceCodePrinter.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/SourceCodePrinter.html">SourceCodePrinter</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeAccumulator.html">TreeAccumulator</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeMap.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeMap.html">TreeMap</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/util/index.html">
+                        scala.util
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/util/CommandLineParser$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/util/CommandLineParser$.html">CommandLineParser</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/util/FromDigits$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/util/FromDigits.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/util/FromDigits.html">FromDigits</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/util/FromString$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/util/FromString.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/util/FromString.html">FromString</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scala/util/control/index.html">
+                        scala.util.control
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/util/control/NonLocalReturns$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/util/control/NonLocalReturns$.html">NonLocalReturns</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+                <li class="index-entity entity-package section">
+                    <a class="package-toggle" onclick="toggleSection(this);">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="entity-name" href="/nightly/api/scalaShadowing/index.html">
+                        scalaShadowing
+                    </a>
+                    <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scalaShadowing/language$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scalaShadowing/language$.html">language</a>
+                            </li>
+                            
+
+                        
+                    </ul>
+                </li>
+            
+            </ul>
+        </li>
+        
+    </ul>
+</nav>
+
+<div id="content-wrapper">
+    <main class="container">
+    <header>
+        <h1>Implementing Typeclasses</h1>
+        <div class="byline">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/typeclasses.md">
+                <i class="far fa-edit"></i>
+                Edit this page on GitHub
+            </a>
+        </div>
+    </header>
+    <p>A <em>typeclass</em> is an abstract, parameterized type that lets you add new behavior to any closed data type without using sub-typing. This can be useful in multiple use-cases, for example:
+* expressing how a type you don't own (from the standard or 3rd-party library) conforms to such behavior
+* expressing such a behavior for multiple types without involving sub-typing relationships (one <code>extends</code> another) between those types (see: <a href="https://en.wikipedia.org/wiki/Ad_hoc_polymorphism">ad hoc polymorphism</a> for instance)</p>
+<p>Therefore in Scala 3, <em>typeclasses</em> are just <em>traits</em> with one or more parameters whose implementations are not defined through the <code>extends</code> keyword, but by <strong>given instances</strong>.
+Here are some examples of usual typeclasses:</p>
+<h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids" class="anchor"></a>Semigroups and monoids:</h3>
+<p>Here's the <code>Monoid</code> typeclass definition:</p>
+<pre><code class="scala">trait SemiGroup[T] {
+  def (x: T) combine (y: T): T
+}
+
+trait Monoid[T] extends SemiGroup[T] {
+  def unit: T
+}
+</code></pre>
+<p>An implementation of this <code>Monoid</code> typeclass for the type <code>String</code> can be the following:</p>
+<pre><code class="scala">given Monoid[String] {
+  def (x: String) combine (y: String): String = x.concat(y)
+  def unit: String = &quot;&quot;
+}
+</code></pre>
+<p>Whereas for the type <code>Int</code> one could write the following:</p>
+<pre><code class="scala">given Monoid[Int] {
+  def (x: Int) combine (y: Int): Int = x + y
+  def unit: Int = 0
+}
+</code></pre>
+<p>This monoid can now be used as <em>context bound</em> in the following <code>combineAll</code> method:</p>
+<pre><code class="scala">def combineAll[T: Monoid](xs: List[T]): T =
+    xs.foldLeft(summon[Monoid[T]].unit)(_ combine _)
+</code></pre>
+<p>To get rid of the <code>summon[...]</code> we can define a <code>Monoid</code> object as follows:</p>
+<pre><code class="scala">object Monoid {
+  def apply[T](using m: Monoid[T]) = m
+}
+</code></pre>
+<p>Which would allow to re-write the <code>combineAll</code> method this way:</p>
+<pre><code class="scala">def combineAll[T: Monoid](xs: List[T]): T =
+    xs.foldLeft(Monoid[T].unit)(_ combine _)
+</code></pre>
+<p>We can also benefit from <a href="extension-methods-new.html">extension methods</a> to make this <code>combineAll</code> function accessible as a method on the <code>List</code> type:</p>
+<pre><code class="scala">def [T: Monoid](xs: List[T]).combineAll: T =
+  xs.foldLeft(Monoid[T].unit)(_ combine _)  
+</code></pre>
+<p>Which allows one to write:</p>
+<pre><code class="scala">assert(&quot;ab&quot; == List(&quot;a&quot;, &quot;b&quot;).combineAll)
+</code></pre>
+<p>or:</p>
+<pre><code class="scala">assert(3 == List(1, 2).combineAll)
+</code></pre>
+<h3><a href="#functors" id="functors" class="anchor"></a>Functors:</h3>
+<p>A <code>Functor</code> for a type provides the ability for its values to be &quot;mapped over&quot;, i.e. apply a function that transforms inside a value while remembering its shape. For example, to modify every element of a collection without dropping or adding elements.
+We can represent all types that can be &quot;mapped over&quot; with <code>F</code>. It's a type constructor: the type of its values becomes concrete when provided a type argument.
+Therefore we write it <code>F[?]</code>, hinting that it is a type with internal details we can inspect.
+The definition of a generic <code>Functor</code> would thus be written as:</p>
+<pre><code class="scala">trait Functor[F[?]] {
+  def map[A, B](original: F[A], mapper: A =&gt; B): F[B]
+}
+</code></pre>
+<p>Which could read as follows: &quot;A <code>Functor</code> for the type constructor <code>F[?]</code> represents the ability to transform <code>F[A]</code> to <code>F[B]</code> through the application of the <code>mapper</code> function whose type is <code>A =&gt; B</code>&quot;. We call the <code>Functor</code> definition here a <em>typeclass</em>.
+This way, we could define an instance of <code>Functor</code> for the <code>List</code> type:</p>
+<pre><code class="scala">given Functor[List] {
+  def map[A, B](original: List[A], mapper: A =&gt; B): List[B] =
+    original.map(mapper) // List already has a `map` method
+}
+</code></pre>
+<p>With this <code>given</code> instance in scope, everywhere a <code>Functor</code> is expected, the compiler will accept a <code>List</code> to be used.</p>
+<p>For instance, we may write such a testing method:</p>
+<pre><code class="scala">def assertTransformation[F[?]: Functor, A, B](expected: F[B], original: F[A], mapping: A =&gt; B): Unit =
+  assert(expected == summon[Functor[F]].map(original, mapping))
+</code></pre>
+<p>And use it this way, for example:</p>
+<pre><code class="scala">assertTransformation(List(&quot;a1&quot;, &quot;b1&quot;), List(&quot;a&quot;, &quot;b&quot;), elt =&gt; s&quot;${elt}1&quot;)
+</code></pre>
+<p>That's a first step, but in practice we probably would like the <code>map</code> function to be a method directly accessible on the type <code>F</code>. So that we can call <code>map</code> directly on instances of <code>F</code>, and get rid of the <code>summon[Functor[F]]</code> part.
+As in the previous example of Monoids, <a href="extension-methods-new.html"><code>extension</code> methods</a> help achieving that. Let's re-define the <code>Functor</code> <em>typeclass</em> with extension methods.</p>
+<pre><code class="scala">trait Functor[F[?]] {
+  def [A, B](original: F[A]).map(mapper: A =&gt; B): F[B]
+}
+</code></pre>
+<p>The instance of <code>Functor</code> for <code>List</code> now becomes:</p>
+<pre><code class="scala">given Functor[List] {
+  def [A, B](original: List[A]).map(mapper: A =&gt; B): List[B] =
+    original.map(mapper) // List already has a `map` method
+}
+</code></pre>
+<p>It simplifies the <code>assertTransformation</code> method:</p>
+<pre><code class="scala">def assertTransformation[F[?]: Functor, A, B](expected: F[B], original: F[A], mapping: A =&gt; B): Unit =
+  assert(expected == original.map(mapping))
+</code></pre>
+<p>The <code>map</code> method is now directly used on <code>original</code> since it is of type <code>F[A]</code> (where <code>F</code> is a <code>Functor</code>).</p>
+<h3><a href="#monads" id="monads" class="anchor"></a>Monads</h3>
+<p>Now we have a <code>Functor</code> for <code>List</code>.</p>
+<p>Applying the <code>List.map</code> ability with the following mapping function as parameter: <code>mapping: A =&gt; B</code> would result in a <code>List[B]</code>.</p>
+<p>Now, applying the <code>List.map</code> ability with the following mapping function as parameter: <code>mapping: A =&gt; List[B]</code> would result in a <code>List[List[B]]</code>.</p>
+<p>To avoid avoid managing lists of lists, we may want to &quot;flatten&quot; the values in a single list.</p>
+<p>That's where <code>Monad</code> enters the party. A <code>Monad</code> for type <code>F[?]</code> is a <code>Functor[F]</code> with 2 more abilities:
+* the flatten ability we just described: turning <code>F[A]</code> to <code>F[B]</code> when given a <code>mapping: A =&gt; F[B]</code> function
+* the ability to create <code>F[A]</code> from a single value <code>A</code></p>
+<p>Here is the translation of this definition in Scala 3:</p>
+<pre><code class="scala">trait Monad[F[?]] extends Functor[F] { // &quot;A `Monad` for type `F[?]` is a `Functor[F]`&quot; =&gt; thus has the `map` ability
+  def pure[A](x: A): F[A] // `pure` can construct F[A] from a single value A
+  def [A, B](x: F[A]).flatMap(f: A =&gt; F[B]): F[B] // the flattening ability is named `flatMap`, using extension methods as previous examples
+  def [A, B](x: F[A]).map(f: A =&gt; B) = x.flatMap(f `andThen` pure) // the `map(f)` ability is simply a combination of applying `f` then turning the result into an `F[A]` then applying `flatMap` to it
+}
+</code></pre>
+<h4><a href="#list" id="list" class="anchor"></a>List</h4>
+<p>Let us declare the <code>Monad</code> ability for type <code>List</code></p>
+<pre><code class="scala">given listMonad as Monad[List] {
+  def pure[A](x: A): List[A] =
+    List(x)
+  def [A, B](xs: List[A]).flatMap(f: A =&gt; List[B]): List[B] =
+    xs.flatMap(f) // let's rely on the existing `flatMap` method of `List`
+}
+</code></pre>
+<p><code>map</code> implementation is no longer needed.</p>
+<h4><a href="#option" id="option" class="anchor"></a>Option</h4>
+<p><code>Option</code> is an other type having the same kind of behaviour:
+* the <code>map</code> ability turning <code>Option[A]</code> into <code>Option[B]</code> if passed a function <code>f: A =&gt; B</code>
+* the <code>flatMap</code> ability turning <code>Option[A]</code> into <code>Option[B]</code> if passed a function <code>f: A =&gt; Option[B]</code>
+* the <code>pure</code> ability turning <code>A</code> into <code>Option[A]</code></p>
+<pre><code class="scala">given optionMonad as Monad[Option] {
+  def pure[A](x: A): Option[A] =
+    Option(x)
+  def [A, B](xs: Option[A]).flatMap(f: A =&gt; Option[B]): Option[B] =
+    xs.flatMap(f) // let's rely on the existing `flatMap` method of `Option`
+}
+</code></pre>
+<h4><a href="#the-reader-monad" id="the-reader-monad" class="anchor"></a>The Reader Monad</h4>
+<p>Another example of a <code>Monad</code> is the Reader Monad. It no longer acts on a type like <code>List</code> or <code>Option</code>, but on a function.
+It can be used for example for combining functions that all need the same type of parameter. For instance multiple functions needing access to some configuration, context, environment variables, etc.</p>
+<p>Let us have a <code>Config</code> type, and two functions using it:</p>
+<pre><code class="scala">trait Config
+// ...
+def compute(i: Int)(config: Config): String = ???
+def show(str: String)(config: Config): Unit = ???
+</code></pre>
+<p>We may want to combine <code>compute</code> and <code>show</code> into a single function, accepting a <code>Config</code> as parameter, and showing the result of the computation.
+If we had a <code>flatMap</code> function as in the examples above, we would be able to write the following:</p>
+<pre><code class="scala">def computeAndShow(i: Int): Config =&gt; Unit = compute(i).flatMap(show)
+</code></pre>
+<p>Let's define this <code>Monad</code> then. First, we are going to define a type named <code>ConfigDependent</code> representing a function that when passed a <code>Config</code> produces a <code>Result</code>.</p>
+<pre><code class="scala">trait Config // the Config defined above
+type ConfigDependent[Result] = Config =&gt; Result
+</code></pre>
+<p>The monad will look like this:</p>
+<pre><code class="scala">given configDependentMonad as Monad[ConfigDependent] {
+  def [A, B](r: ConfigDependent[A]).flatMap(f: A =&gt; ConfigDependent[B]): ConfigDependent[B] =
+    config =&gt; f(r(config))(config)
+  def pure[A](x: A): ConfigDependent[A] =
+    config =&gt; x
+}
+</code></pre>
+<p>The type <code>ConfigDependent</code> can be written using <a href="../new-types/type-lambdas.html">type lambdas</a>:</p>
+<pre><code class="scala">type ConfigDependent = [Result] =&gt;&gt; Config =&gt; Result
+</code></pre>
+<p>Using this syntax would turn the previous <code>configReaderMonad</code> into:</p>
+<pre><code class="scala">given configDependentMonad as Monad[[Result] =&gt;&gt; Config =&gt; Result]
+  def [A, B](r: Config =&gt; A).flatMap(f: A =&gt; Config =&gt; B): Config =&gt; B =
+    config =&gt; f(r(config))(config)
+  def pure[A](x: A): Config =&gt; A =
+    config =&gt; x
+</code></pre>
+<p>It is likely that we would like to use this pattern with other kinds of environments than our <code>Config</code> trait. The Reader monad allows us to abstract away <code>Config</code> as a type <em>parameter</em>, named <code>Ctx</code> in the following definition:</p>
+<pre><code class="scala">given readerMonad[Ctx] as Monad[[X] =&gt;&gt; Ctx =&gt; X] {
+  def [A, B](r: Ctx =&gt; A).flatMap(f: A =&gt; Ctx =&gt; B): Ctx =&gt; B =
+    ctx =&gt; f(r(ctx))(ctx)
+  def pure[A](x: A): Ctx =&gt; A =
+    ctx =&gt; x
+}
+</code></pre>
+<h3><a href="#summary" id="summary" class="anchor"></a>Summary</h3>
+<p>The definition of a <em>typeclass</em> is expressed via a parameterised type with abstract members, such as a <code>trait</code>.
+The main difference between object oriented polymorphism, and ad-hoc polymorphism with <em>typeclasses</em>, is how the definition of the <em>typeclass</em> is implemented, in relation to the type it acts upon.
+In the case of a <em>typeclass</em>, its implementation for a concrete type is expressed through a <code>given</code> term definition, which is supplied as an implicit argument alongside the value it acts upon. With object oriented polymorphism, the implementation is mixed into the parents of a class, and only a single term is required to perform a polymorphic operation.</p>
+<p>To conclude, in addition to given instances, other constructs like extension methods, context bounds and type lambdas allow a concise and natural expression of <em>typeclasses</em>.</p>
+
+</main>
+</div>
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+        <script src="/nightly/js/highlight.pack.js"></script>
+        <script src="/nightly/js/bootstrap.min.js"></script>
+        
+            <script src="/nightly/js/toolbar.js"></script>
+        
+            <script src="/nightly/js/sidebar.js"></script>
+        
+        <script src="/nightly/js/dottydoc.js"></script>
+    </body>
+</html>
