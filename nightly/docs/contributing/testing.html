@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-08 -->
+<!-- This page was last generated on 2020-05-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200507-0e5f9dd-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200508-f5b1d79-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1787,6 +1787,13 @@
     </header>
     <p>Running all tests in Dotty is as simple as:</p>
 <pre><code class="bash">$ sbt test
+</code></pre>
+<p>Specifically, <code>sbt test</code> runs all tests that do <em>not</em> require a bootstrapped
+compiler. In practice, this means that it runs all compilation tests meeting
+this criterion, as well as all non-compiler tests.</p>
+<p>The entire suite of tests can be run using the bootstrapped compiler as follows:</p>
+<pre><code class="bash">$ sbt
+&gt; dotty-bootstrapped/test
 </code></pre>
 <p>There are currently several forms of tests in Dotty. These can be split into
 two categories:</p>

@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200507-0e5f9dd-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200508-f5b1d79-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1980,7 +1980,7 @@ given as FromDigits[Digits] = (digits: String) =&gt; Digits(digits.toList)
 <h2><a href="#metaprogramming-progress" id="metaprogramming-progress" class="anchor"></a>Metaprogramming Progress</h2>
 <p>We are making steady progress with the language metaprogramming features. The metaprogramming spotlights of this release are as follows:</p>
 <ul>
-<li><code>toExprOfTuple</code> method which allows converting a <code>Seq[Expr[_]]</code> to <code>Expr[Tuple]</code>. The types of the expressions will be preserved in the tuple. See <a href="https://github.com/lampepfl/dotty/pull/7037">#7037</a> and <a href="https://github.com/lampepfl/dotty/pull/7076">#7076</a> for the details.</li>
+<li><code>toExprOfTuple</code> method which allows converting a <code>Seq[Expr[Any]]</code> to <code>Expr[Tuple]</code>. The types of the expressions will be preserved in the tuple. See <a href="https://github.com/lampepfl/dotty/pull/7037">#7037</a> and <a href="https://github.com/lampepfl/dotty/pull/7076">#7076</a> for the details.</li>
 <li><code>toExprOfTuple</code> method that converts a tuple of expressions to an expression of tuple – see <a href="https://github.com/lampepfl/dotty/pull/7047">#7047</a>.</li>
 <li><code>toExprOfSeq</code> which converts an <code>Seq[Expr[A]]</code> to <code>Expr[Seq[A]]</code> – see <a href="https://github.com/lampepfl/dotty/pull/6935">#6935</a>.</li>
 <li>More <code>Liftable</code> instances – for Tuples of arity greater than 22, <code>BigInt</code> and <code>BigDecimal</code> – see <a href="https://github.com/lampepfl/dotty/pull/6947">#6947</a> and <a href="https://github.com/lampepfl/dotty/pull/6944">#6944</a>.</li>

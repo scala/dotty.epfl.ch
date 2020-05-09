@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-08 -->
+<!-- This page was last generated on 2020-05-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200507-0e5f9dd-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200508-f5b1d79-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1964,13 +1964,13 @@ add constructors that create typed trees directly without going
 through quotes. Most likely, those constructors would work over <code>Expr</code>
 types which lack a known type argument. For instance, an <code>Apply</code>
 constructor could be typed as follows:</p>
-<pre><code class="scala">def Apply(fn: Expr[_], args: List[Expr[_]]): Expr[_]
+<pre><code class="scala">def Apply(fn: Expr[Any], args: List[Expr[Any]]): Expr[Any]
 </code></pre>
 <p>This would allow constructing applications from lists of arguments
 without having to match the arguments one-by-one with the
 corresponding formal parameter types of the function. We then need &quot;at
-the end&quot; a method to convert an <code>Expr[_]</code> to an <code>Expr[T]</code> where <code>T</code> is
-given from the outside. E.g. if <code>code</code> yields a <code>Expr[_]</code>, then
+the end&quot; a method to convert an <code>Expr[Any]</code> to an <code>Expr[T]</code> where <code>T</code> is
+given from the outside. E.g. if <code>code</code> yields a <code>Expr[Any]</code>, then
 <code>code.atType[T]</code> yields an <code>Expr[T]</code>. The <code>atType</code> method has to be
 implemented as a primitive; it would check that the computed type
 structure of <code>Expr</code> is a subtype of the type structure representing

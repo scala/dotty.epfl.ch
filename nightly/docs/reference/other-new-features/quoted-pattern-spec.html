@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-08 -->
+<!-- This page was last generated on 2020-05-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200507-0e5f9dd-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200508-f5b1d79-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1802,7 +1802,7 @@ Splices can be of two forms:
 </code></pre>
 <h2><a href="#runtime-semantics" id="runtime-semantics" class="anchor"></a>Runtime semantics</h2>
 <p>At runtime to a <code>quoted.Expr</code> can be matched to another using <code>scala.internal.quoted.Expr.unapply</code>.</p>
-<pre><code class="scala">def unapply[Tup &lt;: Tuple](scrutineeExpr: Expr[_])(implicit patternExpr: Expr[_], reflection: Reflection): Option[Tup]
+<pre><code class="scala">def unapply[Tup &lt;: Tuple](scrutineeExpr: Expr[Any])(implicit patternExpr: Expr[Any], reflection: Reflection): Option[Tup]
 </code></pre>
 <p>The <code>scrutineeExpr</code> is a normal quoted expression while <code>patternExpr</code> may contain holes representing splices.
 The result of pattern matching is <code>None</code> if the expressions are not equivalent, otherwise it returns <code>Some</code> (some tuple) containing the contents of the matched holes.</p>
