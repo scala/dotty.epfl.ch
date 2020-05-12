@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-11 -->
+<!-- This page was last generated on 2020-05-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200510-3937ddb-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200511-5fb865b-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -300,6 +300,18 @@
                         dotty.internal
                     </a>
                     <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/dotty/internal/CompileTimeMacros$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/dotty/internal/CompileTimeMacros$.html">CompileTimeMacros</a>
+                            </li>
+                            
+
                         
                             
 
@@ -1206,7 +1218,7 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/quoted/QuoteContext.html">C</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
                             </li>
@@ -1293,42 +1305,6 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                    </ul>
-                </li>
-            
-                <li class="index-entity entity-package section">
-                    <a class="package-toggle" onclick="toggleSection(this);">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                    <a class="entity-name" href="/api/scala/quoted/matching/index.html">
-                        scala.quoted.matching
-                    </a>
-                    <ul class="package-entities">
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/ConstSeq$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/matching/ValueSeq$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/matching/ValueSeq$.html">ValueSeq</a>
                             </li>
                             
 
@@ -1776,7 +1752,7 @@
 
 <div id="content-wrapper">
     <script>
-    document.title = "Dotty Docs - ConstSeq";
+    document.title = "Dotty Docs - CompileTimeMacros";
 </script>
 <main class="container api">
     <header>
@@ -1788,7 +1764,7 @@
             object
         </span>
         <h1>
-            ConstSeq
+            CompileTimeMacros
             
         </h1>
         <span class="name-suffix">
@@ -1803,11 +1779,6 @@
         </span>
     </header>
     <!-- Description -->
-    
-        <div id="description">
-            <p>Literal sequence of literal constant value expressions</p>
-
-        </div>
     
     <!-- Supertypes -->
     
@@ -1841,7 +1812,7 @@
 
                 
                 
-                <div id="unapply(expr)(qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-unapply-expr--qctx-">
+                <div id="codeExpr(qctx)(sc,args)" class="member def public " data-toggle="collapse" data-target=".collapse-codeExpr-qctx--sc_args-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1854,30 +1825,13 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                unapply
+                                codeExpr
                             
                         </h3>
                         <!-- Type parameters -->
                         
-                            <span class="type-params">
-                                [T]
-                            </span>
-                        
                         <!-- Method parameters -->
                         
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            expr:
-                                            
-                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Seq<span class="type-params">[T]</span>]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
                             
                                 <span class="params implicit">
                                     (
@@ -1894,37 +1848,46 @@
                                     )
                                 </span>
                             
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            sc:
+                                            
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[StringContext]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            args:
+                                            
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Seq<span class="type-params">[Any]</span>]</span>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: Option<span class="type-params">[Seq<span class="type-params">[T]</span>]</span></span>
+                            <span class="return-type">: <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[String]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-unapply-expr--qctx-">
+                    <div class="short collapse show collapse-codeExpr-qctx--sc_args-">
                         
-                            <p>Matches literal sequence of literal constant value expressions and return a sequence of values.</p>
-<p>Usage:</p>
-
+                            <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-unapply-expr--qctx-">
+                    <div class="details collapse collapse-codeExpr-qctx--sc_args-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Matches literal sequence of literal constant value expressions and return a sequence of values.</p>
-<p>Usage:</p>
-<pre><code class="scala">inline def sum(args: Int*): Int = ${ sumExpr('args) }
-def sumExpr(argsExpr: Expr[Seq[Int]])(usingusing QuoteContext): Expr[Int] = argsExpr match
-  case ConstSeq(args) =&gt;
-    // args: Seq[Int]
-    ...
-}
-</code></pre>
-
+                            
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}

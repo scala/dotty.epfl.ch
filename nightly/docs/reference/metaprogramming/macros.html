@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-11 -->
+<!-- This page was last generated on 2020-05-12 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200510-3937ddb-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200511-5fb865b-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -300,6 +300,18 @@
                         dotty.internal
                     </a>
                     <ul class="package-entities">
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/dotty/internal/CompileTimeMacros$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/dotty/internal/CompileTimeMacros$.html">CompileTimeMacros</a>
+                            </li>
+                            
+
                         
                             
 
@@ -1206,7 +1218,7 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/QuoteContext.html">C</a>
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/quoted/QuoteContext.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/quoted/QuoteContext.html">QuoteContext</a>
                             </li>
@@ -1293,42 +1305,6 @@
                                     <a class="letter-anchor object" href="/nightly/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                    </ul>
-                </li>
-            
-                <li class="index-entity entity-package section">
-                    <a class="package-toggle" onclick="toggleSection(this);">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                    <a class="entity-name" href="/nightly/api/scala/quoted/matching/index.html">
-                        scala.quoted.matching
-                    </a>
-                    <ul class="package-entities">
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/matching/ConstSeq$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/matching/ConstSeq$.html">ConstSeq</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/matching/ValueSeq$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/matching/ValueSeq$.html">ValueSeq</a>
                             </li>
                             
 
@@ -1976,7 +1952,7 @@ val letExp = Let(&quot;x&quot;, Num(3), exp)
 <p>Here’s a compiler that maps an expression given in the interpreted
 language to quoted Scala code of type <code>Expr[Int]</code>.
 The compiler takes an environment that maps variable names to Scala <code>Expr</code>s.</p>
-<pre><code class="scala">import scala.quoted.{given _, _}
+<pre><code class="scala">import scala.quoted._
 
 def compile(e: Exp, env: Map[String, Expr[Int]])(using QuoteContext): Expr[Int] = e match {
   case Num(n) =&gt;
