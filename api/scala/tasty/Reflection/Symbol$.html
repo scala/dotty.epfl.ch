@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-13 -->
+<!-- This page was last generated on 2020-05-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200512-f807eee-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200513-363dd03-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1870,6 +1870,146 @@
                         
                         
                             <p>The class Symbol of a global class definition</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="newBind(parent,name,flags,tpe)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-newBind-parent_name_flags_tpe--ctx-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                newBind
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            parent:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            name:
+                                            
+                                            String
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            flags:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Flags">Flags</a>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            tpe:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Type">Type</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            ctx:
+                                            
+                                            <a href="/api/scala/tasty/Reflection.html#Context">Context</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="/api/scala/tasty/Reflection.html#Symbol">Symbol</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-newBind-parent_name_flags_tpe--ctx-">
+                        
+                            <p>Generates a pattern bind symbol with the given parent, name and type.</p>
+<p>This symbol starts without an accompanying definition.
+It is the meta-programmer's...
+</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-newBind-parent_name_flags_tpe--ctx-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Generates a pattern bind symbol with the given parent, name and type.</p>
+<p>This symbol starts without an accompanying definition.
+It is the meta-programmer's responsibility to provide exactly one corresponding definition by passing
+this symbol to the BindDef constructor.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
