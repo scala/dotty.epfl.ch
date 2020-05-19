@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-17 -->
+<!-- This page was last generated on 2020-05-19 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200516-9450bf2-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200518-b5eded6-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1213,10 +1213,16 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
                             
 
-                            <li class="">
+                        
+                            
+
+                            <li class=" with-companion ">
                                 <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/QuoteContext$.html">O</a>
                                     
                                     <a class="letter-anchor trait" href="/nightly/api/scala/quoted/QuoteContext.html">T</a>
                                 </div>
@@ -1230,9 +1236,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/ScopeException.html">C</a>
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/ScopeException.html">ScopeException</a>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1242,9 +1248,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/StopQuotedContext.html">C</a>
+                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/ScopeException.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/StopQuotedContext.html">StopQuotedContext</a>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/ScopeException.html">ScopeException</a>
                             </li>
                             
 
@@ -2346,14 +2352,14 @@ private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using 
           val showTp = '[Show[$tp]]
           Expr.summon(using showTp) match {
             case Some(showExpr) =&gt; '{ $showExpr.show($arg) }
-            case None =&gt; qctx.error(s&quot;could not find implicit for ${showTp.show}&quot;, arg); '{???}
+            case None =&gt; Reporting.error(s&quot;could not find implicit for ${showTp.show}&quot;, arg); '{???}
           }
       }
       val newArgsExpr = Varargs(argShowedExprs)
       '{ $sc.s($newArgsExpr: _*) }
     case _ =&gt;
       // `new StringContext(...).showMeExpr(args: _*)` not an explicit `showMeExpr&quot;...&quot;`
-      qctx.error(s&quot;Args must be explicit&quot;, argsExpr)
+      Reporting.error(s&quot;Args must be explicit&quot;, argsExpr)
       '{???}
   }
 }

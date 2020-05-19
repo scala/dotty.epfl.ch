@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-17 -->
+<!-- This page was last generated on 2020-05-19 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200516-9450bf2-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200518-b5eded6-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1213,10 +1213,16 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
                             
 
-                            <li class="">
+                        
+                            
+
+                            <li class=" with-companion ">
                                 <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/QuoteContext$.html">O</a>
                                     
                                     <a class="letter-anchor trait" href="/nightly/api/scala/quoted/QuoteContext.html">T</a>
                                 </div>
@@ -1230,9 +1236,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/ScopeException.html">C</a>
+                                    <a class="letter-anchor object" href="/nightly/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/ScopeException.html">ScopeException</a>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1242,9 +1248,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/StopQuotedContext.html">C</a>
+                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/ScopeException.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/StopQuotedContext.html">StopQuotedContext</a>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/ScopeException.html">ScopeException</a>
                             </li>
                             
 
@@ -1740,36 +1746,33 @@
 
 <div id="content-wrapper">
     <script>
-    document.title = "Dotty Docs - StopQuotedContext";
+    document.title = "Dotty Docs - QuoteContext";
 </script>
 <main class="container api">
     <header>
-        <span class="letter-anchor class">C</span>
+        <span class="letter-anchor object">O</span>
         <span class="name-prefix">
             <span class="modifiers">
                 
             </span>
-            class
+            object
         </span>
         <h1>
-            StopQuotedContext
+            QuoteContext
             
         </h1>
         <span class="name-suffix">
             
                 extends
                 
-                    Throwable
+                    Object
+                    with Serializable
+                    
                 
             
         </span>
     </header>
     <!-- Description -->
-    
-        <div id="description">
-            <p>Stop code generation after an error has been reported</p>
-
-        </div>
     
     <!-- Supertypes -->
     
@@ -1777,7 +1780,9 @@
             <h2>Supertypes</h2>
             <span>
                 
-                    Throwable
+                    Object, 
+                
+                    Serializable
                 
             </span>
         </div>
@@ -1786,34 +1791,91 @@
     
     <!-- Constructors -->
     
-        <div id="constructors">
-            <h2>Constructors</h2>
-            
-                <div class="wide-table">
-                    
-                        <span class="member">
-                            <span class="left-column"></span>
-                            <span class="right-column">
-                                <h3>StopQuotedContext</h3>
-                                
-                                    <span class="params ">
-                                        (
-                                        
-                                        
-                                        )
-                                    </span>
-                                
-                            </span>
-                        </span>
-                    
-                </div>
-            
-        </div>
-    
     <!-- Members -->
     <div id="members">
         <h2>Members</h2>
         <div class="wide-table">
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="error_and_warining_on_QuoteContext" class="member def public " data-toggle="collapse" data-target=".collapse-error_and_warining_on_QuoteContext">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            final given
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                error_and_warining_on_QuoteContext
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="/nightly/api/scala/Conversion.html">Conversion</a><span class="type-params">[<a href="/nightly/api/scala/quoted/QuoteContext.html">QuoteContext</a>,Reporting.type]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-error_and_warining_on_QuoteContext">
+                        
+                            <p></p>
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-error_and_warining_on_QuoteContext">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
             
         </div>
     </div>
