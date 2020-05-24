@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-19 -->
+<!-- This page was last generated on 2020-05-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200518-b5eded6-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1458,6 +1458,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/runtime/EnumValue.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/EnumValue.html">EnumValue</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor class" href="/nightly/api/scala/runtime/EnumValues.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/runtime/EnumValues.html">EnumValues</a>
@@ -1871,7 +1883,7 @@
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
-                            
+                            final
                         </span>
                         <span class="member-kind">class&nbsp;</span>
                     </span>
@@ -1886,7 +1898,7 @@
                         <!-- Type parameters -->
                         
                             <span class="type-params">
-                                [+T]
+                                [Tree]
                             </span>
                         
                         <!-- Method parameters -->
@@ -1899,9 +1911,9 @@
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-Expr">
                         
-                            <p>Quoted expression of type <code>T</code></p>
-<p>Restriction: only the QuoteContext.tasty.internal implementation is allowed to extend this trait.
-Any other implementation w...</p>
+                            <p>An Expr backed by a tree. Only the current compiler trees are allowed.</p>
+<p>These expressions are used for arguments of macros. They contain and actual tree
+</p>
 
                         
                     </div>
@@ -1910,9 +1922,10 @@ Any other implementation w...</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Quoted expression of type <code>T</code></p>
-<p>Restriction: only the QuoteContext.tasty.internal implementation is allowed to extend this trait.
-Any other implementation will result in an undefined behavior.</p>
+                            <p>An Expr backed by a tree. Only the current compiler trees are allowed.</p>
+<p>These expressions are used for arguments of macros. They contain and actual tree
+from the program that is being expanded by the macro.</p>
+<p>May contain references to code defined outside this Expr instance.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -2207,7 +2220,7 @@ The semantics are defined as a list of reduction rules that are tried one by one
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
-                            
+                            final
                         </span>
                         <span class="member-kind">class&nbsp;</span>
                     </span>
@@ -2222,7 +2235,7 @@ The semantics are defined as a list of reduction rules that are tried one by one
                         <!-- Type parameters -->
                         
                             <span class="type-params">
-                                [T]
+                                [Tree]
                             </span>
                         
                         <!-- Method parameters -->
@@ -2235,9 +2248,7 @@ The semantics are defined as a list of reduction rules that are tried one by one
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-Type">
                         
-                            <p>Quoted type (or kind) <code>T</code></p>
-<p>Restriction: only the QuoteContext.tasty.internal implementation is allowed to extend this trait.
-Any other implementation will...</p>
+                            <p>Quoted type (or kind) <code>T</code> backed by a tree</p>
 
                         
                     </div>
@@ -2246,9 +2257,7 @@ Any other implementation will...</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Quoted type (or kind) <code>T</code></p>
-<p>Restriction: only the QuoteContext.tasty.internal implementation is allowed to extend this trait.
-Any other implementation will result in an undefined behavior.</p>
+                            <p>Quoted type (or kind) <code>T</code> backed by a tree</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps

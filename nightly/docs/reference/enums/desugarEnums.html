@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-19 -->
+<!-- This page was last generated on 2020-05-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200518-b5eded6-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1458,6 +1458,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/runtime/EnumValue.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/EnumValue.html">EnumValue</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor class" href="/nightly/api/scala/runtime/EnumValues.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/runtime/EnumValues.html">EnumValues</a>
@@ -1862,7 +1874,8 @@ parameters are not permitted (however value cases with explicit <code>extends</c
 <p>where <code>n</code> is the ordinal number of the case in the companion object,
 starting from 0.  The statement <code>$values.register(this)</code> registers the value
 as one of the <code>values</code> of the enumeration (see below). <code>$values</code> is a
-compiler-defined private value in the companion object.</p>
+compiler-defined private value in the companion object. The anonymous class also
+implements the abstract <code>Product</code> methods that it inherits from <code>Enum</code>.</p>
 <p>It is an error if a value case refers to a type parameter of the enclosing <code>enum</code>
 in a type argument of <code>&lt;parents&gt;</code>.</p>
 </li>
@@ -1908,7 +1921,8 @@ follows.
 </code></pre>
 </li>
 </ul>
-<p>The <code>$ordinal</code> method above is used to generate the <code>ordinal</code> method if the enum does not extend a <code>java.lang.Enum</code> (as Scala enums do not extend <code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as <code>java.lang.Enum</code> defines it.</p>
+<p>The anonymous class also implements the abstract <code>Product</code> methods that it inherits from <code>Enum</code>.
+The <code>$ordinal</code> method above is used to generate the <code>ordinal</code> method if the enum does not extend a <code>java.lang.Enum</code> (as Scala enums do not extend <code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as <code>java.lang.Enum</code> defines it.</p>
 <h3><a href="#scopes-for-enum-cases" id="scopes-for-enum-cases" class="anchor"></a>Scopes for Enum Cases</h3>
 <p>A case in an <code>enum</code> is treated similarly to a secondary constructor. It can access neither the enclosing <code>enum</code> using <code>this</code>, nor its value parameters or instance members using simple
 identifiers.</p>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-19 -->
+<!-- This page was last generated on 2020-05-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200518-b5eded6-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1458,6 +1458,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/runtime/EnumValue.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/EnumValue.html">EnumValue</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor class" href="/nightly/api/scala/runtime/EnumValues.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/runtime/EnumValues.html">EnumValues</a>
@@ -1795,7 +1807,7 @@ trait Monoid[T] extends SemiGroup[T] {
 <pre><code class="scala">def combineAll[T: Monoid](xs: List[T]): T =
     xs.foldLeft(Monoid[T].unit)(_ combine _)
 </code></pre>
-<p>We can also benefit from <a href="extension-methods-new.html">extension methods</a> to make this <code>combineAll</code> function accessible as a method on the <code>List</code> type:</p>
+<p>We can also benefit from <a href="extension-methods.html">extension methods</a> to make this <code>combineAll</code> function accessible as a method on the <code>List</code> type:</p>
 <pre><code class="scala">def [T: Monoid](xs: List[T]).combineAll: T =
   xs.foldLeft(Monoid[T].unit)(_ combine _)  
 </code></pre>
@@ -1830,7 +1842,7 @@ This way, we could define an instance of <code>Functor</code> for the <code>List
 <pre><code class="scala">assertTransformation(List(&quot;a1&quot;, &quot;b1&quot;), List(&quot;a&quot;, &quot;b&quot;), elt =&gt; s&quot;${elt}1&quot;)
 </code></pre>
 <p>That's a first step, but in practice we probably would like the <code>map</code> function to be a method directly accessible on the type <code>F</code>. So that we can call <code>map</code> directly on instances of <code>F</code>, and get rid of the <code>summon[Functor[F]]</code> part.
-As in the previous example of Monoids, <a href="extension-methods-new.html"><code>extension</code> methods</a> help achieving that. Let's re-define the <code>Functor</code> <em>typeclass</em> with extension methods.</p>
+As in the previous example of Monoids, <a href="extension-methods.html"><code>extension</code> methods</a> help achieving that. Let's re-define the <code>Functor</code> <em>typeclass</em> with extension methods.</p>
 <pre><code class="scala">trait Functor[F[?]] {
   def [A, B](original: F[A]).map(mapper: A =&gt; B): F[B]
 }
