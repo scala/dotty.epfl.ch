@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1882,14 +1882,16 @@ ClassQualifier    ::=  ‘[’ id ‘]’
 </code></pre>
 <h3><a href="#types" id="types" class="anchor"></a>Types</h3>
 <pre><code class="ebnf">Type              ::=  FunType
-                    |  HkTypeParamClause ‘=&gt;&gt;’ Type                             TypeLambda(ps, t)
+                    |  HkTypeParamClause ‘=&gt;&gt;’ Type                             LambdaTypeTree(ps, t)
+                    |  FunParamClause ‘=&gt;&gt;’ Type                                TermLambdaTypeTree(ps, t)
                     |  MatchType
                     |  InfixType
 FunType           ::=  FunArgTypes (‘=&gt;’ | ‘?=&gt;’) Type                          Function(ts, t)
                     |  HKTypeParamClause '=&gt;' Type                              PolyFunction(ps, t)
 FunArgTypes       ::=  InfixType
                     |  ‘(’ [ FunArgType {‘,’ FunArgType } ] ‘)’
-                    |  ‘(’ TypedFunParam {‘,’ TypedFunParam } ‘)’
+                    |  FunParamClause
+FunParamClause    ::=  ‘(’ TypedFunParam {‘,’ TypedFunParam } ‘)’
 TypedFunParam     ::=  id ‘:’ Type
 MatchType         ::=  InfixType `match` ‘{’ TypeCaseClauses ‘}’
 InfixType         ::=  RefinedType {id [nl] RefinedType}                        InfixOp(t1, op, t2)
@@ -1898,9 +1900,8 @@ WithType          ::=  AnnotType {‘with’ AnnotType}                         
 AnnotType         ::=  SimpleType {Annotation}                                  Annotated(t, annot)
 
 SimpleType        ::=  SimpleLiteral                                            SingletonTypeTree(l)
-                    |  ‘?’ SubtypeBounds
-                    |  SimpleType ‘(’ Singletons ‘)’
-                    |  SimpleType1
+                    |  ‘?’ TypeBounds
+                    |  SimpleType1 { ‘(’ Singletons ‘)’ }
 SimpleType1       ::=  id                                                       Ident(name)
                     |  Singleton ‘.’ id                                         Select(t, name)
                     |  Singleton ‘.’ ‘type’                                     SingletonTypeTree(p)
@@ -1910,6 +1911,7 @@ SimpleType1       ::=  id                                                       
                     |  SimpleType1 TypeArgs                                     AppliedTypeTree(t, args)
                     |  SimpleType1 ‘#’ id                                       Select(t, name)
 Singleton         ::=  SimpleRef
+                    |  SimpleLiteral
                     |  Singleton ‘.’ id
 -- not yet          |  Singleton ‘(’ Singletons ‘)’
 -- not yet          |  Singleton ‘[’ ArgTypes ‘]’
@@ -1923,8 +1925,8 @@ TypeArgs          ::=  ‘[’ ArgTypes ‘]’                                 
 NamedTypeArg      ::=  id ‘=’ Type                                              NamedArg(id, t)
 NamedTypeArgs     ::=  ‘[’ NamedTypeArg {‘,’ NamedTypeArg} ‘]’                  nts
 Refinement        ::=  ‘{’ [RefineDcl] {semi [RefineDcl]} ‘}’                   ds
-SubtypeBounds     ::=  [‘&gt;:’ Type] [‘&lt;:’ Type] | INT                            TypeBoundsTree(lo, hi)
-TypeParamBounds   ::=  SubtypeBounds {‘:’ Type}                                 ContextBounds(typeBounds, tps)
+TypeBounds        ::=  [‘&gt;:’ Type] [‘&lt;:’ Type]                                  TypeBoundsTree(lo, hi)
+TypeParamBounds   ::=  TypeBounds {‘:’ Type}                                    ContextBounds(typeBounds, tps)
 Types             ::=  Type {‘,’ Type}
 </code></pre>
 <h3><a href="#expressions" id="expressions" class="anchor"></a>Expressions</h3>
@@ -2037,11 +2039,11 @@ DefTypeParamClause::=  ‘[’ DefTypeParam {‘,’ DefTypeParam} ‘]’
 DefTypeParam      ::=  {Annotation} id [HkTypeParamClause] TypeParamBounds
 
 TypTypeParamClause::=  ‘[’ TypTypeParam {‘,’ TypTypeParam} ‘]’
-TypTypeParam      ::=  {Annotation} id [HkTypeParamClause] SubtypeBounds
+TypTypeParam      ::=  {Annotation} id [HkTypeParamClause] TypeBounds
 
 HkTypeParamClause ::=  ‘[’ HkTypeParam {‘,’ HkTypeParam} ‘]’
 HkTypeParam       ::=  {Annotation} [‘+’ | ‘-’] (id [HkTypeParamClause] | ‘_’)
-                       SubtypeBounds
+                       TypeBounds
 
 ClsParamClauses   ::=  {ClsParamClause} [[nl] ‘(’ [‘implicit’] ClsParams ‘)’]
 ClsParamClause    ::=  [nl] ‘(’ ClsParams ‘)’
@@ -2060,7 +2062,7 @@ DefParam          ::=  {Annotation} [‘inline’] Param                        
 ClosureMods       ::=  { ‘implicit’ | ‘given’}
 </code></pre>
 <h3><a href="#bindings-and-imports" id="bindings-and-imports" class="anchor"></a>Bindings and Imports</h3>
-<pre><code class="ebnf">Bindings          ::=  ‘(’ [[‘given’] Binding {‘,’ Binding}] ‘)’
+<pre><code class="ebnf">Bindings          ::=  ‘(’ [[‘using’] Binding {‘,’ Binding}] ‘)’
 Binding           ::=  (id | ‘_’) [‘:’ Type]                                    ValDef(_, id, tpe, EmptyTree)
 
 Modifier          ::=  LocalModifier
@@ -2077,7 +2079,7 @@ LocalModifier     ::=  ‘abstract’
 AccessModifier    ::=  (‘private’ | ‘protected’) [AccessQualifier]
 AccessQualifier   ::=  ‘[’ id ‘]’
 
-Annotation        ::=  ‘@’ SimpleType {ParArgumentExprs}                        Apply(tpe, args)
+Annotation        ::=  ‘@’ SimpleType1 {ParArgumentExprs}                        Apply(tpe, args)
 
 Import            ::=  ‘import’ ImportExpr {‘,’ ImportExpr}
 ImportExpr        ::=  SimpleRef {‘.’ id} ‘.’ ImportSpec                          Import(expr, sels)
@@ -2106,7 +2108,8 @@ VarDcl            ::=  ids ‘:’ Type                                         
 DefDcl            ::=  DefSig ‘:’ Type                                          DefDef(_, name, tparams, vparamss, tpe, EmptyTree)
 DefSig            ::=  id [DefTypeParamClause] DefParamClauses
                     |  ExtParamClause {nl} [‘.’] id DefParamClauses
-TypeDcl           ::=  id [TypeParamClause] SubtypeBounds [‘=’ Type]           TypeDefTree(_, name, tparams, bound
+TypeDcl           ::=  id [TypeParamClause] {FunParamClause} TypeBounds         TypeDefTree(_, name, tparams, bound
+                       [‘=’ Type]
 
 Def               ::=  ‘val’ PatDef
                     |  ‘var’ VarDef
@@ -2118,7 +2121,7 @@ PatDef            ::=  ids [‘:’ Type] ‘=’ Expr
                     |  Pattern2 [‘:’ Type | Ascription] ‘=’ Expr                PatDef(_, pats, tpe?, expr)
 VarDef            ::=  PatDef
                     |  ids ‘:’ Type ‘=’ ‘_’
-DefDef            ::=  DefSig [(‘:’ | ‘&lt;:’) Type] ‘=’ Expr                      DefDef(_, name, tparams, vparamss, tpe, expr)
+DefDef            ::=  DefSig [‘:’ Type] ‘=’ Expr                               DefDef(_, name, tparams, vparamss, tpe, expr)
                     |  ‘this’ DefParamClause DefParamClauses ‘=’ ConstrExpr     DefDef(_, &lt;init&gt;, Nil, vparamss, EmptyTree, expr | Block)
 
 TmplDef           ::=  ([‘case’] ‘class’ | ‘trait’) ClassDef
@@ -2131,7 +2134,7 @@ ClassConstr       ::=  [ClsTypeParamClause] [ConstrMods] ClsParamClauses        
 ConstrMods        ::=  {Annotation} [AccessModifier]
 ObjectDef         ::=  id [Template]                                            ModuleDef(mods, name, template)  // no constructor
 EnumDef           ::=  id ClassConstr InheritClauses EnumBody                   EnumDef(mods, name, tparams, template)
-GivenDef          ::=  [GivenSig] [‘_’ ‘&lt;:’] Type ‘=’ Expr
+GivenDef          ::=  [GivenSig] Type ‘=’ Expr
                     |  [GivenSig] ConstrApps [TemplateBody]
 GivenSig          ::=  [id] [DefTypeParamClause] {UsingParamClause} ‘as’
 ExtensionDef      ::=  [id] [‘on’ ExtParamClause {UsingParamClause}]

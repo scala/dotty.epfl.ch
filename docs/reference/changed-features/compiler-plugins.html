@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1790,7 +1790,7 @@ enabled for nightly or snaphot releases of Dotty.</p>
 </code></pre>
 <p>The compiler will examine the jar provided, and look for a property file named
 <code>plugin.properties</code> in the root directory of the jar. The property file specifies
-the fully qualified plugin class name. The format of a property file is as follow:</p>
+the fully qualified plugin class name. The format of a property file is as follows:</p>
 <pre><code class="properties">pluginClass=dividezero.DivideZero
 </code></pre>
 <p>This is different from <code>scalac</code> plugins that required a <code>scalac-plugin.xml</code> file.</p>
@@ -1845,7 +1845,7 @@ and returns a list of <code>PluginPhase</code>s to be inserted into the compilat
 the <code>PluginPhase</code> trait. In order to specify when the phase is executed, we also
 need to specify a <code>runsBefore</code> and <code>runsAfter</code> constraints that are list of phase
 names.</p>
-<p>We can now transform trees by by overriding methods like <code>transformXXX</code>.</p>
+<p>We can now transform trees by overriding methods like <code>transformXXX</code>.</p>
 <h2><a href="#writing-a-research-compiler-plugin" id="writing-a-research-compiler-plugin" class="anchor"></a>Writing a Research Compiler Plugin</h2>
 <p>Here is a template for research plugins.</p>
 <pre><code class="scala">import dotty.tools.dotc.core.Contexts.Context

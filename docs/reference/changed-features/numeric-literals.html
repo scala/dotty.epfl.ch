@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1809,9 +1809,9 @@ On the other hand,</p>
 <pre><code class="scala">val x = -10_000_000_000
 </code></pre>
 <p>gives a type error, since without an expected type <code>-10_000_000_000</code> is treated by rule (3) as an <code>Int</code> literal, but it is too large for that type.</p>
-<h3><a href="#the-fromdigits-class" id="the-fromdigits-class" class="anchor"></a>The FromDigits Class</h3>
-<p>To allow numeric literals, a type simply has to define a given instance of the
-<code>scala.util.FromDigits</code> typeclass, or one of its subclasses. <code>FromDigits</code> is defined
+<h3><a href="#the-fromdigits-trait" id="the-fromdigits-trait" class="anchor"></a>The FromDigits Trait</h3>
+<p>To allow numeric literals, a type simply has to define a <code>given</code> instance of the
+<code>scala.util.FromDigits</code> type class, or one of its subclasses. <code>FromDigits</code> is defined
 as follows:</p>
 <pre><code class="scala">trait FromDigits[T] {
   def fromDigits(digits: String): T
@@ -1898,7 +1898,7 @@ from a <code>digits</code> string. Here is a possible implementation:</p>
     BigFloat(BigInt(intPart), exponent)
   }
 </code></pre>
-<p>To accept <code>BigFloat</code> literals, all that's needed in addition is a given instance of type
+<p>To accept <code>BigFloat</code> literals, all that's needed in addition is a <code>given</code> instance of type
 <code>FromDigits.Floating[BigFloat]</code>:</p>
 <pre><code class="scala">  given FromDigits as FromDigits.Floating[BigFloat] {
     def fromDigits(digits: String) = apply(digits)
@@ -1935,7 +1935,7 @@ To do this, replace the <code>FromDigits</code> instance in the <code>BigFloat</
   }
 </code></pre>
 <p>Note that an inline method cannot directly fill in for an abstract method, since it produces
-no code that can be executed at runtime. That's why we define an intermediary class
+no code that can be executed at runtime. That is why we define an intermediary class
 <code>FromDigits</code> that contains a fallback implementation which is then overridden by the inline
 method in the <code>FromDigits</code> given instance. That method is defined in terms of a macro
 implementation method <code>fromDigitsImpl</code>. Here is its definition:</p>
@@ -1958,7 +1958,7 @@ implementation method <code>fromDigitsImpl</code>. Here is its definition:</p>
 </code></pre>
 <p>The macro implementation takes an argument of type <code>Expr[String]</code> and yields
 a result of type <code>Expr[BigFloat]</code>. It tests whether its argument is a constant
-string. If that's the case, it converts the string using the <code>apply</code> method
+string. If that is the case, it converts the string using the <code>apply</code> method
 and lifts the resulting <code>BigFloat</code> back to <code>Expr</code> level. For non-constant
 strings <code>fromDigitsImpl(digits)</code> is simply <code>apply(digits)</code>, i.e. everything is
 evaluated at runtime in this case.</p>

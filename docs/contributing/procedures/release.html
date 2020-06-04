@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1799,7 +1799,7 @@
 <li><code>&lt;stable-version&gt;</code> <em>tag</em> of the stable version being released</li>
 <li><code>&lt;rc-version&gt;</code> <em>tag</em> of the RC version being released</li>
 </ul>
-<p>However you may end up with as many as 6 tasks being run. The auxiliary tasks may include:</p>
+<p>However, you may end up with as many as 6 tasks being run. The auxiliary tasks may include:</p>
 <ul>
 <li><em>commit</em> tests of the <em>tags</em> specified above. You may have two of these, corresponding to the two tags. You should see them appearing to have the same commit hash in the CI, but one of them will have the tag next to it and the other one will not. The <em>tag</em> one must remain, as the CI tasks on tags publish to maven. CI tasks on commits do not. So it is safe to cancel the task running on the commit, if the commit hash is the same as that of the tag's task commit.</li>
 <li>Older commit from the <code>master</code> branch. Look for all the tasks run on the <code>master</code> branch in the CI and see if there are more than one of these. Then, find the one testing the most recent commit of the branch. The others can safely be canceled.</li>

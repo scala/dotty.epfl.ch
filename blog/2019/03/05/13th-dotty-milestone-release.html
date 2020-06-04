@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1853,7 +1853,7 @@ communicated more clearly syntactically. Furthermore, the <code>implicit</code> 
 ascribed too many overloaded meanings in the language (implicit vals, defs,
 objects, parameters). For instance, a newcomer can easily confuse the two
 examples above, although they demonstrate completely different things, a
-typeclass instance is an implicit object or val if unconditional and an implicit
+type class instance is an implicit object or val if unconditional and an implicit
 def with implicit parameters if conditional; arguably all of them are
 surprisingly similar (syntactically). Another consideration is that the
 <code>implicit</code> keyword annotates a whole parameter section instead of a single
@@ -1950,8 +1950,8 @@ PR chain that originated from
 <a href="https://github.com/lampepfl/dotty/pull/5458">#5458</a>. The syntax changes for new
 implicits are summarized in
 <a href="https://github.com/lampepfl/dotty/pull/5825">#5825</a>.</p>
-<p>This release offers the support for <em>typeclass derivation</em> as a language
-feature. Typeclass derivation is a way to generate instances of certain type
+<p>This release offers the support for <em>type class derivation</em> as a language
+feature. Type class derivation is a way to generate instances of certain type
 classes automatically or with minimal code hints, and is now supported natively
 with <em>dedicated language support</em>. A type class in this sense is any trait or
 class with a type parameter that describes the type being operated on. Commonly
@@ -1975,13 +1975,13 @@ implied [T: Pickling] for Pickling[Tree[T]] = Pickling.derived
 <p>which replaces:</p>
 <pre><code class="scala">A extends B with C { ... }
 </code></pre>
-<p>With typeclass derivation we can also derive types. A trait or class can appear
+<p>With type class derivation we can also derive types. A trait or class can appear
 in a derives clause if its companion object defines a method named <code>derived</code>.
 The type and implementation of a <code>derived</code> method are arbitrary, but typically
 it has a definition like this:</p>
 <pre><code class="scala">def derived[T] given Generic[T] = ...
 </code></pre>
-<p><strong>You can read more about</strong> <a href="https://dotty.epfl.ch/docs/reference/contextual/derivation.html">Typeclass
+<p><strong>You can read more about</strong> <a href="https://dotty.epfl.ch/docs/reference/contextual/derivation.html">Type class
 Derivation</a> or
 have a deep dive at the relevant PRs:
 <a href="https://github.com/lampepfl/dotty/pull/5540">#5540</a> and
@@ -1992,7 +1992,7 @@ to compare integers with strings now, instead of a custom implicit we can
 provide a derived implicit instance:</p>
 <pre><code class="scala">implied for Eql[Int, String] = Eql.derived
 </code></pre>
-<p><strong>You can read more about</strong> how we based multiversal equality on typeclass derivation through
+<p><strong>You can read more about</strong> how we based multiversal equality on type class derivation through
 the relevant PR <a href="https://github.com/lampepfl/dotty/pull/5843">#5843</a>.</p>
 <p><em>Implicit conversions</em> are now defined by implied instances of the
 <code>scala.Conversion</code> class. For example:</p>

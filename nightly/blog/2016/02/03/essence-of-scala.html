@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1826,7 +1826,7 @@ the result of the evaluation will be a value <code>v</code> of type <code>T</cod
 <p>Formulating the precise soundness theorem and proving it was unexpectedly hard,
 because it uncovered some technical challenges that had not been
 studied in depth before. In DOT - as well as in many programming languages -
-you can have conflicting definitions. For instance you might have an abstract
+you can have conflicting definitions. For instance, you might have an abstract
 type declaration in a base class with two conflicting aliases in subclasses:</p>
 <pre><code class="scala">trait Base { type A }
 trait Sub1 extends Base { type A = String }

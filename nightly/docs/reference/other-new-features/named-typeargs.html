@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1768,15 +1768,17 @@
         </div>
     </header>
     <p><strong>Note:</strong> This feature is implemented in Dotty, but is not expected to be part of Scala 3.0.</p>
-<p>Type arguments of methods can now be named, as well as by position. Example:</p>
+<p>Type arguments of methods can now be specified by name as well as by position. Example:</p>
 <pre><code class="scala">def construct[Elem, Coll[_]](xs: Elem*): Coll[Elem] = ???
 
 val xs1 = construct[Coll = List, Elem = Int](1, 2, 3)
 val xs2 = construct[Coll = List](1, 2, 3)
 </code></pre>
 <p>Similar to a named value argument <code>(x = e)</code>, a named type argument
-<code>[X = T]</code> instantiates the type parameter <code>X</code> to the type <code>T</code>. Type
-arguments must be all named or un-named, mixtures of named and
+<code>[X = T]</code> instantiates the type parameter <code>X</code> to the type <code>T</code>.
+Named type arguments do not have to be in order (see <code>xs1</code> above) and
+unspecified arguments are inferred by the compiler (see <code>xs2</code> above).
+Type arguments must be all named or un-named, mixtures of named and
 positional type arguments are not supported.</p>
 <h2><a href="#motivation" id="motivation" class="anchor"></a>Motivation</h2>
 <p>The main benefit of named type arguments is that unlike positional arguments,

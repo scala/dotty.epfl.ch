@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1910,13 +1910,13 @@ For instance, assuming the object</p>
 </code></pre>
 <p>would import the <code>intOrd</code>, <code>listOrd</code>, and <code>ec</code> instances but leave out the <code>im</code>
 instance, since it fits none of the specified bounds.</p>
-<h2><a href="#new-typeclass-derivation-scheme" id="new-typeclass-derivation-scheme" class="anchor"></a>New typeclass derivation scheme</h2>
+<h2><a href="#new-type-class-derivation-scheme" id="new-type-class-derivation-scheme" class="anchor"></a>New type class derivation scheme</h2>
 <p>Summary of measured differences with the old scheme:</p>
 <ul>
 <li>About 100 lines more compiler code - the rest of the lines changed diff is
 tests.</li>
-<li>About 13-15% more code generated for typeclass instances</li>
-<li>About 3-4% slower to compile typeclass instances</li>
+<li>About 13-15% more code generated for type class instances</li>
+<li>About 3-4% slower to compile type class instances</li>
 </ul>
 <p>Advantages of new scheme:</p>
 <ul>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1771,7 +1771,7 @@
 <p>Scala's implicits are its most distinguished feature. They are <em>the</em> fundamental way to abstract over context. They represent a unified paradigm with a great variety of use cases, among them: implementing type classes, establishing context, dependency injection, expressing capabilities, computing new types and proving relationships between them.</p>
 <p>Following Haskell, Scala was the second popular language to have some form of implicits. Other languages have followed suit. E.g Rust's traits or Swift's protocol extensions. Design proposals are also on the table for Kotlin as <a href="https://github.com/Kotlin/KEEP/blob/e863b25f8b3f2e9b9aaac361c6ee52be31453ee0/proposals/compile-time-dependency-resolution.md">compile time dependency resolution</a>, for C# as <a href="https://github.com/dotnet/csharplang/issues/164">Shapes and Extensions</a>
 or for F# as <a href="https://github.com/MattWindsor91/visualfsharp/blob/hackathon-vs/examples/fsconcepts.md">Traits</a>. Implicits are also a common feature of theorem provers such as Coq or Agda.</p>
-<p>Even though these designs use widely different terminology, they are all variants of the core idea of <em>term inference</em>. Given a type, the compiler synthesizes a &quot;canonical&quot; term that has that type. Scala embodies the idea in a purer form than most other languages: An implicit parameter directly leads to an inferred argument term that could also be written down explicitly. By contrast, typeclass based designs are less direct since they hide term inference behind some form of type classification and do not offer the option of writing the inferred quantities (typically, dictionaries) explicitly.</p>
+<p>Even though these designs use widely different terminology, they are all variants of the core idea of <em>term inference</em>. Given a type, the compiler synthesizes a &quot;canonical&quot; term that has that type. Scala embodies the idea in a purer form than most other languages: An implicit parameter directly leads to an inferred argument term that could also be written down explicitly. By contrast, type class based designs are less direct since they hide term inference behind some form of type classification and do not offer the option of writing the inferred quantities (typically, dictionaries) explicitly.</p>
 <p>Given that term inference is where the industry is heading, and given that Scala has it in a very pure form, how come implicits are not more popular? In fact, it's fair to say that implicits are at the same time Scala's most distinguished and most controversial feature. I believe this is due to a number of aspects that together make implicits harder to learn than necessary and also make it harder to prevent abuses.</p>
 <p>Particular criticisms are:</p>
 <ol>
@@ -1786,7 +1786,7 @@ implicit def i2(x: T): C[T] = ...
 <p>Another widespread abuse is over-reliance on implicit imports. This often leads to inscrutable type errors that go away with the right import incantation, leaving a feeling of frustration. Conversely, it is hard to see what implicits a program uses since implicits can hide anywhere in a long list of imports.</p>
 </li>
 <li>
-<p>The syntax of implicit definitions is too minimal. It consists of a single modifier, <code>implicit</code>, that can be attached to a large number of language constructs. A problem with this for newcomers is that it conveys mechanism instead of intent. For instance, a typeclass instance is an implicit object or val if unconditional and an implicit def with implicit parameters referring to some class if conditional. This describes precisely what the implicit definitions translate to -- just drop the <code>implicit</code> modifier, and that's it! But the cues that define intent are rather indirect and can be easily misread, as demonstrated by the definitions of <code>i1</code> and <code>i2</code> above.</p>
+<p>The syntax of implicit definitions is too minimal. It consists of a single modifier, <code>implicit</code>, that can be attached to a large number of language constructs. A problem with this for newcomers is that it conveys mechanism instead of intent. For instance, a type class instance is an implicit object or val if unconditional and an implicit def with implicit parameters referring to some class if conditional. This describes precisely what the implicit definitions translate to -- just drop the <code>implicit</code> modifier, and that's it! But the cues that define intent are rather indirect and can be easily misread, as demonstrated by the definitions of <code>i1</code> and <code>i2</code> above.</p>
 </li>
 <li>The syntax of implicit parameters also has shortcomings. While implicit <em>parameters</em> are designated specifically, arguments are not. Passing an argument to an implicit parameter looks like a regular application <code>f(arg)</code>. This is problematic because it means there can be confusion regarding what parameter gets instantiated in a call. For instance, in
 <pre><code class="scala">def currentMap(implicit ctx: Context): Map[String, Int]
@@ -1816,10 +1816,10 @@ givens and nothing else.</p>
 <p>This section also contains pages describing other language features that are related to context abstraction. These are:</p>
 <ul>
 <li><a href="./context-bounds.html">Context Bounds</a>, which carry over unchanged.</li>
-<li><a href="./extension-methods.html">Extension Methods</a> replace implicit classes in a way that integrates better with typeclasses.</li>
-<li><a href="./typeclasses.html">Implementing Typeclasses</a> demonstrates how some common typeclasses can be implemented using the new constructs.</li>
-<li><a href="./derivation.html">Typeclass Derivation</a> introduces constructs to automatically derive typeclass instances for ADTs.</li>
-<li><a href="./multiversal-equality.html">Multiversal Equality</a> introduces a special typeclass to support type safe equality.</li>
+<li><a href="./extension-methods.html">Extension Methods</a> replace implicit classes in a way that integrates better with type classes.</li>
+<li><a href="type-classes.html">Implementing Type classes</a> demonstrates how some common type classes can be implemented using the new constructs.</li>
+<li><a href="./derivation.html">Type class Derivation</a> introduces constructs to automatically derive type class instances for ADTs.</li>
+<li><a href="./multiversal-equality.html">Multiversal Equality</a> introduces a special type class to support type safe equality.</li>
 <li><a href="./context-functions.html">Context Functions</a> provide a way to abstract over context parameters.</li>
 <li><a href="./by-name-context-parameters.html">By-Name Context Parameters</a> are an essential tool to define recursive synthesized values without looping.</li>
 <li><a href="./relationship-implicits.html">Relationship with Scala 2 Implicits</a> discusses the relationship between old-style implicits and new-style givens and how to migrate from one to the other.</li>

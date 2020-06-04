@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>Implementing Typeclasses</title>
+        <title>Implementing Type classes</title>
 
         <link rel="icon" type="image/png" href="/nightly/images/favicon.png">
 
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" class="toggled">Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/type-classes.html" class="toggled">Implementing Type classes</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1759,21 +1759,21 @@
 <div id="content-wrapper">
     <main class="container">
     <header>
-        <h1>Implementing Typeclasses</h1>
+        <h1>Implementing Type classes</h1>
         <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/typeclasses.md">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/contextual/type-classes.md">
                 <i class="far fa-edit"></i>
                 Edit this page on GitHub
             </a>
         </div>
     </header>
-    <p>A <em>typeclass</em> is an abstract, parameterized type that lets you add new behavior to any closed data type without using sub-typing. This can be useful in multiple use-cases, for example:
+    <p>A <em>type class</em> is an abstract, parameterized type that lets you add new behavior to any closed data type without using sub-typing. This can be useful in multiple use-cases, for example:
 * expressing how a type you don't own (from the standard or 3rd-party library) conforms to such behavior
 * expressing such a behavior for multiple types without involving sub-typing relationships (one <code>extends</code> another) between those types (see: <a href="https://en.wikipedia.org/wiki/Ad_hoc_polymorphism">ad hoc polymorphism</a> for instance)</p>
-<p>Therefore in Scala 3, <em>typeclasses</em> are just <em>traits</em> with one or more parameters whose implementations are not defined through the <code>extends</code> keyword, but by <strong>given instances</strong>.
-Here are some examples of usual typeclasses:</p>
+<p>Therefore in Scala 3, <em>type classes</em> are just <em>traits</em> with one or more parameters whose implementations are not defined through the <code>extends</code> keyword, but by <strong>given instances</strong>.
+Here are some examples of usual type classes:</p>
 <h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids" class="anchor"></a>Semigroups and monoids:</h3>
-<p>Here's the <code>Monoid</code> typeclass definition:</p>
+<p>Here's the <code>Monoid</code> type class definition:</p>
 <pre><code class="scala">trait SemiGroup[T] {
   def (x: T) combine (y: T): T
 }
@@ -1782,7 +1782,7 @@ trait Monoid[T] extends SemiGroup[T] {
   def unit: T
 }
 </code></pre>
-<p>An implementation of this <code>Monoid</code> typeclass for the type <code>String</code> can be the following:</p>
+<p>An implementation of this <code>Monoid</code> type class for the type <code>String</code> can be the following:</p>
 <pre><code class="scala">given Monoid[String] {
   def (x: String) combine (y: String): String = x.concat(y)
   def unit: String = &quot;&quot;
@@ -1826,7 +1826,7 @@ The definition of a generic <code>Functor</code> would thus be written as:</p>
   def map[A, B](original: F[A], mapper: A =&gt; B): F[B]
 }
 </code></pre>
-<p>Which could read as follows: &quot;A <code>Functor</code> for the type constructor <code>F[?]</code> represents the ability to transform <code>F[A]</code> to <code>F[B]</code> through the application of the <code>mapper</code> function whose type is <code>A =&gt; B</code>&quot;. We call the <code>Functor</code> definition here a <em>typeclass</em>.
+<p>Which could read as follows: &quot;A <code>Functor</code> for the type constructor <code>F[?]</code> represents the ability to transform <code>F[A]</code> to <code>F[B]</code> through the application of the <code>mapper</code> function whose type is <code>A =&gt; B</code>&quot;. We call the <code>Functor</code> definition here a <em>type class</em>.
 This way, we could define an instance of <code>Functor</code> for the <code>List</code> type:</p>
 <pre><code class="scala">given Functor[List] {
   def map[A, B](original: List[A], mapper: A =&gt; B): List[B] =
@@ -1842,7 +1842,7 @@ This way, we could define an instance of <code>Functor</code> for the <code>List
 <pre><code class="scala">assertTransformation(List(&quot;a1&quot;, &quot;b1&quot;), List(&quot;a&quot;, &quot;b&quot;), elt =&gt; s&quot;${elt}1&quot;)
 </code></pre>
 <p>That's a first step, but in practice we probably would like the <code>map</code> function to be a method directly accessible on the type <code>F</code>. So that we can call <code>map</code> directly on instances of <code>F</code>, and get rid of the <code>summon[Functor[F]]</code> part.
-As in the previous example of Monoids, <a href="extension-methods.html"><code>extension</code> methods</a> help achieving that. Let's re-define the <code>Functor</code> <em>typeclass</em> with extension methods.</p>
+As in the previous example of Monoids, <a href="extension-methods.html"><code>extension</code> methods</a> help achieving that. Let's re-define the <code>Functor</code> <em>type class</em> with extension methods.</p>
 <pre><code class="scala">trait Functor[F[?]] {
   def [A, B](original: F[A]).map(mapper: A =&gt; B): F[B]
 }
@@ -1862,7 +1862,7 @@ As in the previous example of Monoids, <a href="extension-methods.html"><code>ex
 <p>Now we have a <code>Functor</code> for <code>List</code>.</p>
 <p>Applying the <code>List.map</code> ability with the following mapping function as parameter: <code>mapping: A =&gt; B</code> would result in a <code>List[B]</code>.</p>
 <p>Now, applying the <code>List.map</code> ability with the following mapping function as parameter: <code>mapping: A =&gt; List[B]</code> would result in a <code>List[List[B]]</code>.</p>
-<p>To avoid avoid managing lists of lists, we may want to &quot;flatten&quot; the values in a single list.</p>
+<p>To avoid managing lists of lists, we may want to &quot;flatten&quot; the values in a single list.</p>
 <p>That's where <code>Monad</code> enters the party. A <code>Monad</code> for type <code>F[?]</code> is a <code>Functor[F]</code> with 2 more abilities:
 * the flatten ability we just described: turning <code>F[A]</code> to <code>F[B]</code> when given a <code>mapping: A =&gt; F[B]</code> function
 * the ability to create <code>F[A]</code> from a single value <code>A</code></p>
@@ -1939,10 +1939,10 @@ type ConfigDependent[Result] = Config =&gt; Result
 }
 </code></pre>
 <h3><a href="#summary" id="summary" class="anchor"></a>Summary</h3>
-<p>The definition of a <em>typeclass</em> is expressed via a parameterised type with abstract members, such as a <code>trait</code>.
-The main difference between object oriented polymorphism, and ad-hoc polymorphism with <em>typeclasses</em>, is how the definition of the <em>typeclass</em> is implemented, in relation to the type it acts upon.
-In the case of a <em>typeclass</em>, its implementation for a concrete type is expressed through a <code>given</code> term definition, which is supplied as an implicit argument alongside the value it acts upon. With object oriented polymorphism, the implementation is mixed into the parents of a class, and only a single term is required to perform a polymorphic operation.</p>
-<p>To conclude, in addition to given instances, other constructs like extension methods, context bounds and type lambdas allow a concise and natural expression of <em>typeclasses</em>.</p>
+<p>The definition of a <em>type class</em> is expressed via a parameterised type with abstract members, such as a <code>trait</code>.
+The main difference between object oriented polymorphism, and ad-hoc polymorphism with <em>type classes</em>, is how the definition of the <em>type class</em> is implemented, in relation to the type it acts upon.
+In the case of a <em>type class</em>, its implementation for a concrete type is expressed through a <code>given</code> term definition, which is supplied as an implicit argument alongside the value it acts upon. With object oriented polymorphism, the implementation is mixed into the parents of a class, and only a single term is required to perform a polymorphic operation.</p>
+<p>To conclude, in addition to given instances, other constructs like extension methods, context bounds and type lambdas allow a concise and natural expression of <em>type classes</em>.</p>
 
 </main>
 </div>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" class="toggled">Multiversal Equality</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1783,7 +1783,7 @@ x == y      // typechecks, will always yield false
 the program will still typecheck, since values of all types can be compared with each other.
 But it will probably give unexpected results and fail at runtime.</p>
 <p>Multiversal equality is an opt-in way to make universal equality
-safer. It uses a binary typeclass <code>Eql</code> to indicate that values of
+safer. It uses a binary type class <code>Eql</code> to indicate that values of
 two given types can be compared with each other.
 The example above would not typecheck if <code>S</code> or <code>T</code> was a class
 that derives <code>Eql</code>, e.g.</p>
@@ -1819,15 +1819,15 @@ given Eql[B, A] = Eql.derived
 </code></pre>
 <p>The <code>scala.Eql</code> object defines a number of <code>Eql</code> given instances that together
 define a rule book for what standard types can be compared (more details below).</p>
-<p>There's also a &quot;fallback&quot; instance named <code>eqlAny</code> that allows comparisons
+<p>There is also a &quot;fallback&quot; instance named <code>eqlAny</code> that allows comparisons
 over all types that do not themselves have an <code>Eql</code> given.  <code>eqlAny</code> is defined as follows:</p>
 <pre><code class="scala">def eqlAny[L, R]: Eql[L, R] = Eql.derived
 </code></pre>
-<p>Even though <code>eqlAny</code> is not declared a given, the compiler will still construct an <code>eqlAny</code> instance as answer to an implicit search for the
+<p>Even though <code>eqlAny</code> is not declared as <code>given</code>, the compiler will still construct an <code>eqlAny</code> instance as answer to an implicit search for the
 type <code>Eql[L, R]</code>, unless <code>L</code> or <code>R</code> have <code>Eql</code> instances
-defined on them, or the language feature <code>strictEquality</code> is enabled</p>
-<p>The primary motivation for having <code>eqlAny</code> is backwards compatibility,
-if this is of no concern, one can disable <code>eqlAny</code> by enabling the language
+defined on them, or the language feature <code>strictEquality</code> is enabled.</p>
+<p>The primary motivation for having <code>eqlAny</code> is backwards compatibility.
+If this is of no concern, one can disable <code>eqlAny</code> by enabling the language
 feature <code>strictEquality</code>. As for all language features this can be either
 done with an import</p>
 <pre><code class="scala">import scala.language.strictEquality
@@ -1837,7 +1837,7 @@ done with an import</p>
 <p>Instead of defining <code>Eql</code> instances directly, it is often more convenient to derive them. Example:</p>
 <pre><code class="scala">class Box[T](x: T) derives Eql
 </code></pre>
-<p>By the usual rules of <a href="./derivation.html">typeclass derivation</a>,
+<p>By the usual rules of <a href="./derivation.html">type class derivation</a>,
 this generates the following <code>Eql</code> instance in the companion object of <code>Box</code>:</p>
 <pre><code class="scala">given [T, U](using Eql[T, U]) as Eql[Box[T], Box[U]] = Eql.derived
 </code></pre>
@@ -1850,7 +1850,7 @@ new Box(1) == 1             // error: can't compare
 <p>The precise rules for equality checking are as follows.</p>
 <p>If the <code>strictEquality</code> feature is enabled then
 a comparison using <code>x == y</code> or <code>x != y</code> between values <code>x: T</code> and <code>y: U</code>
-is legal if there is a given of type <code>Eql[T, U]</code>.</p>
+is legal if there is a <code>given</code> of type <code>Eql[T, U]</code>.</p>
 <p>In the default case where the <code>strictEquality</code> feature is not enabled the comparison is
 also legal if</p>
 <ol>
@@ -1860,8 +1860,8 @@ also legal if</p>
 </ol>
 <p>Explanations:</p>
 <ul>
-<li><em>lifting</em> a type <code>S</code> means replacing all references to  abstract types
-in covariant positions of <code>S</code> by their upper bound, and to replacing
+<li><em>lifting</em> a type <code>S</code> means replacing all references to abstract types
+in covariant positions of <code>S</code> by their upper bound, and replacing
 all refinement types in covariant positions of <code>S</code> by their parent.</li>
 <li>a type <code>T</code> has a <em>reflexive</em> <code>Eql</code> instance if the implicit search for <code>Eql[T, T]</code>
 succeeds.</li>
@@ -1887,8 +1887,9 @@ need not be the same.</li>
 </ul>
 <h2><a href="#why-two-type-parameters" id="why-two-type-parameters" class="anchor"></a>Why Two Type Parameters?</h2>
 <p>One particular feature of the <code>Eql</code> type is that it takes <em>two</em> type parameters, representing the types of the two items to be compared. By contrast, conventional
-implementations of an equality type class take only a single type parameter which represents the common type of <em>both</em> operands. One type parameter is simpler than two, so why go through the additional complication? The reason has to do with the fact that, rather than coming up with a type class where no operation existed before,
-we are dealing with a refinement of pre-existing, universal equality. It's best illustrated through an example.</p>
+implementations of an equality type class take only a single type parameter which represents the common type of <em>both</em> operands.
+One type parameter is simpler than two, so why go through the additional complication? The reason has to do with the fact that, rather than coming up with a type class where no operation existed before,
+we are dealing with a refinement of pre-existing, universal equality. It is best illustrated through an example.</p>
 <p>Say you want to come up with a safe version of the <code>contains</code> method on <code>List[T]</code>. The original definition of <code>contains</code> in the standard library was:</p>
 <pre><code class="scala">class List[+T] {
   ...

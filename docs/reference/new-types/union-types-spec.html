@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1822,15 +1822,15 @@ trait E
 class A extends C[A] with D
 class B extends C[B] with D with E
 </code></pre>
-<p>The join of <code>A | B</code> is <code>C[A | B] with D</code></p>
+<p>The join of <code>A | B</code> is <code>C[A | B] &amp; D</code></p>
 <h2><a href="#type-inference" id="type-inference" class="anchor"></a>Type inference</h2>
-<p>When inferring the result type of a definition (<code>val</code>, <code>var</code>, or <code>def</code>), if the
-type we are about to infer is a union type, we replace it by its join.
+<p>When inferring the result type of a definition (<code>val</code>, <code>var</code>, or <code>def</code>) and the
+type we are about to infer is a union type, then we replace it by its join.
 Similarly, when instantiating a type argument, if the corresponding type
 parameter is not upper-bounded by a union type and the type we are about to
 instantiate is a union type, we replace it by its join. This mirrors the
 treatment of singleton types which are also widened to their underlying type
-unless explicitly specified. and the motivation is the same: inferring types
+unless explicitly specified. The motivation is the same: inferring types
 which are &quot;too precise&quot; can lead to unintuitive typechecking issues later on.</p>
 <p>Note: Since this behavior limits the usability of union types, it might
 be changed in the future. For example by not widening unions that have been
@@ -1858,30 +1858,36 @@ trait B { def hello: String }
 
 def test(x: A | B) = x.hello // error: value `hello` is not a member of A | B
 </code></pre>
-<h2><a href="#exhaustivity-checking" id="exhaustivity-checking" class="anchor"></a>Exhaustivity checking</h2>
-<p>If the selector of a pattern match is a union type, the match is considered
-exhaustive if all parts of the union are covered.</p>
-<h2><a href="#erasure" id="erasure" class="anchor"></a>Erasure</h2>
-<p>The erased type for <code>A | B</code> is the <em>erased least upper bound</em> of the erased
-types of <code>A</code> and <code>B</code>. Quoting from the documentation of <code>TypeErasure#erasedLub</code>,
-the erased lub is computed as follows:</p>
-<ul>
-<li>if both argument are arrays of objects, an array of the erased lub of the element types</li>
-<li>if both arguments are arrays of same primitives, an array of this primitive</li>
-<li>if one argument is array of primitives and the other is array of objects, Object</li>
-<li>if one argument is an array, Object</li>
-<li>otherwise a common superclass or trait S of the argument classes, with the
-following two properties:
-<ul>
-<li>S is minimal: no other common superclass or trait derives from S</li>
-<li>S is last   : in the linearization of the first argument type <code>|A|</code>
-there are no minimal common superclasses or traits that
-come after S.
-The reason to pick last is that we prefer classes over traits that way,
-which leads to more predictable bytecode and (?) faster dynamic dispatch.</li>
-</ul>
-</li>
-</ul>
+<p>On the otherhand, the following would be allowed</p>
+<pre><code class="scala">trait C { def hello: String }
+trait A extends C with D 
+trait B extends C with E
+
+def test(x: A | B) = x.hello // ok as `hello` is a member of the join of A | B which is C
+
+## Exhaustivity checking
+
+If the selector of a pattern match is a union type, the match is considered
+exhaustive if all parts of the union are covered.
+
+## Erasure
+
+The erased type for `A | B` is the _erased least upper bound_ of the erased
+types of `A` and `B`. Quoting from the documentation of `TypeErasure#erasedLub`,
+the erased lub is computed as follows:
+
+- if both argument are arrays of objects, an array of the erased lub of the element types
+- if both arguments are arrays of same primitives, an array of this primitive
+- if one argument is array of primitives and the other is array of objects, Object
+- if one argument is an array, Object
+- otherwise a common superclass or trait S of the argument classes, with the
+  following two properties:
+  * S is minimal: no other common superclass or trait derives from S
+  * S is last   : in the linearization of the first argument type `|A|`
+                  there are no minimal common superclasses or traits that
+                  come after S.
+  The reason to pick last is that we prefer classes over traits that way,
+  which leads to more predictable bytecode and (?) faster dynamic dispatch.</code></pre>
 
 </main>
 </div>

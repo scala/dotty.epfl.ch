@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1798,11 +1798,11 @@ A &amp; B &lt;: B       A &amp; B &lt;: A
 </code></pre>
 <p>In another word, <code>A &amp; B</code> is the same type as <code>B &amp; A</code>, in the sense that the two types
 have the same values and are subtypes of each other.</p>
-<p>If <code>C</code> is a type constructor, the join <code>C[A] &amp; C[B]</code> is simplified by pulling the
-intersection inside the constructor, using the following two rules:</p>
+<p>If <code>C</code> is a type constructor, then <code>C[A] &amp; C[B]</code> can be simplified using the following three rules:</p>
 <ul>
 <li>If <code>C</code> is covariant, <code>C[A] &amp; C[B] ~&gt; C[A &amp; B]</code></li>
 <li>If <code>C</code> is contravariant, <code>C[A] &amp; C[B] ~&gt; C[A | B]</code></li>
+<li>If <code>C</code> is non-variant, emit a compile error</li>
 </ul>
 <p>When <code>C</code> is covariant, <code>C[A &amp; B] &lt;: C[A] &amp; C[B]</code> can be derived:</p>
 <pre><code class="nohighlight">    A &lt;: A                  B &lt;: B

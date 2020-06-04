@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1779,7 +1779,7 @@
 <p>Of course, getting such a robust code base requires the cooperation of the developers. They should avoid type <code>Any</code>, casts, <a href="http://c2.com/cgi/wiki?StringlyTyped">stringly typed</a> logic, and more generally any operation over loose types that do not capture the important properties of a value. Unfortunately, there is one area in Scala where such loose types are very hard to avoid: That's equality. Comparisons with <code>==</code> and <code>!=</code> are <em>universal</em>. They compare any two values, no matter what their types are. This causes real problems for writing code and more problems for refactoring it.</p>
 <p>For instance, one might want to introduce a proxy for some data structure so that instead of accessing the data structure directly one goes through the proxy. The proxy and the underlying data would have different types. Normally this should be an easy refactoring. If one passes by accident a proxy for the underlying type or <em>vice versa</em> the type checker will flag the error. However, if one accidentally compares a proxy with the underlying type using <code>==</code> or a pattern match, the program is still valid, but will just always say <code>false</code>.  This is a real worry in practice. I recently abandoned a desirable extensive refactoring because I feared that it would be too hard to track down such errors.</p>
 <h2><a href="#where-are-we-today" id="where-are-we-today" class="anchor"></a>Where Are We Today?</h2>
-<p>The problems of universal equality in Scala are of course well known. Some libraries have tried to fix it by adding another equality operator with more restricted typing. Most often this safer equality is written <code>===</code>. While <code>===</code> is certainly useful, I am not a fan of adding another equality operator to the language and core libraries. It would be much better if we could fix <code>==</code> instead. This would be both simpler and would catch all potential equality problems including those related to pattern matching.</p>
+<p>The problems of universal equality in Scala are of course well-known. Some libraries have tried to fix it by adding another equality operator with more restricted typing. Most often this safer equality is written <code>===</code>. While <code>===</code> is certainly useful, I am not a fan of adding another equality operator to the language and core libraries. It would be much better if we could fix <code>==</code> instead. This would be both simpler and would catch all potential equality problems including those related to pattern matching.</p>
 <p>How can <code>==</code> be fixed? It looks much harder to do this than adding an alternate equality operator. First, we have to keep backwards compatibility. The ability to compare everything to everything is by now baked into lots of code and libraries.  Second, with just one equality operator we need to make this operator work in all cases where it makes sense. An alternative <code>===</code> operator can choose to refuse some comparisons that should be valid because there's always <code>==</code> to fall back to. With a unique <code>==</code> operator we do not have this luxury.</p>
 <p>The current status in Scala is that the compiler will give warnings for <em>some</em> comparisons that are always <code>false</code>. But the coverage is weak. For instance this will give a warning:</p>
 <pre><code class="scala">scala&gt; 1 == &quot;abc&quot;

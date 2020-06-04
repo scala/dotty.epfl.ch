@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-05-24 -->
+<!-- This page was last generated on 2020-06-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200523-5358651-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200603-cc8d6c3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -117,8 +117,8 @@
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-bounds.html" >Context Bounds</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/given-imports.html" >Given Imports</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/extension-methods.html" >Extension Methods</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/typeclasses.html" >Implementing Typeclasses</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Typeclass Derivation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/type-classes.html" >Implementing Type classes</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/contextual/derivation.html" >Type class Derivation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/multiversal-equality.html" >Multiversal Equality</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/context-functions.html" >Context Functions</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/contextual/conversions.html" >Implicit Conversions</a></li>
@@ -1767,65 +1767,59 @@
             </a>
         </div>
     </header>
-    <p>Implicit resolution uses a new algorithm which caches implicit results
+    <p>This page describes changes to the implicit resolution that apply both to the new <code>given</code>s and to the old-style <code>implicit</code>s in Dotty.
+Implicit resolution uses a new algorithm which caches implicit results
 more aggressively for performance. There are also some changes that
 affect implicits on the language level.</p>
-<ol>
-<li>Types of implicit values and result types of implicit methods
+<p><strong>1.</strong> Types of implicit values and result types of implicit methods
 must be explicitly declared. Excepted are only values in local blocks
-where the type may still be inferred:
-<pre><code class="scala">class C {
+where the type may still be inferred:</p>
+<pre><code class="scala">   class C {
 
-  val ctx: Context = ...        // ok
+   val ctx: Context = ...        // ok
 
-  /*!*/ implicit val x = ...    // error: type must be given explicitly
+   /*!*/ implicit val x = ...    // error: type must be given explicitly
 
-  /*!*/ implicit def y = ...    // error: type must be given explicitly
+   /*!*/ implicit def y = ...    // error: type must be given explicitly
 
-  val y = {
-    implicit val ctx = this.ctx // ok
-    ...
-  }
+   val y = {
+      implicit val ctx = this.ctx // ok
+      ...
+   }
 </code></pre>
-</li>
-<li>Nesting is now taken into account for selecting an implicit.
-Consider for instance the following scenario:
-<pre><code class="scala">def f(implicit i: C) = {
-  def g(implicit j: C) = {
-    implicitly[C]
+<p><strong>2.</strong> Nesting is now taken into account for selecting an implicit.Consider for instance the following scenario:</p>
+<pre><code class="scala">  def f(implicit i: C) = {
+    def g(implicit j: C) = {
+      implicitly[C]
+    }
   }
-}
 </code></pre>
 <p>This will now resolve the <code>implicitly</code> call to <code>j</code>, because <code>j</code> is nested
 more deeply than <code>i</code>. Previously, this would have resulted in an
 ambiguity error. The previous possibility of an implicit search failure
 due to <em>shadowing</em> (where an implicit is hidden by a nested definition)
 no longer applies.</p>
-</li>
-<li>Package prefixes no longer contribute to the implicit scope of a type.
-Example:
-<pre><code class="scala">package p
-given a as A
+<p><strong>3.</strong> Package prefixes no longer contribute to the implicit search scope of a type. Example:</p>
+<pre><code class="scala">  package p
+  given a as A
 
-object o {
-  given b as B
-  type C
-}
+  object o {
+    given b as B
+    type C
+  }
 </code></pre>
 <p>Both <code>a</code> and <code>b</code> are visible as implicits at the point of the definition
 of <code>type C</code>. However, a reference to <code>p.o.C</code> outside of package <code>p</code> will
-have only <code>b</code> in its implicit scope but not <code>a</code>.</p>
-</li>
-<li>The treatment of ambiguity errors has changed. If an ambiguity is encountered
-in some recursive step of an implicit search, the ambiguity is propagated to the caller.
-Example: Say you have the following definitions:
-<pre><code class="scala">class A
-class B extends C
-class C
-implicit def a1: A
-implicit def a2: A
-implicit def b(implicit a: A): B
-implicit def c: C
+have only <code>b</code> in its implicit search scope but not <code>a</code>.</p>
+<p><strong>4.</strong> The treatment of ambiguity errors has changed. If an ambiguity is encountered in some recursive step of an implicit search, the ambiguity is propagated to the caller.</p>
+<p>Example: Say you have the following definitions:</p>
+<pre><code class="scala">  class A
+  class B extends C
+  class C
+  implicit def a1: A
+  implicit def a2: A
+  implicit def b(implicit a: A): B
+  implicit def c: C
 </code></pre>
 <p>and the query <code>implicitly[C]</code>.</p>
 <p>This query would now be classified as ambiguous. This makes sense, after all
@@ -1840,31 +1834,15 @@ other query <code>Q2</code> succeeds and <code>Q1</code> succeeds if <code>Q2</c
 these techniques no longer work. But there is now a new special type <code>scala.implicits.Not</code>
 which implements negation directly. For any query type <code>Q</code>: <code>Not[Q]</code> succeeds if and only if
 the implicit search for <code>Q</code> fails.</p>
-</li>
-<li>
-<p>The treatment of divergence errors has also changed. A divergent implicit is
-treated as a normal failure, after which alternatives are still tried. This also makes
-sense: Encountering a divergent implicit means that we assume that no finite
-solution can be found on the given path, but another path can still be tried. By contrast
-most (but not all) divergence errors in Scala 2 would terminate the implicit
-search as a whole.</p>
-</li>
-<li>Scala-2 gives a lower level of priority to implicit conversions with call-by-name
-parameters relative to implicit conversions with call-by-value parameters. Dotty
-drops this distinction. So the following code snippet would be ambiguous in Dotty:
-<pre><code class="scala">implicit def conv1(x: Int): A = new A(x)
-implicit def conv2(x: =&gt; Int): A = new A(x)
-def buzz(y: A) = ???
-buzz(1)   // error: ambiguous
+<p><strong>5.</strong> The treatment of divergence errors has also changed. A divergent implicit is treated as a normal failure, after which alternatives are still tried. This also makes sense: Encountering a divergent implicit means that we assume that no finite solution can be found on the corresponding path, but another path can still be tried. By contrast,
+most (but not all) divergence errors in Scala 2 would terminate the implicit search as a whole.</p>
+<p><strong>6.</strong> Scala-2 gives a lower level of priority to implicit conversions with call-by-name parameters relative to implicit conversions with call-by-value parameters. Dotty drops this distinction. So the following code snippet would be ambiguous in Dotty:</p>
+<pre><code class="scala">  implicit def conv1(x: Int): A = new A(x)
+  implicit def conv2(x: =&gt; Int): A = new A(x)
+  def buzz(y: A) = ???
+  buzz(1)   // error: ambiguous
 </code></pre>
-</li>
-<li>
-<p>The rule for picking a <em>most specific</em> alternative among a set of overloaded or implicit
-alternatives is refined to take context parameters into account. All else
-being equal, an alternative that takes some context parameters is taken to be less specific
-than an alternative that takes none. If both alternatives take context parameters, we try
-to choose between them as if they were methods with regular parameters.
-The following paragraph in the SLS is affected by this change:</p>
+<p><strong>7.</strong> The rule for picking a <em>most specific</em> alternative among a set of overloaded or implicit alternatives is refined to take context parameters into account. All else being equal, an alternative that takes some context parameters is taken to be less specific than an alternative that takes none. If both alternatives take context parameters, we try to choose between them as if they were methods with regular parameters. The following paragraph in the SLS is affected by this change:</p>
 <p><em>Original version:</em></p>
 <blockquote>
 <p>An alternative A is <em>more specific</em> than an alternative B if the relative weight of A over B is greater than the relative weight of B over A.</p>
@@ -1874,12 +1852,28 @@ The following paragraph in the SLS is affected by this change:</p>
 <ul>
 <li>the relative weight of A over B is greater than the relative weight of B over A, or</li>
 <li>the relative weights are the same, and A takes no implicit parameters but B does, or</li>
-<li>the relative weights are the same, both A and B take implicit parameters, and
-A is more specific than B if all implicit parameters in either alternative are
-replaced by regular parameters.</li>
+<li>the relative weights are the same, both A and B take implicit parameters, and A is more specific than B if all implicit parameters in either alternative are replaced by regular parameters.</li>
 </ul>
-</li>
-</ol>
+<p><strong>8.</strong> The previous disambiguation of implicits based on inheritance depth is refined to make it transitive. Transitivity is important to guarantee that search outcomes are compilation-order independent. Here's a scenario where the previous rules violated transitivity:</p>
+<pre><code class="scala">  class A extends B
+  object A { given a ... }
+  class B
+  object B extends C { given b ... }
+  class C { given c }
+</code></pre>
+<p>Here <code>a</code> is more specific than <code>b</code> since the companion class <code>A</code> is a subclass of the companion class <code>B</code>. Also, <code>b</code> is more specific than <code>c</code>
+since <code>object B</code> extends class <code>C</code>. But <code>a</code> is not more specific than <code>c</code>. This means if <code>a, b, c</code> are all applicable implicits, it makes
+a difference in what order they are compared. If we compare <code>b</code> and <code>c</code>
+first, we keep <code>b</code> and drop <code>c</code>. Then, comparing <code>a</code> with <code>b</code> we keep <code>a</code>. But if we compare <code>a</code> with <code>c</code> first, we fail with an ambiguity error.</p>
+<p>The new rules are as follows: An implicit <code>a</code> defined in <code>A</code> is more specific than an implicit <code>b</code> defined in <code>B</code> if</p>
+<ul>
+<li><code>A</code> extends <code>B</code>, or</li>
+<li><code>A</code> is an object and the companion class of <code>A</code> extends <code>B</code>, or</li>
+<li><code>A</code> and <code>B</code> are objects,
+<code>B</code> does not inherit any implicit members from base classes (*),
+and the companion class of <code>A</code> extends the companion class of <code>B</code>.</li>
+</ul>
+<p>Condition (*) is new. It is necessary to ensure that the defined relation is transitive.</p>
 <p>[//]: # todo: expand with precise rules</p>
 
 </main>
