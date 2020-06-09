@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-08 -->
+<!-- This page was last generated on 2020-06-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200607-345c8bc-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200608-fa84627-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -408,6 +408,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor object" href="/api/scala/Tuple$package$/EmptyTuple$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/Tuple$package$/EmptyTuple$.html">EmptyTuple</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor trait" href="/api/scala/Enum.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/Enum.html">Enum</a>
@@ -441,18 +453,6 @@
                                     <a class="letter-anchor trait" href="/api/scala/FunctionXXL.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/FunctionXXL.html">FunctionXXL</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/IArray$package$/IArray$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/IArray$package$/IArray$.html">IArray</a>
                             </li>
                             
 
@@ -1777,7 +1777,9 @@
             
                 extends
                 
-                    Any
+                    Object
+                    with Product
+                    
                 
             
         </span>
@@ -1795,7 +1797,9 @@
             <h2>Supertypes</h2>
             <span>
                 
-                    Any
+                    Object, 
+                
+                    Product
                 
             </span>
         </div>
@@ -1805,6 +1809,8 @@
         <div id="annotations">
             <h2>Annotations</h2>
             <span>
+                
+                    @scala.annotation.internal.Child, 
                 
                     @scala.annotation.internal.Child
                 
@@ -2776,7 +2782,7 @@ the extra elements...
 <code>((a1, b1), ..., (an, bn))</code>. If the two tuples have different sizes,
 the extra elements of the larger tuple will be disregarded.
 The result is typed as <code>((A1, B1), ..., (An, Bn))</code> if at least one of the
-tuple types has a <code>Unit</code> tail. Otherwise the result type is
+tuple types has a <code>EmptyTuple</code> tail. Otherwise the result type is
 <code>(A1, B1) *: ... *: (Ai, Bi) *: Tuple</code></p>
 
                         

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-08 -->
+<!-- This page was last generated on 2020-06-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200607-345c8bc-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200608-fa84627-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -408,6 +408,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor object" href="/nightly/api/scala/Tuple$package$/EmptyTuple$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/Tuple$package$/EmptyTuple$.html">EmptyTuple</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor trait" href="/nightly/api/scala/Enum.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/Enum.html">Enum</a>
@@ -441,18 +453,6 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/FunctionXXL.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/FunctionXXL.html">FunctionXXL</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/IArray$package$/IArray$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/IArray$package$/IArray$.html">IArray</a>
                             </li>
                             
 
@@ -2772,8 +2772,8 @@ Take<span class="type-params">[T,N]</span><span>, </span>Drop<span class="type-p
                     <div class="short collapse show collapse-Zip">
                         
                             <p>Given two tuples, <code>A1 *: ... *: An * At</code> and <code>B1 *: ... *: Bn *: Bt</code>
-where at least one of <code>At</code> or <code>Bt</code> is <code>Unit</code> or <code>Tuple</code>,
-returns the tuple type <code>(A1, B1) *: ......</code>
+where at least one of <code>At</code> or <code>Bt</code> is <code>EmptyTuple</code> or <code>Tuple</code>,
+returns the tuple type <code>(A1, B1)...</code>
 </p>
 
                         
@@ -2784,9 +2784,202 @@ returns the tuple type <code>(A1, B1) *: ......</code>
                         
                         
                             <p>Given two tuples, <code>A1 *: ... *: An * At</code> and <code>B1 *: ... *: Bn *: Bt</code>
-where at least one of <code>At</code> or <code>Bt</code> is <code>Unit</code> or <code>Tuple</code>,
+where at least one of <code>At</code> or <code>Bt</code> is <code>EmptyTuple</code> or <code>Tuple</code>,
 returns the tuple type <code>(A1, B1) *: ... *: (An, Bn) *: Ct</code>
-where <code>Ct</code> is <code>Unit</code> if <code>At</code> or <code>Bt</code> is <code>Unit</code>, otherwise <code>Ct</code> is <code>Tuple</code>.</p>
+where <code>Ct</code> is <code>EmptyTuple</code> if <code>At</code> or <code>Bt</code> is <code>EmptyTuple</code>, otherwise <code>Ct</code> is <code>Tuple</code>.</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="apply()" class="member def public " data-toggle="collapse" data-target=".collapse-apply--">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                apply
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: EmptyTuple</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-apply--">
+                        
+                            <p>Empty tuple</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-apply--">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Empty tuple</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="apply(x)" class="member def public " data-toggle="collapse" data-target=".collapse-apply-x-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                apply
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                            <span class="type-params">
+                                [T]
+                            </span>
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            x:
+                                            
+                                            T
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="/nightly/api/scala/$times$colon.html">*:</a><span class="type-params">[T,EmptyTuple]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-apply-x-">
+                        
+                            <p>Tuple with one element</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-apply-x-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Tuple with one element</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -3205,6 +3398,104 @@ where <code>Ct</code> is <code>Unit</code> if <code>At</code> or <code>Bt</code>
                         
                         
                             
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="unapply(x)" class="member def public " data-toggle="collapse" data-target=".collapse-unapply-x-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                unapply
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            x:
+                                            
+                                            EmptyTuple
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: [31mtrue[0m</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-unapply-x-">
+                        
+                            <p>Matches an empty tuple.</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-unapply-x-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Matches an empty tuple.</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
