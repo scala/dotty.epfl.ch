@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-09 -->
+<!-- This page was last generated on 2020-06-10 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200608-fa84627-NIGHTLY</h2>
+                    <h2>0.25.0-bin-20200609-a3b417b-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1811,6 +1811,34 @@ no longer applies.</p>
 <p>Both <code>a</code> and <code>b</code> are visible as implicits at the point of the definition
 of <code>type C</code>. However, a reference to <code>p.o.C</code> outside of package <code>p</code> will
 have only <code>b</code> in its implicit search scope but not <code>a</code>.</p>
+<p>In more detail, here are the rules for what constitutes the implicit scope of
+a type:</p>
+<p><strong>Definition:</strong> A reference is an <em>anchor</em> if it refers to an object, a class, a trait, an abstract type, an opaque type alias, or a match type alias. References to packages and package objects are anchors only under -source:3.0-migration.</p>
+<p><strong>Definition:</strong> The <em>anchors</em> of a type <em>T</em> is a set of references defined as follows:</p>
+<ol>
+<li>If <em>T</em> is a reference to an anchor, <em>T</em> itself plus, if <em>T</em> is of the form <em>P#A</em>, the anchors of <em>P</em>.</li>
+<li>If <em>T</em> is an alias of <em>U</em>, the anchors of <em>U</em>.</li>
+<li>If <em>T</em> is a reference to a type parameter, the union of the anchors of both of its bounds.</li>
+<li>If <em>T</em> is a singleton reference, the anchors of its underlying type, plus,
+if <em>T</em> is of the form <em>(P#x).type</em>, the anchors of <em>P</em>.</li>
+<li>If <em>T</em> is the this-type <em>o.this</em> of a static object <em>o</em>, the anchors of a term reference <em>o.type</em> to that object.</li>
+<li>If <em>T</em> is some other type, the union of the anchors of each constituent type of <em>T</em>.</li>
+</ol>
+<p><strong>Definition:</strong> The <em>implicit scope</em> of a type <em>T</em> is the smallest set <em>S</em> of term references such that</p>
+<ol>
+<li>If <em>T</em> is a reference to a class, <em>S</em> includes a reference to the companion object
+of the class, if it exists, as well as the implicit scopes of all of <em>T</em>'s parent classes.</li>
+<li>If <em>T</em> is a reference to an object, <em>S</em> includes <em>T</em> itself as well as
+the implicit scopes of all of <em>T</em>'s parent classes.</li>
+<li>If <em>T</em> is a reference to an opaque type alias named <em>A</em>, <em>S</em> includes
+a reference to an object <em>A</em> defined in the same scope as the type, if it exists,
+as well as the implicit scope of <em>T</em>'s underlying type or bounds.</li>
+<li>If <em>T</em> is a reference to an an abstract type or match type alias
+named <em>A</em>, <em>S</em> includes a reference to an object <em>A</em> defined in the same scope as the type, if it exists, as well as the implicit scopes of <em>T</em>'s given bounds.</li>
+<li>If <em>T</em> is a reference to an anchor of the form <em>p.A</em> then <em>S</em> also includes
+all term references on the path <em>p</em>.</li>
+<li>If <em>T</em> is some other type, <em>S</em> includes the implicit scopes of all anchors of <em>T</em>.</li>
+</ol>
 <p><strong>4.</strong> The treatment of ambiguity errors has changed. If an ambiguity is encountered in some recursive step of an implicit search, the ambiguity is propagated to the caller.</p>
 <p>Example: Say you have the following definitions:</p>
 <pre><code class="scala">  class A
