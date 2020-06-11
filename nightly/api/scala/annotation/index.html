@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-10 -->
+<!-- This page was last generated on 2020-06-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0-bin-20200609-a3b417b-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200610-4b39622-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -143,6 +143,7 @@
   <a onclick='toggleSection(this);'>Other New Features</a>
   <ul >
     <li class="leaf"><a href="/nightly/docs/reference/other-new-features/trait-parameters.html" >Trait Parameters</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/super-traits.html" >Super Traits</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/creator-applications.html" >Creator Applications</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/export.html" >Export Clauses</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/opaques.html" >Opaque Type Aliases</a></li>
@@ -651,6 +652,18 @@
                                     <a class="letter-anchor class" href="/nightly/api/scala/annotation/static.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/annotation/static.html">static</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/superTrait.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/superTrait.html">superTrait</a>
                             </li>
                             
 
@@ -2263,6 +2276,91 @@ operator names require the operator to be annotated with <code>@infix</code>.</p
                         
                         
                             
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="superTrait" class="member class public " data-toggle="collapse" data-target=".collapse-superTrait">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            final
+                        </span>
+                        <span class="member-kind">class&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                <a href="/nightly/api/scala/annotation/superTrait.html">superTrait</a>
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-superTrait">
+                        
+                            <p>Equivalent to declaring a super trait in Scala 3. This annotation
+should be used only for files that need to cross-compile between
+Scala 2 and 3.</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-superTrait">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Equivalent to declaring a super trait in Scala 3. This annotation
+should be used only for files that need to cross-compile between
+Scala 2 and 3.</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
