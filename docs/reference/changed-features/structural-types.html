@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-18 -->
+<!-- This page was last generated on 2020-06-19 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200617-6b03fbd-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200618-de75713-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1436,6 +1436,10 @@
                     </a>
                     <ul class="package-entities">
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
                             
 
                             <li class=" with-companion ">
@@ -1443,14 +1447,10 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
+                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1780,7 +1780,8 @@
             </a>
         </div>
     </header>
-    <p>Some usecases, such as modelling database access, are more awkward in
+    <h2><a href="#motivation" id="motivation" class="anchor"></a>Motivation</h2>
+<p>Some usecases, such as modelling database access, are more awkward in
 statically typed languages than in dynamically typed languages: With
 dynamically typed languages, it's quite natural to model a row as a
 record or object, and to select entries with simple dot notation (e.g.
@@ -1801,28 +1802,115 @@ simple dot notation in dynamic contexts without losing the advantages
 of static typing. They allow developers to use dot notation and
 configure how fields and methods should be resolved.</p>
 <h2><a href="#example" id="example" class="anchor"></a>Example</h2>
-<pre><code class="scala">object StructuralTypeExample {
-
-  case class Record(elems: (String, Any)*) extends Selectable {
-    def selectDynamic(name: String): Any = elems.find(_._1 == name).get._2
+<p>Here's an example of a structural type <code>Person</code>:</p>
+<pre><code class="scala">  class Record(elems: (String, Any)*) extends Selectable {
+    private val fields = elems.toMap
+    def selectDynamic(name: String): Any = fields(name)
   }
-
   type Person = Record {
     val name: String
     val age: Int
   }
-
-  def main(args: Array[String]): Unit = {
-    val person = Record(&quot;name&quot; -&gt; &quot;Emma&quot;, &quot;age&quot; -&gt; 42).asInstanceOf[Person]
-    println(s&quot;${person.name} is ${person.age} years old.&quot;)
-    // Prints: Emma is 42 years old.
-  }
-}
 </code></pre>
+<p>The person type adds a <em>refinement</em> to its parent type <code>Record</code> that defines <code>name</code> and <code>age</code> fields. We say the refinement is <em>structural</em> since  <code>name</code> and <code>age</code> are not defined in the parent type. But they exist nevertheless as members of class <code>Person</code>. For instance, the following
+program would print  &quot;Emma is 42 years old.&quot;:</p>
+<pre><code class="scala">  val person = Record(&quot;name&quot; -&gt; &quot;Emma&quot;, &quot;age&quot; -&gt; 42).asInstanceOf[Person]
+  println(s&quot;${person.name} is ${person.age} years old.&quot;)
+</code></pre>
+<p>The parent type <code>Record</code> in this example is a generic class that can represent arbitrary records in its <code>elems</code> argument. This argument is a
+sequence of pairs of labels of type <code>String</code> and values of type <code>Any</code>.
+When we create a <code>Person</code> as a <code>Record</code> we have to assert with a typecast
+that the record defines the right fields of the right types. <code>Record</code>
+itself is too weakly typed so the compiler cannot know this without
+help from the user. In practice, the connection between a structural type
+and its underlying generic representation would most likely be done by
+a database layer, and therefore would not be a concern of the end user.</p>
+<p><code>Record</code> extends the marker trait <code>scala.Selectable</code> and defines
+a method <code>selectDynamic</code>, which maps a field name to its value.
+Selecting a structural type member is done by calling this method.
+The <code>person.name</code> and <code>person.age</code> selections are translated by
+the Scala compiler to:</p>
+<pre><code class="scala">  person.selectDynamic(&quot;name&quot;).asInstanceOf[String]
+  person.selectDynamic(&quot;age&quot;).asInstanceOf[Int]
+</code></pre>
+<p>Besides <code>selectDynamic</code>, a <code>Selectable</code> class sometimes also defines a method <code>applyDynamic</code>. This can then be used to translate function calls of structural members. So, if <code>a</code> is an instance of <code>Selectable</code>, a structural call like <code>a.f(b, c)</code> would translate to</p>
+<pre><code class="scala">  a.applyDynamic(&quot;f&quot;)(b, c)
+</code></pre>
+<h2><a href="#using-java-reflection" id="using-java-reflection" class="anchor"></a>Using Java Reflection</h2>
+<p>Structural types can also be accessed using Java reflection. Example:</p>
+<pre><code class="scala">  type Closeable = {
+    def close(): Unit
+  }
+  class FileInputStream {
+    def close(): Unit
+  }
+  class Channel {
+    def close(): Unit
+  }
+</code></pre>
+<p>Here, we define a structural type <code>Closeable</code> that defines a <code>close</code> method. There are various classes that have <code>close</code> methods, we just list <code>FileInputStream</code> and <code>Channel</code> as two examples. It would be easiest if the two classes shared a common interface that factors out the <code>close</code> method. But such factorings are often not possible if different libraries are combined in one application. Yet, we can still have methods that work on
+all classes with a <code>close</code> method by using the <code>Closeable</code> type. For instance,</p>
+<pre><code class="scala">  import scala.reflect.Selectable.reflectiveSelectable
+
+  def autoClose(f: Closeable)(op: Closeable =&gt; Unit): Unit =
+    try op(f) finally f.close()
+</code></pre>
+<p>The call <code>f.close()</code> has to use Java reflection to identify and call the <code>close</code> method in the receiver <code>f</code>. This needs to be enabled by an import
+of <code>reflectiveSelectable</code> shown above. What happens &quot;under the hood&quot; is then the following:</p>
+<ul>
+<li>
+<p>The import makes available an implicit conversion that turns any type into a
+<code>Selectable</code>. <code>f</code> is wrapped in this conversion.</p>
+</li>
+<li>
+<p>The compiler then transforms the <code>close</code> call on the wrapped <code>f</code>
+to an <code>applyDynamic</code> call. The end result is:</p>
+<pre><code class="scala">  reflectiveSelectable(f).applyDynamic(&quot;close&quot;)()
+</code></pre>
+</li>
+<li>The implementation of <code>applyDynamic</code> in <code>reflectiveSelectable</code>'s result
+uses Java reflection to find and call a method <code>close</code> with zero parameters in the value referenced by <code>f</code> at runtime.</li>
+</ul>
+<p>Structural calls like this tend to be much slower than normal method calls. The mandatory import of <code>reflectiveSelectable</code> serves as a signpost that something inefficient is going on.</p>
+<p><strong>Note:</strong> In Scala 2, Java reflection is the only mechanism available for structural types and it is automatically enabled without needing the
+<code>reflectiveSelectable</code> conversion. However, to warn against inefficient
+dispatch, Scala 2 requires a language import <code>import scala.language.reflectiveCalls</code>.</p>
+<p>Before resorting to structural calls with Java reflection one should consider alternatives. For instance, sometimes a more a modular <em>and</em> efficient architecture can be obtained using typeclasses.</p>
 <h2><a href="#extensibility" id="extensibility" class="anchor"></a>Extensibility</h2>
 <p>New instances of <code>Selectable</code> can be defined to support means of
 access other than Java reflection, which would enable usages such as
 the database access example given at the beginning of this document.</p>
+<h2><a href="#local-selectable-instances" id="local-selectable-instances" class="anchor"></a>Local Selectable Instances</h2>
+<p>Local and anonymous classes that extend <code>Selectable</code> get more refined types
+than other classes. Here is an example:</p>
+<pre><code class="scala">class Vehicle extends reflect.Selectable {
+  val wheels: Int
+}
+val i3 = new Vehicle { // i3: Vehicle { val range: Int }
+  val wheels = 4
+  val range = 240
+}
+i3.range
+</code></pre>
+<p>The type of <code>i3</code> in this example is <code>Vehicle { val range: Int }</code>. Hence,
+<code>i3.range</code> is well-formed. Since the base class <code>Vehicle</code> does not define a <code>range</code> field or method, we need structural dispatch to access the <code>range</code> field of the anonymous class that initializes <code>id3</code>. Structural dispatch
+is implemented by the base trait <code>reflect.Selectable</code> of <code>Vehicle</code>, which
+defines the necessary <code>selectDynamic</code> member.</p>
+<p><code>Vehicle</code> could also extend some other subclass of <code>scala.Selectable</code> that implements <code>selectDynamic</code> and <code>applyDynamic</code> differently. But if it does not extend a <code>Selectable</code> at all, the code would no longer typecheck:</p>
+<pre><code class="scala">class Vehicle {
+  val wheels: Int
+}
+val i3 = new Vehicle { // i3: Vehicle
+  val wheels = 4
+  val range = 240
+}
+i3.range: // error: range is not a member of `Vehicle`
+</code></pre>
+<p>The difference is that the type of an anonymous class that does not extend <code>Selectable</code> is just formed from the parent type(s) of the class, without
+adding any refinements. Hence, <code>i3</code> now has just type <code>Vehicle</code> and the selection <code>i3.range</code> gives a &quot;member not found&quot; error.</p>
+<p>Note that in Scala 2 all local and anonymous classes could produce values with refined types. But
+members defined by such refinements could be selected only with the language import
+<code>reflectiveCalls</code>.</p>
 <h2><a href="#relation-with-scaladynamic" id="relation-with-scaladynamic" class="anchor"></a>Relation with <code>scala.Dynamic</code></h2>
 <p>There are clearly some connections with <code>scala.Dynamic</code> here, since
 both select members programmatically. But there are also some
