@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-19 -->
+<!-- This page was last generated on 2020-06-23 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200618-de75713-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200622-a3543f2-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1927,23 +1927,23 @@ result of beta-reducing <code>f(x)</code> if <code>f</code> is a known lambda ex
 It is possible to use types defined at any level in any other level.
 But, if a type is used in a subsequent stage it will need to be lifted to a <code>Type</code>.
 The resulting value of <code>Type</code> will be subject to PCP.
-Indeed, the definition of <code>reflect</code> above uses <code>T</code> in the next stage, there is a
+Indeed, the definition of <code>to</code> above uses <code>T</code> in the next stage, there is a
 quote but no splice between the parameter binding of <code>T</code> and its
 usage. But the code can be rewritten by adding a binding of a <code>Type[T]</code> tag:</p>
-<pre><code class="scala">def reflect[T, U](f: Expr[T] =&gt; Expr[U])(using t: Type[T]): Expr[T =&gt; U] =
+<pre><code class="scala">def to[T, R: Type](f: Expr[T] =&gt; Expr[R])(using t: Type[T])(using QuoteContext): Expr[T =&gt; R] =
   '{ (x: $t) =&gt; ${ f('x) } }
 </code></pre>
-<p>In this version of <code>reflect</code>, the type of <code>x</code> is now the result of
+<p>In this version of <code>to</code>, the type of <code>x</code> is now the result of
 splicing the <code>Type</code> value <code>t</code>. This operation <em>is</em> splice correct -- there
 is one quote and one splice between the use of <code>t</code> and its definition.</p>
 <p>To avoid clutter, the Scala implementation tries to convert any type
 reference to a type <code>T</code> in subsequent phases to a type-splice, by rewriting <code>T</code> to <code>${ summon[Type[T]] }</code>.
-For instance, the user-level definition of <code>reflect</code>:</p>
-<pre><code class="scala">def reflect[T: Type, U: Type](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
+For instance, the user-level definition of <code>to</code>:</p>
+<pre><code class="scala">def to[T: Type, R: Type](f: Expr[T] =&gt; Expr[R])(using QuoteContext): Expr[T =&gt; R] =
   '{ (x: T) =&gt; ${ f('x) } }
 </code></pre>
 <p>would be rewritten to</p>
-<pre><code class="scala">def reflect[T: Type, U: Type](f: Expr[T] =&gt; Expr[U]): Expr[T =&gt; U] =
+<pre><code class="scala">def to[T: Type, R: Type](f: Expr[T] =&gt; Expr[R])(using QuoteContext): Expr[T =&gt; R] =
   '{ (x: ${ summon[Type[T]] }) =&gt; ${ f('x) } }
 </code></pre>
 <p>The <code>summon</code> query succeeds because there is a given instance of
