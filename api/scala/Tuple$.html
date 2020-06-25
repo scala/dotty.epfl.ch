@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-24 -->
+<!-- This page was last generated on 2020-06-25 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200623-a938fc8-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200624-3a4f2ee-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2877,6 +2877,91 @@ Take<span class="type-params">[T,N]</span><span>, </span>Drop<span class="type-p
                         
                         
                             <p>Transforms a tuple <code>(T1, ..., Tn)</code> into <code>(T1, ..., Ti)</code>.</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="Union" class="member type public " data-toggle="collapse" data-target=".collapse-Union">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">type&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                Union
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                            <span class="type-alias">&nbsp;= Fold<span class="type-params">[T,Nothing,x<span class="and-or-separator"> | </span>y]</span></span>
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-Union">
+                        
+                            <p>Given a tuple <code>(T1, ..., Tn)</code>, returns a union of its
+member types: <code>T1 | ... | Tn</code>. Returns <code>Nothing</code> if the tuple is empty.</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-Union">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Given a tuple <code>(T1, ..., Tn)</code>, returns a union of its
+member types: <code>T1 | ... | Tn</code>. Returns <code>Nothing</code> if the tuple is empty.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
