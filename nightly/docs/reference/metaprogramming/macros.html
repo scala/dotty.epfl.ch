@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-25 -->
+<!-- This page was last generated on 2020-06-26 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200624-3a4f2ee-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200625-3112800-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1883,7 +1883,7 @@ create nor remove quotes or splices individually. So the PCP ensures
 that program elaboration will lead to neither of the two unwanted
 situations described above.</p>
 <p>In what concerns the range of features it covers, this form of macros introduces
-a principled meta programming framework that is quite close to the MetaML family of
+a principled metaprogramming framework that is quite close to the MetaML family of
 languages. One difference is that MetaML does not have an equivalent of the PCP
 - quoted code in MetaML <em>can</em> access variables in its immediately enclosing
 environment, with some restrictions and caveats since such accesses involve
@@ -2079,8 +2079,8 @@ In fact Scala 2's type tag feature can be understood as a more ad-hoc version of
 <code>quoted.Type</code>. As was the case for type tags, the implicit search for a <code>quoted.Type</code>
 is handled by the compiler, using the algorithm sketched above.</p>
 <h3><a href="#relationship-with-inline" id="relationship-with-inline" class="anchor"></a>Relationship with Inline</h3>
-<p>Seen by itself, principled meta-programming looks more like a framework for
-runtime metaprogramming than one for compile-time meta programming with macros.
+<p>Seen by itself, principled metaprogramming looks more like a framework for
+runtime metaprogramming than one for compile-time metaprogramming with macros.
 But combined with Dotty’s <code>inline</code> feature it can be turned into a compile-time
 system. The idea is that macro elaboration can be understood as a combination of
 a macro library and a quoted program. For instance, here’s the <code>assert</code> macro
@@ -2090,8 +2090,8 @@ again together with a program that calls <code>assert</code>.</p>
   inline def assert(inline expr: Boolean): Unit =
     ${ assertImpl('expr) }
 
-  def assertImpl(expr: Expr[Boolean]) =
-    '{ if !($expr) then throw new AssertionError(&quot;failed assertion: &quot; + ${expr.show}) }
+  def assertImpl(expr: Expr[Boolean])(using QuoteContext) =
+    '{ if !($expr) then throw new AssertionError(&quot;failed assertion: &quot; + ${expr.show}) }  // autolift is applied
 }
 
 object App {
@@ -2195,7 +2195,7 @@ the code it runs produces one.</p>
 <p>Assume we have two methods, one <code>map</code> that takes an <code>Expr[Array[T]]</code> and a
 function <code>f</code> and one <code>sum</code> that performs a sum by delegating to <code>map</code>.</p>
 <pre><code class="scala">object Macros {
-  def map[T](arr: Expr[Array[T]], f: Expr[T] =&gt; Expr[Unit])(implicit t: Type[T]): Expr[Unit] = '{
+  def map[T](arr: Expr[Array[T]], f: Expr[T] =&gt; Expr[Unit])(using t: Type[T], qctx: QuoteContext): Expr[Unit] = '{
     var i: Int = 0
     while (i &lt; ($arr).length) {
       val element: $t = ($arr)(i)
@@ -2204,7 +2204,7 @@ function <code>f</code> and one <code>sum</code> that performs a sum by delegati
     }
   }
 
-  def sum(arr: Expr[Array[Int]]): Expr[Int] = '{
+  def sum(arr: Expr[Array[Int]])(using QuoteContext): Expr[Int] = '{
     var sum = 0
     ${ map(arr, x =&gt; '{sum += $x}) }
     sum
@@ -2369,7 +2369,7 @@ private def sumExpr(args1: Seq[Expr[Int]])(using QuoteContext): Expr[Int] = {
 <p>This might be used to then perform an implicit search as in:</p>
 <pre><code class="scala">inline def (inline sc: StringContext).showMe(inline args: Any*): String = ${ showMeExpr('sc, 'args) }
 
-private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using qctx: QuoteContext): Expr[String] = {
+private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using QuoteContext): Expr[String] = {
   argsExpr match {
     case Varargs(argExprs) =&gt;
       val argShowedExprs = argExprs.map {
@@ -2408,7 +2408,7 @@ then the rest of the quote can refer to this definition.</p>
 the subxpression of type <code>Expr[Int]</code> is bound to <code>body</code> as an <code>Expr[Int =&gt; Int]</code>. The extra argument represents the references to <code>y</code>. Usually this expression is used in compination with <code>Expr.betaReduce</code> to replace the extra argument.</p>
 <pre><code class="scala">inline def eval(inline e: Int): Int = ${ evalExpr('e) }
 
-private def evalExpr(using QuoteContext)(e: Expr[Int]): Expr[Int] = {
+private def evalExpr(e: Expr[Int])(using QuoteContext): Expr[Int] = {
   e match {
     case '{ val y: Int = $x; $body(y): Int } =&gt;
       // body: Expr[Int =&gt; Int] where the argument represents references to y

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-06-25 -->
+<!-- This page was last generated on 2020-06-26 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200624-3a4f2ee-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200625-3112800-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1931,7 +1931,7 @@ literal has the correct format before it gets passed on to a conversion method.<
 </code></pre>
 <p>Evaluating this expression throws a <code>NumberTooLarge</code> exception at run time. We would like it to
 produce a compile-time error instead. We can achieve this by tweaking the <code>BigFloat</code> class
-with a small dose of meta-programming. The idea is to turn the <code>fromDigits</code> method
+with a small dose of metaprogramming. The idea is to turn the <code>fromDigits</code> method
 into a macro, i.e. make it an inline method with a splice as right hand side.
 To do this, replace the <code>FromDigits</code> instance in the <code>BigFloat</code> object by the following two definitions:</p>
 <pre><code class="scala">object BigFloat {
