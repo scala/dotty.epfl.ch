@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-04 -->
+<!-- This page was last generated on 2020-07-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200703-2dd1c93-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200706-7723864-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1790,7 +1790,7 @@ the same way methods with context parameters are applied. For instance:</p>
 <pre><code class="scala">  given ec as ExecutionContext = ...
 
   def f(x: Int): ExecutionContext ?=&gt; Int = ...
-  
+
   // could be written as follows with the type alias from above
   // def f(x: Int): Executable[Int] = ...
 
@@ -1886,7 +1886,7 @@ that would otherwise be necessary.</p>
 
   def result[T](using r: WrappedResult[T]): T = r
 
-  def [T] (x: T).ensuring(condition: WrappedResult[T] ?=&gt; Boolean): T = {
+  extension [T](x: T) def ensuring(condition: WrappedResult[T] ?=&gt; Boolean): T = {
     assert(condition(using x))
     x
   }

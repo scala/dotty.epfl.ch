@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-04 -->
+<!-- This page was last generated on 2020-07-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200703-2dd1c93-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200706-7723864-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1827,20 +1827,6 @@ given given_Ord_List_T[T](using ord: Ord[T]) as Ord[List[T]] { ... }
 </ul>
 <p>Tuples are treated as transparent, i.e. a type <code>F[(X, Y)]</code> would get the synthesized name
 <code>F_X_Y</code>. Directly implemented function types <code>A =&gt; B</code> are represented as <code>A_to_B</code>. Function types used as arguments to other type constructors are represented as <code>Function</code>.</p>
-<h3><a href="#anonymous-collective-extensions" id="anonymous-collective-extensions" class="anchor"></a>Anonymous Collective Extensions</h3>
-<p>Anonymous collective extensions also get compiler synthesized names, which are formed from</p>
-<ul>
-<li>the prefix <code>extension_</code></li>
-<li>the name of the first defined extension method</li>
-<li>the simple name of the first parameter type of this extension method</li>
-<li>the simple name(s) of the toplevel argument type constructors to this type.</li>
-</ul>
-<p>For example, the extension</p>
-<pre><code class="scala">extension on [T] (xs: List[T]) {
-  def second = ...
-}
-</code></pre>
-<p>gets the synthesized name <code>extension_second_List_T</code>.</p>
 <h3><a href="#given-clauses" id="given-clauses" class="anchor"></a>Given Clauses</h3>
 <p>Given clauses correspond largely to Scala-2's implicit parameter clauses. E.g.</p>
 <pre><code class="scala">def max[T](x: T, y: T)(using ord: Ord[T]): T
@@ -1864,7 +1850,7 @@ in a normal argument list. Once old-style implicits are deprecated, context boun
 will map to with clauses instead.</p>
 <h3><a href="#extension-methods" id="extension-methods" class="anchor"></a>Extension Methods</h3>
 <p>Extension methods have no direct counterpart in Scala 2, but they can be simulated with implicit classes. For instance, the extension method</p>
-<pre><code class="scala">def (c: Circle).circumference: Double = c.radius * math.Pi * 2
+<pre><code class="scala">extension (c: Circle) def circumference: Double = c.radius * math.Pi * 2
 </code></pre>
 <p>could be simulated to some degree by</p>
 <pre><code class="scala">implicit class CircleDecorator(c: Circle) extends AnyVal {

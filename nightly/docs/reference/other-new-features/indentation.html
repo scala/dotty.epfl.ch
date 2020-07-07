@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-04 -->
+<!-- This page was last generated on 2020-07-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200703-2dd1c93-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200706-7723864-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1829,6 +1829,7 @@ than the current indentation width</li>
 <p>An indentation region can start</p>
 <ul>
 <li>after the condition of an <code>if-else</code>, or</li>
+<li>after the leading parameters of an <code>extension</code>, or</li>
 <li>after a &quot;: at end of line&quot; token (see below)</li>
 <li>after one of the following tokens:</li>
 </ul>
@@ -1861,7 +1862,7 @@ may be inserted in a row.</p>
 <p>Indentation tokens are only inserted in regions where newline statement separators are also inferred:
 at the toplevel, inside braces <code>{...}</code>, but not inside parentheses <code>(...)</code>, patterns or types.</p>
 <h3><a href="#optional-braces-around-template-bodies" id="optional-braces-around-template-bodies" class="anchor"></a>Optional Braces Around Template Bodies</h3>
-<p>The Scala grammar uses the term <em>template body</em> for the definitions of a class, trait, object, given instance or extension that are normally enclosed in braces. The braces around a template body can also be omitted by means of the following rule:</p>
+<p>The Scala grammar uses the term <em>template body</em> for the definitions of a class, trait, object or given instance that are normally enclosed in braces. The braces around a template body can also be omitted by means of the following rule</p>
 <p>If at the point where a template body can start there is a <code>:</code> that occurs at the end
 of a line, and that is followed by at least one indented statement, the recognized
 token is changed from &quot;:&quot; to &quot;: at end of line&quot;. The latter token is one of the tokens
@@ -1883,10 +1884,10 @@ enum Color:
 type T = A:
   def f: Int
 
-given [T] with Ord[T] as Ord[List[T]]:
+given [T](using Ord[T]) as Ord[List[T]]:
   def compare(x: List[T], y: List[T]) = ???
 
-extension on (xs: List[Int]):
+extension (xs: List[Int])
   def second: Int = xs.tail.head
 
 new A:
@@ -2006,7 +2007,7 @@ identifiers or one of the following keywords</p>
      end given
    end C
 
-   extension on (x: C):
+   extension (x: C)
      def ff: String = x.f ++ x.f
    end extension
 

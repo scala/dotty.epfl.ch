@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-04 -->
+<!-- This page was last generated on 2020-07-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200703-2dd1c93-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200706-7723864-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1813,7 +1813,8 @@ The following defines <code>tupled</code> as <a href="../contextual/extension-me
  *  @tparam Args the tuple type with the same types as the function arguments of F
  *  @tparam R the return type of F
  */
-def [F, Args &lt;: Tuple, R](f: F).tupled(using tf: TupledFunction[F, Args =&gt; R]): Args =&gt; R = tf.tupled(f)
+extension [F, Args &lt;: Tuple, R](f: F)
+  def tupled(using tf: TupledFunction[F, Args =&gt; R]): Args =&gt; R = tf.tupled(f)
 </code></pre>
 <p><code>TupledFunction</code> can be used to generalize the <code>Function.untupled</code> to a function of any arities (<a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-untupled.scala">full example</a>)</p>
 <pre><code class="scala">/** Creates an untupled version of this function: instead of a single argument of type [[scala.Tuple]] with N elements,
@@ -1825,7 +1826,8 @@ def [F, Args &lt;: Tuple, R](f: F).tupled(using tf: TupledFunction[F, Args =&gt;
  *  @tparam Args the tuple type with the same types as the function arguments of F
  *  @tparam R the return type of F
  */
-def [F, Args &lt;: Tuple, R](f: Args =&gt; R).untupled(using tf: TupledFunction[F, Args =&gt; R]): F = tf.untupled(f)
+extension [F, Args &lt;: Tuple, R](f: Args =&gt; R)
+  def untupled(using tf: TupledFunction[F, Args =&gt; R]): F = tf.untupled(f)
 </code></pre>
 <p><code>TupledFunction</code> can also be used to generalize the <a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-compose.scala"><code>Tuple1.compose</code></a> and <a href="https://github.com/lampepfl/dotty/blob/master/tests/run/tupled-function-andThen.scala"><code>Tuple1.andThen</code></a> methods to compose functions of larger arities and with functions that return tuples.</p>
 <pre><code class="scala">/** Composes two instances of TupledFunction into a new TupledFunction, with this function applied last.
@@ -1836,7 +1838,8 @@ def [F, Args &lt;: Tuple, R](f: Args =&gt; R).untupled(using tf: TupledFunction[
  *  @tparam GArgs the tuple type with the same types as the function arguments of G
  *  @tparam R the return type of F
  */
-def [F, G, FArgs &lt;: Tuple, GArgs &lt;: Tuple, R](f: F).compose(g: G)(using tg: TupledFunction[G, GArgs =&gt; FArgs], tf: TupledFunction[F, FArgs =&gt; R]): GArgs =&gt; R = {
+extension [F, G, FArgs &lt;: Tuple, GArgs &lt;: Tuple, R](f: F)
+  def compose(g: G)(using tg: TupledFunction[G, GArgs =&gt; FArgs], tf: TupledFunction[F, FArgs =&gt; R]): GArgs =&gt; R = {
   (x: GArgs) =&gt; tf.tupled(f)(tg.tupled(g)(x))
 }
 </code></pre>

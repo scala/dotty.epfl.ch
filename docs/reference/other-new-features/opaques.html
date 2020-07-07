@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-04 -->
+<!-- This page was last generated on 2020-07-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200703-2dd1c93-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200706-7723864-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1796,7 +1796,7 @@
   }
 
   // Extension methods define opaque types' public APIs
-  extension logarithmOps on (x: Logarithm) {
+  extension (x: Logarithm) {
     def toDouble: Double = math.exp(x)
     def + (y: Logarithm): Logarithm = Logarithm(math.exp(x) + math.exp(y))
     def * (y: Logarithm): Logarithm = x + y
@@ -1809,8 +1809,7 @@ The fact that <code>Logarithm</code> is the same as <code>Double</code> is only 
 Or in other words, within the scope it is treated as type alias, but this is opaque to the outside world
 where in consequence <code>Logarithm</code> is seen as an abstract type and has nothing to do with <code>Double</code>.</p>
 <p>The public API of <code>Logarithm</code> consists of the <code>apply</code> and <code>safe</code> methods defined in the companion object.
-They convert from <code>Double</code>s to <code>Logarithm</code> values. Moreover, a collective extension <code>logarithmOps</code> provides the extension methods <code>toDouble</code> that converts the other way,
-and operations <code>+</code> and <code>*</code> on <code>Logarithm</code> values.
+They convert from <code>Double</code>s to <code>Logarithm</code> values. Moreover, an operation <code>toDouble</code> that converts the other way, and operations <code>+</code> and <code>*</code> are defined as extension methods on <code>Logarithm</code> values.
 The following operations would be valid because they use functionality implemented in the <code>Logarithms</code> object.</p>
 <pre><code class="scala">import Logarithms.Logarithm
 
@@ -1833,10 +1832,10 @@ l / l2                  // error: `/` is not a member of Logarithm
   opaque type PermissionChoice = Int
   opaque type Permission &lt;: Permissions &amp; PermissionChoice = Int
 
-  def (x: Permissions) &amp; (y: Permissions): Permissions = x | y
-  def (x: PermissionChoice) | (y: PermissionChoice): PermissionChoice = x | y
-  def (granted: Permissions).is(required: Permissions) = (granted &amp; required) == required
-  def (granted: Permissions).isOneOf(required: PermissionChoice) = (granted &amp; required) != 0
+  extension (x: Permissions) def &amp; (y: Permissions): Permissions = x | y
+  extension (x: PermissionChoice) def | (y: PermissionChoice): PermissionChoice = x | y
+  extension (granted: Permissions) def is(required: Permissions) = (granted &amp; required) == required
+  extension (granted: Permissions) def isOneOf(required: PermissionChoice) = (granted &amp; required) != 0
 
   val NoPermission: Permission = 0
   val Read: Permission = 1

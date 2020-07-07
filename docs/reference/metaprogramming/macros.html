@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-04 -->
+<!-- This page was last generated on 2020-07-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200703-2dd1c93-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200706-7723864-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2367,7 +2367,7 @@ private def sumExpr(args1: Seq[Expr[Int]])(using QuoteContext): Expr[Int] = {
       // That is, we have `x: Expr[T]` and `given t: Type[T]`, for some (unknown) type `T`.
 </code></pre>
 <p>This might be used to then perform an implicit search as in:</p>
-<pre><code class="scala">inline def (inline sc: StringContext).showMe(inline args: Any*): String = ${ showMeExpr('sc, 'args) }
+<pre><code class="scala">extension (inline sc: StringContext) inline def showMe(inline args: Any*): String = ${ showMeExpr('sc, 'args) }
 
 private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using QuoteContext): Expr[String] = {
   argsExpr match {
