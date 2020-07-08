@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-07 -->
+<!-- This page was last generated on 2020-07-08 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200706-7723864-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200707-25a48dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2052,10 +2052,6 @@ analogue of lifting.</p>
 </code></pre>
 <p>That is, the <code>showExpr</code> method converts its <code>Expr</code> argument to a string (<code>code</code>), and lifts
 the result back to an <code>Expr[String]</code> using <code>Expr.apply</code>.</p>
-<p><strong>Note</strong>: Lifting <code>String</code> to <code>Expr[String]</code> using <code>Expr(code)</code> can be omitted by importing an implicit
-conversion with <code>import scala.quoted.autolift</code>. The programmer is able to
-declutter slightly the code at the cost of readable <em>phase distinction</em> between
-stages.</p>
 <h3><a href="#lifting-types-1" id="lifting-types-1" class="anchor"></a>Lifting Types</h3>
 <p>The previous section has shown that the metaprogramming framework has
 to be able to take a type <code>T</code> and convert it to a type tree of type
@@ -2091,7 +2087,8 @@ again together with a program that calls <code>assert</code>.</p>
     ${ assertImpl('expr) }
 
   def assertImpl(expr: Expr[Boolean])(using QuoteContext) =
-    '{ if !($expr) then throw new AssertionError(&quot;failed assertion: &quot; + ${expr.show}) }  // autolift is applied
+    val failMsg: Expr[String] = Expr(&quot;failed assertion: &quot; + expr.show)
+    '{ if !($expr) then throw new AssertionError($failMsg) }
 }
 
 object App {
