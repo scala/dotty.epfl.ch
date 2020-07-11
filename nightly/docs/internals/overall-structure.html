@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-10 -->
+<!-- This page was last generated on 2020-07-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200709-480f95f-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200710-a162b7b-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1814,7 +1814,7 @@ parameter.</p>
 <p>Contexts give a convenient way to customize values in some part of the
 call-graph. To run, e.g. some compiler function <code>f</code> at a given phase <code>phase</code>,
 we invoke <code>f</code> with an explicit context parameter, like this</p>
-<pre><code class="scala">f(/*normal args*/)(ctx.withPhase(phase))
+<pre><code class="scala">f(/*normal args*/)(using ctx.withPhase(phase))
 </code></pre>
 <p>This assumes that <code>f</code> is defined in the way most compiler functions are:</p>
 <pre><code class="scala">def f(/*normal parameters*/)(implicit ctx: Context) ...
