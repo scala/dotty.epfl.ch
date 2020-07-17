@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-15 -->
+<!-- This page was last generated on 2020-07-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200714-001817c-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200716-03aa171-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1774,12 +1774,14 @@
             </a>
         </div>
     </header>
-    <p>A <em>type class</em> is an abstract, parameterized type that lets you add new behavior to any closed data type without using sub-typing. This can be useful in multiple use-cases, for example:
-* expressing how a type you don't own (from the standard or 3rd-party library) conforms to such behavior
-* expressing such a behavior for multiple types without involving sub-typing relationships (one <code>extends</code> another) between those types (see: <a href="https://en.wikipedia.org/wiki/Ad_hoc_polymorphism">ad hoc polymorphism</a> for instance)</p>
+    <p>A <em>type class</em> is an abstract, parameterized type that lets you add new behavior to any closed data type without using sub-typing. This can be useful in multiple use-cases, for example:</p>
+<ul>
+<li>expressing how a type you don't own (from the standard or 3rd-party library) conforms to such behavior</li>
+<li>expressing such a behavior for multiple types without involving sub-typing relationships (one <code>extends</code> another) between those types (see: <a href="https://en.wikipedia.org/wiki/Ad_hoc_polymorphism">ad hoc polymorphism</a> for instance)</li>
+</ul>
 <p>Therefore in Scala 3, <em>type classes</em> are just <em>traits</em> with one or more parameters whose implementations are not defined through the <code>extends</code> keyword, but by <strong>given instances</strong>.
 Here are some examples of common type classes:</p>
-<h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids" class="anchor"></a>Semigroups and monoids:</h3>
+<h3><a href="#semigroups-and-monoids" id="semigroups-and-monoids" class="anchor"></a>Semigroups and monoids</h3>
 <p>Here's the <code>Monoid</code> type class definition:</p>
 <pre><code class="scala">trait SemiGroup[T]:
   extension (x: T) def combine (y: T): T
@@ -1809,7 +1811,7 @@ trait Monoid[T] extends SemiGroup[T]:
 <pre><code class="scala">def combineAll[T: Monoid](xs: List[T]): T =
   xs.foldLeft(Monoid[T].unit)(_.combine(_))
 </code></pre>
-<h3><a href="#functors" id="functors" class="anchor"></a>Functors:</h3>
+<h3><a href="#functors" id="functors" class="anchor"></a>Functors</h3>
 <p>A <code>Functor</code> for a type provides the ability for its values to be &quot;mapped over&quot;, i.e. apply a function that transforms inside a value while remembering its shape. For example, to modify every element of a collection without dropping or adding elements.
 We can represent all types that can be &quot;mapped over&quot; with <code>F</code>. It's a type constructor: the type of its values becomes concrete when provided a type argument.
 Therefore we write it <code>F[_]</code>, hinting that the type <code>F</code> takes another type as argument.
@@ -1853,10 +1855,11 @@ since <code>original</code>'s type is <code>F[A]</code> and a given instance for
 is in scope.</p>
 <h3><a href="#monads" id="monads" class="anchor"></a>Monads</h3>
 <p>Applying <code>map</code> in <code>Functor[List]</code> to a mapping function of type <code>A =&gt; B</code> results in a <code>List[B]</code>. So applying it to a mapping function of type <code>A =&gt; List[B]</code> results in a <code>List[List[B]]</code>. To avoid managing lists of lists, we may want to &quot;flatten&quot; the values in a single list.</p>
-<p>That's where <code>Monad</code> comes in. A <code>Monad</code> for type <code>F[_]</code> is a <code>Functor[F]</code> with two more operations:
-* <code>flatMap</code>, which turns an <code>F[A]</code> into an <code>F[B]</code> when given a function of type
-<code>A =&gt; F[B]</code>,
-* <code>pure</code>, which creates an <code>F[A]</code> from a single value <code>A</code>.</p>
+<p>That's where <code>Monad</code> comes in. A <code>Monad</code> for type <code>F[_]</code> is a <code>Functor[F]</code> with two more operations:</p>
+<ul>
+<li><code>flatMap</code>, which turns an <code>F[A]</code> into an <code>F[B]</code> when given a function of type <code>A =&gt; F[B]</code>,</li>
+<li><code>pure</code>, which creates an <code>F[A]</code> from a single value <code>A</code>.</li>
+</ul>
 <p>Here is the translation of this definition in Scala 3:</p>
 <pre><code class="scala">trait Monad[F[_]] extends Functor[F]:
 
@@ -1958,7 +1961,7 @@ end readerMonad
 <p>The definition of a <em>type class</em> is expressed with a parameterised type with abstract members, such as a <code>trait</code>.
 The main difference between subtype polymorphism and ad-hoc polymorphism with <em>type classes</em> is how the definition of the <em>type class</em> is implemented, in relation to the type it acts upon.
 In the case of a <em>type class</em>, its implementation for a concrete type is expressed through a <code>given</code> instance definition, which is supplied as an implicit argument alongside the value it acts upon. With subtype polymorphism, the implementation is mixed into the parents of a class, and only a single term is required to perform a polymorphic operation. The type class solution
-takes more effort to set up, but is more extensible: Adding a new interface to a class
+takes more effort to set up, but is more extensible: Adding a new interface to a
 class requires changing the source code of that class. But contrast, instances for type classes can be defined anywhere.</p>
 <p>To conclude, we have seen that traits and given instances, combined with other constructs like extension methods, context bounds and type lambdas allow a concise and natural expression of <em>type classes</em>.</p>
 

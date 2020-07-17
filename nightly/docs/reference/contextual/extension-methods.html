@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-15 -->
+<!-- This page was last generated on 2020-07-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200714-001817c-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200716-03aa171-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1818,20 +1818,20 @@ method ends up being applied to the sequence as first argument (in other words,
 the two swaps cancel each other out).</p>
 <h3><a href="#generic-extensions" id="generic-extensions" class="anchor"></a>Generic Extensions</h3>
 <p>It is also possible to extend generic types by adding type parameters to an extension. For instance:</p>
-<pre><code class="scala"> extension [T](xs: List[T])
-   def second = xs.tail.head
+<pre><code class="scala">extension [T](xs: List[T])
+  def second = xs.tail.head
 
- extension [T: Numeric](x: T)
-   def + (y: T): T = summon[Numeric[T]].plus(x, y)
+extension [T: Numeric](x: T)
+  def + (y: T): T = summon[Numeric[T]].plus(x, y)
 </code></pre>
 <p>If an extension method has type parameters, they come immediately after <code>extension</code> and are followed by the extended parameter.
 When calling a generic extension method, any explicitly given type arguments follow the method name. So the <code>second</code> method could be instantiated as follows.</p>
-<pre><code class="scala">  List(1, 2, 3).second[Int]
+<pre><code class="scala">List(1, 2, 3).second[Int]
 </code></pre>
 <p>Of course, the type argument here would usually be left out since it can be inferred.</p>
 <p>Extensions can also take using clauses. For instance, the <code>+</code> extension above could equivalently be written with a using clause:</p>
-<pre><code class="scala">  extension [T](x: T)(using n: Numeric[T])
-    def - (y: T): T = n.minus(x, y)
+<pre><code class="scala">extension [T](x: T)(using n: Numeric[T])
+  def + (y: T): T = n.plus(x, y)
 </code></pre>
 <p><strong>Note</strong>: Type parameters have to be given after the <code>extension</code> keyword;
 they cannot be given after the <code>def</code>. This restriction might be lifted in the future once we support multiple type parameter clauses in a method. By contrast, there can be using clauses in front as well as after the <code>def</code>.</p>
@@ -1952,10 +1952,10 @@ resolve, the identifier is rewritten to:</p>
 <li><code>this.m</code> otherwise</li>
 </ul>
 <p>and the rewritten term is again tried as an application of an extension method. Example:</p>
-<pre><code class="scala">  extension (s: String)
-    def position(ch: Char, n: Int): Int =
-      if n &lt; s.length &amp;&amp; s(n) != ch then position(ch, n + 1)
-      else n
+<pre><code class="scala">extension (s: String)
+  def position(ch: Char, n: Int): Int =
+    if n &lt; s.length &amp;&amp; s(n) != ch then position(ch, n + 1)
+    else n
 </code></pre>
 <p>The recursive call <code>position(ch, n + 1)</code> expands to <code>s.position(ch, n + 1)</code> in this case. The whole extension method rewrites to</p>
 <pre><code class="scala">def extension_position(s: String)(ch: Char, n: Int): Int =
@@ -1967,18 +1967,19 @@ resolve, the identifier is rewritten to:</p>
 <li>
 <p>To avoid confusion, names of normal methods are not allowed to start with <code>extension_</code>.</p>
 </li>
-<li>A named import such as <code>import a.m</code> of an extension method in <code>a</code> will make <code>m</code>
-only available as an extension method. To access it under
-<code>extension_m</code> that name as to be imported separately. Example:</li>
-</ol>
+<li>
+<p>A named import such as <code>import a.m</code> of an extension method in <code>a</code> will make <code>m</code> only available as an extension method.
+To access it under <code>extension_m</code> that name as to be imported separately. Example:</p>
 <pre><code class="scala">object DoubleOps:
   extension (x: Double) def ** (exponent: Int): Double =
-    require(exponent &gt; 0)
+    require(exponent &gt;= 0)
     if exponent == 0 then 1 else x * (x ** (exponent - 1))
 
 import DoubleOps.{**, extension_**}
 assert(2.0 ** 3 == extension_**(2.0)(3))
 </code></pre>
+</li>
+</ol>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
 <p>Here are the syntax changes for extension methods and collective extensions relative
 to the <a href="../../internals/syntax.html">current syntax</a>.</p>
