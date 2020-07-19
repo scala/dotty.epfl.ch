@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-18 -->
+<!-- This page was last generated on 2020-07-19 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200717-86cc7f8-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200718-c753ca3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2258,7 +2258,12 @@
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-extension_nn-x-">
                         
-                            <p></p>
+                            <p>Strips away the nullability from a value.
+e.g.
+val s1: String|Null = &quot;hello&quot;
+val s: String = s1.nn</p>
+<p>Note that <code>.nn</code> performs a checked cast, so if invoked on...</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -2266,7 +2271,12 @@
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Strips away the nullability from a value.
+e.g.
+val s1: String|Null = &quot;hello&quot;
+val s: String = s1.nn</p>
+<p>Note that <code>.nn</code> performs a checked cast, so if invoked on a null value it'll throw an NPE.</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}

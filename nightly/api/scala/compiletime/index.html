@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-18 -->
+<!-- This page was last generated on 2020-07-19 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200717-86cc7f8-NIGHTLY</h2>
+                    <h2>0.26.0-bin-20200718-c753ca3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2707,7 +2707,8 @@ If an inline expansion results in a call error(msgStr) the compiler produces an 
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-extension_code-self--args-">
                         
-                            <p></p>
+                            <p>Returns the string representation of interpolated elaborated code:</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -2715,7 +2716,17 @@ If an inline expansion results in a call error(msgStr) the compiler produces an 
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Returns the string representation of interpolated elaborated code:</p>
+<pre><code class="scala">inline def logged(p1: =&gt; Any) = {
+  val c = code&quot;code: $p1&quot;
+  val res = p1
+  (c, p1)
+}
+logged(identity(&quot;foo&quot;))
+// above is equivalent to:
+// (&quot;code: scala.Predef.identity(&quot;foo&quot;)&quot;, identity(&quot;foo&quot;))
+</code></pre>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
