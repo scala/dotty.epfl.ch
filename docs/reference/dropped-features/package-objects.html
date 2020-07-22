@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-20 -->
+<!-- This page was last generated on 2020-07-22 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200719-21a90aa-NIGHTLY</h2>
+                    <h2>0.25.0</h2>
                 </div>
             </a>
         </div>
@@ -1226,14 +1226,32 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                            </li>
+                            
+
+                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1306,18 +1324,6 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1430,10 +1436,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                             
 
                             <li class=" with-companion ">
@@ -1441,10 +1443,14 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
+                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1790,7 +1796,7 @@ def b = a._2
 case class C()
 
 implicit object Cops {
-  extension (x: C) def pair(y: C) = (x, y)
+  def (x: C).pair(y: C) = (x, y)
 }
 </code></pre>
 <p>There may be several source files in a package containing such toplevel definitions, and source files can freely mix toplevel value, method, and type definitions with classes and objects.</p>

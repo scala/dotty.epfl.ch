@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-20 -->
+<!-- This page was last generated on 2020-07-22 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200719-21a90aa-NIGHTLY</h2>
+                    <h2>0.25.0</h2>
                 </div>
             </a>
         </div>
@@ -1226,14 +1226,32 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                            </li>
+                            
+
+                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1306,18 +1324,6 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1430,10 +1436,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                             
 
                             <li class=" with-companion ">
@@ -1441,10 +1443,14 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
+                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1784,7 +1790,7 @@ the same way methods with context parameters are applied. For instance:</p>
 <pre><code class="scala">  given ec as ExecutionContext = ...
 
   def f(x: Int): ExecutionContext ?=&gt; Int = ...
-
+  
   // could be written as follows with the type alias from above
   // def f(x: Int): Executable[Int] = ...
 
@@ -1880,7 +1886,7 @@ that would otherwise be necessary.</p>
 
   def result[T](using r: WrappedResult[T]): T = r
 
-  extension [T](x: T) def ensuring(condition: WrappedResult[T] ?=&gt; Boolean): T = {
+  def [T] (x: T).ensuring(condition: WrappedResult[T] ?=&gt; Boolean): T = {
     assert(condition(using x))
     x
   }

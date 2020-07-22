@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-20 -->
+<!-- This page was last generated on 2020-07-22 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200719-21a90aa-NIGHTLY</h2>
+                    <h2>0.25.0</h2>
                 </div>
             </a>
         </div>
@@ -1226,14 +1226,32 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                            </li>
+                            
+
+                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1306,18 +1324,6 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1430,10 +1436,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                             
 
                             <li class=" with-companion ">
@@ -1441,10 +1443,14 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
+                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1784,7 +1790,7 @@ Make the full programming language compatible with the foundational work on the 
 <li>Further improve the consistency and expressiveness of Scala's language constructs.</li>
 </ul>
 <p>Corresponding to these goals, the language changes fall into seven categories:
-(1) Core constructs to strengthen foundations, (2) simplifications and (3) restrictions, to make the language easier and safer to use, (4) dropped constructs to make the language smaller and more regular, (5) changed constructs to remove warts, and increase consistency and usability, (6) new constructs to fill gaps and increase expressiveness, (7) a new, principled approach to metaprogramming that replaces today's experimental macros.</p>
+(1) Core constructs to strengthen foundations, (2) simplifications and (3) restrictions, to make the language easier and safer to use, (4) dropped constructs to make the language smaller and more regular, (5) changed constructs to remove warts, and increase consistency and usability, (6) new constructs to fill gaps and increase expressiveness, (7) a new, principled approach to meta-programming that replaces today's experimental macros.</p>
 <h2><a href="#essential-foundations" id="essential-foundations" class="anchor"></a>Essential Foundations</h2>
 <p>These new constructs directly model core features of DOT, higher-kinded types, and the <a href="https://infoscience.epfl.ch/record/229878/files/simplicitly_1.pdf">SI calculus for implicit resolution</a>.</p>
 <ul>
@@ -1875,10 +1881,10 @@ make method application syntax uniform across code bases and require alphanumeri
 <li><a href="https://github.com/lampepfl/dotty/pull/4672">Polymorphic Function Types</a> generalize polymorphic methods to dependent function values and types. <em>Current status</em>: There is a proposal, and a prototype implementation, but the implementation has not been finalized or merged yet.</li>
 <li><a href="other-new-features/kind-polymorphism.html">Kind Polymorphism</a> allows the definition of operators working equally on types and type constructors.</li>
 </ul>
-<h2><a href="#metaprogramming" id="metaprogramming" class="anchor"></a>Metaprogramming</h2>
-<p>The following constructs together aim to put metaprogramming in Scala on a new basis. So far, metaprogramming was achieved by a combination of macros and libraries such as Shapeless that were in turn based on some key macros. Current Scala 2 macro mechanisms are a thin veneer on top the current Scala 2 compiler, which makes them fragile and in many cases impossible to port to Scala 3.</p>
+<h2><a href="#meta-programming" id="meta-programming" class="anchor"></a>Meta Programming</h2>
+<p>The following constructs together aim to put meta programming in Scala on a new basis. So far, meta programming was achieved by a combination of macros and libraries such as Shapeless that were in turn based on some key macros. Current Scala 2 macro mechanisms are a thin veneer on top the current Scala 2 compiler, which makes them fragile and in many cases impossible to port to Scala 3.</p>
 <p>It's worth noting that macros were never included in the Scala 2 language specification and were so far made available only under an <code>-experimental</code> flag. This has not prevented their widespread usage.</p>
-<p>To enable porting most uses of macros, we are experimenting with the advanced language constructs listed below. These designs are more provisional than the rest of the proposed language constructs for Scala 3.0. There might still be some changes until the final release. Stabilizing the feature set needed for metaprogramming is our first priority.</p>
+<p>To enable porting most uses of macros, we are experimenting with the advanced language constructs listed below. These designs are more provisional than the rest of the proposed language constructs for Scala 3.0. There might still be some changes until the final release. Stabilizing the feature set needed for meta programming is our first priority.</p>
 <ul>
 <li><a href="new-types/match-types.html">Match Types</a> allow computation on types.</li>
 <li><a href="metaprogramming/inline.html">Inline</a> provides

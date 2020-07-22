@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-20 -->
+<!-- This page was last generated on 2020-07-22 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200719-21a90aa-NIGHTLY</h2>
+                    <h2>0.25.0</h2>
                 </div>
             </a>
         </div>
@@ -1226,14 +1226,32 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                            </li>
+                            
+
+                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1306,18 +1324,6 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1430,10 +1436,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                             
 
                             <li class=" with-companion ">
@@ -1441,10 +1443,14 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
+                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1779,7 +1785,7 @@
 <p>This means the following code will no longer typecheck:</p>
 <pre><code class="nohighlight">val x: String = null // error: found `Null`,  but required `String`
 </code></pre>
-<p>Instead, to mark a type as nullable we use a <a href="https://dotty.epfl.ch/docs/reference/new-types/union-types.html">union type</a></p>
+<p>Instead, to mark a type as nullable we use a <a href="https://dotty.epfl.ch/docs/reference/new-types/union-types.html">type union</a></p>
 <pre><code class="nohighlight">val x: String|Null = null // ok
 </code></pre>
 <p>Explicit nulls are enabled via a <code>-Yexplicit-nulls</code> flag.</p>
@@ -1804,9 +1810,9 @@ val c = new C()
 More details can be found in <a href="./safe-initialization.html">safe initialization</a>.</p>
 <h2><a href="#equality" id="equality" class="anchor"></a>Equality</h2>
 <p>We don't allow the double-equal (<code>==</code> and <code>!=</code>) and reference (<code>eq</code> and <code>ne</code>) comparison between
-<code>AnyRef</code> and <code>Null</code> anymore, since a variable with a non-nullable type cannot have <code>null</code> as value.
+<code>AnyRef</code> and <code>Null</code> anymore, since a variable with non-nullable type shouldn't have null value.
 <code>null</code> can only be compared with <code>Null</code>, nullable union (<code>T | Null</code>), or <code>Any</code> type.</p>
-<p>For some reason, if we really want to compare <code>null</code> with non-null values, we have to provide a type hint (e.g. <code>: Any</code>).</p>
+<p>For some reason, if we really want to compare <code>null</code> with non-null values, we can use cast.</p>
 <pre><code class="scala">val x: String = ???
 val y: String | Null = ???
 
@@ -1832,7 +1838,7 @@ So far, we have found the following useful:</p>
 </code></pre>
 <p>This means that given <code>x: String|Null</code>, <code>x.nn</code> has type <code>String</code>, so we can call all the
 usual methods on it. Of course, <code>x.nn</code> will throw a NPE if <code>x</code> is <code>null</code>.</p>
-<p>Don't use <code>.nn</code> on mutable variables directly, because it may introduce an unknown type into the type of the variable.</p>
+<p>Don't use <code>.nn</code> on mutable variables directly, which may introduce unknown value into the type.</p>
 </li>
 </ul>
 <h2><a href="#java-interop" id="java-interop" class="anchor"></a>Java Interop</h2>
@@ -1842,7 +1848,7 @@ remain implicitly nullable.</p>
 <p>Specifically, we patch
 * the type of fields
 * the argument type and return type of methods</p>
-<p><code>UncheckedNull</code> is an alias for <code>Null</code> with magic properties (see <a href="#uncheckednull">below</a>). We illustrate the rules with following examples:</p>
+<p><code>UncheckedNull</code> is an alias for <code>Null</code> with magic properties (see below). We illustrate the rules with following examples:</p>
 <ul>
 <li>
 <p>The first two rules are easy: we nullify reference types but not value types.</p>
@@ -1903,7 +1909,7 @@ the Typer in the first place, so they will be patched.</p>
   def makeCrazyBoxes(): List[Box[List[T] | UncheckedNull]] | UncheckedNull
 }
 </code></pre>
-<p>In this case, since <code>Box</code> is Scala-defined, we will get <code>Box[T|UncheckedNull]|UncheckedNull</code>.
+<p>In this case, since <code>Box</code> is Scala-defined, and we will get <code>Box[T|UncheckedNull]|UncheckedNull</code>.
 This is needed because our nullability function is only applied (modularly) to the Java
 classes, but not to the Scala ones, so we need a way to tell <code>Box</code> that it contains a
 nullable value.</p>
@@ -1931,7 +1937,7 @@ still need to nullify its inside.</p>
 </code></pre>
 </li>
 <li>
-<p>We don't append <code>UncheckedNull</code> to a field nor to a return type of a method which is annotated with a
+<p>We don't append <code>UncheckedNull</code> to a field and the return type of a method which is annotated with a
 <code>NotNull</code> annotation.</p>
 <pre><code class="java">class C {
   @NotNull String name;
@@ -1998,7 +2004,7 @@ val s2 = if (ret != null) {
 <h2><a href="#flow-typing" id="flow-typing" class="anchor"></a>Flow Typing</h2>
 <p>We added a simple form of flow-sensitive type inference. The idea is that if <code>p</code> is a
 stable path or a trackable variable, then we can know that <code>p</code> is non-null if it's compared
-with <code>null</code>. This information can then be propagated to the <code>then</code> and <code>else</code> branches
+with the <code>null</code>. This information can then be propagated to the <code>then</code> and <code>else</code> branches
 of an if-statement (among other places).</p>
 <p>Example:</p>
 <pre><code class="scala">val s: String|Null = ???
@@ -2043,10 +2049,10 @@ if (s != null &amp;&amp; s.length &gt; 0) { // s: String in `s.length &gt; 0`
   // s: String
 }
 
-if (s == null || s.length &gt; 0) { // s: String in `s.length &gt; 0`
+if (s == null || s.length &gt; 0) // s: String in `s.length &gt; 0` {
   // s: String|Null
 } else {
-  // s: String
+  // s: String|Null
 }
 </code></pre>
 <h3><a href="#match-case" id="match-case" class="anchor"></a>Match Case</h3>
@@ -2063,7 +2069,7 @@ s match {
 <pre><code class="scala">class C(val x: Int, val next: C|Null)
 
 var xs: C|Null = C(1, C(2, null))
-// xs is trackable, since all assignments are in the same method
+// xs is trackable, since all assignments are in the same mathod
 while (xs != null) {
   // xs: C
   val xsx: Int = xs.x
@@ -2086,7 +2092,7 @@ def y = {
   x = null
 }
 if (x != null) {
-  // y can be called here, which would break the fact
+  // y can be called here, which break the fact
   val a: String = x // error: x is captured and mutated by the closure, not trackable
 }
 </code></pre>

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-20 -->
+<!-- This page was last generated on 2020-07-22 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200719-21a90aa-NIGHTLY</h2>
+                    <h2>0.25.0</h2>
                 </div>
             </a>
         </div>
@@ -1226,14 +1226,32 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                            </li>
+                            
+
+                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1306,18 +1324,6 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1430,10 +1436,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                             
 
                             <li class=" with-companion ">
@@ -1441,10 +1443,14 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
+                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1780,7 +1786,6 @@
   given tc as TC
   def f(using TC) = ???
 }
-
 object B {
   import A._
   import A.{given _}
@@ -1789,9 +1794,8 @@ object B {
 <p>In the code above, the <code>import A._</code> clause of object <code>B</code> will import all members
 of <code>A</code> <em>except</em> the given instance <code>tc</code>. Conversely, the second import <code>import A.{given _}</code> will import <em>only</em> that given instance.
 The two import clauses can also be merged into one:</p>
-<pre><code class="scala">object B {
+<pre><code class="scala">object B
   import A.{given _, _}
-}
 </code></pre>
 <p>Generally, a normal wildcard selector <code>_</code> brings all definitions other than givens or extensions into scope
 whereas a <code>given _</code> selector brings all givens (including those resulting from extensions) into scope.</p>
@@ -1810,13 +1814,13 @@ practical.</li>
 </code></pre>
 <p>This imports any given in <code>A</code> that has a type which conforms to <code>TC</code>. Importing givens of several types <code>T1,...,Tn</code>
 is expressed by multiple <code>given</code> selectors.</p>
-<pre><code class="scala">import A.{given T1, ..., given Tn}
+<pre><code class="nohighlight">import A.{given T1, ..., given Tn}
 </code></pre>
 <p>Importing all given instances of a parameterized type is expressed by wildcard arguments.
 For instance, assuming the object</p>
 <pre><code class="scala">object Instances {
   given intOrd as Ordering[Int]
-  given listOrd[T: Ordering] as Ordering[List[T]]
+  given [T: Ordering] listOrd as Ordering[List[T]]
   given ec as ExecutionContext = ...
   given im as Monoid[Int]
 }

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-20 -->
+<!-- This page was last generated on 2020-07-22 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200719-21a90aa-NIGHTLY</h2>
+                    <h2>0.25.0</h2>
                 </div>
             </a>
         </div>
@@ -1226,14 +1226,32 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                            </li>
+                            
+
+                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1306,18 +1324,6 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1430,10 +1436,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                             
 
                             <li class=" with-companion ">
@@ -1441,10 +1443,14 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
+                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1779,16 +1785,14 @@
 <h3><a href="#given-instances" id="given-instances" class="anchor"></a>Given Instances</h3>
 <p>Given instances can be mapped to combinations of implicit objects, classes and implicit methods.</p>
 <ol>
-<li>
-<p>Given instances without parameters are mapped to implicit objects. E.g.,</p>
+<li>Given instances without parameters are mapped to implicit objects. E.g.,
 <pre><code class="scala">given intOrd as Ord[Int] { ... }
 </code></pre>
 <p>maps to</p>
 <pre><code class="scala">implicit object IntOrd extends Ord[Int] { ... }
 </code></pre>
 </li>
-<li>
-<p>Parameterized givens are mapped to combinations of classes and implicit methods. E.g.,</p>
+<li>Parameterized givens are mapped to combinations of classes and implicit methods. E.g.,
 <pre><code class="scala">  given listOrd[T](using ord: Ord[T]) as Ord[List[T]] { ... }
 </code></pre>
 <p>maps to</p>
@@ -1816,15 +1820,29 @@ final implicit def given_Context = ctx
 given given_Ord_List_T[T](using ord: Ord[T]) as Ord[List[T]] { ... }
 </code></pre>
 <p>The synthesized type names are formed from</p>
-<ol>
+<ul>
 <li>the prefix <code>given_</code>,</li>
 <li>the simple name(s) of the implemented type(s), leaving out any prefixes,</li>
 <li>the simple name(s) of the toplevel argument type constructors to these types.</li>
-</ol>
+</ul>
 <p>Tuples are treated as transparent, i.e. a type <code>F[(X, Y)]</code> would get the synthesized name
 <code>F_X_Y</code>. Directly implemented function types <code>A =&gt; B</code> are represented as <code>A_to_B</code>. Function types used as arguments to other type constructors are represented as <code>Function</code>.</p>
-<h3><a href="#using-clauses" id="using-clauses" class="anchor"></a>Using Clauses</h3>
-<p>Using clauses correspond largely to Scala-2's implicit parameter clauses. E.g.</p>
+<h3><a href="#anonymous-collective-extensions" id="anonymous-collective-extensions" class="anchor"></a>Anonymous Collective Extensions</h3>
+<p>Anonymous collective extensions also get compiler synthesized names, which are formed from</p>
+<ul>
+<li>the prefix <code>extension_</code></li>
+<li>the name of the first defined extension method</li>
+<li>the simple name of the first parameter type of this extension method</li>
+<li>the simple name(s) of the toplevel argument type constructors to this type.</li>
+</ul>
+<p>For example, the extension</p>
+<pre><code class="scala">extension on [T] (xs: List[T]) {
+  def second = ...
+}
+</code></pre>
+<p>gets the synthesized name <code>extension_second_List_T</code>.</p>
+<h3><a href="#given-clauses" id="given-clauses" class="anchor"></a>Given Clauses</h3>
+<p>Given clauses correspond largely to Scala-2's implicit parameter clauses. E.g.</p>
 <pre><code class="scala">def max[T](x: T, y: T)(using ord: Ord[T]): T
 </code></pre>
 <p>would be written</p>
@@ -1843,10 +1861,10 @@ asked for.</p>
 <p>Context bounds are the same in both language versions. They expand to the respective forms of implicit parameters.</p>
 <p><strong>Note:</strong> To ease migration, context bounds in Dotty map for a limited time to old-style implicit parameters for which arguments can be passed either in a using clause or
 in a normal argument list. Once old-style implicits are deprecated, context bounds
-will map to using clauses instead.</p>
+will map to with clauses instead.</p>
 <h3><a href="#extension-methods" id="extension-methods" class="anchor"></a>Extension Methods</h3>
 <p>Extension methods have no direct counterpart in Scala 2, but they can be simulated with implicit classes. For instance, the extension method</p>
-<pre><code class="scala">extension (c: Circle) def circumference: Double = c.radius * math.Pi * 2
+<pre><code class="scala">def (c: Circle).circumference: Double = c.radius * math.Pi * 2
 </code></pre>
 <p>could be simulated to some degree by</p>
 <pre><code class="scala">implicit class CircleDecorator(c: Circle) extends AnyVal {
@@ -1856,8 +1874,8 @@ will map to using clauses instead.</p>
 <p>Abstract extension methods in traits that are implemented in given instances have no direct counterpart in Scala-2. The only way to simulate these is to make implicit classes available through imports. The Simulacrum macro library can automate this process in some cases.</p>
 <h3><a href="#type-class-derivation" id="type-class-derivation" class="anchor"></a>Type class Derivation</h3>
 <p>Type class derivation has no direct counterpart in the Scala 2 language. Comparable functionality can be achieved by macro-based libraries such as Shapeless, Magnolia, or scalaz-deriving.</p>
-<h3><a href="#context-function-types" id="context-function-types" class="anchor"></a>Context Function Types</h3>
-<p>Context function types have no analogue in Scala 2.</p>
+<h3><a href="#implicit-function-types" id="implicit-function-types" class="anchor"></a>Implicit Function Types</h3>
+<p>Implicit function types have no analogue in Scala 2.</p>
 <h3><a href="#implicit-by-name-parameters" id="implicit-by-name-parameters" class="anchor"></a>Implicit By-Name Parameters</h3>
 <p>Implicit by-name parameters are not supported in Scala 2, but can be emulated to some degree by the <code>Lazy</code> type in Shapeless.</p>
 <h2><a href="#simulating-scala-2-implicits-in-scala-3" id="simulating-scala-2-implicits-in-scala-3" class="anchor"></a>Simulating Scala 2 Implicits in Scala 3</h2>

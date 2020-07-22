@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-20 -->
+<!-- This page was last generated on 2020-07-22 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.26.0-bin-20200719-21a90aa-NIGHTLY</h2>
+                    <h2>0.25.0</h2>
                 </div>
             </a>
         </div>
@@ -1226,14 +1226,32 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                            </li>
+                            
+
+                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
+                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
                             </li>
                             
 
@@ -1306,18 +1324,6 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1430,10 +1436,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                             
 
                             <li class=" with-companion ">
@@ -1441,10 +1443,14 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
+                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -2179,6 +2185,126 @@ case 2147483646 =&gt; 2147483647
 
                 
                 
+                <div id="code(self)(args)" class="member def public " data-toggle="collapse" data-target=".collapse-code-self--args-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            inline
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                code
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            self:
+                                            
+                                            StringContext
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            args:
+                                            
+                                            <repeated><span class="type-params">[Any]</span>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: String</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-code-self--args-">
+                        
+                            <p>Returns the string representation of interpolated elaborated code:</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-code-self--args-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Returns the string representation of interpolated elaborated code:</p>
+<pre><code class="scala">inline def logged(p1: =&gt; Any) = {
+  val c = code&quot;code: $p1&quot;
+  val res = p1
+  (c, p1)
+}
+logged(identity(&quot;foo&quot;))
+// above is equivalent to:
+// (&quot;code: scala.Predef.identity(&quot;foo&quot;)&quot;, identity(&quot;foo&quot;))
+</code></pre>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
                 <div id="constValue" class="member def public " data-toggle="collapse" data-target=".collapse-constValue">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -2213,9 +2339,7 @@ case 2147483646 =&gt; 2147483647
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-constValue">
                         
-                            <p>Given a constant, singleton type <code>T</code>, convert it to a value
-of the same singleton type. For example: <code>assert(constValue[1] == 1)</code>.</p>
-
+                            <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -2223,9 +2347,7 @@ of the same singleton type. For example: <code>assert(constValue[1] == 1)</code>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Given a constant, singleton type <code>T</code>, convert it to a value
-of the same singleton type. For example: <code>assert(constValue[1] == 1)</code>.</p>
-
+                            
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -2302,10 +2424,7 @@ of the same singleton type. For example: <code>assert(constValue[1] == 1)</code>
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-constValueOpt">
                         
-                            <p>Same as <code>constValue</code> but returns a <code>None</code> if a constant value
-cannot be constructed from the provided type. Otherwise returns
-that value wrapped in <code>Some</code>.</p>
-
+                            <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -2313,99 +2432,7 @@ that value wrapped in <code>Some</code>.</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Same as <code>constValue</code> but returns a <code>None</code> if a constant value
-cannot be constructed from the provided type. Otherwise returns
-that value wrapped in <code>Some</code>.</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="constValueTuple" class="member def public " data-toggle="collapse" data-target=".collapse-constValueTuple">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            inline
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
                             
-                                constValueTuple
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                            <span class="type-params">
-                                [T]
-                            </span>
-                        
-                        <!-- Method parameters -->
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Widen<span class="type-params">[T]</span></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-constValueTuple">
-                        
-                            <p>Given a tuple type <code>(X1, ..., Xn)</code>, returns a tuple value
-<code>(constValue[X1], ..., constValue[Xn])</code>.</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-constValueTuple">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Given a tuple type <code>(X1, ..., Xn)</code>, returns a tuple value
-<code>(constValue[X1], ..., constValue[Xn])</code>.</p>
-
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -2482,10 +2509,7 @@ that value wrapped in <code>Some</code>.</p>
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-erasedValue">
                         
-                            <p>Use this method when you have a type, do not have a value for it but want to
-pattern match on it. For example, given a type <code>Tup &lt;: Tuple</code>, one can
-patter...</p>
-
+                            <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -2493,15 +2517,7 @@ patter...</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Use this method when you have a type, do not have a value for it but want to
-pattern match on it. For example, given a type <code>Tup &lt;: Tuple</code>, one can
-pattern-match on it as follows:</p>
-<pre><code class="nohighlight">erasedValue[Tup] match {
-  case _: EmptyTuple =&gt; ...
-  case _: h *: t =&gt; ...
-}
-</code></pre>
-
+                            
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -2633,216 +2649,6 @@ If an inline expansion results in a call error(msgStr) the compiler produces an 
                         {/% if c.result %}
                             <span class="doc-key">Result</span>
                             <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="extension_code(self)(args)" class="member def public " data-toggle="collapse" data-target=".collapse-extension_code-self--args-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            inline
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                extension_code
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            StringContext
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            args:
-                                            
-                                            <repeated><span class="type-params">[Any]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: String</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-extension_code-self--args-">
-                        
-                            <p>Returns the string representation of interpolated elaborated code:</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-extension_code-self--args-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Returns the string representation of interpolated elaborated code:</p>
-<pre><code class="scala">inline def logged(p1: =&gt; Any) = {
-  val c = code&quot;code: $p1&quot;
-  val res = p1
-  (c, p1)
-}
-logged(identity(&quot;foo&quot;))
-// above is equivalent to:
-// (&quot;code: scala.Predef.identity(&quot;foo&quot;)&quot;, identity(&quot;foo&quot;))
-</code></pre>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="summonAll" class="member def public " data-toggle="collapse" data-target=".collapse-summonAll">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            inline
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                summonAll
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                            <span class="type-params">
-                                [T]
-                            </span>
-                        
-                        <!-- Method parameters -->
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Widen<span class="type-params">[T]</span></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-summonAll">
-                        
-                            <p>Given a tuple T, summons each of its member types and returns them in
-a Tuple.</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-summonAll">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Given a tuple T, summons each of its member types and returns them in
-a Tuple.</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"><p>the given values typed as elements of the tuple</p>
-</span>
                         {/% endif %}
                         {/% endcomment %}
                         -->
