@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-22 -->
+<!-- This page was last generated on 2020-07-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0</h2>
+                    <h2>0.27.0-bin-20200723-eb3b0ac-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1226,32 +1226,14 @@
                             
 
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
-                            </li>
-                            
-
-                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
                             </li>
                             
 
@@ -1324,6 +1306,18 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1436,6 +1430,10 @@
                     </a>
                     <ul class="package-entities">
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
                             
 
                             <li class=" with-companion ">
@@ -1443,14 +1441,10 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
+                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1780,8 +1774,7 @@
             </a>
         </div>
     </header>
-    <h2><a href="#context-bounds" id="context-bounds" class="anchor"></a>Context Bounds</h2>
-<p>A context bound is a shorthand for expressing the common pattern of a context parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
+    <p>A context bound is a shorthand for expressing the common pattern of a context parameter that depends on a type parameter. Using a context bound, the <code>maximum</code> function of the last section can be written like this:</p>
 <pre><code class="scala">def maximum[T: Ord](xs: List[T]): T = xs.reduceLeft(max)
 </code></pre>
 <p>A bound like <code>: Ord</code> on a type parameter <code>T</code> of a method or class indicates a context parameter <code>with Ord[T]</code>. The context parameter(s) generated from context bounds come last in the definition of the containing method or class. E.g.,</p>
@@ -1793,14 +1786,14 @@
 <p>Context bounds can be combined with subtype bounds. If both are present, subtype bounds come first, e.g.</p>
 <pre><code class="scala">def g[T &lt;: B : C](x: T): R = ...
 </code></pre>
-<h3><a href="#migration" id="migration" class="anchor"></a>Migration</h3>
+<h2><a href="#migration" id="migration" class="anchor"></a>Migration</h2>
 <p>To ease migration, context bounds in Dotty map in Scala 3.0 to old-style implicit parameters
 for which arguments can be passed either with a <code>(using ...)</code> clause or with a normal application. From Scala 3.1 on, they will map to context parameters instead, as is described above.</p>
 <p>If the source version is <code>3.1</code> and the <code>-migration</code> command-line option is set, any pairing of an evidence
 context parameter stemming from a context bound with a normal argument will give a migration
 warning. The warning indicates that a <code>(using ...)</code> clause is needed instead. The rewrite can be
 done automatically under <code>-rewrite</code>.</p>
-<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
+<h2><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h2>
 <pre><code class="nohighlight">TypeParamBounds   ::=  [SubtypeBounds] {ContextBound}
 ContextBound      ::=  ‘:’ Type
 </code></pre>

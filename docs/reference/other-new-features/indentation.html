@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-22 -->
+<!-- This page was last generated on 2020-07-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0</h2>
+                    <h2>0.27.0-bin-20200723-eb3b0ac-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1226,32 +1226,14 @@
                             
 
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
-                            </li>
-                            
-
-                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
                             </li>
                             
 
@@ -1324,6 +1306,18 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1436,6 +1430,10 @@
                     </a>
                     <ul class="package-entities">
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
                             
 
                             <li class=" with-companion ">
@@ -1443,14 +1441,10 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
+                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1829,6 +1823,7 @@ than the current indentation width</li>
 <p>An indentation region can start</p>
 <ul>
 <li>after the condition of an <code>if-else</code>, or</li>
+<li>after the leading parameters of an <code>extension</code>, or</li>
 <li>after a &quot;: at end of line&quot; token (see below)</li>
 <li>after one of the following tokens:</li>
 </ul>
@@ -1845,7 +1840,7 @@ than the current indentation width, and</li>
 <li>the first token on the next line is not a
 <a href="../changed-features/operators.html">leading infix operator</a>.</li>
 </ul>
-<p>If an <code>&lt;outdent&gt;</code> is inserted, the top element if popped from <code>IW</code>.
+<p>If an <code>&lt;outdent&gt;</code> is inserted, the top element is popped from <code>IW</code>.
 If the indentation width of the token on the next line is still less than the new current indentation width, step (2) repeats. Therefore, several <code>&lt;outdent&gt;</code> tokens
 may be inserted in a row.</p>
 <p>An <code>&lt;outdent&gt;</code> is also inserted if the next token following a statement sequence starting with an <code>&lt;indent&gt;</code> closes an indentation region, i.e. is one of <code>then</code>, <code>else</code>, <code>do</code>, <code>catch</code>, <code>finally</code>, <code>yield</code>, <code>}</code>, <code>)</code>, <code>]</code> or <code>case</code>.</p>
@@ -1861,7 +1856,7 @@ may be inserted in a row.</p>
 <p>Indentation tokens are only inserted in regions where newline statement separators are also inferred:
 at the toplevel, inside braces <code>{...}</code>, but not inside parentheses <code>(...)</code>, patterns or types.</p>
 <h3><a href="#optional-braces-around-template-bodies" id="optional-braces-around-template-bodies" class="anchor"></a>Optional Braces Around Template Bodies</h3>
-<p>The Scala grammar uses the term <em>template body</em> for the definitions of a class, trait, object, given instance or extension that are normally enclosed in braces. The braces around a template body can also be omitted by means of the following rule:</p>
+<p>The Scala grammar uses the term <em>template body</em> for the definitions of a class, trait, object or given instance that are normally enclosed in braces. The braces around a template body can also be omitted by means of the following rule</p>
 <p>If at the point where a template body can start there is a <code>:</code> that occurs at the end
 of a line, and that is followed by at least one indented statement, the recognized
 token is changed from &quot;:&quot; to &quot;: at end of line&quot;. The latter token is one of the tokens
@@ -1883,10 +1878,10 @@ enum Color:
 type T = A:
   def f: Int
 
-given [T] with Ord[T] as Ord[List[T]]:
+given [T](using Ord[T]) as Ord[List[T]]:
   def compare(x: List[T], y: List[T]) = ???
 
-extension on (xs: List[Int]):
+extension (xs: List[Int])
   def second: Int = xs.tail.head
 
 new A:
@@ -1966,51 +1961,51 @@ identifiers or one of the following keywords</p>
 <li>If the statement is an <code>if</code>, <code>while</code>, <code>for</code>, <code>try</code>, or <code>match</code> statement, then <code>s</code> must be that same token.</li>
 </ul>
 <p>For instance, the following end markers are all legal:</p>
-<pre><code class="scala"> package p1.p2:
+<pre><code class="scala">package p1.p2:
 
-   abstract class C():
+  abstract class C():
 
-     def this(x: Int) =
-       this()
-       if x &gt; 0 then
-         val a :: b =
-           x :: Nil
-         end val
-         var y =
-           x
-         end y
-         while y &gt; 0 do
-           println(y)
-           y -= 1
-         end while
-         try
-           x match
-             case 0 =&gt; println(&quot;0&quot;)
-             case _ =&gt;
-           end match
-         finally
-           println(&quot;done&quot;)
-         end try
-       end if
-     end this
+    def this(x: Int) =
+      this()
+      if x &gt; 0 then
+        val a :: b =
+          x :: Nil
+        end val
+        var y =
+          x
+        end y
+        while y &gt; 0 do
+          println(y)
+          y -= 1
+        end while
+        try
+          x match
+            case 0 =&gt; println(&quot;0&quot;)
+            case _ =&gt;
+          end match
+        finally
+          println(&quot;done&quot;)
+        end try
+      end if
+    end this
 
-     def f: String
-   end C
+    def f: String
+  end C
 
-   object C:
-     given C =
-       new C:
-         def f = &quot;!&quot;
-         end f
-       end new
-     end given
-   end C
+  object C:
+    given C =
+      new C:
+        def f = &quot;!&quot;
+        end f
+      end new
+    end given
+  end C
 
-   extension on (x: C):
-     def ff: String = x.f ++ x.f
-   end extension
+  extension (x: C)
+    def ff: String = x.f ++ x.f
+  end extension
 
- end p2
+end p2
 </code></pre>
 <h4><a href="#when-to-use-end-markers" id="when-to-use-end-markers" class="anchor"></a>When to Use End Markers</h4>
 <p>It is recommended that <code>end</code> markers are used for code where the extent of an indentation region is not immediately apparent &quot;at a glance&quot;. People will have different preferences what this means, but one can nevertheless give some guidelines that stem from experience. An end marker makes sense if</p>
@@ -2019,7 +2014,7 @@ identifiers or one of the following keywords</p>
 <li>the construct is long, say 15-20 lines or more,</li>
 <li>the construct ends heavily indented, say 4 indentation levels or more.</li>
 </ul>
-<p>If none of these criteria apply, it's often better to not use an end marker since the code will be just as clear and more concise. If there are several ending regions that satisfy one of the criteria above, we usually need an end marker only for the outermost closed reason. So cascades of end markers as in the example above are usually better avoided.</p>
+<p>If none of these criteria apply, it's often better to not use an end marker since the code will be just as clear and more concise. If there are several ending regions that satisfy one of the criteria above, we usually need an end marker only for the outermost closed region. So cascades of end markers as in the example above are usually better avoided.</p>
 <h4><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h4>
 <pre><code class="nohighlight">EndMarker         ::=  ‘end’ EndMarkerTag    -- when followed by EOL
 EndMarkerTag      ::=  id | ‘if’ | ‘while’ | ‘for’ | ‘match’ | ‘try’

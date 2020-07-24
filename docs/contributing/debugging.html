@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-22 -->
+<!-- This page was last generated on 2020-07-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0</h2>
+                    <h2>0.27.0-bin-20200723-eb3b0ac-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1226,32 +1226,14 @@
                             
 
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
-                            </li>
-                            
-
-                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
                             </li>
                             
 
@@ -1324,6 +1306,18 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1436,6 +1430,10 @@
                     </a>
                     <ul class="package-entities">
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
                             
 
                             <li class=" with-companion ">
@@ -1443,14 +1441,10 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
+                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1844,7 +1838,7 @@ assertPositioned(tree)
 <p>But you can also do:</p>
 <pre><code class="scala">assertPositioned(tree.reporting(s&quot;Tree is: $result&quot;))
 </code></pre>
-<p><code>def (a: A).reporting(f: WrappedResult[T] ?=&gt; String, p: Printer = Printers.default): A</code> is defined on all types. The function <code>f</code> can be written without the argument since it is a context function<code>. The</code>result<code>variable is a part of the</code>WrapperResult<code>– a tiny framework powering the</code>reporting<code>function. Basically, whenever you are using</code>reporting<code>on an object</code>A<code>, you can use the</code>result: A<code>variable from this function and it will be equal to the object you are calling</code>reporting` on.</p>
+<p><code>extension (a: A) def reporting(f: WrappedResult[T] ?=&gt; String, p: Printer = Printers.default): A</code> is defined on all types. The function <code>f</code> can be written without the argument since it is a context function<code>. The</code>result<code>variable is a part of the</code>WrapperResult<code>– a tiny framework powering the</code>reporting<code>function. Basically, whenever you are using</code>reporting<code>on an object</code>A<code>, you can use the</code>result: A<code>variable from this function and it will be equal to the object you are calling</code>reporting` on.</p>
 <h2><a href="#printing-out-trees-after-phases" id="printing-out-trees-after-phases" class="anchor"></a>Printing out trees after phases</h2>
 <p>To print out the trees you are compiling after the FrontEnd (scanner, parser, namer, typer) phases:</p>
 <pre><code class="shell">dotc -Xprint:typer ../issues/Playground.scala
@@ -2048,7 +2042,7 @@ a)bort, s)tack, r)esume
 <pre><code class="scala">trace.force(i&quot;typing $tree&quot;, typr, show = true) { // ...
 </code></pre>
 <h3><a href="#reporter" id="reporter" class="anchor"></a>Reporter</h3>
-<p>Defined in <a href="https://github.com/lampepfl/dotty/blob/10526a7d0aa8910729b6036ee51942e05b71abf6/compiler/src/dotty/tools/dotc/reporting/Reporter.scala">Reporter.scala</a>. Enables calls such as <code>ctx.log</code>, <code>ctx.error</code> etc. To enable, run dotc with <code>-Ylog:typer</code> option.</p>
+<p>Defined in <a href="https://github.com/lampepfl/dotty/blob/10526a7d0aa8910729b6036ee51942e05b71abf6/compiler/src/dotty/tools/dotc/reporting/Reporter.scala">Reporter.scala</a>. Enables calls such as <code>report.log</code>. To enable, run dotc with <code>-Ylog:typer</code> option.</p>
 
 </main>
 </div>

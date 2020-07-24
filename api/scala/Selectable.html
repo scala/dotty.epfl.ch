@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-22 -->
+<!-- This page was last generated on 2020-07-24 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.25.0</h2>
+                    <h2>0.27.0-bin-20200723-eb3b0ac-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1226,32 +1226,14 @@
                             
 
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/quoted/QuoteContext$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
-                            </li>
-                            
-
-                        
                             
 
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/quoted/Reporting$.html">O</a>
+                                    <a class="letter-anchor trait" href="/api/scala/quoted/QuoteContext.html">T</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/quoted/Reporting$.html">Reporting</a>
+                                <a class="entity-name" href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
                             </li>
                             
 
@@ -1324,6 +1306,18 @@
                                     <a class="letter-anchor object" href="/api/scala/quoted/Varargs$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/quoted/Varargs$.html">Varargs</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/quoted/report$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/report$.html">report</a>
                             </li>
                             
 
@@ -1436,6 +1430,10 @@
                     </a>
                     <ul class="package-entities">
                         
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
                             
 
                             <li class=" with-companion ">
@@ -1443,14 +1441,10 @@
                                     
                                     <a class="letter-anchor object" href="/api/scala/reflect/Selectable$.html">O</a>
                                     
-                                    <a class="letter-anchor class" href="/api/scala/reflect/Selectable.html">C</a>
+                                    <a class="letter-anchor trait" href="/api/scala/reflect/Selectable.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/reflect/Selectable.html">Selectable</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1797,6 +1791,24 @@
     </header>
     <!-- Description -->
     
+        <div id="description">
+            <p>A marker trait for objects that support structural selection via
+<code>selectDynamic</code> and <code>applyDynamic</code></p>
+<p>Implementation classes should define, or make available as extension
+methods, the following two method signatures:</p>
+<p>def selectDynamic(name: String): Any
+def applyDynamic(name: String)(args: Any*): Any =</p>
+<p><code>selectDynamic</code> is invoked for simple selections <code>v.m</code>, whereas
+<code>applyDynamic</code> is invoked for selections with arguments <code>v.m(...)</code>.
+If there's only one kind of selection, the method supporting the
+other may be omitted. The <code>applyDynamic</code> can also have a second parameter
+list of class tag arguments, i.e. it may alternatively have the signature</p>
+<p>def applyDynamic(name: String, paramClasses: ClassTag[_]<em>)(args: Any</em>): Any</p>
+<p>In this case the call will synthesize <code>ClassTag</code> arguments for all formal parameter
+types of the method in the structural type.</p>
+
+        </div>
+    
     <!-- Supertypes -->
     
         <div id="supertypes">
@@ -1816,218 +1828,6 @@
     <div id="members">
         <h2>Members</h2>
         <div class="wide-table">
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="applyDynamic(name,paramClasses)(args)" class="member def public " data-toggle="collapse" data-target=".collapse-applyDynamic-name_paramClasses--args-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                applyDynamic
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            name:
-                                            
-                                            String
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            paramClasses:
-                                            
-                                            <repeated><span class="type-params">[ClassTag<span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            args:
-                                            
-                                            <repeated><span class="type-params">[Any]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Any</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-applyDynamic-name_paramClasses--args-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-applyDynamic-name_paramClasses--args-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="selectDynamic(name)" class="member def public " data-toggle="collapse" data-target=".collapse-selectDynamic-name-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                selectDynamic
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            name:
-                                            
-                                            String
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: Any</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-selectDynamic-name-">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-selectDynamic-name-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
             
         </div>
     </div>
