@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-26 -->
+<!-- This page was last generated on 2020-07-28 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200725-89f42f4-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200727-e24a0b7-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -500,10 +500,16 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
                             
 
-                            <li class="">
+                        
+                            
+
+                            <li class=" with-companion ">
                                 <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/Selectable$.html">O</a>
                                     
                                     <a class="letter-anchor trait" href="/api/scala/Selectable.html">T</a>
                                 </div>
@@ -1938,7 +1944,7 @@ implementation of <code>summonAll</code> is <code>inline</code> and uses Dotty's
 <code>List</code>,</p>
 <pre><code class="scala">
 inline def summonAll[T &lt;: Tuple]: List[Eq[_]] = inline erasedValue[T] match {
-  case _: Unit =&gt; Nil
+  case _: EmptyTuple =&gt; Nil
   case _: (t *: ts) =&gt; summonInline[Eq[t]] :: summonAll[ts]
 }
 </code></pre>
@@ -1972,7 +1978,7 @@ on the <code>Eq</code> instances for the fields of the data type (5),</p>
 import scala.compiletime.{erasedValue, summonInline}
 
 inline def summonAll[T &lt;: Tuple]: List[Eq[_]] = inline erasedValue[T] match {
-  case _: Unit =&gt; Nil
+  case _: EmptyTuple =&gt; Nil
   case _: (t *: ts) =&gt; summonInline[Eq[t]] :: summonAll[ts]
 }
 

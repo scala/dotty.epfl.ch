@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-07-26 -->
+<!-- This page was last generated on 2020-07-28 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200725-89f42f4-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200727-e24a0b7-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -500,10 +500,16 @@
                             
 
                         
+                             <!-- ignore: companions are handled below -->
                             
 
-                            <li class="">
+                        
+                            
+
+                            <li class=" with-companion ">
                                 <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/Selectable$.html">O</a>
                                     
                                     <a class="letter-anchor trait" href="/nightly/api/scala/Selectable.html">T</a>
                                 </div>
@@ -1877,7 +1883,7 @@ the database access example given at the beginning of this document.</p>
 <h2><a href="#local-selectable-instances" id="local-selectable-instances" class="anchor"></a>Local Selectable Instances</h2>
 <p>Local and anonymous classes that extend <code>Selectable</code> get more refined types
 than other classes. Here is an example:</p>
-<pre><code class="scala">class Vehicle extends reflect.Selectable {
+<pre><code class="scala">trait Vehicle extends reflect.Selectable {
   val wheels: Int
 }
 val i3 = new Vehicle { // i3: Vehicle { val range: Int }
