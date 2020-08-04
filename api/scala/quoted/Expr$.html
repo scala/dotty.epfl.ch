@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-01 -->
+<!-- This page was last generated on 2020-08-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200731-bb23fea-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200803-0655346-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1910,89 +1910,6 @@
 
                 
                 
-                <div id="TupleOfExpr" class="member type public " data-toggle="collapse" data-target=".collapse-TupleOfExpr">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">type&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                TupleOfExpr
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                        <!-- Return type -->
-                        
-                        <!-- Type alias -->
-                        
-                            <span class="type-alias">&nbsp;= Map<span class="type-params">[Tup,implicit <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a><span class="right-arrow"> =&gt; </span><a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[X]</span>]</span></span>
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-TupleOfExpr">
-                        
-                            <p>Converts a tuple <code>(T1, ..., Tn)</code> to <code>(Expr[T1], ..., Expr[Tn])</code></p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-TupleOfExpr">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Converts a tuple <code>(T1, ..., Tn)</code> to <code>(Expr[T1], ..., Expr[Tn])</code></p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
                 <div id="apply(x)(qctx,lift)" class="member def public " data-toggle="collapse" data-target=".collapse-apply-x--qctx_lift-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -2117,7 +2034,7 @@
 
                 
                 
-                <div id="betaReduce(f)(tf,tg,qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-betaReduce-f--tf_tg_qctx-">
+                <div id="betaReduce(expr)(qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-betaReduce-expr--qctx-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2136,7 +2053,7 @@
                         <!-- Type parameters -->
                         
                             <span class="type-params">
-                                [F, Args, R, G]
+                                [T]
                             </span>
                         
                         <!-- Method parameters -->
@@ -2146,9 +2063,9 @@
                                     (
                                                                     
                                         <span class="param">
-                                            f:
+                                            expr:
                                             
-                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[F]</span>
+                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[T]</span>
                                         </span>
                                         
                                     
@@ -2160,20 +2077,6 @@
                                     
                                         <span class="keyword">implicit&nbsp;</span>
                                                                     
-                                        <span class="param">
-                                            tf:
-                                            
-                                            <a href="/api/scala/TupledFunction.html">TupledFunction</a><span class="type-params">[F,Args<span class="right-arrow"> =&gt; </span>R]</span>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            tg:
-                                            
-                                            <a href="/api/scala/TupledFunction.html">TupledFunction</a><span class="type-params">[G,TupleOfExpr<span class="type-params">[Args]</span><span class="right-arrow"> =&gt; </span><a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[R]</span>]</span>
-                                        </span>
-                                        ,&nbsp;
-                                    
                                         <span class="param">
                                             qctx:
                                             
@@ -2187,165 +2090,30 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: G</span>
+                            <span class="return-type">: <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[T]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-betaReduce-f--tf_tg_qctx-">
+                    <div class="short collapse show collapse-betaReduce-expr--qctx-">
                         
-                            <p><code>Expr.betaReduce(f)(x1, ..., xn)</code> is functionally the same as <code>'{($f)($x1, ..., $xn)}</code>, however it optimizes this call
-by returning the result of beta-redu...</p>
+                            <p><code>e.betaReduce</code> returns an expression that is functionally equivalent to <code>e</code>,
+however if <code>e</code> is of the form <code>((y1, ..., yn) =&gt; e2)(x1, ..., xn)</code>
+then it optimize...
+</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-betaReduce-f--tf_tg_qctx-">
+                    <div class="details collapse collapse-betaReduce-expr--qctx-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p><code>Expr.betaReduce(f)(x1, ..., xn)</code> is functionally the same as <code>'{($f)($x1, ..., $xn)}</code>, however it optimizes this call
-by returning the result of beta-reducing <code>f(x1, ..., xn)</code> if <code>f</code> is a known lambda expression.</p>
-<p><code>Expr.betaReduce</code> distributes applications of <code>Expr</code> over function arrows</p>
-<pre><code class="scala">Expr.betaReduce(_): Expr[(T1, ..., Tn) =&gt; R] =&gt; ((Expr[T1], ..., Expr[Tn]) =&gt; Expr[R])
-</code></pre>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="betaReduceGiven(f)(tf,tg,qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-betaReduceGiven-f--tf_tg_qctx-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                betaReduceGiven
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                            <span class="type-params">
-                                [F, Args, R, G]
-                            </span>
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            f:
-                                            
-                                            <a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[F]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            tf:
-                                            
-                                            <a href="/api/scala/TupledFunction.html">TupledFunction</a><span class="type-params">[F,implicit Args<span class="right-arrow"> =&gt; </span>R]</span>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            tg:
-                                            
-                                            <a href="/api/scala/TupledFunction.html">TupledFunction</a><span class="type-params">[G,TupleOfExpr<span class="type-params">[Args]</span><span class="right-arrow"> =&gt; </span><a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[R]</span>]</span>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            qctx:
-                                            
-                                            <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: G</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-betaReduceGiven-f--tf_tg_qctx-">
-                        
-                            <p><code>Expr.betaReduceGiven(f)(x1, ..., xn)</code> is functionally the same as <code>'{($f)(using $x1, ..., $xn)}</code>, however it optimizes this call
-by returning the result o...</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-betaReduceGiven-f--tf_tg_qctx-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p><code>Expr.betaReduceGiven(f)(x1, ..., xn)</code> is functionally the same as <code>'{($f)(using $x1, ..., $xn)}</code>, however it optimizes this call
-by returning the result of beta-reducing <code>f(using x1, ..., xn)</code> if <code>f</code> is a known lambda expression.</p>
-<p><code>Expr.betaReduceGiven</code> distributes applications of <code>Expr</code> over function arrows</p>
-<pre><code class="scala">Expr.betaReduceGiven(_): Expr[(T1, ..., Tn) ?=&gt; R] =&gt; ((Expr[T1], ..., Expr[Tn]) =&gt; Expr[R])
-</code></pre>
+                            <p><code>e.betaReduce</code> returns an expression that is functionally equivalent to <code>e</code>,
+however if <code>e</code> is of the form <code>((y1, ..., yn) =&gt; e2)(x1, ..., xn)</code>
+then it optimizes this the top most call by returning the result of beta-reducing the application.
+Otherwise returns <code>expr</code>.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
