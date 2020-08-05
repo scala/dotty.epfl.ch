@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-04 -->
+<!-- This page was last generated on 2020-08-05 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200803-0655346-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200804-0cdf13a-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1792,7 +1792,7 @@ circle.circumference
 </code></pre>
 <h3><a href="#translation-of-extension-methods" id="translation-of-extension-methods" class="anchor"></a>Translation of Extension Methods</h3>
 <p>Extension methods are methods that have a parameter clause in front of the defined identifier.
-An extension method named <code>f</code> translates to method named <code>extension_f</code> that takes the leading parameter section as its first argument list.
+An extension method named <code>f</code> translates to the method named <code>extension_f</code> that takes the leading parameter section as its first argument list.
 So, the definition of <code>circumference</code> above translates to the following method, and can also be invoked as such:</p>
 <pre><code class="scala">def extension_circumference(c: Circle): Double = c.radius * math.Pi * 2
 
@@ -1831,7 +1831,8 @@ extension [T: Numeric](x: T)
   def + (y: T): T = summon[Numeric[T]].plus(x, y)
 </code></pre>
 <p>If an extension method has type parameters, they come immediately after <code>extension</code> and are followed by the extended parameter.
-When calling a generic extension method, any explicitly given type arguments follow the method name. So the <code>second</code> method could be instantiated as follows.</p>
+When calling a generic extension method, any explicitly given type arguments follow the method name.
+So the <code>second</code> method could be instantiated as follows:</p>
 <pre><code class="scala">List(1, 2, 3).second[Int]
 </code></pre>
 <p>Of course, the type argument here would usually be left out since it can be inferred.</p>
@@ -1839,13 +1840,14 @@ When calling a generic extension method, any explicitly given type arguments fol
 <pre><code class="scala">extension [T](x: T)(using n: Numeric[T])
   def + (y: T): T = n.plus(x, y)
 </code></pre>
-<p><strong>Note</strong>: Type parameters have to be given after the <code>extension</code> keyword;
-they cannot be given after the <code>def</code>. This restriction might be lifted in the future once we support multiple type parameter clauses in a method. By contrast, there can be using clauses in front as well as after the <code>def</code>.</p>
+<p><strong>Note</strong>: Type parameters have to be given after the <code>extension</code> keyword; they cannot be given after the <code>def</code>.
+This restriction might be lifted in the future once we support multiple type parameter clauses in a method.
+By contrast, using clauses can be defined for the <code>extension</code> as well as per <code>def</code>.</p>
 <h3><a href="#collective-extensions" id="collective-extensions" class="anchor"></a>Collective Extensions</h3>
 <p>Sometimes, one wants to define several extension methods that share the same
 left-hand parameter type. In this case one can &quot;pull out&quot; the common parameters into
 a single extension and enclose all methods in braces or an indented region following a '<code>:</code>'.
-Example:</p>
+Following an example using an indented region:</p>
 <pre><code class="scala">extension (ss: Seq[String]):
 
   def longestStrings: Seq[String] =
@@ -1854,10 +1856,20 @@ Example:</p>
 
   def longestString: String = longestStrings.head
 </code></pre>
+<p>The same can be written with braces as follows (note that indented regions can still be used inside braces):</p>
+<pre><code class="scala">extension (ss: Seq[String]) {
+
+  def longestStrings: Seq[String] =
+    val maxLength = ss.map(_.length).max
+    ss.filter(_.length == maxLength)
+
+  def longestString: String = longestStrings.head
+}
+</code></pre>
 <p>Note the right-hand side of <code>longestString</code>: it calls <code>longestStrings</code> directly, implicitly
 assuming the common extended value <code>ss</code> as receiver.</p>
 <p>Collective extensions like these are a shorthand for individual extensions
-where each method is defined separately. For instance, the first extension above expands to</p>
+where each method is defined separately. For instance, the first extension above expands to:</p>
 <pre><code class="scala">extension (ss: Seq[String])
   def longestStrings: Seq[String] =
     val maxLength = ss.map(_.length).max
@@ -1865,13 +1877,6 @@ where each method is defined separately. For instance, the first extension above
 
 extension (ss: Seq[String])
   def longestString: String = ss.longestStrings.head
-</code></pre>
-<p>Collective extensions also can take type parameters and have using clauses. Example</p>
-<pre><code class="scala">extension [T](xs: List[T])(using Ordering[T]):
-  def smallest(n: Int): List[T] = xs.sorted.take(n)
-  def smallestIndices(n: Int): List[Int] =
-    val limit = smallest(n).max
-    xs.zipWithIndex.collect { case (x, i) if x &lt;= limit =&gt; i }
 </code></pre>
 <h3><a href="#translation-of-calls-to-extension-methods" id="translation-of-calls-to-extension-methods" class="anchor"></a>Translation of Calls to Extension Methods</h3>
 <p>To convert a reference to an extension method, the compiler has to know about the extension
@@ -1936,7 +1941,8 @@ List(List(1, 2), List(3, 4)).flatten
 List(1, 2) &lt; List(3)
 </code></pre>
 <p>The precise rules for resolving a selection to an extension method are as follows.</p>
-<p>Assume a selection <code>e.m[Ts]</code> where <code>m</code> is not a member of <code>e</code>, where the type arguments <code>[Ts]</code> are optional, and where <code>T</code> is the expected type. The following two rewritings are tried in order:</p>
+<p>Assume a selection <code>e.m[Ts]</code> where <code>m</code> is not a member of <code>e</code>, where the type arguments <code>[Ts]</code> are optional, and where <code>T</code> is the expected type.
+The following two rewritings are tried in order:</p>
 <ol>
 <li>The selection is rewritten to <code>extension_m[Ts](e)</code>.</li>
 <li>
@@ -1975,7 +1981,7 @@ resolve, the identifier is rewritten to:</p>
 </li>
 <li>
 <p>A named import such as <code>import a.m</code> of an extension method in <code>a</code> will make <code>m</code> only available as an extension method.
-To access it under <code>extension_m</code> that name as to be imported separately. Example:</p>
+To access it under <code>extension_m</code> that name has to be imported separately. Example:</p>
 <pre><code class="scala">object DoubleOps:
   extension (x: Double) def ** (exponent: Int): Double =
     require(exponent &gt;= 0)
