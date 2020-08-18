@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-17 -->
+<!-- This page was last generated on 2020-08-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200816-15a6c8b-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200817-15ae0aa-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -962,36 +962,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/implicits/LowPriorityNot.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/implicits/LowPriorityNot.html">LowPriorityNot</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/implicits/Not$.html">O</a>
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/implicits/Not.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/implicits/Not.html">Not</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                     </ul>
                 </li>
             
@@ -1724,6 +1694,36 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/util/LowPriorityNot.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/util/LowPriorityNot.html">LowPriorityNot</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/util/Not$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/api/scala/util/Not.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/util/Not.html">Not</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1923,22 +1923,22 @@ in a parameter type in <code>&lt;params&gt;</code> or in a type argument of <cod
 a type parameter of the case, i.e. the parameter name is defined in <code>&lt;params&gt;</code>.</p>
 </li>
 </ol>
-<h3><a href="#translation-of-enumerations" id="translation-of-enumerations" class="anchor"></a>Translation of Enumerations</h3>
-<p>Non-generic enums <code>E</code> that define one or more singleton cases
-are called <em>enumerations</em>. Companion objects of enumerations define
-the following additional synthetic members.</p>
+<h3><a href="#translation-of-enums-with-singleton-cases" id="translation-of-enums-with-singleton-cases" class="anchor"></a>Translation of Enums with Singleton Cases</h3>
+<p>An enum <code>E</code> (possibly generic) that defines one or more singleton cases
+will define the following additional synthetic members in its companion object (where <code>E'</code> denotes <code>E</code> with
+any type parameters replaced by wildcards):</p>
 <ul>
-<li>A method <code>valueOf(name: String): E</code>. It returns the singleton case value whose
+<li>A method <code>valueOf(name: String): E'</code>. It returns the singleton case value whose
 <code>toString</code> representation is <code>name</code>.</li>
-<li>A method <code>values</code> which returns an <code>Array[E]</code> of all singleton case
-values in <code>E</code>, in the order of their definitions.</li>
+<li>A method <code>values</code> which returns an <code>Array[E']</code> of all singleton case
+values defined by <code>E</code>, in the order of their definitions.</li>
 </ul>
-<p>Companion objects of enumerations that contain at least one simple case define in addition:</p>
+<p>If <code>E</code> contains at least one simple case, its companion object will define in addition:</p>
 <ul>
 <li>A private method <code>$new</code> which defines a new simple case value with given
 ordinal number and name. This method can be thought as being defined as
 follows.
-<pre><code class="scala">private def $new(_$ordinal: Int, $name: String) = new E {
+<pre><code class="scala">private def $new(_$ordinal: Int, $name: String) = new E with runtime.EnumValue {
   def $ordinal = $_ordinal
   override def toString = $name
   $values.register(this) // register enum value so that `valueOf` and `values` can return it.
@@ -1946,8 +1946,7 @@ follows.
 </code></pre>
 </li>
 </ul>
-<p>The anonymous class also implements the abstract <code>Product</code> methods that it inherits from <code>Enum</code>.
-The <code>$ordinal</code> method above is used to generate the <code>ordinal</code> method if the enum does not extend a <code>java.lang.Enum</code> (as Scala enums do not extend <code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as <code>java.lang.Enum</code> defines it.</p>
+<p>The <code>$ordinal</code> method above is used to generate the <code>ordinal</code> method if the enum does not extend a <code>java.lang.Enum</code> (as Scala enums do not extend <code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as <code>java.lang.Enum</code> defines it.</p>
 <h3><a href="#scopes-for-enum-cases" id="scopes-for-enum-cases" class="anchor"></a>Scopes for Enum Cases</h3>
 <p>A case in an <code>enum</code> is treated similarly to a secondary constructor. It can access neither the enclosing <code>enum</code> using <code>this</code>, nor its value parameters or instance members using simple
 identifiers.</p>

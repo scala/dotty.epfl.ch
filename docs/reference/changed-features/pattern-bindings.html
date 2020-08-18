@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-17 -->
+<!-- This page was last generated on 2020-08-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200816-15a6c8b-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200817-15ae0aa-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -962,36 +962,6 @@
                     </a>
                     <ul class="package-entities">
                         
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/implicits/LowPriorityNot.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/implicits/LowPriorityNot.html">LowPriorityNot</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/implicits/Not$.html">O</a>
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/implicits/Not.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/implicits/Not.html">Not</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
                     </ul>
                 </li>
             
@@ -1724,6 +1694,36 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/api/scala/util/LowPriorityNot.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/util/LowPriorityNot.html">LowPriorityNot</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/util/Not$.html">O</a>
+                                    
+                                    <a class="letter-anchor class" href="/api/scala/util/Not.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/util/Not.html">Not</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1801,7 +1801,7 @@ From Scala 3.1 on, type checking rules will be tightened so that errors are repo
 val (x: String) :: _ = xs   // error: pattern's type String is more specialized
                             // than the right hand side expression's type Any
 </code></pre>
-<p>This code gives a compile-time error in Scala 3.1 (and also in Scala 3.0 under the <code>-strict</code> setting) whereas it will fail at runtime with a <code>ClassCastException</code> in Scala 2. In Scala 3.1, a pattern binding is only allowed if the pattern is <em>irrefutable</em>, that is, if the right-hand side's type conforms to the pattern's type. For instance, the following is OK:</p>
+<p>This code gives a compile-time error in Scala 3.1 (and also in Scala 3.0 under the <code>-source 3.1</code> setting) whereas it will fail at runtime with a <code>ClassCastException</code> in Scala 2. In Scala 3.1, a pattern binding is only allowed if the pattern is <em>irrefutable</em>, that is, if the right-hand side's type conforms to the pattern's type. For instance, the following is OK:</p>
 <pre><code class="scala">  val pair = (1, true)
   val (x, y) = pair
 </code></pre>
@@ -1831,7 +1831,7 @@ The filtering functionality can be obtained in Scala 3 by prefixing the pattern 
 Generator      ::=  [‘case’] Pattern1 ‘&lt;-’ Expr
 </code></pre>
 <h2><a href="#migration" id="migration" class="anchor"></a>Migration</h2>
-<p>The new syntax is supported in Dotty and Scala 3.0. However, to enable smooth cross compilation between Scala 2 and Scala 3, the changed behavior and additional type checks are only enabled under the <code>-strict</code> setting. They will be enabled by default in version 3.1 of the language.</p>
+<p>The new syntax is supported in Dotty and Scala 3.0. However, to enable smooth cross compilation between Scala 2 and Scala 3, the changed behavior and additional type checks are only enabled under the <code>-source 3.1</code> setting. They will be enabled by default in version 3.1 of the language.</p>
 
 </main>
 </div>
