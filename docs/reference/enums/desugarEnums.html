@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-18 -->
+<!-- This page was last generated on 2020-08-19 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200817-15ae0aa-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200818-64a239f-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1825,8 +1825,8 @@ map into <code>case class</code>es or <code>val</code>s.</p>
 </code></pre>
 <p>expands to a <code>sealed abstract</code> class that extends the <code>scala.Enum</code> trait and
 an associated companion object that contains the defined cases, expanded according
-to rules (2 - 8). The enum trait starts with a compiler-generated import that imports
-the names <code>&lt;caseIds&gt;</code> of all cases so that they can be used without prefix in the trait.</p>
+to rules (2 - 8). The enum class starts with a compiler-generated import that imports
+the names <code>&lt;caseIds&gt;</code> of all cases so that they can be used without prefix in the class.</p>
 <pre><code class="scala">sealed abstract class E ... extends &lt;parents&gt; with scala.Enum {
   import E.{ &lt;caseIds&gt; }
    &lt;defs&gt;
@@ -1939,14 +1939,16 @@ values defined by <code>E</code>, in the order of their definitions.</li>
 ordinal number and name. This method can be thought as being defined as
 follows.
 <pre><code class="scala">private def $new(_$ordinal: Int, $name: String) = new E with runtime.EnumValue {
-  def $ordinal = $_ordinal
-  override def toString = $name
+  def ordinal = _$ordinal       // if `E` does not have `java.lang.Enum` as a parent
+  override def toString = $name // if `E` does not have `java.lang.Enum` as a parent
   $values.register(this) // register enum value so that `valueOf` and `values` can return it.
 }
 </code></pre>
 </li>
 </ul>
-<p>The <code>$ordinal</code> method above is used to generate the <code>ordinal</code> method if the enum does not extend a <code>java.lang.Enum</code> (as Scala enums do not extend <code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as <code>java.lang.Enum</code> defines it.</p>
+<p>The anonymous class also implements the abstract <code>Product</code> methods that it inherits from <code>Enum</code>.
+The <code>ordinal</code> method is only generated if the enum does not extend from <code>java.lang.Enum</code> (as Scala enums do not extend <code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as <code>java.lang.Enum</code> defines it. Similarly there is no need to override <code>toString</code> as that is defined in terms of <code>name</code> in
+<code>java.lang.Enum</code>.</p>
 <h3><a href="#scopes-for-enum-cases" id="scopes-for-enum-cases" class="anchor"></a>Scopes for Enum Cases</h3>
 <p>A case in an <code>enum</code> is treated similarly to a secondary constructor. It can access neither the enclosing <code>enum</code> using <code>this</code>, nor its value parameters or instance members using simple
 identifiers.</p>
