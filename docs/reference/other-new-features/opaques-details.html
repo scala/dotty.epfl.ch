@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-19 -->
+<!-- This page was last generated on 2020-08-20 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200818-64a239f-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200819-6e6f67b-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1823,6 +1823,18 @@ also known that <code>o.T</code> is equal to <code>R</code>. This means the foll
   val x: Int = id(2)
 }
 def id(x: o.T): o.T = x
+</code></pre>
+<h3><a href="#translation-of-equality" id="translation-of-equality" class="anchor"></a>Translation of Equality</h3>
+<p>Comparing two values of opaque type with <code>==</code> or <code>!=</code> normally uses universal equality,
+unless another overloaded <code>==</code> or <code>!=</code> operator is defined for the type. To avoid
+boxing, the operation is mapped after type checking to the (in-)equality operator
+defined on the underlying type. For instance,</p>
+<pre><code class="scala">  opaque type T = Int
+
+  ...
+  val x: T
+  val y: T
+  x == y    // uses Int equality for the comparison.
 </code></pre>
 <h3><a href="#toplevel-opaque-types" id="toplevel-opaque-types" class="anchor"></a>Toplevel Opaque Types</h3>
 <p>An opaque type alias on the toplevel is transparent in all other toplevel definitions in the sourcefile where it appears, but is opaque in nested
