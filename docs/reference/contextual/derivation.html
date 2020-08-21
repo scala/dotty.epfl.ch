@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-20 -->
+<!-- This page was last generated on 2020-08-21 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200819-6e6f67b-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200820-1431be2-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2008,7 +2008,7 @@ object Eq {
 
   def iterator[T](p: T) = p.asInstanceOf[Product].productIterator
 
-  def eqSum[T](s: Mirror.SumOf[T], elems: List[Eq[_]]): Eq[T] =
+  def eqSum[T](s: Mirror.SumOf[T], elems: =&gt; List[Eq[_]]): Eq[T] =
     new Eq[T] {
       def eqv(x: T, y: T): Boolean = {
         val ordx = s.ordinal(x)
@@ -2016,7 +2016,7 @@ object Eq {
       }
     }
 
-  def eqProduct[T](p: Mirror.ProductOf[T], elems: List[Eq[_]]): Eq[T] =
+  def eqProduct[T](p: Mirror.ProductOf[T], elems: =&gt; List[Eq[_]]): Eq[T] =
     new Eq[T] {
       def eqv(x: T, y: T): Boolean =
         iterator(x).zip(iterator(y)).zip(elems.iterator).forall {
@@ -2025,7 +2025,7 @@ object Eq {
     }
 
   inline given derived[T](using m: Mirror.Of[T]) as Eq[T] = {
-    val elemInstances = summonAll[m.MirroredElemTypes]
+    lazy val elemInstances = summonAll[m.MirroredElemTypes]
     inline m match {
       case s: Mirror.SumOf[T]     =&gt; eqSum(s, elemInstances)
       case p: Mirror.ProductOf[T] =&gt; eqProduct(p, elemInstances)

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-20 -->
+<!-- This page was last generated on 2020-08-21 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200819-6e6f67b-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200820-1431be2-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1939,16 +1939,20 @@ values defined by <code>E</code>, in the order of their definitions.</li>
 ordinal number and name. This method can be thought as being defined as
 follows.
 <pre><code class="scala">private def $new(_$ordinal: Int, $name: String) = new E with runtime.EnumValue {
-  def ordinal = _$ordinal       // if `E` does not have `java.lang.Enum` as a parent
-  override def toString = $name // if `E` does not have `java.lang.Enum` as a parent
+  def ordinal = _$ordinal
+  def enumLabel = $name
+  override def productPrefix = enumLabel // if not overridden in `E`
+  override def toString = enumLabel      // if not overridden in `E`
   $values.register(this) // register enum value so that `valueOf` and `values` can return it.
 }
 </code></pre>
 </li>
 </ul>
 <p>The anonymous class also implements the abstract <code>Product</code> methods that it inherits from <code>Enum</code>.
-The <code>ordinal</code> method is only generated if the enum does not extend from <code>java.lang.Enum</code> (as Scala enums do not extend <code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as <code>java.lang.Enum</code> defines it. Similarly there is no need to override <code>toString</code> as that is defined in terms of <code>name</code> in
-<code>java.lang.Enum</code>.</p>
+The <code>ordinal</code> method is only generated if the enum does not extend from <code>java.lang.Enum</code> (as Scala enums do not extend
+<code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as
+<code>java.lang.Enum</code> defines it. Similarly there is no need to override <code>toString</code> as that is defined in terms of <code>name</code> in
+<code>java.lang.Enum</code>. Finally, <code>enumLabel</code> will call <code>this.name</code> when <code>E</code> extends <code>java.lang.Enum</code>.</p>
 <h3><a href="#scopes-for-enum-cases" id="scopes-for-enum-cases" class="anchor"></a>Scopes for Enum Cases</h3>
 <p>A case in an <code>enum</code> is treated similarly to a secondary constructor. It can access neither the enclosing <code>enum</code> using <code>this</code>, nor its value parameters or instance members using simple
 identifiers.</p>
