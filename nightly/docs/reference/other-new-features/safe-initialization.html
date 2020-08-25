@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-23 -->
+<!-- This page was last generated on 2020-08-25 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200822-0d36979-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200824-239254a-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1130,10 +1130,16 @@
                     </a>
                     <ul class="package-entities">
                         
+                             <!-- ignore: companions are handled below -->
                             
 
-                            <li class="">
+                        
+                            
+
+                            <li class=" with-companion ">
                                 <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/tasty/CompilerInterface$.html">O</a>
                                     
                                     <a class="letter-anchor trait" href="/nightly/api/scala/internal/tasty/CompilerInterface.html">T</a>
                                 </div>
@@ -1531,7 +1537,7 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/tasty/Reflection.html">C</a>
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/Reflection.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/tasty/Reflection.html">Reflection</a>
                             </li>
@@ -1630,6 +1636,18 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/tasty/reflect/TreeTraverser.html">TreeTraverser</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/reflect/Types.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/tasty/reflect/Types.html">Types</a>
                             </li>
                             
 
@@ -1797,13 +1815,13 @@
 <p>To get a feel of how it works, we first show several examples below.</p>
 <h3><a href="#parent-child-interaction" id="parent-child-interaction" class="anchor"></a>Parent-Child Interaction</h3>
 <p>Given the following code snippet:</p>
-<pre><code class="Scala">abstract class AbstractFile {
+<pre><code class="scala">abstract class AbstractFile {
    def name: String
    val extension: String = name.substring(4)
 }
 
 class RemoteFile(url: String) extends AbstractFile {
-   val localFile: String = url.hashCode + &quot;.tmp&quot;       // error: usge of `localFile` before it's initialized
+   val localFile: String = s&quot;${url.##}.tmp&quot;  // error: usage of `localFile` before it's initialized
    def name: String = localFile
 }
 </code></pre>
