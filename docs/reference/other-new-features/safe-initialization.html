@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-25 -->
+<!-- This page was last generated on 2020-08-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200824-239254a-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200826-2e58a66-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1889,15 +1889,13 @@ class Child extends Parent {
 <li>Instantiate inner class and call methods on such instances during initialization</li>
 <li>Capture fields in functions</li>
 </ul>
-<h2><a href="#principles-and-rules" id="principles-and-rules" class="anchor"></a>Principles and Rules</h2>
+<h2><a href="#principles" id="principles" class="anchor"></a>Principles</h2>
 <p>To achieve the goals, we uphold three fundamental principles:
 <em>stackability</em>, <em>monotonicity</em> and <em>scopability</em>.</p>
-<p>Stackability means that objects are initialized in stack order: if the
-object <code>b</code> is created during the initialization of object <code>a</code>, then
-all fields of <code>b</code> should become initialized before or at the same time
-as <code>a</code>.  Scala enforces this property in syntax by demanding that all
-fields are initialized at the end of the primary constructor, except
-for the language feature below:</p>
+<p>Stackability means that all fields of a class are initialized at the end of the
+class body. Scala enforces this property in syntax by demanding that all fields
+are initialized at the end of the primary constructor, except for the language
+feature below:</p>
 <pre><code class="scala">var x: T = _
 </code></pre>
 <p>Control effects such as exceptions may break this property, as the
@@ -1932,18 +1930,22 @@ initialized, reachable from <code>ctx</code>. This makes field usage dangerous,
 as it may indirectly reach uninitialized fields.</p>
 <p>Monotonicity is based on a well-known technique called <em>heap monotonic
 typestate</em> to ensure soundness in the presence of aliasing
-[1]. Otherwise, either soundness will be compromised or we have to
-disallow the usage of already initialized fields.</p>
-<p>Scopability means that an expression may only access existing objects via formal
-parameters and <code>this</code>. More precisely, given any environment <code>ρ</code> (which are the
-value bindings for method parameters and <code>this</code>) and heap <code>σ</code> for evaluating an expression
-<code>e</code>, if the resulting value reaches an object <code>o</code> pre-existent in <code>σ</code>, then <code>o</code>
-is reachable from <code>ρ</code> in <code>σ</code>. Control effects like coroutines, delimited
+[1]. Roughly, it means initialization state should not go backwards.</p>
+<p>Scopability means that access to partially constructed objects should be
+controlled by static scoping. Control effects like coroutines, delimited
 control, resumable exceptions may break the property, as they can transport a
 value upper in the stack (not in scope) to be reachable from the current scope.
 Static fields can also serve as a teleport thus breaks this property.  In the
 implementation, we need to enforce that teleported values are transitively
 initialized.</p>
+<p>The principles enable <em>local reasoning</em> of initialization, which means:</p>
+<blockquote>
+<p>An initialized environment can only produce initialized values.</p>
+</blockquote>
+<p>For example, if the arguments to an <code>new</code>-expression are transitively
+initialized, so is the result. If the receiver and arguments in a method call
+are transitively initialized, so is the result.</p>
+<h2><a href="#rules" id="rules" class="anchor"></a>Rules</h2>
 <p>With the established principles and design goals, following rules are imposed:</p>
 <ol>
 <li>
@@ -1971,10 +1973,13 @@ reasoning about initialization: programmers may safely assume that all local
 definitions only point to transitively initialized objects.</p>
 </li>
 </ol>
-<h2><a href="#modularity" id="modularity" class="anchor"></a>Modularity</h2>
-<p>For modularity, we forbid subtle initialization interaction beyond project
-boundaries. For example, the following code passes the check when the two
-classes are defined in the same project:</p>
+<h2><a href="#modularity-considered" id="modularity-considered" class="anchor"></a>Modularity (considered)</h2>
+<p>Currently, the analysis works across project boundaries based on TASTy.
+The following is a proposal to make the checking more modular.
+The feedback from the community is welcome.</p>
+<p>For modularity, we need to forbid subtle initialization interaction beyond
+project boundaries. For example, the following code passes the check when the
+two classes are defined in the same project:</p>
 <pre><code class="Scala">class Base {
   private val map: mutable.Map[Int, String] = mutable.Map.empty
   def enter(k: Int, v: String) = map(k) = v
@@ -1985,14 +1990,14 @@ class Child extends Base {
 }
 </code></pre>
 <p>However, when the class <code>Base</code> and <code>Child</code> are defined in two different
-projects, the check will emit a warning for the calls to <code>enter</code> in the class
+projects, the check can emit a warning for the calls to <code>enter</code> in the class
 <code>Child</code>. This restricts subtle initialization within project boundaries,
 and avoids accidental violation of contracts across library versions.</p>
-<p>We impose the following rules to enforce modularity:</p>
+<p>We can impose the following rules to enforce modularity:</p>
 <ol>
 <li>
 <p>A class or trait that may be extended in another project should not
-call virtual methods on <code>this</code> in its template/mixin evaluation,
+call <em>virtual</em> methods on <code>this</code> in its template/mixin evaluation,
 directly or indirectly.</p>
 </li>
 <li>
@@ -2002,27 +2007,22 @@ initialized and the target of <code>m</code> is defined in an external project.<
 <li>The expression <code>new p.C(args)</code> is forbidden, if <code>p</code> is not transitively
 initialized and <code>C</code> is defined in an external project.</li>
 </ol>
-<p>Theoretically, we may analyze across project boundaries based on tasty. However,
-from our experience with Dotty community projects, most subtle initialization
-patterns are restricted in the same project. As the rules only report warnings
-instead of errors, we think it is good to first impose more strict rules, The
-feedback from the community is welcome.</p>
 <h2><a href="#theory" id="theory" class="anchor"></a>Theory</h2>
 <p>The theory is based on type-and-effect systems [2]. We introduce two concepts,
 <em>effects</em> and <em>potentials</em>:</p>
-<pre><code class="nohighlight">π = C.this | Warm(C, π) | π.f | π.m | π.super[D] | Cold | Fun(Π, Φ) | Outer(C, π)
+<pre><code class="nohighlight">π = this | Warm(C, π) | π.f | π.m | π.super[D] | Cold | Fun(Π, Φ) | π.outer[C]
 ϕ = π↑ | π.f! | π.m!
 </code></pre>
 <p>Potentials (π) represent values that are possibly under initialization.</p>
 <ul>
-<li><code>C.this</code>: current object</li>
+<li><code>this</code>: current object</li>
 <li><code>Warm(C, π)</code>: an object of type <code>C</code> where all its fields are assigned, and the potential for <code>this</code> of its enclosing class is <code>π</code>.</li>
 <li><code>π.f</code>: the potential of the field <code>f</code> in the potential <code>π</code></li>
 <li><code>π.m</code>: the potential of the field <code>f</code> in the potential <code>π</code></li>
 <li><code>π.super[D]</code>: essentially the object π, used for virtual method resolution</li>
 <li><code>Cold</code>: an object with unknown initialization status</li>
 <li><code>Fun(Π, Φ)</code>: a function, when called produce effects Φ and return potentials Π.</li>
-<li><code>Outer(C, π)</code>: the potential of <code>this</code> for the enclosing class of <code>C</code> when <code>C.this</code> is <code>π</code>.</li>
+<li><code>π.outer[C]</code>: the potential of <code>this</code> for the enclosing class of <code>C</code> when <code>C.this</code> is <code>π</code>.</li>
 </ul>
 <p>Effects are triggered from potentials:</p>
 <ul>
@@ -2047,7 +2047,6 @@ progresses, and check that only initialized fields are accessed during
 the initialization and there is no leaking of values under initialization.
 Virtual method calls on <code>this</code> is not a problem,
 as they can always be resolved statically.</p>
-<p>More details can be found in a forthcoming paper.</p>
 <h2><a href="#back-doors" id="back-doors" class="anchor"></a>Back Doors</h2>
 <p>Occasionally you may want to suppress warnings reported by the
 checker.  You can either write <code>e: @unchecked</code> to tell the checker to

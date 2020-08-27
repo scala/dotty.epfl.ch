@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-25 -->
+<!-- This page was last generated on 2020-08-27 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.27.0-bin-20200824-239254a-NIGHTLY</h2>
+                    <h2>0.27.0-bin-20200826-2e58a66-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1990,10 +1990,12 @@ from <code>T</code> to a type containing <code>m</code>. If there is more than o
 <p>An extension method can also be used as an identifier by itself. If an identifier <code>m</code> does not
 resolve, the identifier is rewritten to:</p>
 <ul>
-<li><code>x.m</code>    if the identifier appears in an extension with parameter <code>x</code></li>
+<li><code>x.m</code>    if the identifier appears in an extension with parameter <code>x</code>
+and the method <code>m</code> resolves to an extension method in
+a (possibly collective) extension that also contains the call,</li>
 <li><code>this.m</code> otherwise</li>
 </ul>
-<p>and the rewritten term is again tried as an application of an extension method. Example:</p>
+<p>and the rewritten term is again tried as an application of an extension method. In</p>
 <pre><code class="scala">extension (s: String)
   def position(ch: Char, n: Int): Int =
     if n &lt; s.length &amp;&amp; s(n) != ch then position(ch, n + 1)
