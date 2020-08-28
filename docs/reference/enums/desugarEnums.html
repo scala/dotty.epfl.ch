@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20200827-757e431-NIGHTLY</h2>
+                    <h2>0.27.0-RC1</h2>
                 </div>
             </a>
         </div>
@@ -1483,18 +1483,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/runtime/EnumValues.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/runtime/EnumValues.html">EnumValues</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor object" href="/api/scala/runtime/Tuple$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/runtime/Tuple$.html">Tuple</a>
@@ -1912,12 +1900,10 @@ parameters are not permitted (however value cases with explicit <code>extends</c
 <pre><code class="scala">case C extends &lt;parents&gt;
 </code></pre>
 <p>expands to a value definition in <code>E</code>'s companion object:</p>
-<pre><code class="scala">val C = new &lt;parents&gt; { &lt;body&gt;; def ordinal = n; $values.register(this) }
+<pre><code class="scala">val C = new &lt;parents&gt; { &lt;body&gt;; def ordinal = n }
 </code></pre>
 <p>where <code>n</code> is the ordinal number of the case in the companion object,
-starting from 0.  The statement <code>$values.register(this)</code> registers the value
-as one of the <code>values</code> of the enumeration (see below). <code>$values</code> is a
-compiler-defined private value in the companion object. The anonymous class also
+starting from 0. The anonymous class also
 implements the abstract <code>Product</code> methods that it inherits from <code>Enum</code>.</p>
 <p>It is an error if a value case refers to a type parameter of the enclosing <code>enum</code>
 in a type argument of <code>&lt;parents&gt;</code>.</p>
@@ -1946,8 +1932,7 @@ a type parameter of the case, i.e. the parameter name is defined in <code>&lt;pa
 will define the following additional synthetic members in its companion object (where <code>E'</code> denotes <code>E</code> with
 any type parameters replaced by wildcards):</p>
 <ul>
-<li>A method <code>valueOf(name: String): E'</code>. It returns the singleton case value whose
-<code>toString</code> representation is <code>name</code>.</li>
+<li>A method <code>valueOf(name: String): E'</code>. It returns the singleton case value whose <code>enumLabel</code> is <code>name</code>.</li>
 <li>A method <code>values</code> which returns an <code>Array[E']</code> of all singleton case
 values defined by <code>E</code>, in the order of their definitions.</li>
 </ul>
@@ -1961,7 +1946,6 @@ follows.
   def enumLabel = $name
   override def productPrefix = enumLabel // if not overridden in `E`
   override def toString = enumLabel      // if not overridden in `E`
-  $values.register(this) // register enum value so that `valueOf` and `values` can return it.
 }
 </code></pre>
 </li>
