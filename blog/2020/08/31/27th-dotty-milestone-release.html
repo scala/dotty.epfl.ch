@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-08-29 -->
+<!-- This page was last generated on 2020-08-31 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title></title>
+        <title>Announcing Dotty 0.27.0-RC1 - ScalaJS, performance, stability</title>
 
         <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20200828-4c99388-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20200902-95a6b44-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1788,370 +1788,121 @@
 </nav>
 
 <div id="content-wrapper">
-    <script>
-    document.title = "Dotty Docs - IArrayIsLiftable";
-</script>
-<main class="container api">
+    <main class="container">
     <header>
-        <span class="letter-anchor class">C</span>
-        <span class="name-prefix">
-            <span class="modifiers">
-                
+        <h1>Announcing Dotty 0.27.0-RC1 - ScalaJS, performance, stability</h1>
+        <div class="byline">
+            <time class="date">
+                <i class="far fa-calendar-alt"></i>
+                2020-08-31
+            </time>
+            <span class="author">
+                <i class="fas fa-pen-nib"></i>
+                Anatolii Kmetiuk
             </span>
-            class
-        </span>
-        <h1>
-            IArrayIsLiftable
-            
-                <span class="type-params">
-                    [T]
-                </span>
-            
-        </h1>
-        <span class="name-suffix">
-            
-                extends
-                
-                    Object
-                    with <a href="/api/scala/quoted/Liftable.html">Liftable</a>
-                    
-                
-            
-        </span>
+        </div>
+        
     </header>
-    <!-- Description -->
+
+    <p>Hello! We are excited to announce 0.27.0-RC1 of Dotty. In this version, we bring ScalaJS support to Dotty. As we are getting closer to the Scala 3 release, we continue shifting our focus to stability and performance, which are the central theme of this release.</p>
+<p>You can try out this version right now, from the comfort of your SBT, by visiting the <a href="https://dotty.epfl.ch/">home page</a> and scrolling down to the &quot;Create a Dotty Project&quot; section.</p>
+<p>Alternatively, you can try this version of Scala online via <a href="https://scastie.scala-lang.org/">Scastie</a>. Once you're there, click &quot;Build Settings&quot; and set &quot;Target&quot; to &quot;Dotty&quot;.</p>
+<p>Enjoy the ride🚀!</p>
+<!--more-->
+<h1><a href="#welcome-scalajs-support-with-caveats" id="welcome-scalajs-support-with-caveats" class="anchor"></a>Welcome Scala.js support (with caveats)</h1>
+<p>This release brings enough support for Scala.js that it should be actually usable in a number of projects.
+To use it, make sure of the following:</p>
+<ul>
+<li>Use sbt-scalajs v1.1.1 or later</li>
+<li>Use sbt-dotty v0.4.2 or later</li>
+<li>Use <code>scalaVersion := &quot;0.27.0-RC1&quot;</code> or later for Dotty</li>
+<li>Use <code>enablePlugins(ScalaJSPlugin)</code> or a <code>crossProject</code></li>
+</ul>
+<p>When the above are combined, sbt-scalajs ans sbt-dotty will coordinate to transparently configure your project with Dotty with its Scala.js support.</p>
+<p>In this release, the following features are supported:</p>
+<ul>
+<li>Dependencies with <code>%%%</code>, including with <code>withDottyCompat</code>,</li>
+<li>The entire portable subset of the language, i.e., code that compiles both on the JVM and on JS,</li>
+<li>Calling JavaScript APIs, including those defined in dependencies.</li>
+</ul>
+<p>The following features are <em>not supported yet</em>:</p>
+<ul>
+<li>Define non-native JS classes (i.e., classes extending <code>js.Any</code> but without <code>@js.native</code>): they will report compile errors</li>
+<li>Exports of all kinds (i.e., <code>@JSExportXYZ</code>): they will be silently ignored</li>
+</ul>
+<p>To the best of our knowledge, cross-compiling libraries should be able to use Scala.js with Dotty in plain capacity.
+If you experience a bug with anything except the unsupported features mentioned above, please file a bug report.</p>
+<h1><a href="#stability" id="stability" class="anchor"></a>Stability</h1>
+<p>As we're getting closer to the release of Scala 3, we are continuing to focus on the stability and performance of the language. In this release, we have fixed support of objects under JDK9+ (PR <a href="https://github.com/lampepfl/dotty/pull/9181">#9181</a>). The issue was, due to the changes in JDK9+ compared to JDK8, our initialization scheme for objects did not work under JDK9+. The aforementioned fixed that issue, thereby unblocking JDK9+ support for Dotty.</p>
+<p>We are also continuing to work on stabilising enums. PR <a href="https://github.com/lampepfl/dotty/pull/9532">#9532</a> corrects the deserialization and serialization of singleton enum values with <code>ObjectInputStream</code> and <code>ObjectOutputStream</code>. PR <a href="https://github.com/lampepfl/dotty/pull/9549">#9549</a> enables overriding the <code>toString</code> method on enums – previously this was not possible because of the way enums were desugared.</p>
+<h1><a href="#performance" id="performance" class="anchor"></a>Performance</h1>
+<p>We are also focusing these days on making the compiler faster and memory-efficient. For the past month, we were looking in the compiler's memory footprint. We were trying to determine what was allocated in unreasonable amounts during compilation and trying to resolve these allocation issues. The following PRs attempt to increase the performance of the compiler:</p>
+<ul>
+<li>Optimize megaphase <a href="https://github.com/lampepfl/dotty/pull/9597">#9597</a></li>
+<li>Cache all memberNamed results <a href="https://github.com/lampepfl/dotty/pull/9633">#9633</a></li>
+<li>Parallelize position pickling <a href="https://github.com/lampepfl/dotty/pull/9619">#9619</a></li>
+<li>Simplify TypeComparer <a href="https://github.com/lampepfl/dotty/pull/9405">#9405</a></li>
+<li>Optimize and simplify SourcePosition handling <a href="https://github.com/lampepfl/dotty/pull/9561">#9561</a></li>
+</ul>
+<h1><a href="#metaprogramming" id="metaprogramming" class="anchor"></a>Metaprogramming</h1>
+<p>We are keeping the work on the metaprogramming API improvements. For this release, the following PRs bring better API to metaprogrammers:</p>
+<ul>
+<li>Avoid leak of internal implementation in tasty.Reflection <a href="https://github.com/lampepfl/dotty/pull/9613">#9613</a></li>
+<li>Redefine quoted.Expr.betaReduce <a href="https://github.com/lampepfl/dotty/pull/9469">#9469</a></li>
+</ul>
+<h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1>
+<p>If you have questions or any sort of feedback, feel free to send us a message on our
+<a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please
+<a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p>
+<h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2>
+<p>Thank you to all the contributors who made this release possible 🎉</p>
+<p>According to <code>git shortlog -sn --no-merges 0.26.0-RC1..0.27.0-RC1</code> these are:</p>
+<pre><code class="nohighlight">   118  Martin Odersky
+    75  Liu Fengyun
+    65  Nicolas Stucki
+    27  Sébastien Doeraene
+    23  Guillaume Martres
+    16  Jamie Thompson
+    15  bishabosha
+    10  Guillaume Raffin
+     7  Anatolii Kmetiuk
+     4  Robert Stoll
+     3  Pavel Shirshov
+     3  december32
+     3  odersky
+     2  ysthakur
+     1  Niklas Vest
+     1  Dean Wampler
+     1  Fengyun Liu
+     1  John Sullivan
+     1  Lan, Jian
+     1  Aleksander Boruch-Gruszecki
+     1  Ruslan Shevchenko
+     1  Stefan Zeiger
+     1  William Narmontas
+     1  xuwei-k
+</code></pre>
+<p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved!
+Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>,
+and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>.
+They make perfect entry points into hacking on the compiler.</p>
+<p>We are looking forward to having you join the team of contributors.</p>
+<h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2>
+<p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty
+snapshot. Currently, this includes shapeless, ScalaPB, algebra, scalatest, scopt and squants.
+Join our <a href="https://github.com/lampepfl/dotty/tree/master/community-build">community build</a>
+to make sure that our regression suite includes your library.</p>
+
+
     
-    <!-- Supertypes -->
+    <hr/>
+    <footer>
+        <img id="author-img" src="/images/anatolii.png">
+        <span id="author-signature">
+            Anatolii Kmetiuk
+        </span>
+    </footer>
     
-        <div id="supertypes">
-            <h2>Supertypes</h2>
-            <span>
-                
-                    Object, 
-                
-                    <a href="/api/scala/quoted/Liftable.html">Liftable</a>
-                
-            </span>
-        </div>
-    
-    <!-- Annotations -->
-    
-    <!-- Constructors -->
-    
-        <div id="constructors">
-            <h2>Constructors</h2>
-            
-                <div class="wide-table">
-                    
-                        <span class="member">
-                            <span class="left-column"></span>
-                            <span class="right-column">
-                                <h3>IArrayIsLiftable</h3>
-                                
-                                    <span class="params ">
-                                        (
-                                        
-                                        
-                                        )
-                                    </span>
-                                
-                                    <span class="params implicit">
-                                        (
-                                        
-                                            <span class="keyword">implicit&nbsp;</span>
-                                        
-                                        
-                                            <span class="param">
-                                                evidence$5:
-                                                
-                                                Type<span class="type-params">[T]</span>
-                                            </span>
-                                            ,&nbsp;
-                                        
-                                            <span class="param">
-                                                ltArray:
-                                                
-                                                Liftable<span class="type-params">[Array<span class="type-params">[T]</span>]</span>
-                                            </span>
-                                            
-                                        
-                                        )
-                                    </span>
-                                
-                            </span>
-                        </span>
-                    
-                </div>
-            
-        </div>
-    
-    <!-- Members -->
-    <div id="members">
-        <h2>Members</h2>
-        <div class="wide-table">
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="evidence$5" class="member val non-public " data-toggle="collapse" data-target=".collapse-evidence-5">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            private implicit
-                        </span>
-                        <span class="member-kind">val&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                evidence$5
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[T]</span></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-evidence-5">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-evidence-5">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="ltArray" class="member val non-public " data-toggle="collapse" data-target=".collapse-ltArray">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            protected given
-                        </span>
-                        <span class="member-kind">val&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                ltArray
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/quoted/Liftable.html">Liftable</a><span class="type-params">[Array<span class="type-params">[T]</span>]</span></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-ltArray">
-                        
-                            <p></p>
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-ltArray">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="toExpr(iarray)" class="member def public " data-toggle="collapse" data-target=".collapse-toExpr-iarray-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                toExpr
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            iarray:
-                                            
-                                            <a href="/api/scala/opaques$.html#IArray">IArray</a><span class="type-params">[T]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: implicit <a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a><span class="right-arrow"> =&gt; </span><a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[<a href="/api/scala/opaques$.html#IArray">IArray</a><span class="type-params">[T]</span>]</span></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-toExpr-iarray-">
-                        
-                            <p>Lift a value into an expression containing the construction of that value</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-toExpr-iarray-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Lift a value into an expression containing the construction of that value</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-        </div>
-    </div>
 </main>
 </div>
 <script>
