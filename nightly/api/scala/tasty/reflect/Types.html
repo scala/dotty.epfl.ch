@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-09-03 -->
+<!-- This page was last generated on 2020-09-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20200902-95a6b44-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20200903-b3f908d-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1877,27 +1877,26 @@
          +- Alternatives
 
 
-                 +- NoPrefix
-+- TypeOrBounds -+- TypeBounds
-                 |
-                 +- Type -------+- ConstantType
-                                +- TermRef
-                                +- TypeRef
-                                +- SuperType
-                                +- Refinement
-                                +- AppliedType
-                                +- AnnotatedType
-                                +- AndType
-                                +- OrType
-                                +- MatchType
-                                +- ByNameType
-                                +- ParamRef
-                                +- ThisType
-                                +- RecursiveThis
-                                +- RecursiveType
-                                +- LambdaType[ParamInfo &lt;: TypeOrBounds] -+- MethodType
-                                                                          +- PolyType
-                                                                          +- TypeLambda
++- Type -+- ConstantType
+         +- TermRef
+         +- TypeRef
+         +- SuperType
+         +- Refinement
+         +- AppliedType
+         +- AnnotatedType
+         +- AndType
+         +- OrType
+         +- MatchType
+         +- ByNameType
+         +- ParamRef
+         +- ThisType
+         +- RecursiveThis
+         +- RecursiveType
+         +- LambdaType -+- MethodType
+         |              +- PolyType
+         |              +- TypeLambda
+         +- TypeBounds
+         +- NoPrefix
 
 +- ImportSelector -+- SimpleSelector
                    +- RenameSelector
@@ -5382,7 +5381,7 @@ closure(m)
                         
                         <!-- Type alias -->
                         
-                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#LambdaType">LambdaType</a><span class="type-params">[<a href="/nightly/api/scala/tasty/reflect/Types.html#Type">Type</a>]</span></span>
+                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#LambdaType">LambdaType</a></span>
                         
                     </span>
                     <!-- Shortened comment -->
@@ -5712,7 +5711,7 @@ closure(m)
                         
                         <!-- Type alias -->
                         
-                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#TypeOrBounds">TypeOrBounds</a></span>
+                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#Type">Type</a></span>
                         
                     </span>
                     <!-- Shortened comment -->
@@ -6208,7 +6207,7 @@ closure(m)
                         
                         <!-- Type alias -->
                         
-                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#LambdaType">LambdaType</a><span class="type-params">[<a href="/nightly/api/scala/tasty/reflect/Types.html#TypeBounds">TypeBounds</a>]</span></span>
+                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#LambdaType">LambdaType</a></span>
                         
                     </span>
                     <!-- Shortened comment -->
@@ -8447,7 +8446,7 @@ Then can be compared with == to know if the definition is the same.</p>
                         
                         <!-- Type alias -->
                         
-                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#TypeOrBounds">TypeOrBounds</a></span>
+                            <span class="type-alias">&nbsp;= </span>
                         
                     </span>
                     <!-- Shortened comment -->
@@ -8779,7 +8778,7 @@ Then can be compared with == to know if the definition is the same.</p>
                         
                         <!-- Type alias -->
                         
-                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#TypeOrBounds">TypeOrBounds</a></span>
+                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#Type">Type</a></span>
                         
                     </span>
                     <!-- Shortened comment -->
@@ -9194,7 +9193,7 @@ Then can be compared with == to know if the definition is the same.</p>
                         
                         <!-- Type alias -->
                         
-                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#LambdaType">LambdaType</a><span class="type-params">[<a href="/nightly/api/scala/tasty/reflect/Types.html#TypeBounds">TypeBounds</a>]</span></span>
+                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span><a href="/nightly/api/scala/tasty/reflect/Types.html#LambdaType">LambdaType</a></span>
                         
                     </span>
                     <!-- Shortened comment -->
@@ -9210,89 +9209,6 @@ Then can be compared with == to know if the definition is the same.</p>
                         
                         
                             <p>Type of the definition of a type lambda taking a list of type parameters. It's return type may be a TypeLambda.</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="TypeOrBounds" class="member type public " data-toggle="collapse" data-target=".collapse-TypeOrBounds">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">type&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                TypeOrBounds
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                        <!-- Return type -->
-                        
-                        <!-- Type alias -->
-                        
-                            <span class="type-alias">&nbsp;= Nothing<span class="bounds"> &lt;: </span>AnyRef</span>
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-TypeOrBounds">
-                        
-                            <p>Type or bounds</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-TypeOrBounds">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Type or bounds</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
