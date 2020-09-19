@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-09-17 -->
+<!-- This page was last generated on 2020-09-19 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20200916-a05fc4b-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20200918-333ab8e-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1868,6 +1868,44 @@ parameterized case that takes an RGB value.</p>
   case Blue  extends Color(0x0000FF)
   case Mix(mix: Int) extends Color(mix)
 }
+</code></pre>
+<h3><a href="#parameter-variance-of-enums" id="parameter-variance-of-enums" class="anchor"></a>Parameter Variance of Enums</h3>
+<p>By default, parameterized cases of enums with type parameters will copy the type parameters of their parent, along
+with any variance notations. As usual, it is important to use type parameters carefully when they are variant, as shown
+below:</p>
+<p>The following <code>View</code> enum has a contravariant type parameter <code>T</code> and a single case <code>Refl</code>, representing a function
+mapping a type <code>T</code> to itself:</p>
+<pre><code class="scala">enum View[-T]:
+  case Refl(f: T =&gt; T)
+</code></pre>
+<p>The definition of <code>Refl</code> is incorrect, as it uses contravariant type <code>T</code> in the covariant result position of a
+function type, leading to the following error:</p>
+<pre><code class="scala">-- Error: View.scala:2:12 --------
+2 |  case Refl(f: T =&gt; T)
+  |            ^^^^^^^^^
+  |contravariant type T occurs in covariant position in type T =&gt; T of value f
+  |enum case Refl requires explicit declaration of type T to resolve this issue.
+</code></pre>
+<p>Because <code>Refl</code> does not declare explicit parameters, it looks to the compiler like the following:</p>
+<pre><code class="scala">enum View[-T]:
+  case Refl[/*synthetic*/-T1](f: T1 =&gt; T1) extends View[T1]
+</code></pre>
+<p>The compiler has inferred for <code>Refl</code> the contravariant type parameter <code>T1</code>, following <code>T</code> in <code>View</code>.
+We can now clearly see that <code>Refl</code> needs to declare its own non-variant type parameter to correctly type <code>f</code>,
+and can remedy the error by the following change to <code>Refl</code>:</p>
+<pre><code class="diff">enum View[-T]:
+-  case Refl(f: T =&gt; T)
++  case Refl[R](f: R =&gt; R) extends View[R]
+</code></pre>
+<p>Above, type <code>R</code> is chosen as the parameter for <code>Refl</code> to highlight that it has a different meaning to
+type <code>T</code> in <code>View</code>, but any name will do.</p>
+<p>After some further changes, a more complete implementation of <code>View</code> can be given as follows and be used
+as the function type <code>T =&gt; U</code>:</p>
+<pre><code class="scala">enum View[-T, +U] extends (T =&gt; U):
+  case Refl[R](f: R =&gt; R) extends View[R, R]
+
+  final def apply(t: T): U = this match
+    case refl: Refl[r] =&gt; refl.f(t)
 </code></pre>
 <h3><a href="#syntax-of-enums" id="syntax-of-enums" class="anchor"></a>Syntax of Enums</h3>
 <p>Changes to the syntax fall in two categories: enum definitions and cases inside enums.
