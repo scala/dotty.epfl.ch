@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-09-24 -->
+<!-- This page was last generated on 2020-09-25 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20200923-af1b4a0-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20200924-7ee3a20-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1628,18 +1628,6 @@
                             
 
                         
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/tasty/reflect/Types.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/tasty/reflect/Types.html">Types</a>
-                            </li>
-                            
-
-                        
                     </ul>
                 </li>
             
@@ -1940,6 +1928,7 @@
                         
                             <p>TASTy Reflect Interface.</p>
 <p>Provides all functionality related with AST based metaprogramming.</p>
+<p>Type hierarchy</p>
 
                         
                     </div>
@@ -1950,6 +1939,106 @@
                         
                             <p>TASTy Reflect Interface.</p>
 <p>Provides all functionality related with AST based metaprogramming.</p>
+<p>Type hierarchy</p>
+<pre><code class="none">
++- Tree -+- PackageClause
+         +- Import
+         +- Statement -+- Definition --+- PackageDef
+         |             |               +- ClassDef
+         |             |               +- TypeDef
+         |             |               +- DefDef
+         |             |               +- ValDef
+         |             |
+         |             +- Term --------+- Ref -+- Ident
+         |                             |       +- Select
+         |                             |
+         |                             +- Literal
+         |                             +- This
+         |                             +- New
+         |                             +- NamedArg
+         |                             +- Apply
+         |                             +- TypeApply
+         |                             +- Super
+         |                             +- Typed
+         |                             +- Assign
+         |                             +- Block
+         |                             +- Closure
+         |                             +- If
+         |                             +- Match
+         |                             +- GivenMatch
+         |                             +- Try
+         |                             +- Return
+         |                             +- Repeated
+         |                             +- Inlined
+         |                             +- SelectOuter
+         |                             +- While
+         |
+         |
+         +- TypeTree ----+- Inferred
+         |               +- TypeIdent
+         |               +- TypeSelect
+         |               +- Projection
+         |               +- Singleton
+         |               +- Refined
+         |               +- Applied
+         |               +- Annotated
+         |               +- MatchTypeTree
+         |               +- ByName
+         |               +- LambdaTypeTree
+         |               +- TypeBind
+         |               +- TypeBlock
+         |
+         +- TypeBoundsTree
+         +- WildcardTypeTree
+         |
+         +- CaseDef
+         |
+         +- TypeCaseDef
+         +- Bind
+         +- Unapply
+         +- Alternatives
+
+
++- Type -+- ConstantType
+         +- TermRef
+         +- TypeRef
+         +- SuperType
+         +- Refinement
+         +- AppliedType
+         +- AnnotatedType
+         +- AndType
+         +- OrType
+         +- MatchType
+         +- ByNameType
+         +- ParamRef
+         +- ThisType
+         +- RecursiveThis
+         +- RecursiveType
+         +- LambdaType -+- MethodType
+         |              +- PolyType
+         |              +- TypeLambda
+         +- TypeBounds
+         +- NoPrefix
+
++- ImportSelector -+- SimpleSelector
+                   +- RenameSelector
+                   +- OmitSelector
+
++- Id
+
++- Signature
+
++- Position
+
++- Comment
+
++- Constant
+
++- Symbol
+
++- Flags
+
+</code></pre>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
