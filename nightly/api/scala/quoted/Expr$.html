@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-01 -->
+<!-- This page was last generated on 2020-10-02 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20200930-c40ef6e-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201001-119e1de-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -310,18 +310,6 @@
                                     <a class="letter-anchor object" href="/nightly/api/dotty/internal/CompileTimeMacros$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/dotty/internal/CompileTimeMacros$.html">CompileTimeMacros</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/dotty/internal/StringContextMacro$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/dotty/internal/StringContextMacro$.html">StringContextMacro</a>
                             </li>
                             
 
@@ -2089,8 +2077,10 @@
                     <div class="short collapse show collapse-betaReduce-expr--qctx-">
                         
                             <p><code>e.betaReduce</code> returns an expression that is functionally equivalent to <code>e</code>,
-however if <code>e</code> is of the form <code>((y1, ..., yn) =&gt; e2)(x1, ..., xn)</code>
+however if <code>e</code> is of the form <code>((y1, ..., yn) =&gt; e2)(e1, ..., en)</code>
 then it optimize...
+</p>
+<p>
 </p>
 
                         
@@ -2101,9 +2091,11 @@ then it optimize...
                         
                         
                             <p><code>e.betaReduce</code> returns an expression that is functionally equivalent to <code>e</code>,
-however if <code>e</code> is of the form <code>((y1, ..., yn) =&gt; e2)(x1, ..., xn)</code>
+however if <code>e</code> is of the form <code>((y1, ..., yn) =&gt; e2)(e1, ..., en)</code>
 then it optimizes this the top most call by returning the result of beta-reducing the application.
 Otherwise returns <code>expr</code>.</p>
+<p>To retain semantics the argument <code>ei</code> is bound as <code>val yi = ei</code> and by-name arguments to <code>def yi = ei</code>.
+Some bindings may be elided as an early optimization.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
