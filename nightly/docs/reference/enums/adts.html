@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-02 -->
+<!-- This page was last generated on 2020-10-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201001-119e1de-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201003-7f46c25-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1796,13 +1796,11 @@ val res1: t2.Option[String] = Some(hello)
 scala&gt; Option.None
 val res2: t2.Option[Nothing] = None
 </code></pre>
-<p>Note that the type of the expressions above is always <code>Option</code>. That
-is, the implementation case classes are not visible in the result
-types of their <code>apply</code> methods. This is a subtle difference with
-respect to normal case classes. The classes making up the cases do
-exist, and can be unveiled by constructing them directly with a <code>new</code>.</p>
+<p>Note that the type of the expressions above is always <code>Option</code>. Generally, the type of a enum case constructor application will be widened to the underlying enum type, unless a more specific type is expected. This is a subtle difference with respect to normal case classes. The classes making up the cases do exist, and can be unveiled, either by constructing them directly with a <code>new</code>, or by explicitly providing an expected type.</p>
 <pre><code class="scala">scala&gt; new Option.Some(2)
-val res3: t2.Option.Some[Int] = Some(2)
+val res3: Option.Some[Int] = Some(2)
+scala&gt; val x: Option.Some[Int] = Option.Some(3)
+val res4: Option.Some[Int] = Some(3)
 </code></pre>
 <p>As all other enums, ADTs can define methods. For instance, here is <code>Option</code> again, with an
 <code>isDefined</code> method and an <code>Option(...)</code> constructor in its companion object.</p>

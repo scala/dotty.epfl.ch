@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-02 -->
+<!-- This page was last generated on 2020-10-04 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201001-119e1de-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201003-7f46c25-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1878,10 +1878,7 @@ in a type argument of <code>&lt;parents&gt;</code>.</p>
 <p>expands analogous to a final case class in <code>E</code>'s companion object:</p>
 <pre><code class="scala">final case class C &lt;params&gt; extends &lt;parents&gt;
 </code></pre>
-<p>However, unlike for a regular case class, the return type of the associated
-<code>apply</code> method is a fully parameterized type instance of the enum class <code>E</code>
-itself instead of <code>C</code>.  Also the enum case defines an <code>ordinal</code> method of
-the form</p>
+<p>The enum case defines an <code>ordinal</code> method of the form</p>
 <pre><code class="scala">def ordinal = n
 </code></pre>
 <p>where <code>n</code> is the ordinal number of the case in the companion object,
@@ -1889,6 +1886,13 @@ starting from 0.</p>
 <p>It is an error if a value case refers to a type parameter of the enclosing <code>enum</code>
 in a parameter type in <code>&lt;params&gt;</code> or in a type argument of <code>&lt;parents&gt;</code>, unless that parameter is already
 a type parameter of the case, i.e. the parameter name is defined in <code>&lt;params&gt;</code>.</p>
+<p>The compiler-generated <code>apply</code> and <code>copy</code> methods of an enum case</p>
+<pre><code class="scala">case C(ps) extends P1, ..., Pn
+</code></pre>
+<p>are treated specially. A call <code>C(ts)</code> of the apply method is ascribed the underlying type
+<code>P1 &amp; ... &amp; Pn</code> (dropping any <a href="../other-new-features/super-traits.html">super traits</a>)
+as long as that type is still compatible with the expected type at the point of application.
+A call <code>t.copy(ts)</code> of <code>C</code>'s <code>copy</code> method is treated in the same way.</p>
 </li>
 </ol>
 <h3><a href="#translation-of-enums-with-singleton-cases" id="translation-of-enums-with-singleton-cases" class="anchor"></a>Translation of Enums with Singleton Cases</h3>
