@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-04 -->
+<!-- This page was last generated on 2020-10-06 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201003-7f46c25-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201005-f0bbd95-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -388,30 +388,6 @@
                                     <a class="letter-anchor class" href="/nightly/api/scala/Conversion.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/Conversion.html">Conversion</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/Tuple$package$/EmptyTuple$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/Tuple$package$/EmptyTuple$.html">EmptyTuple</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/Enum.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/Enum.html">Enum</a>
                             </li>
                             
 
@@ -1412,6 +1388,18 @@
                     </a>
                     <ul class="package-entities">
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/reflect/Enum.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/reflect/Enum.html">Enum</a>
+                            </li>
+                            
+
+                        
                              <!-- ignore: companions are handled below -->
                             
 
@@ -1836,12 +1824,12 @@ val res15: Int = -1
 </code></pre>
 <p>For a more in-depth example of using Scala 3 enums from Java, see <a href="https://github.com/lampepfl/dotty/tree/master/tests/run/enum-java">this test</a>. In the test, the enums are defined in the <code>MainScala.scala</code> file and used from a Java source, <code>Test.java</code>.</p>
 <h3><a href="#implementation" id="implementation" class="anchor"></a>Implementation</h3>
-<p>Enums are represented as <code>sealed</code> classes that extend the <code>scala.Enum</code> trait.
+<p>Enums are represented as <code>sealed</code> classes that extend the <code>scala.reflect.Enum</code> trait.
 This trait defines two public methods, <code>ordinal</code> and <code>enumLabel</code>:</p>
-<pre><code class="scala">package scala
+<pre><code class="scala">package scala.reflect
 
-/** A base trait of all enum classes */
-trait Enum extends Product with Serializable {
+/** A base trait of all Scala enum definitions */
+super trait Enum extends Any with Product with Serializable {
 
   /** A string uniquely identifying a case of an enum */
   def enumLabel: String
