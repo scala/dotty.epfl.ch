@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-06 -->
+<!-- This page was last generated on 2020-10-07 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201005-f0bbd95-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201006-99548bd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1781,6 +1781,16 @@ also known that <code>o.T</code> is equal to <code>R</code>. This means the foll
   val x: Int = id(2)
 }
 def id(x: o.T): o.T = x
+</code></pre>
+<h3><a href="#type-parameters-of-opaque-types" id="type-parameters-of-opaque-types" class="anchor"></a>Type Parameters of Opaque Types</h3>
+<p>Opaque type aliases can have a single type parameter list. The following aliases
+are well-formed</p>
+<pre><code class="scala">opaque type F[T] = (T, T)
+opaque type G = [T] =&gt;&gt; List[T]
+</code></pre>
+<p>but the following are not:</p>
+<pre><code class="scala">opaque type BadF[T] = [U] =&gt;&gt; (T, U)
+opaque type BadG = [T] =&gt;&gt; [U] =&gt; (T, U)
 </code></pre>
 <h3><a href="#translation-of-equality" id="translation-of-equality" class="anchor"></a>Translation of Equality</h3>
 <p>Comparing two values of opaque type with <code>==</code> or <code>!=</code> normally uses universal equality,
