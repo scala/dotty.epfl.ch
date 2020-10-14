@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-10 -->
+<!-- This page was last generated on 2020-10-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201009-b22331e-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201013-68a7c03-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1764,7 +1764,7 @@ to a <code>Type</code> by using the corresponding context bound. Also, not that 
 summon the quoted <code>Mirror</code> inside the body of the <code>derived</code> this we can omit it
 from the signature. The body of the <code>derived</code> method is shown below:</p>
 <pre><code class="scala">given derived[T: Type](using qctx: QuoteContext) as Expr[Eq[T]] = {
-  import qctx.tasty._
+  import qctx.reflect._
 
   val ev: Expr[Mirror.Of[T]] = Expr.summon(using '[Mirror.Of[T]]).get
 
@@ -1877,7 +1877,7 @@ object Eq {
   }
 
   given derived[T: Type](using qctx: QuoteContext) as Expr[Eq[T]] = {
-    import qctx.tasty._
+    import qctx.reflect._
 
     val ev: Expr[Mirror.Of[T]] = Expr.summon(using '[Mirror.Of[T]]).get
 

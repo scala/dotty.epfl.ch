@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-10 -->
+<!-- This page was last generated on 2020-10-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201009-b22331e-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201013-68a7c03-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1758,7 +1758,7 @@
         <div id="description">
             <p>Quotation context provided by a macro expansion or in the scope of <code>scala.quoted.run</code>.
 Used to perform all operations on quoted <code>Expr</code> or <code>Type</code>.</p>
-<p>It contains the low-level Typed AST API <code>tasty</code> metaprogramming API.
+<p>It contains the low-level Typed AST API metaprogramming API.
 This API does not have the static type guarantiees that <code>Expr</code> and <code>Type</code> provide.</p>
 
         </div>
@@ -1839,10 +1839,10 @@ It is only required if working with the reflection API.</p>
 It is only required if working with the reflection API.</p>
 <p>Usually it is infered by the quotes an splices typing. But sometimes it is necessary
 to explicitly state that a context is nested as in the following example:</p>
-<pre><code class="scala">def run(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Unit =
+<pre><code class="scala">def run(using qctx: QuoteContext)(tree: qctx.reflect.Tree): Unit =
   def nested()(using qctx.Nested): Expr[Int] = '{  ${ makeExpr(tree) } + 1  }
   '{  ${ nested() } + 2 }
-def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
+def makeExpr(using qctx: QuoteContext)(tree: qctx.reflect.Tree): Expr[Int] = ???
 </code></pre>
 
                         
@@ -1887,13 +1887,98 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
 
                 
                 
-                <div id="tasty" class="member val public " data-toggle="collapse" data-target=".collapse-tasty">
+                <div id="reflect" class="member val public " data-toggle="collapse" data-target=".collapse-reflect">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
                             
                         </span>
                         <span class="member-kind">val&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                reflect
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="/api/scala/tasty/Reflection.html">Reflection</a></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-reflect">
+                        
+                            <p>Low-level Typed AST API metaprogramming API.
+This API does not have the static type guarantiees that <code>Expr</code> and <code>Type</code> provide.</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-reflect">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Low-level Typed AST API metaprogramming API.
+This API does not have the static type guarantiees that <code>Expr</code> and <code>Type</code> provide.</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="tasty" class="member def public " data-toggle="collapse" data-target=".collapse-tasty">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
                     </span>
                     <!-- Right: name, type parameters, method parameters and return type -->
                     <span class="right-column">
@@ -1909,7 +1994,7 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: <a href="/api/scala/tasty/Reflection.html">Reflection</a></span>
+                            <span class="return-type">: reflect.type</span>
                         
                         <!-- Type alias -->
                         
@@ -1917,9 +2002,7 @@ def makeExpr(using qctx: QuoteContext)(tree: qctx.tasty.Tree): Expr[Int] = ???
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-tasty">
                         
-                            <p>Low-level Typed AST API <code>tasty</code> metaprogramming API.
-This API does not have the static type guarantiees that <code>Expr</code> and <code>Type</code> provide.</p>
-
+                            <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -1927,9 +2010,7 @@ This API does not have the static type guarantiees that <code>Expr</code> and <c
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Low-level Typed AST API <code>tasty</code> metaprogramming API.
-This API does not have the static type guarantiees that <code>Expr</code> and <code>Type</code> provide.</p>
-
+                            
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}

@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-10 -->
+<!-- This page was last generated on 2020-10-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201009-b22331e-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201013-68a7c03-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1769,11 +1769,11 @@ map into <code>case class</code>es or <code>val</code>s.</p>
 <li>An <code>enum</code> definition
 <pre><code class="scala">enum E ... { &lt;defs&gt; &lt;cases&gt; }
 </code></pre>
-<p>expands to a <code>sealed abstract</code> class that extends the <code>scala.Enum</code> trait and
+<p>expands to a <code>sealed abstract</code> class that extends the <code>scala.reflect.Enum</code> trait and
 an associated companion object that contains the defined cases, expanded according
 to rules (2 - 8). The enum class starts with a compiler-generated import that imports
 the names <code>&lt;caseIds&gt;</code> of all cases so that they can be used without prefix in the class.</p>
-<pre><code class="scala">sealed abstract class E ... extends &lt;parents&gt; with scala.Enum {
+<pre><code class="scala">sealed abstract class E ... extends &lt;parents&gt; with scala.reflect.Enum {
   import E.{ &lt;caseIds&gt; }
    &lt;defs&gt;
 }
@@ -1876,7 +1876,7 @@ A call <code>t.copy(ts)</code> of <code>C</code>'s <code>copy</code> method is t
 will define the following additional synthetic members in its companion object (where <code>E'</code> denotes <code>E</code> with
 any type parameters replaced by wildcards):</p>
 <ul>
-<li>A method <code>valueOf(name: String): E'</code>. It returns the singleton case value whose <code>enumLabel</code> is <code>name</code>.</li>
+<li>A method <code>valueOf(name: String): E'</code>. It returns the singleton case value whose identifier is <code>name</code>.</li>
 <li>A method <code>values</code> which returns an <code>Array[E']</code> of all singleton case
 values defined by <code>E</code>, in the order of their definitions.</li>
 </ul>
@@ -1887,9 +1887,8 @@ ordinal number and name. This method can be thought as being defined as
 follows.
 <pre><code class="scala">private def $new(_$ordinal: Int, $name: String) = new E with runtime.EnumValue {
   def ordinal = _$ordinal
-  def enumLabel = $name
-  override def productPrefix = enumLabel // if not overridden in `E`
-  override def toString = enumLabel      // if not overridden in `E`
+  override def productPrefix = $name // if not overridden in `E`
+  override def toString = $name      // if not overridden in `E`
 }
 </code></pre>
 </li>
@@ -1898,7 +1897,7 @@ follows.
 The <code>ordinal</code> method is only generated if the enum does not extend from <code>java.lang.Enum</code> (as Scala enums do not extend
 <code>java.lang.Enum</code>s unless explicitly specified). In case it does, there is no need to generate <code>ordinal</code> as
 <code>java.lang.Enum</code> defines it. Similarly there is no need to override <code>toString</code> as that is defined in terms of <code>name</code> in
-<code>java.lang.Enum</code>. Finally, <code>enumLabel</code> will call <code>this.name</code> when <code>E</code> extends <code>java.lang.Enum</code>.</p>
+<code>java.lang.Enum</code>. Finally, <code>productPrefix</code> will call <code>this.name</code> when <code>E</code> extends <code>java.lang.Enum</code>.</p>
 <h3><a href="#scopes-for-enum-cases" id="scopes-for-enum-cases" class="anchor"></a>Scopes for Enum Cases</h3>
 <p>A case in an <code>enum</code> is treated similarly to a secondary constructor. It can access neither the enclosing <code>enum</code> using <code>this</code>, nor its value parameters or instance members using simple
 identifiers.</p>

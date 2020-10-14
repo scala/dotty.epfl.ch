@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-10 -->
+<!-- This page was last generated on 2020-10-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201009-b22331e-NIGHTLY</h2>
+                    <h2>0.28.0-bin-20201013-68a7c03-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1750,22 +1750,22 @@ generation of code will be type-correct. Using TASTy Reflect will break these
 guarantees and may fail at macro expansion time, hence additional explicit
 checks must be done.</p>
 <p>To provide reflection capabilities in macros we need to add an implicit
-parameter of type <code>scala.quoted.QuoteContext</code> and import <code>tasty._</code> from it in
+parameter of type <code>scala.quoted.QuoteContext</code> and import <code>qctx.reflect._</code> from it in
 the scope where it is used.</p>
 <pre><code class="scala">import scala.quoted._
 
 inline def natConst(x: =&gt; Int): Int = ${natConstImpl('{x})}
 
 def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
-  import qctx.tasty._
+  import qctx.reflect._
   ...
 }
 </code></pre>
 <h3><a href="#extractors" id="extractors" class="anchor"></a>Extractors</h3>
-<p><code>import qctx.tasty._</code> will provide all extractors and methods on TASTy Reflect
+<p><code>import qctx.reflect._</code> will provide all extractors and methods on TASTy Reflect
 trees. For example the <code>Literal(_)</code> extractor used below.</p>
 <pre><code class="scala">def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
-  import qctx.tasty._
+  import qctx.reflect._
   val xTree: Term = x.unseal
   xTree match {
     case Inlined(_, _, Literal(Constant(n: Int))) =&gt;
@@ -1782,8 +1782,8 @@ trees. For example the <code>Literal(_)</code> extractor used below.</p>
 }
 </code></pre>
 <p>To easily know which extractors are needed, the <code>showExtractors</code> method on a
-<code>qctx.tasty.Term</code> returns the string representation of the extractors.</p>
-<p>The method <code>qctx.tasty.Term.seal</code> provides a way to go back to a
+<code>qctx.reflect.Term</code> returns the string representation of the extractors.</p>
+<p>The method <code>qctx.reflect.Term.seal</code> provides a way to go back to a
 <code>quoted.Expr[Any]</code>. Note that the type is <code>Expr[Any]</code>. Consequently, the type
 must be set explicitly with a checked <code>cast</code> call. If the type does not conform
 to it an exception will be thrown at runtime.</p>
@@ -1795,7 +1795,7 @@ operation expression passed while calling the <code>macro</code> below.</p>
 <pre><code class="scala">inline def macro(param: =&gt; Boolean): Unit = ${ macroImpl('param) }
 
 def macroImpl(param: Expr[Boolean])(using qctx: QuoteContext): Expr[Unit] = {
-  import qctx.tasty._
+  import qctx.reflect._
   import util._
 
   param.unseal.underlyingArgument match {
@@ -1807,13 +1807,13 @@ def macroImpl(param: Expr[Boolean])(using qctx: QuoteContext): Expr[Unit] = {
 macro(this.checkCondition())
 </code></pre>
 <h3><a href="#positions" id="positions" class="anchor"></a>Positions</h3>
-<p>The tasty context provides a <code>rootPosition</code> value. It corresponds to
+<p>The <code>ast</code> in the context provides a <code>rootPosition</code> value. It corresponds to
 the expansion site for macros. The macro authors can obtain various information about that
 expansion site. The example below shows how we can obtain position information
 such as the start line, the end line or even the source code at the expansion
 point.</p>
 <pre><code class="scala">def macroImpl()(qctx: QuoteContext): Expr[Unit] = {
-  import qctx.tasty._
+  import qctx.reflect._
   val pos = rootPosition
 
   val path = pos.sourceFile.jpath.toString
