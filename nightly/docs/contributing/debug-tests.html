@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-15 -->
+<!-- This page was last generated on 2020-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/nightly/index.html">
-                <img class="project-logo" src="/nightly/images/dotty-logo.svg">
+                <img class="project-logo" src="/nightly/images/scala3-logo.svg">
             </a>
             
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1746,10 +1746,10 @@
 <p>Both are usually pre-installed on macOS and linux distributions.</p>
 <h2><a href="#debug-manually-with-jdb" id="debug-manually-with-jdb" class="anchor"></a>Debug Manually with JDB</h2>
 <p>First, compile the file <code>tests/debug/while.scala</code>:</p>
-<pre><code class="shell">$ dotc tests/debug/while.scala
+<pre><code class="shell">$ scalac tests/debug/while.scala
 </code></pre>
 <p>Second, run the compiled class with debugging enabled (suppose the main class is <code>Test</code>):</p>
-<pre><code class="shell">$ dotr -d Test
+<pre><code class="shell">$ scala -d Test
 </code></pre>
 <p>Third, start JDB:</p>
 <pre><code class="shell">$ jdb -attach 5005 -sourcepath tests/debug/
@@ -1791,10 +1791,10 @@ val y = 5
 </code></pre>
 <h3><a href="#3-run-the-test" id="3-run-the-test" class="anchor"></a>3. Run the Test</h3>
 <p>First, compile the file <code>tests/debug/while.scala</code>:</p>
-<pre><code class="shell">$ dotc tests/debug/while.scala
+<pre><code class="shell">$ scalac tests/debug/while.scala
 </code></pre>
 <p>Second, run the compiled class with debugging enabled:</p>
-<pre><code class="shell">$ dotr -d Test
+<pre><code class="shell">$ scala -d Test
 </code></pre>
 <p>Finally, run the expect script:</p>
 <pre><code class="shell">expect robot

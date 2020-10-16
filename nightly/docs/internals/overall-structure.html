@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-15 -->
+<!-- This page was last generated on 2020-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/nightly/index.html">
-                <img class="project-logo" src="/nightly/images/dotty-logo.svg">
+                <img class="project-logo" src="/nightly/images/scala3-logo.svg">
             </a>
             
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1750,7 +1750,7 @@ programs. The most important one is class <a href="https://github.com/lampepfl/d
 and processing some sources. <code>Driver</code> in turn is based on two other high-level
 classes, <a href="https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/Compiler.scala">Compiler</a> and <a href="https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/Run.scala">Run</a>.</p>
 <h2><a href="#package-structure" id="package-structure" class="anchor"></a>Package Structure</h2>
-<p>Most functionality of <code>dotc</code> is implemented in subpackages of <code>dotc</code>. Here's a
+<p>Most functionality of <code>scalac</code> is implemented in subpackages of <code>dotc</code>. Here's a
 list of sub-packages and their focus.</p>
 <pre><code class="nohighlight">.
 ├── ast                 // Abstract syntax trees
@@ -1770,10 +1770,10 @@ list of sub-packages and their focus.</p>
 └── util                // General purpose utility classes and modules.
 </code></pre>
 <h2><a href="#contexts" id="contexts" class="anchor"></a>Contexts</h2>
-<p><code>dotc</code> has almost no global state (the only significant bit of global state is
+<p><code>scalac</code> has almost no global state (the only significant bit of global state is
 the name table, which is used to hash strings into unique names). Instead, all
 essential bits of information that can vary over a compiler run are collected
-in a <a href="https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/core/Contexts.scala">Context</a>. Most methods in <code>dotc</code> take a <code>Context</code> value as an implicit
+in a <a href="https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/core/Contexts.scala">Context</a>. Most methods in <code>scalac</code> take a <code>Context</code> value as an implicit
 parameter.</p>
 <p>Contexts give a convenient way to customize values in some part of the
 call-graph. To run, e.g. some compiler function <code>f</code> at a given phase <code>phase</code>,
@@ -1803,7 +1803,7 @@ parameterization.  There is of course always the danger that an unexpected
 implicit will be passed, but in practice this has not turned out to be much of
 a problem.</p>
 <h2><a href="#compiler-phases" id="compiler-phases" class="anchor"></a>Compiler Phases</h2>
-<p>Seen from a temporal perspective, the <code>dotc</code> compiler consists of a list of
+<p>Seen from a temporal perspective, the <code>scalac</code> compiler consists of a list of
 phases. The current list of phases is specified in class <a href="https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/Compiler.scala">Compiler</a> as follows:</p>
 <pre><code class="scala">  def phases: List[List[Phase]] =
   frontendPhases ::: picklerPhases ::: transformPhases ::: backendPhases

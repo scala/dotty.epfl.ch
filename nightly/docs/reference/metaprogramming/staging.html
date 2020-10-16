@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-15 -->
+<!-- This page was last generated on 2020-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/nightly/index.html">
-                <img class="project-logo" src="/nightly/images/dotty-logo.svg">
+                <img class="project-logo" src="/nightly/images/scala3-logo.svg">
             </a>
             
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1811,9 +1811,9 @@ def withQuoteContext[T](thunk: QuoteContext ?=&gt; T)(using toolbox: Toolbox): T
 <p>In case you prefer to create the project on your own, make sure to define the following dependency in your build.sbt</p>
 <pre><code class="scala">libraryDependencies += &quot;ch.epfl.lamp&quot; %% &quot;dotty-staging&quot; % scalaVersion.value
 </code></pre>
-<p>and in case you use <code>dotc</code>/<code>dotr</code> directly, then use the <code>-with-compiler</code> flag for both:</p>
-<pre><code class="shell">dotc -with-compiler -d out Test.scala
-dotr -with-compiler -classpath out Test
+<p>and in case you use <code>scalac</code>/<code>scala</code> directly, then use the <code>-with-compiler</code> flag for both:</p>
+<pre><code class="shell">scalac -with-compiler -d out Test.scala
+scala -with-compiler -classpath out Test
 </code></pre>
 <h2><a href="#example" id="example" class="anchor"></a>Example</h2>
 <p>Now take exactly the same example as in <a href="./macros.html">Macros</a>. Assume that we

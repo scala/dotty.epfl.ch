@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-15 -->
+<!-- This page was last generated on 2020-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/index.html">
-                <img class="project-logo" src="/images/dotty-logo.svg">
+                <img class="project-logo" src="/images/scala3-logo.svg">
             </a>
             
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1751,7 +1751,7 @@ by tne</p>
 <p>A symbol refers to a definition in a source program. Traditionally,
 compilers store context-dependent data in a <em>symbol table</em>. The
 symbol then is the central reference to address context-dependent
-data. But for <code>dotc</code>'s requirements it turns out that symbols are
+data. But for <code>scalac</code>'s requirements it turns out that symbols are
 both too little and too much for this task.</p>
 <p>Too little: The attributes of a symbol depend on the phase. Examples:
 Types are gradually simplified by several phases. Owners are changed
@@ -1762,21 +1762,21 @@ their class (for instance from a nested class or a class implementing
 a trait). So a functional compiler, a <code>Symbol</code> by itself met mean
 much. Instead we are more interested in the attributes of a symbol at
 a given phase.</p>
-<p><code>dotc</code> has a concept for &quot;attributes of a symbol at</p>
+<p><code>scalac</code> has a concept for &quot;attributes of a symbol at</p>
 <p>Too much: If a symbol is used to refer to a definition in another
 compilation unit, we get problems for incremental recompilation. The
 unit containing the symbol might be changed and recompiled, which
 might mean that the definition referred to by the symbol is deleted or
 changed. This leads to the problem of stale symbols that refer to
-definitions that no longer exist in this form. <code>scalac</code> tried to
+definitions that no longer exist in this form. Scala 2 compiler tried to
 address this problem by <em>rebinding</em> symbols appearing in certain cross
 module references, but it turned out to be too difficult to do this
-reliably for all kinds of references. <code>dotc</code> attacks the problem at
+reliably for all kinds of references. Scala 3 compiler attacks the problem at
 the root instead. The fundamental problem is that symbols are too
 specific to serve as a cross-module reference in a system with
 incremental compilation. They refer to a particular definition, but
 that definition may not persist unchanged after an edit.</p>
-<p><code>dotc</code> uses instead a different approach: A cross module reference is
+<p><code>scalac</code> uses instead a different approach: A cross module reference is
 always type, either a <code>TermRef</code> or <code>TypeRef</code>. A reference type contains
 a prefix type and a name. The definition the type refers to is established
 dynamically based on these fields.</p>

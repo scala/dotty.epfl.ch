@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-15 -->
+<!-- This page was last generated on 2020-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/index.html">
-                <img class="project-logo" src="/images/dotty-logo.svg">
+                <img class="project-logo" src="/images/scala3-logo.svg">
             </a>
             
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1740,13 +1740,13 @@
     </header>
     <p>Check <a href="getting-started.html">Getting Started</a> for instructions on how to obtain the source code of dotty.
 This document details common workflow patterns when working with Dotty.</p>
-<h2><a href="#compiling-files-with-dotc" id="compiling-files-with-dotc" class="anchor"></a>Compiling files with dotc</h2>
+<h2><a href="#compiling-files-with-scalac" id="compiling-files-with-scalac" class="anchor"></a>Compiling files with scalac</h2>
 <p>As we have seen you can compile a test file either from sbt:</p>
 <pre><code class="bash">$ sbt
-&gt; dotc &lt;OPTIONS&gt; &lt;FILE&gt;
+&gt; scalac &lt;OPTIONS&gt; &lt;FILE&gt;
 </code></pre>
 <p>or from terminal:</p>
-<pre><code class="bash">$ dotc &lt;OPTIONS&gt; &lt;FILE&gt;
+<pre><code class="bash">$ scalac &lt;OPTIONS&gt; &lt;FILE&gt;
 </code></pre>
 <p>Here are some useful debugging <code>&lt;OPTIONS&gt;</code>:</p>
 <ul>
@@ -1780,7 +1780,7 @@ scala&gt; val u = t.asInstanceOf[TypeRef].underlying
 u: dotty.tools.dotc.core.Types.Type = TypeBounds(TypeRef(ThisType(TypeRef(NoPrefix,scala)),Nothing), TypeRef(ThisType(TypeRef(NoPrefix,scala)),Any))
 </code></pre>
 <h2><a href="#pretty-printing" id="pretty-printing" class="anchor"></a>Pretty-printing</h2>
-<p>Many objects in the dotc compiler implement a <code>Showable</code> trait (e.g. <code>Tree</code>,
+<p>Many objects in the scalac compiler implement a <code>Showable</code> trait (e.g. <code>Tree</code>,
 <code>Symbol</code>, <code>Type</code>). These objects may be prettyprinted using the <code>.show</code>
 method</p>
 <h2><a href="#sbt-commands-cheat-sheet" id="sbt-commands-cheat-sheet" class="anchor"></a>SBT Commands Cheat Sheet</h2>
@@ -1790,8 +1790,8 @@ method</p>
 <tr><th>Command</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>dotc ../issues/Playground.scala</code></td><td>Compile the given file – path relative to the Dotty directory. Output the compiled class files to the Dotty directory itself.</td></tr>
-<tr><td><code>dotr Playground</code></td><td>Run the compiled class <code>Playground</code>. Dotty directory is on classpath by default.</td></tr>
+<tr><td><code>scalac ../issues/Playground.scala</code></td><td>Compile the given file – path relative to the Dotty directory. Output the compiled class files to the Dotty directory itself.</td></tr>
+<tr><td><code>scala Playground</code></td><td>Run the compiled class <code>Playground</code>. Dotty directory is on classpath by default.</td></tr>
 <tr><td><code>repl</code></td><td>Start REPL</td></tr>
 <tr><td><code>testOnly dotty.tools.dotc.CompilationTests -- *pos</code></td><td>Run test (method) <code>pos</code> from <code>CompilationTests</code> suite.</td></tr>
 <tr><td><code>testCompilation sample</code></td><td>In all test suites, run test files containing the word <code>sample</code> in their title.</td></tr>

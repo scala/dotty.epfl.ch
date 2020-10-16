@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-15 -->
+<!-- This page was last generated on 2020-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/nightly/index.html">
-                <img class="project-logo" src="/nightly/images/dotty-logo.svg">
+                <img class="project-logo" src="/nightly/images/scala3-logo.svg">
             </a>
             
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1772,12 +1772,12 @@ only be applied if an implicit <code>Context</code> is in scope.</p>
 <h3><a href="#symbol" id="symbol" class="anchor"></a>Symbol</h3>
 <ul>
 <li><code>Symbol</code> instances have a <code>SymDenotation</code></li>
-<li>Most symbol properties in scalac are now in the denotation (in dotc)</li>
+<li>Most symbol properties in the Scala 2 compiler are now in the denotation (in the Scala 3 compiler).</li>
 </ul>
 <p>Most of the <code>isFooBar</code> properties in scalac don't exist anymore in dotc. Use
 flag tests instead, for example:</p>
-<pre><code class="scala">if (sym.isPackageClass)         // scalac
-if (sym is Flags.PackageClass)  // dotc (*)
+<pre><code class="scala">if (sym.isPackageClass)         // Scala 2
+if (sym is Flags.PackageClass)  // Scala 3 (*)
 </code></pre>
 <p><code>(*)</code> Symbols are implicitly converted to their denotation, see above. Each
 <code>SymDenotation</code> has flags that can be queried using the <code>is</code> method.</p>

@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/nightly/index.html">
-                <img class="project-logo" src="/nightly/images/dotty-logo.svg">
+                <img class="project-logo" src="/nightly/images/scala3-logo.svg">
             </a>
             
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1888,7 +1888,7 @@ a general subtype constraint solver. The new algorithm often
 <p>The new type-checking and inference algorithms are the essential core of the new compiler. They cannot be reverted without dropping the whole implementation of Scala 3.</p>
 <p><strong>Migration cost: high</strong></p>
 <p>Some existing programs will break and, given the complex nature of type inference, it will not always be clear what change caused the breakage and how to fix it.</p>
-<p>In our experience, macros and changes in type and implicit argument inference together cause the large majority of problems encountered when porting existing code to Scala 3. The latter source of problems could be addressed systematically by a tool that added all inferred types and implicit arguments to a Scala 2 source code file. Most likely such a tool would be implemented as a Scala 2 compiler plugin. The resulting code would have a greatly increased likelihood to compile under Scala 3, but would often be bulky to the point of being unreadable. A second part of the rewriting tool should then selectively and iteratively remove type and implicit annotations that were synthesized by the first part as long as they compile under Scala 3. This second part could be implemented as a program that invokes the Scala 3 compiler <code>dotc</code> programmatically.</p>
+<p>In our experience, macros and changes in type and implicit argument inference together cause the large majority of problems encountered when porting existing code to Scala 3. The latter source of problems could be addressed systematically by a tool that added all inferred types and implicit arguments to a Scala 2 source code file. Most likely such a tool would be implemented as a Scala 2 compiler plugin. The resulting code would have a greatly increased likelihood to compile under Scala 3, but would often be bulky to the point of being unreadable. A second part of the rewriting tool should then selectively and iteratively remove type and implicit annotations that were synthesized by the first part as long as they compile under Scala 3. This second part could be implemented as a program that invokes the Scala 3 compiler <code>scalac</code> programmatically.</p>
 <p>Several people have proposed such a tool for some time now. I believe it is time we find the will and the resources to actually implement it.</p>
 
 </main>

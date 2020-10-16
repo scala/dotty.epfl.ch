@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-15 -->
+<!-- This page was last generated on 2020-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/nightly/index.html">
-                <img class="project-logo" src="/nightly/images/dotty-logo.svg">
+                <img class="project-logo" src="/nightly/images/scala3-logo.svg">
             </a>
             
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1750,8 +1750,8 @@ $ sbt managedSources # Needed for IDE import to succeed
 <p>Dotty provides a standard sbt build: compiling, running and starting a repl can
 all be done from within sbt:</p>
 <pre><code class="bash">$ sbt
-&gt; dotc tests/pos/HelloWorld.scala
-&gt; dotr HelloWorld
+&gt; scalac tests/pos/HelloWorld.scala
+&gt; scala HelloWorld
 hello world
 </code></pre>
 <p>There are also bash scripts that can be used in the same way. Assuming that you have cloned the Dotty repo locally, append
@@ -1760,10 +1760,10 @@ the following line on your <code>.bash_profile</code>:</p>
 </code></pre>
 <p>and you will be able to run the corresponding commands directly from your console:</p>
 <pre><code class="shell"># Compile code using Dotty
-$ dotc tests/pos/HelloWorld.scala
+$ scalac tests/pos/HelloWorld.scala
 
 # Run it with the proper classpath
-$ dotr HelloWorld
+$ scala HelloWorld
 </code></pre>
 <h2><a href="#starting-a-repl" id="starting-a-repl" class="anchor"></a>Starting a REPL</h2>
 <pre><code class="bash">$ sbt
@@ -1774,7 +1774,7 @@ Type :help for more information.
 scala&gt;
 </code></pre>
 <p>or via bash:</p>
-<pre><code class="bash">$ dotr
+<pre><code class="bash">$ scala
 </code></pre>
 <h2><a href="#generating-documentation" id="generating-documentation" class="anchor"></a>Generating Documentation</h2>
 <p>To generate this page and other static page docs, run</p>

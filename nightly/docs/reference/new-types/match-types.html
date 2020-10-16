@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-15 -->
+<!-- This page was last generated on 2020-10-16 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,13 +43,13 @@
         <div class="navbar-brand">
             
             <a href="/nightly/index.html">
-                <img class="project-logo" src="/nightly/images/dotty-logo.svg">
+                <img class="project-logo" src="/nightly/images/scala3-logo.svg">
             </a>
             
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>0.28.0-bin-20201014-ca67e4d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201015-8c56525-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1901,7 +1901,7 @@ def g[X]: L[X] = ???
    |
    |  subtype LazyRef(Test.L[Int]) &lt;:&lt; Int
 </code></pre>
-<p>Internally, <code>dotc</code> detects these cycles by turning selected stack overflows into
+<p>Internally, <code>scalac</code> detects these cycles by turning selected stack overflows into
 type errors. If there is a stack overflow during subtyping, the exception will
 be caught and turned into a compile-time error that indicates a trace of the
 subtype tests that caused the overflow without showing a full stack trace.</p>
