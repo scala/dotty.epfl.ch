@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-27 -->
+<!-- This page was last generated on 2020-10-28 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M1-bin-20201026-ac4e29d-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201027-b5a1715-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1906,7 +1906,7 @@ SimpleType        ::=  SimpleLiteral                                            
 SimpleType1       ::=  id                                                       Ident(name)
                     |  Singleton ‘.’ id                                         Select(t, name)
                     |  Singleton ‘.’ ‘type’                                     SingletonTypeTree(p)
-                    |  ‘(’ ArgTypes ‘)’                                         Tuple(ts)
+                    |  ‘(’ Types ‘)’                                            Tuple(ts)
                     |  Refinement                                               RefinedTypeTree(EmptyTree, refinement)
                     |  ‘$’ ‘{’ Block ‘}’
                     |  SimpleType1 TypeArgs                                     AppliedTypeTree(t, args)
@@ -1915,25 +1915,22 @@ Singleton         ::=  SimpleRef
                     |  SimpleLiteral
                     |  Singleton ‘.’ id
 -- not yet          |  Singleton ‘(’ Singletons ‘)’
--- not yet          |  Singleton ‘[’ ArgTypes ‘]’
+-- not yet          |  Singleton ‘[’ Types ‘]’
 Singletons        ::=  Singleton { ‘,’ Singleton }
-ArgTypes          ::=  Types
 FunArgType        ::=  Type
                     |  ‘=&gt;’ Type                                                PrefixOp(=&gt;, t)
 ParamType         ::=  [‘=&gt;’] ParamValueType
 ParamValueType    ::=  Type [‘*’]                                               PostfixOp(t, &quot;*&quot;)
-TypeArgs          ::=  ‘[’ ArgTypes ‘]’                                         ts
-NamedTypeArg      ::=  id ‘=’ Type                                              NamedArg(id, t)
-NamedTypeArgs     ::=  ‘[’ NamedTypeArg {‘,’ NamedTypeArg} ‘]’                  nts
+TypeArgs          ::=  ‘[’ Types ‘]’                                         ts
 Refinement        ::=  ‘{’ [RefineDcl] {semi [RefineDcl]} ‘}’                   ds
 TypeBounds        ::=  [‘&gt;:’ Type] [‘&lt;:’ Type]                                  TypeBoundsTree(lo, hi)
 TypeParamBounds   ::=  TypeBounds {‘:’ Type}                                    ContextBounds(typeBounds, tps)
 Types             ::=  Type {‘,’ Type}
 </code></pre>
 <h3><a href="#expressions" id="expressions" class="anchor"></a>Expressions</h3>
-<pre><code class="ebnf">Expr              ::=  FunParams (‘=&gt;’ | ‘?=&gt;’) Expr                            Function(args, expr), Function(ValDef([implicit], id, TypeTree(), EmptyTree), expr)
+<pre><code class="ebnf">Expr              ::=  FunParams ‘=&gt;’ Expr                                      Function(args, expr), Function(ValDef([implicit], id, TypeTree(), EmptyTree), expr)
                     |  Expr1
-BlockResult       ::=  FunParams (‘=&gt;’ | ‘?=&gt;’) Block
+BlockResult       ::=  FunParams ‘=&gt;’ Block
                     |  Expr1
 FunParams         ::=  Bindings
                     |  id
@@ -2138,7 +2135,7 @@ ObjectDef         ::=  id [Template]                                            
 EnumDef           ::=  id ClassConstr InheritClauses EnumBody                   EnumDef(mods, name, tparams, template)
 GivenDef          ::=  [GivenSig] Type ‘=’ Expr
                     |  [GivenSig] ConstrApps [TemplateBody]
-GivenSig          ::=  [id] [DefTypeParamClause] {UsingParamClause} ‘as’
+GivenSig          ::=  [id] [DefTypeParamClause] {UsingParamClause} ‘as’       -- one of `id`, `DefParamClause`, `UsingParamClause` must appear
 Extension         ::=  ‘extension’ [DefTypeParamClause] ‘(’ DefParam ‘)’
                        {UsingParamClause}] ExtMethods
 ExtMethods        ::=  ExtMethod | [nl] ‘{’ ExtMethod {semi ExtMethod ‘}’
