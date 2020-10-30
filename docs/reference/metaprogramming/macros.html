@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-28 -->
+<!-- This page was last generated on 2020-10-30 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M1-bin-20201027-b5a1715-NIGHTLY</h2>
+                    <h2>3.0.0-M1-bin-20201029-1f433d5-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1652,24 +1652,6 @@
                             
 
                         
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/util/FromString$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/util/FromString.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/util/FromString.html">FromString</a>
-                            </li>
-                            
-
-                        
                             
 
                             <li class="">
@@ -1918,21 +1900,21 @@ The resulting value of <code>Type</code> will be subject to PCP.
 Indeed, the definition of <code>to</code> above uses <code>T</code> in the next stage, there is a
 quote but no splice between the parameter binding of <code>T</code> and its
 usage. But the code can be rewritten by adding a binding of a <code>Type[T]</code> tag:</p>
-<pre><code class="scala">def to[T, R: Type](f: Expr[T] =&gt; Expr[R])(using t: Type[T])(using QuoteContext): Expr[T =&gt; R] =
-  '{ (x: $t) =&gt; ${ f('x) } }
+<pre><code class="scala">def to[T, R](f: Expr[T] =&gt; Expr[R])(using Type[T], Type[R], QuoteContext): Expr[T =&gt; R] =
+  '{ (x: T) =&gt; ${ f('x) } }
 </code></pre>
 <p>In this version of <code>to</code>, the type of <code>x</code> is now the result of
 splicing the <code>Type</code> value <code>t</code>. This operation <em>is</em> splice correct -- there
 is one quote and one splice between the use of <code>t</code> and its definition.</p>
 <p>To avoid clutter, the Scala implementation tries to convert any type
-reference to a type <code>T</code> in subsequent phases to a type-splice, by rewriting <code>T</code> to <code>${ summon[Type[T]] }</code>.
+reference to a type <code>T</code> in subsequent phases to a type-splice, by rewriting <code>T</code> to <code>summon[Type[T]].Underlying</code>.
 For instance, the user-level definition of <code>to</code>:</p>
-<pre><code class="scala">def to[T: Type, R: Type](f: Expr[T] =&gt; Expr[R])(using QuoteContext): Expr[T =&gt; R] =
+<pre><code class="scala">def to[T, R](f: Expr[T] =&gt; Expr[R])(using t: Type[T], r: Type[R], QuoteContext): Expr[T =&gt; R] =
   '{ (x: T) =&gt; ${ f('x) } }
 </code></pre>
 <p>would be rewritten to</p>
-<pre><code class="scala">def to[T: Type, R: Type](f: Expr[T] =&gt; Expr[R])(using QuoteContext): Expr[T =&gt; R] =
-  '{ (x: ${ summon[Type[T]] }) =&gt; ${ f('x) } }
+<pre><code class="scala">def to[T, R](f: Expr[T] =&gt; Expr[R])(using t: Type[T], r: Type[R], QuoteContext): Expr[T =&gt; R] =
+  '{ (x: t.Underlying }) =&gt; ${ f('x) } }
 </code></pre>
 <p>The <code>summon</code> query succeeds because there is a given instance of
 type <code>Type[T]</code> available (namely the given parameter corresponding
@@ -2180,10 +2162,10 @@ the code it runs produces one.</p>
 <p>Assume we have two methods, one <code>map</code> that takes an <code>Expr[Array[T]]</code> and a
 function <code>f</code> and one <code>sum</code> that performs a sum by delegating to <code>map</code>.</p>
 <pre><code class="scala">object Macros {
-  def map[T](arr: Expr[Array[T]], f: Expr[T] =&gt; Expr[Unit])(using t: Type[T], qctx: QuoteContext): Expr[Unit] = '{
+  def map[T](arr: Expr[Array[T]], f: Expr[T] =&gt; Expr[Unit])(using Type[T], QuoteContext): Expr[Unit] = '{
     var i: Int = 0
     while (i &lt; ($arr).length) {
-      val element: $t = ($arr)(i)
+      val element: T = ($arr)(i)
       ${f('element)}
       i += 1
     }
@@ -2345,11 +2327,11 @@ private def sumExpr(args1: Seq[Expr[Int]])(using QuoteContext): Expr[Int] = {
 <p>Sometimes it is necessary to get a more precise type for an expression. This can be achived using the following pattern match.</p>
 <pre><code class="scala">def f(exp: Expr[Any])(using QuoteContext) =
   expr match
-    case '{ $x: $t } =&gt;
+    case '{ $x: $T } =&gt;
       // If the pattern match succeeds, then there is some type `T` such that
       // - `x` is bound to a variable of type `Expr[T]`
-      // - `t` is bound to a given instance of type `Type[T]`
-      // That is, we have `x: Expr[T]` and `given t: Type[T]`, for some (unknown) type `T`.
+      // - `T` is bound to a new type T and a given instance `Type[T]` is provided for it
+      // That is, we have `x: Expr[T]` and `given Type[T]`, for some (unknown) type `T`.
 </code></pre>
 <p>This might be used to then perform an implicit search as in:</p>
 <pre><code class="scala">extension (inline sc: StringContext) inline def showMe(inline args: Any*): String = ${ showMeExpr('sc, 'args) }
@@ -2358,9 +2340,8 @@ private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using 
   argsExpr match {
     case Varargs(argExprs) =&gt;
       val argShowedExprs = argExprs.map {
-        case '{ $arg: $tp } =&gt;
-          val showTp = '[Show[$tp]]
-          Expr.summon(using showTp) match {
+        case '{ $arg: $T } =&gt;
+          Expr.summon[Show[T]] match {
             case Some(showExpr) =&gt; '{ $showExpr.show($arg) }
             case None =&gt; Reporting.error(s&quot;could not find implicit for ${showTp.show}&quot;, arg); '{???}
           }
