@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-30 -->
+<!-- This page was last generated on 2020-10-31 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M1-bin-20201029-1f433d5-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201030-300e9a2-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -2209,15 +2209,21 @@ would use it as follows:</p>
 <pre><code class="scala">import scala.compiletime.summonFrom
 
 inline def setFor[T]: Set[T] = summonFrom {
-  case given ord: Ordering[T] =&gt; new TreeSet[T]
-  case _                      =&gt; new HashSet[T]
+  case ord: Ordering[T] =&gt; new TreeSet[T](using ord)
+  case _                =&gt; new HashSet[T]
 }
 </code></pre>
 <p>A <code>summonFrom</code> call takes a pattern matching closure as argument. All patterns
 in the closure are type ascriptions of the form <code>identifier : Type</code>.</p>
-<p>Patterns are tried in sequence. The first case with a pattern <code>x: T</code> such that
-an implicit value of type <code>T</code> can be summoned is chosen. If the pattern is prefixed
-with <code>given</code>, the variable <code>x</code> is bound to the implicit value for the remainder of the case. It can in turn be used as an implicit in the right hand side of the case. It is an error if one of the tested patterns gives rise to an ambiguous implicit search.</p>
+<p>Patterns are tried in sequence. The first case with a pattern <code>x: T</code> such that an implicit value of type <code>T</code> can be summoned is chosen.</p>
+<p>Alternatively, one can also use a pattern-bound given instance, which avoids the explicit using clause. For instance, <code>setFor</code> could also be formulated as follows:</p>
+<pre><code class="scala">import scala.compiletime.summonFrom
+
+inline def setFor[T]: Set[T] = summonFrom {
+  case given Ordering[T] =&gt; new TreeSet[T]
+  case _                 =&gt; new HashSet[T]
+}
+</code></pre>
 <p><code>summonFrom</code> applications must be reduced at compile time.</p>
 <p>Consequently, if we summon an <code>Ordering[String]</code> the code above will return a
 new instance of <code>TreeSet[String]</code>.</p>

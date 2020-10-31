@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-10-30 -->
+<!-- This page was last generated on 2020-10-31 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M1-bin-20201029-1f433d5-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201030-300e9a2-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1819,6 +1819,16 @@ Example:</p>
 }
 </code></pre>
 <p>Since <code>mkAnnotations</code> is <code>transparent</code>, the type of an application is the type of its right hand side, which can be a proper subtype of the declared result type <code>Annotations[A, T]</code>.</p>
+<h2><a href="#pattern-bound-given-instances" id="pattern-bound-given-instances" class="anchor"></a>Pattern-Bound Given Instances</h2>
+<p>Given instances can also appear as pattern bound-variables. Example:</p>
+<pre><code class="scala">for given Context &lt;- applicationContexts do
+
+pair match
+  case (ctx as given Context, y) =&gt; ...
+</code></pre>
+<p>In the first fragment above, anonymous given instances for class <code>Context</code> are established by enumerating over <code>applicationContexts</code>. In the second fragment, a given <code>Context</code>
+instance named <code>ctx</code> is established by matching against the first half of the <code>pair</code> selector.</p>
+<p>In each case, a pattern-bound given instance consists of <code>given</code> and a type <code>T</code>. The pattern matches exactly the same selectors as the type ascription pattern <code>_: T</code>.</p>
 <h2><a href="#given-instance-initialization" id="given-instance-initialization" class="anchor"></a>Given Instance Initialization</h2>
 <p>A given instance without type or context parameters is initialized on-demand, the first
 time it is accessed. If a given has type or context parameters, a fresh instance
