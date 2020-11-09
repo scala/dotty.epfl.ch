@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-08 -->
+<!-- This page was last generated on 2020-11-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201107-5c84e42-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201108-3938388-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -913,18 +913,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/Chars$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/Chars$.html">Chars</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor class" href="/nightly/api/scala/internal/MatchCase.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/MatchCase.html">MatchCase</a>
@@ -964,24 +952,6 @@
                                     <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/CompileTime$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/CompileTime$.html">CompileTime</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/CompilerInterface$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/CompilerInterface.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/CompilerInterface.html">CompilerInterface</a>
                             </li>
                             
 
@@ -1042,6 +1012,18 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/PickledQuote.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/QuoteContextInternal.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/QuoteContextInternal.html">QuoteContextInternal</a>
                             </li>
                             
 
@@ -1561,19 +1543,19 @@
 
 <div id="content-wrapper">
     <script>
-    document.title = "Dotty Docs - CompilerInterface";
+    document.title = "Dotty Docs - QuoteContextInternal";
 </script>
 <main class="container api">
     <header>
-        <span class="letter-anchor object">O</span>
+        <span class="letter-anchor trait">T</span>
         <span class="name-prefix">
             <span class="modifiers">
                 
             </span>
-            object
+            trait
         </span>
         <h1>
-            CompilerInterface
+            QuoteContextInternal
             
         </h1>
         <span class="name-suffix">
@@ -1586,6 +1568,11 @@
         </span>
     </header>
     <!-- Description -->
+    
+        <div id="description">
+            <p>Part of the QuoteContext interface that needs to be implemented by the compiler but is not visible to users</p>
+
+        </div>
     
     <!-- Supertypes -->
     
@@ -1617,11 +1604,11 @@
 
                 
                 
-                <div id="quoteContextWithCompilerInterface(qctx)" class="member def public " data-toggle="collapse" data-target=".collapse-quoteContextWithCompilerInterface-qctx-">
+                <div id="exprMatch(scrutinee,pattern)" class="member def public " data-toggle="collapse" data-target=".collapse-exprMatch-scrutinee_pattern-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
-                            private[scala]
+                            
                         </span>
                         <span class="member-kind">def&nbsp;</span>
                     </span>
@@ -1630,7 +1617,7 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                quoteContextWithCompilerInterface
+                                exprMatch
                             
                         </h3>
                         <!-- Type parameters -->
@@ -1642,9 +1629,16 @@
                                     (
                                                                     
                                         <span class="param">
-                                            qctx:
+                                            scrutinee:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext.html">QuoteContext</a>
+                                            <a href="/nightly/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Any]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            pattern:
+                                            
+                                            <a href="/nightly/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Any]</span>
                                         </span>
                                         
                                     
@@ -1654,23 +1648,352 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: qctx.type<span class="and-or-separator"> &amp; </span><a href="/nightly/api/scala/internal/quoted/CompilerInterface.html">CompilerInterface</a></span>
+                            <span class="return-type">: Option<span class="type-params">[<a href="/nightly/api/scala/Tuple.html">Tuple</a>]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-quoteContextWithCompilerInterface-qctx-">
+                    <div class="short collapse show collapse-exprMatch-scrutinee_pattern-">
                         
-                            <p></p>
+                            <p>Pattern matches the scrutinee against the pattern and returns a tuple
+with the matched holes if successful.</p>
+<p>Examples:
+- <code>termMatch(&lt; f(0, myInt) &gt;, &lt; f(0,...</code>
+</p>
+<p>
+[T]
+</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-quoteContextWithCompilerInterface-qctx-">
+                    <div class="details collapse collapse-exprMatch-scrutinee_pattern-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
+                            <p>Pattern matches the scrutinee against the pattern and returns a tuple
+with the matched holes if successful.</p>
+<p>Examples:
+- <code>termMatch(&lt; f(0, myInt) &gt;, &lt; f(0, myInt) &gt;)</code>
+will return <code>Some(())</code> (where <code>()</code> is a tuple of arity 0)
+- <code>termMatch(&lt; f(0, myInt) &gt;, &lt; f(patternHole[Int], patternHole[Int]) &gt;)</code>
+will return <code>Some(Tuple2('{0}, '{ myInt }))</code>
+- <code>termMatch(&lt; f(0, &quot;abc&quot;) &gt;, &lt; f(0, patternHole[Int]) &gt;)</code>
+will return <code>None</code> due to the missmatch of types in the hole</p>
+<p>Holes:
+- scala.internal.Quoted.patternHole[T]: hole that matches an expression <code>x</code> of type <code>Expr[U]</code>
+if <code>U &lt;:&lt; T</code> and returns <code>x</code> as part of the match.</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"><p>None if it did not match, <code>Some(tup)</code> if it matched where <code>tup</code> contains `Term``</p>
+</span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="typeMatch(scrutinee,pattern)" class="member def public " data-toggle="collapse" data-target=".collapse-typeMatch-scrutinee_pattern-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
                             
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                typeMatch
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            scrutinee:
+                                            
+                                            <a href="/nightly/api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            pattern:
+                                            
+                                            <a href="/nightly/api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: Option<span class="type-params">[<a href="/nightly/api/scala/Tuple.html">Tuple</a>]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-typeMatch-scrutinee_pattern-">
+                        
+                            <p>Pattern matches the scrutineeType against the patternType and returns a tuple
+with the matched holes if successful.</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-typeMatch-scrutinee_pattern-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Pattern matches the scrutineeType against the patternType and returns a tuple
+with the matched holes if successful.</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"><p>None if it did not match, <code>Some(tup)</code> if it matched where <code>tup</code> contains `scala.quoted.Type[Ti]``</p>
+</span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="unpickleExpr(pickledQuote)" class="member def public " data-toggle="collapse" data-target=".collapse-unpickleExpr-pickledQuote-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                unpickleExpr
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            pickledQuote:
+                                            
+                                            <a href="/nightly/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="/nightly/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Any]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-unpickleExpr-pickledQuote-">
+                        
+                            <p>Unpickle <code>repr</code> which represents a pickled <code>Expr</code> tree,
+replacing splice nodes with <code>holes</code></p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-unpickleExpr-pickledQuote-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Unpickle <code>repr</code> which represents a pickled <code>Expr</code> tree,
+replacing splice nodes with <code>holes</code></p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="unpickleType(pickledQuote)" class="member def public " data-toggle="collapse" data-target=".collapse-unpickleType-pickledQuote-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                unpickleType
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            pickledQuote:
+                                            
+                                            <a href="/nightly/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: <a href="/nightly/api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span></span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-unpickleType-pickledQuote-">
+                        
+                            <p>Unpickle <code>repr</code> which represents a pickled <code>Type</code> tree,
+replacing splice nodes with <code>holes</code></p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-unpickleType-pickledQuote-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Unpickle <code>repr</code> which represents a pickled <code>Type</code> tree,
+replacing splice nodes with <code>holes</code></p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}

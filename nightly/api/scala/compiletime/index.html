@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-08 -->
+<!-- This page was last generated on 2020-11-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201107-5c84e42-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201108-3938388-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -913,18 +913,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/Chars$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/Chars$.html">Chars</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor class" href="/nightly/api/scala/internal/MatchCase.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/MatchCase.html">MatchCase</a>
@@ -964,24 +952,6 @@
                                     <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/CompileTime$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/CompileTime$.html">CompileTime</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/CompilerInterface$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/CompilerInterface.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/CompilerInterface.html">CompilerInterface</a>
                             </li>
                             
 
@@ -1042,6 +1012,18 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/PickledQuote.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/QuoteContextInternal.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/QuoteContextInternal.html">QuoteContextInternal</a>
                             </li>
                             
 
@@ -1971,6 +1953,126 @@ case 2147483646 =&gt; 2147483647
 
                 
                 
+                <div id="code(self)(args)" class="member def public " data-toggle="collapse" data-target=".collapse-code-self--args-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            inline
+                        </span>
+                        <span class="member-kind">def&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                code
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            self:
+                                            
+                                            StringContext
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params ">
+                                    (
+                                                                    
+                                        <span class="param">
+                                            args:
+                                            
+                                            <repeated><span class="type-params">[Any]</span>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                        
+                        <!-- Return type -->
+                        
+                            <span class="return-type">: String</span>
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-code-self--args-">
+                        
+                            <p>Returns the string representation of interpolated elaborated code:</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-code-self--args-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Returns the string representation of interpolated elaborated code:</p>
+<pre><code class="scala">inline def logged(p1: =&gt; Any) = {
+  val c = code&quot;code: $p1&quot;
+  val res = p1
+  (c, p1)
+}
+logged(identity(&quot;foo&quot;))
+// above is equivalent to:
+// (&quot;code: scala.Predef.identity(&quot;foo&quot;)&quot;, identity(&quot;foo&quot;))
+</code></pre>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
                 <div id="constValue" class="member def public " data-toggle="collapse" data-target=".collapse-constValue">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -2401,126 +2503,6 @@ If an inline expansion results in a call error(msgStr) the compiler produces an 
 </code></pre>
 <p>or</p>
 <pre><code class="scala">error(code&quot;My error of this code: ${println(&quot;foo&quot;)}&quot;)
-</code></pre>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="extension_code(self)(args)" class="member def public " data-toggle="collapse" data-target=".collapse-extension_code-self--args-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            inline
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                extension_code
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            self:
-                                            
-                                            StringContext
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            args:
-                                            
-                                            <repeated><span class="type-params">[Any]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: String</span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-extension_code-self--args-">
-                        
-                            <p>Returns the string representation of interpolated elaborated code:</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-extension_code-self--args-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Returns the string representation of interpolated elaborated code:</p>
-<pre><code class="scala">inline def logged(p1: =&gt; Any) = {
-  val c = code&quot;code: $p1&quot;
-  val res = p1
-  (c, p1)
-}
-logged(identity(&quot;foo&quot;))
-// above is equivalent to:
-// (&quot;code: scala.Predef.identity(&quot;foo&quot;)&quot;, identity(&quot;foo&quot;))
 </code></pre>
 
                         

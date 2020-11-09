@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-08 -->
+<!-- This page was last generated on 2020-11-09 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201107-5c84e42-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201108-3938388-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -913,18 +913,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/Chars$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/Chars$.html">Chars</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor class" href="/nightly/api/scala/internal/MatchCase.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/MatchCase.html">MatchCase</a>
@@ -964,24 +952,6 @@
                                     <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/CompileTime$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/CompileTime$.html">CompileTime</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/CompilerInterface$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/CompilerInterface.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/CompilerInterface.html">CompilerInterface</a>
                             </li>
                             
 
@@ -1042,6 +1012,18 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/PickledQuote.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/QuoteContextInternal.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/QuoteContextInternal.html">QuoteContextInternal</a>
                             </li>
                             
 
@@ -1581,12 +1563,11 @@ extension (c: Circle)
 circle.circumference
 </code></pre>
 <h3><a href="#translation-of-extension-methods" id="translation-of-extension-methods" class="anchor"></a>Translation of Extension Methods</h3>
-<p>Extension methods are methods that have a parameter clause in front of the defined identifier.
-An extension method named <code>f</code> translates to the method named <code>extension_f</code> that takes the leading parameter section as its first argument list.
-So, the definition of <code>circumference</code> above translates to the following method, and can also be invoked as such:</p>
-<pre><code class="scala">def extension_circumference(c: Circle): Double = c.radius * math.Pi * 2
+<p>An extension method translates to a specially labelled method that takes the leading parameter section as its first argument list. The label, expressed
+as <code>&lt;extension&gt;</code> here, is compiler-internal. So, the definition of <code>circumference</code> above translates to the following method, and can also be invoked as such:</p>
+<pre><code class="scala">&lt;extension&gt; def circumference(c: Circle): Double = c.radius * math.Pi * 2
 
-assert(circle.circumference == extension_circumference(circle))
+assert(circle.circumference == circumference(circle))
 </code></pre>
 <h3><a href="#operators" id="operators" class="anchor"></a>Operators</h3>
 <p>The extension method syntax can also be used to define operators. Examples:</p>
@@ -1602,9 +1583,9 @@ extension (x: Number)
 x min 3
 </code></pre>
 <p>The three definitions above translate to</p>
-<pre><code class="scala">def extension_&lt; (x: String)(y: String): Boolean = ...
-def extension_+: (xs: Seq[Elem])(x: Elem): Seq[Elem] = ...
-@infix def extension_min(x: Number)(y: Number): Number = ...
+<pre><code class="scala">&lt;extension&gt; def &lt; (x: String)(y: String): Boolean = ...
+&lt;extension&gt; def +: (xs: Seq[Elem])(x: Elem): Seq[Elem] = ...
+@infix &lt;extension&gt; def min(x: Number)(y: Number): Number = ...
 </code></pre>
 <p>Note the swap of the two parameters <code>x</code> and <code>xs</code> when translating
 the right-associative operator <code>+:</code> to an extension method. This is analogous
@@ -1637,7 +1618,7 @@ By contrast, using clauses can be defined for the <code>extension</code> as well
 <p>Sometimes, one wants to define several extension methods that share the same
 left-hand parameter type. In this case one can &quot;pull out&quot; the common parameters into
 a single extension and enclose all methods in braces or an indented region following a '<code>:</code>'.
-Following an example using an indented region:</p>
+Example:</p>
 <pre><code class="scala">extension (ss: Seq[String]):
 
   def longestStrings: Seq[String] =
@@ -1667,6 +1648,13 @@ where each method is defined separately. For instance, the first extension above
 
 extension (ss: Seq[String])
   def longestString: String = ss.longestStrings.head
+</code></pre>
+<p>Collective extensions also can take type parameters and have using clauses. Example:</p>
+<pre><code class="scala">extension [T](xs: List[T])(using Ordering[T]):
+  def smallest(n: Int): List[T] = xs.sorted.take(n)
+  def smallestIndices(n: Int): List[Int] =
+    val limit = smallest(n).max
+    xs.zipWithIndex.collect { case (x, i) if x &lt;= limit =&gt; i }
 </code></pre>
 <h3><a href="#translation-of-calls-to-extension-methods" id="translation-of-calls-to-extension-methods" class="anchor"></a>Translation of Calls to Extension Methods</h3>
 <p>To convert a reference to an extension method, the compiler has to know about the extension
@@ -1734,10 +1722,10 @@ List(1, 2) &lt; List(3)
 <p>Assume a selection <code>e.m[Ts]</code> where <code>m</code> is not a member of <code>e</code>, where the type arguments <code>[Ts]</code> are optional, and where <code>T</code> is the expected type.
 The following two rewritings are tried in order:</p>
 <ol>
-<li>The selection is rewritten to <code>extension_m[Ts](e)</code>.</li>
+<li>The selection is rewritten to <code>m[Ts](e)</code>.</li>
 <li>
 <p>If the first rewriting does not typecheck with expected type <code>T</code>,
-and there is an extension method <code>m</code> in some eligible object <code>o</code>, the selection is rewritten to <code>o.extension_m[Ts](e)</code>. An object <code>o</code> is <em>eligible</em> if</p>
+and there is an extension method <code>m</code> in some eligible object <code>o</code>, the selection is rewritten to <code>o.m[Ts](e)</code>. An object <code>o</code> is <em>eligible</em> if</p>
 <ul>
 <li><code>o</code> forms part of the implicit scope of <code>T</code>, or</li>
 <li><code>o</code> is a given instance that is visible at the point of the application, or</li>
@@ -1747,43 +1735,22 @@ and there is an extension method <code>m</code> in some eligible object <code>o<
 from <code>T</code> to a type containing <code>m</code>. If there is more than one way of rewriting, an ambiguity error results.</p>
 </li>
 </ol>
-<p>An extension method can also be used as an identifier by itself. If an identifier <code>m</code> does not
-resolve, the identifier is rewritten to:</p>
-<ul>
-<li><code>x.m</code>    if the identifier appears in an extension with parameter <code>x</code>
-and the method <code>m</code> resolves to an extension method in
-a (possibly collective) extension that also contains the call,</li>
-<li><code>this.m</code> otherwise</li>
-</ul>
-<p>and the rewritten term is again tried as an application of an extension method. In</p>
+<p>An extension method can also be referenced using a simple identifier without a preceding expression. If an identifier <code>g</code> appears in the body of an extension method <code>f</code> and refers to an extension method <code>g</code> that is defined in the same collective extension</p>
+<pre><code class="scala">extension (x: T)
+  def f ... = ... g ...
+  def g ...
+</code></pre>
+<p>the identifier is rewritten to <code>x.g</code>. This is also the case if <code>f</code> and <code>g</code> are the same method. Example:</p>
 <pre><code class="scala">extension (s: String)
   def position(ch: Char, n: Int): Int =
     if n &lt; s.length &amp;&amp; s(n) != ch then position(ch, n + 1)
     else n
 </code></pre>
 <p>The recursive call <code>position(ch, n + 1)</code> expands to <code>s.position(ch, n + 1)</code> in this case. The whole extension method rewrites to</p>
-<pre><code class="scala">def extension_position(s: String)(ch: Char, n: Int): Int =
-  if n &lt; s.length &amp;&amp; s(n) != ch then extension_position(s)(ch, n + 1)
+<pre><code class="scala">def position(s: String)(ch: Char, n: Int): Int =
+  if n &lt; s.length &amp;&amp; s(n) != ch then position(s)(ch, n + 1)
   else n
 </code></pre>
-<h3><a href="#more-details" id="more-details" class="anchor"></a>More Details</h3>
-<ol>
-<li>
-<p>To avoid confusion, names of normal methods are not allowed to start with <code>extension_</code>.</p>
-</li>
-<li>
-<p>A named import such as <code>import a.m</code> of an extension method in <code>a</code> will make <code>m</code> only available as an extension method.
-To access it under <code>extension_m</code> that name has to be imported separately. Example:</p>
-<pre><code class="scala">object DoubleOps:
-  extension (x: Double) def ** (exponent: Int): Double =
-    require(exponent &gt;= 0)
-    if exponent == 0 then 1 else x * (x ** (exponent - 1))
-
-import DoubleOps.{**, extension_**}
-assert(2.0 ** 3 == extension_**(2.0)(3))
-</code></pre>
-</li>
-</ol>
 <h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
 <p>Here are the syntax changes for extension methods and collective extensions relative
 to the <a href="../../internals/syntax.html">current syntax</a>.</p>
