@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-09 -->
+<!-- This page was last generated on 2020-11-10 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201108-3938388-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201109-ca216a8-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -143,7 +143,7 @@
   <a onclick='toggleSection(this);'>Other New Features</a>
   <ul >
     <li class="leaf"><a href="/nightly/docs/reference/other-new-features/trait-parameters.html" >Trait Parameters</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/other-new-features/super-traits.html" >Super Traits</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/mixin-traits.html" >Mixin Traits</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/creator-applications.html" >Creator Applications</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/export.html" >Export Clauses</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/opaques.html" >Opaque Type Aliases</a></li>
@@ -601,9 +601,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/static.html">C</a>
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/mixin.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/annotation/static.html">static</a>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/mixin.html">mixin</a>
                             </li>
                             
 
@@ -613,9 +613,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/superTrait.html">C</a>
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/static.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/annotation/superTrait.html">superTrait</a>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/static.html">static</a>
                             </li>
                             
 
@@ -958,30 +958,12 @@
                         
                             
 
-                            <li class=" with-companion ">
+                            <li class="">
                                 <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/Expr$.html">O</a>
                                     
                                     <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/Expr.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/Expr.html">Expr</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/ExprCastError.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/ExprCastError.html">ExprCastError</a>
                             </li>
                             
 
@@ -1033,18 +1015,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/ScopeException.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/ScopeException.html">ScopeException</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/TastyString$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/TastyString$.html">TastyString</a>
@@ -1054,19 +1024,13 @@
                         
                             
 
-                            <li class=" with-companion ">
+                            <li class="">
                                 <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/Type$.html">O</a>
                                     
                                     <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/Type.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/Type.html">Type</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -2129,11 +2093,11 @@ private def sumExpr(args1: Seq[Expr[Int]])(using QuoteContext): Expr[Int] = {
 <p>Sometimes it is necessary to get a more precise type for an expression. This can be achived using the following pattern match.</p>
 <pre><code class="scala">def f(exp: Expr[Any])(using QuoteContext) =
   expr match
-    case '{ $x: $T } =&gt;
-      // If the pattern match succeeds, then there is some type `T` such that
-      // - `x` is bound to a variable of type `Expr[T]`
-      // - `T` is bound to a new type T and a given instance `Type[T]` is provided for it
-      // That is, we have `x: Expr[T]` and `given Type[T]`, for some (unknown) type `T`.
+    case '{ $x: t } =&gt;
+      // If the pattern match succeeds, then there is some type `t` such that
+      // - `x` is bound to a variable of type `Expr[t]`
+      // - `t` is bound to a new type `t` and a given instance `Type[t]` is provided for it
+      // That is, we have `x: Expr[t]` and `given Type[t]`, for some (unknown) type `t`.
 </code></pre>
 <p>This might be used to then perform an implicit search as in:</p>
 <pre><code class="scala">extension (inline sc: StringContext) inline def showMe(inline args: Any*): String = ${ showMeExpr('sc, 'args) }
@@ -2142,8 +2106,8 @@ private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using 
   argsExpr match {
     case Varargs(argExprs) =&gt;
       val argShowedExprs = argExprs.map {
-        case '{ $arg: $T } =&gt;
-          Expr.summon[Show[T]] match {
+        case '{ $arg: t } =&gt;
+          Expr.summon[Show[t]] match {
             case Some(showExpr) =&gt; '{ $showExpr.show($arg) }
             case None =&gt; Reporting.error(s&quot;could not find implicit for ${showTp.show}&quot;, arg); '{???}
           }

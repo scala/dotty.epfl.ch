@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-09 -->
+<!-- This page was last generated on 2020-11-10 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201108-3938388-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201109-ca216a8-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -143,7 +143,7 @@
   <a onclick='toggleSection(this);'>Other New Features</a>
   <ul >
     <li class="leaf"><a href="/docs/reference/other-new-features/trait-parameters.html" >Trait Parameters</a></li>
-<li class="leaf"><a href="/docs/reference/other-new-features/super-traits.html" >Super Traits</a></li>
+<li class="leaf"><a href="/docs/reference/other-new-features/mixin-traits.html" >Mixin Traits</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/creator-applications.html" >Creator Applications</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/export.html" >Export Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/opaques.html" >Opaque Type Aliases</a></li>
@@ -601,9 +601,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/static.html">C</a>
+                                    <a class="letter-anchor class" href="/api/scala/annotation/mixin.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/annotation/static.html">static</a>
+                                <a class="entity-name" href="/api/scala/annotation/mixin.html">mixin</a>
                             </li>
                             
 
@@ -613,9 +613,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/superTrait.html">C</a>
+                                    <a class="letter-anchor class" href="/api/scala/annotation/static.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/annotation/superTrait.html">superTrait</a>
+                                <a class="entity-name" href="/api/scala/annotation/static.html">static</a>
                             </li>
                             
 
@@ -958,30 +958,12 @@
                         
                             
 
-                            <li class=" with-companion ">
+                            <li class="">
                                 <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/internal/quoted/Expr$.html">O</a>
                                     
                                     <a class="letter-anchor class" href="/api/scala/internal/quoted/Expr.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/Expr.html">Expr</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/internal/quoted/ExprCastError.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/ExprCastError.html">ExprCastError</a>
                             </li>
                             
 
@@ -1033,18 +1015,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/internal/quoted/ScopeException.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/ScopeException.html">ScopeException</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor object" href="/api/scala/internal/quoted/TastyString$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/TastyString$.html">TastyString</a>
@@ -1054,19 +1024,13 @@
                         
                             
 
-                            <li class=" with-companion ">
+                            <li class="">
                                 <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/internal/quoted/Type$.html">O</a>
                                     
                                     <a class="letter-anchor class" href="/api/scala/internal/quoted/Type.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/Type.html">Type</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1543,7 +1507,7 @@
 
 <div id="content-wrapper">
     <script>
-    document.title = "Dotty Docs - TypeModule";
+    document.title = "Dotty Docs - TypeMatchModule";
 </script>
 <main class="container api">
     <header>
@@ -1555,7 +1519,7 @@
             trait
         </span>
         <h1>
-            TypeModule
+            TypeMatchModule
             
         </h1>
         <span class="name-suffix">
@@ -1599,7 +1563,7 @@
 
                 
                 
-                <div id="of(qtype)" class="member def public " data-toggle="collapse" data-target=".collapse-of-qtype-">
+                <div id="unapply(scrutinee)(pattern)" class="member def public " data-toggle="collapse" data-target=".collapse-unapply-scrutinee--pattern-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1612,114 +1576,14 @@
                         <!-- Name -->
                         <h3 class="name">
                             
-                                of
+                                unapply
                             
                         </h3>
                         <!-- Type parameters -->
                         
                             <span class="type-params">
-                                [T]
+                                [TypeBindings, Tup]
                             </span>
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params implicit">
-                                    (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
-                                                                    
-                                        <span class="param">
-                                            qtype:
-                                            
-                                            <a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[T]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/tasty/Reflection.html#TypeRepr">TypeRepr</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-of-qtype-">
-                        
-                            <p>Returns the type or kind (TypeRepr) of T</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-of-qtype-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Returns the type or kind (TypeRepr) of T</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-                
-                    
-                
-
-                
-                    
-                
-
-                
-                
-                <div id="typeConstructorOf(clazz)" class="member def public " data-toggle="collapse" data-target=".collapse-typeConstructorOf-clazz-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                typeConstructorOf
-                            
-                        </h3>
-                        <!-- Type parameters -->
                         
                         <!-- Method parameters -->
                         
@@ -1728,9 +1592,24 @@
                                     (
                                                                     
                                         <span class="param">
-                                            clazz:
+                                            scrutinee:
                                             
-                                            Class<span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
+                                            <a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>
+                                        </span>
+                                        
+                                    
+                                    )
+                                </span>
+                            
+                                <span class="params implicit">
+                                    (
+                                    
+                                        <span class="keyword">implicit&nbsp;</span>
+                                                                    
+                                        <span class="param">
+                                            pattern:
+                                            
+                                            <a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>
                                         </span>
                                         
                                     
@@ -1740,24 +1619,26 @@
                         
                         <!-- Return type -->
                         
-                            <span class="return-type">: <a href="/api/scala/tasty/Reflection.html#TypeRepr">TypeRepr</a></span>
+                            <span class="return-type">: Option<span class="type-params">[Tup]</span></span>
                         
                         <!-- Type alias -->
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-typeConstructorOf-clazz-">
+                    <div class="short collapse show collapse-unapply-scrutinee--pattern-">
                         
-                            <p>Returns the type constructor of the runtime (erased) class</p>
+                            <p>Pattern matches an the scrutineeType against the patternType and returns a tuple
+with the matched holes if successful.</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-typeConstructorOf-clazz-">
+                    <div class="details collapse collapse-unapply-scrutinee--pattern-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Returns the type constructor of the runtime (erased) class</p>
+                            <p>Pattern matches an the scrutineeType against the patternType and returns a tuple
+with the matched holes if successful.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -1784,7 +1665,8 @@
                         {/% endif %}
                         {/% if c.result %}
                             <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
+                            <span class="doc-value"><p>None if it did not match, <code>Some(tup)</code> if it matched where <code>tup</code> contains `Type[Ti]``</p>
+</span>
                         {/% endif %}
                         {/% endcomment %}
                         -->

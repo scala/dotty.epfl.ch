@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-09 -->
+<!-- This page was last generated on 2020-11-10 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>super traits</title>
+        <title></title>
 
         <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201108-3938388-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201109-ca216a8-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -86,7 +86,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="/docs/reference/overview.html" >Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -141,9 +141,9 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Other New Features</a>
-  <ul class="toggled">
+  <ul >
     <li class="leaf"><a href="/docs/reference/other-new-features/trait-parameters.html" >Trait Parameters</a></li>
-<li class="leaf"><a href="/docs/reference/other-new-features/super-traits.html" class="toggled">Super Traits</a></li>
+<li class="leaf"><a href="/docs/reference/other-new-features/mixin-traits.html" >Mixin Traits</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/creator-applications.html" >Creator Applications</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/export.html" >Export Clauses</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/opaques.html" >Opaque Type Aliases</a></li>
@@ -601,9 +601,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/static.html">C</a>
+                                    <a class="letter-anchor class" href="/api/scala/annotation/mixin.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/annotation/static.html">static</a>
+                                <a class="entity-name" href="/api/scala/annotation/mixin.html">mixin</a>
                             </li>
                             
 
@@ -613,9 +613,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/annotation/superTrait.html">C</a>
+                                    <a class="letter-anchor class" href="/api/scala/annotation/static.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/annotation/superTrait.html">superTrait</a>
+                                <a class="entity-name" href="/api/scala/annotation/static.html">static</a>
                             </li>
                             
 
@@ -958,30 +958,12 @@
                         
                             
 
-                            <li class=" with-companion ">
+                            <li class="">
                                 <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/internal/quoted/Expr$.html">O</a>
                                     
                                     <a class="letter-anchor class" href="/api/scala/internal/quoted/Expr.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/Expr.html">Expr</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/internal/quoted/ExprCastError.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/ExprCastError.html">ExprCastError</a>
                             </li>
                             
 
@@ -1033,18 +1015,6 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/internal/quoted/ScopeException.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/ScopeException.html">ScopeException</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor object" href="/api/scala/internal/quoted/TastyString$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/TastyString$.html">TastyString</a>
@@ -1054,19 +1024,13 @@
                         
                             
 
-                            <li class=" with-companion ">
+                            <li class="">
                                 <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/internal/quoted/Type$.html">O</a>
                                     
                                     <a class="letter-anchor class" href="/api/scala/internal/quoted/Type.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/Type.html">Type</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1542,84 +1506,90 @@
 </nav>
 
 <div id="content-wrapper">
-    <main class="container">
+    <script>
+    document.title = "Dotty Docs - mixin";
+</script>
+<main class="container api">
     <header>
-        <h1>super traits</h1>
-        <div class="byline">
-            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/other-new-features/super-traits.md">
-                <i class="far fa-edit"></i>
-                Edit this page on GitHub
-            </a>
-        </div>
+        <span class="letter-anchor class">C</span>
+        <span class="name-prefix">
+            <span class="modifiers">
+                final
+            </span>
+            class
+        </span>
+        <h1>
+            mixin
+            
+        </h1>
+        <span class="name-suffix">
+            
+                extends
+                
+                    Annotation
+                    with StaticAnnotation
+                    
+                
+            
+        </span>
     </header>
-    <p>Traits are used in two roles:</p>
-<ol>
-<li>As mixins for other classes and traits</li>
-<li>As types of vals, defs, or parameters</li>
-</ol>
-<p>Some traits are used primarily in the first role, and we usually do not want to see them in inferred types. An example is the <code>Product</code> trait that the compiler
-adds as a super trait to every case class or case object. In Scala 2, this parent trait sometimes makes inferred types more complicated than they should be. Example:</p>
-<pre><code class="scala">trait Kind
-case object Var extends Kind
-case object Val extends Kind
-val x = Set(if condition then Val else Var)
-</code></pre>
-<p>Here, the inferred type of <code>x</code> is <code>Set[Kind &amp; Product &amp; Serializable]</code> whereas one would have hoped it to be <code>Set[Kind]</code>. The reasoning for this particular type to be inferred is as follows:</p>
-<ul>
-<li>The type of the conditional above is the union type <code>Val | Var</code>.</li>
-<li>A union type is widened in type inference to the least supertype that is
-not a union type. In the example, this type is <code>Kind &amp; Product &amp; Serializable</code> since all three traits are supertraits of both <code>Val</code> and <code>Var</code>.
-So that type becomes the inferred element type of the set.</li>
-</ul>
-<p>Scala 3 allows one to mark a trait as a <code>super</code> trait, which means that it can be suppressed in type inference. Here's an example that follows the lines of the
-code above, but now with a new super trait <code>S</code> instead of <code>Product</code>:</p>
-<pre><code class="scala">super trait S
-trait Kind
-object Var extends Kind, S
-object Val extends Kind, S
-val x = Set(if condition then Val else Var)
-</code></pre>
-<p>Now <code>x</code> has inferred type <code>Set[Kind]</code>. The common super trait <code>S</code> does not
-appear in the inferred type.</p>
-<h3><a href="#super-traits" id="super-traits" class="anchor"></a>Super Traits</h3>
-<p>The traits <code>scala.Product</code>, <code>java.lang.Serializable</code> and <code>java.lang.Comparable</code>
-are treated automatically as super traits. Other traits can be turned into super traits, by adding the keyword <code>super</code> in front of <code>trait</code>, as shown above.</p>
-<p>Every trait can be declared as a super trait. Typically super traits are traits that influence the implementation of inheriting classes and traits and that are not usually used as types by themselves. Two examples from the
-standard collection library:</p>
-<ul>
-<li><code>IterableOps</code>, which provides method implementations for an <code>Iterable</code></li>
-<li><code>StrictOptimizedSeqOps</code>, which optimises some of these implementations for
-sequences with efficient indexing.</li>
-</ul>
-<p>Generally, any trait that is extended recursively is a good candidate to be
-declared a super trait.</p>
-<h3><a href="#retro-fitting-scala-2-libraries" id="retro-fitting-scala-2-libraries" class="anchor"></a>Retro-Fitting Scala 2 Libraries</h3>
-<p>To allow cross-building between Scala 2 and 3, super traits can also be
-introduced by adding the <code>@superTrait</code> annotation, which is defined in package <code>scala.annotation</code>. Example:</p>
-<pre><code class="scala">import scala.annotation.superTrait
+    <!-- Description -->
+    
+        <div id="description">
+            <p>An annotation that marks a trait as a mixin trait. Mixin traits
+are not inferred when combined with other types in an intersection.
+See reference/other-new-features/mixin-traits.html for details.</p>
 
-@superTrait trait StrictOptimizedSeqOps[+A, +CC[_], +C] ...
-</code></pre>
-<p>The <code>@superTrait</code> annotation will be deprecated and removed in some later version of Scala when cross-building with Scala 2 will no longer be a concern.</p>
-<h3><a href="#rules-for-inference" id="rules-for-inference" class="anchor"></a>Rules for Inference</h3>
-<p>Super traits can be given as explicit types as usual. But they are often elided when types are inferred. Roughly, the rules for type inference say that super traits are dropped from intersections where possible.</p>
-<p>The precise rules are as follows:</p>
-<ul>
-<li>When inferring a type of a type variable, or the type of a val, or the return type of a def,</li>
-<li>where that type is not higher-kinded,</li>
-<li>and where <code>B</code> is its known upper bound or <code>Any</code> if none exists:</li>
-<li>If the type inferred so far is of the form <code>T1 &amp; ... &amp; Tn</code> where
-<code>n &gt;= 1</code>, replace the maximal number of <code>Ti</code>s  by <code>Any</code>, while ensuring that
-the resulting type is still a subtype of the bound <code>B</code>.</li>
-<li>However, do not perform this widening if all types <code>Ti</code> can get replaced in that way.</li>
-</ul>
-<p>The last clause ensures that a single super trait instance such as <code>Product</code> is not widened to <code>Any</code>. Super trait instances are only dropped when they appear in conjunction with some other type.</p>
-<h3><a href="#syntax" id="syntax" class="anchor"></a>Syntax</h3>
-<p>Only the production <code>TmplDef</code> for class and trait definitions has to be changed.
-The new version is:</p>
-<pre><code class="nohighlight">TmplDef  ::=  ([‘case’] ‘class’ | [‘super’] ‘trait’) ClassDef
-</code></pre>
-
+        </div>
+    
+    <!-- Supertypes -->
+    
+        <div id="supertypes">
+            <h2>Supertypes</h2>
+            <span>
+                
+                    Annotation, 
+                
+                    StaticAnnotation
+                
+            </span>
+        </div>
+    
+    <!-- Annotations -->
+    
+    <!-- Constructors -->
+    
+        <div id="constructors">
+            <h2>Constructors</h2>
+            
+                <div class="wide-table">
+                    
+                        <span class="member">
+                            <span class="left-column"></span>
+                            <span class="right-column">
+                                <h3>mixin</h3>
+                                
+                                    <span class="params ">
+                                        (
+                                        
+                                        
+                                        )
+                                    </span>
+                                
+                            </span>
+                        </span>
+                    
+                </div>
+            
+        </div>
+    
+    <!-- Members -->
+    <div id="members">
+        <h2>Members</h2>
+        <div class="wide-table">
+            
+        </div>
+    </div>
 </main>
 </div>
 <script>
