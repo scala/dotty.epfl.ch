@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-10 -->
+<!-- This page was last generated on 2020-11-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201109-ca216a8-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201111-306e4fc-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -152,6 +152,7 @@
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/kind-polymorphism.html" >Kind Polymorphism</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/tupled-function.html" >Tupled Function</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/threadUnsafe-annotation.html" >threadUnsafe Annotation</a></li>
+<li class="leaf"><a href="/nightly/docs/reference/other-new-features/targetName.html" >targetName Annotation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
@@ -625,6 +626,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor class" href="/nightly/api/scala/annotation/targetName.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/annotation/targetName.html">targetName</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor class" href="/nightly/api/scala/annotation/threadUnsafe.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/annotation/threadUnsafe.html">threadUnsafe</a>
@@ -961,39 +974,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/Expr.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/Expr.html">Expr</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/Patterns$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/Patterns$.html">Patterns</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/PickledQuote$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/PickledQuote.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
                             </li>
                             
 
@@ -1006,30 +989,6 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/internal/quoted/QuoteContextInternal.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/internal/quoted/QuoteContextInternal.html">QuoteContextInternal</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/internal/quoted/TastyString$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/TastyString$.html">TastyString</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/quoted/Type.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/quoted/Type.html">Type</a>
                             </li>
                             
 
@@ -1516,58 +1475,13 @@
             </a>
         </div>
     </header>
-    <p>The rules for infix operators have changed. There are two annotations that regulate operators: <code>infix</code> and <code>alpha</code>.
-Furthermore, a syntax change allows infix operators to be written on the left in a multi-line expression.</p>
-<h2><a href="#the-alpha-annotation" id="the-alpha-annotation" class="anchor"></a>The @alpha Annotation</h2>
-<p>An <code>@alpha</code> annotation on a method definition defines an alternate name for the implementation of that method: Example:</p>
-<pre><code class="scala">import scala.annotation.alpha
-
-object VecOps {
-  @alpha(&quot;append&quot;) def (xs: Vec[T]) ++= [T] (ys: Vec[T]): Vec[T] = ...
-}
-</code></pre>
-<p>Here, the <code>++=</code> operation is implemented (in Byte code or native code) under the name <code>append</code>. The implementation name affects the code that is generated, and is the name under which code from other languages can call the method. For instance, <code>++=</code> could be invoked from Java like this:</p>
-<pre><code class="nohighlight">VecOps.append(vec1, vec2)
-</code></pre>
-<p>The <code>@alpha</code> annotation has no bearing on Scala usages. Any application of that method in Scala has to use <code>++=</code>, not <code>append</code>.</p>
-<h3><a href="#motivation" id="motivation" class="anchor"></a>Motivation</h3>
-<p>The <code>@alpha</code> annotation serves a dual purpose:</p>
-<ul>
-<li>It helps interoperability between Scala and other languages.</li>
-<li>It serves as a documentation tool by providing an alternative regular name
-as an alias of a symbolic operator.</li>
-</ul>
-<h3><a href="#details" id="details" class="anchor"></a>Details</h3>
-<ol>
-<li>
-<p><code>@alpha</code> is defined in package <code>scala.annotation</code>. It takes a single argument
-of type <code>String</code>. That string is called the <em>external name</em> of the definition
-that's annotated.</p>
-</li>
-<li>
-<p>An <code>@alpha</code> annotation can be given for all kinds of definitions.</p>
-</li>
-<li>
-<p>The name given in an <code>@alpha</code> annotation must be a legal name
-for the defined entities on the host platform.</p>
-</li>
-<li>
-<p>Definitions with symbolic names should have an <code>@alpha</code> annotation. Lack of such
-an annotation will raise a deprecation warning.</p>
-</li>
-<li>
-<p>Definitions with names in backticks that are not legal host platform names
-should have an <code>@alpha</code> annotation. Lack of such an annotation will raise a deprecation warning.</p>
-</li>
-<li>
-<p><code>@alpha</code> annotations must agree: If two definitions are members of an object or class with the same name and matching types, then either none of them has an <code>@alpha</code> annotation, or both have <code>@alpha</code> annotations with the same name.</p>
-</li>
-<li>There must be a one-to-one relationship between external and internal names:
-If two definitions are members of an object or class with matching types and both have <code>@alpha</code> annotations with the same external name, then their internal method names must also be the same.</li>
-</ol>
+    <p>The rules for infix operators have changed in some parts:</p>
+<p>First, an alphanumeric method can be used as an infix operator only if its definition carries an <code>@infix</code> annotation. Second, it is recommended (but not enforced) to
+augment definitions of symbolic operators with <code>@targetName</code> annotations. Finally,
+a syntax change allows infix operators to be written on the left in a multi-line expression.</p>
 <h2><a href="#the-infix-annotation" id="the-infix-annotation" class="anchor"></a>The @infix Annotation</h2>
 <p>An <code>@infix</code> annotation on a method definition allows using the method as an infix operation. Example:</p>
-<pre><code class="scala">import scala.annotation.alpha
+<pre><code class="scala">import scala.annotation.{infix, targetName}
 
 trait MultiSet[T] {
 
@@ -1576,7 +1490,7 @@ trait MultiSet[T] {
 
   def difference(other: MultiSet[T]): MultiSet[T]
 
-  @alpha(&quot;intersection&quot;)
+  @targetName(&quot;intersection&quot;)
   def *(other: MultiSet[T]): MultiSet[T]
 }
 
@@ -1608,9 +1522,9 @@ any unicode character <code>c</code> for which <code>java.lang.Character.isIdent
 <pre><code class="nohighlight">@infix type or[X, Y]
 val x: String or Int = ...
 </code></pre>
-<h3><a href="#motivation-1" id="motivation-1" class="anchor"></a>Motivation</h3>
+<h3><a href="#motivation" id="motivation" class="anchor"></a>Motivation</h3>
 <p>The purpose of the <code>@infix</code> annotation is to achieve consistency across a code base in how a method or type is applied. The idea is that the author of a method decides whether that method should be applied as an infix operator or in a regular application. Use sites then implement that decision consistently.</p>
-<h3><a href="#details-1" id="details-1" class="anchor"></a>Details</h3>
+<h3><a href="#details" id="details" class="anchor"></a>Details</h3>
 <ol>
 <li>
 <p><code>@infix</code> is defined in package <code>scala.annotation</code>.</p>
@@ -1637,6 +1551,18 @@ val x: String or Int = ...
 <li>To smooth migration to Scala 3.0, alphanumeric operators will only be deprecated from Scala 3.1 onwards,
 or if the <code>-source 3.1</code> option is given in Dotty/Scala 3.</li>
 </ol>
+<h2><a href="#the-targetname-annotation" id="the-targetname-annotation" class="anchor"></a>The @targetName Annotation</h2>
+<p>It is recommended that definitions of symbolic operators carry a <a href="../other-new-features/targetName.html">@targetName annotation</a> that provides an encoding of the operator with an alphanumeric name. This has several benefits:</p>
+<ul>
+<li>It helps interoperability between Scala and other languages. One can call
+a Scala-defined symbolic operator from another language using its target name,
+which avoids having to remember the low-level encoding of the symbolic name.</li>
+<li>It helps legibility of stacktraces and other runtime diagnostics, where the
+user-defined alphanumeric name will be shown instead of the low-level encoding.</li>
+<li>It serves as a documentation tool by providing an alternative regular name
+as an alias of a symbolic operator. This makes the definition also easier
+to find in a search.</li>
+</ul>
 <h2><a href="#syntax-change" id="syntax-change" class="anchor"></a>Syntax Change</h2>
 <p>Infix operators can now appear at the start of lines in a multi-line expression. Examples:</p>
 <pre><code class="scala">val str = &quot;hello&quot;

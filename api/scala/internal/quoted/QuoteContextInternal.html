@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-10 -->
+<!-- This page was last generated on 2020-11-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201109-ca216a8-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201111-306e4fc-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -152,6 +152,7 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/kind-polymorphism.html" >Kind Polymorphism</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/tupled-function.html" >Tupled Function</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/threadUnsafe-annotation.html" >threadUnsafe Annotation</a></li>
+<li class="leaf"><a href="/docs/reference/other-new-features/targetName.html" >targetName Annotation</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
@@ -625,6 +626,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor class" href="/api/scala/annotation/targetName.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/annotation/targetName.html">targetName</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor class" href="/api/scala/annotation/threadUnsafe.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/annotation/threadUnsafe.html">threadUnsafe</a>
@@ -961,39 +974,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/internal/quoted/Expr.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/Expr.html">Expr</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor object" href="/api/scala/internal/quoted/Patterns$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/Patterns$.html">Patterns</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/internal/quoted/PickledQuote$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/internal/quoted/PickledQuote.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
                             </li>
                             
 
@@ -1006,30 +989,6 @@
                                     <a class="letter-anchor trait" href="/api/scala/internal/quoted/QuoteContextInternal.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/QuoteContextInternal.html">QuoteContextInternal</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/internal/quoted/TastyString$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/TastyString$.html">TastyString</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/internal/quoted/Type.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/Type.html">Type</a>
                             </li>
                             
 
@@ -1888,7 +1847,7 @@
 
                 
                 
-                <div id="unpickleExpr(pickledQuote)" class="member def public " data-toggle="collapse" data-target=".collapse-unpickleExpr-pickledQuote-">
+                <div id="unpickleExpr(pickled,typeHole,termHole)" class="member def public " data-toggle="collapse" data-target=".collapse-unpickleExpr-pickled_typeHole_termHole-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1917,9 +1876,23 @@
                                     (
                                                                     
                                         <span class="param">
-                                            pickledQuote:
+                                            pickled:
                                             
-                                            <a href="/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
+                                            String<span class="and-or-separator"> | </span>List<span class="type-params">[String]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            typeHole:
+                                            
+                                            <span>(</span>Int<span>, </span>Seq<span class="type-params">[Any]</span><span>) =&gt; </span><a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            termHole:
+                                            
+                                            <span>(</span>Int<span>, </span>Seq<span class="type-params">[Any]</span><span>, </span><a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a><span>) =&gt; </span><a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
                                         </span>
                                         
                                     
@@ -1935,7 +1908,7 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-unpickleExpr-pickledQuote-">
+                    <div class="short collapse show collapse-unpickleExpr-pickled_typeHole_termHole-">
                         
                             <p>Unpickle <code>repr</code> which represents a pickled <code>Expr</code> tree,
 replacing splice nodes with <code>holes</code></p>
@@ -1943,7 +1916,7 @@ replacing splice nodes with <code>holes</code></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-unpickleExpr-pickledQuote-">
+                    <div class="details collapse collapse-unpickleExpr-pickled_typeHole_termHole-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -1992,7 +1965,7 @@ replacing splice nodes with <code>holes</code></p>
 
                 
                 
-                <div id="unpickleType(pickledQuote)" class="member def public " data-toggle="collapse" data-target=".collapse-unpickleType-pickledQuote-">
+                <div id="unpickleType(pickled,typeHole,termHole)" class="member def public " data-toggle="collapse" data-target=".collapse-unpickleType-pickled_typeHole_termHole-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2021,9 +1994,23 @@ replacing splice nodes with <code>holes</code></p>
                                     (
                                                                     
                                         <span class="param">
-                                            pickledQuote:
+                                            pickled:
                                             
-                                            <a href="/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
+                                            String<span class="and-or-separator"> | </span>List<span class="type-params">[String]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            typeHole:
+                                            
+                                            <span>(</span>Int<span>, </span>Seq<span class="type-params">[Any]</span><span>) =&gt; </span><a href="/api/scala/quoted/Type.html">Type</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>AnyKind]</span>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
+                                            termHole:
+                                            
+                                            <span>(</span>Int<span>, </span>Seq<span class="type-params">[Any]</span><span>, </span><a href="/api/scala/quoted/QuoteContext.html">QuoteContext</a><span>) =&gt; </span><a href="/api/scala/quoted/Expr.html">Expr</a><span class="type-params">[Nothing<span class="bounds"> &lt;: </span>Any]</span>
                                         </span>
                                         
                                     
@@ -2039,7 +2026,7 @@ replacing splice nodes with <code>holes</code></p>
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-unpickleType-pickledQuote-">
+                    <div class="short collapse show collapse-unpickleType-pickled_typeHole_termHole-">
                         
                             <p>Unpickle <code>repr</code> which represents a pickled <code>Type</code> tree,
 replacing splice nodes with <code>holes</code></p>
@@ -2047,7 +2034,7 @@ replacing splice nodes with <code>holes</code></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-unpickleType-pickledQuote-">
+                    <div class="details collapse collapse-unpickleType-pickled_typeHole_termHole-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         

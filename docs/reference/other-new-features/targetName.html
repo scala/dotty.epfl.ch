@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-10 -->
+<!-- This page was last generated on 2020-11-11 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title></title>
+        <title>The @targetName annotation</title>
 
         <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201109-ca216a8-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201111-306e4fc-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -86,7 +86,7 @@
         
             <li class="section">
   <a onclick='toggleSection(this);'>Reference</a>
-  <ul >
+  <ul class="toggled">
     <li class="leaf"><a href="/docs/reference/overview.html" >Overview</a></li>
 <li class="section">
   <a onclick='toggleSection(this);'>New Types</a>
@@ -141,7 +141,7 @@
 
 <li class="section">
   <a onclick='toggleSection(this);'>Other New Features</a>
-  <ul >
+  <ul class="toggled">
     <li class="leaf"><a href="/docs/reference/other-new-features/trait-parameters.html" >Trait Parameters</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/mixin-traits.html" >Mixin Traits</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/creator-applications.html" >Creator Applications</a></li>
@@ -152,6 +152,7 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/kind-polymorphism.html" >Kind Polymorphism</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/tupled-function.html" >Tupled Function</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/threadUnsafe-annotation.html" >threadUnsafe Annotation</a></li>
+<li class="leaf"><a href="/docs/reference/other-new-features/targetName.html" class="toggled">targetName Annotation</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/indentation.html" >Optional Braces</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/explicit-nulls.html" >Explicit Nulls</a></li>
@@ -625,6 +626,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor class" href="/api/scala/annotation/targetName.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/annotation/targetName.html">targetName</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor class" href="/api/scala/annotation/threadUnsafe.html">C</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/annotation/threadUnsafe.html">threadUnsafe</a>
@@ -961,39 +974,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor class" href="/api/scala/internal/quoted/Expr.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/Expr.html">Expr</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
                                     <a class="letter-anchor object" href="/api/scala/internal/quoted/Patterns$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/Patterns$.html">Patterns</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/internal/quoted/PickledQuote$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/internal/quoted/PickledQuote.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a>
                             </li>
                             
 
@@ -1006,30 +989,6 @@
                                     <a class="letter-anchor trait" href="/api/scala/internal/quoted/QuoteContextInternal.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/internal/quoted/QuoteContextInternal.html">QuoteContextInternal</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/internal/quoted/TastyString$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/TastyString$.html">TastyString</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/internal/quoted/Type.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/quoted/Type.html">Type</a>
                             </li>
                             
 
@@ -1506,160 +1465,107 @@
 </nav>
 
 <div id="content-wrapper">
-    <script>
-    document.title = "Dotty Docs - PickledQuote";
-</script>
-<main class="container api">
+    <main class="container">
     <header>
-        <span class="letter-anchor object">O</span>
-        <span class="name-prefix">
-            <span class="modifiers">
-                
-            </span>
-            object
-        </span>
-        <h1>
-            PickledQuote
-            
-        </h1>
-        <span class="name-suffix">
-            
-                extends
-                
-                    Object
-                
-            
-        </span>
+        <h1>The @targetName annotation</h1>
+        <div class="byline">
+            <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/other-new-features/targetName.md">
+                <i class="far fa-edit"></i>
+                Edit this page on GitHub
+            </a>
+        </div>
     </header>
-    <!-- Description -->
-    
-    <!-- Supertypes -->
-    
-        <div id="supertypes">
-            <h2>Supertypes</h2>
-            <span>
-                
-                    Object
-                
-            </span>
-        </div>
-    
-    <!-- Annotations -->
-    
-    <!-- Constructors -->
-    
-    <!-- Members -->
-    <div id="members">
-        <h2>Members</h2>
-        <div class="wide-table">
-            
-                
-                    
-                
+    <p>A <code>@targetName</code> annotation on a definition defines an alternate name for the implementation of that definition. Example:</p>
+<pre><code class="scala">import scala.annotation.targetName
 
-                
-                    
-                
+object VecOps {
+  @targetName(&quot;append&quot;) def (xs: Vec[T]) ++= [T] (ys: Vec[T]): Vec[T] = ...
+}
+</code></pre>
+<p>Here, the <code>++=</code> operation is implemented (in Byte code or native code) under the name <code>append</code>. The implementation name affects the code that is generated, and is the name under which code from other languages can call the method. For instance, <code>++=</code> could be invoked from Java like this:</p>
+<pre><code class="nohighlight">VecOps.append(vec1, vec2)
+</code></pre>
+<p>The <code>@targetName</code> annotation has no bearing on Scala usages. Any application of that method in Scala has to use <code>++=</code>, not <code>append</code>.</p>
+<h3><a href="#details" id="details" class="anchor"></a>Details</h3>
+<ol>
+<li>
+<p><code>@targetName</code> is defined in package <code>scala.annotation</code>. It takes a single argument
+of type <code>String</code>. That string is called the <em>external name</em> of the definition
+that's annotated.</p>
+</li>
+<li>
+<p>A <code>@targetName</code> annotation can be given for all kinds of definitions.</p>
+</li>
+<li>
+<p>The name given in a <code>@targetName</code> annotation must be a legal name
+for the defined entities on the host platform.</p>
+</li>
+<li>
+<p>It is recommended that definitions with symbolic names have a <code>@targetName</code> annotation. This will establish an alternate name that is easier to search for and
+will avoid cryptic encodings in runtime diagnostics.</p>
+</li>
+<li>Definitions with names in backticks that are not legal host platform names
+should also have a <code>@targetName</code> annotation.</li>
+</ol>
+<h3><a href="#relationship-with-overriding" id="relationship-with-overriding" class="anchor"></a>Relationship with Overriding</h3>
+<p><code>@targetName</code> annotations are significant for matching two method definitions to decide whether they conflict or override each other. Two method definitions match if they have the same name, signature, and erased name. Here,</p>
+<ul>
+<li>The <em>signature</em> of a definition consists of the names of the erased types of all (value-) parameters and the method's result type.</li>
+<li>The <em>erased name</em> of a method definition is its target name if a <code>@targetName</code>
+annotation is given and its defined name otherwise.</li>
+</ul>
+<p>This means that <code>@targetName</code> annotations can be used to disambiguate two method definitions that would otherwise clash. For instance.</p>
+<pre><code class="scala">def f(x: =&gt; String): Int = x.length
+def f(x: =&gt; Int): Int = x + 1  // error: double definition
+</code></pre>
+<p>The two definitions above clash since their erased parameter types are both <code>Function0</code>, which is the type of the translation of a by-name-parameter. Hence
+they have the same names and signatures. But we can avoid the clash by adding  a <code>@targetName</code> annotation to either method or to both of them. E.g.</p>
+<pre><code class="scala">@targetName(&quot;f_string&quot;)
+def f(x: =&gt; String): Int = x.length
+def f(x: =&gt; Int): Int = x + 1  // OK
+</code></pre>
+<p>This will produce methods <code>f_string</code> and <code>f</code> in the generated code.</p>
+<p>However, <code>@targetName</code> annotations are not allowed to break overriding relationships
+between two definitions that have otherwise the same names and types. So the following would be in error:</p>
+<pre><code class="scala">import annotation.targetName
+class A:
+  def f(): Int = 1
+class B extends A:
+  targetName(&quot;g&quot;) def f(): Int = 2
+</code></pre>
+<p>The compiler reports here:</p>
+<pre><code class="nohighlight">-- Error: test.scala:6:23 ------------------------------------------------------
+6 |  @targetName(&quot;g&quot;) def f(): Int = 2
+  |                       ^
+  |error overriding method f in class A of type (): Int;
+  |  method f of type (): Int should not have a @targetName annotation since the overridden member hasn't one either
+</code></pre>
+<p>The relevant overriding rules can be summarized as follows:</p>
+<ul>
+<li>Two members can override each other if their names and signatures are the same,
+and they either have the same erased names or the same types.</li>
+<li>If two members override, then both their erased names and their types must be the same.</li>
+</ul>
+<p>As usual, any overriding relationship in the generated code must also
+be present in the original code. So the following example would also be in error:</p>
+<pre><code class="scala">import annotation.targetName
+class A:
+  def f(): Int = 1
+class B extends A:
+  targetName(&quot;f&quot;) def g(): Int = 2
+</code></pre>
+<p>Here, the original methods <code>g</code> and <code>f</code> do not override each other since they have
+different names. But once we switch to target names, there is a clash that is reported by the compiler:</p>
+<pre><code class="nohighlight">-- [E120] Naming Error: test.scala:4:6 -----------------------------------------
+4 |class B extends A:
+  |      ^
+  |      Name clash between defined and inherited member:
+  |      def f(): Int in class A at line 3 and
+  |      def g(): Int in class B at line 5
+  |      have the same name and type after erasure.
+1 error found
+</code></pre>
 
-                
-                
-                <div id="make(pickled,seq)" class="member def public " data-toggle="collapse" data-target=".collapse-make-pickled_seq-">
-                    <!-- Left: modifiers and kind -->
-                    <span class="left-column">
-                        <span class="modifiers">
-                            
-                        </span>
-                        <span class="member-kind">def&nbsp;</span>
-                    </span>
-                    <!-- Right: name, type parameters, method parameters and return type -->
-                    <span class="right-column">
-                        <!-- Name -->
-                        <h3 class="name">
-                            
-                                make
-                            
-                        </h3>
-                        <!-- Type parameters -->
-                        
-                        <!-- Method parameters -->
-                        
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            pickled:
-                                            
-                                            List<span class="type-params">[String]</span>
-                                        </span>
-                                        ,&nbsp;
-                                    
-                                        <span class="param">
-                                            seq:
-                                            
-                                            Seq<span class="type-params">[Seq<span class="type-params">[Any]</span><span class="right-arrow"> =&gt; </span>Any]</span>
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                        
-                        <!-- Return type -->
-                        
-                            <span class="return-type">: <a href="/api/scala/internal/quoted/PickledQuote.html">PickledQuote</a></span>
-                        
-                        <!-- Type alias -->
-                        
-                    </span>
-                    <!-- Shortened comment -->
-                    <div class="short collapse show collapse-make-pickled_seq-">
-                        
-                            <p>Create an instance of PickledExpr from encoded tasty and sequence of labmdas to fill holes</p>
-
-                        
-                    </div>
-                    <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-make-pickled_seq-">
-                        <!-- Note: the body, if there is one, is already in a paragraph. -->
-                        
-                        
-                            <p>Create an instance of PickledExpr from encoded tasty and sequence of labmdas to fill holes</p>
-
-                        
-                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
-                        {/% comment %}
-                        {/% if c.typeParams.size > 0 %}
-                            <ul class="doc-type-params">
-                                {/% for doc in c.typeParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.valueParams.size > 0 %}
-                            <ul class="doc-params">
-                                {/% for doc in c.valueParams %}
-                                    <li>
-                                        <span class="doc-key"></span>
-                                        <span class="doc-value"></span>
-                                    </li>
-                                {/% endfor %}
-                            </ul>
-                        {/% endif %}
-                        {/% if c.result %}
-                            <span class="doc-key">Result</span>
-                            <span class="doc-value"></span>
-                        {/% endif %}
-                        {/% endcomment %}
-                        -->
-                    </div>
-                </div>
-            
-        </div>
-    </div>
 </main>
 </div>
 <script>
