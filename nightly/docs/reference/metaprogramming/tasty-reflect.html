@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-12 -->
+<!-- This page was last generated on 2020-11-13 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201111-66eee84-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201112-462a72f-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1043,6 +1043,18 @@
                         
                             
 
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/quoted/Reflection.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/Reflection.html">Reflection</a>
+                            </li>
+                            
+
+                        
+                            
+
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1127,19 +1139,13 @@
                         
                             
 
-                            <li class=" with-companion ">
+                            <li class="">
                                 <div class="entity-kinds">
                                     
                                     <a class="letter-anchor object" href="/nightly/api/scala/quoted/internal/Expr$.html">O</a>
-                                    
-                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/internal/Expr.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/internal/Expr.html">Expr</a>
+                                <a class="entity-name" href="/nightly/api/scala/quoted/internal/Expr$.html">Expr</a>
                             </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
                             
 
                         
@@ -1191,18 +1197,6 @@
                             
 
                         
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/nightly/api/scala/quoted/internal/Type.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/quoted/internal/Type.html">Type</a>
-                            </li>
-                            
-
-                        
                     </ul>
                 </li>
             
@@ -1241,6 +1235,24 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/reflect/Selectable.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/reflect/Selectable.html">Selectable</a>
+                            </li>
+                            
+
+                        
+                             <!-- ignore: companions are handled below -->
+                            
+
+                        
+                            
+
+                            <li class=" with-companion ">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/nightly/api/scala/reflect/TypeTest$.html">O</a>
+                                    
+                                    <a class="letter-anchor trait" href="/nightly/api/scala/reflect/TypeTest.html">T</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/reflect/TypeTest.html">TypeTest</a>
                             </li>
                             
 
@@ -1334,18 +1346,6 @@
                         scala.tasty
                     </a>
                     <ul class="package-entities">
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/tasty/Reflection.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/tasty/Reflection.html">Reflection</a>
-                            </li>
-                            
-
                         
                     </ul>
                 </li>
@@ -1552,7 +1552,7 @@ trees. For example the <code>Literal(_)</code> extractor used below.</p>
         Reporting.error(&quot;Parameter must be natural number&quot;)
         '{0}
       } else {
-        xTree.seal.cast[Int]
+        xTree.asExprOf[Int]
       }
     case _ =&gt;
       Reporting.error(&quot;Parameter must be a known constant&quot;)
@@ -1562,10 +1562,9 @@ trees. For example the <code>Literal(_)</code> extractor used below.</p>
 </code></pre>
 <p>To easily know which extractors are needed, the <code>showExtractors</code> method on a
 <code>qctx.reflect.Term</code> returns the string representation of the extractors.</p>
-<p>The method <code>qctx.reflect.Term.seal</code> provides a way to go back to a
-<code>quoted.Expr[Any]</code>. Note that the type is <code>Expr[Any]</code>. Consequently, the type
-must be set explicitly with a checked <code>cast</code> call. If the type does not conform
-to it an exception will be thrown at runtime.</p>
+<p>The methods <code>qctx.reflect.Term.{asExpr, asExprOf}</code> provide a way to go back to a <code>quoted.Expr</code>.
+Note that <code>asExpr</code> returns a <code>Expr[Any]</code>.
+On the other hand <code>asExprOf[T]</code> returns a <code>Expr[T]</code>, if the type does not conform to it an exception will be thrown at runtime.</p>
 <h3><a href="#positions" id="positions" class="anchor"></a>Positions</h3>
 <p>The <code>ast</code> in the context provides a <code>rootPosition</code> value. It corresponds to
 the expansion site for macros. The macro authors can obtain various information about that
