@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-13 -->
+<!-- This page was last generated on 2020-11-14 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201112-462a72f-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201113-6b9796c-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -287,30 +287,6 @@
                                     <a class="letter-anchor object" href="/nightly/api/dotty/DottyPredef$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/dotty/DottyPredef$.html">DottyPredef</a>
-                            </li>
-                            
-
-                        
-                    </ul>
-                </li>
-            
-                <li class="index-entity entity-package section">
-                    <a class="package-toggle" onclick="toggleSection(this);">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                    <a class="entity-name" href="/nightly/api/dotty/internal/index.html">
-                        dotty.internal
-                    </a>
-                    <ul class="package-entities">
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/dotty/internal/CompileTimeMacros$.html">O</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/dotty/internal/CompileTimeMacros$.html">CompileTimeMacros</a>
                             </li>
                             
 
@@ -1986,7 +1962,7 @@ case 2147483646 =&gt; 2147483647
                         
                         
                             <p>Returns the string representation of interpolated elaborated code:</p>
-<pre><code class="scala">inline def logged(p1: =&gt; Any) = {
+<pre><code class="scala">inline def logged(inline p1: Any) = {
   val c = code&quot;code: $p1&quot;
   val res = p1
   (c, p1)
@@ -1995,6 +1971,7 @@ logged(identity(&quot;foo&quot;))
 // above is equivalent to:
 // (&quot;code: scala.Predef.identity(&quot;foo&quot;)&quot;, identity(&quot;foo&quot;))
 </code></pre>
+<p>The formatting of the code is not stable across version of the compiler.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -2468,6 +2445,10 @@ If an inline expansion results in a call error(msgStr) the compiler produces an 
 </code></pre>
 <p>or</p>
 <pre><code class="scala">error(code&quot;My error of this code: ${println(&quot;foo&quot;)}&quot;)
+</code></pre>
+<p>or</p>
+<pre><code class="scala">inline def errorOnThisCode(inline x: Any) =
+  error(code&quot;My error of this code: $x&quot;)
 </code></pre>
 
                         
