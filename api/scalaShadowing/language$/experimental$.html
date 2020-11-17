@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-16 -->
+<!-- This page was last generated on 2020-11-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201115-3c04f9b-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201116-9c850e3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1608,6 +1608,87 @@ they encounter so they can be improved in future releases.</p>
 
                 
                 
+                <div id="genericNumberLiterals$" class="member object public " data-toggle="collapse" data-target=".collapse-genericNumberLiterals-">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            
+                        </span>
+                        <span class="member-kind">object&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                <a href="/api/scalaShadowing/language$/experimental$/genericNumberLiterals$.html">genericNumberLiterals</a>
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-genericNumberLiterals-">
+                        
+                            <p>Experimental support for generic number literals</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-genericNumberLiterals-">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>Experimental support for generic number literals</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
                 <div id="namedTypeArguments$" class="member object public " data-toggle="collapse" data-target=".collapse-namedTypeArguments-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
@@ -1719,9 +1800,12 @@ they encounter so they can be improved in future releases.</p>
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-macros">
                         
-                            <p>Where enabled, macro definitions are allowed. Macro implementations and
-macro applications are unaffected; they can be used anywhere.</p>
-<p>'''Why introduce t...
+                            <p>Where enabled, Scala 2 macro definitions are allowed. Scala 2 macro implementations and
+macro applications are unaffected; they can be used anywhere. A...
+</p>
+<p>
+</p>
+<p>
 </p>
 <p>
 </p>
@@ -1733,14 +1817,17 @@ macro applications are unaffected; they can be used anywhere.</p>
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Where enabled, macro definitions are allowed. Macro implementations and
-macro applications are unaffected; they can be used anywhere.</p>
-<p>'''Why introduce the feature?''' Macros promise to make the language more regular,
+                            <p>Where enabled, Scala 2 macro definitions are allowed. Scala 2 macro implementations and
+macro applications are unaffected; they can be used anywhere. A Scala 2 macro definition
+must be accompanied by a Scala 3 macro definition with the same signature.</p>
+<p>'''Why introduce the feature?''' Scala 2 macros promise to make the language more regular,
 replacing ad-hoc language constructs with a general powerful abstraction
 capability that can express them. Macros are also a more disciplined and
 powerful replacement for compiler plugins.</p>
 <p>'''Why control it?''' For their very power, macros can lead to code that is hard
 to debug and understand.</p>
+<p>This is not required by Scala 3 macros as <code>inline</code> controls the basic generative macros.
+More add-hoc macros must contain the import of reflection in thier code, making this import redundant.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps

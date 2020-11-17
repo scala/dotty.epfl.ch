@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-16 -->
+<!-- This page was last generated on 2020-11-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201115-3c04f9b-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201116-9c850e3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1870,7 +1870,7 @@ case 2147483646 =&gt; 2147483647
 
                 
                 
-                <div id="code(self)(args)" class="member def public " data-toggle="collapse" data-target=".collapse-code-self--args-">
+                <div id="codeOf(arg)" class="member def public " data-toggle="collapse" data-target=".collapse-codeOf-arg-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1883,7 +1883,7 @@ case 2147483646 =&gt; 2147483647
                         <!-- Name -->
                         <h3 class="name">
                             
-                                code
+                                codeOf
                             
                         </h3>
                         <!-- Type parameters -->
@@ -1895,22 +1895,9 @@ case 2147483646 =&gt; 2147483647
                                     (
                                                                     
                                         <span class="param">
-                                            self:
+                                            arg:
                                             
-                                            StringContext
-                                        </span>
-                                        
-                                    
-                                    )
-                                </span>
-                            
-                                <span class="params ">
-                                    (
-                                                                    
-                                        <span class="param">
-                                            args:
-                                            
-                                            <repeated><span class="type-params">[Any]</span>
+                                            Any
                                         </span>
                                         
                                     
@@ -1926,23 +1913,21 @@ case 2147483646 =&gt; 2147483647
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-code-self--args-">
+                    <div class="short collapse show collapse-codeOf-arg-">
                         
-                            <p>Returns the string representation of interpolated elaborated code:</p>
+                            <p>Returns the string representation of argument code:</p>
 
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-code-self--args-">
+                    <div class="details collapse collapse-codeOf-arg-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            <p>Returns the string representation of interpolated elaborated code:</p>
-<pre><code class="scala">inline def logged(inline p1: Any) = {
-  val c = code&quot;code: $p1&quot;
-  val res = p1
-  (c, p1)
-}
+                            <p>Returns the string representation of argument code:</p>
+<pre><code class="scala">inline def logged(inline p1: Any) =
+  (&quot;code: &quot; + codeOf(p1), p1)
+
 logged(identity(&quot;foo&quot;))
 // above is equivalent to:
 // (&quot;code: scala.Predef.identity(&quot;foo&quot;)&quot;, identity(&quot;foo&quot;))
@@ -2420,11 +2405,8 @@ If an inline expansion results in a call error(msgStr) the compiler produces an 
 <pre><code class="scala">error(&quot;My error message&quot;)
 </code></pre>
 <p>or</p>
-<pre><code class="scala">error(code&quot;My error of this code: ${println(&quot;foo&quot;)}&quot;)
-</code></pre>
-<p>or</p>
 <pre><code class="scala">inline def errorOnThisCode(inline x: Any) =
-  error(code&quot;My error of this code: $x&quot;)
+  error(&quot;My error of this code: &quot; + codeOf(x))
 </code></pre>
 
                         

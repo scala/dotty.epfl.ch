@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-16 -->
+<!-- This page was last generated on 2020-11-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201115-3c04f9b-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201116-9c850e3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1497,7 +1497,7 @@ def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
 trees. For example the <code>Literal(_)</code> extractor used below.</p>
 <pre><code class="scala">def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
   import qctx.reflect._
-  val xTree: Term = x.unseal
+  val xTree: Term = Term.of(x)
   xTree match {
     case Inlined(_, _, Literal(Constant(n: Int))) =&gt;
       if (n &lt;= 0) {

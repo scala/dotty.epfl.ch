@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-16 -->
+<!-- This page was last generated on 2020-11-17 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201115-3c04f9b-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201116-9c850e3-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1532,6 +1532,11 @@ is pushed onto <code>IW</code>, which makes it the new current indentation width
 <ul>
 <li>the first token on the next line has an indentation width strictly less
 than the current indentation width, and</li>
+<li>the last token on the previous line is not one of the following tokens
+which indicate that the previous statement continues:
+<pre><code class="nohighlight">then  else  do  catch  finally  yield  match
+</code></pre>
+</li>
 <li>the first token on the next line is not a
 <a href="../changed-features/operators.html">leading infix operator</a>.</li>
 </ul>
