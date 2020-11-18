@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-17 -->
+<!-- This page was last generated on 2020-11-18 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201116-9c850e3-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201117-19489f4-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1019,18 +1019,6 @@
                         
                             
 
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/quoted/Reflection.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/quoted/Reflection.html">Reflection</a>
-                            </li>
-                            
-
-                        
-                            
-
                             <li class=" with-companion ">
                                 <div class="entity-kinds">
                                     
@@ -1173,6 +1161,18 @@
                             
 
                         
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor class" href="/api/scala/quoted/internal/StopMacroExpansion.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/quoted/internal/StopMacroExpansion.html">StopMacroExpansion</a>
+                            </li>
+                            
+
+                        
                     </ul>
                 </li>
             
@@ -1265,6 +1265,18 @@
                                     <a class="letter-anchor trait" href="/api/scala/runtime/FunctionXXL.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/runtime/FunctionXXL.html">FunctionXXL</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
+                                    <a class="letter-anchor object" href="/api/scala/runtime/Scala3RunTime$.html">O</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/runtime/Scala3RunTime$.html">Scala3RunTime</a>
                             </li>
                             
 
@@ -1532,8 +1544,9 @@ val res1: Array[Color] = Array(Red, Green, Blue)
 }
 </code></pre>
 <h3><a href="#compatibility-with-java-enums" id="compatibility-with-java-enums" class="anchor"></a>Compatibility with Java Enums</h3>
-<p>If you want to use the Scala-defined enums as Java enums, you can do so by extending <code>java.lang.Enum</code> class as follows:</p>
-<pre><code class="scala">enum Color extends java.lang.Enum[Color] { case Red, Green, Blue }
+<p>If you want to use the Scala-defined enums as Java enums, you can do so by extending
+the class <code>java.lang.Enum</code>, which is imported by default, as follows:</p>
+<pre><code class="scala">enum Color extends Enum[Color] { case Red, Green, Blue }
 </code></pre>
 <p>The type parameter comes from the Java enum <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/lang/Enum.html">definition</a> and should be the same as the type of the enum.
 There is no need to provide constructor arguments (as defined in the Java API docs) to <code>java.lang.Enum</code> when extending it – the compiler will generate them automatically.</p>
