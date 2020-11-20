@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-19 -->
+<!-- This page was last generated on 2020-11-20 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201118-0ad43b7-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201119-97a6f30-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1528,7 +1528,7 @@
 
                 
                 
-                <div id="apply(tpe,rhsFn)" class="member def public " data-toggle="collapse" data-target=".collapse-apply-tpe_rhsFn-">
+                <div id="apply(owner,tpe,rhsFn)" class="member def public " data-toggle="collapse" data-target=".collapse-apply-owner_tpe_rhsFn-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1553,6 +1553,13 @@
                                     (
                                                                     
                                         <span class="param">
+                                            owner:
+                                            
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
+                                        </span>
+                                        ,&nbsp;
+                                    
+                                        <span class="param">
                                             tpe:
                                             
                                             <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#MethodType">MethodType</a>
@@ -1562,7 +1569,7 @@
                                         <span class="param">
                                             rhsFn:
                                             
-                                            List<span class="type-params">[<a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Tree">Tree</a>]</span><span class="right-arrow"> =&gt; </span><a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Tree">Tree</a>
+                                            <span>(</span><a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a><span>, </span>List<span class="type-params">[<a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Tree">Tree</a>]</span><span>) =&gt; </span><a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Tree">Tree</a>
                                         </span>
                                         
                                     
@@ -1578,17 +1585,21 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-apply-tpe_rhsFn-">
+                    <div class="short collapse show collapse-apply-owner_tpe_rhsFn-">
                         
-                            <p></p>
+                            <p>Generates a lambda with the given method type.</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-apply-tpe_rhsFn-">
+                    <div class="details collapse collapse-apply-owner_tpe_rhsFn-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Generates a lambda with the given method type.</p>
+<pre><code class="nohighlight">Block((DefDef(_, _, params :: Nil, _, Some(rhsFn(meth, paramRefs)))) :: Nil, Closure(meth, _))
+</code></pre>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}
@@ -1678,7 +1689,8 @@ List<span class="type-params">[<a href="/nightly/api/scala/quoted/QuoteContext/R
                     <!-- Shortened comment -->
                     <div class="short collapse show collapse-unapply-tree-">
                         
-                            <p></p>
+                            <p>Matches a lambda definition of the form</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
@@ -1686,7 +1698,11 @@ List<span class="type-params">[<a href="/nightly/api/scala/quoted/QuoteContext/R
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>Matches a lambda definition of the form</p>
+<pre><code class="nohighlight">Block((DefDef(_, _, params :: Nil, _, Some(body))) :: Nil, Closure(meth, _))
+</code></pre>
+<p>Extracts the parameter definitions and body.</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}

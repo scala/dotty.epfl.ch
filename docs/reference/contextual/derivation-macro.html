@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-19 -->
+<!-- This page was last generated on 2020-11-20 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201118-0ad43b7-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201119-97a6f30-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -1509,11 +1509,11 @@ from the signature. The body of the <code>derived</code> method is shown below:<
 <pre><code class="scala">given derived[T: Type](using qctx: QuoteContext) as Expr[Eq[T]] = {
   import qctx.reflect._
 
-  val ev: Expr[Mirror.Of[T]] = Expr.summon(using '[Mirror.Of[T]]).get
+  val ev: Expr[Mirror.Of[T]] = Expr.summon[Mirror.Of[T]].get
 
   ev match {
-    case '{ $m: Mirror.ProductOf[T] { type MirroredElemTypes = $elementTypes }} =&gt;
-      val elemInstances = summonAll(elementTypes)
+    case '{ $m: Mirror.ProductOf[T] { type MirroredElemTypes = elementTypes }} =&gt;
+      val elemInstances = summonAll[elementTypes]
       val eqProductBody: (Expr[T], Expr[T]) =&gt; Expr[Boolean] = (x, y) =&gt; {
         elemInstances.zipWithIndex.foldLeft(Expr(true: Boolean)) {
           case (acc, (elem, index)) =&gt;
@@ -1543,14 +1543,14 @@ the path inside the type argument is not stable this cannot be used:</p>
 </code></pre>
 <p>Instead we extract the tuple-type for element types using pattern matching over
 quotes and more specifically of the refined type:</p>
-<pre><code class="scala"> case '{ $m: Mirror.ProductOf[T] { type MirroredElemTypes = $elementTypes } } =&gt; ...
+<pre><code class="scala"> case '{ $m: Mirror.ProductOf[T] { type MirroredElemTypes = elementTypes }} =&gt; ...
 </code></pre>
 <p>The implementation of <code>summonAll</code> as a macro can be show below assuming that we
 have the given instances for our primitive types:</p>
-<pre><code class="scala">  def summonAll[T](t: Type[T])(using qctx: QuoteContext): List[Expr[Eq[_]]] = t match {
-    case '[String *: $tpes] =&gt; '{ summon[Eq[String]] }  :: summonAll(tpes)
-    case '[Int *: $tpes]    =&gt; '{ summon[Eq[Int]] }     :: summonAll(tpes)
-    case '[$tpe *: $tpes]   =&gt; derived(using tpe, qctx) :: summonAll(tpes)
+<pre><code class="scala">  def summonAll[T: Type](using qctx: QuoteContext): List[Expr[Eq[_]]] = t match {
+    case '[String *: tpes] =&gt; '{ summon[Eq[String]] }  :: summonAll[tpes]
+    case '[Int *: tpes]    =&gt; '{ summon[Eq[Int]] }     :: summonAll[tpes]
+    case '[tpe *: tpes]   =&gt; derived[tpe] :: summonAll[tpes]
     case '[EmptyTuple] =&gt; Nil
   }
 </code></pre>
@@ -1569,8 +1569,8 @@ check we want to generate is the following:</p>
 One that hosts the top-level splice <code>eqv</code> and one that is the implementation.
 Alternatively and what is shown below is that we can call the <code>eqv</code> method
 directly. The <code>eqGen</code> can trigger the derivation.</p>
-<pre><code class="scala">extension [T](x: =&gt;T)
-  inline def === (y: =&gt;T)(using eq: Eq[T]): Boolean = eq.eqv(x, y)
+<pre><code class="scala">extension [T](inline x: T)
+  inline def === (inline y: T)(using eq: Eq[T]): Boolean = eq.eqv(x, y)
 
 implicit inline def eqGen[T]: Eq[T] = ${ Eq.derived[T] }
 </code></pre>
@@ -1587,7 +1587,7 @@ enum Opt[+T] {
 <p>The full code is shown below:</p>
 <pre><code class="scala">import scala.deriving._
 import scala.quoted._
-import scala.quoted.matching._
+
 
 trait Eq[T] {
   def eqv(x: T, y: T): Boolean
@@ -1612,21 +1612,21 @@ object Eq {
       def eqv(x: T, y: T): Boolean = body(x, y)
     }
 
-  def summonAll[T](t: Type[T])(using qctx: QuoteContext): List[Expr[Eq[_]]] = t match {
-    case '[String *: $tpes] =&gt; '{ summon[Eq[String]] }  :: summonAll(tpes)
-    case '[Int *: $tpes]    =&gt; '{ summon[Eq[Int]] }     :: summonAll(tpes)
-    case '[$tpe *: $tpes]   =&gt; derived(using tpe, qctx) :: summonAll(tpes)
+  def summonAll[T: Type](using qctx: QuoteContext): List[Expr[Eq[_]]] = t match {
+    case '[String *: tpes] =&gt; '{ summon[Eq[String]] }  :: summonAll[tpes]
+    case '[Int *: tpes]    =&gt; '{ summon[Eq[Int]] }     :: summonAll[tpes]
+    case '[tpe *: tpes]   =&gt; derived[tpe] :: summonAll[tpes]
     case '[EmptyTuple] =&gt; Nil
   }
 
   given derived[T: Type](using qctx: QuoteContext) as Expr[Eq[T]] = {
     import qctx.reflect._
 
-    val ev: Expr[Mirror.Of[T]] = Expr.summon(using '[Mirror.Of[T]]).get
+    val ev: Expr[Mirror.Of[T]] = Expr.summon[Mirror.Of[T]].get
 
     ev match {
-      case '{ $m: Mirror.ProductOf[T] { type MirroredElemTypes = $elementTypes }} =&gt;
-        val elemInstances = summonAll(elementTypes)
+      case '{ $m: Mirror.ProductOf[T] { type MirroredElemTypes = elementTypes }} =&gt;
+        val elemInstances = summonAll[elementTypes]
         val eqProductBody: (Expr[T], Expr[T]) =&gt; Expr[Boolean] = (x, y) =&gt; {
           elemInstances.zipWithIndex.foldLeft(Expr(true: Boolean)) {
             case (acc, (elem, index)) =&gt;
@@ -1640,8 +1640,8 @@ object Eq {
           eqProduct((x: T, y: T) =&gt; ${eqProductBody('x, 'y)})
         }
 
-      case '{ $m: Mirror.SumOf[T] { type MirroredElemTypes = $elementTypes }} =&gt;
-        val elemInstances = summonAll(elementTypes)
+      case '{ $m: Mirror.SumOf[T] { type MirroredElemTypes = elementTypes }} =&gt;
+        val elemInstances = summonAll[elementTypes]
         val eqSumBody: (Expr[T], Expr[T]) =&gt; Expr[Boolean] = (x, y) =&gt; {
           val ordx = '{ $m.ordinal($x) }
           val ordy = '{ $m.ordinal($y) }
@@ -1660,8 +1660,8 @@ object Eq {
 }
 
 object Macro3 {
-  extension [T](x: =&gt;T)
-    inline def === (y: =&gt;T)(using eq: Eq[T]): Boolean = eq.eqv(x, y)
+  extension [T](inline x: T) 
+    inline def === (inline y: T)(using eq: Eq[T]): Boolean = eq.eqv(x, y)
 
   implicit inline def eqGen[T]: Eq[T] = ${ Eq.derived[T] }
 }
