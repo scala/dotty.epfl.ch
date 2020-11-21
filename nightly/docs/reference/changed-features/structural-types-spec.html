@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-20 -->
+<!-- This page was last generated on 2020-11-21 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201119-97a6f30-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201121-94982dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -150,7 +150,6 @@
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/open-classes.html" >Open Classes</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/parameter-untupling.html" >Parameter Untupling</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/kind-polymorphism.html" >Kind Polymorphism</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/other-new-features/tupled-function.html" >Tupled Function</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/threadUnsafe-annotation.html" >threadUnsafe Annotation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/targetName.html" >targetName Annotation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
@@ -419,24 +418,6 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/PolyFunction.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/PolyFunction.html">PolyFunction</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/Product0$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/Product0.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/Product0.html">Product0</a>
                             </li>
                             
 
@@ -892,42 +873,6 @@
                     <a class="package-toggle" onclick="toggleSection(this);">
                         <i class="fas fa-angle-right"></i>
                     </a>
-                    <a class="entity-name" href="/nightly/api/scala/internal/index.html">
-                        scala.internal
-                    </a>
-                    <ul class="package-entities">
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/MatchCase.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/MatchCase.html">MatchCase</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/TypeBox.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/TypeBox.html">TypeBox</a>
-                            </li>
-                            
-
-                        
-                    </ul>
-                </li>
-            
-                <li class="index-entity entity-package section">
-                    <a class="package-toggle" onclick="toggleSection(this);">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
                     <a class="entity-name" href="/nightly/api/scala/quoted/index.html">
                         scala.quoted
                     </a>
@@ -1274,6 +1219,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor class" href="/nightly/api/scala/runtime/MatchCase.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/MatchCase.html">MatchCase</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor object" href="/nightly/api/scala/runtime/Scala3RunTime$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/runtime/Scala3RunTime$.html">Scala3RunTime</a>
@@ -1316,9 +1273,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/nightly/api/scala/runtime/TupledFunctions$.html">O</a>
+                                    <a class="letter-anchor class" href="/nightly/api/scala/runtime/TypeBox.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/runtime/TupledFunctions$.html">TupledFunctions</a>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/TypeBox.html">TypeBox</a>
                             </li>
                             
 
@@ -1392,24 +1349,6 @@
 
                         
                              <!-- ignore: companions are handled below -->
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/util/TupledFunction$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/util/TupledFunction.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/util/TupledFunction.html">TupledFunction</a>
-                            </li>
                             
 
                         
@@ -1502,12 +1441,15 @@ It should have a signature of the form:</p>
 <pre><code class="scala">def selectDynamic(name: String): T
 </code></pre>
 <p>Often, the return type <code>T</code> is <code>Any</code>.</p>
-<p>The <code>applyDynamic</code> method is used for selections that are applied to arguments. It takes a method name and possibly <code>ClassTag</code>s representing its parameters types as well as the arguments to pass to the function.
+<p>Unlike <code>scala.Dynamic</code>, there is no special meaning for an <code>updateDynamic</code> method.
+However, we reserve the right to give it meaning in the future.
+Consequently, it is recommended not to define any member called <code>updateDynamic</code> in <code>Selectable</code>s.</p>
+<p>The <code>applyDynamic</code> method is used for selections that are applied to arguments. It takes a method name and possibly <code>Class</code>es representing its parameters types as well as the arguments to pass to the function.
 Its signature should be of one of the two following forms:</p>
 <pre><code class="scala">def applyDynamic(name: String)(args: Any*): T
-def applyDynamic(name: String, ctags: ClassTag[?]*)(args: Any*): T
+def applyDynamic(name: String, ctags: Class[?]*)(args: Any*): T
 </code></pre>
-<p>Both versions are passed the actual arguments in the <code>args</code> parameter. The second version takes in addition a vararg argument of class tags that identify the method's parameter classes. Such an argument is needed
+<p>Both versions are passed the actual arguments in the <code>args</code> parameter. The second version takes in addition a vararg argument of <code>java.lang.Class</code>es that identify the method's parameter classes. Such an argument is needed
 if <code>applyDynamic</code> is implemented using Java reflection, but it could be
 useful in other cases as well. <code>selectDynamic</code> and <code>applyDynamic</code> can also take additional context parameters in using clauses. These are resolved in the normal way at the callsite.</p>
 <p>Given a value <code>v</code> of type <code>C { Rs }</code>, where <code>C</code> is a class reference
@@ -1521,12 +1463,12 @@ and <code>Rs</code> are structural refinement declarations, and given <code>v.a<
 <pre><code class="scala">v.applyDynamic(&quot;a&quot;)(a11, ..., a1n, ..., aN1, ..., aNn)
   .asInstanceOf[R]
 </code></pre>
-<p>If this call resolves to an <code>applyDynamic</code> method of the second form that takes a <code>ClassTag[?]*</code> argument, we further rewrite this call to</p>
-<pre><code class="scala">v.applyDynamic(&quot;a&quot;, CT11, ..., CT1n, ..., CTN1, ... CTNn)(
+<p>If this call resolves to an <code>applyDynamic</code> method of the second form that takes a <code>Class[?]*</code> argument, we further rewrite this call to</p>
+<pre><code class="scala">v.applyDynamic(&quot;a&quot;, c11, ..., c1n, ..., cN1, ... cNn)(
   a11, ..., a1n, ..., aN1, ..., aNn)
   .asInstanceOf[R]
 </code></pre>
-<p>where each <code>CT_ij</code> is the class tag of the type of the formal parameter <code>Tij</code></p>
+<p>where each <code>c_ij</code> is the literal <code>java.lang.Class[?]</code> of the type of the formal parameter <code>Tij</code>, i.e., <code>classOf[Tij]</code>.</p>
 </li>
 <li>If <code>U</code> is neither a value nor a method type, or a dependent method
 type, an error is emitted.</li>

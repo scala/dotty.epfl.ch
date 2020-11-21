@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-20 -->
+<!-- This page was last generated on 2020-11-21 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201119-97a6f30-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201121-94982dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -150,7 +150,6 @@
 <li class="leaf"><a href="/docs/reference/other-new-features/open-classes.html" >Open Classes</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/parameter-untupling.html" >Parameter Untupling</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/kind-polymorphism.html" >Kind Polymorphism</a></li>
-<li class="leaf"><a href="/docs/reference/other-new-features/tupled-function.html" >Tupled Function</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/threadUnsafe-annotation.html" >threadUnsafe Annotation</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/targetName.html" >targetName Annotation</a></li>
 <li class="leaf"><a href="/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
@@ -419,24 +418,6 @@
                                     <a class="letter-anchor trait" href="/api/scala/PolyFunction.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/PolyFunction.html">PolyFunction</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/Product0$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/Product0.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/Product0.html">Product0</a>
                             </li>
                             
 
@@ -892,42 +873,6 @@
                     <a class="package-toggle" onclick="toggleSection(this);">
                         <i class="fas fa-angle-right"></i>
                     </a>
-                    <a class="entity-name" href="/api/scala/internal/index.html">
-                        scala.internal
-                    </a>
-                    <ul class="package-entities">
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/internal/MatchCase.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/MatchCase.html">MatchCase</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/api/scala/internal/TypeBox.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/internal/TypeBox.html">TypeBox</a>
-                            </li>
-                            
-
-                        
-                    </ul>
-                </li>
-            
-                <li class="index-entity entity-package section">
-                    <a class="package-toggle" onclick="toggleSection(this);">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
                     <a class="entity-name" href="/api/scala/quoted/index.html">
                         scala.quoted
                     </a>
@@ -1274,6 +1219,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor class" href="/api/scala/runtime/MatchCase.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/api/scala/runtime/MatchCase.html">MatchCase</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor object" href="/api/scala/runtime/Scala3RunTime$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/api/scala/runtime/Scala3RunTime$.html">Scala3RunTime</a>
@@ -1316,9 +1273,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/api/scala/runtime/TupledFunctions$.html">O</a>
+                                    <a class="letter-anchor class" href="/api/scala/runtime/TypeBox.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/api/scala/runtime/TupledFunctions$.html">TupledFunctions</a>
+                                <a class="entity-name" href="/api/scala/runtime/TypeBox.html">TypeBox</a>
                             </li>
                             
 
@@ -1392,24 +1349,6 @@
 
                         
                              <!-- ignore: companions are handled below -->
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/api/scala/util/TupledFunction$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/api/scala/util/TupledFunction.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/api/scala/util/TupledFunction.html">TupledFunction</a>
-                            </li>
                             
 
                         
@@ -1631,6 +1570,91 @@
                         
                         
                             <p>A function with all parameters grouped in an array.</p>
+
+                        
+                        <!-- FIXME: even the latest liqp release doesn't support iterating on maps
+                        {/% comment %}
+                        {/% if c.typeParams.size > 0 %}
+                            <ul class="doc-type-params">
+                                {/% for doc in c.typeParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.valueParams.size > 0 %}
+                            <ul class="doc-params">
+                                {/% for doc in c.valueParams %}
+                                    <li>
+                                        <span class="doc-key"></span>
+                                        <span class="doc-value"></span>
+                                    </li>
+                                {/% endfor %}
+                            </ul>
+                        {/% endif %}
+                        {/% if c.result %}
+                            <span class="doc-key">Result</span>
+                            <span class="doc-value"></span>
+                        {/% endif %}
+                        {/% endcomment %}
+                        -->
+                    </div>
+                </div>
+            
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                
+                <div id="MatchCase" class="member class public " data-toggle="collapse" data-target=".collapse-MatchCase">
+                    <!-- Left: modifiers and kind -->
+                    <span class="left-column">
+                        <span class="modifiers">
+                            final abstract
+                        </span>
+                        <span class="member-kind">class&nbsp;</span>
+                    </span>
+                    <!-- Right: name, type parameters, method parameters and return type -->
+                    <span class="right-column">
+                        <!-- Name -->
+                        <h3 class="name">
+                            
+                                <a href="/api/scala/runtime/MatchCase.html">MatchCase</a>
+                            
+                        </h3>
+                        <!-- Type parameters -->
+                        
+                            <span class="type-params">
+                                [Pat, +Body]
+                            </span>
+                        
+                        <!-- Method parameters -->
+                        
+                        <!-- Return type -->
+                        
+                        <!-- Type alias -->
+                        
+                    </span>
+                    <!-- Shortened comment -->
+                    <div class="short collapse show collapse-MatchCase">
+                        
+                            <p>A type constructor for a case in a match type.</p>
+
+                        
+                    </div>
+                    <!-- Fully detailed comment -->
+                    <div class="details collapse collapse-MatchCase">
+                        <!-- Note: the body, if there is one, is already in a paragraph. -->
+                        
+                        
+                            <p>A type constructor for a case in a match type.</p>
 
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
@@ -1990,23 +2014,27 @@
 
                 
                 
-                <div id="TupledFunctions$" class="member object public " data-toggle="collapse" data-target=".collapse-TupledFunctions-">
+                <div id="TypeBox" class="member class public " data-toggle="collapse" data-target=".collapse-TypeBox">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
-                            
+                            final abstract
                         </span>
-                        <span class="member-kind">object&nbsp;</span>
+                        <span class="member-kind">class&nbsp;</span>
                     </span>
                     <!-- Right: name, type parameters, method parameters and return type -->
                     <span class="right-column">
                         <!-- Name -->
                         <h3 class="name">
                             
-                                <a href="/api/scala/runtime/TupledFunctions$.html">TupledFunctions</a>
+                                <a href="/api/scala/runtime/TypeBox.html">TypeBox</a>
                             
                         </h3>
                         <!-- Type parameters -->
+                        
+                            <span class="type-params">
+                                [-L, +U]
+                            </span>
                         
                         <!-- Method parameters -->
                         
@@ -2016,17 +2044,25 @@
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-TupledFunctions-">
+                    <div class="short collapse show collapse-TypeBox">
                         
-                            <p></p>
+                            <p>A type for skolems that are generated during capture conversion. Capture conversion
+narrows the type of a tree whose type has wildcard arguments. A typ...
+</p>
+
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-TupledFunctions-">
+                    <div class="details collapse collapse-TypeBox">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
-                            
+                            <p>A type for skolems that are generated during capture conversion. Capture conversion
+narrows the type of a tree whose type has wildcard arguments. A typical situation
+is a tree <code>t</code> of type <code>C[_ &gt;: L &lt;: U]</code> and an expected type <code>C[X]</code> where <code>X</code> is an
+instantiatable type variable. To be able to instantiate <code>X</code>, we cast the tree to type
+<code>X[$n.CAP]</code> where <code>$n</code> is a fresh skolem type with underlying type <code>TypeBox[L, U]</code>.</p>
+
                         
                         <!-- FIXME: even the latest liqp release doesn't support iterating on maps
                         {/% comment %}

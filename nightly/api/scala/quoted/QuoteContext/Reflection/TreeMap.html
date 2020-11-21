@@ -1,4 +1,4 @@
-<!-- This page was last generated on 2020-11-20 -->
+<!-- This page was last generated on 2020-11-21 -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,7 +49,7 @@
             <a href="/nightly/docs/index.html">
                 <div class="project-details">
                     <h1>Dotty Documentation</h1>
-                    <h2>3.0.0-M2-bin-20201119-97a6f30-NIGHTLY</h2>
+                    <h2>3.0.0-M2-bin-20201121-94982dd-NIGHTLY</h2>
                 </div>
             </a>
         </div>
@@ -150,7 +150,6 @@
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/open-classes.html" >Open Classes</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/parameter-untupling.html" >Parameter Untupling</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/kind-polymorphism.html" >Kind Polymorphism</a></li>
-<li class="leaf"><a href="/nightly/docs/reference/other-new-features/tupled-function.html" >Tupled Function</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/threadUnsafe-annotation.html" >threadUnsafe Annotation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/targetName.html" >targetName Annotation</a></li>
 <li class="leaf"><a href="/nightly/docs/reference/other-new-features/control-syntax.html" >New Control Syntax</a></li>
@@ -419,24 +418,6 @@
                                     <a class="letter-anchor trait" href="/nightly/api/scala/PolyFunction.html">T</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/PolyFunction.html">PolyFunction</a>
-                            </li>
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/Product0$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/Product0.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/Product0.html">Product0</a>
                             </li>
                             
 
@@ -892,42 +873,6 @@
                     <a class="package-toggle" onclick="toggleSection(this);">
                         <i class="fas fa-angle-right"></i>
                     </a>
-                    <a class="entity-name" href="/nightly/api/scala/internal/index.html">
-                        scala.internal
-                    </a>
-                    <ul class="package-entities">
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/MatchCase.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/MatchCase.html">MatchCase</a>
-                            </li>
-                            
-
-                        
-                            
-
-                            <li class="">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor class" href="/nightly/api/scala/internal/TypeBox.html">C</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/internal/TypeBox.html">TypeBox</a>
-                            </li>
-                            
-
-                        
-                    </ul>
-                </li>
-            
-                <li class="index-entity entity-package section">
-                    <a class="package-toggle" onclick="toggleSection(this);">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
                     <a class="entity-name" href="/nightly/api/scala/quoted/index.html">
                         scala.quoted
                     </a>
@@ -1274,6 +1219,18 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
+                                    <a class="letter-anchor class" href="/nightly/api/scala/runtime/MatchCase.html">C</a>
+                                </div>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/MatchCase.html">MatchCase</a>
+                            </li>
+                            
+
+                        
+                            
+
+                            <li class="">
+                                <div class="entity-kinds">
+                                    
                                     <a class="letter-anchor object" href="/nightly/api/scala/runtime/Scala3RunTime$.html">O</a>
                                 </div>
                                 <a class="entity-name" href="/nightly/api/scala/runtime/Scala3RunTime$.html">Scala3RunTime</a>
@@ -1316,9 +1273,9 @@
                             <li class="">
                                 <div class="entity-kinds">
                                     
-                                    <a class="letter-anchor object" href="/nightly/api/scala/runtime/TupledFunctions$.html">O</a>
+                                    <a class="letter-anchor class" href="/nightly/api/scala/runtime/TypeBox.html">C</a>
                                 </div>
-                                <a class="entity-name" href="/nightly/api/scala/runtime/TupledFunctions$.html">TupledFunctions</a>
+                                <a class="entity-name" href="/nightly/api/scala/runtime/TypeBox.html">TypeBox</a>
                             </li>
                             
 
@@ -1392,24 +1349,6 @@
 
                         
                              <!-- ignore: companions are handled below -->
-                            
-
-                        
-                             <!-- ignore: companions are handled below -->
-                            
-
-                        
-                            
-
-                            <li class=" with-companion ">
-                                <div class="entity-kinds">
-                                    
-                                    <a class="letter-anchor object" href="/nightly/api/scala/util/TupledFunction$.html">O</a>
-                                    
-                                    <a class="letter-anchor trait" href="/nightly/api/scala/util/TupledFunction.html">T</a>
-                                </div>
-                                <a class="entity-name" href="/nightly/api/scala/util/TupledFunction.html">TupledFunction</a>
-                            </li>
                             
 
                         
@@ -1503,7 +1442,7 @@
 <p>Usage:</p>
 <pre><code class="nohighlight">import qctx.reflect._
 class MyTreeMap extends TreeMap {
-  override def transformTree(tree: Tree)(using ctx: Context): Tree = ...
+  override def transformTree(tree: Tree)(owner: Symbol): Tree = ...
 }
 </code></pre>
 
@@ -1539,7 +1478,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformCaseDef(tree)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformCaseDef-tree--ctx-">
+                <div id="transformCaseDef(tree)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformCaseDef-tree--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1573,15 +1512,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -1597,13 +1534,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformCaseDef-tree--ctx-">
+                    <div class="short collapse show collapse-transformCaseDef-tree--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformCaseDef-tree--ctx-">
+                    <div class="details collapse collapse-transformCaseDef-tree--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -1650,7 +1587,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformCaseDefs(trees)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformCaseDefs-trees--ctx-">
+                <div id="transformCaseDefs(trees)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformCaseDefs-trees--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1684,15 +1621,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -1708,13 +1643,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformCaseDefs-trees--ctx-">
+                    <div class="short collapse show collapse-transformCaseDefs-trees--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformCaseDefs-trees--ctx-">
+                    <div class="details collapse collapse-transformCaseDefs-trees--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -1761,7 +1696,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformStatement(tree)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformStatement-tree--ctx-">
+                <div id="transformStatement(tree)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformStatement-tree--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1795,15 +1730,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -1819,13 +1752,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformStatement-tree--ctx-">
+                    <div class="short collapse show collapse-transformStatement-tree--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformStatement-tree--ctx-">
+                    <div class="details collapse collapse-transformStatement-tree--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -1872,7 +1805,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformStats(trees)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformStats-trees--ctx-">
+                <div id="transformStats(trees)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformStats-trees--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -1906,15 +1839,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -1930,13 +1861,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformStats-trees--ctx-">
+                    <div class="short collapse show collapse-transformStats-trees--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformStats-trees--ctx-">
+                    <div class="details collapse collapse-transformStats-trees--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -1983,7 +1914,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformSubTrees(trees)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformSubTrees-trees--ctx-">
+                <div id="transformSubTrees(trees)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformSubTrees-trees--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2021,15 +1952,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2045,13 +1974,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformSubTrees-trees--ctx-">
+                    <div class="short collapse show collapse-transformSubTrees-trees--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformSubTrees-trees--ctx-">
+                    <div class="details collapse collapse-transformSubTrees-trees--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2098,7 +2027,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformTerm(tree)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTerm-tree--ctx-">
+                <div id="transformTerm(tree)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTerm-tree--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2132,15 +2061,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2156,13 +2083,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformTerm-tree--ctx-">
+                    <div class="short collapse show collapse-transformTerm-tree--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformTerm-tree--ctx-">
+                    <div class="details collapse collapse-transformTerm-tree--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2209,7 +2136,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformTerms(trees)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTerms-trees--ctx-">
+                <div id="transformTerms(trees)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTerms-trees--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2243,15 +2170,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2267,13 +2192,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformTerms-trees--ctx-">
+                    <div class="short collapse show collapse-transformTerms-trees--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformTerms-trees--ctx-">
+                    <div class="details collapse collapse-transformTerms-trees--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2320,7 +2245,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformTree(tree)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTree-tree--ctx-">
+                <div id="transformTree(tree)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTree-tree--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2354,15 +2279,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2378,13 +2301,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformTree-tree--ctx-">
+                    <div class="short collapse show collapse-transformTree-tree--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformTree-tree--ctx-">
+                    <div class="details collapse collapse-transformTree-tree--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2431,7 +2354,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformTrees(trees)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTrees-trees--ctx-">
+                <div id="transformTrees(trees)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTrees-trees--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2465,15 +2388,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2489,13 +2410,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformTrees-trees--ctx-">
+                    <div class="short collapse show collapse-transformTrees-trees--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformTrees-trees--ctx-">
+                    <div class="details collapse collapse-transformTrees-trees--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2542,7 +2463,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformTypeCaseDef(tree)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTypeCaseDef-tree--ctx-">
+                <div id="transformTypeCaseDef(tree)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTypeCaseDef-tree--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2576,15 +2497,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2600,13 +2519,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformTypeCaseDef-tree--ctx-">
+                    <div class="short collapse show collapse-transformTypeCaseDef-tree--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformTypeCaseDef-tree--ctx-">
+                    <div class="details collapse collapse-transformTypeCaseDef-tree--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2653,7 +2572,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformTypeCaseDefs(trees)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTypeCaseDefs-trees--ctx-">
+                <div id="transformTypeCaseDefs(trees)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTypeCaseDefs-trees--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2687,15 +2606,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2711,13 +2628,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformTypeCaseDefs-trees--ctx-">
+                    <div class="short collapse show collapse-transformTypeCaseDefs-trees--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformTypeCaseDefs-trees--ctx-">
+                    <div class="details collapse collapse-transformTypeCaseDefs-trees--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2764,7 +2681,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformTypeTree(tree)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTypeTree-tree--ctx-">
+                <div id="transformTypeTree(tree)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTypeTree-tree--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2798,15 +2715,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2822,13 +2737,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformTypeTree-tree--ctx-">
+                    <div class="short collapse show collapse-transformTypeTree-tree--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformTypeTree-tree--ctx-">
+                    <div class="details collapse collapse-transformTypeTree-tree--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
@@ -2875,7 +2790,7 @@ class MyTreeMap extends TreeMap {
 
                 
                 
-                <div id="transformTypeTrees(trees)(ctx)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTypeTrees-trees--ctx-">
+                <div id="transformTypeTrees(trees)(owner)" class="member def public " data-toggle="collapse" data-target=".collapse-transformTypeTrees-trees--owner-">
                     <!-- Left: modifiers and kind -->
                     <span class="left-column">
                         <span class="modifiers">
@@ -2909,15 +2824,13 @@ class MyTreeMap extends TreeMap {
                                     )
                                 </span>
                             
-                                <span class="params implicit">
+                                <span class="params ">
                                     (
-                                    
-                                        <span class="keyword">implicit&nbsp;</span>
                                                                     
                                         <span class="param">
-                                            ctx:
+                                            owner:
                                             
-                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Context">Context</a>
+                                            <a href="/nightly/api/scala/quoted/QuoteContext/Reflection.html#Symbol">Symbol</a>
                                         </span>
                                         
                                     
@@ -2933,13 +2846,13 @@ class MyTreeMap extends TreeMap {
                         
                     </span>
                     <!-- Shortened comment -->
-                    <div class="short collapse show collapse-transformTypeTrees-trees--ctx-">
+                    <div class="short collapse show collapse-transformTypeTrees-trees--owner-">
                         
                             <p></p>
                         
                     </div>
                     <!-- Fully detailed comment -->
-                    <div class="details collapse collapse-transformTypeTrees-trees--ctx-">
+                    <div class="details collapse collapse-transformTypeTrees-trees--owner-">
                         <!-- Note: the body, if there is one, is already in a paragraph. -->
                         
                         
