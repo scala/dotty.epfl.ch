@@ -1,0 +1,158 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.14.0-RC1 with export, immutable arrays, creator applications and more</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"></link><script type="text/javascript" src="../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../styles/nord-light.css"></link><link rel="stylesheet" href="../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../styles/diagram.css"></link><link rel="stylesheet" href="../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../styles/filter-bar.css"></link><script type="text/javascript" src="../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../css/dottydoc.css"></link><link rel="stylesheet" href="../../css/color-brewer.css"></link><script type="text/javascript" src="../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div><div class="projectVersion">3.0.0-M2-bin-20201123-e0f39f9-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2019-04-15-14th-dotty-milestone-release.md////PointingToDeclaration//-1581902084">
+    <div class="breadcrumbs"><a href="../../docs/index.html">Scala 3</a>/<a href="../index.html">Blog</a>/<a href="2019-04-15-14th-dotty-milestone-release.html">Announcing Dotty 0.14.0-RC1 with export, immutable arrays, creator applications and more</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.14.0-RC1 with export, immutable arrays, creator applications and more</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2019-04-15 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Anatolii Kmetiuk </span> 
+     </div> 
+    </header> 
+    <p>Hello! This is the 14th release of Dotty. Some of the most interesting changes in this release include the new <code>export</code>, the dual of <code>import</code>, feature, an immutable array type and the creator applications syntax.</p> 
+    <p>This release serves as a technology preview that demonstrates new language features and the compiler supporting them.</p> 
+    <p>Dotty is the project name for technologies that are being considered for inclusion in Scala 3. Scala has pioneered the fusion of object-oriented and functional programming in a typed setting. Scala 3 will be a big step towards realising the full potential of these ideas. Its main objectives are to</p> 
+    <ul> 
+     <li>become more opinionated by promoting programming idioms we found to work well,</li> 
+     <li>simplify where possible,</li> 
+     <li>eliminate inconsistencies and surprising behaviours,</li> 
+     <li>build on strong foundations to ensure the design hangs together well,</li> 
+     <li>consolidate language constructs to improve the language’s consistency, safety, ergonomics, and performance.</li> 
+    </ul> 
+    <p>You can learn more about Dotty on our <a href="https://dotty.epfl.ch">website</a>.</p> <!--more--> 
+    <p>This is our 14th scheduled release according to our <a href="https://dotty.epfl.ch/docs/usage/version-numbers.html">6-week release schedule</a>.</p> 
+    <h1><a href="#whats-new-in-the-0140-rc1-technology-preview" id="whats-new-in-the-0140-rc1-technology-preview" class="anchor"></a>What’s new in the 0.14.0-RC1 technology preview?</h1> 
+    <h2><a href="#export-as-a-dual-of-import" id="export-as-a-dual-of-import" class="anchor"></a>Export as a dual of Import</h2> 
+    <p>A new <code>export</code> keyword is added to the language that defines aliases for selected members of an object. Consider the following example:</p> 
+    <pre><code class="language-scala">class BitMap
+class InkJet
+class Printer {
+  type PrinterType
+  def print(bits: BitMap): Unit = ???
+  def status: List[String] = ???
+}
+class Scanner {
+  def scan(): BitMap = ???
+  def status: List[String] = ???
+}
+class Copier {
+  private val printUnit = new Printer { type PrinterType = InkJet }
+  private val scanUnit = new Scanner
+  export scanUnit.scan
+  export printUnit.{status =&gt; _, _}
+  def status: List[String] = printUnit.status ++ scanUnit.status
+}
+</code></pre> 
+    <p>When defined like this, the <code>Copier</code> class defines aliases of the <code>scanner</code>'s <code>scan</code> method and all the methods of <code>printUnit</code> except the <code>status</code> method. You can hence call them on the <code>Copier</code> as follows:</p> 
+    <pre><code class="language-scala">val copier = new Copier
+copier.print(copier.scan())
+</code></pre> 
+    <p>The motivation for this change is to promote composition over inheritance. In OOP languages it is easy to define inheritance but the above example would be tricky if you follow the composition route. One would need to implement proxy methods in the <code>Copier</code> to delegate to those of the <code>Scanner</code> and the <code>Printer</code>.</p> 
+    <p>With the <code>export</code> feature, making the <code>Copier</code> behave as the <code>Printer</code> and the <code>Scanner</code> became much more ergonomic. Also, note the fine-grained control over which methods are exposed in cases of the possible method collision, as shown with the <code>status</code> method example.</p> 
+    <p>For more information, please read more in the <a href="https://dotty.epfl.ch/docs/reference/other-new-features/export.html">documentation</a>.</p> 
+    <h2><a href="#an-immutable-array-type" id="an-immutable-array-type" class="anchor"></a>An immutable array type</h2> 
+    <p>A new type, <code>scala.IArray[T]</code>, is added, which is an immutable version of the <code>Array</code> type. Its implementation deserves a special attention, as it uses the new Dotty features in an elegant way (the below is an abstract from the corresponding <a href="https://github.com/lampepfl/dotty/commit/af2a0e66eb4b1204eac5dcb1d979486b92ef93d7#diff-156dc405d9f228bbc0fe406dfba63f65">commit</a>:</p> 
+    <pre><code class="language-scala">opaque type IArray[T] = Array[T]
+
+object IArray {
+
+  implied arrayOps {
+    inline def (arr: IArray[T]) apply[T] (n: Int): T = (arr: Array[T]).apply(n)
+    inline def (arr: IArray[T]) length[T] : Int = (arr: Array[T]).length
+  }
+  def apply[T: ClassTag](xs: T*): IArray[T] = Array(xs: _*)
+  /*...*/
+}
+</code></pre> 
+    <p>Essentially, the above defines a wrapper around the ordinary <code>Array</code> which exposes only its <code>apply</code> (to get an element by index) and <code>length</code> methods:</p> 
+    <ul> 
+     <li><code>opaque type IArray[T]</code> defines a type which is known to be an <code>Array</code>, but this information is known only in its companion object <code>IArray</code>. To the rest of the world, this information is not available.</li> 
+     <li>The <code>implied arrayOps</code> implied instance defines the extension methods that expose the operations available on the <code>IArray</code> type.</li> 
+     <li>The extension methods, <code>apply</code> and <code>length</code>, delegate to these of the <code>Array</code> type. These methods are inlined which means the performance footprint is the same as that of the original <code>Array</code> methods.</li> 
+     <li>Because the methods are <code>inline</code> and because the <code>IArray</code> type is <code>opaque</code>, we need the <code>(arr: Array[T])</code> casts. <code>IArray</code> is known to be equal to <code>Array</code> only inside the <code>IArray</code> object and the inlining will cause the extension methods' bodies to appear outside the <code>IArray</code> object when these methods are called.</li> 
+    </ul> 
+    <h2><a href="#creator-applications" id="creator-applications" class="anchor"></a>Creator Applications</h2> 
+    <p>This new language feature is a generalisation of the ability to construct case classes without the <code>new</code> keyword:</p> 
+    <pre><code class="language-scala">class StringBuilder(s: String) {
+  def this() = this("")
+}
+StringBuilder("abc")  // same as new StringBuilder("abc")
+StringBuilder()       // same as new StringBuilder()
+</code></pre> 
+    <p>The motivation for the feature is mainly ergonomic. To make it possible, a new interpretation was added to a function call <code>f(a)</code>. Previously, the rules were as follows:</p> 
+    <p>Given a function call <code>f(args)</code>,</p> 
+    <ul> 
+     <li>if <code>f</code> is a method applicable to <code>args</code>, typecheck <code>f(args)</code> unchanged,</li> 
+     <li>otherwise, if <code>f</code> has an <code>apply</code> method applicable to <code>args</code> as a member, continue with <code>f.apply(args)</code>,</li> 
+     <li>otherwise, if <code>f</code> is of the form <code>p.m</code> and there is an implicit conversion <code>c</code> applicable to <code>p</code> so that <code>c(p).m</code> is applicable to <code>args</code>, continue with <code>c(p).m(args)</code></li> 
+    </ul> 
+    <p>There's now a fourth rule following these rules:</p> 
+    <ul> 
+     <li>otherwise, if <code>f</code> is syntactically a stable identifier, and <code>new f</code> where <code>f</code> is interpreted as a type identifier is applicable to <code>args</code>, continue with <code>new f(args)</code>.</li> 
+    </ul> 
+    <p>For more information, please see the <a href="https://dotty.epfl.ch/docs/reference/other-new-features/creator-applications.html">documentation</a>.</p> 
+    <h2><a href="#other-changes" id="other-changes" class="anchor"></a>Other changes</h2> 
+    <p>Some of the other changes include:</p> 
+    <ul> 
+     <li><code>infer</code> method renamed to <code>the</code>, the semantics of which is now the same as that of the <code>the</code> method of Shapeless. Namely, the implicits are resolved more precisely – see this <a href="https://gist.github.com/milessabin/8833a1dbf7e8245b30f8">gist</a> for an example in Shapeless, and the Dotty <a href="https://dotty.epfl.ch/docs/reference/contextual/given-clauses.html#querying-implied-instances">documentation</a> for more details.</li> 
+     <li>The syntax of quoting and splicing was changed. Now the quoting is expressed via <code>'{ ... }</code> and <code>'[...]</code> and splicing – via <code>${...}</code> and <code>$id</code>. Please see the <a href="https://dotty.epfl.ch/docs/reference/metaprogramming/macros.html">documentation</a> for more details on these features.</li> 
+    </ul> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible!</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.13.0-RC1..0.14.0-RC1</code> these are:</p> 
+    <pre><code>   214  Martin Odersky
+   151  Nicolas Stucki
+    71  Liu Fengyun
+    53  Guillaume Martres
+    26  Olivier Blanvillain
+    10  Aleksander Boruch-Gruszecki
+     9  Aggelos Biboudis
+     6  Miles Sabin
+     4  Allan Renucci
+     4  Dale Wijnand
+     3  Anatolii Kmetiuk
+     2  Fengyun Liu
+     2  Alex Zolotko
+     1  gnp
+     1  tim-zh
+     1  Dmitry Petrashko
+     1  Dotty CI
+     1  Jasper Moeys
+     1  Jentsch
+     1  Jim Van Horn
+     1  Lionel Parreaux
+     1  Master-Killer
+     1  Olivier ROLAND
+     1  Robert Stoll
+     1  Seth Tisue
+     1  Tomasz Godzik
+     1  Victor
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>. They make perfect entry points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently this includes ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="images/anatolii.png"> <span id="author-signature"> Anatolii Kmetiuk </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../scripts/pages.js"></script><script type="text/javascript" src="../../scripts/main.js"></script></body></html>

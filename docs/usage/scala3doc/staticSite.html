@@ -1,0 +1,82 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Static docucmentation</title><link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico"></link><script type="text/javascript" src="../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../scripts/fast-navigation-loader.js" defer="true"></script><script>var pathToRoot = "../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div><div class="projectVersion">3.0.0-M2-bin-20201123-e0f39f9-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.docs/usage/scala3doc/staticSite.md////PointingToDeclaration//-1581902084">
+    <div class="breadcrumbs"><a href="../../index.html">Scala 3</a>/<a href="../../Usage/index.html">Usage</a>/<a href="index.html">Scala3doc</a>/<a href="staticSite.html">Static docucmentation</a></div>
+<html>
+ <head></head>
+ <body>
+  <h1><a href="#static-docucmentation" id="static-docucmentation" class="anchor"></a>Static docucmentation</h1> 
+  <p>Scala3doc is able to generate static sites, known from <a href="http://jekyllrb.com/">Jekyll</a> or <a href="https://docusaurus.io/">Docusaurus</a>. Having a combined tool allows to provide interaction between static documentation and API, thus allowing the two to blend naturally.</p> 
+  <p>Creating a site is just as simple as in Jekyll. The site root contains the layout of the site and all files placed there will be either considered static, or processed for template expansion.</p> 
+  <p>The files that are considered for template expansion must end in <code>*.{html,md}</code> and will from here on be referred to as "template files" or "templates".</p> 
+  <p>A simple "hello world" site could look something like this:</p> 
+  <pre><code>├── docs
+│   └── getting-started.md
+└── index.html
+</code></pre> 
+  <p>This will give you a site with the following files in generated documentation:</p> 
+  <pre><code>index.html
+docs/getting-started.html
+</code></pre> 
+  <p>Scala3doc can transform both files and directories (to organize your documentation into tree-like structure). By default directories has title based on file name and has empty content. There is an option to include <code>index.html</code> or <code>index.md</code> (not both) to provide both content and properties like title (see <a href="#properties">Properties</a>).</p> 
+  <h2><a href="#properties" id="properties" class="anchor"></a>Properties</h2> 
+  <p>Scala3doc uses the <a href="https://shopify.github.io/liquid/">Liquid</a> templating engine and provides a number of custom filters and tags specific to Scala documentation.</p> 
+  <p>In Scala3doc, all templates can contain YAML front-matter. The front-matter is parsed and put into the <code>page</code> variable available in templates via Liquid.</p> 
+  <p>Scala3doc uses some predefined properties to controls some aspect of page.</p> 
+  <p>Predefined properties:</p> 
+  <ul> 
+   <li><strong>title</strong> provide page title that will be used in navigation and html metadata.</li> 
+   <li><strong>extraCss</strong> additional <code>.css</code> files that will be included in this page. Paths should be relative to documentation root. <strong>This setting is not exported to template engine.</strong></li> 
+   <li><strong>extraJs</strong> additional <code>.js</code> files that will be included in this page. Paths should be relative to documentation root. <strong>This setting is not exported to template engine.</strong></li> 
+   <li><strong>hasFrame</strong> when set to <code>false</code> page will not include default layout (navigation, breadcrumbs etc.) but only token html wrapper to provide metadata and resources (js and css files). <strong>This setting is not exported to template engine.</strong> - <strong>layout</strong> - predefined layout to use, see below. <strong>This setting is not exported to template engine.</strong></li> 
+  </ul> 
+  <h2><a href="#using-existing-templates-and-layouts" id="using-existing-templates-and-layouts" class="anchor"></a>Using existing Templates and Layouts</h2> 
+  <p>To perform template expansion, Dottydoc looks at the <code>layout</code> field in the front-matter. Here's a simple example of the templating system in action, <code>index.html</code>:</p> 
+  <pre><code class="language-html">---
+layout: main
+---
+
+&lt;h1&gt;Hello world!&lt;/h1&gt;
+</code></pre> 
+  <p>With a simple main template like this:</p> 
+  <pre><code class="language-html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Hello, world!&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        {{ content }}
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre> 
+  <p>Would result in <code>{{ content }}</code> being replaced by <code>&lt;h1&gt;Hello world!&lt;/h1&gt;</code> from the <code>index.html</code> file.</p> 
+  <p>Layouts must be placed in a <code>_layouts</code> directory in the site root:</p> 
+  <pre><code>├── _layouts
+│   └── main.html
+├── docs
+│   └── getting-started.md
+└── index.html
+</code></pre> 
+  <h1><a href="#sidebar" id="sidebar" class="anchor"></a>Sidebar</h1> 
+  <p>Scala3doc by default uses layout of files in <code>docs</code> directory to create table of content. There is also ability to override it by providing a <code>sidebar.yml</code> file in the site root:</p> 
+  <pre><code class="language-yaml">sidebar:
+    - title: Blog
+      url: blog/index.html
+    - title: Docs
+      url: docs/index.html
+    - title: Usage
+      subsection:
+        - title: Dottydoc
+          url: docs/usage/dottydoc.html
+        - title: sbt-projects
+          url: docs/usage/sbt-projects.html
+</code></pre> 
+  <p>The <code>sidebar</code> key is mandatory, as well as <code>title</code> for each element. The default table of contents allows you to have subsections - albeit the current depth limit is 2 however it accepts both files and directories and latter can be used to provide deeper structures.</p> 
+  <p>The items which have on the <code>subsection</code> level does not accepts <code>url</code>.</p> 
+  <pre><code>├── blog
+│   └── _posts
+│       └── 2016-12-05-implicit-function-types.md
+├── index.html
+└── sidebar.yml
+</code></pre> 
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../scripts/pages.js"></script><script type="text/javascript" src="../../../scripts/main.js"></script></body></html>

@@ -1,0 +1,257 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.21.0-RC1 - explicit nulls, new syntax for `match` and conditional givens, and more</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"></link><script type="text/javascript" src="../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../styles/nord-light.css"></link><link rel="stylesheet" href="../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../styles/diagram.css"></link><link rel="stylesheet" href="../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../styles/filter-bar.css"></link><script type="text/javascript" src="../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../css/dottydoc.css"></link><link rel="stylesheet" href="../../css/color-brewer.css"></link><script type="text/javascript" src="../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div><div class="projectVersion">3.0.0-M2-bin-20201123-e0f39f9-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2019-12-20-21th-dotty-milestone-release.md////PointingToDeclaration//-1581902084">
+    <div class="breadcrumbs"><a href="../../docs/index.html">Scala 3</a>/<a href="../index.html">Blog</a>/<a href="2019-12-20-21th-dotty-milestone-release.html">Announcing Dotty 0.21.0-RC1 - explicit nulls, new syntax for `match` and conditional givens, and more</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.21.0-RC1 - explicit nulls, new syntax for `match` and conditional givens, and more</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2019-12-20 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Aggelos Biboudis </span> 
+     </div> 
+    </header> 
+    <p>Greetings and we wish you Merry Christmas 🎄! We are excited to announce 0.21.0-RC1 of Dotty. In this version we add support for non-nullable reference types, supported by flow-sensitive analysis. We present new syntax for given extensions, matches and pattern matching over quotes. We are also happy to announce that SemanticDB generation is now supported within the compiler, this will eventually enable Metals to support Dotty! And last but not least ... we are happy to announce that we are now feature complete!</p> 
+    <h1><a href="#feature-complete" id="feature-complete" class="anchor"></a>Feature Complete!</h1> 
+    <p>This release is a HUGE milestone for us, for Dotty, for Scala 3, for our community. Since that <a href="https://github.com/lampepfl/dotty/commit/90962407e72d88f8f3249ade0f6bd60ff15af5ce">initial commit</a> on the 6th December of 2012 when the only feature was the basic structure of a compiler based on the DOT calculus, we have come a long way.</p> 
+    <p>7 years and 20k commits later we are happy to announce that we are now <em>feature-complete</em> for Scala 3. This means that with this release we stop adding new features and we focus on:</p> 
+    <ul> 
+     <li>bug fixing and general quality assurance towards the final release 🐛</li> 
+     <li>performance engineering 🏎️</li> 
+     <li>documentation improvements 📕</li> 
+     <li>education 👨‍🏫</li> 
+    </ul> 
+    <p>Being feature complete does not mean that every detail of Scala 3 is cast in stone yet. Some details can still change, or be enabled conditionally, or even be dropped entirely. That will depend on the additional experience we gain over the next months, in particular the feedback we receive from the community and the SIP committee. But the envelope of what will (most likely) be in Scala 3 is now defined and implemented.</p> 
+    <p>For an overview of the feature envelope that Scala 3 carries you can read our <a href="https://dotty.epfl.ch/docs/reference/overview.html">Overview</a> page. For a more detailed discussion on the transition to Scala 3 you can read the <a href="https://www.scala-lang.org/2019/12/18/road-to-scala-3.html">Scala 2 roadmap update: The road to Scala 3</a>.</p> 
+    <h3><a href="#community-build" id="community-build" class="anchor"></a>Community build</h3> 
+    <p>Being feature complete doesn't mean that development slows down. On the contrary! It means that we can now put the Scala 3 compiler under heavy load, getting it ready for industrial strength applications. At the moment we have 23 projects on our community projects and we expect this number to go up!</p> 
+    <blockquote> 
+     <p><a href="https://github.com/lampepfl/dotty/tree/master/community-build/community-projects">https://github.com/lampepfl/dotty/tree/master/community-build/community-projects</a></p> 
+    </blockquote> 
+    <p>This project contains tests to build and test a corpus of open sources Scala 2.x projects against Scala 3.</p> 
+    <p>To run the community-build on a local machine from the main Dotty repository, first fetch all the git submodules with <code>git submodule update --init</code> and run <code>sbt community-build/test</code> from the root of the dotty repo.</p> 
+    <p>For more details also follow the <a href="https://www.scala-lang.org/2019/12/18/road-to-scala-3.html#migrating-the-ecosystem">Migrating the Ecosystem</a> on the Road to Scala 3 blogpost.</p> 
+    <h3><a href="#new-issues" id="new-issues" class="anchor"></a>New Issues</h3> 
+    <p>Firstly thank you for all the hard work in issue reporting! Being feature complete means that our issue tracker will now be more important than ever. We encourage you to stress the compiler and report self-contained test-cases! Bug minimization is hard and an art form! Help us unearth those nasty bugs! ✊</p> 
+    <p>Last but not least we restate the mission of Scala 3. Scala has pioneered the fusion of object-oriented and functional programming in a typed setting and Scala 3 will be a big step towards realising the full potential of these ideas. Its main objectives are to:</p> 
+    <ul> 
+     <li>become more opinionated by promoting programming idioms we found to work well,</li> 
+     <li>simplify where possible,</li> 
+     <li>eliminate inconsistencies and surprising behaviours,</li> 
+     <li>build on strong foundations to ensure the design hangs together well,</li> 
+     <li>consolidate language constructs to improve the language’s consistency, safety, ergonomics, and performance.</li> 
+    </ul> 
+    <p>You can learn more about Dotty on our <a href="https://dotty.epfl.ch">website</a>.</p> <!--more--> 
+    <h1><a href="#whats-new-in-the-0210-rc1-technology-preview" id="whats-new-in-the-0210-rc1-technology-preview" class="anchor"></a>What’s new in the 0.21.0-RC1 technology preview?</h1> 
+    <h2><a href="#dotty-with-explicit-nulls-and-flow-typing" id="dotty-with-explicit-nulls-and-flow-typing" class="anchor"></a>Dotty with explicit nulls and flow typing</h2> 
+    <p>We add support for non-nullable reference types under the compiler option <code>-Yexplicit-nulls</code>. Nullability needs then to be expressed explicitly via unions (e.g. <code>String|Null</code>).</p> 
+    <p>This means the following code will no longer typecheck:</p> 
+    <pre><code class="language-scala">val x: String = null // error: found `Null`,  but required `String`
+</code></pre> 
+    <p>Instead, to mark a type as nullable we use a type union:</p> 
+    <pre><code class="language-scala">val x: String|Null = null // ok
+</code></pre> 
+    <p>This change affects two parts of the compiler. Firstly we have a new type hierarchy for <code>Null</code> and a <em>translation layer</em> from Java types to Scala types, which balances soundness and usability.</p> 
+    <p>With this release we also introduce a flow-sensitive analysis that refines the type of an expression based on control-flow. In the example below <code>s</code> is <code>String|Null</code>. The <code>if</code> branch validates the value of <code>s</code> against <code>Null</code> so <code>s</code> can be safely considered <code>String</code> in that scope.</p> 
+    <pre><code class="language-scala">val s: String|Null = ???
+
+if (s != null) {
+  // s: String
+}
+else {
+  // s: String|Null
+}
+</code></pre> 
+    <p>Note, that more complex tests are also supported like:</p> 
+    <pre><code class="language-scala">val s: String|Null = ???
+val s2: String|Null = ???
+
+if (s != null &amp;&amp; s2 != null) // s: String and s2: String
+</code></pre> 
+    <p>but also in a short-circuiting manner:</p> 
+    <pre><code class="language-scala">val s: String|Null = ???
+
+if (s != null &amp;&amp; s.length &gt; 0) // s: String in `s.length &gt; 0`
+</code></pre> 
+    <p>To support Java Interop under explicit nulls we provide an alias for <code>Null</code> called <code>UncheckedNull</code>. The compiler can load Java classes in two ways: from source or from bytecode. In either case, when a Java class is loaded, we "patch" the type of its members to reflect that Java types remain implicitly nullable.</p> 
+    <p>An additional value of <code>UncheckedNull</code> (on the Scala side) is that we effectively support method chaining on Java-returned values. e.g.,</p> 
+    <pre><code class="language-scala">val s2: String = someJavaMethod().trim().substring(2).toLowerCase()
+</code></pre> 
+    <p>as opposed to:</p> 
+    <pre><code class="language-scala">val ret = someJavaMethod()
+val s2 = if (ret != null) {
+  val tmp = ret.trim()
+  if (tmp != null) {
+    val tmp2 = tmp.substring(2)
+    if (tmp2 != null) {
+      tmp2.toLowerCase()
+    }
+  }
+}
+// Additionally, we need to handle the `else` branches.
+</code></pre> 
+    <p>This feature is the result of a successful collaboration between LAMP/EPFL, Abel Nieto, Yaoyu Zhao and Ondřej Lhoták from the University of Waterloo. For more info refer to the docs on <a href="https://dotty.epfl.ch/docs/reference/other-new-features/explicit-nulls.html">Explicit Nulls</a>.</p> 
+    <h2><a href="#new-syntax-for-given-instances-defining-extension-methods" id="new-syntax-for-given-instances-defining-extension-methods" class="anchor"></a>New syntax for given instances defining extension methods</h2> 
+    <p>To make code navigation easier in the case of <code>given</code> extension methods we change the syntax in the following two manners. Hereafter, we write:</p> 
+    <pre><code class="language-scala">given listOps: extension [T](xs: List[T]) { ... }
+
+given extension (s: String) { ... }
+</code></pre> 
+    <p>or</p> 
+    <pre><code class="language-scala">given listOps: [T](xs: List[T]) extended with { ... }
+
+given (s: String) extended with { ... }
+</code></pre> 
+    <p>instead of:</p> 
+    <pre><code class="language-scala">given listOps: [T](xs: List[T]) { ... }
+
+given (s: String) { ... }
+</code></pre> 
+    <p>After experimenting with both, one will be settled upon. The rationale is to communicate in a clean way that the parameters go on the extension method and not the wrapper (e.g., <code>listOps</code>) .</p> 
+    <p>To learn more about extension methods and given instances for extension methods in particular follow the docs on <a href="https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html#given-instances-for-extension-methods">Given Instances for Extension Methods</a></p> 
+    <h2><a href="#new-syntax-for-conditional-givens" id="new-syntax-for-conditional-givens" class="anchor"></a>New syntax for conditional givens</h2> 
+    <p>We are experimenting with a new way to write given instances that are conditionally provided given other instances.</p> 
+    <p>Using present given syntax, it can seem awkward to define parameterised instances:</p> 
+    <pre><code class="language-scala">given listOrd[T](given Ord[T]): Ord[List[T]] ...
+</code></pre> 
+    <p>it's particularly unfortunate for anonymous given instances:</p> 
+    <pre><code class="language-scala">given [T](given Ord[T]): Ord[List[T]] ...
+</code></pre> 
+    <p>and worst in the monomorphic case:</p> 
+    <pre><code class="language-scala">given (given outer: Context): Context = ...
+</code></pre> 
+    <p>With the new syntax, the above definitions become</p> 
+    <pre><code class="language-scala">given listOrd[T]: Ord[T] =&gt; Ord[List[T]] ...
+
+given [T]: Ord[T] =&gt; Ord[List[T]] ...
+
+given (outer: Context) =&gt; Context = ...
+</code></pre> 
+    <p>where the <code>=&gt;</code> is read as <code>implies</code>, e.g. "a given <code>Ord[T]</code> implies a given <code>Ord[List[T]]</code>."</p> 
+    <p>This syntax is intentionally similar to function types. Indeed, multiple given parameter lists are provided as such:</p> 
+    <pre><code class="language-scala">given [T]: (ctx: Context) =&gt; (ctx.Type[T]) =&gt; Zero[ctx.Expr[T]]
+</code></pre> 
+    <p>where the above reads as "a given <code>(ctx: Context)</code> and a given <code>ctx.Type[T]</code> implies a given <code>Zero[ctx.Expr[T]]</code>."</p> 
+    <p>As a worked example, we define a parameterised given instance for <code>Show[(A,B)]</code>:</p> 
+    <pre><code class="language-scala">trait Show[-A] with
+  def (a: A) show: String
+
+given Show[String] = x =&gt; x
+given Show[Int]    = _.toString
+
+given [A,B]: (Show[A], Show[B]) =&gt; Show[(A,B)] =
+  (a,b) =&gt; s"(${a.show}, ${b.show})"
+
+@main def ShowPair =
+  println((1 -&gt; "one").show) // (1, "one")
+</code></pre> 
+    <p>After a period of experimentation, either the new or old way will remain.</p> 
+    <h2><a href="#new-match-syntax" id="new-match-syntax" class="anchor"></a>New match syntax</h2> 
+    <p>We introduce an improved treatment of <code>match</code>. We reintroduce <code>match</code> as an alphanumeric, left-associative, infix operator that can support chained matches:</p> 
+    <pre><code class="language-scala">xs match {
+  case Nil =&gt; "empty"
+  case x :: xs1 =&gt; "nonempty"
+} match {
+  case "empty" =&gt; 0
+  case "nonempty" =&gt; 1
+}
+</code></pre> 
+    <p>By using the new treatment we can now offer <code>match</code> as a method:</p> 
+    <pre><code class="language-scala">xs.match {
+  case Nil =&gt; false
+  case _ =&gt; true
+}
+</code></pre> 
+    <p>You can read more in our docs <a href="https://dotty.epfl.ch/docs/reference/changed-features/match-syntax.html">Match Expressions</a> and on the interesting discussions in <a href="https://contributors.scala-lang.org/t/pre-sip-demote-match-keyword-to-a-method/2137/2">contributors</a>.</p> 
+    <h2><a href="#metaprogramming-new-quoted-pattern-matching" id="metaprogramming-new-quoted-pattern-matching" class="anchor"></a>Metaprogramming: New quoted pattern matching</h2> 
+    <p>We introduce a high-level API to deconstruct or extract values out of <code>Expr</code> using pattern matching. It consists of high-level extractors for getting static information out of exprs and, of quoted patterns that allows to deconstruct complex code that contains a precise structure, types or methods. Patterns <code>'{ ... }</code> can be placed in any location where Scala expects a pattern.</p> 
+    <p>The new extractors are summarized below:</p> 
+    <ul> 
+     <li><code>scala.quoted.matching.Const</code>: matches an expression a literal value and returns the value.</li> 
+     <li><code>scala.quoted.matching.ExprSeq</code>: matches an explicit sequence of expresions and returns them. These sequences are useful to get individual <code>Expr[T]</code> out of a varargs expression of type <code>Expr[Seq[T]]</code>.</li> 
+     <li><code>scala.quoted.matching.ConstSeq</code>: matches an explicit sequence of literal values and returns them.</li> 
+    </ul> 
+    <p>The following snippet demonstrates the new <em>quoted patterns</em> implementing a simple, 1-level, non-recursive rewriter macro for exponents. <code>rewrite</code> is a an inline method definition designating a macro as usual. To inspect an <code>expr</code> value with friendly syntax we can now use the quoted syntax as patterns inside a match expression. Notice that quotes designate patterns and <code>$</code>, the familiar syntax for splices is used to <em>extract</em> (capture) information out of a pattern.</p> 
+    <pre><code class="language-scala">inline def rewrite(expr: =&gt; Double): Double = ${rewrite('expr)}
+
+def rewrite(expr: Expr[Double])(given QuoteContext): Expr[Double] = {
+  val res = expr match {
+    // product rule
+    case '{ power2($a, $x) * power2($b, $y)} if a.matches(b) =&gt; '{ power2($a, $x + $y) }
+    // rules of 1
+    case '{ power2($a, 1)} =&gt; a
+    case '{ power2(1, $a)} =&gt; '{ 1.0 }
+    // rule of 0
+    case '{ power2($a, 0)} =&gt; '{ 1.0 }
+    // power rule
+    case '{ power2(power2($a, $x), $y)} =&gt; '{ power2($a, $x * $y ) }
+    case _ =&gt; expr
+  }
+  res
+}
+</code></pre> 
+    <p>To learn more read our docs on <a href="https://dotty.epfl.ch/docs/reference/metaprogramming/macros.html#pattern-matching-on-quoted-expressions">pattern matching over quotes</a>.</p> 
+    <h2><a href="#added-support-for-semanticdb-file-generation" id="added-support-for-semanticdb-file-generation" class="anchor"></a>Added support for SemanticDB file generation</h2> 
+    <p>As part of ongoing efforts to support Dotty in Metals, our latest release now offers support for generation of SemanticDB files, enabled with the <code>-Ysemanticdb</code> compiler flag. Providing <code>-semanticdb-target</code> allows the user to select a separate target destination for the <code>META-INF</code> directory (the root for <code>.semanticdb</code> files) and <code>-sourceroot</code> to calculate a relative path for SemanticDB files within <code>META-INF</code>.</p> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible!</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.20.0-RC1..0.21.0-RC1</code> these are:</p> 
+    <pre><code>   176  Martin Odersky
+   171  Bryan Abate
+    88  Nicolas Stucki
+    81  Jamie Thompson
+    44  noti0na1
+    29  Anatolii
+    28  bishabosha
+    23  Antoine Brunner
+    19  Guillaume Martres
+    10  Aleksander Boruch-Gruszecki
+     8  Guillaume Raffin
+     6  Olafur Pall Geirsson
+     5  Sébastien Doeraene
+     4  Aggelos Biboudis
+     4  Liu Fengyun
+     4  Paolo G. Giarrusso
+     3  Andrea Mocci
+     3  Martijn Hoekstra
+     2  Ben Elliott
+     2  Patrik Mada
+     2  Rafal Piotrowski
+     2  odersky
+     1  Markus Kahl
+     1  Richard Beddington
+     1  Vlastimil Dort
+     1  Anatolii Kmetiuk
+     1  Raphael Jolly
+     1  Lucas
+     1  Nikita Eshkeev
+     1  Brian Wignall
+     1  Olivier Blanvillain
+     1  张志豪
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>. They make perfect entry points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently, this includes ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="images/aggelos.jpg"> <span id="author-signature"> Aggelos Biboudis </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../scripts/pages.js"></script><script type="text/javascript" src="../../scripts/main.js"></script></body></html>

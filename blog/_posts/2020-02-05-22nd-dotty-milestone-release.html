@@ -1,0 +1,216 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.22.0-RC1 - syntactic enhancements, type-level arithmetic and more</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"></link><script type="text/javascript" src="../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../styles/nord-light.css"></link><link rel="stylesheet" href="../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../styles/diagram.css"></link><link rel="stylesheet" href="../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../styles/filter-bar.css"></link><script type="text/javascript" src="../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../css/dottydoc.css"></link><link rel="stylesheet" href="../../css/color-brewer.css"></link><script type="text/javascript" src="../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div><div class="projectVersion">3.0.0-M2-bin-20201123-e0f39f9-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2020-02-05-22nd-dotty-milestone-release.md////PointingToDeclaration//-1581902084">
+    <div class="breadcrumbs"><a href="../../docs/index.html">Scala 3</a>/<a href="../index.html">Blog</a>/<a href="2020-02-05-22nd-dotty-milestone-release.html">Announcing Dotty 0.22.0-RC1 - syntactic enhancements, type-level arithmetic and more</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.22.0-RC1 - syntactic enhancements, type-level arithmetic and more</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2020-02-05 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Anatolii Kmetiuk </span> 
+     </div> 
+    </header> 
+    <p>Hello! We are excited to announce 0.22.0-RC1 of Dotty. This version brings syntactic enhancements for extension methods and context parameters, as well as the kind projector syntax. Other notable changes include type-level arithmetic, changes to the <code>inline</code> parameters semantics and suggestions on missing context parameters.</p> 
+    <p>You can try out this version right now, from the comfort of your SBT, by visiting the <a href="https://dotty.epfl.ch/">home page</a> and scrolling down to the "Create a Dotty Project" section.</p> 
+    <p>Alternatively, you can try this version of Scala online via <a href="https://scastie.scala-lang.org/">Scastie</a>. Once you're there, click "Build Settings" and set "Target" to "Dotty".</p> 
+    <p>Enjoy the ride🚀!</p> <!--more--> 
+    <h1><a href="#new-syntax-for-collective-extension-methods" id="new-syntax-for-collective-extension-methods" class="anchor"></a>New syntax for collective extension methods</h1> 
+    <p>Extension methods have been present in Dotty for a while. They present an idiomatic way to extend types with methods after these types are defined. For example:</p> 
+    <pre><code class="language-scala">def (x: Int) toPower (n: Int): Int =
+  @annotation.tailrec def loop(accum: Int, power: Int): Int =
+    if power == 0 then accum
+    else if power &gt; 0 then loop(accum * x, power - 1)
+    else throw IllegalArgumentException("This operation only supports positive powers")
+  loop(1, n)
+  println(s"3^3 = ${3.toPower(3)}")  // 3^3 = 27
+</code></pre> 
+    <p>However, when one wants to define multiple extension methods for a type, a lot of boilerplate manifests:</p> 
+    <pre><code class="language-scala">def (x: Int) toPower (n: Int): Int = ???
+def (x: Int) squared = ???
+def (x: Int) asBinaryString = ???
+</code></pre> 
+    <p>The type in question and the name of its parameter, <code>(x: Int)</code>, repeat.</p> 
+    <p>This boilerplate was the motivation to introduce collective extension methods. For a while, we were experimenting with looking at these through the lens of the <code>given</code> mechanism. We have tried out an idea of making these methods belong to an object visible in the <code>given</code> scope and, if such an object is present in the <code>given</code> scope, its extension methods are also automatically usable.</p> 
+    <p>However, <code>given</code> instances are about <em>types</em> and the collective extension methods describe <em>parameters</em> of extension methods. Hence, in this release we introduce a new syntax for the collective extension methods:</p> 
+    <pre><code class="language-scala">extension listOps on [T](xs: List[T]) {
+  def second = xs.tail.head
+  def third: T = xs.tail.tail.head
+}
+
+val list = List(1, 2, 3)
+println(s"Second: ${list.second}")  // 2
+println(s"Third: ${list.third}")  // 3
+</code></pre> 
+    <p>This syntax is a completely separate one from the <code>given</code> syntax and hence is aimed to bring more clarity and disentangle the two different concepts.</p> 
+    <p>For the discussion, see <a href="https://github.com/lampepfl/dotty/pull/7917">PR #7917</a>. For more information on how to use extension methods in general and collective extension methods in particular, see the <a href="https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html">documentation</a>.</p> 
+    <h1><a href="#kind-projector-syntax-support" id="kind-projector-syntax-support" class="anchor"></a>Kind projector syntax support</h1> 
+    <p><a href="https://github.com/typelevel/kind-projector">Kind projector</a> is a popular compiler plugin for Scala 2. It is especially useful in the context of purely functional programming and type class derivation – everywhere where you need to work extensively with types.</p> 
+    <p>As of this release, a subset of the kind projector syntax is now supported in Dotty. Credits for this contribution go to <a href="https://github.com/travisbrown">Travis Brown</a>.</p> 
+    <p>To enable it, you need to run the compiler with the <code>-Ykind-projector</code> flag. You can e.g. write the following:</p> 
+    <pre><code class="language-scala">// Fix #7139: Implement kind-projector compatibility #7775
+// With -Ykind-projector
+
+trait Functor[F[_]]
+  def map[A, B](fa: F[A], f: A =&gt; B): F[B]
+
+object eitherFunctor extends Functor[Either[Int, *]]
+  def map[A, B](fa: Either[Int, A], f: A =&gt; B): Either[Int, B] = fa match
+    case Right(x) =&gt; Right(f(x))
+    case Left(x) =&gt; Left(x)
+
+object functionFunctor extends Functor[Int =&gt; *]
+  def map[A, B](fa: Int =&gt; A, f: A =&gt; B): Int =&gt; B =
+    fa andThen f
+
+object tupleFunctor extends Functor[λ[x =&gt; (x, x)]]
+  def map[A, B](fa: (A, A), f: A =&gt; B): (B, B) = fa match
+    case (a1, a2) =&gt; (f(a1), f(a2))
+
+@main def Test =
+  val tpl = (1, 2)
+  val squared = tupleFunctor.map(tpl, a =&gt; a * a)
+  println(squared)  // (1,4)
+</code></pre> 
+    <p>For the discussion, see <a href="https://github.com/lampepfl/dotty/pull/7775">PR #7775</a>. Also see the GitHub <a href="https://github.com/typelevel/kind-projector">repository</a> of the kind projector Scala 2 plugin for more context.</p> 
+    <h1><a href="#further-improvements-to-the-context-parameters-syntax" id="further-improvements-to-the-context-parameters-syntax" class="anchor"></a>Further improvements to the context parameters syntax</h1> 
+    <p>Scala 3 context parameters are successors of Scala 2 implicits. In Scala 2, they proved useful for a wide range of applications including purely functional programming, dependency injection, type class derivation, type-level programming. Because their apparent value, one of the priorities in Scala 3 for us is to improve the conceptual framework behind them.</p> 
+    <p>The state of context parameters before this release heavily employed the <code>given</code> keyword. For example:</p> 
+    <pre><code class="language-scala">// OLD SYNTAX BELOW
+given String = "10"
+given (given str: String) : Int = str.toInt
+def f(x: Int)(given y: Int) = x * y
+</code></pre> 
+    <p>The above is a suboptimal solution, however. The feedback we received from the community suggested that many people felt like the <code>given</code> keyword was overused, similarly to the <code>implict</code> keyword in Scala 2. This overuse is one of the things we'd like to avoid in Scala 3. It leads, for example, to situations like <code>given (given ...)</code> which are not nice to read.</p> 
+    <p>For this release, we have changed the syntax for the context parameters. The keyword for the context argument group is now <code>using</code> instead of <code>given</code>. The above snippet now becomes:</p> 
+    <pre><code class="language-scala">given String = "10"
+given (using str: String) as Int = str.toInt
+def f(x: Int)(using y: Int) = x * y
+</code></pre> 
+    <p>On the call site, the syntax for explicitly specifying the context parameters is now:</p> 
+    <pre><code class="language-scala">f(2)(using 20)
+</code></pre> 
+    <p>As opposed to the previous:</p> 
+    <pre><code class="language-scala">// OLD SYNTAX BELOW
+f(2)(given 20)
+</code></pre> 
+    <p>For the time being, the change is experimental and the old syntax is also supported. For the discussion, see <a href="https://github.com/lampepfl/dotty/pull/8162">PR #8162</a>. You can browse the documentation concerning the new syntax <a href="https://dotty.epfl.ch/docs/reference/contextual/motivation-new.html">here</a>.</p> 
+    <h1><a href="#semantics-of-inline-parameters-changed" id="semantics-of-inline-parameters-changed" class="anchor"></a>Semantics of inline parameters changed</h1> 
+    <p>Inline parameters is a metaprogramming feature of Dotty which allows to splice the body of the parameter on its call site. Previously, inline parameters to methods were required to be known on compile time. With this release, this constraint has been relaxed. The following:</p> 
+    <pre><code class="language-scala">inline def sumTwice(a: Int, b: =&gt;Int, inline c: Int) = a + a + b + b + c + c
+sumTwice(f(), g(), h())
+</code></pre> 
+    <p>Translates to:</p> 
+    <pre><code class="language-scala">    val a = f()
+    def b = g()
+    a + a + b + b + h() + h()
+</code></pre> 
+    <p>Notice how the value of the by-name parameter <code>b</code> is not inlined but is bound to <code>def b</code>. This is an important change that affects all the macros that accepted by-name parameters and analyzed the AST of the underlying code. With this release, such macros will stop working correctly because the AST of the code in question will be the identifier of the by-name parameter, <code>b</code> in this case, and not the AST of the code passed under that parameter's name. The workaround is to change all the by-name parameters in your macros to inline parameters.</p> 
+    <p>So, if previously you had a macro <code>inline def operationOnCode(code: =&gt; Unit) = ${ mcrImpl('code) }</code> which did something on the AST of the passed <code>code</code>, with this release you need to change it to <code>inline def operationOnCode(inline code: Unit) = ${ mcrImpl('code) }</code>.</p> 
+    <p>This change was introduced by <a href="https://github.com/lampepfl/dotty/pull/8060/">PR #8060</a>.</p> 
+    <p>Another change in the semantics of the inline parameters involves the fact that the can no longer be passed as constants to macro implementations. Previously, the following was possible:</p> 
+    <pre><code class="language-scala">// OLD SEMANTICS
+inline def power(x: Double, inline n: Int) = ${ powerCode('x, n) }
+private def powerCode(x: Expr[Double], n: Int)(given
+QuoteContext): Expr[Double] = ???
+</code></pre> 
+    <p>It was possible to pass <code>n</code> directly to the spliced <code>powerCode</code> and it would have been treated as a constant in that macro implementation.</p> 
+    <p>Now, the inline parameters must be quoted when passed to a macro:</p> 
+    <pre><code class="language-scala">inline def power(x: Double, inline n: Int) = ${ powerCode('x, 'n) }
+private def powerCode(x: Expr[Double], n: Expr[Int])(given QuoteContext): Expr[Double] = ???
+</code></pre> 
+    <p>You can obtain the constant value of <code>n</code> from within the macro implementation by calling <code>n.getValue</code> on it which returns an <code>Option</code>. This change was introduced by <a href="https://github.com/lampepfl/dotty/pull/8061">PR #8061</a>.</p> 
+    <p>For more information about the inline capability of Dotty, see <a href="https://dotty.epfl.ch/docs/reference/metaprogramming/inline.html">documentation</a>.</p> 
+    <h1><a href="#primitive-compiletime-operations-on-singleton-types" id="primitive-compiletime-operations-on-singleton-types" class="anchor"></a>Primitive compiletime operations on singleton types</h1> 
+    <p>Contributed by <a href="https://github.com/MaximeKjaer">Maxime Kjaer</a>, this release brings along type-level arithmetic:</p> 
+    <pre><code class="language-scala">import scala.compiletime.ops.int._
+
+val x: 2 + 3 = 5  // OK
+val y: 3 * 4 + 1 = 12  // error
+</code></pre> 
+    <p>The compile-time error above will say:</p> 
+    <pre><code class="language-scala">4 |val y: 3 * 4 + 1 = 12
+  |                   ^^
+  |                   Found:    (12 : Int)
+  |                   Required: (13 : Int)
+</code></pre> 
+    <p>This feature is particularly useful for data science applications. In data science, it is very easy to make a linear algebra mistake, multiply matrices of wrong dimensions and get a runtime error – sometimes after a few hours of running the model. Hence compile-time verification of the models has a great potential for saving time. With such a type-level arithmetic, Scala becomes well-positioned to implement such type-safe data science frameworks.</p> 
+    <p>For the discussion, see <a href="https://github.com/lampepfl/dotty/pull/7628">PR #7628</a>. The documentation is available <a href="https://dotty.epfl.ch/docs/reference/metaprogramming/inline.html#the-scalacompiletimeops-package">here</a>.</p> 
+    <h1><a href="#suggestions-on-missing-context-parameters" id="suggestions-on-missing-context-parameters" class="anchor"></a>Suggestions on missing context parameters</h1> 
+    <p>If there's a compile-time error due to a missing context parameter and this error can be fixed with an import, the compiler will attempt to suggest such an import in the error message. Here is an example of how this error looks like:</p> 
+    <pre><code>-- Error: tests/neg/missing-implicit1.scala:17:4 -----------------------------------------------------------------------
+17 |  ff // error
+   |    ^
+   |no implicit argument of type testObjectInstance.Zip[Option] was found for parameter xs of method ff in object testObjectInstance
+   |
+   |The following import might fix the problem:
+   |
+   |  import testObjectInstance.instances.zipOption
+</code></pre> 
+    <p>One area where these suggestions will make life easier is purely functional programming with type-classes, with libraries like <a href="https://typelevel.org/cats/">cats</a>. Having the fix for a missing type class in the error message itself is a big time-saver.</p> 
+    <p>For the discussion, see <a href="https://github.com/lampepfl/dotty/pull/7862">PR #7862</a>.</p> 
+    <h1><a href="#tasty-inspector-library" id="tasty-inspector-library" class="anchor"></a>TASTy Inspector library</h1> 
+    <p>TASTy Consumer was renamed to TASTy Inspector as of this release. It was also published in a library of its own. For more information, see the <a href="https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html">documentation</a> on this library.</p> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible!</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.21.0-RC1..0.22.0-RC1</code> these are:</p> 
+    <pre><code>   192  Martin Odersky
+    85  Nicolas Stucki
+    57  Antoine Brunner
+    42  Liu Fengyun
+    29  Guillaume Martres
+    23  Aggelos Biboudis
+    17  Maxime Kjaer
+    10  Anatolii
+     7  Jamie Thompson
+     4  Minghao Liu
+     3  Travis Brown
+     3  Andrew Valencik
+     2  fhackett
+     2  Dvir Faivel
+     2  Nadezhda Balashova
+     2  Ruslan Shevchenko
+     2  Lan, Jian
+     2  Anatolii Kmetiuk
+     2  Yevgen Nerush
+     1  Dale Wijnand
+     1  odersky
+     1  Dmitrii Naumenko
+     1  Eric K Richardson
+     1  Eric Loots
+     1  Jaap van der Plas
+     1  Keith Pinson
+     1  Miles Sabin
+     1  Alexander Shamukov
+     1  Som Snytt
+     1  Taisuke Oe
+     1  Timothée Floure
+     1  bishabosha
+     1  gzoller
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>. They make perfect entry points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently, this includes ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="../../images/anatolii.png"> <span id="author-signature"> Anatolii Kmetiuk </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../scripts/pages.js"></script><script type="text/javascript" src="../../scripts/main.js"></script></body></html>

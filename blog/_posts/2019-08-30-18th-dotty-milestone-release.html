@@ -1,0 +1,261 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.18.1-RC1 – switch to the 2.13 standard library, indentation-based syntax and other experiments</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"></link><script type="text/javascript" src="../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../styles/nord-light.css"></link><link rel="stylesheet" href="../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../styles/diagram.css"></link><link rel="stylesheet" href="../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../styles/filter-bar.css"></link><script type="text/javascript" src="../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../css/dottydoc.css"></link><link rel="stylesheet" href="../../css/color-brewer.css"></link><script type="text/javascript" src="../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div><div class="projectVersion">3.0.0-M2-bin-20201123-e0f39f9-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2019-08-30-18th-dotty-milestone-release.md////PointingToDeclaration//-1581902084">
+    <div class="breadcrumbs"><a href="../../docs/index.html">Scala 3</a>/<a href="../index.html">Blog</a>/<a href="2019-08-30-18th-dotty-milestone-release.html">Announcing Dotty 0.18.1-RC1 – switch to the 2.13 standard library, indentation-based syntax and other experiments</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.18.1-RC1 – switch to the 2.13 standard library, indentation-based syntax and other experiments</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2019-08-30 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Anatolii Kmetiuk </span> 
+     </div> 
+    </header> 
+    <p>Greetings! With this post, we are proud to announce the 18th release of Dotty. With this release, we have switched to the 2.13 standard library (which is why the patch version of Dotty is now <code>1</code>)🎉. We are also conducting more experiments with the language syntax which will hopefully result in a better, cleaner way to write Scala programs.</p> 
+    <p>This release serves as a technology preview that demonstrates new language features and the compiler supporting them.</p> 
+    <p>Dotty is the project name for technologies that are being considered for inclusion in Scala 3. Scala has pioneered the fusion of object-oriented and functional programming in a typed setting. Scala 3 will be a big step towards realising the full potential of these ideas. Its main objectives are to</p> 
+    <ul> 
+     <li>become more opinionated by promoting programming idioms we found to work well,</li> 
+     <li>simplify where possible,</li> 
+     <li>eliminate inconsistencies and surprising behaviours,</li> 
+     <li>build on strong foundations to ensure the design hangs together well,</li> 
+     <li>consolidate language constructs to improve the language’s consistency, safety, ergonomics, and performance.</li> 
+    </ul> 
+    <p>You can learn more about Dotty on our <a href="https://dotty.epfl.ch">website</a>.</p> <!--more--> 
+    <p>This is our 18th scheduled release according to our <a href="https://dotty.epfl.ch/docs/contributing/procedures/release.html">6-week release schedule</a>.</p> 
+    <h1><a href="#whats-new-in-the-0181-rc1-technology-preview" id="whats-new-in-the-0181-rc1-technology-preview" class="anchor"></a>What’s new in the 0.18.1-RC1 technology preview?</h1> 
+    <p>The hottest change of this release is a series of experiments with the language syntax. Some of them are controversial, some of them are almost unanimously considered useful. Regardless, the underlying motivation for all of them is something all of us want, we believe d: to make programming in Scala easier to write and read, drop unnecessary boilerplate, facilitate idiomatic programming.</p> 
+    <p>We are thrilled to have this unique opportunity to experiment while Scala 3 is still in its inception and malleable. This is the only time we can try out significant language changes, and we are determined to make the most out of it.</p> 
+    <p>Our view on these trials is that, like with any big change, we need time to see if these are good ideas. We don't know if they will work or not. We believe that the only way to find out is to play with them for some time.</p> 
+    <p>Some of these changes will end up in Scala 3, some of them will be deemed not worth it. One way or another, trying the new look of an old language is an educational and fun experience.</p> 
+    <p>Keeping that in mind, let us proceed to the nitty-gritty!</p> 
+    <h2><a href="#switch-to-standard-library-213" id="switch-to-standard-library-213" class="anchor"></a>Switch to Standard Library 2.13</h2> 
+    <p>Dotty is now using the standard library 2.13 instead of the previous 2.12.8.</p> 
+    <h2><a href="#main-functions" id="main-functions" class="anchor"></a><code>@main</code> functions</h2> 
+    <p>Bootstrapping a new Scala application is as hard as a new Java application. How do you write a main method? Normally, something like that:</p> 
+    <pre><code class="language-scala">object Test {
+  def main(args: Array[String]): Unit = println(s"Hello World")
+}
+</code></pre> 
+    <p>You need to define at least two things that serve no real purpose: an object and <code>(args: Array[String])</code>.</p> 
+    <p>Not anymore! Meet the <code>@main</code> functions:</p> 
+    <pre><code class="language-scala">@main def test: Unit = println(s"Hello World")
+</code></pre> 
+    <p>The above generates the following code at the top-level of the compilation unit (source file):</p> 
+    <pre><code class="language-scala">final class test {
+  &lt;static&gt; def main(args: Array[String]): Unit =
+    try Main$package.test() catch
+      {
+        case
+          error @ _:scala.util.CommandLineParser.CommandLineParser$ParseError
+         =&gt; scala.util.CommandLineParser.showError(error)
+      }
+}
+</code></pre> 
+    <p>So, a <code>final class</code> is generated with the same name as the <code>@main</code> method and the <code>def main(args: Array[String])</code> inside. The body of this method calls the original <code>test()</code> method. Since it is a top-level definition, it resides in the synthetic <code>Main$package</code> object generated for the <code>Main.scala</code> source being compiled.</p> 
+    <p>An astute reader has probably noticed the mentions of things like <code>CommandLineParser</code> in the body of the generated method, which hints to certain features. That's right, we support a basic ability for command-line args parsing:</p> 
+    <pre><code class="language-scala">@main def sayHello(name: String, age: Int): Unit =
+  println(s"Hello $name, you are $age years old")
+</code></pre> 
+    <p>If you run the above with command line arguments "Jack 25", the output will be "Hello Jack, you are 25 years old". And here is how you can define a custom parser for your own class:</p> 
+    <pre><code class="language-scala">case class Address(city: String, street: String)
+
+given scala.util.FromString[Address] {
+  /** Can throw java.lang.IllegalArgumentException */
+  def fromString(s: String): T =
+    s.split(",").toList match {
+      case city :: street :: Nil =&gt; Address(city, street)
+      case _ =&gt; throw new IllegalArgumentException(s"Please specify address in the format 'city, street'")
+    }
+}
+
+@main def sayHello(addr: Address): Unit =
+  println(s"You are living at $addr")
+</code></pre> 
+    <p>The motivation for the <code>@main</code> functions is to make Scala scripting friendly. So far we do not plan to support something more complex than the above – we believe if a user needs a complex command line parsing capability, they can always fall back to the conventional <code>def main(args: Array[String])</code> syntax plus a dedicated library like <a href="https://github.com/scopt/scopt">scopt</a>. The changes described above, however, are already enough to make script development much less tedious than before.</p> 
+    <p>To learn more, see the <a href="https://dotty.epfl.ch/docs/reference/changed-features/main-functions.html">documentation</a>.</p> 
+    <h2><a href="#allow-infix-operators-at-the-start-of-the-line" id="allow-infix-operators-at-the-start-of-the-line" class="anchor"></a>Allow infix operators at the start of the line</h2> 
+    <p>A small change yet relevant to many. Now, you can write the following code:</p> 
+    <pre><code class="language-scala">def isABorC(x: Char) = x == 'A'
+  || x == 'B'
+  || x == 'C'
+</code></pre> 
+    <p>Prior to this change, it was only possible to express infix operators at the beginning of the line as follows:</p> 
+    <pre><code class="language-scala">def isABorC(x: Char) = (x == 'A'
+  || x == 'B'
+  || x == 'C')
+</code></pre> 
+    <h2><a href="#drop-do-while-syntax" id="drop-do-while-syntax" class="anchor"></a>Drop do-while syntax</h2> 
+    <p>Remember that obscure <code>do-while</code> feature of Scala 2 where you could write:</p> 
+    <pre><code class="language-scala">scala&gt; var x = 0
+x: Int = 0
+
+scala&gt; val iterator = Iterator.from(10, -1)
+iterator: Iterator[Int] = &lt;iterator&gt;
+
+scala&gt; do {
+     |   x = iterator.next()
+     |   println(x)
+     | } while (x &gt; 0)
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+</code></pre> 
+    <p>Well, it is no more! That is the only place where the <code>do</code> token is used in Scala, the feature itself is rarely employed, and it would be nice to reclaim the <code>do</code> token for other uses (described in details in the section on the new syntax for control expressions).</p> 
+    <p>The language does not lose its expressiveness though – you can still write the following to achieve the same functionality:</p> 
+    <pre><code class="language-scala">val iterator = Iterator.from(10, -1)
+
+@main def test = {
+  var x: Int = 0
+  while ({
+    x = iterator.next
+    println(x)
+    x &gt; 0
+  }) ()
+}
+</code></pre> 
+    <p>For more information, see PR <a href="https://github.com/lampepfl/dotty/pull/6994">#6994</a>.</p> 
+    <h2><a href="#brace-less-syntax-for-control-expressions" id="brace-less-syntax-for-control-expressions" class="anchor"></a>Brace-less syntax for control expressions</h2> 
+    <p>This is an effort to clean-up the control expressions. Scala 2 has two ways of writing <code>if</code> statements – with and without parentheses. Parentheses can be dropped in Scala 2 <code>if</code>s inside <code>match</code> or <code>for</code> statements. We'd like to have a single style of writing all of the control expressions, and the cleaner the better.</p> 
+    <p>This release, hence, brings the ability to write all of the control expressions without braces. E.g.:</p> 
+    <pre><code class="language-scala">@main def testFor = {
+  val xs = 0 to 10
+  val xsFiltered = for x &lt;- xs if x &gt; 1 yield x
+  for
+    x &lt;- xsFiltered
+    y &lt;- xsFiltered
+  do println(s"$x * $y = ${x * y}")
+}
+
+@main def testIf(day: String) = {
+  if day == "Sunday" || day == "Saturday" then println("Today is a weekend, hooray!")
+  else println(s"Today is a workday.")
+}
+
+@main def testWhile(bound: Int) = {
+  var x = 0
+  def incrementX() = {
+    x += 1
+    println(x)
+  }
+  while x &lt;= bound do incrementX()
+}
+</code></pre> 
+    <p>Moreover, the compiler can automatically rewrite your sources from the old syntax to the new syntax and vice versa. To rewrite the sources to the new syntax, run the compiler with the <code>-rewrite -new-syntax</code> flags, and to rewrite to the old syntax, use <code>-rewrite -old-syntax</code>. So far, both syntaxes are supported.</p> 
+    <p>For more information and the precise rules, see PR <a href="https://github.com/lampepfl/dotty/pull/7024">#7024</a>.</p> 
+    <h2><a href="#significant-indentation-syntax" id="significant-indentation-syntax" class="anchor"></a>Significant indentation syntax</h2> 
+    <p>Significant indentations syntax is here! A logical continuation of the brace-less syntax for control expressions described above, meant as an exploration into a better way to write Scala, it allows writing Scala programs without braces. For example:</p> 
+    <pre><code class="language-scala">enum Day:
+  case Monday, Tuesday, Wednesdey, Thursday, Friday, Saturday, Sunday
+  def isWeekend: Boolean = this match
+    case Saturday | Sunday =&gt; true
+    case _ =&gt; false
+
+given as scala.util.FromString[Day]:
+  def fromString(str: String): Day =
+    try Day.valueOf(str)
+    catch
+      case _: IllegalArgumentException =&gt;
+        throw new IllegalArgumentException(s"$str is not a valid day")
+
+@main def test(day: Day) =
+  if day.isWeekend then
+    println("Today is a weekend")
+    println("I will rest")
+  else
+    println("Today is a workday")
+    println("I will work")
+</code></pre> 
+    <p>So far, it is a purely experimental effort. This means there is no final decision yet on whether or not it will be included in Scala 3. However, we treat this feature seriously enough to give it an extended period of trial and see if it is viable as the new look and feel for Scala.</p> 
+    <p>For more details and the discussion, see PRs <a href="https://github.com/lampepfl/dotty/pull/7083">#7083</a> and <a href="https://github.com/lampepfl/dotty/pull/7114">#7114</a>.</p> 
+    <h2><a href="#generic-number-literals" id="generic-number-literals" class="anchor"></a>Generic Number Literals</h2> 
+    <p>It is now possible to seamlessly integrate with different number formats: that is, to write a number and get it automatically converted to your class of choice. E.g.:</p> 
+    <pre><code class="language-scala">import scala.util.FromDigits
+
+case class Digits(ds: List[Char])
+
+given as FromDigits[Digits] = (digits: String) =&gt; Digits(digits.toList)
+
+@main def test =
+  val x: Digits = 1234
+  println(x)  // Digits(List('1', '2', '3', '4'))
+</code></pre> 
+    <p>If a number is written in place where a non-numeric type is expected and there is an <code>FromDigits</code> given in scope, this given will be used to convert the number (presented as <code>String</code>) to that type.</p> 
+    <p>For precise rules, semantics and a larger example of <code>BigFloat</code>, see <a href="https://dotty.epfl.ch/docs/reference/changed-features/numeric-literals.html">the documentation</a>.</p> 
+    <h2><a href="#metaprogramming-progress" id="metaprogramming-progress" class="anchor"></a>Metaprogramming Progress</h2> 
+    <p>We are making steady progress with the language metaprogramming features. The metaprogramming spotlights of this release are as follows:</p> 
+    <ul> 
+     <li><code>toExprOfTuple</code> method which allows converting a <code>Seq[Expr[Any]]</code> to <code>Expr[Tuple]</code>. The types of the expressions will be preserved in the tuple. See <a href="https://github.com/lampepfl/dotty/pull/7037">#7037</a> and <a href="https://github.com/lampepfl/dotty/pull/7076">#7076</a> for the details.</li> 
+     <li><code>toExprOfTuple</code> method that converts a tuple of expressions to an expression of tuple – see <a href="https://github.com/lampepfl/dotty/pull/7047">#7047</a>.</li> 
+     <li><code>toExprOfSeq</code> which converts an <code>Seq[Expr[A]]</code> to <code>Expr[Seq[A]]</code> – see <a href="https://github.com/lampepfl/dotty/pull/6935">#6935</a>.</li> 
+     <li>More <code>Liftable</code> instances – for Tuples of arity greater than 22, <code>BigInt</code> and <code>BigDecimal</code> – see <a href="https://github.com/lampepfl/dotty/pull/6947">#6947</a> and <a href="https://github.com/lampepfl/dotty/pull/6944">#6944</a>.</li> 
+     <li>Leverage implicit lambdas to simplify <code>Liftable.toExpr</code> method – see <a href="https://github.com/lampepfl/dotty/pull/6924">#6924</a> to learn how it is done.</li> 
+     <li>Runtime staging <code>run</code> moved to <code>scala.quoted.staging</code> in <a href="https://github.com/lampepfl/dotty/pull/7077">#7077</a>.</li> 
+     <li>Runtime staging factored out to a separate library in <a href="https://github.com/lampepfl/dotty/pull/7080">#7080</a>.</li> 
+    </ul> 
+    <h2><a href="#type-class-derivation" id="type-class-derivation" class="anchor"></a>Type class Derivation</h2> 
+    <p>Type class derivation has received a major rework and an <a href="https://dotty.epfl.ch/docs/reference/contextual/derivation.html">updated documentation</a>. We have dropped the usage of the <code>Shape</code> type to describe the shape of a type. Instead, all the relevant information is now encoded in the <code>Mirror</code> type and its subtypes as tuples.</p> 
+    <p>For more information, see the <a href="https://dotty.epfl.ch/docs/reference/contextual/derivation.html">documentation</a>.</p> 
+    <h2><a href="#other" id="other" class="anchor"></a>Other</h2> 
+    <ul> 
+     <li>This release also features the new version of the SBT Dotty Plugin – 0.3.4. It contains some bug fixes – see <a href="https://github.com/lampepfl/dotty/pull/7120">#7120</a> for details.</li> 
+     <li>Scala Days 2019 talks related to Dotty are now <a href="https://dotty.epfl.ch/docs/resources/talks.html">mentioned</a> at our website – this allows to systematize the knowledge about the next generation of Scala in one place – see <a href="https://github.com/lampepfl/dotty/pull/6984">#6984</a>.</li> 
+     <li>ScalaJS needs your help! We would like to have robust support for ScalaJS in Dotty, which unfortunately is not the case so far. If you are interested in contributing, please see <a href="https://gist.github.com/sjrd/e0823a5bddbcef43999cdaa032b1220c">the getting started tutorial</a> and <a href="https://github.com/lampepfl/dotty/issues/7113">the discussion</a>.</li> 
+    </ul> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible!</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.17.0-RC1..0.18.1-RC1</code> these are:</p> 
+    <pre><code>   106  Nicolas Stucki
+    84  Martin Odersky
+    68  Guillaume Martres
+    26  Liu Fengyun
+    24  Jamie Thompson
+    23  Miles Sabin
+    16  Anatolii
+     8  Sébastien Doeraene
+     7  bishabosha
+     4  Aggelos Biboudis
+     4  Michał Gutowski
+     2  odersky
+     2  Nikolay
+     1  Master-Killer
+     1  Ashwin Bhaskar
+     1  Carlos Quiroz
+     1  =
+     1  Olivier Blanvillain
+     1  SrTobi
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>. They make perfect entry points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently, this includes ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="images/anatolii.png"> <span id="author-signature"> Anatolii Kmetiuk </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../scripts/pages.js"></script><script type="text/javascript" src="../../scripts/main.js"></script></body></html>

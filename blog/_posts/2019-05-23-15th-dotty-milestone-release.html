@@ -1,0 +1,170 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.15.0-RC1 – the fully bootstrapped compiler</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"></link><script type="text/javascript" src="../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../styles/nord-light.css"></link><link rel="stylesheet" href="../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../styles/diagram.css"></link><link rel="stylesheet" href="../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../styles/filter-bar.css"></link><script type="text/javascript" src="../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../css/dottydoc.css"></link><link rel="stylesheet" href="../../css/color-brewer.css"></link><script type="text/javascript" src="../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div><div class="projectVersion">3.0.0-M2-bin-20201123-e0f39f9-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2019-05-23-15th-dotty-milestone-release.md////PointingToDeclaration//-1581902084">
+    <div class="breadcrumbs"><a href="../../docs/index.html">Scala 3</a>/<a href="../index.html">Blog</a>/<a href="2019-05-23-15th-dotty-milestone-release.html">Announcing Dotty 0.15.0-RC1 – the fully bootstrapped compiler</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.15.0-RC1 – the fully bootstrapped compiler</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2019-05-23 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Anatolii Kmetiuk </span> 
+     </div> 
+    </header> 
+    <p>Hi! We are very excited to announce the 15th release of Dotty. The most exciting thing in this release is the full bootstrap for Dotty introduced by PR <a href="https://github.com/lampepfl/dotty/pull/5923">#5923</a>🎉😍. This means that we now always compile Dotty with Dotty itself, hence we can use use all the new features in the compiler code base.</p> 
+    <p>With this release comes a bunch of new features and improvements, such as the ability to enforce whether an operator is intended to be used in an infix position, the type safe pattern bindings and more.</p> 
+    <p>This release serves as a technology preview that demonstrates new language features and the compiler supporting them.</p> 
+    <p>Dotty is the project name for technologies that are being considered for inclusion in Scala 3. Scala has pioneered the fusion of object-oriented and functional programming in a typed setting. Scala 3 will be a big step towards realising the full potential of these ideas. Its main objectives are to</p> 
+    <ul> 
+     <li>become more opinionated by promoting programming idioms we found to work well,</li> 
+     <li>simplify where possible,</li> 
+     <li>eliminate inconsistencies and surprising behaviours,</li> 
+     <li>build on strong foundations to ensure the design hangs together well,</li> 
+     <li>consolidate language constructs to improve the language’s consistency, safety, ergonomics, and performance.</li> 
+    </ul> 
+    <p>You can learn more about Dotty on our <a href="https://dotty.epfl.ch">website</a>.</p> <!--more--> 
+    <p>This is our 15th scheduled release according to our <a href="https://dotty.epfl.ch/docs/contributing/procedures/release.html">6-week release schedule</a>.</p> 
+    <h1><a href="#whats-new-in-the-0150-rc1-technology-preview" id="whats-new-in-the-0150-rc1-technology-preview" class="anchor"></a>What’s new in the 0.15.0-RC1 technology preview?</h1> 
+    <h2><a href="#full-bootstrap" id="full-bootstrap" class="anchor"></a>Full Bootstrap</h2> 
+    <p>Bootstrapping Dotty is a big milestone for us and in compiler construction in general. Firstly, we feel more confident that our compiler works as is (even without reusing the new features). Secondly, in the immediate future, we will be able to reuse many of the features that dotty proposes within dotty itself. For example, we have no fewer than 2641 occurrences of the text string (implicit ctx: Context) in the compiler that we can scrap with <a href="https://www.scala-lang.org/blog/2016/12/07/implicit-function-types.html">Contextual Function types</a>. Big milestones have high risk/high gain and we must be attentive. That is the reason that we will wait a bit until we start using new features. Consequently, at the moment we cross-compile the build with 2.12 on the CI so that we don't accidentally start using Dotty features in case we need to revise the bootstrap process (we'll start using Dotty features eventually, but let's wait until we're confident that this setup works well enough).</p> 
+    <p>Check the following for more information <a href="https://github.com/lampepfl/dotty/pull/5923#issuecomment-485421148">#5923 (comment)</a> and please let us know if you have any incremental compilation issues or anything else!</p> 
+    <h2><a href="#operator-rules" id="operator-rules" class="anchor"></a>Operator Rules</h2> 
+    <p>This change addresses the problem of the regulation of whether an operator is supposed to be used in an infix position. The motivation is for the library authors to be able to enforce whether a method or a type is supposed to be used in an infix position by the users. This ability will help to make code bases more consistent in the way the calls to methods are performed.</p> 
+    <p>Methods with symbolic names like <code>+</code> are allowed to be used in an infix position by default:</p> 
+    <pre><code class="language-scala">scala&gt; case class Foo(x: Int) { def +(other: Foo) = x + other.x }
+// defined case class Foo
+
+scala&gt; Foo(1) + Foo(2)
+val res0: Int = 3
+</code></pre> 
+    <p>Methods with alphanumeric names are not allowed to be used in an infix position. Breaking this constraint will raise a deprecation warning:</p> 
+    <pre><code class="language-scala">scala&gt; case class Foo(x: Int) { def plus(other: Foo) = x + other.x }
+// defined case class Foo
+
+scala&gt; Foo(1) plus Foo(2)
+1 |Foo(1) plus Foo(2)
+  |       ^^^^
+  |Alphanumeric method plus is not declared @infix; it should not be used as infix operator.
+  |The operation can be rewritten automatically to `plus` under -deprecation -rewrite.
+  |Or rewrite to method syntax .plus(...) manually.
+val res1: Int = 3
+
+scala&gt; Foo(1).plus(Foo(2))
+val res2: Int = 3
+</code></pre> 
+    <p>As the warning says, if you want the users of the method to be able to use it in an infix position, you can do so as follows:</p> 
+    <pre><code class="language-scala">scala&gt; import scala.annotation.infix
+
+scala&gt; case class Foo(x: Int) { @infix def plus(other: Foo) = x + other.x }
+// defined case class Foo
+
+scala&gt; Foo(1) plus Foo(2)
+val res3: Int = 3
+</code></pre> 
+    <p>To smoothen the migration, the deprecation warnings will only be emitted if you compile with the <code>-strict</code> flag under Scala 3. Alphanumeric methods that are defined without the <code>@infix</code> annotation used in an infix position will be deprecated by default starting with Scala 3.1.</p> 
+    <p>For more information, see the <a href="https://dotty.epfl.ch/docs/reference/changed-features/operators.html#the-infix-annotation">documentation</a>. Note that the <code>@alpha</code> annotation also described in the documentation is planned for the future and is not available in this release.</p> 
+    <h2><a href="#given-clause-comes-last" id="given-clause-comes-last" class="anchor"></a><code>given</code> clause comes last</h2> 
+    <p>In the previous release, you could write something like this:</p> 
+    <pre><code class="language-scala">implied for String = "foo"
+def f(x: Int) given (y: String) (z: Int) = x + z
+f(1)(3)
+</code></pre> 
+    <p>Now, however, <code>given</code> clauses must come last. The above code will fail with:</p> 
+    <pre><code>-- Error: ../issues/Playground.scala:3:34 --------------------------------------
+3 |  def f(x: Int) given (y: String) (z: Int) = x + z
+  |                                  ^
+  |                       normal parameters cannot come after `given' clauses
+one error found
+</code></pre> 
+    <p>The following snippet is the correct way to express the program in question:</p> 
+    <pre><code class="language-scala">implied for String = "foo"
+def f(x: Int)(z: Int) given (y: String) = x + z
+f(1)(3)
+</code></pre> 
+    <p>We changed this to reduce confusion when calling functions with mixed explicit and implied parameters.</p> 
+    <h2><a href="#type-safe-pattern-bindings" id="type-safe-pattern-bindings" class="anchor"></a>Type-safe Pattern Bindings</h2> 
+    <pre><code class="language-scala">val xs: List[Any] = List(1, 2, 3)
+val (x: String) :: _ = xs   // error: pattern's type String is more specialized
+                            // than the right hand side expression's type Any
+</code></pre> 
+    <p>The above code will fail with a compile-time error in Scala 3.1 and in Scala 3 with the <code>-strict</code> flag. In contrast, in Scala 2, the above would have compiled fine but failed on runtime with an exception.</p> 
+    <p>Dotty compiler will allow such a pattern binding only if the pattern is <em>irrefutable</em> – that is, if the right-hand side conforms to the pattern's type. E.g. the following is OK:</p> 
+    <pre><code class="language-scala">val pair = (1, true)
+val (x, y) = pair
+</code></pre> 
+    <p>If we want to force the pattern binding if the pattern is not irrefutable, we can do so with an annotation:</p> 
+    <pre><code class="language-scala">val xs: List[Any] = List("1", "2", "3")
+val (x: String) :: _: @unchecked = xs
+</code></pre> 
+    <p>The same is implemented for pattern bindings in <code>for</code> expressions:</p> 
+    <pre><code class="language-scala">  val elems: List[Any] = List((1, 2), "hello", (3, 4))
+  for ((x, y) &lt;- elems) yield (y, x) // error: pattern's type (Any, Any) is more specialized
+                                     // than the right hand side expression's type Any
+</code></pre> 
+    <p>For the migration purposes, the above change will only take effect in Scala 3.1. You can use it in Scala 3 with the <code>-strict</code> flag.</p> 
+    <p>For more information, see the <a href="https://dotty.epfl.ch/docs/reference/changed-features/pattern-bindings.html">documentation</a>.</p> 
+    <h2><a href="#further-improvements-to-generalised-algebraic-data-types-gadts-support" id="further-improvements-to-generalised-algebraic-data-types-gadts-support" class="anchor"></a>Further improvements to Generalised Algebraic Data Types (GADTs) support</h2> 
+    <p>In this release, we've further improved our support for GADTs. Most notably, we now support variant GADTs, thus fixing <a href="https://github.com/lampepfl/dotty/issues/2985">#2985</a>:</p> 
+    <pre><code class="language-scala">enum Expr[+T] {
+  case StrLit(s: String) extends Expr[String]
+  case Pair[A, B](a: Expr[A], b: Expr[B]) extends Expr[(A, B)]
+}
+
+def eval[T](e: Expr[T]): T = e match {
+  case Expr.StrLit(s) =&gt; s
+  case Expr.Pair(a, b) =&gt; (eval(a), eval(b))
+}
+</code></pre> 
+    <p>We've also plugged a few soundness problems (e.g. <a href="https://github.com/lampepfl/dotty/issues/5667">#5667</a>) caused by inferring too much when matching on abstract, union and intersection types. For more information, see PR <a href="https://github.com/lampepfl/dotty/pull/5736">#5736</a>.</p> 
+    <h2><a href="#other-changes" id="other-changes" class="anchor"></a>Other changes</h2> 
+    <p>Some of the other notable changes include the following:</p> 
+    <ul> 
+     <li>Singletons are now allowed in union types. E.g. the following is allowed: <code>object foo; type X = Int | foo.type</code>.</li> 
+     <li>A bunch of improvements was made for the type inference system – see, e.g., PRs <a href="https://github.com/lampepfl/dotty/pull/6454">#6454</a> and <a href="https://github.com/lampepfl/dotty/pull/6467">#6467</a>.</li> 
+     <li>Improvements to the Scala 2 code support which, in particular, improves Cats support – see PRs <a href="https://github.com/lampepfl/dotty/pull/6494">#6494</a> and <a href="https://github.com/lampepfl/dotty/pull/6498">#6498</a>.</li> 
+    </ul> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible!</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.14.0-RC1..0.15.0-RC1</code> these are:</p> 
+    <pre><code>   191  Martin Odersky
+   112  Nicolas Stucki
+    29  Guillaume Martres
+    25  Olivier Blanvillain
+    21  Aleksander Boruch-Gruszecki
+    17  Anatolii Kmetiuk
+    10  Miles Sabin
+     9  Liu Fengyun
+     8  Aggelos Biboudis
+     8  Jentsch
+     5  Sébastien Doeraene
+     2  Anatolii
+     1  Fengyun Liu
+     1  Olivier ROLAND
+     1  phderome
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>. They make perfect entry points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently this includes ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="images/anatolii.png"> <span id="author-signature"> Anatolii Kmetiuk </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../scripts/pages.js"></script><script type="text/javascript" src="../../scripts/main.js"></script></body></html>
