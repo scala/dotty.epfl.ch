@@ -1,0 +1,108 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.17.0-RC1 – new implicit scoping rules and more</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-RC1-bin-20201127-ed93a48-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2019-07-25-17th-dotty-milestone-release.md////PointingToDeclaration//-474500874">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">Blog</a>/<a href="17th-dotty-milestone-release.html">Announcing Dotty 0.17.0-RC1 – new implicit scoping rules and more</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.17.0-RC1 – new implicit scoping rules and more</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2019-07-25 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Anatolii Kmetiuk </span> 
+     </div> 
+    </header> 
+    <p>Greetings! With this post, we are proud to announce the 17th release of Dotty. With this release, we are making steady progress on the metaprogramming capabilities of Scala 3. Also, implicit scoping rules have seen a rework and a bunch of organizational changes took place.</p> 
+    <p>This release serves as a technology preview that demonstrates new language features and the compiler supporting them.</p> 
+    <p>Dotty is the project name for technologies that are being considered for inclusion in Scala 3. Scala has pioneered the fusion of object-oriented and functional programming in a typed setting. Scala 3 will be a big step towards realising the full potential of these ideas. Its main objectives are to</p> 
+    <ul> 
+     <li>become more opinionated by promoting programming idioms we found to work well,</li> 
+     <li>simplify where possible,</li> 
+     <li>eliminate inconsistencies and surprising behaviours,</li> 
+     <li>build on strong foundations to ensure the design hangs together well,</li> 
+     <li>consolidate language constructs to improve the language’s consistency, safety, ergonomics, and performance.</li> 
+    </ul> 
+    <p>You can learn more about Dotty on our <a href="https://dotty.epfl.ch">website</a>.</p> <!--more--> 
+    <p>This is our 17th scheduled release according to our <a href="https://dotty.epfl.ch/docs/contributing/procedures/release.html">6-week release schedule</a>.</p> 
+    <h1><a href="#whats-new-in-the-0170-rc1-technology-preview" id="whats-new-in-the-0170-rc1-technology-preview" class="anchor"></a>What’s new in the 0.17.0-RC1 technology preview?</h1> 
+    <h2><a href="#new-implicit-scoping-rules" id="new-implicit-scoping-rules" class="anchor"></a>New implicit scoping rules</h2> 
+    <p>We aim to make the implicit scoping rules clean and intuitive. In this release, the scoping rules were refactored to facilitate this goal. As specified in the <a href="https://github.com/lampepfl/dotty/pull/6832/files#diff-584b631c45ba6f2d4bc5d803074b8f12R474">code documentation</a>:</p> 
+    <p>The implicit scope of a type <code>tp</code> is the smallest set S of object references (i.e. TermRefs with Module symbol) such that:</p> 
+    <ul> 
+     <li>If <code>tp</code> is a class reference, S contains a reference to the companion object of the class, if it exists, as well as the implicit scopes of all of <code>tp</code>'s parent class references.</li> 
+     <li>If <code>tp</code> is an opaque type alias <code>p.A</code> of type <code>tp'</code>, S contains a reference to an object <code>A</code> defined in the same scope as the opaque type, if it exists, as well as the implicit scope of <code>tp'</code>.</li> 
+     <li>If <code>tp</code> is a reference <code>p.T</code> to a class or opaque type alias, S also contains all object references on the prefix path <code>p</code>. Under Scala-2 mode, package objects of package references on <code>p</code> also count towards the implicit scope.</li> 
+     <li>If <code>tp</code> is a (non-opaque) alias of <code>tp'</code>, S contains the implicit scope of <code>tp'</code>.</li> 
+     <li>If <code>tp</code> is a singleton type, S contains the implicit scope of its underlying type.</li> 
+     <li>If <code>tp</code> is some other type, its implicit scope is the union of the implicit scopes of its parts (parts defined as in the spec).</li> 
+    </ul> 
+    <p>You can learn more from PR <a href="https://github.com/lampepfl/dotty/pull/6832">#6832</a>.</p> 
+    <h2><a href="#metaprogramming" id="metaprogramming" class="anchor"></a>Metaprogramming</h2> 
+    <p>We are making steady progress developing metaprogramming features. The highlights for this release are:</p> 
+    <ul> 
+     <li>Tasty Reflection's <code>Reflection</code> object moved inside <code>QuoteContext</code> object. This means that if previously to do Tasty Reflection you had to implicitly depend on <code>Reflection</code>, now you need to depend on <code>QuoteContext</code>. To know more, see <a href="https://github.com/lampepfl/dotty/pull/6723">#6723</a>.</li> 
+     <li>Progress made on quoted patterns – see <a href="https://github.com/lampepfl/dotty/pull/6504">#6504</a>.</li> 
+     <li><code>code</code> string interpolator allows to obtain the code a user passes to a macro as a String. See <a href="https://github.com/lampepfl/dotty/pull/6661">#6661</a>. To enable this feature, do the following import: <code>import scala.compiletime._</code>.</li> 
+    </ul> 
+    <h2><a href="#212-build-removed-from-the-ci-tests" id="212-build-removed-from-the-ci-tests" class="anchor"></a>2.12 build removed from the CI tests</h2> 
+    <p>2.12 build is removed from the test suite. The 2.12 build compiled and tested the Dotty compiler with the Scala 2.12 compiler. This means that, even though Dotty is bootstrapped (i.e. capable of compiling itself), we were not able to use any of the new Dotty features in the Dotty codebase since these features would not compile with Scala 2.12. The decision to abstain from using the new features was made to give us the time to see if something goes wrong with the bootstrap and the ability to revert to Scala 2.12 if it becomes necessary.</p> 
+    <p>The removal of 2.12 build marks the stage in Dotty's life when we start to actively use new Dotty features in our code base, making it incompatible with Scala 2.</p> 
+    <h2><a href="#other-changes" id="other-changes" class="anchor"></a>Other changes</h2> 
+    <p>There were some organizational and infrastructural changes worth mentioning.</p> 
+    <ul> 
+     <li><a href="https://github.com/milessabin/shapeless/tree/shapeless-3">Shapeless 3</a> was added to the community build. This means that all the new Dotty features are now tested for the ability to compile Shapeless 3 with them.</li> 
+     <li>The process of submitting issues to the Dotty issue tracker is standardized using a GitHub issue template. We have separate templates for bugs, compiler crashes and language feature requests. The latter are now not allowed in the main Dotty repository, and the template for feature requests redirects users to a separate repo meant solely for such requests.</li> 
+     <li>Dotty Knowledge Collection initiative. To improve the documentation of the compiler, we came up with an idea of a separate repo where we will log the raw, unrefined knowledge about the compiler internals. This e.g. can be a quick catch we learnt while working that we believe is worth saving somewhere. To read more about the idea, see the <a href="https://github.com/lampepfl/dotty-knowledge">dotty-knowledge</a> repo's README.</li> 
+     <li><code>f</code>-interpolator was implemented as a macro – see the <a href="https://docs.scala-lang.org/overviews/core/string-interpolation.html#the-f-interpolator">Scala 2 documentation</a> to learn more about what it is.</li> 
+    </ul> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible!</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.16.0-RC3..0.17.0-RC1</code> these are:</p> 
+    <pre><code>   119  Martin Odersky
+   103  Nicolas Stucki
+    38  Liu Fengyun
+    33  Guillaume Martres
+    33  Sara Alemanno
+    17  Anatolii
+    10  Aggelos Biboudis
+     6  Miles Sabin
+     5  Anatolii Kmetiuk
+     4  Olivier Blanvillain
+     4  Robert Stoll
+     3  odersky
+     2  Dale Wijnand
+     2  Timothée Floure
+     2  Rodrigo Fernandes
+     2  James Thompson
+     2  Steven Heidel
+     1  Stéphane MICHELOUD
+     1  bishabosha
+     1  noti0na1
+     1  Daniel Reigada
+     1  Haemin Yoo
+     1  Bunyod
+     1  Deon Taljaard
+     1  Ondra Pelech
+     1  Jon Pretty
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>. They make perfect entry points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently this includes ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>

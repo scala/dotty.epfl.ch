@@ -1,0 +1,169 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Scala 3.0.0-M1 is here</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-RC1-bin-20201127-ed93a48-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2020-11-09-scala3-m1.md////PointingToDeclaration//-474500874">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">Blog</a>/<a href="scala3-m1.html">Scala 3.0.0-M1 is here</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Scala 3.0.0-M1 is here</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2020-11-09 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Anatolii Kmetiuk </span> 
+     </div> 
+    </header> 
+    <p>November 2020 brings an important milestone for Scala 3 – the release of Scala 3.0.0-M1. This milestone release is a precursor to the Scala 3.0.0 release candidate planned for the end of the year – which is as little as 6 weeks from now! Later on, the release candidate is planned to evolve into 3.0.0 stable release in February 2021.</p> 
+    <p>Once 3.0.0 release candidate is out, no new features or breaking changes will take place on 3.0.x – it will only be updated for bug fixes. However, we are going to continue the work on making the language better and to test out our research in it. These changes will end up in Scala only as of 3.1.0.</p> 
+    <p>For now though, our teams are focusing the efforts on getting done with the remainder of the 40-something projects that we planned for the upcoming release back in July 2020. Many of them are already completed. Those that aren't yet – get revised and re-planned. With the current global uncertainty and with the scale of the project, we cannot be certain, but we believe we have a reasonable chance of releasing 3.0.0-RC1 by Christmas.</p> 
+    <p>Below, you can find a short summary of the changes that took place during between the 0.27.0-RC1 and 3.0.0-M1 releases.</p> <!--more--> 
+    <h1><a href="#scalajs-support-for-scala-3" id="scalajs-support-for-scala-3" class="anchor"></a>Scala.js support for Scala 3</h1> 
+    <p>Dotty 0.27.0-RC1 had introduced preliminary Scala.js support with the portable subset of Scala and native JavaScript types. Scala 3.0.0-M1 significantly expands on that support:</p> 
+    <ul> 
+     <li>support for non-native JS types (<a href="https://github.com/lampepfl/dotty/pull/9774">#9774</a>), and</li> 
+     <li>better support for other JS interop features, notably their interactions with Scala 3 features such as top-level declarations and <code>enum</code>s (e.g, <a href="https://github.com/lampepfl/dotty/pull/9725">#9725</a> and <a href="https://github.com/lampepfl/dotty/pull/9955">#9955</a>).</li> 
+    </ul> 
+    <p>The only remaining feature of Scala.js that is not supported yet is JS exports: <code>@JSExport</code> and its siblings <code>@JSExportAll</code>, <code>@JSExportTopLevel</code> and <code>@JSExportStatic</code> are all ignored by Scala 3.0.0-M1. Support for JS exports will come in the next release.</p> 
+    <p>For related reading, you can learn more on what it took to <a href="https://www.scala-lang.org/2020/11/03/scalajs-for-scala-3.html">implement Scala.js support in Scala 3 on our blog</a>.</p> 
+    <h1><a href="#allow-as-in-place-of--for-pattern-bindings" id="allow-as-in-place-of--for-pattern-bindings" class="anchor"></a>Allow <code>as</code> in place of <code>@</code> for pattern bindings</h1> 
+    <p>As the title suggests, this change is fairly straightforward. Now, instead of:</p> 
+    <pre><code class="language-scala">x match {
+  case Foo(y @ Bar(z)) =&gt; println(y)
+}
+</code></pre> 
+    <p>You can write:</p> 
+    <pre><code class="language-scala">x match {
+  case Foo(y as Bar(z)) =&gt; println(y)
+}
+</code></pre> 
+    <p>As of Scala 3.1.0, the <code>@</code> syntax will be deprecated and the codebases should switch to <code>as</code> instead.</p> 
+    <p>This change was implemented by PR <a href="https://github.com/lampepfl/dotty/pull/9837">#9837</a>.</p> 
+    <h1><a href="#pattern-bound-given-instances" id="pattern-bound-given-instances" class="anchor"></a>Pattern-Bound Given Instances</h1> 
+    <p>The syntax for <code>given</code> instances in patterns has also changed. In the <code>for</code>-comprehensions, the correct way of using <code>given</code>s is as follows:</p> 
+    <pre><code class="language-scala">for given Context &lt;- applicationContexts do
+</code></pre> 
+    <p>And in <code>match</code> clauses, you can use them as follows:</p> 
+    <pre><code class="language-scala">pair match
+  case (ctx as given Context, y) =&gt; ...
+</code></pre> 
+    <p>For more information, see <a href="https://dotty.epfl.ch/docs/reference/contextual/givens.html#pattern-bound-given-instances">documentation</a>, and for discussion, see PR <a href="https://github.com/lampepfl/dotty/pull/10091">#10091</a>.</p> 
+    <h1><a href="#change-wildcard-given-selectors" id="change-wildcard-given-selectors" class="anchor"></a>Change wildcard given selectors</h1> 
+    <p>This is another syntactic change which aims to simplify the code. Instead of:</p> 
+    <pre><code class="language-scala">import p.{given _}
+</code></pre> 
+    <p>The correct version of the wildcard <code>given</code> import now becomes:</p> 
+    <pre><code class="language-scala">import p.given
+</code></pre> 
+    <p>This change was implemented by PR <a href="https://github.com/lampepfl/dotty/pull/9949">#9949</a>.</p> 
+    <h1><a href="#final-api-for-enumerations" id="final-api-for-enumerations" class="anchor"></a>Final API for enumerations</h1> 
+    <p><code>enum</code> definitions are now released in their final design. since <code>0.27.0-RC1</code> we have made the following changes:</p> 
+    <p>For the enum definition of Option:</p> 
+    <pre><code class="language-scala">enum Opt[+T] {
+  case Sm(value: T)
+  case Nn
+}
+</code></pre> 
+    <p>we will now generate on the companion objects of class cases <code>apply</code> and <code>copy</code> methods with the precise subtype:</p> 
+    <pre><code class="language-scala">object Sm {
+  ...
+  def apply[T](value: T): Sm[T]
+  ...
+}
+</code></pre> 
+    <p>however expressions that call <code>apply</code> or <code>copy</code> will be widened to the parent enum type unless the precise type is expected, as we see here:</p> 
+    <pre><code class="language-scala">scala&gt; Sm(23)
+val res0: Opt[Int] = Sm(23)
+
+scala&gt; val sm: Sm[23] = Sm(23)
+val sm: Opt.Sm[23] = Sm(23)
+</code></pre> 
+    <p>Previously, when an enumeration declared cases with value parameters, such as <code>Opt.Sm</code>, then the <code>Opt.values</code> array would no longer have indexes that match the enum case ordinals. We feel that this is problematic, so the <code>values</code> and <code>valueOf</code> methods will only be generated when an enum has exclusively singleton cases.</p> 
+    <p>If an enumeration adds a case with value parameters, then consumers will recieve an error that explains why <code>values</code> has been removed.</p> 
+    <pre><code class="language-scala">scala&gt; Opt.values
+1 |Opt.values
+  |^^^^^^^^^^
+  |value values is not a member of object Opt.
+  |Although class Opt is an enum, it has non-singleton cases,
+  |meaning a values array is not defined
+</code></pre> 
+    <p>For code that previously relied upon <code>values</code> to lookup singleton cases, we now provide an optimised method <code>fromOrdinal</code> that reflects singleton values. This method is always generated:</p> 
+    <pre><code class="language-scala">scala&gt; Opt.fromOrdinal(1)
+val res1: Opt[?] = Nn
+</code></pre> 
+    <h1><a href="#keep-alpha-optional-for-operators" id="keep-alpha-optional-for-operators" class="anchor"></a>Keep <code>@alpha</code> optional for operators</h1> 
+    <p>Following the discussion on <a href="https://contributors.scala-lang.org/t/the-alpha-notation/4583">contributors</a>, we now keep <code>@alpha</code> optional for operators. The checking behavior is still available when compiling with the <code>-Yrequire-alpha</code>.</p> 
+    <p><code>@alpha</code> annotations provide a way to define an alternate name for symbolic operators. You can learn more about <code>@alpha</code> annotations from the <a href="https://dotty.epfl.ch/docs/reference/changed-features/operators.html#the-alpha-annotation">documentation</a>. The change was implemented by PR <a href="https://github.com/lampepfl/dotty/pull/10093">#10093</a>.</p> 
+    <h1><a href="#optimizing-the-compiler" id="optimizing-the-compiler" class="anchor"></a>Optimizing the compiler</h1> 
+    <p>During the last months, a considerable amount of effort went into investigating performance bottlenecks in the compiler and optimizing its workflow. We also work on stabilizing the compiler and porting relevant changes from the Scala 2 compiler to Scala 3. The following PRs are relevant to highlighting this work:</p> 
+    <ul> 
+     <li>Port classfile parsing improvements <a href="https://github.com/lampepfl/dotty/pull/10037">#10037</a></li> 
+     <li>Semanticdb usability enhancements <a href="https://github.com/lampepfl/dotty/pull/9768">#9768</a></li> 
+     <li>Optimize core and frontend <a href="https://github.com/lampepfl/dotty/pull/9867">#9867</a></li> 
+    </ul> 
+    <h1><a href="#known-issues" id="known-issues" class="anchor"></a>Known issues</h1> 
+    <p>This release of Scala 3 doesn't work on JDK 14 because of a regression fixed in <a href="https://github.com/lampepfl/dotty/pull/10135">#10135</a>. JDK 15 doesn't work either because of <a href="https://github.com/scala/bug/issues/12172">scala/bug#12172</a> which will be fixed in the new scala-library release.</p> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributors" id="contributors" class="anchor"></a>Contributors</h2> 
+    <p>Thank you to all the contributors who made this release possible 🎉</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.27.0-RC1..3.0.0-M1</code> these are:</p> 
+    <pre><code>   171  Martin Odersky
+    94  Nicolas Stucki
+    75  Liu Fengyun
+    62  Aleksander Boruch-Gruszecki
+    50  Filip Zybała
+    35  Krzysztof Romanowski
+    34  Anatolii Kmetiuk
+    32  Sébastien Doeraene
+    31  Guillaume Martres
+    28  Jamie Thompson
+    20  bishabosha
+    19  Guillaume Raffin
+    16  Krzysztof Romanwoski
+    12  Ruslan Shevchenko
+     9  Tom Grigg
+     6  Som Snytt
+     5  odersky
+     5  Andrzej Ratajczak
+     4  Michał Pałka
+     3  Adrien Piquerez
+     3  Tudor Voicu
+     3  noti0na1
+     2  Krzysztof Bochenek
+     2  Tudor
+     2  Raphael Jolly
+     2  Miles Sabin
+     1  Vasil Vasilev
+     1  ansvonwa
+     1  Greg Zoller
+     1  felher
+     1  gzoller
+     1  zgrybus
+     1  Fengyun Liu
+     1  Philippus Baalman
+     1  Krzysiek Bochenek
+     1  Tomasz Godzik
+     1  ysthakur
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>. They make perfect entry points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently, this includes shapeless, ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty/tree/master/community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="../../../../images/anatolii.png"> <span id="author-signature"> Anatolii Kmetiuk </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>

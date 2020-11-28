@@ -1,0 +1,131 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.5.0-RC1</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-RC1-bin-20201127-ed93a48-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2017-12-01-fifth-dotty-milestone-release.md////PointingToDeclaration//-474500874">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">Blog</a>/<a href="fifth-dotty-milestone-release.html">Announcing Dotty 0.5.0-RC1</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.5.0-RC1</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2017-12-01 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Allan Renucci </span> 
+     </div> 
+    </header> 
+    <p>Today, we are excited to release Dotty version 0.5.0-RC1. This release serves as a technology preview that demonstrates new language features and the compiler supporting them.</p> 
+    <p>If you’re not familiar with Dotty, it's a platform to try out new language concepts and compiler technologies for Scala. The focus is mainly on simplification. We remove extraneous syntax (e.g. no XML literals), and try to boil down Scala’s types into a smaller set of more fundamental constructs. The theory behind these constructs is researched in <a href="https://infoscience.epfl.ch/record/215280">DOT</a>, a calculus for dependent object types. You can learn more about Dotty on our <a href="http://dotty.epfl.ch">website</a>.</p> <!--more--> 
+    <p>This is our fifth scheduled release according to our <a href="https://dotty.epfl.ch/docs/usage/version-numbers.html">6-week release schedule</a>. The <a href="../../10/16/fourth-dotty-milestone-release.html">previous technology preview</a> added support for Scala 2.12 and came with a brand new REPL.</p> 
+    <h2><a href="#whats-new-in-the-050-rc1-technology-preview" id="whats-new-in-the-050-rc1-technology-preview" class="anchor"></a>What’s new in the 0.5.0-RC1 technology preview?</h2> 
+    <h3><a href="#reworked-implicit-search-3421" id="reworked-implicit-search-3421" class="anchor"></a>Reworked implicit search <a href="https://github.com/lampepfl/dotty/pull/3421">#3421</a></h3> 
+    <p>The treatment of ambiguity errors has changed. If an ambiguity is encountered in some recursive step of an implicit search, the ambiguity is propagated to the caller. Example: Say you have the following definitions:</p> 
+    <pre><code class="language-scala">class A
+class B extends C
+class C
+implicit def a1: A
+implicit def a2: A
+implicit def b(implicit a: A): B
+implicit def c: C
+</code></pre> 
+    <p>and the query <code>implicitly[C]</code>.</p> 
+    <p>This query would now be classified as ambiguous. This makes sense, after all there are two possible solutions, <code>b(a1)</code> and <code>b(a2)</code>, neither of which is better than the other and both of which are better than the third solution, <code>c</code>. By contrast, Scala 2 would have rejected the search for <code>A</code> as ambiguous, and subsequently have classified the query <code>b(implictly[A])</code> as a normal fail, which means that the alternative <code>c</code> would be chosen as solution!</p> 
+    <p>Scala 2's somewhat puzzling behavior with respect to ambiguity has been exploited to implement the analogue of a "negated" search in implicit resolution, where a query <code>Q1</code> fails if some other query <code>Q2</code> succeeds and <code>Q1</code> succeeds if <code>Q2</code> fails. With the new cleaned up behavior these techniques no longer work. But there is now a new special type <code>scala.implicits.Not</code> which implements negation directly. For any query type <code>Q</code>: <code>Not[Q]</code> succeeds if and only if the implicit search for <code>Q</code> fails.</p> 
+    <h3><a href="#dependent-function-types-3464" id="dependent-function-types-3464" class="anchor"></a>Dependent function types <a href="https://github.com/lampepfl/dotty/pull/3464">#3464</a></h3> 
+    <p>A dependent function type describes functions where the result type may depend on the function's parameter values. Example:</p> 
+    <pre><code class="language-scala">class Entry { type Key; key: Key }
+
+def extractKey(e: Entry): e.Key = e.key          // a dependent method
+val extractor: (e: Entry) =&gt; e.Key = extractKey  // a dependent function value
+</code></pre> 
+    <p>Scala already has <em>dependent methods</em>, i.e. methods where the result type refers to some of the parameters of the method. Method <code>extractKey</code> is an example. Its result type, <code>e.key</code> refers its parameter <code>e</code> (we also say, <code>e.Key</code> <em>depends</em> on <code>e</code>). But so far it was not possible to turn such methods into function values, so that they can be passed as parameters to other functions, or returned as results. Dependent methods could not be turned into functions simply because there was no type that could describe them.</p> 
+    <p>In Dotty this is now possible. The type of the <code>extractor</code> value above is</p> 
+    <pre><code class="language-scala">(e: Entry) =&gt; e.Key
+</code></pre> 
+    <p>This type describes function values that take any argument <code>x</code> of type <code>Entry</code> and return a result of type <code>x.Key</code>.</p> 
+    <h3><a href="#tasty-frontend" id="tasty-frontend" class="anchor"></a>TASTY frontend</h3> 
+    <p><a href="https://docs.google.com/document/d/1Wp86JKpRxyWTqUU39H40ZdXOlacTNs20aTj7anZLQDw/edit">TASTY</a> is a new serialization format for typed syntax trees of Scala programs. When compiled by Dotty, a program classfile will include its TASTY representation in addition to its bytecode.</p> 
+    <p>The TASTY frontend uses ASTs from the TASTY in classfiles as input instead of source files. There are currently two backends using the TASTY frontend:</p> 
+    <ul> 
+     <li> <p>A Dotty class file decompiler that let you decompile code previously compiled to TASTY:</p> <pre><code class="language-shell">dotc -decompile -classpath &lt;classpath&gt; &lt;classname&gt;
+</code></pre> </li> 
+     <li> <p>A Dotty TASTY compiler that will recompile code previously compiled to TASTY:</p> <pre><code class="language-shell">dotc -from-tasty -classpath &lt;classpath&gt; &lt;classname&gt;
+</code></pre> <p>This is the first step toward linking and whole word optimisations, recompiling code to a different backends...</p> </li> 
+    </ul> 
+    <h3><a href="#generic-java-signatures-3234" id="generic-java-signatures-3234" class="anchor"></a>Generic java signatures <a href="https://github.com/lampepfl/dotty/pull/3234">#3234</a></h3> 
+    <p>Dotty now emits generic signatures for classes and methods. Those signatures are used by compilers, debuggers and to support runtime reflection. For example:</p> 
+    <pre><code class="language-scala">scala&gt; class Foo[T, U]
+// defined class Foo
+
+scala&gt; classOf[Foo[_, _]].getTypeParameters.map(_.getName).mkString(", ")
+val res0: String = "T, U"
+</code></pre> 
+    <h2><a href="#trying-out-dotty" id="trying-out-dotty" class="anchor"></a>Trying out Dotty</h2> 
+    <h3><a href="#scastie" id="scastie" class="anchor"></a>Scastie</h3> 
+    <p><a href="https://scastie.scala-lang.org/?target=dotty">Scastie</a>, the online Scala playground, supports Dotty. This is an easy way to try Dotty without installing anything.</p> 
+    <h3><a href="#sbt" id="sbt" class="anchor"></a>sbt</h3> 
+    <p>Using sbt 0.13.13 or newer, do:</p> 
+    <pre><code class="language-shell">sbt new lampepfl/dotty.g8
+</code></pre> 
+    <p>This will setup a new sbt project with Dotty as compiler. For more details on using Dotty with sbt, see the <a href="https://github.com/lampepfl/dotty-example-project">example project</a>.</p> 
+    <h3><a href="#ide-support" id="ide-support" class="anchor"></a>IDE support</h3> 
+    <p>It is very easy to start using the Dotty IDE in any Dotty project by following the <a href="https://dotty.epfl.ch/docs/usage/ide-support.html">IDE guide</a>.</p> 
+    <h3><a href="#standalone-installation" id="standalone-installation" class="anchor"></a>Standalone installation</h3> 
+    <p>Releases are available for download on the <em>Releases</em> section of the Dotty repository: <a href="https://github.com/lampepfl/dotty/releases">https://github.com/lampepfl/dotty/releases</a></p> 
+    <p>We also provide a <a href="https://brew.sh/">homebrew</a> package that can be installed by running:</p> 
+    <pre><code class="language-shell">brew install lampepfl/brew/dotty
+</code></pre> 
+    <p>In case you have already installed Dotty via brew, you should instead update it:</p> 
+    <pre><code class="language-shell">brew upgrade dotty
+</code></pre> 
+    <h2><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h2> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible!</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.4.0-RC1..0.5.0-RC1</code> these are:</p> 
+    <pre><code>   112  Nicolas Stucki
+   108  Martin Odersky
+    33  Allan Renucci
+    18  Guillaume Martres
+    17  Martin Duhem
+    13  liu fengyun
+     9  Miron Aseev
+     4  Matt D'Souza
+     4  Raphael Bosshard
+     2  k0ala
+     2  Vitor Vieira
+     2  Fengyun Liu
+     2  Michal Gutowski
+     2  Robert Soeldner
+     2  Aurélien Richez
+     1  rsoeldner
+     1  Hermes Espínola González
+     1  Jean Detoeuf
+     1  Karol Chmist
+     1  Olivier Blanvillain
+     1  William Narmontas
+     1  Yevgen Nerush
+     1  gan74
+     1  gosubpl
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! You can have a look at our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, the <a href="http://scala-lang.org/blog/2016/10/14/dotty-errors.html">Awesome Error Messages</a> project or some of the simple <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">Dotty issues</a>. They make perfect entry-points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently this includes ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="images/allan.jpg"> <span id="author-signature"> Allan Renucci </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>

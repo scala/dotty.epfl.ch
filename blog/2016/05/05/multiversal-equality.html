@@ -1,0 +1,79 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Multiversal Equality for Scala</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-RC1-bin-20201127-ed93a48-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2016-05-05-multiversal-equality.md////PointingToDeclaration//-474500874">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">Blog</a>/<a href="multiversal-equality.html">Multiversal Equality for Scala</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Multiversal Equality for Scala</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2016-05-05 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Martin Odersky </span> 
+     </div> 
+    </header> 
+    <p>I have been working recently on making equality tests using <code>==</code> and <code>!=</code> safer in Scala. This has led to a <a href="https://github.com/lampepfl/dotty/issues/1247">Language Enhancement Proposal</a> which I summarize in this blog.</p> 
+    <h2><a href="#why-change-equality" id="why-change-equality" class="anchor"></a>Why Change Equality?</h2> 
+    <p>Scala prides itself of its strong static type system. Its type discipline is particularly useful when it comes to refactoring. Indeed, it's possible to write programs in such a way that refactoring problems show up with very high probability as type errors. This is essential for being able to refactor with the confidence that nothing will break. And the ability to do such refactorings is in turn very important for keeping code bases from rotting.</p> 
+    <p>Of course, getting such a robust code base requires the cooperation of the developers. They should avoid type <code>Any</code>, casts, <a href="http://c2.com/cgi/wiki?StringlyTyped">stringly typed</a> logic, and more generally any operation over loose types that do not capture the important properties of a value. Unfortunately, there is one area in Scala where such loose types are very hard to avoid: That's equality. Comparisons with <code>==</code> and <code>!=</code> are <em>universal</em>. They compare any two values, no matter what their types are. This causes real problems for writing code and more problems for refactoring it.</p> 
+    <p>For instance, one might want to introduce a proxy for some data structure so that instead of accessing the data structure directly one goes through the proxy. The proxy and the underlying data would have different types. Normally this should be an easy refactoring. If one passes by accident a proxy for the underlying type or <em>vice versa</em> the type checker will flag the error. However, if one accidentally compares a proxy with the underlying type using <code>==</code> or a pattern match, the program is still valid, but will just always say <code>false</code>. This is a real worry in practice. I recently abandoned a desirable extensive refactoring because I feared that it would be too hard to track down such errors.</p> 
+    <h2><a href="#where-are-we-today" id="where-are-we-today" class="anchor"></a>Where Are We Today?</h2> 
+    <p>The problems of universal equality in Scala are of course well-known. Some libraries have tried to fix it by adding another equality operator with more restricted typing. Most often this safer equality is written <code>===</code>. While <code>===</code> is certainly useful, I am not a fan of adding another equality operator to the language and core libraries. It would be much better if we could fix <code>==</code> instead. This would be both simpler and would catch all potential equality problems including those related to pattern matching.</p> 
+    <p>How can <code>==</code> be fixed? It looks much harder to do this than adding an alternate equality operator. First, we have to keep backwards compatibility. The ability to compare everything to everything is by now baked into lots of code and libraries. Second, with just one equality operator we need to make this operator work in all cases where it makes sense. An alternative <code>===</code> operator can choose to refuse some comparisons that should be valid because there's always <code>==</code> to fall back to. With a unique <code>==</code> operator we do not have this luxury.</p> 
+    <p>The current status in Scala is that the compiler will give warnings for <em>some</em> comparisons that are always <code>false</code>. But the coverage is weak. For instance this will give a warning:</p> 
+    <pre><code class="language-scala">scala&gt; 1 == "abc"
+&lt;console&gt;:12: warning: comparing values of types Int and String using `==' will always yield false
+</code></pre> 
+    <p>But this will not:</p> 
+    <pre><code class="language-scala">scala&gt; "abc" == 1
+res2: Boolean = false
+</code></pre> 
+    <p>There are also cases where a warning is given for a valid equality test that actually makes sense because the result could be <code>true</code>. In summary, the current checking catches some obvious bugs, which is nice. But it is far too weak and fickle to be an effective refactoring aid.</p> 
+    <h2><a href="#whats-proposed" id="whats-proposed" class="anchor"></a>What's Proposed?</h2> 
+    <p>I believe to do better, we need to enlist the cooperation of developers. Ultimately it's the developer who provides implementations of equality methods and who is therefore best placed to characterize which equalities make sense. Sometimes this characterization can be involved. For instance, an <code>Int</code> can be compared to other primitive numeric values or to instances of type <code>java.lang.Number</code> but any other comparison will always yield <code>false</code>. Or, it makes sense to compare two <code>Option</code> values if and only if it makes sense to compare the optional element values.</p> 
+    <p>The best known way to characterize such relationships is with type classes. Implicit values of a trait <code>Eq[T, U]</code> can capture the property that values of type <code>T</code> can be compared to values of type <code>U</code>. Here's the definition of <code>Eq</code></p> 
+    <pre><code class="language-scala">package scala
+
+trait Eq[-T, -U]
+</code></pre> 
+    <p>That is, <code>Eq</code> is a pure marker trait with two type parameters and without any members. Developers can define equality classes by giving implicit <code>Eq</code> instances. Here is a simple one:</p> 
+    <pre><code class="language-scala">implicit def eqString: Eq[String, String] = Eq
+</code></pre> 
+    <p>This states that strings can be only compared to strings, not to values of other types. Here's a more complicated <code>Eq</code> instance:</p> 
+    <pre><code class="language-scala">implicit def eqOption[T, U](implicit _eq: Eq[T, U]): Eq[Option[T], Option[U]] = Eq
+</code></pre> 
+    <p>This states that <code>Option</code> values can be compared if their elements can be compared.</p> 
+    <p>It's foreseen that such <code>Eq</code> instances can be generated automatically. If we add an annotation <code>@equalityClass</code> to <code>Option</code> like this</p> 
+    <pre><code class="language-scala">@equalityClass class Option[+T] { ... }
+</code></pre> 
+    <p>then the <code>eqOption</code> definition above would be generated automatically in <code>Option</code>'s companion object.</p> 
+    <p>Given a set of <code>Eq</code> instances, the idea is that the Scala compiler will check every time it encounters a <em>potentially problematic</em> comparison between values of types <code>T</code> and <code>U</code> that there is an implicit instance of <code>Eq[T, U]</code>. A comparison is <em>potentially problematic</em> if it is between incompatible types. As long as <code>T &lt;: U</code> or <code>U &lt;: T</code> the equality could make sense because both sides can potentially be the same value.</p> 
+    <p>So this means we still keep universal equality as it is in Scala now - we don't have a choice here anyway, because of backwards compatibility. But we render it safe by checking that for each comparison the corresponding <code>Eq</code> instance exists.</p> 
+    <p>What about types for which no <code>Eq</code> instance exists? To maintain backwards compatibility, we allow comparisons of such types as well, by means of a fall-back <code>eqAny</code> instance. But we do not allow comparisons between types that have an <code>Eq</code> instance and types that have none. Details are explained in the <a href="https://github.com/lampepfl/dotty/issues/1247">proposal</a>.</p> 
+    <h2><a href="#properties" id="properties" class="anchor"></a>Properties</h2> 
+    <p>Here are some nice properties of the proposal</p> 
+    <ol> 
+     <li>It is <em>opt-in</em>. To get safe checking, developers have to annotate with <code>@equalityClass</code> classes that should allow comparisons only between their instances, or they have to define implicit <code>Eq</code> instances by hand. 2. It is backwards compatible. Without developer-provided <code>Eq</code> instances, equality works as before.</li> 
+     <li>It carries no run-time cost compared to universal equality. Indeed the run-time behavior of equality is not affected at all.</li> 
+     <li>It has no problems with parametricity, variance, or bottom types. 5. Depending on the actual <code>Eq</code> instances given, it can be very precise. That is, no comparisons that might yield <code>true</code> need to be rejected, and most comparisons that will always yield <code>false</code> are in fact rejected.</li> 
+    </ol> 
+    <p>The scheme effectively leads to a partition of the former universe of types into sets of types. Values with types in the same partition can be compared among themselves but values with types in different partitions cannot. An <code>@equalityClass</code> annotation on a type creates a new partition. All types that do not have any <code>Eq</code> instances (except <code>eqAny</code>, that is) form together another partition. So instead of a single <em>universe</em> of values that can be compared to each other we get a <em>multiverse</em> of partitions. Hence the name of the proposal: <strong>Multiversal Equality</strong>.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="images/martin.jpg"> <span id="author-signature"> Martin Odersky </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>

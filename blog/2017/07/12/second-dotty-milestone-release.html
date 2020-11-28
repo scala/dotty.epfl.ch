@@ -1,0 +1,304 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.2.0-RC1, with new optimizations, improved stability and IDE support</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-RC1-bin-20201127-ed93a48-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2017-07-12-second-dotty-milestone-release.md////PointingToDeclaration//-474500874">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">Blog</a>/<a href="second-dotty-milestone-release.html">Announcing Dotty 0.2.0-RC1, with new optimizations, improved stability and IDE support</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.2.0-RC1, with new optimizations, improved stability and IDE support</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2017-07-12 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Dmytro Petrashko </span> 
+     </div> 
+    </header> 
+    <p>Today, we are excited to release Dotty version 0.2.0-RC1. This release serves as a technology preview that demonstrates new language features and the compiler supporting them.</p> 
+    <p>This release is based on the <a href="../../05/31/first-dotty-milestone-release.html">previous milestone</a>. The highlights of this release are: - substantial improvement of quality of generated code for pattern matching - improvements in VS Code IDE stability - support Windows in VS Code IDE - improved compatibility with scalac - initial support for reproducible builds</p> <!--more--> 
+    <p>This is our second scheduled release according to our <a href="https://dotty.epfl.ch/docs/usage/version-numbers.html">6-week release schedule</a>.</p> 
+    <h2><a href="#whats-in-the-020-rc1-technology-preview" id="whats-in-the-020-rc1-technology-preview" class="anchor"></a>What’s in the 0.2.0-RC1 technology preview?</h2> 
+    <p>The <a href="../../05/31/first-dotty-milestone-release.html">previous technology preview</a> has shipped new language features planned for Scala 3: <a href="https://dotty.epfl.ch/docs/reference/new-types/intersection-types.html">Intersection Types</a>, <a href="https://dotty.epfl.ch/docs/reference/new-types/union-types.html">Union Types</a>, <a href="https://dotty.epfl.ch/docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a>, <a href="https://dotty.epfl.ch/docs/reference/enums/enums.html">Enumerations</a>, <a href="https://dotty.epfl.ch/docs/reference/enums/adts.html">Algebraic Data Types</a>, <a href="https://dotty.epfl.ch/docs/reference/other-new-features/implicit-by-name-parameters.html">By-Name Implicits</a>.</p> 
+    <p>This technology preview is geared towards improving stability and reliability. It includes:</p> 
+    <ul> 
+     <li><a href="https://github.com/lampepfl/dotty/pull/2513">Local optimizations upstreamed from the Dotty Linker</a>, <a href="https://github.com/lampepfl/dotty/pull/2647">2647</a> by (<a href="https://github.com/OlivierBlanvillain">@OlivierBlanvillain</a>). See more details below.</li> 
+     <li><a href="https://github.com/lampepfl/dotty/pull/2829">Optimizing Pattern Matcher</a> by (<a href="https://github.com/odersky">@odersky</a>)</li> 
+     <li><a href="https://github.com/lampepfl/dotty/pull/2756">Idempotency checks</a> are the first step to reproducible builds</li> 
+     <li><a href="https://github.com/lampepfl/dotty/pull/2676">Faster Base class sets</a> by (<a href="https://github.com/odersky">@odersky</a>) and (<a href="https://twitter.com/darkdimius">@darkdimius</a>)</li> 
+     <li> <p>Numerous fixes to IDE and Dotty Language Server covering:</p> 
+      <ul> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2776">Windows support for VS Code plugin</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2836">Fix hover-on-type for implicitly converted expressions</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2810">Fixes to find all references in external projects</a>, <a href="https://github.com/lampepfl/dotty/pull/2773/files">2773</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2777">Fix conflict with dragos-vscode-scala</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2752">Fix ide crash on non-parsable file</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2722">Fix hover functionality for enum classes</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2708">Report errors on Dotty Language Server initialization</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2690">Fixes to sbt setting up Dotty IDE</a></li> 
+       <li>General stability improvements <a href="https://github.com/lampepfl/dotty/pull/2838">2838</a>, <a href="https://github.com/lampepfl/dotty/pull/2787">2787</a>, <a href="https://github.com/lampepfl/dotty/pull/2692">2692</a></li> 
+      </ul> </li> 
+     <li> <p>Scalac compatibility improvements:</p> 
+      <ul> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2685">Support Scala 2.12 traits</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2834/files">Fixes to handling of Scala 2 classfiles</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2719">Scalac parser crashes on Dotty.jar</a></li> 
+      </ul> </li> 
+     <li> <p>Java compatibility improvements:</p> 
+      <ul> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2831">Fixes to handing of Java generic signatures</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2781">java.lang.System.out is final but that's a lie</a></li> 
+      </ul> </li> 
+     <li> <p>Improved error messages:</p> 
+      <ul> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2821">Nicer error message for "implicit function type needs non-empty parameter list"</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2807/files">Nicer error message for nonsensical modifier combination</a>, <a href="https://github.com/lampepfl/dotty/pull/2747">2747</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2740">Nicer error message for supercall inside @inline method</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2790">Check that case classes don't inherit case classes</a></li> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2785">Check that named parameters don't conflict with positional ones</a></li> 
+      </ul> </li> 
+     <li> <p>Improved command line handling:</p> 
+      <ul> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2765">Support params in a file like @file.txt</a></li> 
+      </ul> </li> 
+     <li> <p>Type system stability:</p> 
+      <ul> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2742">Handle wildcard types in unions and intersections</a></li> 
+      </ul> </li> 
+     <li> <p>Fixes to implicit search:</p> 
+      <ul> 
+       <li><a href="https://github.com/lampepfl/dotty/pull/2739">Fix shadowing of higher order implicits</a></li> 
+      </ul> </li> 
+    </ul> 
+    <h3><a href="#better-generated-code" id="better-generated-code" class="anchor"></a>Better generated code:</h3> 
+    <p>As was <a href="https://twitter.com/gkossakowski/status/870243464528744449">spotted</a> by <a href="https://twitter.com/gkossakowski">@gkossakowski</a> in the previous release Dotty was on par with Scala 2.11 in speed. But why is that? The reason is that Dotty compiled by Dotty had really horrible code generated for pattern matching.</p> 
+    <p>Let's illustrate on a simple example:</p> 
+    <pre><code class="language-scala">case class CC(a: Int, b: Object)
+
+  def foo(x: Any): Int = {
+    val (a, b) = x match {
+      case CC(s @ 1, CC(t, _)) =&gt;
+        (s , 2)
+      case _ =&gt; (42, 43)
+    }
+    a + b
+  }
+
+  def booleans(a: Object) = {
+    val (b1, b2) = (a.isInstanceOf[CC], a.isInstanceOf[List[Int]])
+    (b1, b2) match {
+      case (true, true) =&gt; true
+      case (false, false) =&gt; true
+      case _ =&gt; false
+    }
+  }
+</code></pre> 
+    <p>The Dotty that was released in the previous milestone didn't contain any optimizations and generated inefficient code for it. The java-with-goto code below is equivalent to what Dotty generated.</p> 
+    <pre><code class="language-java">// output of dotc 0.1.2-RC1
+    public int foo(Object x) {
+        var3_2 = x;
+        if (!(var3_2 instanceof CC)) ** GOTO lbl-1000
+        var4_3 = (CC)var3_2;
+        if (CC$.MODULE$.unapply((CC)var3_2) == null) ** GOTO lbl-1000
+        var5_4 = CC$.MODULE$.unapply((CC)var3_2);
+        s = var5_4._1();
+        var7_6 = var5_4._2();
+        if (1 != s) ** GOTO lbl-1000
+        var8_7 = s;
+        if (!(var7_6 instanceof CC)) ** GOTO lbl-1000
+        var9_8 = (CC)var7_6;
+        if (CC$.MODULE$.unapply((CC)var7_6) != null) {
+            var10_9 = CC$.MODULE$.unapply((CC)var7_6);
+            var11_10 = var10_9._2();
+            v0 = Tuple2..MODULE$.apply((Object)BoxesRunTime.boxToInteger((int)1), (Object)BoxesRunTime.boxToInteger((int)2));
+        } else lbl-1000: // 5 sources:
+        {
+            v0 = Tuple2..MODULE$.apply((Object)BoxesRunTime.boxToInteger((int)42), (Object)BoxesRunTime.boxToInteger((int)43));
+        }
+        var2_11 = v0;
+        a = BoxesRunTime.unboxToInt((Object)var2_11._1());
+        b = BoxesRunTime.unboxToInt((Object)var2_11._2());
+        return a + b;
+    }
+
+    public boolean booleans(Object a) {
+        Tuple2 tuple2 = Tuple2..MODULE$.apply((Object)BoxesRunTime.boxToBoolean((boolean)(a instanceof CC)), (Object)BoxesRunTime.boxToBoolean((boolean)(a instanceof List)));
+        boolean b1 = BoxesRunTime.unboxToBoolean((Object)tuple2._1());
+        boolean b2 = BoxesRunTime.unboxToBoolean((Object)tuple2._2());
+        Tuple2 tuple22 = Tuple2..MODULE$.apply((Object)BoxesRunTime.boxToBoolean((boolean)b1), (Object)BoxesRunTime.boxToBoolean((boolean)b2));
+        Option option = Tuple2..MODULE$.unapply(tuple22);
+        if (!option.isEmpty()) {
+            Tuple2 tuple23 = (Tuple2)option.get();
+            boolean bl = BoxesRunTime.unboxToBoolean((Object)tuple23._1());
+            boolean bl2 = BoxesRunTime.unboxToBoolean((Object)tuple23._2());
+            if (bl) {
+                boolean bl3 = bl;
+                if (bl2) {
+                    boolean bl4 = bl2;
+                    return true;
+                }
+            }
+        }
+        Option option2 = Tuple2..MODULE$.unapply(tuple22);
+        if (option2.isEmpty()) return false;
+        Tuple2 tuple24 = (Tuple2)option2.get();
+        boolean bl = BoxesRunTime.unboxToBoolean((Object)tuple24._1());
+        boolean bl5 = BoxesRunTime.unboxToBoolean((Object)tuple24._2());
+        if (bl) return false;
+        boolean bl6 = bl;
+        if (bl5) return false;
+        boolean bl7 = bl5;
+        return true;
+    }
+</code></pre> 
+    <p>Due to the new optimizing pattern matcher, Dotty now is able to generate the code below without <code>-optimise</code></p> 
+    <pre><code class="language-java">// output of 0.2.0-RC1 without -optimise
+    public int foo(Object x) {
+        var3_2 = x;
+        if (!(var3_2 instanceof CC)) ** GOTO lbl-1000
+        var4_3 = CC$.MODULE$.unapply((CC)var3_2);
+        s = var5_4 = var4_3._1();
+        if (1 == var5_4 &amp;&amp; (var7_6 = var4_3._2()) instanceof CC) {
+            t = CC$.MODULE$.unapply((CC)var7_6)._1();
+            v0 = Tuple2..MODULE$.apply((Object)BoxesRunTime.boxToInteger((int)1), (Object)BoxesRunTime.boxToInteger((int)2));
+        } else lbl-1000: // 2 sources:
+        {
+            v0 = Tuple2..MODULE$.apply((Object)BoxesRunTime.boxToInteger((int)42), (Object)BoxesRunTime.boxToInteger((int)43));
+        }
+        var2_8 = v0;
+        a = BoxesRunTime.unboxToInt((Object)var2_8._1());
+        b = BoxesRunTime.unboxToInt((Object)var2_8._2());
+        return a + b;
+    }
+
+    public boolean booleans(Object a) {
+        Tuple2 tuple2 = Tuple2..MODULE$.apply((Object)BoxesRunTime.boxToBoolean((boolean)(a instanceof CC)), (Object)BoxesRunTime.boxToBoolean((boolean)(a instanceof List)));
+        boolean b1 = BoxesRunTime.unboxToBoolean((Object)tuple2._1());
+        boolean b2 = BoxesRunTime.unboxToBoolean((Object)tuple2._2());
+        Tuple2 tuple22 = Tuple2..MODULE$.apply((Object)BoxesRunTime.boxToBoolean((boolean)b1), (Object)BoxesRunTime.boxToBoolean((boolean)b2));
+        if (tuple22 != null) {
+            boolean bl;
+            boolean bl2 = BoxesRunTime.unboxToBoolean((Object)tuple22._1());
+            if (!bl2) {
+                bl = bl2;
+            } else {
+                if (BoxesRunTime.unboxToBoolean((Object)tuple22._2())) {
+                    return true;
+                }
+                bl = bl2;
+            }
+            if (!bl) {
+                if (false != BoxesRunTime.unboxToBoolean((Object)tuple22._2())) return false;
+                return true;
+            }
+        }
+        return false;
+    }
+</code></pre> 
+    <p>You can clearly see that it's shorter ;-) and it actually does less work. If you additionally enable local optimizations, you get decent generated code:</p> 
+    <pre><code class="language-java">// output of 0.2.0-RC1 with -optimise
+
+    public int foo(Object x) {
+        int n;
+        Tuple2 tuple2;
+        CC cC;
+        Object object;
+        if (x instanceof CC &amp;&amp; 1 == (n = (cC = (CC)x)._1()) &amp;&amp; (object = cC._2()) instanceof CC) {
+            ((CC)object)._1();
+            tuple2 = new Tuple2((Object)BoxesRunTime.boxToInteger((int)1), (Object)BoxesRunTime.boxToInteger((int)2));
+        } else {
+            tuple2 = new Tuple2((Object)BoxesRunTime.boxToInteger((int)42), (Object)BoxesRunTime.boxToInteger((int)43));
+        }
+        Tuple2 tuple22 = tuple2;
+        return BoxesRunTime.unboxToInt((Object)tuple22._1()) + BoxesRunTime.unboxToInt((Object)tuple22._2());
+    }
+
+    public boolean booleans(Object a) {
+        boolean bl = a instanceof CC;
+        boolean bl2 = a instanceof List;
+        new Tuple2((Object)BoxesRunTime.boxToBoolean((boolean)bl), (Object)BoxesRunTime.boxToBoolean((boolean)bl2));
+        new Tuple2((Object)BoxesRunTime.boxToBoolean((boolean)bl), (Object)BoxesRunTime.boxToBoolean((boolean)bl2));
+        if (bl &amp;&amp; bl2) {
+            return true;
+        }
+        boolean bl3 = bl;
+        if (bl3) return false;
+        if (bl2) return false;
+        return true;
+    }
+</code></pre> 
+    <p>This code still has a major inefficiency; it allocates tuples. We plan to continue the migration of local optimizations from the Dotty Linker that should allow us to generate code that is as good the code generated by the Dotty Linker with global analysis disabled:</p> 
+    <pre><code class="language-java">  // output of Dotty linker https://github.com/dotty-linker/dotty/tree/opto
+    public int foo(Object x) {
+         CC cC;
+         int n = 0;
+         int n2 = 0;
+         if (x instanceof CC &amp;&amp; 1 == (cC = (CC)x)._1() &amp;&amp; cC._2() instanceof CC) {
+             n = 1;
+             n2 = 2;
+         } else {
+             n = 42;
+             n2 = 43;
+         }
+         return n + n2;
+     }
+
+     public boolean booleans(Object a) {
+         boolean bl = a instanceof CC;
+         boolean bl2 = a instanceof List;
+         if (bl &amp;&amp; bl2 || !bl &amp;&amp; !bl2) {
+             return true;
+         }
+         return false;
+ }
+</code></pre> 
+    <h2><a href="#how-can-you-try-it-out" id="how-can-you-try-it-out" class="anchor"></a>How can you try it out?</h2> 
+    <p>We ship with tools that help you try out the Dotty platform:</p> 
+    <ul> 
+     <li><a href="https://dotty.epfl.ch/docs/usage/ide-support.html">IDE features for Visual Studio Code</a></li> 
+     <li><a href="https://github.com/lampepfl/dotty-example-project">sbt support, including retro-compatibility with Scala 2</a></li> 
+    </ul> 
+    <p>You have several alternatives; use the <code>sbt-dotty</code> plugin, get a standalone installation, or try it online on <a href="https://scastie.scala-lang.org/?target=dotty">Scastie</a>.</p> 
+    <h3><a href="#sbt" id="sbt" class="anchor"></a>sbt</h3> 
+    <p>Using sbt 0.13.13 or newer, do:</p> 
+    <pre><code>sbt new lampepfl/dotty.g8
+</code></pre> 
+    <p>This will setup a new sbt project with Dotty as compiler. For more details on using Dotty with sbt, see the <a href="https://github.com/lampepfl/dotty-example-project">example project</a>.</p> 
+    <h3><a href="#standalone-installation" id="standalone-installation" class="anchor"></a>Standalone installation</h3> 
+    <p>Releases are available for download on the <em>Releases</em> section of the Dotty repository: <a href="https://github.com/lampepfl/dotty/releases">https://github.com/lampepfl/dotty/releases</a></p> 
+    <p>We also provide a <a href="https://brew.sh/">homebrew</a> package that can be installed by running:</p> 
+    <pre><code>brew install lampepfl/brew/dotty
+</code></pre> 
+    <p>In case you have already installed Dotty via brew, you should instead update it:</p> 
+    <pre><code>brew upgrade dotty
+</code></pre> 
+    <h3><a href="#scastie" id="scastie" class="anchor"></a>Scastie</h3> 
+    <p><a href="https://scastie.scala-lang.org/?target=dotty">Scastie</a>, the online Scala playground, supports Dotty. You can try it out there without installing anything.</p> 
+    <h2><a href="#what-are-the-next-steps" id="what-are-the-next-steps" class="anchor"></a>What are the next steps?</h2> 
+    <p>Over the coming weeks and months, we plan to work on the following topics:</p> 
+    <ul> 
+     <li><a href="https://github.com/lampepfl/dotty/pull/2827">Add support for using Dotty generated classes with Scala 2.12</a></li> 
+     <li><a href="https://github.com/lampepfl/dotty/pull/2199">Add Language-level support for HMaps and HLists</a>;</li> 
+     <li>Upstream more optimizations from Dotty Linker</li> 
+     <li><a href="https://github.com/lampepfl/dotty/pull/2827">Add support for existing in the same classpath with Scala 2.12</a></li> 
+    </ul> 
+    <p>If you want to get your hands dirty with any of this, now is a good moment to get involved! Join the team of contributors, including Martin Odersky (<a href="https://twitter.com/odersky">@odersky</a>) Dmitry Petrashko (<a href="https://twitter.com/DarkDimius">@DarkDimius</a>), Guillaume Martres (<a href="https://github.com/smarter">@smarter</a>), Felix Mulder (<a href="https://twitter.com/felixmulder">@felixmulder</a>), Nicolas Stucki (<a href="https://github.com/nicolasstucki">@nicolasstucki</a>), Liu Fengyun (<a href="https://github.com/liufengyun">@liufengyun</a>), Olivier Blanvillain (<a href="https://github.com/OlivierBlanvillain">@OlivierBlanvillain</a>), and others!</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of libraries that are built against every nightly snapshot. Currently this includes scalatest, squants and algebra. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <p>To get started, see <a href="https://github.com/lampepfl/dotty">https://github.com/lampepfl/dotty</a>.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="images/petrashko.jpg"> <span id="author-signature"> Dmytro Petrashko </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>

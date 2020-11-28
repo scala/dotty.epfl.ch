@@ -1,0 +1,111 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.26.0-RC1 - unified extension methods and more</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-RC1-bin-20201127-ed93a48-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2020-07-27-26th-dotty-milestone-release.md////PointingToDeclaration//-474500874">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">Blog</a>/<a href="26th-dotty-milestone-release.html">Announcing Dotty 0.26.0-RC1 - unified extension methods and more</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.26.0-RC1 - unified extension methods and more</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2020-07-27 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Anatolii Kmetiuk </span> 
+     </div> 
+    </header> 
+    <p>Hello! We are excited to announce 0.26.0-RC1 of Dotty. In this version, we have improved the extension methods – their syntax is now more uniform. We have also implemented local selectable instances and have done a bunch of improvements to the compiler and the language API. Otherwise, we are focusing our efforts on reducing the issue count on the issue tracker, boosting performance and improving the stability of the compiler in other ways.</p> 
+    <p>You can try out this version right now, from the comfort of your SBT, by visiting the <a href="https://dotty.epfl.ch/">home page</a> and scrolling down to the "Create a Dotty Project" section.</p> 
+    <p>Alternatively, you can try this version of Scala online via <a href="https://scastie.scala-lang.org/">Scastie</a>. Once you're there, click "Build Settings" and set "Target" to "Dotty".</p> 
+    <p>Enjoy the ride🚀!</p> <!--more--> 
+    <h1><a href="#unified-extension-methods" id="unified-extension-methods" class="anchor"></a>Unified extension methods</h1> 
+    <p>In this release, we have made extension method syntax uniform. Previously, we had three separate syntaxes for single extension methods, collective extension methods and given instances with extension methods. Now, these three cases have been unified into one. The new syntax looks like follows:</p> 
+    <pre><code class="language-scala">extension (x: String)
+  def &lt; (y: String): Boolean = ...
+</code></pre> 
+    <p>Collective extensions look like follows:</p> 
+    <pre><code class="language-scala">extension (ss: Seq[String]):
+
+  def longestStrings: Seq[String] =
+    val maxLength = ss.map(_.length).max
+    ss.filter(_.length == maxLength)
+
+  def longestString: String = longestStrings.head
+</code></pre> 
+    <p>You can read more about the new syntax in the <a href="https://dotty.epfl.ch/docs/reference/contextual/extension-methods.html">documentation</a>. For the discussion, see <a href="https://github.com/lampepfl/dotty/pull/9255">PR</a>.</p> 
+    <h1><a href="#local-selectable-instances" id="local-selectable-instances" class="anchor"></a>Local Selectable Instances</h1> 
+    <p>Local and anonymous classes that extend <code>Selectable</code> get more refined types than other classes. For example:</p> 
+    <pre><code class="language-scala">trait Vehicle extends reflect.Selectable {
+  val wheels: Int
+}
+val i3 = new Vehicle { // i3: Vehicle { val range: Int }
+  val wheels = 4
+  val range = 240
+}
+i3.range
+</code></pre> 
+    <p>Without the <code>extends reflect.Selectable</code>, the last line would have errored:</p> 
+    <pre><code class="language-scala">i3.range: // error: range is not a member of `Vehicle`
+</code></pre> 
+    <p>The new functionality is similar to <code>scala.Dynamic</code> but different since <code>Selectable</code> is typesafe. For more about this feature, see <a href="https://dotty.epfl.ch/docs/reference/changed-features/structural-types.html#local-selectable-instances">documentation</a>.</p> 
+    <h1><a href="#tuple-counterparts-for-summon-and-constvalue" id="tuple-counterparts-for-summon-and-constvalue" class="anchor"></a>Tuple counterparts for <code>summon</code> and <code>constValue</code></h1> 
+    <p>Two new methods for compile-time programming were added, <code>summonAll</code> and <code>constValueTuple</code>.</p> 
+    <p><code>summonAll[T &lt;: Tuple]</code> takes a tuple type, summons all the members of it and returns them as a tuple. For example:</p> 
+    <pre><code class="language-scala">given as Int = 10
+given as String = "foo"
+given as Double = 1.2
+println(summonAll[Int *: String *: Double *: EmptyTuple])  // (10,foo,1.2)
+</code></pre> 
+    <p>In the same spirit, <code>constValueTuple[T &lt;: Tuple]</code> is a tuple counterpart for <code>constValue</code>. For example:</p> 
+    <pre><code class="language-scala">val result = constValueTuple["foo" *: "bar" *: 10 *: 2.5 *: EmptyTuple]
+println(result)  // (foo,bar,10,2.5)
+</code></pre> 
+    <p>This feature was introduced by PR <a href="https://github.com/lampepfl/dotty/pull/9209">#9209</a>.</p> 
+    <h1><a href="#per-run-time-budget-for-import-suggestions" id="per-run-time-budget-for-import-suggestions" class="anchor"></a>Per-run time budget for import suggestions</h1> 
+    <p>Import suggestions is a feature useful for debugging but potentially taxing for performance. Therefore, we have added the <code>-Ximport-suggestion-timeout &lt;time-in-ms&gt;</code> to allow specifying the timeout (in milliseconds) after which the suggestions mechanism should stop the lookup. The timeout budget is per-run (and not per suggestion) which ensures that the performance does not degrade in case of too many suggestions.</p> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible 🎉</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.25.0-RC2..0.26.0-RC1</code> these are:</p> 
+    <pre><code>   128  Martin Odersky
+    53  Nicolas Stucki
+    30  Sébastien Doeraene
+    18  Anatolii Kmetiuk
+    18  Guillaume Raffin
+    17  Lan, Jian
+    12  Guillaume Martres
+     5  Aleksander Boruch-Gruszecki
+     3  Ruslan Shevchenko
+     3  odersky
+     2  Alden Torres
+     2  Robert Stoll
+     2  yu-croco
+     1  Alex Zolotko
+     1  Kevin Dreßler
+     1  FabioPinheiro
+     1  adpi2
+     1  Matthew Pickering
+     1  Liu Fengyun
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! Head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, and have a look at some of the <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">good first issues</a>. They make perfect entry points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently, this includes shapeless, ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty/tree/master/community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="../../../../images/anatolii.png"> <span id="author-signature"> Anatolii Kmetiuk </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>

@@ -1,0 +1,92 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Announcing Dotty 0.4.0-RC1</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-RC1-bin-20201127-ed93a48-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.blog/_posts/2017-10-16-fourth-dotty-milestone-release.md////PointingToDeclaration//-474500874">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">Blog</a>/<a href="fourth-dotty-milestone-release.html">Announcing Dotty 0.4.0-RC1</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Announcing Dotty 0.4.0-RC1</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2017-10-16 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Allan Renucci </span> 
+     </div> 
+    </header> 
+    <p>Today, we are excited to release Dotty version 0.4.0-RC1. This release serves as a technology preview that demonstrates new language features and the compiler supporting them.</p> 
+    <p>If you’re not familiar with Dotty, it's a platform to try out new language concepts and compiler technologies for Scala. The focus is mainly on simplification. We remove extraneous syntax (e.g. no XML literals), and try to boil down Scala’s types into a smaller set of more fundamental constructs. The theory behind these constructs is researched in <a href="https://infoscience.epfl.ch/record/215280">DOT</a>, a calculus for dependent object types. You can learn more about Dotty on our <a href="http://dotty.epfl.ch">website</a>.</p> <!--more--> 
+    <p>This is our fourth scheduled release according to our <a href="https://dotty.epfl.ch/docs/usage/version-numbers.html">6-week release schedule</a>. The <a href="../../09/07/third-dotty-milestone-release.html">previous technology preview</a> improved stability and reliability.</p> 
+    <h2><a href="#whats-new-in-the-040-rc1-technology-preview" id="whats-new-in-the-040-rc1-technology-preview" class="anchor"></a>What’s new in the 0.4.0-RC1 technology preview?</h2> 
+    <h3><a href="#rewritten-repl-2991" id="rewritten-repl-2991" class="anchor"></a>Rewritten REPL <a href="https://github.com/lampepfl/dotty/pull/2991">#2991</a></h3> 
+    <p>The original Dotty REPL was a proof of concept hacked together from <a href="https://github.com/lampepfl/dotty/pull/1082#issuecomment-183905504">an ancient version of the scalac REPL</a>. It worked by creating Scala source files from the user input using string concatenation, this made it easy to adapt it for Dotty since it did not rely on the internals of scalac, but it was also fragile and hard to reason about. The <a href="https://github.com/lampepfl/dotty/pull/2991">new REPL</a> instead works by manipulating ASTs (Abstract Syntax Trees), this is more robust and will make it easier to develop new features: we have already implemented auto-completion support (by reusing the APIs we had created for the <a href="https://dotty.epfl.ch/docs/usage/ide-support.html">Dotty IDE</a>) and we have plans for displaying API documentation in the REPL.</p> 
+    <p>Note that the user interface of the REPL has not changed: like in the old REPL we use code adapted from the <a href="http://ammonite.io/#Ammonite-REPL">Ammonite REPL</a> to provide syntax highlighting, multi-line editing, history, etc.</p> 
+    <h3><a href="#scala-212-support-2827" id="scala-212-support-2827" class="anchor"></a>Scala 2.12 support <a href="https://github.com/lampepfl/dotty/pull/2827">#2827</a></h3> 
+    <p>Since our first release, it has been possible to use Scala 2 libraries in a Dotty project as explained in the <a href="https://github.com/smarter/dotty-example-project#getting-your-project-to-compile-with-dotty">dotty-example-project</a>. Previously, we supported libraries compiled by Scala 2.11, but starting with this release we support Scala 2.12 instead. If your Dotty project has Scala 2 dependencies this change should be transparent for you assuming all your dependencies have been published for 2.12.</p> 
+    <h3><a href="#performance-work" id="performance-work" class="anchor"></a>Performance work</h3> 
+    <p>Over the last few weeks, we started working on compilation speed with some good results: compiling <a href="https://github.com/dotty-staging/scalapb">ScalaPB</a> is now 20% faster than with Dotty 0.3.0-RC2. You can follow along our progress on <a href="http://dotty-bench.epfl.ch/">http://dotty-bench.epfl.ch/</a>.</p> 
+    <h2><a href="#trying-out-dotty" id="trying-out-dotty" class="anchor"></a>Trying out Dotty</h2> 
+    <h3><a href="#scastie" id="scastie" class="anchor"></a>Scastie</h3> 
+    <p><a href="https://scastie.scala-lang.org/?target=dotty">Scastie</a>, the online Scala playground, supports Dotty. This is an easy way to try Dotty without installing anything.</p> 
+    <h3><a href="#sbt" id="sbt" class="anchor"></a>sbt</h3> 
+    <p>Using sbt 0.13.13 or newer, do:</p> 
+    <pre><code>sbt new lampepfl/dotty.g8
+</code></pre> 
+    <p>This will setup a new sbt project with Dotty as compiler. For more details on using Dotty with sbt, see the <a href="https://github.com/lampepfl/dotty-example-project">example project</a>.</p> 
+    <h3><a href="#ide-support" id="ide-support" class="anchor"></a>IDE support</h3> 
+    <p>It is very easy to start using the Dotty IDE in any Dotty project by following the <a href="https://dotty.epfl.ch/docs/usage/ide-support.html">IDE guide</a>.</p> 
+    <h3><a href="#standalone-installation" id="standalone-installation" class="anchor"></a>Standalone installation</h3> 
+    <p>Releases are available for download on the <em>Releases</em> section of the Dotty repository: <a href="https://github.com/lampepfl/dotty/releases">https://github.com/lampepfl/dotty/releases</a></p> 
+    <p>We also provide a <a href="https://brew.sh/">homebrew</a> package that can be installed by running:</p> 
+    <pre><code>brew install lampepfl/brew/dotty
+</code></pre> 
+    <p>In case you have already installed Dotty via brew, you should instead update it:</p> 
+    <pre><code>brew upgrade dotty
+</code></pre> 
+    <h2><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h2> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributing" id="contributing" class="anchor"></a>Contributing</h2> 
+    <p>Thank you to all the contributors who made this release possible!</p> 
+    <p>According to <code>git shortlog -sn --no-merges 0.3.0-RC2..0.4.0-RC1</code> these are:</p> 
+    <pre><code>   226  Martin Odersky
+   112  Felix Mulder
+   104  Nicolas Stucki
+    41  Allan Renucci
+    41  Guillaume Martres
+    33  liu fengyun
+     8  Olivier Blanvillain
+     4  Aggelos Biboudis
+     3  Dmitry Petrashko
+     2  Raymond Tay
+     2  esarbe
+     2  Enno Runne
+     1  Brandon Elam Barker
+     1  Raphael Bosshard
+     1  Jacob J
+     1  Aleksander Boruch-Gruszecki
+     1  Jim Van Horn
+     1  Matthias Sperl
+     1  Michal Gutowski
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Dotty, now is a good time to get involved! You can have a look at our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a>, the <a href="http://scala-lang.org/blog/2016/10/14/dotty-errors.html">Awesome Error Messages</a> project or some of the simple <a href="https://github.com/lampepfl/dotty/issues?q=is%3Aissue+is%3Aopen+label%3Aexp%3Anovice">Dotty issues</a>. They make perfect entry-points into hacking on the compiler.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Dotty now has a set of widely-used community libraries that are built against every nightly Dotty snapshot. Currently this includes ScalaPB, algebra, scalatest, scopt and squants. Join our <a href="https://github.com/lampepfl/dotty-community-build">community build</a> to make sure that our regression suite includes your library.</p> 
+    <p>To get started, see <a href="https://github.com/lampepfl/dotty">https://github.com/lampepfl/dotty</a>.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="images/allan.jpg"> <span id="author-signature"> Allan Renucci </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>
