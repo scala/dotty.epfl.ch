@@ -1,0 +1,49 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>merged</title><link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico"></link><script type="text/javascript" src="../../../../../../scripts/sourceset_dependencies.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../../../scripts/fast-navigation-loader.js" defer="true"></script><script>var pathToRoot = "../../../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201202-11f53c7-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="scala.collection.immutable/HashMap/merged/#/PointingToDeclaration/mergedscala.collection.immutable.HashMap.merged/scala.collection.immutable.HashMap/[1/scala.collection.immutable.HashMap/scala.Function2]/-892918555">
+    <div class="breadcrumbs"><a href="../../../../../../docs/index.html">Scala 3</a>/<a href="../../../../../../api/index.html">API</a>/<a href="../../../index.html">scala</a>/<a href="../../index.html">collection</a>/<a href="../index.html">immutable</a>/<a href="index.html">HashMap</a>/<a href="merged.html">merged</a></div>
+    <div class="cover ">
+      <h1 class="">merged</h1>
+    </div>
+<div class="divergent-group" data-filterable-current="Scala 3/main" data-filterable-set="Scala 3/main"><div class="with-platform-tags"><div class="block borderless"><div class="block borderless"><div class="block borderless"><p class="paragraph">Merges this HashMap with an other HashMap by combining all key-value pairs of both maps, and delegating to a merge
+function to resolve any key collisions between the two HashMaps.
+</p></div></div><dl class="attributes"><dt>Note</dt><dd>
+  <p class="paragraph">
+    <p class="paragraph">In cases where <code>mergef</code> returns keys which themselves collide with other keys returned by <code>merge</code>, or
+     found in <code>this</code> or <code>that</code>, it is not defined which value will be chosen. For example:
+     Colliding multiple results of merging:</p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">// key `3` collides between a result of merging keys `1` and `2`
+val left = HashMap(1 -&gt; 1, 2 -&gt; 2)
+val right = HashMap(1 -&gt; 1, 2 -&gt; 2)
+val merged = left.merged(right){ case (_, (_, v1)) =&gt; 3 -&gt; v1 }
+  // HashMap(3 -&gt; 2) is returned, but it could also have returned HashMap(3 -&gt; 1)</code></pre>
+    </div>
+    <p class="paragraph">     Colliding results of merging with other keys:</p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">// key `2` collides between a result of merging `1`, and existing key `2`
+val left = HashMap(1 -&gt; 1, 2 -&gt; 1)
+val right = HashMap(1 -&gt; 2)
+val merged = left.merged(right)((_,_) =&gt; 2 -&gt; 3)
+  // HashMap(2 -&gt; 1) is returned, but it could also have returned HashMap(2 -&gt; 3)</code></pre>
+    </div>
+  </p>
+</dd><dt>Example</dt><dd>
+  <p class="paragraph">
+    <p class="paragraph"></p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">val left = HashMap(1 -&gt; 1, 2 -&gt; 1)
+val right = HashMap(2 -&gt; 2, 3 -&gt; 2)
+val merged = left.merged(right){ case ((k0, v0), (k1, v1)) =&gt; (k0 + k1) -&gt; (v0 + v1) }
+  // HashMap(1 -&gt; 1, 3 -&gt; 2, 4 -&gt; 3)</code></pre>
+    </div>
+  </p>
+</dd><dt>Param</dt><dd><dl class="paramsdesc"><dt>mergef</dt><dd>the merge function which resolves collisions between the two HashMaps. If <code>mergef</code> is null, then
+             keys from <code>this</code> will overwrite keys from <code>that</code>, making the behaviour equivalent to
+             <code>that.concat(this)</code></dd><dt>that</dt><dd>the HashMap to merge this HashMap with</dd></dl></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/immutable/HashMap.scala#L315">(source)</a></dd></dl></div><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Scala 3/main"><div class="symbol "><div class="symbol monospace"> def <a href="merged.html">merged</a>[V1 &gt;: <span data-unresolved-link="scala.collection.immutable/HashMap///PointingToGenericParameters(1)/Vscala.collection.immutable.HashMap.V//[]">V</span>](that: <a href="index.html">HashMap</a>[<span data-unresolved-link="scala.collection.immutable/HashMap///PointingToGenericParameters(0)/Kscala.collection.immutable.HashMap.K//[]">K</span>, <span data-unresolved-link="scala.collection.immutable/HashMap/merged/#/PointingToGenericParameters(-1)/V1scala.collection.immutable.HashMap._$V1//[]">V1</span>])(mergef: ((<span data-unresolved-link="scala.collection.immutable/HashMap///PointingToGenericParameters(0)/Kscala.collection.immutable.HashMap.K//[]">K</span>, <span data-unresolved-link="scala.collection.immutable/HashMap///PointingToGenericParameters(1)/Vscala.collection.immutable.HashMap.V//[]">V</span>), (<span data-unresolved-link="scala.collection.immutable/HashMap///PointingToGenericParameters(0)/Kscala.collection.immutable.HashMap.K//[]">K</span>, <span data-unresolved-link="scala.collection.immutable/HashMap/merged/#/PointingToGenericParameters(-1)/V1scala.collection.immutable.HashMap._$V1//[]">V1</span>)) =&gt; (<span data-unresolved-link="scala.collection.immutable/HashMap///PointingToGenericParameters(0)/Kscala.collection.immutable.HashMap.K//[]">K</span>, <span data-unresolved-link="scala.collection.immutable/HashMap/merged/#/PointingToGenericParameters(-1)/V1scala.collection.immutable.HashMap._$V1//[]">V1</span>)): <a href="index.html">HashMap</a>[<span data-unresolved-link="scala.collection.immutable/HashMap///PointingToGenericParameters(0)/Kscala.collection.immutable.HashMap.K//[]">K</span>, <span data-unresolved-link="scala.collection.immutable/HashMap/merged/#/PointingToGenericParameters(-1)/V1scala.collection.immutable.HashMap._$V1//[]">V1</span>]</div></div></div></div>
+  </div>
+</div>
+  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../../../scripts/main.js"></script></body></html>
