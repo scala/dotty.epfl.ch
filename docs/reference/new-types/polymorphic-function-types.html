@@ -1,0 +1,67 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Polymorphic Function Types</title><link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico"></link><script type="text/javascript" src="../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201208-f334e3f-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="_.docs/reference/new-types/polymorphic-function-types.md////PointingToDeclaration//-1218499400">
+    <div class="breadcrumbs"><a href="../../index.html">Scala 3</a>/<a href="../../Reference/index.html">Reference</a>/<a href="../../New Types/index.html">New Types</a>/<a href="polymorphic-function-types.html">Polymorphic Function Types</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Polymorphic Function Types</h1> 
+     <div class="byline"> <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/new-types/polymorphic-function-types.md#L"> <i class="far fa-edit"></i> Edit this page on GitHub </a> 
+     </div> 
+    </header> 
+    <p>A polymorphic function type is a function type which accepts type parameters. For example:</p> 
+    <pre><code class="language-scala">// A polymorphic method:
+def foo[A](xs: List[A]): List[A] = xs.reverse
+
+// A polymorphic function value:
+val bar: [A] =&gt; List[A] =&gt; List[A]
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^
+//       a polymorphic function type
+       = [A] =&gt; (xs: List[A]) =&gt; foo[A](xs)
+</code></pre> 
+    <p>Scala already has <em>polymorphic methods</em>, i.e. methods which accepts type parameters. Method <code>foo</code> above is an example, accepting a type parameter <code>A</code>. So far, it was not possible to turn such methods into polymorphic function values like <code>bar</code> above, which can be passed as parameters to other functions, or returned as results.</p> 
+    <p>In Dotty this is now possible. The type of the <code>bar</code> value above is</p> 
+    <pre><code class="language-scala">[A] =&gt; List[A] =&gt; List[A]
+</code></pre> 
+    <p>This type describes function values which take a type <code>A</code> as a parameter, then take a list of type <code>List[A]</code>, and return a list of the same type <code>List[A]</code>.</p> 
+    <p><a href="https://github.com/lampepfl/dotty/pull/4672">More details</a></p> 
+    <h3><a href="#example-usage" id="example-usage" class="anchor"></a>Example Usage</h3> 
+    <p>Polymorphic function type are particularly useful when callers of a method are required to provide a function which has to be polymorphic, meaning that it should accept arbitrary types as part of its inputs.</p> 
+    <p>For instance, consider the situation where we have a data type to represent the expressions of a simple language (consisting only of variables and function application) in a strongly-typed way:</p> 
+    <pre><code class="language-scala">enum Expr[A]:
+  case Var(name: String)
+  case Apply[A, B](fun: Expr[B =&gt; A], arg: Expr[B]) extends Expr[A]
+</code></pre> 
+    <p>We would like to provide a way for users to map a function over all immediate subexpressions of a given <code>Expr</code>. This requires the given function to be polymorphic, since each subexpression may have a different type. Here is how to implement this using polymorphic function types:</p> 
+    <pre><code class="language-scala">def mapSubexpressions[A](e: Expr[A])(f: [B] =&gt; Expr[B] =&gt; Expr[B]): Expr[A] =
+  e match
+    case Apply(fun, arg) =&gt; Apply(f(fun), f(arg))
+    case Var(n) =&gt; Var(n)
+</code></pre> 
+    <p>And here is how to use this function to <em>wrap</em> each subexpression in a given expression with a call to some <code>wrap</code> function, defined as a variable:</p> 
+    <pre><code class="language-scala">val e0 = Apply(Var("f"), Var("a"))
+val e1 = mapSubexpressions(e0)(
+  [B] =&gt; (se: Expr[B]) =&gt; Apply(Var[B =&gt; B]("wrap"), se))
+println(e1) // Apply(Apply(Var(wrap),Var(f)),Apply(Var(wrap),Var(a)))
+</code></pre> 
+    <h3><a href="#relationship-with-type-lambdas" id="relationship-with-type-lambdas" class="anchor"></a>Relationship With Type Lambdas</h3> 
+    <p>Polymorphic function types are not to be confused with <a href="new-types/type-lambdas.md"><em>type lambdas</em></a>. While the former describes the <em>type</em> of a polymorphic <em>value</em>, the latter is an actual function value <em>at the type level</em>.</p> 
+    <p>A good way of understanding the difference is to notice that <strong><em>type lambdas are applied in types, whereas polymorphic functions are applied in terms</em></strong>: One would call the function <code>bar</code> above by passing it a type argument <code>bar[Int]</code> <em>within a method body</em>. On the other hand, given a type lambda such as <code>type F = [A] =&gt;&gt; List[A]</code>, one would call <code>F</code> <em>withing a type expression</em>, as in <code>type Bar = F[Int]</code>.</p> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../scripts/pages.js"></script><script type="text/javascript" src="../../../scripts/main.js"></script></body></html>
