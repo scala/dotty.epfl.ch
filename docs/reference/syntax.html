@@ -1,0 +1,416 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Scala 3 Syntax Summary</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"></link><script type="text/javascript" src="../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../styles/nord-light.css"></link><link rel="stylesheet" href="../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../styles/diagram.css"></link><link rel="stylesheet" href="../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../styles/filter-bar.css"></link><script type="text/javascript" src="../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../css/dottydoc.css"></link><link rel="stylesheet" href="../../css/color-brewer.css"></link><script type="text/javascript" src="../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201211-dbc1186-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="docs.reference.syntax.md////PointingToDeclaration//-1771105915">
+    <div class="breadcrumbs"><a href="../index.html">Scala 3</a>/<a href="../Reference/index.html">Reference</a>/<a href=".html">Scala 3 Syntax Summary</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Scala 3 Syntax Summary</h1> 
+     <div class="byline"> <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/syntax.md"> <i class="far fa-edit"></i> Edit this page on GitHub </a> 
+     </div> 
+    </header> 
+    <p>The following descriptions of Scala tokens uses literal characters <code>‘c’</code> when referring to the ASCII fragment <code>\u0000</code> – <code>\u007F</code>.</p> 
+    <p><em>Unicode escapes</em> are used to represent the Unicode character with the given hexadecimal code:</p> 
+    <pre><code class="language-ebnf">UnicodeEscape ::= ‘\’ ‘u’ {‘u’} hexDigit hexDigit hexDigit hexDigit
+hexDigit      ::= ‘0’ | … | ‘9’ | ‘A’ | … | ‘F’ | ‘a’ | … | ‘f’
+</code></pre> 
+    <p>Informal descriptions are typeset as <code>“some comment”</code>.</p> 
+    <h3><a href="#lexical-syntax" id="lexical-syntax" class="anchor"></a>Lexical Syntax</h3> 
+    <p>The lexical syntax of Scala is given by the following grammar in EBNF form.</p> 
+    <pre><code class="language-ebnf">whiteSpace       ::=  ‘\u0020’ | ‘\u0009’ | ‘\u000D’ | ‘\u000A’
+upper            ::=  ‘A’ | … | ‘Z’ | ‘\$’ | ‘_’  “… and Unicode category Lu”
+lower            ::=  ‘a’ | … | ‘z’ “… and Unicode category Ll”
+letter           ::=  upper | lower “… and Unicode categories Lo, Lt, Nl”
+digit            ::=  ‘0’ | … | ‘9’
+paren            ::=  ‘(’ | ‘)’ | ‘[’ | ‘]’ | ‘{’ | ‘}’ | ‘'(’ | ‘'[’ | ‘'{’
+delim            ::=  ‘`’ | ‘'’ | ‘"’ | ‘.’ | ‘;’ | ‘,’
+opchar           ::=  “printableChar not matched by (whiteSpace | upper | lower |
+                       letter | digit | paren | delim | opchar | Unicode_Sm |
+                       Unicode_So)”
+printableChar    ::=  “all characters in [\u0020, \u007F] inclusive”
+charEscapeSeq    ::=  ‘\’ (‘b’ | ‘t’ | ‘n’ | ‘f’ | ‘r’ | ‘"’ | ‘'’ | ‘\’)
+
+op               ::=  opchar {opchar}
+varid            ::=  lower idrest
+alphaid          ::=  upper idrest
+                   |  varid
+plainid          ::=  alphaid
+                   |  op
+id               ::=  plainid
+                   |  ‘`’ { charNoBackQuoteOrNewline | UnicodeEscape | charEscapeSeq } ‘`’
+idrest           ::=  {letter | digit} [‘_’ op]
+quoteId          ::=  ‘'’ alphaid
+
+integerLiteral   ::=  (decimalNumeral | hexNumeral) [‘L’ | ‘l’]
+decimalNumeral   ::=  ‘0’ | nonZeroDigit [{digit | ‘_’} digit]
+hexNumeral       ::=  ‘0’ (‘x’ | ‘X’) hexDigit [{hexDigit | ‘_’} hexDigit]
+nonZeroDigit     ::=  ‘1’ | … | ‘9’
+
+floatingPointLiteral
+                 ::=  [decimalNumeral] ‘.’ digit [{digit | ‘_’} digit] [exponentPart] [floatType]
+                   |  decimalNumeral exponentPart [floatType]
+                   |  decimalNumeral floatType
+exponentPart     ::=  (‘E’ | ‘e’) [‘+’ | ‘-’] digit [{digit | ‘_’} digit]
+floatType        ::=  ‘F’ | ‘f’ | ‘D’ | ‘d’
+
+booleanLiteral   ::=  ‘true’ | ‘false’
+
+characterLiteral ::=  ‘'’ (printableChar | charEscapeSeq) ‘'’
+
+stringLiteral    ::=  ‘"’ {stringElement} ‘"’
+                   |  ‘"""’ multiLineChars ‘"""’
+stringElement    ::=  printableChar \ (‘"’ | ‘\’)
+                   |  UnicodeEscape
+                   |  charEscapeSeq
+multiLineChars   ::=  {[‘"’] [‘"’] char \ ‘"’} {‘"’}
+processedStringLiteral
+                 ::=  alphaid ‘"’ {printableChar \ (‘"’ | ‘$’) | escape} ‘"’
+                   |  alphaid ‘"""’ {[‘"’] [‘"’] char \ (‘"’ | ‘$’) | escape} {‘"’} ‘"""’
+escape           ::=  ‘$$’
+                   |  ‘$’ letter { letter | digit }
+                   |  ‘{’ Block  [‘;’ whiteSpace stringFormat whiteSpace] ‘}’
+stringFormat     ::=  {printableChar \ (‘"’ | ‘}’ | ‘ ’ | ‘\t’ | ‘\n’)}
+
+symbolLiteral    ::=  ‘'’ plainid // until 2.13
+
+comment          ::=  ‘/*’ “any sequence of characters; nested comments are allowed” ‘*/’
+                   |  ‘//’ “any sequence of characters up to end of line”
+
+nl               ::=  “new line character”
+semi             ::=  ‘;’ |  nl {nl}
+colonEol         ::=  ": at end of line that can start a template body"
+</code></pre> 
+    <h2><a href="#keywords" id="keywords" class="anchor"></a>Keywords</h2> 
+    <h3><a href="#regular-keywords" id="regular-keywords" class="anchor"></a>Regular keywords</h3> 
+    <pre><code>abstract  case      catch     class     def       do        else      enum
+export    extends   false     final     finally   for       given     if
+implicit  import    lazy      match     new       null      object    package
+private   protected override  return    super     sealed    then      throw
+trait     true      try       type      val       var       while     with
+yield
+:         =         &lt;-        =&gt;        &lt;:        :&gt;        #         @
+=&gt;&gt;       ?=&gt;
+</code></pre> 
+    <h3><a href="#soft-keywords" id="soft-keywords" class="anchor"></a>Soft keywords</h3> 
+    <pre><code>as  derives  end  extension  inline  opaque  open  transparent  using
+*  +  -
+</code></pre> 
+    <h2><a href="#context-free-syntax" id="context-free-syntax" class="anchor"></a>Context-free Syntax</h2> 
+    <p>The context-free syntax of Scala is given by the following EBNF grammar:</p> 
+    <h3><a href="#literals-and-paths" id="literals-and-paths" class="anchor"></a>Literals and Paths</h3> 
+    <pre><code class="language-ebnf">SimpleLiteral     ::=  [‘-’] integerLiteral
+                    |  [‘-’] floatingPointLiteral
+                    |  booleanLiteral
+                    |  characterLiteral
+                    |  stringLiteral
+Literal           ::=  SimpleLiteral
+                    |  processedStringLiteral
+                    |  symbolLiteral
+                    |  ‘null’
+
+QualId            ::=  id {‘.’ id}
+ids               ::=  id {‘,’ id}
+
+SimpleRef         ::=  id
+                    |  [id ‘.’] ‘this’
+                    |  [id ‘.’] ‘super’ [ClassQualifier] ‘.’ id
+
+ClassQualifier    ::=  ‘[’ id ‘]’
+</code></pre> 
+    <h3><a href="#types" id="types" class="anchor"></a>Types</h3> 
+    <pre><code class="language-ebnf">Type              ::=  FunType
+                    |  HkTypeParamClause ‘=&gt;&gt;’ Type
+                    |  FunParamClause ‘=&gt;&gt;’ Type
+                    |  MatchType
+                    |  InfixType
+FunType           ::=  FunArgTypes (‘=&gt;’ | ‘?=&gt;’) Type
+                    |  HKTypeParamClause '=&gt;' Type
+FunArgTypes       ::=  InfixType
+                    |  ‘(’ [ FunArgType {‘,’ FunArgType } ] ‘)’
+                    |  FunParamClause
+FunParamClause    ::=  ‘(’ TypedFunParam {‘,’ TypedFunParam } ‘)’
+TypedFunParam     ::=  id ‘:’ Type
+MatchType         ::=  InfixType `match` ‘{’ TypeCaseClauses ‘}’
+InfixType         ::=  RefinedType {id [nl] RefinedType}
+RefinedType       ::=  AnnotType {[nl] Refinement}
+AnnotType         ::=  SimpleType {Annotation}
+
+SimpleType        ::=  SimpleLiteral
+                    |  ‘?’ TypeBounds
+                    |  id
+                    |  Singleton ‘.’ id
+                    |  Singleton ‘.’ ‘type’
+                    |  ‘(’ Types ‘)’
+                    |  Refinement
+                    |  ‘$’ ‘{’ Block ‘}’
+                    |  SimpleType1 TypeArgs
+                    |  SimpleType1 ‘#’ id
+Singleton         ::=  SimpleRef
+                    |  SimpleLiteral
+                    |  Singleton ‘.’ id
+
+FunArgType        ::=  Type
+                    |  ‘=&gt;’ Type
+ParamType         ::=  [‘=&gt;’] ParamValueType
+ParamValueType    ::=  Type [‘*’]
+TypeArgs          ::=  ‘[’ Types ‘]’
+Refinement        ::=  ‘{’ [RefineDcl] {semi [RefineDcl]} ‘}’
+TypeBounds        ::=  [‘&gt;:’ Type] [‘&lt;:’ Type]
+TypeParamBounds   ::=  TypeBounds {‘:’ Type}
+Types             ::=  Type {‘,’ Type}
+</code></pre> 
+    <h3><a href="#expressions" id="expressions" class="anchor"></a>Expressions</h3> 
+    <pre><code class="language-ebnf">Expr              ::=  FunParams (‘=&gt;’ | ‘?=&gt;’) Expr
+                    |  Expr1
+BlockResult       ::=  FunParams (‘=&gt;’ | ‘?=&gt;’) Block
+                    |  Expr1
+FunParams         ::=  Bindings
+                    |  id
+                    |  ‘_’
+Expr1             ::=  [‘inline’] ‘if’ ‘(’ Expr ‘)’ {nl} Expr [[semi] ‘else’ Expr]
+                    |  [‘inline’] ‘if’  Expr ‘then’ Expr [[semi] ‘else’ Expr]
+                    |  ‘while’ ‘(’ Expr ‘)’ {nl} Expr
+                    |  ‘while’ Expr ‘do’ Expr
+                    |  ‘try’ Expr Catches [‘finally’ Expr]
+                    |  ‘try’ Expr [‘finally’ Expr]
+                    |  ‘throw’ Expr
+                    |  ‘return’ [Expr]
+                    |  ForExpr
+                    |  HkTypeParamClause ‘=&gt;’ Expr
+                    |  [SimpleExpr ‘.’] id ‘=’ Expr
+                    |  SimpleExpr1 ArgumentExprs ‘=’ Expr
+                    |  PostfixExpr [Ascription]
+                    |  ‘inline’ InfixExpr MatchClause
+Ascription        ::=  ‘:’ InfixType
+                    |  ‘:’ Annotation {Annotation}
+Catches           ::=  ‘catch’ (Expr | ExprCaseClause)
+PostfixExpr       ::=  InfixExpr [id]
+InfixExpr         ::=  PrefixExpr
+                    |  InfixExpr id [nl] InfixExpr
+                    |  InfixExpr MatchClause
+MatchClause       ::=  ‘match’ ‘{’ CaseClauses ‘}’
+PrefixExpr        ::=  [‘-’ | ‘+’ | ‘~’ | ‘!’] SimpleExpr
+SimpleExpr        ::=  SimpleRef
+                    |  Literal
+                    |  ‘_’
+                    |  BlockExpr
+                    |  ‘$’ ‘{’ Block ‘}’
+                    |  Quoted
+                    |  quoteId                                                  -- only inside splices
+                    |  ‘new’ ConstrApp {‘with’ ConstrApp} [[colonEol] TemplateBody
+                    |  ‘new’ [colonEol] TemplateBody
+                    |  ‘(’ ExprsInParens ‘)’
+                    |  SimpleExpr ‘.’ id
+                    |  SimpleExpr ‘.’ MatchClause
+                    |  SimpleExpr TypeArgs
+                    |  SimpleExpr ArgumentExprs
+Quoted            ::=  ‘'’ ‘{’ Block ‘}’
+                    |  ‘'’ ‘[’ Type ‘]’
+ExprsInParens     ::=  ExprInParens {‘,’ ExprInParens}
+ExprInParens      ::=  PostfixExpr ‘:’ Type
+                    |  Expr
+ParArgumentExprs  ::=  ‘(’ [‘using’] ExprsInParens ‘)’
+                    |  ‘(’ [ExprsInParens ‘,’] PostfixExpr ‘:’ ‘_’ ‘*’ ‘)’
+ArgumentExprs     ::=  ParArgumentExprs
+                    |  BlockExpr
+BlockExpr         ::=  ‘{’ (CaseClauses | Block) ‘}’
+Block             ::=  {BlockStat semi} [BlockResult]
+BlockStat         ::=  Import
+                    |  {Annotation {nl}} [‘implicit’ | ‘lazy’] Def
+                    |  {Annotation {nl}} {LocalModifier} TmplDef
+                    |  Extension
+                    |  Expr1
+                    |  EndMarker
+
+ForExpr           ::=  ‘for’ (‘(’ Enumerators ‘)’ | ‘{’ Enumerators ‘}’) {nl} [‘yield’] Expr
+                    |  ‘for’ Enumerators (‘do’ Expr | ‘yield’ Expr)
+Enumerators       ::=  Generator {semi Enumerator | Guard}
+Enumerator        ::=  Generator
+                    |  Guard
+                    |  Pattern1 ‘=’ Expr
+Generator         ::=  [‘case’] Pattern1 ‘&lt;-’ Expr
+Guard             ::=  ‘if’ PostfixExpr
+
+CaseClauses       ::=  CaseClause { CaseClause }
+CaseClause        ::=  ‘case’ Pattern [Guard] ‘=&gt;’ Block
+ExprCaseClause    ::=  ‘case’ Pattern [Guard] ‘=&gt;’ Expr
+TypeCaseClauses   ::=  TypeCaseClause { TypeCaseClause }
+TypeCaseClause    ::=  ‘case’ InfixType ‘=&gt;’ Type [nl]
+
+Pattern           ::=  Pattern1 { ‘|’ Pattern1 }
+Pattern1          ::=  Pattern2 [‘:’ RefinedType]
+Pattern2          ::=  [id ‘@’] InfixPattern
+InfixPattern      ::=  SimplePattern { id [nl] SimplePattern }
+SimplePattern     ::=  PatVar
+                    |  Literal
+                    |  ‘(’ [Patterns] ‘)’
+                    |  Quoted
+                    |  SimplePattern1 [TypeArgs] [ArgumentPatterns]
+                    |  ‘given’ RefinedType
+SimplePattern1    ::=  SimpleRef
+                    |  SimplePattern1 ‘.’ id
+PatVar            ::=  varid
+                    |  ‘_’
+Patterns          ::=  Pattern {‘,’ Pattern}
+ArgumentPatterns  ::=  ‘(’ [Patterns] ‘)’
+                    |  ‘(’ [Patterns ‘,’] Pattern2 ‘:’ ‘_’ ‘*’ ‘)’
+</code></pre> 
+    <h3><a href="#type-and-value-parameters" id="type-and-value-parameters" class="anchor"></a>Type and Value Parameters</h3> 
+    <pre><code class="language-ebnf">ClsTypeParamClause::=  ‘[’ ClsTypeParam {‘,’ ClsTypeParam} ‘]’
+ClsTypeParam      ::=  {Annotation} [‘+’ | ‘-’] id [HkTypeParamClause] TypeParamBounds
+
+DefTypeParamClause::=  ‘[’ DefTypeParam {‘,’ DefTypeParam} ‘]’
+DefTypeParam      ::=  {Annotation} id [HkTypeParamClause] TypeParamBounds
+
+TypTypeParamClause::=  ‘[’ TypTypeParam {‘,’ TypTypeParam} ‘]’
+TypTypeParam      ::=  {Annotation} id [HkTypeParamClause] TypeBounds
+
+HkTypeParamClause ::=  ‘[’ HkTypeParam {‘,’ HkTypeParam} ‘]’
+HkTypeParam       ::=  {Annotation} [‘+’ | ‘-’] (id [HkTypeParamClause] | ‘_’) TypeBounds
+
+ClsParamClauses   ::=  {ClsParamClause} [[nl] ‘(’ [‘implicit’] ClsParams ‘)’]
+ClsParamClause    ::=  [nl] ‘(’ ClsParams ‘)’
+                    |  [nl] ‘(’ ‘using’ (ClsParams | Types) ‘)’
+ClsParams         ::=  ClsParam {‘,’ ClsParam}
+ClsParam          ::=  {Annotation} [{Modifier} (‘val’ | ‘var’) | ‘inline’] Param
+Param             ::=  id ‘:’ ParamType [‘=’ Expr]
+
+DefParamClauses   ::=  {DefParamClause} [[nl] ‘(’ [‘implicit’] DefParams ‘)’]
+DefParamClause    ::=  [nl] ‘(’ DefParams ‘)’ | UsingParamClause
+UsingParamClause  ::=  [nl] ‘(’ ‘using’ (DefParams | Types) ‘)’
+DefParams         ::=  DefParam {‘,’ DefParam}
+DefParam          ::=  {Annotation} [‘inline’] Param
+</code></pre> 
+    <h3><a href="#bindings-and-imports" id="bindings-and-imports" class="anchor"></a>Bindings and Imports</h3> 
+    <pre><code class="language-ebnf">Bindings          ::=  ‘(’ [Binding {‘,’ Binding}] ‘)’
+Binding           ::=  (id | ‘_’) [‘:’ Type]
+
+Modifier          ::=  LocalModifier
+                    |  AccessModifier
+                    |  ‘override’
+                    |  ‘opaque’
+LocalModifier     ::=  ‘abstract’
+                    |  ‘final’
+                    |  ‘sealed’
+                    |  ‘open’
+                    |  ‘implicit’
+                    |  ‘lazy’
+                    |  ‘inline’
+AccessModifier    ::=  (‘private’ | ‘protected’) [AccessQualifier]
+AccessQualifier   ::=  ‘[’ id ‘]’
+
+Annotation        ::=  ‘@’ SimpleType1 {ParArgumentExprs}
+
+Import            ::=  ‘import’ ImportExpr {‘,’ ImportExpr}
+ImportExpr        ::=  SimpleRef {‘.’ id} ‘.’ ImportSpec
+ImportSpec        ::=  id
+                    | ‘_’
+                    | ‘given’
+                    | ‘{’ ImportSelectors) ‘}’
+ImportSelectors   ::=  id [‘=&gt;’ id | ‘=&gt;’ ‘_’] [‘,’ ImportSelectors]
+                    |  WildCardSelector {‘,’ WildCardSelector}
+WildCardSelector  ::=  ‘given’ [InfixType]
+                    |  ‘_'
+Export            ::=  ‘export’ ImportExpr {‘,’ ImportExpr}
+
+EndMarker         ::=  ‘end’ EndMarkerTag    -- when followed by EOL
+EndMarkerTag      ::=  id | ‘if’ | ‘while’ | ‘for’ | ‘match’ | ‘try’
+                    |  ‘new’ | ‘this’ | ‘given’ | ‘extension’ | ‘val’
+</code></pre> 
+    <h3><a href="#declarations-and-definitions" id="declarations-and-definitions" class="anchor"></a>Declarations and Definitions</h3> 
+    <pre><code class="language-ebnf">RefineDcl         ::=  ‘val’ ValDcl
+                    |  ‘def’ DefDcl
+                    |  ‘type’ {nl} TypeDcl
+Dcl               ::=  RefineDcl
+                    |  ‘var’ VarDcl
+ValDcl            ::=  ids ‘:’ Type
+VarDcl            ::=  ids ‘:’ Type
+DefDcl            ::=  DefSig ‘:’ Type
+DefSig            ::=  id [DefTypeParamClause] DefParamClauses
+TypeDcl           ::=  id [TypeParamClause] {FunParamClause} TypeBounds [‘=’ Type]
+
+Def               ::=  ‘val’ PatDef
+                    |  ‘var’ VarDef
+                    |  ‘def’ DefDef
+                    |  ‘type’ {nl} TypeDcl
+                    |  TmplDef
+PatDef            ::=  ids [‘:’ Type] ‘=’ Expr
+                    |  Pattern2 [‘:’ Type | Ascription] ‘=’ Expr
+VarDef            ::=  PatDef
+                    |  ids ‘:’ Type ‘=’ ‘_’
+DefDef            ::=  DefSig [‘:’ Type] ‘=’ Expr
+                    |  ‘this’ DefParamClause DefParamClauses ‘=’ ConstrExpr
+
+TmplDef           ::=  ([‘case’] ‘class’ | ‘trait’) ClassDef
+                    |  [‘case’] ‘object’ ObjectDef
+                    |  ‘enum’ EnumDef
+                    |  ‘given’ GivenDef
+ClassDef          ::=  id ClassConstr [Template]
+ClassConstr       ::=  [ClsTypeParamClause] [ConstrMods] ClsParamClauses
+ConstrMods        ::=  {Annotation} [AccessModifier]
+ObjectDef         ::=  id [Template]
+EnumDef           ::=  id ClassConstr InheritClauses [colonEol] EnumBody
+GivenDef          ::=  [GivenSig] (Type [‘=’ Expr] | StructuralInstance)
+GivenSig          ::=  [id] [DefTypeParamClause] {UsingParamClause} ‘:’         -- one of `id`, `DefParamClause`, `UsingParamClause` must be present
+StructuralInstance ::=  ConstrApp {‘with’ ConstrApp} ‘with’ TemplateBody
+Extension         ::=  ‘extension’ [DefTypeParamClause] ‘(’ DefParam ‘)’
+                       {UsingParamClause}] ExtMethods
+ExtMethods        ::=  ExtMethod | [nl] ‘{’ ExtMethod {semi ExtMethod ‘}’
+ExtMethod         ::=  {Annotation [nl]} {Modifier} ‘def’ DefDef
+Template          ::=  InheritClauses [colonEol] [TemplateBody]
+InheritClauses    ::=  [‘extends’ ConstrApps] [‘derives’ QualId {‘,’ QualId}]
+ConstrApps        ::=  ConstrApp ({‘,’ ConstrApp} | {‘with’ ConstrApp})
+ConstrApp         ::=  SimpleType1 {Annotation} {ParArgumentExprs}
+ConstrExpr        ::=  SelfInvocation
+                    |  ‘{’ SelfInvocation {semi BlockStat} ‘}’
+SelfInvocation    ::=  ‘this’ ArgumentExprs {ArgumentExprs}
+
+TemplateBody      ::=  [nl] ‘{’ [SelfType] TemplateStat {semi TemplateStat} ‘}’
+TemplateStat      ::=  Import
+                    |  Export
+                    |  {Annotation [nl]} {Modifier} Def
+                    |  {Annotation [nl]} {Modifier} Dcl
+                    |  Extension
+                    |  Expr1
+                    |  EndMarker
+                    |
+SelfType          ::=  id [‘:’ InfixType] ‘=&gt;’
+                    |  ‘this’ ‘:’ InfixType ‘=&gt;’
+
+EnumBody          ::=  [nl] ‘{’ [SelfType] EnumStat {semi EnumStat} ‘}’
+EnumStat          ::=  TemplateStat
+                    |  {Annotation [nl]} {Modifier} EnumCase
+EnumCase          ::=  ‘case’ (id ClassConstr [‘extends’ ConstrApps]] | ids)
+
+TopStatSeq        ::=  TopStat {semi TopStat}
+TopStat           ::=  Import
+                    |  Export
+                    |  {Annotation [nl]} {Modifier} Def
+                    |  Extension
+                    |  Packaging
+                    |  PackageObject
+                    |  EndMarker
+                    |
+Packaging         ::=  ‘package’ QualId [nl | colonEol] ‘{’ TopStatSeq ‘}’
+PackageObject     ::=  ‘package’ ‘object’ ObjectDef
+
+CompilationUnit   ::=  {‘package’ QualId semi} TopStatSeq
+</code></pre> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../scripts/pages.js"></script><script type="text/javascript" src="../../scripts/main.js"></script></body></html>

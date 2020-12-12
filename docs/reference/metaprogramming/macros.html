@@ -1,6 +1,6 @@
-<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Macros</title><link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico"></link><script type="text/javascript" src="../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201208-f334e3f-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
-  <div id="content" pageIds="_.docs/reference/metaprogramming/macros.md////PointingToDeclaration//-1218499400">
-    <div class="breadcrumbs"><a href="../../index.html">Scala 3</a>/<a href="../../Reference/index.html">Reference</a>/<a href="../../Metaprogramming/index.html">Metaprogramming</a>/<a href="macros.html">Macros</a></div>
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Macros</title><link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico"></link><script type="text/javascript" src="../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../scripts/fast-navigation-loader.js" defer="true"></script><link rel="stylesheet" href="../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201211-dbc1186-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="docs.reference.metaprogramming.macros.md////PointingToDeclaration//-1771105915">
+    <div class="breadcrumbs"><a href="../../index.html">Scala 3</a>/<a href="../../Reference/index.html">Reference</a>/<a href="../../Metaprogramming/index.html">Metaprogramming</a>/<a href=".html">Macros</a></div>
 <html>
  <head>
   <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
@@ -13,7 +13,7 @@
    <main class="container"> 
     <header> 
      <h1>Macros</h1> 
-     <div class="byline"> <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/metaprogramming/macros.md#L"> <i class="far fa-edit"></i> Edit this page on GitHub </a> 
+     <div class="byline"> <a href="https://github.com/lampepfl/dotty/edit/master/docs/docs/reference/metaprogramming/macros.md"> <i class="far fa-edit"></i> Edit this page on GitHub </a> 
      </div> 
     </header> 
     <h3><a href="#macros-quotes-and-splices" id="macros-quotes-and-splices" class="anchor"></a>Macros: Quotes and Splices</h3> 
@@ -359,7 +359,7 @@ private def sumExpr(argsExpr: Expr[Seq[Int]])(using Quotes): Expr[Int] = argsExp
     // argValues is of type Seq[Int]
     Expr(argValues.sum) // precompute result of sum
   case Varargs(argExprs) =&gt; // argExprs is of type Seq[Expr[Int]]
-    val staticSum: Int = argExprs.map(_.value.getOrElse(0))
+    val staticSum: Int = argExprs.map(_.value.getOrElse(0)).sum
     val dynamicSum: Seq[Expr[Int]] = argExprs.filter(_.value.isEmpty)
     dynamicSum.foldLeft(Expr(staticSum))((acc, arg) =&gt; '{ $acc + $arg })
   case _ =&gt;
@@ -397,7 +397,7 @@ private def sumExpr(args1: Seq[Expr[Int]])(using Quotes): Expr[Int] = {
 </code></pre> 
     <h4><a href="#recovering-precise-types-using-patterns" id="recovering-precise-types-using-patterns" class="anchor"></a>Recovering precise types using patterns</h4> 
     <p>Sometimes it is necessary to get a more precise type for an expression. This can be achived using the following pattern match.</p> 
-    <pre><code class="language-scala">def f(exp: Expr[Any])(using Quotes) =
+    <pre><code class="language-scala">def f(expr: Expr[Any])(using Quotes) =
   expr match
     case '{ $x: t } =&gt;
       // If the pattern match succeeds, then there is some type `t` such that
@@ -412,10 +412,11 @@ private def showMeExpr(sc: Expr[StringContext], argsExpr: Expr[Seq[Any]])(using 
   argsExpr match {
     case Varargs(argExprs) =&gt;
       val argShowedExprs = argExprs.map {
-        case '{ $arg: t } =&gt;
-          Expr.summon[Show[t]] match {
+        case '{ $arg: tp } =&gt;
+          val showTp = Type.of[Show[tp]]
+          Expr.summon(using showTp) match {
             case Some(showExpr) =&gt; '{ $showExpr.show($arg) }
-            case None =&gt; report.error(s"could not find implicit for ${showTp.show}", arg); '{???}
+            case None           =&gt; report.error(s"could not find implicit for ${Type.show[Show[tp]]}", arg); '{???}
           }
       }
       val newArgsExpr = Varargs(argShowedExprs)
@@ -448,7 +449,7 @@ private def evalExpr(e: Expr[Int])(using Quotes): Expr[Int] = {
   e match {
     case '{ val y: Int = $x; $body(y): Int } =&gt;
       // body: Expr[Int =&gt; Int] where the argument represents references to y
-      evalExpr(Expr.betaReduce(body)(evalExpr(x)))
+      evalExpr(Expr.betaReduce('{$body(${evalExpr(x)})}))
     case '{ ($x: Int) * ($y: Int) } =&gt;
       (x.value, y.value) match
         case (Some(a), Some(b)) =&gt; Expr(a * b)

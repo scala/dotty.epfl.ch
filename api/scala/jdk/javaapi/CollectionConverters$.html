@@ -1,0 +1,409 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>CollectionConverters</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201211-dbc1186-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="scala.jdk.javaapi.CollectionConverters$////PointingToDeclaration/CollectionConverters$scala.jdk.javaapi.CollectionConverters$//[][origin:/__w/dotty/dotty/stdlib-bootstrapped/../out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/classes/scala/jdk/javaapi/CollectionConverters.class]/-1771105915">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">API</a>/<a href="../../index.html">scala</a>/<a href="../index.html">jdk</a>/<a href="index.html">javaapi</a>/<a href=".html">CollectionConverters</a></div>
+    <div class="cover ">
+      <h1 class="">CollectionConverters</h1>
+      <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Scala 3/main"><div class="symbol monospace"> object <a href="">CollectionConverters</a> extends <a href="../../collection/convert/AsJavaConverters.html">AsJavaConverters</a> with <a href="../../collection/convert/AsScalaConverters.html">AsScalaConverters</a></div><div><div class="documentableBrief doc">
+  <p class="paragraph">This object contains methods that convert between Scala and Java collections.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The explicit conversion methods defined here are intended to be used in Java code. For Scala
+code, it is recommended to use the extension methods defined in
+<a href="../CollectionConverters$.html">scala.jdk.CollectionConverters</a>.</p>
+
+  <p class="paragraph">Note: to create <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Java Streams</a> that operate on Scala collections
+(sequentially or in parallel), use <a href="StreamConverters$.html">StreamConverters</a>.</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">// Java Code
+import scala.jdk.javaapi.CollectionConverters;
+public class A {
+  public void t(scala.collection.immutable.List&lt;String&gt; l) {
+    java.util.List&lt;String&gt; jl = CollectionConverters.asJava(l);
+  }
+}</code></pre>
+  </div>
+
+  <p class="paragraph">The conversions return adapters for the corresponding API, i.e., the collections are wrapped,
+not converted. Changes to the original collection are reflected in the view, and vice versa.</p>
+
+  <p class="paragraph">The following conversions are supported via <code>asScala</code> and <code>asJava</code>:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala.collection.Iterable       &lt;=&gt; java.lang.Iterable
+scala.collection.Iterator       &lt;=&gt; java.util.Iterator
+scala.collection.mutable.Buffer &lt;=&gt; java.util.List
+scala.collection.mutable.Set    &lt;=&gt; java.util.Set
+scala.collection.mutable.Map    &lt;=&gt; java.util.Map
+scala.collection.concurrent.Map &lt;=&gt; java.util.concurrent.ConcurrentMap</code></pre>
+  </div>
+
+  <p class="paragraph">The following conversions are supported via <code>asScala</code> and through
+specially-named methods to convert to Java collections, as shown:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala.collection.Iterable    &lt;=&gt; java.util.Collection   (via asJavaCollection)
+scala.collection.Iterator    &lt;=&gt; java.util.Enumeration  (via asJavaEnumeration)
+scala.collection.mutable.Map &lt;=&gt; java.util.Dictionary   (via asJavaDictionary)</code></pre>
+  </div>
+
+  <p class="paragraph">In addition, the following one-way conversions are provided via <code>asJava</code>:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala.collection.Seq         =&gt; java.util.List
+scala.collection.mutable.Seq =&gt; java.util.List
+scala.collection.Set         =&gt; java.util.Set
+scala.collection.Map         =&gt; java.util.Map</code></pre>
+  </div>
+
+  <p class="paragraph">The following one way conversion is provided via <code>asScala</code>:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">java.util.Properties =&gt; scala.collection.mutable.Map</code></pre>
+  </div>
+
+  <p class="paragraph">In all cases, converting from a source type to a target type and back
+again will return the original source object.
+</p>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/jdk/javaapi/CollectionConverters.scala#L77">(source)</a></dd></dl></div></div></div></div>
+    </div>
+<div class="documentableFilter"><div class="filterUpperContainer"><button class="filterToggleButton" data-test-id="filterToggleButton">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </button><input class="filterableInput" placeholder="Filter all members" data-test-id="filterBarInput"></input></div><div class="filterLowerContainer"></div></div>    <div class="tabbedcontent">
+      <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Methods">Methods</button><button class="section-tab" data-togglable="Linear supertypes">Linear supertypes</button><button class="section-tab" data-togglable="Type hierarchy">Type hierarchy</button></div>
+      <div class="tabs-section-body">
+        <h3 class="tabbedcontent">Methods</h3>
+        <div data-togglable="Methods"><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Inherited methods</h3><div class="documentableElement" id="asJavaEnumeration" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJavaEnumeration" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJavaEnumeration" class="documentableName monospace ">asJavaEnumeration</a><span class="signature monospace">[A](i: <a href="../../collection/Iterator.html">Iterator</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Enumeration.html">Enumeration</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala <code>Iterator</code> to a Java <code>Enumeration</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>Enumeration</code> is backed by the provided Scala <code>Iterator</code> and any side-effects
+of using it via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Iterator</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Enumeration</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>i</dt><dd>
+  <p class="paragraph">The Scala <code>Iterator</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Enumeration</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L58">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJavaDictionary" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJavaDictionary" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJavaDictionary" class="documentableName monospace ">asJavaDictionary</a><span class="signature monospace">[K, V](m: <a href="../../collection/mutable/Map.html">Map</a>[<a href="../../collection/convert/AsJavaConverters.html#K">K</a>, <a href="../../collection/convert/AsJavaConverters.html#V">V</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Dictionary.html">Dictionary</a>[<a href="../../collection/convert/AsJavaConverters.html#K">K</a>, <a href="../../collection/convert/AsJavaConverters.html#V">V</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala mutable <code>Map</code> to a Java <code>Dictionary</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>Dictionary</code> is backed by the provided Scala <code>Dictionary</code> and any
+side-effects of using it via the Java interface will be visible via the Scala interface and
+vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Map</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Dictionary</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>m</dt><dd>
+  <p class="paragraph">The Scala <code>Map</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Dictionary</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L218">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJavaCollection" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJavaCollection" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJavaCollection" class="documentableName monospace ">asJavaCollection</a><span class="signature monospace">[A](i: <a href="../../collection/Iterable.html">Iterable</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html">Collection</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala <code>Iterable</code> to an immutable Java <code>Collection</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If the Scala <code>Iterable</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Collection</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>i</dt><dd>
+  <p class="paragraph">The Scala <code>Iterable</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Collection</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L91">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[K, V](m: <a href="../../collection/concurrent/Map.html">Map</a>[<a href="../../collection/convert/AsJavaConverters.html#K">K</a>, <a href="../../collection/convert/AsJavaConverters.html#V">V</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentMap.html">ConcurrentMap</a>[<a href="../../collection/convert/AsJavaConverters.html#K">K</a>, <a href="../../collection/convert/AsJavaConverters.html#V">V</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala mutable <code>concurrent.Map</code> to a Java <code>ConcurrentMap</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>ConcurrentMap</code> is backed by the provided Scala <code>concurrent.Map</code> and any
+side-effects of using it via the Java interface will be visible via the Scala interface and
+vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>concurrent.Map</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>ConcurrentMap</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>m</dt><dd>
+  <p class="paragraph">The Scala <code>concurrent.Map</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>ConcurrentMap</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L255">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[K, V](m: <a href="../../collection/Map.html">Map</a>[<a href="../../collection/convert/AsJavaConverters.html#K">K</a>, <a href="../../collection/convert/AsJavaConverters.html#V">V</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a>[<a href="../../collection/convert/AsJavaConverters.html#K">K</a>, <a href="../../collection/convert/AsJavaConverters.html#V">V</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala <code>Map</code> to a Java <code>Map</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>Map</code> is backed by the provided Scala <code>Map</code> and any side-effects of using it
+via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Map</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Map</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>m</dt><dd>
+  <p class="paragraph">The Scala <code>Map</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Map</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L236">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[K, V](m: <a href="../../collection/mutable/Map.html">Map</a>[<a href="../../collection/convert/AsJavaConverters.html#K">K</a>, <a href="../../collection/convert/AsJavaConverters.html#V">V</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a>[<a href="../../collection/convert/AsJavaConverters.html#K">K</a>, <a href="../../collection/convert/AsJavaConverters.html#V">V</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala mutable <code>Map</code> to a Java <code>Map</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>Map</code> is backed by the provided Scala <code>Map</code> and any side-effects of using it
+via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Map</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Map</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>m</dt><dd>
+  <p class="paragraph">The Scala mutable <code>Map</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Map</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L199">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[A](s: <a href="../../collection/Set.html">Set</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html">Set</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala <code>Set</code> to a Java <code>Set</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>Set</code> is backed by the provided Scala <code>Set</code> and any side-effects of using it
+via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Set</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Set</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>s</dt><dd>
+  <p class="paragraph">The Scala <code>Set</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Set</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L181">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[A](s: <a href="../../collection/mutable/Set.html">Set</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html">Set</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala mutable <code>Set</code> to a Java <code>Set</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>Set</code> is backed by the provided Scala <code>Set</code> and any side-effects of using it
+via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Set</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Set</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>s</dt><dd>
+  <p class="paragraph">The Scala mutable <code>Set</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Set</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L163">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[A](s: <a href="../../collection/Seq.html">Seq</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala <code>Seq</code> to a Java <code>List</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>List</code> is backed by the provided Scala <code>Seq</code> and any side-effects of using it
+via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Seq</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>List</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>s</dt><dd>
+  <p class="paragraph">The Scala <code>Seq</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>List</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L145">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[A](s: <a href="../../collection/mutable/Seq.html">Seq</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala mutable <code>Seq</code> to a Java <code>List</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>List</code> is backed by the provided Scala <code>Seq</code> and any side-effects of using it
+via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Seq</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>List</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>s</dt><dd>
+  <p class="paragraph">The Scala <code>Seq</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>List</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L127">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[A](b: <a href="../../collection/mutable/Buffer.html">Buffer</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala mutable <code>Buffer</code> to a Java List.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java List is backed by the provided Scala <code>Buffer</code> and any side-effects of using
+it via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Buffer</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>List</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>b</dt><dd>
+  <p class="paragraph">The Scala <code>Buffer</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>List</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L109">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[A](i: <a href="../../collection/Iterable.html">Iterable</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html">Iterable</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala <code>Iterable</code> to a Java <code>Iterable</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>Iterable</code> is backed by the provided Scala <code>Iterable</code> and any side-effects of
+using it via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Iterable</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Iterable</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>i</dt><dd>
+  <p class="paragraph">The Scala <code>Iterable</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Iterable</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L76">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asJava" data-f-inherited="AsJavaConverters"><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsJavaConverters.html#asJava" class="documentableName monospace ">asJava</a><span class="signature monospace">[A](i: <a href="../../collection/Iterator.html">Iterator</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">Iterator</a>[<a href="../../collection/convert/AsJavaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Scala <code>Iterator</code> to a Java <code>Iterator</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Java <code>Iterator</code> is backed by the provided Scala <code>Iterator</code> and any side-effects of
+using it via the Java interface will be visible via the Scala interface and vice versa.</p>
+
+  <p class="paragraph">If the Scala <code>Iterator</code> was previously obtained from an implicit or explicit call of
+<code>asScala</code> then the original Java <code>Iterator</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>i</dt><dd>
+  <p class="paragraph">The Scala <code>Iterator</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Java <code>Iterator</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsJavaConverters.scala#L40">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">(p: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html">Properties</a>): <a href="../../collection/mutable/Map.html">Map</a>[<a href="../../Predef$.html#String">String</a>, <a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>Properties</code> to a Scala mutable <code>Map[String, String]</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>Map[String, String]</code> is backed by the provided Java <code>Properties</code> and any
+side-effects of using it via the Scala interface will be visible via the Java interface and
+vice versa.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>p</dt><dd>
+  <p class="paragraph">The Java <code>Properties</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala mutable <code>Map[String, String]</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L201">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A, B](d: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Dictionary.html">Dictionary</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>, <a href="../../collection/convert/AsScalaConverters.html#B">B</a>]): <a href="../../collection/mutable/Map.html">Map</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>, <a href="../../collection/convert/AsScalaConverters.html#B">B</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>Dictionary</code> to a Scala mutable <code>Map</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>Map</code> is backed by the provided Java <code>Dictionary</code> and any side-effects of
+using it via the Scala interface will be visible via the Java interface and vice versa.</p>
+
+  <p class="paragraph">If the Java <code>Dictionary</code> was previously obtained from an implicit or explicit call of
+<code>asJavaDictionary</code> then the original Scala <code>Map</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>d</dt><dd>
+  <p class="paragraph">The Java <code>Dictionary</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala mutable <code>Map</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L185">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A, B](m: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentMap.html">ConcurrentMap</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>, <a href="../../collection/convert/AsScalaConverters.html#B">B</a>]): <a href="../../collection/concurrent/Map.html">Map</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>, <a href="../../collection/convert/AsScalaConverters.html#B">B</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>ConcurrentMap</code> to a Scala mutable <code>ConcurrentMap</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>ConcurrentMap</code> is backed by the provided Java <code>ConcurrentMap</code> and any
+side-effects of using it via the Scala interface will be visible via the Java interface and
+vice versa.</p>
+
+  <p class="paragraph">If the Java <code>ConcurrentMap</code> was previously obtained from an implicit or explicit call of
+<code>asJava</code> then the original Scala <code>ConcurrentMap</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>m</dt><dd>
+  <p class="paragraph">The Java <code>ConcurrentMap</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala mutable <code>ConcurrentMap</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L167">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A, B](m: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>, <a href="../../collection/convert/AsScalaConverters.html#B">B</a>]): <a href="../../collection/mutable/Map.html">Map</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>, <a href="../../collection/convert/AsScalaConverters.html#B">B</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>Map</code> to a Scala mutable <code>Map</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>Map</code> is backed by the provided Java <code>Map</code> and any side-effects of using it
+via the Scala interface will be visible via the Java interface and vice versa.</p>
+
+  <p class="paragraph">If the Java <code>Map</code> was previously obtained from an implicit or explicit call of
+<code>asJava</code> then the original Scala <code>Map</code> will be returned.</p>
+
+  <p class="paragraph">If the wrapped map is synchronized (e.g. from <code>java.util.Collections.synchronizedMap</code>), it is
+your responsibility to wrap all non-atomic operations with <code>underlying.synchronized</code>.
+This includes <code>get</code>, as <code>java.util.Map</code>'s API does not allow for an atomic <code>get</code> when <code>null</code>
+values may be present.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>m</dt><dd>
+  <p class="paragraph">The Java <code>Map</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala mutable <code>Map</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L148">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A](s: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html">Set</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]): <a href="../../collection/mutable/Set.html">Set</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>Set</code> to a Scala mutable <code>Set</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>Set</code> is backed by the provided Java <code>Set</code> and any side-effects of using it
+via the Scala interface will be visible via the Java interface and vice versa.</p>
+
+  <p class="paragraph">If the Java <code>Set</code> was previously obtained from an implicit or explicit call of
+<code>asJava</code> then the original Scala <code>Set</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>s</dt><dd>
+  <p class="paragraph">The Java <code>Set</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala mutable <code>Set</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L125">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A](l: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]): <a href="../../collection/mutable/Buffer.html">Buffer</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>List</code> to a Scala mutable <code>Buffer</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>Buffer</code> is backed by the provided Java <code>List</code> and any side-effects of using
+it via the Scala interface will be visible via the Java interface and vice versa.</p>
+
+  <p class="paragraph">If the Java <code>List</code> was previously obtained from an implicit or explicit call of
+<code>asJava</code> then the original Scala <code>Buffer</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>l</dt><dd>
+  <p class="paragraph">The Java <code>List</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala mutable <code>Buffer</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L107">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A](c: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html">Collection</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]): <a href="../../collection/Iterable.html">Iterable</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>Collection</code> to a Scala <code>Iterable</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If the Java <code>Collection</code> was previously obtained from an implicit or explicit call of
+<code>asJavaCollection</code> then the original Scala <code>Iterable</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>c</dt><dd>
+  <p class="paragraph">The Java <code>Collection</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala <code>Iterable</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L89">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A](i: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html">Iterable</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]): <a href="../../collection/Iterable.html">Iterable</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>Iterable</code> to a Scala <code>Iterable</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>Iterable</code> is backed by the provided Java <code>Iterable</code> and any side-effects of
+using it via the Scala interface will be visible via the Java interface and vice versa.</p>
+
+  <p class="paragraph">If the Java <code>Iterable</code> was previously obtained from an implicit or explicit call of
+<code>asJava</code> then the original Scala <code>Iterable</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>i</dt><dd>
+  <p class="paragraph">The Java <code>Iterable</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala <code>Iterable</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L74">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A](e: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Enumeration.html">Enumeration</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]): <a href="../../collection/Iterator.html">Iterator</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>Enumeration</code> to a Scala <code>Iterator</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>Iterator</code> is backed by the provided Java <code>Enumeration</code> and any side-effects
+of using it via the Scala interface will be visible via the Java interface and vice versa.</p>
+
+  <p class="paragraph">If the Java <code>Enumeration</code> was previously obtained from an implicit or explicit call of
+<code>asJavaEnumeration</code> then the original Scala <code>Iterator</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>e</dt><dd>
+  <p class="paragraph">The Java <code>Enumeration</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala <code>Iterator</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L56">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="asScala" data-f-inherited="AsScalaConverters"><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="../../collection/convert/AsScalaConverters.html#asScala" class="documentableName monospace ">asScala</a><span class="signature monospace">[A](i: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">Iterator</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]): <a href="../../collection/Iterator.html">Iterator</a>[<a href="../../collection/convert/AsScalaConverters.html#A">A</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Converts a Java <code>Iterator</code> to a Scala <code>Iterator</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The returned Scala <code>Iterator</code> is backed by the provided Java <code>Iterator</code> and any side-effects of
+using it via the Scala interface will be visible via the Java interface and vice versa.</p>
+
+  <p class="paragraph">If the Java <code>Iterator</code> was previously obtained from an implicit or explicit call of
+<code>asJava</code> then the original Scala <code>Iterator</code> will be returned.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>i</dt><dd>
+  <p class="paragraph">The Java <code>Iterator</code> to be converted.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">A Scala <code>Iterator</code> view of the argument.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/convert/AsScalaConverters.scala#L38">(source)</a></dd></dl></div></div></div></div></div></div></div>
+        <h2 class="tabbedcontent">Linear supertypes</h2>
+        <div data-togglable="Linear supertypes"><div class="symbol monospace">
+  <div class="symbol paragraph">trait <a href="../../collection/convert/AsScalaConverters.html">AsScalaConverters</a></div>
+
+  <div class="symbol paragraph">trait <a href="../../collection/convert/AsJavaConverters.html">AsJavaConverters</a></div>
+
+  <div class="symbol paragraph">class <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a></div>
+
+  <div class="symbol paragraph">class <span data-unresolved-link="scala.Any////PointingToDeclaration/Anyscala.Any//[]">Any</span></div>
+</div></div>
+        <h2 class="tabbedcontent">Type hierarchy</h2>
+        <div data-togglable="Type hierarchy"><div class="symbol monospace"><div id="inheritance-diagram" class="diagram-class"><svg id="graph"></svg><script type="text/dot" id="dot"> digraph g {
+ node2 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"../../collection/convert/AsJavaConverters.html\">AsJavaConverters</a></span>", style="fill: #1CAACF;"];
+node0 [label="<span style=\"color: #FFFFFF;\">object <a href=\"\">CollectionConverters</a></span>", style="fill: #285577;"];
+node1 [label="<span style=\"color: #FFFFFF;\">class <a href=\"https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\">Object</a></span>", style="fill: #45AD7D;"];
+node4 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"../../collection/convert/AsScalaConverters.html\">AsScalaConverters</a></span>", style="fill: #1CAACF;"];
+node3 [label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\">Any</span></span>", style="fill: #45AD7D;"];
+
+
+ node0 -> node1;
+node0 -> node2;
+node2 -> node1;
+node1 -> node3;
+node0 -> node4;
+node4 -> node1;
+
+}
+</script></div></div></div>
+      </div>
+    </div>
+  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>

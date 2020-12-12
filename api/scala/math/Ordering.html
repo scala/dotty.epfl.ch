@@ -1,0 +1,610 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Ordering</title><link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico"></link><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" defer="true"></script><script type="text/javascript" src="../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../scripts/fast-navigation-loader.js" defer="true"></script><script>var pathToRoot = "../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201211-dbc1186-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="scala.math.Ordering////PointingToDeclaration/Orderingscala.math.Ordering//[][origin:/__w/dotty/dotty/stdlib-bootstrapped/../out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/classes/scala/math/Ordering.class]/-1771105915">
+    <div class="breadcrumbs"><a href="../../../docs/index.html">Scala 3</a>/<a href="../../index.html">API</a>/<a href="../index.html">scala</a>/<a href="index.html">math</a>/<a href=".html">Ordering</a></div>
+    <div class="cover ">
+      <h1 class="">Ordering</h1>
+      <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Scala 3/main"><div class="symbol monospace">@<a href="../annotation/implicitNotFound.html">implicitNotFound</a>(msg = &quot;No implicit Ordering defined for ${T}.&quot;)  trait <a href="">Ordering</a>[T] extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="#T">T</a>] with <a href="PartialOrdering.html">PartialOrdering</a>[<a href="#T">T</a>] with <span data-unresolved-link="scala/Serializable///PointingToGenericParameters(1)/Serializablescala.package$.Serializable//[][origin:/__w/dotty/dotty/stdlib-bootstrapped/../out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/classes/scala/package.class]">Serializable</span></div><div><div class="documentableBrief doc">
+  <p class="paragraph">Ordering is a trait whose instances each represent a strategy for sorting
+instances of a type.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Ordering's companion object defines many implicit objects to deal with
+subtypes of AnyVal (e.g. Int, Double), String, and others.</p>
+
+  <p class="paragraph">To sort instances by one or more member variables, you can take advantage
+of these built-in orderings using Ordering.by and Ordering.on:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">import scala.util.Sorting
+val pairs = Array((&quot;a&quot;, 5, 2), (&quot;c&quot;, 3, 1), (&quot;b&quot;, 1, 3))
+
+// sort by 2nd element
+Sorting.quickSort(pairs)(Ordering.by[(String, Int, Int), Int](_._2))
+
+// sort by the 3rd element, then 1st
+Sorting.quickSort(pairs)(Ordering[(Int, String)].on(x =&gt; (x._3, x._1)))</code></pre>
+  </div>
+
+  <p class="paragraph">An Ordering[T] is implemented by specifying compare(a:T, b:T), which
+decides how to order two instances a and b. Instances of Ordering[T] can be
+used by things like scala.util.Sorting to sort collections like Array[T].</p>
+
+  <p class="paragraph">For example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">import scala.util.Sorting
+
+case class Person(name:String, age:Int)
+val people = Array(Person(&quot;bob&quot;, 30), Person(&quot;ann&quot;, 32), Person(&quot;carl&quot;, 19))
+
+// sort by age
+object AgeOrdering extends Ordering[Person] {
+ def compare(a:Person, b:Person) = a.age compare b.age
+}
+Sorting.quickSort(people)(AgeOrdering)</code></pre>
+  </div>
+
+  <p class="paragraph">This trait and scala.math.Ordered both provide this same functionality, but
+in different ways. A type T can be given a single way to order itself by
+extending Ordered. Using Ordering, this same type may be sorted in many
+other ways. Ordered and Ordering both provide implicits allowing them to be
+used interchangeably.</p>
+
+  <p class="paragraph">You can import scala.math.Ordering.Implicits to gain access to other
+implicit orderings.
+</p>
+</div><dl class="attributes"><dt>See also</dt><dd><div><div>
+  <p class="paragraph"><a href="Ordered.html">scala.math.Ordered</a>, <span data-unresolved-link="scala.util.Sorting////PointingToDeclaration/Sortingscala.util.Sorting//[][origin:/__w/dotty/dotty/stdlib-bootstrapped/../out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/classes/scala/util/Sorting.class]">scala.util.Sorting</span></p>
+</div></div></dd><dt>Companion</dt><dd><a href="Ordering$.html">object</a></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L72">(source)</a></dd></dl></div></div></div></div>
+    </div>
+<div class="documentableFilter"><div class="filterUpperContainer"><button class="filterToggleButton" data-test-id="filterToggleButton">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </button><input class="filterableInput" placeholder="Filter all members" data-test-id="filterBarInput"></input></div><div class="filterLowerContainer"></div></div>    <div class="tabbedcontent">
+      <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Type members">Type members</button><button class="section-tab" data-togglable="Methods">Methods</button><button class="section-tab" data-togglable="Implicits">Implicits</button><button class="section-tab" data-togglable="Linear supertypes">Linear supertypes</button><button class="section-tab" data-togglable="Known subtypes">Known subtypes</button><button class="section-tab" data-togglable="Type hierarchy">Type hierarchy</button></div>
+      <div class="tabs-section-body">
+        <h3 class="tabbedcontent">Type members</h3>
+        <div data-togglable="Type members"><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Classlikes</h3><div class="documentableElement" data-f-implicitly="by Option"><a href="Ordering$OrderingOps.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">class </span></span><a href="Ordering$OrderingOps.html" class="documentableName monospace ">OrderingOps</a><span class="signature monospace">(lhs: <a href="#T">T</a>)</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">This inner class defines comparison operators available for <code>T</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L187">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" data-f-implicitly="by Iterable"><a href="Ordering$OrderingOps.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">class </span></span><a href="Ordering$OrderingOps.html" class="documentableName monospace ">OrderingOps</a><span class="signature monospace">(lhs: <a href="#T">T</a>)</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">This inner class defines comparison operators available for <code>T</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L187">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="Ordering$OrderingOps.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">class </span></span><a href="Ordering$OrderingOps.html" class="documentableName monospace ">OrderingOps</a><span class="signature monospace">(lhs: <a href="#T">T</a>)</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">This inner class defines comparison operators available for <code>T</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L187">(source)</a></dd></dl></div></div></div></div></div></div></div>
+        <h3 class="tabbedcontent">Methods</h3>
+        <div data-togglable="Methods"><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Defined methods</h3><div class="documentableElement" id="tryCompare" data-f-implicitly="by Option"><a href="#tryCompare" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#tryCompare" class="documentableName monospace ">tryCompare</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Option.html">Option</a>[<a href="../Int.html">Int</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns whether a comparison between <code>x</code> and <code>y</code> is defined, and if so
+the result of <code>compare(x, y)</code>.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L78">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="compare" data-f-implicitly="by Option"><a href="#compare" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#compare" class="documentableName monospace ">compare</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Int.html">Int</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns an integer whose sign communicates how x compares to y.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The result sign has the following meaning:</p>
+
+  <p class="paragraph">- negative if x &lt; y
+- positive if x &gt; y
+- zero otherwise (if x == y)
+</p>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L88">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="max" data-f-implicitly="by Option"><a href="#max" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#max" class="documentableName monospace ">max</a><span class="signature monospace">[U <: <a href="#T">T</a>](x: <a href="#U">U</a>, y: <a href="#U">U</a>): <a href="#U">U</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return <code>x</code> if <code>x</code> &gt;= <code>y</code>, otherwise <code>y</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L106">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="min" data-f-implicitly="by Option"><a href="#min" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#min" class="documentableName monospace ">min</a><span class="signature monospace">[U <: <a href="#T">T</a>](x: <a href="#U">U</a>, y: <a href="#U">U</a>): <a href="#U">U</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return <code>x</code> if <code>x</code> &lt;= <code>y</code>, otherwise <code>y</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L109">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="isReverseOf" data-f-implicitly="by Option"><a href="#isReverseOf" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#isReverseOf" class="documentableName monospace ">isReverseOf</a><span class="signature monospace">(other: <a href="">Ordering</a>[]): <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns whether or not the other ordering is the opposite
+ordering of this one.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Equivalent to <code>other == this.reverse</code>.</p>
+
+  <p class="paragraph">Implementations should only override this method if they are overriding
+<a href="#reverse">reverse</a> as well.
+</p>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L127">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="on" data-f-implicitly="by Option"><a href="#on" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#on" class="documentableName monospace ">on</a><span class="signature monospace">[U](f: <a href="#U">U</a> => <a href="#T">T</a>): <a href="">Ordering</a>[<a href="#U">U</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Given f, a function from U into T, creates an Ordering[U] whose compare
+function is equivalent to:</p>
+</div><div class="cover"><div class="doc">
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">def compare(x:U, y:U) = Ordering[T].compare(f(x), f(y))</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L139">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="orElse" data-f-implicitly="by Option"><a href="#orElse" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#orElse" class="documentableName monospace ">orElse</a><span class="signature monospace">(other: <a href="">Ordering</a>[<a href="#T">T</a>]): <a href="">Ordering</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates an Ordering[T] whose compare function returns the
+result of this Ordering's compare function, if it is non-zero,
+or else the result of <code>other</code>s compare function.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>other</dt><dd>
+  <p class="paragraph">an Ordering to use if this Ordering returns zero</p>
+</dd></dl></dd><dt>Example</dt><dd><div><div>
+  <p class="paragraph">
+    <p class="paragraph"></p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">case class Pair(a: Int, b: Int)
+val pairOrdering = Ordering.by[Pair, Int](_.a)
+                          .orElse(Ordering.by[Pair, Int](_.b))</code></pre>
+    </div>
+  </p>
+</div></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L157">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="orElseBy" data-f-implicitly="by Option"><a href="#orElseBy" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#orElseBy" class="documentableName monospace ">orElseBy</a><span class="signature monospace">[S](f: <a href="#T">T</a> => <a href="#S">S</a>)(ord: <a href="">Ordering</a>[<a href="#S">S</a>]): <a href="">Ordering</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Given f, a function from T into S, creates an Ordering[T] whose compare
+function returns the result of this Ordering's compare function,
+if it is non-zero, or else a result equivalent to:</p>
+</div><div class="cover"><div class="doc">
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">Ordering[S].compare(f(x), f(y))</code></pre>
+  </div>
+
+  <p class="paragraph">This function is equivalent to passing the result of <code>Ordering.by(f)</code>
+to <code>orElse</code>.
+</p>
+</div><dl class="attributes"><dt>Example</dt><dd><div><div>
+  <p class="paragraph">
+    <p class="paragraph"></p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">case class Pair(a: Int, b: Int)
+val pairOrdering = Ordering.by[Pair, Int](_.a)
+                          .orElseBy[Int](_.b)</code></pre>
+    </div>
+  </p>
+</div></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L181">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="tryCompare" data-f-implicitly="by Iterable"><a href="#tryCompare" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#tryCompare" class="documentableName monospace ">tryCompare</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Option.html">Option</a>[<a href="../Int.html">Int</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns whether a comparison between <code>x</code> and <code>y</code> is defined, and if so
+the result of <code>compare(x, y)</code>.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L78">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="compare" data-f-implicitly="by Iterable"><a href="#compare" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#compare" class="documentableName monospace ">compare</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Int.html">Int</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns an integer whose sign communicates how x compares to y.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The result sign has the following meaning:</p>
+
+  <p class="paragraph">- negative if x &lt; y
+- positive if x &gt; y
+- zero otherwise (if x == y)
+</p>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L88">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="max" data-f-implicitly="by Iterable"><a href="#max" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#max" class="documentableName monospace ">max</a><span class="signature monospace">[U <: <a href="#T">T</a>](x: <a href="#U">U</a>, y: <a href="#U">U</a>): <a href="#U">U</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return <code>x</code> if <code>x</code> &gt;= <code>y</code>, otherwise <code>y</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L106">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="min" data-f-implicitly="by Iterable"><a href="#min" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#min" class="documentableName monospace ">min</a><span class="signature monospace">[U <: <a href="#T">T</a>](x: <a href="#U">U</a>, y: <a href="#U">U</a>): <a href="#U">U</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return <code>x</code> if <code>x</code> &lt;= <code>y</code>, otherwise <code>y</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L109">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="isReverseOf" data-f-implicitly="by Iterable"><a href="#isReverseOf" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#isReverseOf" class="documentableName monospace ">isReverseOf</a><span class="signature monospace">(other: <a href="">Ordering</a>[]): <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns whether or not the other ordering is the opposite
+ordering of this one.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Equivalent to <code>other == this.reverse</code>.</p>
+
+  <p class="paragraph">Implementations should only override this method if they are overriding
+<a href="#reverse">reverse</a> as well.
+</p>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L127">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="on" data-f-implicitly="by Iterable"><a href="#on" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#on" class="documentableName monospace ">on</a><span class="signature monospace">[U](f: <a href="#U">U</a> => <a href="#T">T</a>): <a href="">Ordering</a>[<a href="#U">U</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Given f, a function from U into T, creates an Ordering[U] whose compare
+function is equivalent to:</p>
+</div><div class="cover"><div class="doc">
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">def compare(x:U, y:U) = Ordering[T].compare(f(x), f(y))</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L139">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="orElse" data-f-implicitly="by Iterable"><a href="#orElse" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#orElse" class="documentableName monospace ">orElse</a><span class="signature monospace">(other: <a href="">Ordering</a>[<a href="#T">T</a>]): <a href="">Ordering</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates an Ordering[T] whose compare function returns the
+result of this Ordering's compare function, if it is non-zero,
+or else the result of <code>other</code>s compare function.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>other</dt><dd>
+  <p class="paragraph">an Ordering to use if this Ordering returns zero</p>
+</dd></dl></dd><dt>Example</dt><dd><div><div>
+  <p class="paragraph">
+    <p class="paragraph"></p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">case class Pair(a: Int, b: Int)
+val pairOrdering = Ordering.by[Pair, Int](_.a)
+                          .orElse(Ordering.by[Pair, Int](_.b))</code></pre>
+    </div>
+  </p>
+</div></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L157">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="orElseBy" data-f-implicitly="by Iterable"><a href="#orElseBy" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#orElseBy" class="documentableName monospace ">orElseBy</a><span class="signature monospace">[S](f: <a href="#T">T</a> => <a href="#S">S</a>)(ord: <a href="">Ordering</a>[<a href="#S">S</a>]): <a href="">Ordering</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Given f, a function from T into S, creates an Ordering[T] whose compare
+function returns the result of this Ordering's compare function,
+if it is non-zero, or else a result equivalent to:</p>
+</div><div class="cover"><div class="doc">
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">Ordering[S].compare(f(x), f(y))</code></pre>
+  </div>
+
+  <p class="paragraph">This function is equivalent to passing the result of <code>Ordering.by(f)</code>
+to <code>orElse</code>.
+</p>
+</div><dl class="attributes"><dt>Example</dt><dd><div><div>
+  <p class="paragraph">
+    <p class="paragraph"></p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">case class Pair(a: Int, b: Int)
+val pairOrdering = Ordering.by[Pair, Int](_.a)
+                          .orElseBy[Int](_.b)</code></pre>
+    </div>
+  </p>
+</div></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L181">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="tryCompare"><a href="#tryCompare" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#tryCompare" class="documentableName monospace ">tryCompare</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Option.html">Option</a>[<a href="../Int.html">Int</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns whether a comparison between <code>x</code> and <code>y</code> is defined, and if so
+the result of <code>compare(x, y)</code>.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L78">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="compare"><a href="#compare" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#compare" class="documentableName monospace ">compare</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Int.html">Int</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns an integer whose sign communicates how x compares to y.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">The result sign has the following meaning:</p>
+
+  <p class="paragraph">- negative if x &lt; y
+- positive if x &gt; y
+- zero otherwise (if x == y)
+</p>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L88">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lteq" data-f-keywords="override"><a href="#lteq" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">override </span><span class="kind">def </span></span><a href="#lteq" class="documentableName monospace ">lteq</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return true if <code>x</code> &lt;= <code>y</code> in the ordering.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Definition Classes</dt><dd><div><a href="PartialOrdering.html">PartialOrdering</a></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L91">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="gteq" data-f-keywords="override"><a href="#gteq" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">override </span><span class="kind">def </span></span><a href="#gteq" class="documentableName monospace ">gteq</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return true if <code>x</code> &gt;= <code>y</code> in the ordering.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Definition Classes</dt><dd><div><a href="PartialOrdering.html">PartialOrdering</a></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L94">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lt" data-f-keywords="override"><a href="#lt" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">override </span><span class="kind">def </span></span><a href="#lt" class="documentableName monospace ">lt</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return true if <code>x</code> &lt; <code>y</code> in the ordering.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Definition Classes</dt><dd><div><a href="PartialOrdering.html">PartialOrdering</a></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L97">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="gt" data-f-keywords="override"><a href="#gt" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">override </span><span class="kind">def </span></span><a href="#gt" class="documentableName monospace ">gt</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return true if <code>x</code> &gt; <code>y</code> in the ordering.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Definition Classes</dt><dd><div><a href="PartialOrdering.html">PartialOrdering</a></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L100">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="equiv" data-f-keywords="override"><a href="#equiv" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">override </span><span class="kind">def </span></span><a href="#equiv" class="documentableName monospace ">equiv</a><span class="signature monospace">(x: <a href="#T">T</a>, y: <a href="#T">T</a>): <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return true if <code>x</code> == <code>y</code> in the ordering.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Definition Classes</dt><dd><div><a href="PartialOrdering.html">PartialOrdering</a> -&gt; <a href="Equiv.html">Equiv</a></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L103">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="max"><a href="#max" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#max" class="documentableName monospace ">max</a><span class="signature monospace">[U <: <a href="#T">T</a>](x: <a href="#U">U</a>, y: <a href="#U">U</a>): <a href="#U">U</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return <code>x</code> if <code>x</code> &gt;= <code>y</code>, otherwise <code>y</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L106">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="min"><a href="#min" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#min" class="documentableName monospace ">min</a><span class="signature monospace">[U <: <a href="#T">T</a>](x: <a href="#U">U</a>, y: <a href="#U">U</a>): <a href="#U">U</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return <code>x</code> if <code>x</code> &lt;= <code>y</code>, otherwise <code>y</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L109">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="reverse" data-f-keywords="override"><a href="#reverse" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">override </span><span class="kind">def </span></span><a href="#reverse" class="documentableName monospace ">reverse</a><span class="signature monospace">: <a href="">Ordering</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Return the opposite ordering of this one.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Implementations overriding this method MUST override <a href="#isReverseOf">isReverseOf</a>
+as well if they change the behavior at all (for example, caching does
+not require overriding it).
+</p>
+</div><dl class="attributes"><dt>Definition Classes</dt><dd><div><a href="PartialOrdering.html">PartialOrdering</a></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L117">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="isReverseOf"><a href="#isReverseOf" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#isReverseOf" class="documentableName monospace ">isReverseOf</a><span class="signature monospace">(other: <a href="">Ordering</a>[]): <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns whether or not the other ordering is the opposite
+ordering of this one.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Equivalent to <code>other == this.reverse</code>.</p>
+
+  <p class="paragraph">Implementations should only override this method if they are overriding
+<a href="#reverse">reverse</a> as well.
+</p>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L127">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="on"><a href="#on" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#on" class="documentableName monospace ">on</a><span class="signature monospace">[U](f: <a href="#U">U</a> => <a href="#T">T</a>): <a href="">Ordering</a>[<a href="#U">U</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Given f, a function from U into T, creates an Ordering[U] whose compare
+function is equivalent to:</p>
+</div><div class="cover"><div class="doc">
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">def compare(x:U, y:U) = Ordering[T].compare(f(x), f(y))</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L139">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="orElse"><a href="#orElse" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#orElse" class="documentableName monospace ">orElse</a><span class="signature monospace">(other: <a href="">Ordering</a>[<a href="#T">T</a>]): <a href="">Ordering</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates an Ordering[T] whose compare function returns the
+result of this Ordering's compare function, if it is non-zero,
+or else the result of <code>other</code>s compare function.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>other</dt><dd>
+  <p class="paragraph">an Ordering to use if this Ordering returns zero</p>
+</dd></dl></dd><dt>Example</dt><dd><div><div>
+  <p class="paragraph">
+    <p class="paragraph"></p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">case class Pair(a: Int, b: Int)
+val pairOrdering = Ordering.by[Pair, Int](_.a)
+                          .orElse(Ordering.by[Pair, Int](_.b))</code></pre>
+    </div>
+  </p>
+</div></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L157">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="orElseBy"><a href="#orElseBy" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#orElseBy" class="documentableName monospace ">orElseBy</a><span class="signature monospace">[S](f: <a href="#T">T</a> => <a href="#S">S</a>)(ord: <a href="">Ordering</a>[<a href="#S">S</a>]): <a href="">Ordering</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Given f, a function from T into S, creates an Ordering[T] whose compare
+function returns the result of this Ordering's compare function,
+if it is non-zero, or else a result equivalent to:</p>
+</div><div class="cover"><div class="doc">
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">Ordering[S].compare(f(x), f(y))</code></pre>
+  </div>
+
+  <p class="paragraph">This function is equivalent to passing the result of <code>Ordering.by(f)</code>
+to <code>orElse</code>.
+</p>
+</div><dl class="attributes"><dt>Example</dt><dd><div><div>
+  <p class="paragraph">
+    <p class="paragraph"></p>
+    <div class="sample-container">
+      <pre><code class=" language-scala" theme="idea">case class Pair(a: Int, b: Int)
+val pairOrdering = Ordering.by[Pair, Int](_.a)
+                          .orElseBy[Int](_.b)</code></pre>
+    </div>
+  </p>
+</div></div></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L181">(source)</a></dd></dl></div></div></div></div></div></div><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Inherited methods</h3><div class="documentableElement" id="thenComparingLong" data-f-implicitly="by Option" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingLong" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingLong" class="documentableName monospace ">thenComparingLong</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToLongFunction.html">ToLongFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-implicitly="by Option" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">[U <: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Comparable</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]](x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>,  <: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-implicitly="by Option" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">[U <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>](x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>,  <: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a>], x$1: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-implicitly="by Option" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparingDouble" data-f-implicitly="by Option" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingDouble" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingDouble" class="documentableName monospace ">thenComparingDouble</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToDoubleFunction.html">ToDoubleFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparingInt" data-f-implicitly="by Option" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingInt" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingInt" class="documentableName monospace ">thenComparingInt</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToIntFunction.html">ToIntFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="reversed" data-f-implicitly="by Option" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#reversed" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#reversed" class="documentableName monospace ">reversed</a><span class="signature monospace">(): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparingLong" data-f-implicitly="by Iterable" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingLong" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingLong" class="documentableName monospace ">thenComparingLong</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToLongFunction.html">ToLongFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-implicitly="by Iterable" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">[U <: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Comparable</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]](x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>,  <: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-implicitly="by Iterable" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">[U <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>](x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>,  <: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a>], x$1: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-implicitly="by Iterable" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparingDouble" data-f-implicitly="by Iterable" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingDouble" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingDouble" class="documentableName monospace ">thenComparingDouble</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToDoubleFunction.html">ToDoubleFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparingInt" data-f-implicitly="by Iterable" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingInt" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingInt" class="documentableName monospace ">thenComparingInt</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToIntFunction.html">ToIntFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="reversed" data-f-implicitly="by Iterable" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#reversed" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#reversed" class="documentableName monospace ">reversed</a><span class="signature monospace">(): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparingLong" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingLong" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingLong" class="documentableName monospace ">thenComparingLong</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToLongFunction.html">ToLongFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">[U <: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Comparable</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]](x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>,  <: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">[U <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>](x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>,  <: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a>], x$1: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#U">U</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparing" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing" class="documentableName monospace ">thenComparing</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparingDouble" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingDouble" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingDouble" class="documentableName monospace ">thenComparingDouble</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToDoubleFunction.html">ToDoubleFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="thenComparingInt" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingInt" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparingInt" class="documentableName monospace ">thenComparingInt</a><span class="signature monospace">(x$0: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/ToIntFunction.html">ToIntFunction</a>[ >: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a> <: <span data-unresolved-link="">&lt;FromJavaObject&gt;</span>]): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" id="reversed" data-f-inherited="Comparator"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#reversed" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#reversed" class="documentableName monospace ">reversed</a><span class="signature monospace">(): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div></div></div>
+        <h3 class="tabbedcontent">Implicits</h3>
+        <div data-togglable="Implicits"><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Defined implicits</h3><div class="documentableElement" id="mkOrderingOps" data-f-implicitly="by Option" data-f-keywords="implicit"><a href="#mkOrderingOps" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">implicit </span><span class="kind">def </span></span><a href="#mkOrderingOps" class="documentableName monospace ">mkOrderingOps</a><span class="signature monospace">(lhs: <a href="#T">T</a>): <a href="Ordering$OrderingOps.html">OrderingOps</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Option">Option</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">This implicit method augments <code>T</code> with the comparison operators defined
+in <code>scala.math.Ordering.Ops</code>.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L200">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="mkOrderingOps" data-f-implicitly="by Iterable" data-f-keywords="implicit"><a href="#mkOrderingOps" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">implicit </span><span class="kind">def </span></span><a href="#mkOrderingOps" class="documentableName monospace ">mkOrderingOps</a><span class="signature monospace">(lhs: <a href="#T">T</a>): <a href="Ordering$OrderingOps.html">OrderingOps</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo">Implicitly added by <a href="Ordering$.html#Iterable">Iterable</a></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">This implicit method augments <code>T</code> with the comparison operators defined
+in <code>scala.math.Ordering.Ops</code>.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L200">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="mkOrderingOps" data-f-keywords="implicit"><a href="#mkOrderingOps" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">implicit </span><span class="kind">def </span></span><a href="#mkOrderingOps" class="documentableName monospace ">mkOrderingOps</a><span class="signature monospace">(lhs: <a href="#T">T</a>): <a href="Ordering$OrderingOps.html">OrderingOps</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">This implicit method augments <code>T</code> with the comparison operators defined
+in <code>scala.math.Ordering.Ops</code>.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/math/Ordering.scala#L200">(source)</a></dd></dl></div></div></div></div></div></div></div>
+        <h2 class="tabbedcontent">Linear supertypes</h2>
+        <div data-togglable="Linear supertypes"><div class="symbol monospace">
+  <div class="symbol paragraph">trait <a href="PartialOrdering.html">PartialOrdering</a>[<a href="#T">T</a>]</div>
+
+  <div class="symbol paragraph">trait <a href="Equiv.html">Equiv</a>[<a href="#T">T</a>]</div>
+
+  <div class="symbol paragraph">trait <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">Serializable</a></div>
+
+  <div class="symbol paragraph">trait <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>[<a href="#T">T</a>]</div>
+
+  <div class="symbol paragraph">class <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a></div>
+
+  <div class="symbol paragraph">class <span data-unresolved-link="scala.Any////PointingToDeclaration/Anyscala.Any//[]">Any</span></div>
+</div></div>
+        <h2 class="tabbedcontent">Known subtypes</h2>
+        <div data-togglable="Known subtypes"><div class="symbol monospace">
+  <div class="symbol paragraph">object <a href="../concurrent/duration/Duration$$DurationIsOrdered$.html">DurationIsOrdered</a></div>
+
+  <div class="symbol paragraph">object <a href="../concurrent/duration/FiniteDuration$$FiniteDurationIsOrdered$.html">FiniteDurationIsOrdered</a></div>
+
+  <div class="symbol paragraph">object <a href="../concurrent/duration/Deadline$$DeadlineIsOrdered$.html">DeadlineIsOrdered</a></div>
+
+  <div class="symbol paragraph">trait <a href="Fractional.html">Fractional</a>[<a href="Fractional.html#T">T</a>]</div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$CachedReverse.html">CachedReverse</a>[<a href="Ordering$$CachedReverse.html#T">T</a>]</div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$UnitOrdering.html">UnitOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Unit$.html">Unit</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$BooleanOrdering.html">BooleanOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Boolean$.html">Boolean</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$ByteOrdering.html">ByteOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Byte$.html">Byte</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$CharOrdering.html">CharOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Char$.html">Char</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$ShortOrdering.html">ShortOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Short$.html">Short</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$IntOrdering.html">IntOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Int$.html">Int</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$LongOrdering.html">LongOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Long$.html">Long</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$Float$$TotalOrdering.html">TotalOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Float$$TotalOrdering$.html">TotalOrdering</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$Float$$IeeeOrdering.html">IeeeOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Float$$IeeeOrdering$.html">IeeeOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$DeprecatedFloatOrdering$.html">DeprecatedFloatOrdering</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$Double$$TotalOrdering.html">TotalOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Double$$TotalOrdering$.html">TotalOrdering</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$Double$$IeeeOrdering.html">IeeeOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Double$$IeeeOrdering$.html">IeeeOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$DeprecatedDoubleOrdering$.html">DeprecatedDoubleOrdering</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$BigIntOrdering.html">BigIntOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$BigInt$.html">BigInt</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$BigDecimalOrdering.html">BigDecimalOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$BigDecimal$.html">BigDecimal</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$StringOrdering.html">StringOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$String$.html">String</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$SymbolOrdering.html">SymbolOrdering</a></div>
+
+  <div class="symbol paragraph">object <a href="Ordering$$Symbol$.html">Symbol</a></div>
+
+  <div class="symbol paragraph">trait <a href="Ordering$$OptionOrdering.html">OptionOrdering</a>[<a href="Ordering$$OptionOrdering.html#T">T</a>]</div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$BigIntIsIntegral.html">BigIntIsIntegral</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$BigIntIsIntegral$.html">BigIntIsIntegral</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$IntIsIntegral.html">IntIsIntegral</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$IntIsIntegral$.html">IntIsIntegral</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$ShortIsIntegral.html">ShortIsIntegral</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$ShortIsIntegral$.html">ShortIsIntegral</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$ByteIsIntegral.html">ByteIsIntegral</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$ByteIsIntegral$.html">ByteIsIntegral</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$CharIsIntegral.html">CharIsIntegral</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$CharIsIntegral$.html">CharIsIntegral</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$LongIsIntegral.html">LongIsIntegral</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$LongIsIntegral$.html">LongIsIntegral</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$FloatIsFractional.html">FloatIsFractional</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$FloatIsFractional$.html">FloatIsFractional</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$DoubleIsFractional.html">DoubleIsFractional</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$DoubleIsFractional$.html">DoubleIsFractional</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$BigDecimalIsConflicted.html">BigDecimalIsConflicted</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$BigDecimalIsFractional.html">BigDecimalIsFractional</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric$$BigDecimalAsIfIntegral.html">BigDecimalAsIfIntegral</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$BigDecimalIsFractional$.html">BigDecimalIsFractional</a></div>
+
+  <div class="symbol paragraph">object <a href="Numeric$$BigDecimalAsIfIntegral$.html">BigDecimalAsIfIntegral</a></div>
+
+  <div class="symbol paragraph">trait <a href="Numeric.html">Numeric</a>[<a href="Numeric.html#T">T</a>]</div>
+
+  <div class="symbol paragraph">trait <a href="Integral.html">Integral</a>[<a href="Integral.html#T">T</a>]</div>
+
+  <div class="symbol paragraph">object <a href="../Enumeration$ValueOrdering$.html">ValueOrdering</a></div>
+</div></div>
+        <h2 class="tabbedcontent">Type hierarchy</h2>
+        <div data-togglable="Type hierarchy"><div class="symbol monospace"><div id="inheritance-diagram" class="diagram-class"><svg id="graph"></svg><script type="text/dot" id="dot"> digraph g {
+ node10 [label="<span style=\"color: #FFFFFF;\">object <a href=\"../concurrent/duration/Deadline$$DeadlineIsOrdered$.html\">DeadlineIsOrdered</a></span>", style="fill: #285577;"];
+node66 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$BigDecimalAsIfIntegral$.html\">BigDecimalAsIfIntegral</a></span>", style="fill: #285577;"];
+node26 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Long$.html\">Long</a></span>", style="fill: #285577;"];
+node45 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$OptionOrdering.html\">OptionOrdering</a>[<a href=\"Ordering$$OptionOrdering.html#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node6 [label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\">Serializable</span></span>", style="fill: #45AD7D;"];
+node49 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$IntIsIntegral$.html\">IntIsIntegral</a></span>", style="fill: #285577;"];
+node61 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$DoubleIsFractional$.html\">DoubleIsFractional</a></span>", style="fill: #285577;"];
+node53 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$ByteIsIntegral$.html\">ByteIsIntegral</a></span>", style="fill: #285577;"];
+node20 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Char$.html\">Char</a></span>", style="fill: #285577;"];
+node29 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$Float$$IeeeOrdering.html\">IeeeOrdering</a></span>", style="fill: #1CAACF;"];
+node60 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$DoubleIsFractional.html\">DoubleIsFractional</a></span>", style="fill: #1CAACF;"];
+node58 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$FloatIsFractional.html\">FloatIsFractional</a></span>", style="fill: #1CAACF;"];
+node63 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$BigDecimalIsFractional.html\">BigDecimalIsFractional</a></span>", style="fill: #1CAACF;"];
+node16 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Boolean$.html\">Boolean</a></span>", style="fill: #285577;"];
+node21 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$ShortOrdering.html\">ShortOrdering</a></span>", style="fill: #1CAACF;"];
+node57 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$LongIsIntegral$.html\">LongIsIntegral</a></span>", style="fill: #285577;"];
+node54 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$CharIsIntegral.html\">CharIsIntegral</a></span>", style="fill: #1CAACF;"];
+node39 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$BigDecimalOrdering.html\">BigDecimalOrdering</a></span>", style="fill: #1CAACF;"];
+node17 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$ByteOrdering.html\">ByteOrdering</a></span>", style="fill: #1CAACF;"];
+node46 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$BigIntIsIntegral.html\">BigIntIsIntegral</a></span>", style="fill: #1CAACF;"];
+node3 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html\">Comparator</a>[<a href=\"#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node12 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$CachedReverse.html\">CachedReverse</a>[<a href=\"Ordering$$CachedReverse.html#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node42 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$String$.html\">String</a></span>", style="fill: #285577;"];
+node50 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$ShortIsIntegral.html\">ShortIsIntegral</a></span>", style="fill: #1CAACF;"];
+node64 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$BigDecimalAsIfIntegral.html\">BigDecimalAsIfIntegral</a></span>", style="fill: #1CAACF;"];
+node51 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$ShortIsIntegral$.html\">ShortIsIntegral</a></span>", style="fill: #285577;"];
+node25 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$LongOrdering.html\">LongOrdering</a></span>", style="fill: #1CAACF;"];
+node30 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Float$$IeeeOrdering$.html\">IeeeOrdering</a></span>", style="fill: #285577;"];
+node59 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$FloatIsFractional$.html\">FloatIsFractional</a></span>", style="fill: #285577;"];
+node9 [label="<span style=\"color: #FFFFFF;\">object <a href=\"../concurrent/duration/FiniteDuration$$FiniteDurationIsOrdered$.html\">FiniteDurationIsOrdered</a></span>", style="fill: #285577;"];
+node1 [label="<span style=\"color: #FFFFFF;\">class <a href=\"https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\">Object</a></span>", style="fill: #45AD7D;"];
+node65 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$BigDecimalIsFractional$.html\">BigDecimalIsFractional</a></span>", style="fill: #285577;"];
+node44 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Symbol$.html\">Symbol</a></span>", style="fill: #285577;"];
+node23 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$IntOrdering.html\">IntOrdering</a></span>", style="fill: #1CAACF;"];
+node31 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$DeprecatedFloatOrdering$.html\">DeprecatedFloatOrdering</a></span>", style="fill: #285577;"];
+node5 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Equiv.html\">Equiv</a>[<a href=\"PartialOrdering.html#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node55 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$CharIsIntegral$.html\">CharIsIntegral</a></span>", style="fill: #285577;"];
+node13 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$UnitOrdering.html\">UnitOrdering</a></span>", style="fill: #1CAACF;"];
+node22 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Short$.html\">Short</a></span>", style="fill: #285577;"];
+node8 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"\">Ordering</a>[<a href=\"#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node68 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Integral.html\">Integral</a>[<a href=\"Integral.html#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node62 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$BigDecimalIsConflicted.html\">BigDecimalIsConflicted</a></span>", style="fill: #1CAACF;"];
+node14 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Unit$.html\">Unit</a></span>", style="fill: #285577;"];
+node18 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Byte$.html\">Byte</a></span>", style="fill: #285577;"];
+node38 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$BigInt$.html\">BigInt</a></span>", style="fill: #285577;"];
+node28 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Float$$TotalOrdering$.html\">TotalOrdering</a></span>", style="fill: #285577;"];
+node67 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric.html\">Numeric</a>[<a href=\"Numeric.html#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node27 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$Float$$TotalOrdering.html\">TotalOrdering</a></span>", style="fill: #1CAACF;"];
+node32 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$Double$$TotalOrdering.html\">TotalOrdering</a></span>", style="fill: #1CAACF;"];
+node2 [label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\">Any</span></span>", style="fill: #45AD7D;"];
+node0 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"\">Ordering</a>[<a href=\"#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node56 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$LongIsIntegral.html\">LongIsIntegral</a></span>", style="fill: #1CAACF;"];
+node24 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Int$.html\">Int</a></span>", style="fill: #285577;"];
+node69 [label="<span style=\"color: #FFFFFF;\">object <a href=\"../Enumeration$ValueOrdering$.html\">ValueOrdering</a></span>", style="fill: #285577;"];
+node36 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$DeprecatedDoubleOrdering$.html\">DeprecatedDoubleOrdering</a></span>", style="fill: #285577;"];
+node35 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Double$$IeeeOrdering$.html\">IeeeOrdering</a></span>", style="fill: #285577;"];
+node33 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$Double$$TotalOrdering$.html\">TotalOrdering</a></span>", style="fill: #285577;"];
+node37 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$BigIntOrdering.html\">BigIntOrdering</a></span>", style="fill: #1CAACF;"];
+node4 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"PartialOrdering.html\">PartialOrdering</a>[<a href=\"#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node11 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Fractional.html\">Fractional</a>[<a href=\"Fractional.html#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node47 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Numeric$$BigIntIsIntegral$.html\">BigIntIsIntegral</a></span>", style="fill: #285577;"];
+node43 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$SymbolOrdering.html\">SymbolOrdering</a></span>", style="fill: #1CAACF;"];
+node15 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$BooleanOrdering.html\">BooleanOrdering</a></span>", style="fill: #1CAACF;"];
+node52 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$ByteIsIntegral.html\">ByteIsIntegral</a></span>", style="fill: #1CAACF;"];
+node19 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$CharOrdering.html\">CharOrdering</a></span>", style="fill: #1CAACF;"];
+node48 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Numeric$$IntIsIntegral.html\">IntIsIntegral</a></span>", style="fill: #1CAACF;"];
+node34 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$Double$$IeeeOrdering.html\">IeeeOrdering</a></span>", style="fill: #1CAACF;"];
+node41 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Ordering$$StringOrdering.html\">StringOrdering</a></span>", style="fill: #1CAACF;"];
+node7 [label="<span style=\"color: #FFFFFF;\">object <a href=\"../concurrent/duration/Duration$$DurationIsOrdered$.html\">DurationIsOrdered</a></span>", style="fill: #285577;"];
+node40 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Ordering$$BigDecimal$.html\">BigDecimal</a></span>", style="fill: #285577;"];
+
+
+ node0 -> node1;
+node1 -> node2;
+node0 -> node3;
+node3 -> node1;
+node0 -> node4;
+node4 -> node1;
+node4 -> node5;
+node5 -> node2;
+node5 -> node6;
+node0 -> node6;
+node7 -> node8;
+node9 -> node8;
+node10 -> node8;
+node11 -> node8;
+node12 -> node8;
+node13 -> node8;
+node14 -> node8;
+node15 -> node8;
+node16 -> node8;
+node17 -> node8;
+node18 -> node8;
+node19 -> node8;
+node20 -> node8;
+node21 -> node8;
+node22 -> node8;
+node23 -> node8;
+node24 -> node8;
+node25 -> node8;
+node26 -> node8;
+node27 -> node8;
+node28 -> node8;
+node29 -> node8;
+node30 -> node8;
+node31 -> node8;
+node32 -> node8;
+node33 -> node8;
+node34 -> node8;
+node35 -> node8;
+node36 -> node8;
+node37 -> node8;
+node38 -> node8;
+node39 -> node8;
+node40 -> node8;
+node41 -> node8;
+node42 -> node8;
+node43 -> node8;
+node44 -> node8;
+node45 -> node8;
+node46 -> node8;
+node47 -> node8;
+node48 -> node8;
+node49 -> node8;
+node50 -> node8;
+node51 -> node8;
+node52 -> node8;
+node53 -> node8;
+node54 -> node8;
+node55 -> node8;
+node56 -> node8;
+node57 -> node8;
+node58 -> node8;
+node59 -> node8;
+node60 -> node8;
+node61 -> node8;
+node62 -> node8;
+node63 -> node8;
+node64 -> node8;
+node65 -> node8;
+node66 -> node8;
+node67 -> node8;
+node68 -> node8;
+node69 -> node8;
+
+}
+</script></div></div></div>
+      </div>
+    </div>
+  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../scripts/pages.js"></script><script type="text/javascript" src="../../../scripts/main.js"></script></body></html>

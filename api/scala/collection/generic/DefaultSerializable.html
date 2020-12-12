@@ -1,0 +1,150 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>DefaultSerializable</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201211-dbc1186-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="scala.collection.generic.DefaultSerializable////PointingToDeclaration/DefaultSerializablescala.collection.generic.DefaultSerializable//[][origin:/__w/dotty/dotty/stdlib-bootstrapped/../out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/classes/scala/collection/generic/DefaultSerializable.class]/-1771105915">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">API</a>/<a href="../../index.html">scala</a>/<a href="../index.html">collection</a>/<a href="index.html">generic</a>/<a href=".html">DefaultSerializable</a></div>
+    <div class="cover ">
+      <h1 class="">DefaultSerializable</h1>
+      <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Scala 3/main"><div class="symbol monospace"> trait <a href="">DefaultSerializable</a> extends <span data-unresolved-link="scala/Serializable///PointingToGenericParameters(1)/Serializablescala.package$.Serializable//[][origin:/__w/dotty/dotty/stdlib-bootstrapped/../out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/classes/scala/package.class]">Serializable</span></div><div><div class="documentableBrief doc">
+  <p class="paragraph">Mix-in trait to enable DefaultSerializationProxy for the standard collection types. Depending on the type
+it is mixed into, it will dynamically choose <code>iterableFactory</code>, <code>mapFactory</code>, <code>sortedIterableFactory</code> or
+<code>sortedMapFactory</code> for deserialization into the respective <code>CC</code> type. Override <code>writeReplace</code> or implement
+it directly without using this trait if you need a non-standard factory or if you want to use a different
+serialization scheme.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/collection/generic/DefaultSerializationProxy.scala#L77">(source)</a></dd></dl></div></div></div></div>
+    </div>
+<div class="documentableFilter"><div class="filterUpperContainer"><button class="filterToggleButton" data-test-id="filterToggleButton">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </button><input class="filterableInput" placeholder="Filter all members" data-test-id="filterBarInput"></input></div><div class="filterLowerContainer"></div></div>    <div class="tabbedcontent">
+      <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Linear supertypes">Linear supertypes</button><button class="section-tab" data-togglable="Known subtypes">Known subtypes</button><button class="section-tab" data-togglable="Type hierarchy">Type hierarchy</button></div>
+      <div class="tabs-section-body">
+        <h2 class="tabbedcontent">Linear supertypes</h2>
+        <div data-togglable="Linear supertypes"><div class="symbol monospace">
+  <div class="symbol paragraph">trait <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">Serializable</a></div>
+
+  <div class="symbol paragraph">class <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a></div>
+
+  <div class="symbol paragraph">class <span data-unresolved-link="scala.Any////PointingToDeclaration/Anyscala.Any//[]">Any</span></div>
+</div></div>
+        <h2 class="tabbedcontent">Known subtypes</h2>
+        <div data-togglable="Known subtypes"><div class="symbol monospace">
+  <div class="symbol paragraph">class <a href="../immutable/TreeMap.html">TreeMap</a>[<a href="../immutable/TreeMap.html#K">K</a>, <a href="../immutable/TreeMap.html#V">V</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../immutable/MapOps$ImmutableKeySet.html">ImmutableKeySet</a></div>
+
+  <div class="symbol paragraph">class <a href="../immutable/Vector.html">Vector</a>[<a href="../immutable/Vector.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../immutable/HashMap.html">HashMap</a>[<a href="../immutable/HashMap.html#K">K</a>, <a href="../immutable/HashMap.html#V">V</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../immutable/List.html">List</a>[<a href="../immutable/List.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../immutable/Queue.html">Queue</a>[<a href="../immutable/Queue.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../immutable/::.html">::</a>[<a href="../immutable/::.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../immutable/TreeSet.html">TreeSet</a>[<a href="../immutable/TreeSet.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">object <a href="../immutable/Nil$.html">Nil</a></div>
+
+  <div class="symbol paragraph">class <a href="../immutable/HashSet.html">HashSet</a>[<a href="../immutable/HashSet.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../immutable/ListMap.html">ListMap</a>[<a href="../immutable/ListMap.html#K">K</a>, <a href="../immutable/ListMap.html#V">V</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../immutable/ListSet.html">ListSet</a>[<a href="../immutable/ListSet.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../concurrent/TrieMap.html">TrieMap</a>[<a href="../concurrent/TrieMap.html#K">K</a>, <a href="../concurrent/TrieMap.html#V">V</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/UnrolledBuffer.html">UnrolledBuffer</a>[<a href="../mutable/UnrolledBuffer.html#T">T</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/LinkedHashMap.html">LinkedHashMap</a>[<a href="../mutable/LinkedHashMap.html#K">K</a>, <a href="../mutable/LinkedHashMap.html#V">V</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/ListBuffer.html">ListBuffer</a>[<a href="../mutable/ListBuffer.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/TreeMap.html">TreeMap</a>[<a href="../mutable/TreeMap.html#K">K</a>, <a href="../mutable/TreeMap.html#V">V</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/OpenHashMap.html">OpenHashMap</a>[<a href="../mutable/OpenHashMap.html#Key">Key</a>, <a href="../mutable/OpenHashMap.html#Value">Value</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/Queue.html">Queue</a>[<a href="../mutable/Queue.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/TreeSet.html">TreeSet</a>[<a href="../mutable/TreeSet.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/ArrayDeque.html">ArrayDeque</a>[<a href="../mutable/ArrayDeque.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/ArrayBuffer.html">ArrayBuffer</a>[<a href="../mutable/ArrayBuffer.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/ListMap.html">ListMap</a>[<a href="../mutable/ListMap.html#K">K</a>, <a href="../mutable/ListMap.html#V">V</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/Stack.html">Stack</a>[<a href="../mutable/Stack.html#A">A</a>]</div>
+
+  <div class="symbol paragraph">class <a href="../mutable/LinkedHashSet.html">LinkedHashSet</a>[<a href="../mutable/LinkedHashSet.html#A">A</a>]</div>
+</div></div>
+        <h2 class="tabbedcontent">Type hierarchy</h2>
+        <div data-togglable="Type hierarchy"><div class="symbol monospace"><div id="inheritance-diagram" class="diagram-class"><svg id="graph"></svg><script type="text/dot" id="dot"> digraph g {
+ node25 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/ArrayBuffer.html\">ArrayBuffer</a>[<a href=\"../mutable/ArrayBuffer.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node5 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/MapOps$ImmutableKeySet.html\">ImmutableKeySet</a></span>", style="fill: #45AD7D;"];
+node1 [label="<span style=\"color: #FFFFFF;\">class <a href=\"https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\">Object</a></span>", style="fill: #45AD7D;"];
+node16 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../concurrent/TrieMap.html\">TrieMap</a>[<a href=\"../concurrent/TrieMap.html#K\">K</a>, <a href=\"../concurrent/TrieMap.html#V\">V</a>]</span>", style="fill: #45AD7D;"];
+node17 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/UnrolledBuffer.html\">UnrolledBuffer</a>[<a href=\"../mutable/UnrolledBuffer.html#T\">T</a>]</span>", style="fill: #45AD7D;"];
+node15 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/ListSet.html\">ListSet</a>[<a href=\"../immutable/ListSet.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node4 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/TreeMap.html\">TreeMap</a>[<a href=\"../immutable/TreeMap.html#K\">K</a>, <a href=\"../immutable/TreeMap.html#V\">V</a>]</span>", style="fill: #45AD7D;"];
+node9 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/Queue.html\">Queue</a>[<a href=\"../immutable/Queue.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node8 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/List.html\">List</a>[<a href=\"../immutable/List.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node14 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/ListMap.html\">ListMap</a>[<a href=\"../immutable/ListMap.html#K\">K</a>, <a href=\"../immutable/ListMap.html#V\">V</a>]</span>", style="fill: #45AD7D;"];
+node20 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/TreeMap.html\">TreeMap</a>[<a href=\"../mutable/TreeMap.html#K\">K</a>, <a href=\"../mutable/TreeMap.html#V\">V</a>]</span>", style="fill: #45AD7D;"];
+node12 [label="<span style=\"color: #FFFFFF;\">object <a href=\"../immutable/Nil$.html\">Nil</a></span>", style="fill: #285577;"];
+node11 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/TreeSet.html\">TreeSet</a>[<a href=\"../immutable/TreeSet.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node7 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/HashMap.html\">HashMap</a>[<a href=\"../immutable/HashMap.html#K\">K</a>, <a href=\"../immutable/HashMap.html#V\">V</a>]</span>", style="fill: #45AD7D;"];
+node6 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/Vector.html\">Vector</a>[<a href=\"../immutable/Vector.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node28 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/LinkedHashSet.html\">LinkedHashSet</a>[<a href=\"../mutable/LinkedHashSet.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node19 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/ListBuffer.html\">ListBuffer</a>[<a href=\"../mutable/ListBuffer.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node18 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/LinkedHashMap.html\">LinkedHashMap</a>[<a href=\"../mutable/LinkedHashMap.html#K\">K</a>, <a href=\"../mutable/LinkedHashMap.html#V\">V</a>]</span>", style="fill: #45AD7D;"];
+node27 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/Stack.html\">Stack</a>[<a href=\"../mutable/Stack.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node13 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/HashSet.html\">HashSet</a>[<a href=\"../immutable/HashSet.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node0 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"\">DefaultSerializable</a></span>", style="fill: #1CAACF;"];
+node21 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/OpenHashMap.html\">OpenHashMap</a>[<a href=\"../mutable/OpenHashMap.html#Key\">Key</a>, <a href=\"../mutable/OpenHashMap.html#Value\">Value</a>]</span>", style="fill: #45AD7D;"];
+node23 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/TreeSet.html\">TreeSet</a>[<a href=\"../mutable/TreeSet.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node22 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/Queue.html\">Queue</a>[<a href=\"../mutable/Queue.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node2 [label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\">Any</span></span>", style="fill: #45AD7D;"];
+node24 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/ArrayDeque.html\">ArrayDeque</a>[<a href=\"../mutable/ArrayDeque.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node3 [label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\">Serializable</span></span>", style="fill: #45AD7D;"];
+node10 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../immutable/::.html\">::</a>[<a href=\"../immutable/::.html#A\">A</a>]</span>", style="fill: #45AD7D;"];
+node26 [label="<span style=\"color: #FFFFFF;\">class <a href=\"../mutable/ListMap.html\">ListMap</a>[<a href=\"../mutable/ListMap.html#K\">K</a>, <a href=\"../mutable/ListMap.html#V\">V</a>]</span>", style="fill: #45AD7D;"];
+
+
+ node0 -> node1;
+node1 -> node2;
+node0 -> node3;
+node4 -> node0;
+node5 -> node0;
+node6 -> node0;
+node7 -> node0;
+node8 -> node0;
+node9 -> node0;
+node10 -> node0;
+node11 -> node0;
+node12 -> node0;
+node13 -> node0;
+node14 -> node0;
+node15 -> node0;
+node16 -> node0;
+node17 -> node0;
+node18 -> node0;
+node19 -> node0;
+node20 -> node0;
+node21 -> node0;
+node22 -> node0;
+node23 -> node0;
+node24 -> node0;
+node25 -> node0;
+node26 -> node0;
+node27 -> node0;
+node28 -> node0;
+
+}
+</script></div></div></div>
+      </div>
+    </div>
+  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>

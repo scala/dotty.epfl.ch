@@ -1,0 +1,449 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Future</title><link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico"></link><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" defer="true"></script><script type="text/javascript" src="../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../scripts/fast-navigation-loader.js" defer="true"></script><script>var pathToRoot = "../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201211-dbc1186-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="scala.concurrent.Future////PointingToDeclaration/Futurescala.concurrent.Future//[][origin:/__w/dotty/dotty/stdlib-bootstrapped/../out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/classes/scala/concurrent/Future.class]/-1771105915">
+    <div class="breadcrumbs"><a href="../../../docs/index.html">Scala 3</a>/<a href="../../index.html">API</a>/<a href="../index.html">scala</a>/<a href="index.html">concurrent</a>/<a href=".html">Future</a></div>
+    <div class="cover ">
+      <h1 class="">Future</h1>
+      <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Scala 3/main"><div class="symbol monospace"> trait <a href="">Future</a>[+T] extends <a href="Awaitable.html">Awaitable</a>[<a href="#T">T</a>]</div><div><div class="documentableBrief doc">
+  <p class="paragraph">A <code>Future</code> represents a value which may or may not *currently* be available,
+but will be available at some point, or an exception if that value could not be made available.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Asynchronous computations that yield futures are created with the <code>Future.apply</code> call and are computed using a supplied <code>ExecutionContext</code>,
+which can be backed by a Thread pool.</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">import ExecutionContext.Implicits.global
+val s = &quot;Hello&quot;
+val f: Future[String] = Future {
+  s + &quot; future!&quot;
+}
+f foreach {
+  msg =&gt; println(msg)
+}</code></pre>
+  </div>
+</div><dl class="attributes"><dt>See also</dt><dd><div><div>
+  <p class="paragraph"><a href="http://docs.scala-lang.org/overviews/core/futures.html">Futures and Promises</a></p>
+</div></div></dd><dt>Companion</dt><dd><a href="Future$.html">object</a></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L98">(source)</a></dd></dl></div></div></div></div>
+    </div>
+<div class="documentableFilter"><div class="filterUpperContainer"><button class="filterToggleButton" data-test-id="filterToggleButton">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </button><input class="filterableInput" placeholder="Filter all members" data-test-id="filterBarInput"></input></div><div class="filterLowerContainer"></div></div>    <div class="tabbedcontent">
+      <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Methods">Methods</button><button class="section-tab" data-togglable="Linear supertypes">Linear supertypes</button><button class="section-tab" data-togglable="Known subtypes">Known subtypes</button><button class="section-tab" data-togglable="Type hierarchy">Type hierarchy</button></div>
+      <div class="tabs-section-body">
+        <h3 class="tabbedcontent">Methods</h3>
+        <div data-togglable="Methods"><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Defined methods</h3><div class="documentableElement" id="onComplete"><a href="#onComplete" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#onComplete" class="documentableName monospace ">onComplete</a><span class="signature monospace">[U](f: <a href="../util/Try.html">Try</a>[<a href="#T">T</a>] => <a href="#U">U</a>)(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="../Unit.html">Unit</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">When this future is completed, either through an exception, or a value,
+apply the provided function.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If the future has already been completed,
+this will either be applied immediately or be scheduled asynchronously.</p>
+
+  <p class="paragraph">Note that the returned value of <code>f</code> will be discarded.</p>
+
+  <p class="paragraph">Since this method executes asynchronously and does not produce a return value,
+any non-fatal exceptions thrown will be reported to the <code>ExecutionContext</code>.</p>
+
+  <p class="paragraph">Multiple callbacks may be registered; there is no guarantee that they will be
+executed in a particular order.</p>
+
+  <p class="paragraph">The provided callback always runs in the provided implicit
+<code>ExecutionContext</code>, though there is no guarantee that the
+<code>execute()</code> method on the <code>ExecutionContext</code> will be called once
+per callback or that <code>execute()</code> will be called in the current
+thread. That is, the implementation may run multiple callbacks
+in a batch within a single <code>execute()</code> and it may run
+<code>execute()</code> either immediately or asynchronously.
+Completion of the Future must *happen-before* the invocation of the callback.
+</p>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>U</dt><dd>
+  <p class="paragraph">only used to accept any return type of the given callback function</p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>f</dt><dd>
+  <p class="paragraph">the function to be executed when this <code>Future</code> completes</p>
+</dd></dl></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L118">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="isCompleted"><a href="#isCompleted" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#isCompleted" class="documentableName monospace ">isCompleted</a><span class="signature monospace">: <a href="../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns whether the future had already been completed with
+a value or an exception.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Note: using this method yields nondeterministic dataflow programs.</p>
+</div><dl class="attributes"><dt>Returns</dt><dd>
+  <p class="paragraph"><code>true</code> if the future was completed, <code>false</code> otherwise</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L131">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="value"><a href="#value" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#value" class="documentableName monospace ">value</a><span class="signature monospace">: <a href="../Option.html">Option</a>[<a href="../util/Try.html">Try</a>[<a href="#T">T</a>]]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">The current value of this <code>Future</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Note: using this method yields nondeterministic dataflow programs.</p>
+
+  <p class="paragraph">If the future was not completed the returned value will be <code>None</code>.
+If the future was completed the value will be <code>Some(Success(t))</code>
+if it contained a valid result, or <code>Some(Failure(error))</code> if it contained
+an exception.
+</p>
+</div><dl class="attributes"><dt>Returns</dt><dd>
+  <p class="paragraph"><code>None</code> if the <code>Future</code> wasn't completed, <code>Some</code> if it was.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L145">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="failed"><a href="#failed" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#failed" class="documentableName monospace ">failed</a><span class="signature monospace">: <a href="">Future</a>[<span data-unresolved-link="">Throwable</span>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">The returned <code>Future</code> will be successfully completed with the <code>Throwable</code> of the original <code>Future</code>
+if the original <code>Future</code> fails.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If the original <code>Future</code> is successful, the returned <code>Future</code> is failed with a <code>NoSuchElementException</code>.</p>
+
+  <p class="paragraph">This future may contain a throwable object and this means that the future failed.
+Futures obtained through combinators have the same exception as the future they were obtained from.
+The following throwable objects are not contained in the future:
+- <code>Error</code> - fatal errors are not contained within futures
+- <code>InterruptedException</code> - not contained within futures
+- all <code>scala.util.control.ControlThrowable</code> except <code>NonLocalReturnControl</code> - not contained within futures</p>
+
+  <p class="paragraph">Instead, the future is completed with a ExecutionException with one of the exceptions above
+as the cause.
+If a future is failed with a <code>scala.runtime.NonLocalReturnControl</code>,
+it is completed with a value from that throwable instead.</p>
+</div><dl class="attributes"><dt>Returns</dt><dd>
+  <p class="paragraph">a failed projection of this <code>Future</code>.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L160">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="foreach"><a href="#foreach" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#foreach" class="documentableName monospace ">foreach</a><span class="signature monospace">[U](f: <a href="#T">T</a> => <a href="#U">U</a>)(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="../Unit.html">Unit</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Asynchronously processes the value in the future once the value becomes available.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">WARNING: Will not be called if this future is never completed or if it is completed with a failure.</p>
+
+  <p class="paragraph">Since this method executes asynchronously and does not produce a return value,
+any non-fatal exceptions thrown will be reported to the <code>ExecutionContext</code>.</p>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>U</dt><dd>
+  <p class="paragraph">only used to accept any return type of the given callback function</p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>f</dt><dd>
+  <p class="paragraph">the function which will be executed if this <code>Future</code> completes with a result,
+             the return value of <code>f</code> will be discarded.</p>
+</dd></dl></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L176">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="transform"><a href="#transform" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#transform" class="documentableName monospace ">transform</a><span class="signature monospace">[S](s: <a href="#T">T</a> => <a href="#S">S</a>, f: <span data-unresolved-link="">Throwable</span> => <span data-unresolved-link="">Throwable</span>)(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#S">S</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future by applying the 's' function to the successful result of
+this future, or the 'f' function to the failed result. If there is any non-fatal
+exception thrown when 's' or 'f' is applied, that exception will be propagated
+to the resulting future.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>S</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>f</dt><dd>
+  <p class="paragraph">function that transforms a failure of the receiver into a failure of the returned future</p>
+</dd><dt>s</dt><dd>
+  <p class="paragraph">function that transforms a successful result of the receiver into a successful result of the returned future</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> that will be completed with the transformed value</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L189">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="transform"><a href="#transform" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#transform" class="documentableName monospace ">transform</a><span class="signature monospace">[S](f: <a href="../util/Try.html">Try</a>[<a href="#T">T</a>] => <a href="../util/Try.html">Try</a>[<a href="#S">S</a>])(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#S">S</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new Future by applying the specified function to the result
+of this Future. If there is any non-fatal exception thrown when 'f'
+is applied then that exception will be propagated to the resulting future.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>S</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>f</dt><dd>
+  <p class="paragraph">function that transforms the result of this future</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> that will be completed with the transformed value</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L205">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="transformWith"><a href="#transformWith" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#transformWith" class="documentableName monospace ">transformWith</a><span class="signature monospace">[S](f: <a href="../util/Try.html">Try</a>[<a href="#T">T</a>] => <a href="">Future</a>[<a href="#S">S</a>])(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#S">S</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new Future by applying the specified function, which produces a Future, to the result
+of this Future. If there is any non-fatal exception thrown when 'f'
+is applied then that exception will be propagated to the resulting future.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>S</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>f</dt><dd>
+  <p class="paragraph">function that transforms the result of this future</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> that will be completed with the transformed value</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L216">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="map"><a href="#map" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#map" class="documentableName monospace ">map</a><span class="signature monospace">[S](f: <a href="#T">T</a> => <a href="#S">S</a>)(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#S">S</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future by applying a function to the successful result of
+this future. If this future is completed with an exception then the new
+future will also contain this exception.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">val f = Future { &quot;The future&quot; }
+val g = f map { x: String =&gt; x + &quot; is now!&quot; }</code></pre>
+  </div>
+
+  <p class="paragraph">Note that a for comprehension involving a <code>Future</code>
+may expand to include a call to <code>map</code> and or <code>flatMap</code>
+and <code>withFilter</code>.  See <a href="#flatMap">scala.concurrent.Future#flatMap</a> for an example of such a comprehension.</p>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>S</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>f</dt><dd>
+  <p class="paragraph">the function which will be applied to the successful result of this <code>Future</code></p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> which will be completed with the result of the application of the function</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L240">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="flatMap"><a href="#flatMap" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#flatMap" class="documentableName monospace ">flatMap</a><span class="signature monospace">[S](f: <a href="#T">T</a> => <a href="">Future</a>[<a href="#S">S</a>])(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#S">S</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future by applying a function to the successful result of
+this future, and returns the result of the function as the new future.
+If this future is completed with an exception then the new future will
+also contain this exception.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">val f = Future { 5 }
+val g = Future { 3 }
+val h = for {
+  x: Int &lt;- f // returns Future(5)
+  y: Int &lt;- g // returns Future(3)
+} yield x + y</code></pre>
+  </div>
+
+  <p class="paragraph">is translated to:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">f flatMap { (x: Int) =&gt; g map { (y: Int) =&gt; x + y } }</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>S</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>f</dt><dd>
+  <p class="paragraph">the function which will be applied to the successful result of this <code>Future</code></p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> which will be completed with the result of the application of the function</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L254">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="flatten"><a href="#flatten" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#flatten" class="documentableName monospace ">flatten</a><span class="signature monospace">[S](ev: <a href="#T">T</a> <a href="../<:<.html">&lt;:&lt;</a> <a href="">Future</a>[<a href="#S">S</a>]): <a href="">Future</a>[<a href="#S">S</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future with one level of nesting flattened, this method is equivalent
+to <code>flatMap(identity)</code>.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>S</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L266">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="filter"><a href="#filter" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#filter" class="documentableName monospace ">filter</a><span class="signature monospace">(p: <a href="#T">T</a> => <a href="../Boolean.html">Boolean</a>)(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future by filtering the value of the current future with a predicate.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If the current future contains a value which satisfies the predicate, the new future will also hold that value.
+Otherwise, the resulting future will fail with a <code>NoSuchElementException</code>.</p>
+
+  <p class="paragraph">If the current future fails, then the resulting future also fails.</p>
+
+  <p class="paragraph">Example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">val f = Future { 5 }
+val g = f filter { _ % 2 == 1 }
+val h = f filter { _ % 2 == 0 }
+g foreach println // Eventually prints 5
+Await.result(h, Duration.Zero) // throw a NoSuchElementException</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>p</dt><dd>
+  <p class="paragraph">the predicate to apply to the successful result of this <code>Future</code></p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> which will hold the successful result of this <code>Future</code> if it matches the predicate or a <code>NoSuchElementException</code></p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L288">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="withFilter" data-f-keywords="final"><a href="#withFilter" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">final </span><span class="kind">def </span></span><a href="#withFilter" class="documentableName monospace ">withFilter</a><span class="signature monospace">(p: <a href="#T">T</a> => <a href="../Boolean.html">Boolean</a>)(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Used by for-comprehensions.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L300">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="collect"><a href="#collect" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#collect" class="documentableName monospace ">collect</a><span class="signature monospace">[S](pf: <a href="../PartialFunction.html">PartialFunction</a>[<a href="#T">T</a>, <a href="#S">S</a>])(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#S">S</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future by mapping the value of the current future, if the given partial function is defined at that value.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If the current future contains a value for which the partial function is defined, the new future will also hold that value.
+Otherwise, the resulting future will fail with a <code>NoSuchElementException</code>.</p>
+
+  <p class="paragraph">If the current future fails, then the resulting future also fails.</p>
+
+  <p class="paragraph">Example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">val f = Future { -5 }
+val g = f collect {
+  case x if x &lt; 0 =&gt; -x
+}
+val h = f collect {
+  case x if x &gt; 0 =&gt; x * 2
+}
+g foreach println // Eventually prints 5
+Await.result(h, Duration.Zero) // throw a NoSuchElementException</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>S</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>pf</dt><dd>
+  <p class="paragraph">the <code>PartialFunction</code> to apply to the successful result of this <code>Future</code></p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> holding the result of application of the <code>PartialFunction</code> or a <code>NoSuchElementException</code></p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L327">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="recover"><a href="#recover" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#recover" class="documentableName monospace ">recover</a><span class="signature monospace">[U >: <a href="#T">T</a>](pf: <a href="../PartialFunction.html">PartialFunction</a>[<span data-unresolved-link="">Throwable</span>, <a href="#U">U</a>])(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#U">U</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future that will handle any matching throwable that this
+future might contain. If there is no match, or if this future contains
+a valid result then the new future will contain the same.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">Future (6 / 0) recover { case e: ArithmeticException =&gt; 0 } // result: 0
+Future (6 / 0) recover { case e: NotFoundException   =&gt; 0 } // result: exception
+Future (6 / 2) recover { case e: ArithmeticException =&gt; 0 } // result: 3</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>U</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>pf</dt><dd>
+  <p class="paragraph">the <code>PartialFunction</code> to apply if this <code>Future</code> fails</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> with the successful value of this <code>Future</code> or the result of the <code>PartialFunction</code></p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L352">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="recoverWith"><a href="#recoverWith" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#recoverWith" class="documentableName monospace ">recoverWith</a><span class="signature monospace">[U >: <a href="#T">T</a>](pf: <a href="../PartialFunction.html">PartialFunction</a>[<span data-unresolved-link="">Throwable</span>, <a href="">Future</a>[<a href="#U">U</a>]])(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#U">U</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future that will handle any matching throwable that this
+future might contain by assigning it a value of another future.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If there is no match, or if this future contains
+a valid result then the new future will contain the same result.</p>
+
+  <p class="paragraph">Example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">val f = Future { Int.MaxValue }
+Future (6 / 0) recoverWith { case e: ArithmeticException =&gt; f } // result: Int.MaxValue</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>U</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>pf</dt><dd>
+  <p class="paragraph">the <code>PartialFunction</code> to apply if this <code>Future</code> fails</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> with the successful value of this <code>Future</code> or the outcome of the <code>Future</code> returned by the <code>PartialFunction</code></p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L373">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="zip"><a href="#zip" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#zip" class="documentableName monospace ">zip</a><span class="signature monospace">[U](that: <a href="">Future</a>[<a href="#U">U</a>]): <a href="">Future</a>[(<a href="#T">T</a>, <a href="#U">U</a>)]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Zips the values of <code>this</code> and <code>that</code> future, and creates
+a new future holding the tuple of their results.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If <code>this</code> future fails, the resulting future is failed
+with the throwable stored in <code>this</code>.
+Otherwise, if <code>that</code> future fails, the resulting future is failed
+with the throwable stored in <code>that</code>.
+</p>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>U</dt><dd>
+  <p class="paragraph">the type of the other <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>that</dt><dd>
+  <p class="paragraph">the other <code>Future</code></p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> with the results of both futures or the failure of the first of them that failed</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L396">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="zipWith"><a href="#zipWith" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#zipWith" class="documentableName monospace ">zipWith</a><span class="signature monospace">[U, R](that: <a href="">Future</a>[<a href="#U">U</a>])(f: (<a href="#T">T</a>, <a href="#U">U</a>) => <a href="#R">R</a>)(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#R">R</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Zips the values of <code>this</code> and <code>that</code> future using a function <code>f</code>,
+and creates a new future holding the result.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">If <code>this</code> future fails, the resulting future is failed
+with the throwable stored in <code>this</code>.
+Otherwise, if <code>that</code> future fails, the resulting future is failed
+with the throwable stored in <code>that</code>.
+If the application of <code>f</code> throws a throwable, the resulting future
+is failed with that throwable if it is non-fatal.
+</p>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>R</dt><dd>
+  <p class="paragraph">the type of the resulting <code>Future</code></p>
+</dd><dt>U</dt><dd>
+  <p class="paragraph">the type of the other <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>f</dt><dd>
+  <p class="paragraph">the function to apply to the results of <code>this</code> and <code>that</code></p>
+</dd><dt>that</dt><dd>
+  <p class="paragraph">the other <code>Future</code></p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> with the result of the application of <code>f</code> to the results of <code>this</code> and <code>that</code></p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L416">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="fallbackTo"><a href="#fallbackTo" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#fallbackTo" class="documentableName monospace ">fallbackTo</a><span class="signature monospace">[U >: <a href="#T">T</a>](that: <a href="">Future</a>[<a href="#U">U</a>]): <a href="">Future</a>[<a href="#U">U</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new future which holds the result of this future if it was completed successfully, or, if not,
+the result of the <code>that</code> future if <code>that</code> is completed successfully.
+If both futures are failed, the resulting future holds the throwable object of the first future.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">Using this method will not cause concurrent programs to become nondeterministic.</p>
+
+  <p class="paragraph">Example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">val f = Future { throw new RuntimeException(&quot;failed&quot;) }
+val g = Future { 5 }
+val h = f fallbackTo g
+h foreach println // Eventually prints 5</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>U</dt><dd>
+  <p class="paragraph">the type of the other <code>Future</code> and the resulting <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>that</dt><dd>
+  <p class="paragraph">the <code>Future</code> whose result we want to use if this <code>Future</code> fails.</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> with the successful result of this or that <code>Future</code> or the failure of this <code>Future</code> if both fail</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L438">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="mapTo"><a href="#mapTo" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#mapTo" class="documentableName monospace ">mapTo</a><span class="signature monospace">[S](tag: <a href="../reflect/ClassTag.html">ClassTag</a>[<a href="#S">S</a>]): <a href="">Future</a>[<a href="#S">S</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Creates a new <code>Future[S]</code> which is completed with this <code>Future</code>'s result if
+that conforms to <code>S</code>'s erased type or a <code>ClassCastException</code> otherwise.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>S</dt><dd>
+  <p class="paragraph">the type of the returned <code>Future</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>tag</dt><dd>
+  <p class="paragraph">the <code>ClassTag</code> which will be used to cast the result of this <code>Future</code></p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> holding the casted result of this <code>Future</code> or a <code>ClassCastException</code> otherwise</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L457">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="andThen"><a href="#andThen" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#andThen" class="documentableName monospace ">andThen</a><span class="signature monospace">[U](pf: <a href="../PartialFunction.html">PartialFunction</a>[<a href="../util/Try.html">Try</a>[<a href="#T">T</a>], <a href="#U">U</a>])(executor: <a href="ExecutionContext.html">ExecutionContext</a>): <a href="">Future</a>[<a href="#T">T</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Applies the side-effecting function to the result of this future, and returns
+a new future with the result of this future.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">This method allows one to enforce that the callbacks are executed in a
+specified order.</p>
+
+  <p class="paragraph">Note that if one of the chained <code>andThen</code> callbacks throws
+an exception, that exception is not propagated to the subsequent <code>andThen</code>
+callbacks. Instead, the subsequent <code>andThen</code> callbacks are given the original
+value of this future.</p>
+
+  <p class="paragraph">The following example prints out <code>5</code>:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">val f = Future { 5 }
+f andThen {
+  case r =&gt; throw new RuntimeException(&quot;runtime exception&quot;)
+} andThen {
+  case Failure(t) =&gt; println(t)
+  case Success(v) =&gt; println(v)
+}</code></pre>
+  </div>
+
+  <p class="paragraph">Since this method executes asynchronously and does not produce a return value,
+any non-fatal exceptions thrown will be reported to the <code>ExecutionContext</code>.</p>
+</div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>U</dt><dd>
+  <p class="paragraph">only used to accept any return type of the given <code>PartialFunction</code></p>
+</dd></dl></dd><dt>Value Params</dt><dd><dl class="attributes"><dt>pf</dt><dd>
+  <p class="paragraph">a <code>PartialFunction</code> which will be conditionally applied to the outcome of this <code>Future</code></p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">a <code>Future</code> which will be completed with the exact same outcome as this <code>Future</code> but after the <code>PartialFunction</code> has been executed.</p>
+</dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Future.scala#L497">(source)</a></dd></dl></div></div></div></div></div></div><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Inherited methods</h3><div class="documentableElement" id="ready" data-f-inherited="Awaitable"><a href="Awaitable.html#ready" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../throws.html">throws</a>(scala.Predef.classOf[scala.concurrent.TimeoutException]) @<a href="../throws.html">throws</a>(scala.Predef.classOf[scala.InterruptedException]) </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="Awaitable.html#ready" class="documentableName monospace ">ready</a><span class="signature monospace">(atMost: <a href="duration/Duration.html">Duration</a>)(permit: <a href="CanAwait.html">CanAwait</a>): <a href="Awaitable.html">Awaitable</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Await the &quot;completed&quot; state of this <code>Awaitable</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">This method should not be called directly; use <a href="#">Await.ready</a> instead.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>atMost</dt><dd>
+  <p class="paragraph">
+       maximum wait time, which may be negative (no waiting is done),
+       <a href="#">Duration.Inf</a> for unbounded waiting, or a finite positive
+       duration</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">this <code>Awaitable</code></p>
+</dd><dt>Throws</dt><dd><dl class="attributes"><dt>IllegalArgumentException</dt><dd><a href="#">IllegalArgumentException</a></dd><dt>InterruptedException</dt><dd><a href="#">InterruptedException</a></dd><dt>TimeoutException</dt><dd><a href="#">TimeoutException</a></dd></dl></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Awaitable.scala#L47">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="result" data-f-inherited="Awaitable"><a href="Awaitable.html#result" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../throws.html">throws</a>(scala.Predef.classOf[scala.concurrent.TimeoutException]) @<a href="../throws.html">throws</a>(scala.Predef.classOf[scala.InterruptedException]) </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="Awaitable.html#result" class="documentableName monospace ">result</a><span class="signature monospace">(atMost: <a href="duration/Duration.html">Duration</a>)(permit: <a href="CanAwait.html">CanAwait</a>): <a href="Awaitable.html#T">T</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Await and return the result (of type <code>T</code>) of this <code>Awaitable</code>.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">This method should not be called directly; use <a href="#">Await.result</a> instead.
+</p>
+</div><dl class="attributes"><dt>Value Params</dt><dd><dl class="attributes"><dt>atMost</dt><dd>
+  <p class="paragraph">
+       maximum wait time, which may be negative (no waiting is done),
+       <a href="#">Duration.Inf</a> for unbounded waiting, or a finite positive
+       duration</p>
+</dd></dl></dd><dt>Returns</dt><dd>
+  <p class="paragraph">the result value if the <code>Awaitable</code> is completed within the specific maximum wait time</p>
+</dd><dt>Throws</dt><dd><dl class="attributes"><dt>IllegalArgumentException</dt><dd><a href="#">IllegalArgumentException</a></dd><dt>InterruptedException</dt><dd><a href="#">InterruptedException</a></dd><dt>TimeoutException</dt><dd><a href="#">TimeoutException</a></dd></dl></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/concurrent/Awaitable.scala#L65">(source)</a></dd></dl></div></div></div></div></div></div></div>
+        <h2 class="tabbedcontent">Linear supertypes</h2>
+        <div data-togglable="Linear supertypes"><div class="symbol monospace">
+  <div class="symbol paragraph">trait <a href="Awaitable.html">Awaitable</a>[<a href="#T">T</a>]</div>
+
+  <div class="symbol paragraph">class <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a></div>
+
+  <div class="symbol paragraph">class <span data-unresolved-link="scala.Any////PointingToDeclaration/Anyscala.Any//[]">Any</span></div>
+</div></div>
+        <h2 class="tabbedcontent">Known subtypes</h2>
+        <div data-togglable="Known subtypes"><div class="symbol monospace">
+  <div class="symbol paragraph">object <a href="Future$$never$.html">never</a></div>
+</div></div>
+        <h2 class="tabbedcontent">Type hierarchy</h2>
+        <div data-togglable="Type hierarchy"><div class="symbol monospace"><div id="inheritance-diagram" class="diagram-class"><svg id="graph"></svg><script type="text/dot" id="dot"> digraph g {
+ node0 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"\">Future</a>[<a href=\"#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node2 [label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\">Any</span></span>", style="fill: #45AD7D;"];
+node4 [label="<span style=\"color: #FFFFFF;\">object <a href=\"Future$$never$.html\">never</a></span>", style="fill: #285577;"];
+node1 [label="<span style=\"color: #FFFFFF;\">class <a href=\"https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\">Object</a></span>", style="fill: #45AD7D;"];
+node5 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"\">Future</a>[<a href=\"#T\">T</a>]</span>", style="fill: #1CAACF;"];
+node3 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"Awaitable.html\">Awaitable</a>[<a href=\"#T\">T</a>]</span>", style="fill: #1CAACF;"];
+
+
+ node0 -> node1;
+node1 -> node2;
+node0 -> node3;
+node3 -> node1;
+node4 -> node5;
+
+}
+</script></div></div></div>
+      </div>
+    </div>
+  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../scripts/pages.js"></script><script type="text/javascript" src="../../../scripts/main.js"></script></body></html>

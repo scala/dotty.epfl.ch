@@ -1,0 +1,445 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>ProcessBuilder</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/diagram.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/fast-navigation-loader.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201211-dbc1186-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu"></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="scala.sys.process.ProcessBuilder////PointingToDeclaration/ProcessBuilderscala.sys.process.ProcessBuilder//[][origin:/__w/dotty/dotty/stdlib-bootstrapped/../out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/classes/scala/sys/process/ProcessBuilder.class]/-1771105915">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">API</a>/<a href="../../index.html">scala</a>/<a href="../index.html">sys</a>/<a href="index.html">process</a>/<a href=".html">ProcessBuilder</a></div>
+    <div class="cover ">
+      <h1 class="">ProcessBuilder</h1>
+      <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable="Scala 3/main"><div class="symbol monospace"> trait <a href="">ProcessBuilder</a> extends <a href="ProcessBuilder$$Source.html">Source</a> with <a href="ProcessBuilder$$Sink.html">Sink</a></div><div><div class="documentableBrief doc">
+  <p class="paragraph">Represents a sequence of one or more external processes that can be
+executed. A <code>ProcessBuilder</code> can be a single external process, or a
+combination of other <code>ProcessBuilder</code>. One can control where the
+output of an external process will go to, and where its input will come
+from, or leave that decision to whoever starts it.</p>
+</div><div class="cover"><div class="doc">
+  <p class="paragraph">One creates a <code>ProcessBuilder</code> through factories provided in
+<a href="Process.html">scala.sys.process.Process</a>'s companion object, or implicit conversions
+based on these factories made available in the package object
+<span data-unresolved-link="scala.sys.process////PointingToDeclaration/processscala.sys.process//[]">scala.sys.process</span>. Here are some examples:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">import scala.sys.process._
+
+// Executes &quot;ls&quot; and sends output to stdout
+&quot;ls&quot;.!
+
+// Execute &quot;ls&quot; and assign a `LazyList[String]` of its output to &quot;contents&quot;.
+val contents = Process(&quot;ls&quot;).lazyLines
+
+// Here we use a `Seq` to make the parameter whitespace-safe
+def contentsOf(dir: String): String = Seq(&quot;ls&quot;, dir).!!</code></pre>
+  </div>
+
+  <p class="paragraph">The methods of <code>ProcessBuilder</code> are divided in three categories: the ones that
+combine two <code>ProcessBuilder</code> to create a third, the ones that redirect input
+or output of a <code>ProcessBuilder</code>, and the ones that execute
+the external processes associated with it.</p>
+
+  <h2 class="">Combining <code>ProcessBuilder</code></h2>
+
+  <p class="paragraph">Two existing <code>ProcessBuilder</code> can be combined in the following ways:</p>
+
+  <ul>
+    <li>
+      <p class="paragraph">They can be executed in parallel, with the output of the first being fed
+   as input to the second, like Unix pipes. This is achieved with the <code>#|</code>
+   method.</p>
+    </li>
+    <li>
+      <p class="paragraph">They can be executed in sequence, with the second starting as soon as
+   the first ends. This is done by the <code>###</code> method.</p>
+    </li>
+    <li>
+      <p class="paragraph">The execution of the second one can be conditioned by the return code
+   (exit status) of the first, either only when it's zero, or only when it's
+   not zero. The methods <code>#&amp;&amp;</code> and <code>#||</code> accomplish these tasks.</p>
+    </li>
+  </ul>
+
+  <h2 class="">Redirecting Input/Output</h2>
+
+  <p class="paragraph">Though control of input and output can be done when executing the process,
+there's a few methods that create a new <code>ProcessBuilder</code> with a
+pre-configured input or output. They are <code>#&lt;</code>, <code>#&gt;</code> and <code>#&gt;&gt;</code>, and may take
+as input either another <code>ProcessBuilder</code> (like the pipe described above), or
+something else such as a <code>java.io.File</code> or a <code>java.io.InputStream</code>.
+For example:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">new URL(&quot;http://databinder.net/dispatch/About&quot;) #&gt; &quot;grep JSON&quot; #&gt;&gt; new File(&quot;About_JSON&quot;) !</code></pre>
+  </div>
+
+  <h2 class="">Starting Processes</h2>
+
+  <p class="paragraph">To execute all external commands associated with a <code>ProcessBuilder</code>, one
+may use one of four groups of methods. Each of these methods have various
+overloads and variations to enable further control over the I/O. These
+methods are:</p>
+
+  <ul>
+    <li>
+      <p class="paragraph"><code>run</code>: the most general method, it returns a
+   <a href="Process.html">scala.sys.process.Process</a> immediately, and the external command
+   executes concurrently.</p>
+    </li>
+    <li>
+      <p class="paragraph"><code>!</code>: blocks until all external commands exit, and returns the exit code
+   of the last one in the chain of execution.</p>
+    </li>
+    <li>
+      <p class="paragraph"><code>!!</code>: blocks until all external commands exit, and returns a <code>String</code>
+   with the output generated.</p>
+    </li>
+    <li>
+      <p class="paragraph"><code>lazyLines</code>: returns immediately like <code>run</code>, and the output being generated
+   is provided through a <code>LazyList[String]</code>. Getting the next element of that
+   <code>LazyList</code> may block until it becomes available. This method will throw an
+   exception if the return code is different than zero -- if this is not
+   desired, use the <code>lazyLines_!</code> method.</p>
+    </li>
+  </ul>
+
+  <h2 class="">Handling Input and Output</h2>
+
+  <p class="paragraph">If not specified, the input of the external commands executed with <code>run</code> or
+<code>!</code> will not be tied to anything, and the output will be redirected to the
+stdout and stderr of the Scala process. For the methods <code>!!</code> and <code>lazyLines</code>, no
+input will be provided, and the output will be directed according to the
+semantics of these methods.</p>
+
+  <p class="paragraph">Some methods will cause stdin to be used as input. Output can be controlled
+with a <a href="ProcessLogger.html">scala.sys.process.ProcessLogger</a> -- <code>!!</code> and <code>lazyLines</code> will only
+redirect error output when passed a <code>ProcessLogger</code>. If one desires full
+control over input and output, then a <a href="ProcessIO.html">scala.sys.process.ProcessIO</a> can be
+used with <code>run</code>.</p>
+
+  <p class="paragraph">For example, we could silence the error output from <code>lazyLines_!</code> like this:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">val etcFiles = &quot;find /etc&quot; lazyLines_! ProcessLogger(line =&gt; ())</code></pre>
+  </div>
+
+  <h2 class="">Extended Example</h2>
+
+  <p class="paragraph">Let's examine in detail one example of usage:</p>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">import scala.sys.process._
+&quot;find src -name *.scala -exec grep null {} ;&quot;  #|  &quot;xargs test -z&quot;  #&amp;&amp;  &quot;echo null-free&quot;  #||  &quot;echo null detected&quot;  !</code></pre>
+  </div>
+
+  <p class="paragraph">Note that every <code>String</code> is implicitly converted into a <code>ProcessBuilder</code>
+through the implicits imported from <span data-unresolved-link="scala.sys.process////PointingToDeclaration/processscala.sys.process//[]">scala.sys.process</span>. These <code>ProcessBuilder</code> are then
+combined in three different ways.</p>
+
+  <ol>
+    <li>
+      <p class="paragraph"><code>#|</code> pipes the output of the first command into the input of the second command. It
+    mirrors a shell pipe (<code>|</code>).</p>
+    </li>
+    <li>
+      <p class="paragraph"><code>#&amp;&amp;</code> conditionally executes the second command if the previous one finished with
+    exit value 0. It mirrors shell's <code>&amp;&amp;</code>.</p>
+    </li>
+    <li>
+      <p class="paragraph"><code>#||</code> conditionally executes the third command if the exit value of the previous
+    command is different than zero. It mirrors shell's <code>||</code>.</p>
+    </li>
+  </ol>
+
+  <p class="paragraph">Finally, <code>!</code> at the end executes the commands, and returns the exit value.
+Whatever is printed will be sent to the Scala process standard output. If
+we wanted to capture it, we could run that with <code>!!</code> instead.</p>
+
+  <p class="paragraph">Note: though it is not shown above, the equivalent of a shell's <code>;</code> would be
+<code>###</code>. The reason for this name is that <code>;</code> is a reserved token in Scala.</p>
+</div><dl class="attributes"><dt>Companion</dt><dd><a href="ProcessBuilder$.html">object</a></dd><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L138">(source)</a></dd></dl></div></div></div></div>
+    </div>
+<div class="documentableFilter"><div class="filterUpperContainer"><button class="filterToggleButton" data-test-id="filterToggleButton">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </button><input class="filterableInput" placeholder="Filter all members" data-test-id="filterBarInput"></input></div><div class="filterLowerContainer"></div></div>    <div class="tabbedcontent">
+      <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Methods">Methods</button><button class="section-tab" data-togglable="Linear supertypes">Linear supertypes</button><button class="section-tab" data-togglable="Type hierarchy">Type hierarchy</button></div>
+      <div class="tabs-section-body">
+        <h3 class="tabbedcontent">Methods</h3>
+        <div data-togglable="Methods"><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Defined methods</h3><div class="documentableElement" id="!!"><a href="#!!" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#!!" class="documentableName monospace ">!!</a><span class="signature monospace">: <a href="../../Predef$.html#String">String</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder, blocks until it exits, and
+returns the output as a String.  Standard error is sent to the console.  If
+the exit code is non-zero, an exception is thrown.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L143">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="!!"><a href="#!!" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#!!" class="documentableName monospace ">!!</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="../../Predef$.html#String">String</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder, blocks until it exits, and
+returns the output as a String.  Standard error is sent to the provided
+ProcessLogger.  If the exit code is non-zero, an exception is thrown.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L149">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="!!<"><a href="#!!<" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#!!<" class="documentableName monospace ">!!&lt;</a><span class="signature monospace">: <a href="../../Predef$.html#String">String</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder, blocks until it exits, and
+returns the output as a String.  Standard error is sent to the console.  If
+the exit code is non-zero, an exception is thrown.  The newly started
+process reads from standard input of the current process.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L156">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="!!<"><a href="#!!<" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#!!<" class="documentableName monospace ">!!&lt;</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="../../Predef$.html#String">String</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder, blocks until it exits, and
+returns the output as a String.  Standard error is sent to the provided
+ProcessLogger.  If the exit code is non-zero, an exception is thrown.  The
+newly started process reads from standard input of the current process.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L163">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lazyLines"><a href="#lazyLines" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lazyLines" class="documentableName monospace ">lazyLines</a><span class="signature monospace">: <a href="../../collection/immutable/LazyList.html">LazyList</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a LazyList that blocks when lines are not available but the process has not
+completed.  Standard error is sent to the console.  If the process exits
+with a non-zero value, the LazyList will provide all lines up to termination
+and then throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L171">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lazyLines"><a href="#lazyLines" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lazyLines" class="documentableName monospace ">lazyLines</a><span class="signature monospace">(capacity: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>): <a href="../../collection/immutable/LazyList.html">LazyList</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a LazyList that blocks when lines are not available but the process has not
+completed.
+The producer process will block if the given capacity of lines if filled
+without being consumed from the LazyList.
+Standard error is sent to the console.  If the process exits
+with a non-zero value, the LazyList will provide all lines up to termination
+and then throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L182">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lazyLines"><a href="#lazyLines" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lazyLines" class="documentableName monospace ">lazyLines</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="../../collection/immutable/LazyList.html">LazyList</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a LazyList that blocks when lines are not available but the process has not
+completed.  Standard error is sent to the provided ProcessLogger.  If the
+process exits with a non-zero value, the LazyList will provide all lines up
+to termination and then throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L190">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lazyLines"><a href="#lazyLines" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lazyLines" class="documentableName monospace ">lazyLines</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>, capacity: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>): <a href="../../collection/immutable/LazyList.html">LazyList</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a LazyList that blocks when lines are not available but the process has not
+completed.
+The producer process will block if the given capacity of lines if filled
+without being consumed from the LazyList.
+Standard error is sent to the provided ProcessLogger.  If the
+process exits with a non-zero value, the LazyList will provide all lines up
+to termination and then throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L201">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lazyLines_!"><a href="#lazyLines_!" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lazyLines_!" class="documentableName monospace ">lazyLines_!</a><span class="signature monospace">: <a href="../../collection/immutable/LazyList.html">LazyList</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a LazyList that blocks when lines are not available but the process has not
+completed.  Standard error is sent to the console. If the process exits
+with a non-zero value, the LazyList will provide all lines up to termination
+but will not throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L209">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lazyLines_!"><a href="#lazyLines_!" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lazyLines_!" class="documentableName monospace ">lazyLines_!</a><span class="signature monospace">(capacity: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>): <a href="../../collection/immutable/LazyList.html">LazyList</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a LazyList that blocks when lines are not available but the process has not
+completed.
+The producer process will block if the given capacity of lines if filled
+without being consumed from the stream.
+Standard error is sent to the console. If the process exits
+with a non-zero value, the LazyList will provide all lines up to termination
+but will not throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L220">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lazyLines_!"><a href="#lazyLines_!" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lazyLines_!" class="documentableName monospace ">lazyLines_!</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="../../collection/immutable/LazyList.html">LazyList</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a LazyList that blocks when lines are not available but the process has not
+completed.  Standard error is sent to the provided ProcessLogger. If the
+process exits with a non-zero value, the LazyList will provide all lines up
+to termination but will not throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L228">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lazyLines_!"><a href="#lazyLines_!" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lazyLines_!" class="documentableName monospace ">lazyLines_!</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>, capacity: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>): <a href="../../collection/immutable/LazyList.html">LazyList</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a LazyList that blocks when lines are not available but the process has not
+completed.
+The producer process will block if the given capacity of lines if filled
+without being consumed from the stream.
+Standard error is sent to the provided ProcessLogger. If the
+process exits with a non-zero value, the LazyList will provide all lines up
+to termination but will not throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L239">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lineStream"><a href="#lineStream" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../../deprecated.html">deprecated</a>("use lazyLines", since = "2.13.0") </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lineStream" class="documentableName monospace ">lineStream</a><span class="signature monospace">: <a href="../../collection/immutable/Stream.html">Stream</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a Stream that blocks when lines are not available but the process has not
+completed.  Standard error is sent to the console.  If the process exits
+with a non-zero value, the Stream will provide all lines up to termination
+and then throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L248">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lineStream"><a href="#lineStream" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../../deprecated.html">deprecated</a>("use lazyLines", since = "2.13.0") </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lineStream" class="documentableName monospace ">lineStream</a><span class="signature monospace">(capacity: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>): <a href="../../collection/immutable/Stream.html">Stream</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a Stream that blocks when lines are not available but the process has not
+completed.
+The producer process will block if the given capacity of lines if filled
+without being consumed from the stream.
+Standard error is sent to the console.  If the process exits
+with a non-zero value, the Stream will provide all lines up to termination
+and then throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L260">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lineStream"><a href="#lineStream" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../../deprecated.html">deprecated</a>("use lazyLines", since = "2.13.0") </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lineStream" class="documentableName monospace ">lineStream</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="../../collection/immutable/Stream.html">Stream</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a Stream that blocks when lines are not available but the process has not
+completed.  Standard error is sent to the provided ProcessLogger.  If the
+process exits with a non-zero value, the Stream will provide all lines up
+to termination and then throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L269">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lineStream"><a href="#lineStream" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../../deprecated.html">deprecated</a>("use lazyLines", since = "2.13.0") </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lineStream" class="documentableName monospace ">lineStream</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>, capacity: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>): <a href="../../collection/immutable/Stream.html">Stream</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a Stream that blocks when lines are not available but the process has not
+completed.
+The producer process will block if the given capacity of lines if filled
+without being consumed from the stream.
+Standard error is sent to the provided ProcessLogger.  If the
+process exits with a non-zero value, the Stream will provide all lines up
+to termination and then throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L281">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lineStream_!"><a href="#lineStream_!" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../../deprecated.html">deprecated</a>("use lazyLines_!", since = "2.13.0") </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lineStream_!" class="documentableName monospace ">lineStream_!</a><span class="signature monospace">: <a href="../../collection/immutable/Stream.html">Stream</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a Stream that blocks when lines are not available but the process has not
+completed.  Standard error is sent to the console. If the process exits
+with a non-zero value, the Stream will provide all lines up to termination
+but will not throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L290">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lineStream_!"><a href="#lineStream_!" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../../deprecated.html">deprecated</a>("use lazyLines_!", since = "2.13.0") </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lineStream_!" class="documentableName monospace ">lineStream_!</a><span class="signature monospace">(capacity: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>): <a href="../../collection/immutable/Stream.html">Stream</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a Stream that blocks when lines are not available but the process has not
+completed.
+The producer process will block if the given capacity of lines if filled
+without being consumed from the stream.
+Standard error is sent to the console. If the process exits
+with a non-zero value, the Stream will provide all lines up to termination
+but will not throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L302">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lineStream_!"><a href="#lineStream_!" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../../deprecated.html">deprecated</a>("use lazyLines_!", since = "2.13.0") </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lineStream_!" class="documentableName monospace ">lineStream_!</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="../../collection/immutable/Stream.html">Stream</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a Stream that blocks when lines are not available but the process has not
+completed.  Standard error is sent to the provided ProcessLogger. If the
+process exits with a non-zero value, the Stream will provide all lines up
+to termination but will not throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L311">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="lineStream_!"><a href="#lineStream_!" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="../../deprecated.html">deprecated</a>("use lazyLines_!", since = "2.13.0") </span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#lineStream_!" class="documentableName monospace ">lineStream_!</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>, capacity: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>): <a href="../../collection/immutable/Stream.html">Stream</a>[<a href="../../Predef$.html#String">String</a>]</span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  The output is returned as
+a Stream that blocks when lines are not available but the process has not
+completed.
+The producer process will block if the given capacity of lines if filled
+without being consumed from the stream.
+Standard error is sent to the provided ProcessLogger. If the
+process exits with a non-zero value, the Stream will provide all lines up
+to termination but will not throw an exception.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L323">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="!"><a href="#!" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#!" class="documentableName monospace ">!</a><span class="signature monospace">: <a href="../../Int.html">Int</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder, blocks until it exits, and
+returns the exit code.  Standard output and error are sent to the console.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L328">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="!"><a href="#!" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#!" class="documentableName monospace ">!</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="../../Int.html">Int</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder, blocks until it exits, and
+returns the exit code.  Standard output and error are sent to the given
+ProcessLogger.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L334">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="!<"><a href="#!<" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#!<" class="documentableName monospace ">!&lt;</a><span class="signature monospace">: <a href="../../Int.html">Int</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder, blocks until it exits, and
+returns the exit code.  Standard output and error are sent to the console.
+The newly started process reads from standard input of the current process.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L340">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="!<"><a href="#!<" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#!<" class="documentableName monospace ">!&lt;</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="../../Int.html">Int</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder, blocks until it exits, and
+returns the exit code.  Standard output and error are sent to the given
+ProcessLogger.  The newly started process reads from standard input of the
+current process.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L347">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="run"><a href="#run" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#run" class="documentableName monospace ">run</a><span class="signature monospace">(): <a href="Process.html">Process</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  Standard output and error
+are sent to the console.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L351">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="run"><a href="#run" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#run" class="documentableName monospace ">run</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>): <a href="Process.html">Process</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  Standard output and error
+are sent to the given ProcessLogger.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L356">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="run"><a href="#run" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#run" class="documentableName monospace ">run</a><span class="signature monospace">(io: <a href="ProcessIO.html">ProcessIO</a>): <a href="Process.html">Process</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  I/O is handled by the
+given ProcessIO instance.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L361">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="run"><a href="#run" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#run" class="documentableName monospace ">run</a><span class="signature monospace">(connectInput: <a href="../../Boolean.html">Boolean</a>): <a href="Process.html">Process</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  Standard output and error
+are sent to the console.  The newly started process reads from standard
+input of the current process if <code>connectInput</code> is true.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L367">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="run"><a href="#run" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#run" class="documentableName monospace ">run</a><span class="signature monospace">(log: <a href="ProcessLogger.html">ProcessLogger</a>, connectInput: <a href="../../Boolean.html">Boolean</a>): <a href="Process.html">Process</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Starts the process represented by this builder.  Standard output and error
+are sent to the given ProcessLogger.  The newly started process reads from
+standard input of the current process if <code>connectInput</code> is true.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L373">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#&&"><a href="##&&" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="##&&" class="documentableName monospace ">#&amp;&amp;</a><span class="signature monospace">(other: <a href="">ProcessBuilder</a>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Constructs a command that runs this command first and then <code>other</code> if this
+command succeeds.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L378">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#||"><a href="##||" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="##||" class="documentableName monospace ">#||</a><span class="signature monospace">(other: <a href="">ProcessBuilder</a>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Constructs a command that runs this command first and then <code>other</code> if this
+command does not succeed.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L383">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#|"><a href="##|" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="##|" class="documentableName monospace ">#|</a><span class="signature monospace">(other: <a href="">ProcessBuilder</a>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Constructs a command that will run this command and pipes the output to
+<code>other</code>.  <code>other</code> must be a simple command.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L388">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="###"><a href="####" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="####" class="documentableName monospace ">###</a><span class="signature monospace">(other: <a href="">ProcessBuilder</a>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Constructs a command that will run this command and then <code>other</code>.  The
+exit code will be the exit code of <code>other</code>.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L393">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="canPipeTo"><a href="#canPipeTo" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#canPipeTo" class="documentableName monospace ">canPipeTo</a><span class="signature monospace">: <a href="../../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">True if this command can be the target of a pipe.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L397">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="hasExitValue"><a href="#hasExitValue" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="#hasExitValue" class="documentableName monospace ">hasExitValue</a><span class="signature monospace">: <a href="../../Boolean.html">Boolean</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">True if this command has an exit code which should be propagated to the
+user.  Given a pipe between A and B, if B.hasExitValue is true then the
+exit code will be the one from B; if it is false, the one from A.  This
+exists to prevent output redirections (implemented as pipes) from masking
+useful process error codes.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L405">(source)</a></dd></dl></div></div></div></div></div></div><div class="documentableList" data-test-id="definitionList"><h3 class="documentableHeader">Inherited methods</h3><div class="documentableElement" id="#>" data-f-inherited="Source"><a href="ProcessBuilder$$Source.html##>" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Source.html##>" class="documentableName monospace ">#&gt;</a><span class="signature monospace">(b: <a href="">ProcessBuilder</a>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Writes the output stream of this process to a <a href="">scala.sys.process.ProcessBuilder</a>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L451">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#>" data-f-inherited="Source"><a href="ProcessBuilder$$Source.html##>" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Source.html##>" class="documentableName monospace ">#&gt;</a><span class="signature monospace">(out: => <span data-unresolved-link="">OutputStream</span>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Writes the output stream of this process to the given OutputStream. The
+argument is call-by-name, so the stream is recreated, written, and closed each
+time this process is executed.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L448">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#>" data-f-inherited="Source"><a href="ProcessBuilder$$Source.html##>" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Source.html##>" class="documentableName monospace ">#&gt;</a><span class="signature monospace">(f: <span data-unresolved-link="">File</span>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Writes the output stream of this process to the given file.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L439">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="cat" data-f-inherited="Source"><a href="ProcessBuilder$$Source.html#cat" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Source.html#cat" class="documentableName monospace ">cat</a><span class="signature monospace">: <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Returns a <a href="">scala.sys.process.ProcessBuilder</a> representing this <code>Source</code>.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L454">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#>>" data-f-inherited="Source"><a href="ProcessBuilder$$Source.html##>>" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Source.html##>>" class="documentableName monospace ">#&gt;&gt;</a><span class="signature monospace">(f: <span data-unresolved-link="">File</span>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Appends the output stream of this process to the given file.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L442">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="toSource" data-f-visibility="protected" data-f-inherited="Source"><a href="ProcessBuilder$$Source.html#toSource" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">protected </span><span class="kind">def </span></span><a href="ProcessBuilder$$Source.html#toSource" class="documentableName monospace ">toSource</a><span class="signature monospace">: <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L436">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="toSink" data-f-visibility="protected" data-f-inherited="Sink"><a href="ProcessBuilder$$Sink.html#toSink" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers">protected </span><span class="kind">def </span></span><a href="ProcessBuilder$$Sink.html#toSink" class="documentableName monospace ">toSink</a><span class="signature monospace">: <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L462">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#<" data-f-inherited="Sink"><a href="ProcessBuilder$$Sink.html##<" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Sink.html##<" class="documentableName monospace ">#&lt;</a><span class="signature monospace">(b: <a href="">ProcessBuilder</a>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Reads the output of a <a href="">scala.sys.process.ProcessBuilder</a> into the input stream of this process.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L477">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#<" data-f-inherited="Sink"><a href="ProcessBuilder$$Sink.html##<" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Sink.html##<" class="documentableName monospace ">#&lt;</a><span class="signature monospace">(in: => <span data-unresolved-link="">InputStream</span>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Reads the given InputStream into the input stream of this process. The
+argument is call-by-name, so the stream is recreated, read, and closed each
+time this process is executed.
+</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L474">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#<" data-f-inherited="Sink"><a href="ProcessBuilder$$Sink.html##<" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Sink.html##<" class="documentableName monospace ">#&lt;</a><span class="signature monospace">(f: <span data-unresolved-link="">URL</span>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Reads the given URL into the input stream of this process.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L468">(source)</a></dd></dl></div></div></div></div></div><div class="documentableElement" id="#<" data-f-inherited="Sink"><a href="ProcessBuilder$$Sink.html##<" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header"><span class="modifiers monospace"><span class="other-modifiers"> </span><span class="kind">def </span></span><a href="ProcessBuilder$$Sink.html##<" class="documentableName monospace ">#&lt;</a><span class="signature monospace">(f: <span data-unresolved-link="">File</span>): <a href="">ProcessBuilder</a></span></div><div class="docs"><span class="modifiers monospace"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <p class="paragraph">Reads the given file into the input stream of this process.</p>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Source</dt><dd><a href="https://github.com/lampepfl/dotty/blob/master/out/bootstrap/stdlib-bootstrapped/scala-3.0.0-M3/src_managed/main/scala-library-src/scala/sys/process/ProcessBuilder.scala#L465">(source)</a></dd></dl></div></div></div></div></div></div></div>
+        <h2 class="tabbedcontent">Linear supertypes</h2>
+        <div data-togglable="Linear supertypes"><div class="symbol monospace">
+  <div class="symbol paragraph">trait <a href="ProcessBuilder$$Sink.html">Sink</a></div>
+
+  <div class="symbol paragraph">trait <a href="ProcessBuilder$$Source.html">Source</a></div>
+
+  <div class="symbol paragraph">class <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a></div>
+
+  <div class="symbol paragraph">class <span data-unresolved-link="scala.Any////PointingToDeclaration/Anyscala.Any//[]">Any</span></div>
+</div></div>
+        <h2 class="tabbedcontent">Type hierarchy</h2>
+        <div data-togglable="Type hierarchy"><div class="symbol monospace"><div id="inheritance-diagram" class="diagram-class"><svg id="graph"></svg><script type="text/dot" id="dot"> digraph g {
+ node3 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"ProcessBuilder$$Source.html\">Source</a></span>", style="fill: #1CAACF;"];
+node2 [label="<span style=\"color: #FFFFFF;\">class <span data-unresolved-link=\"\">Any</span></span>", style="fill: #45AD7D;"];
+node4 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"ProcessBuilder$$Sink.html\">Sink</a></span>", style="fill: #1CAACF;"];
+node0 [label="<span style=\"color: #FFFFFF;\">trait <a href=\"\">ProcessBuilder</a></span>", style="fill: #1CAACF;"];
+node1 [label="<span style=\"color: #FFFFFF;\">class <a href=\"https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\">Object</a></span>", style="fill: #45AD7D;"];
+
+
+ node0 -> node1;
+node1 -> node2;
+node0 -> node3;
+node3 -> node1;
+node0 -> node4;
+node4 -> node1;
+
+}
+</script></div></div></div>
+      </div>
+    </div>
+  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>
