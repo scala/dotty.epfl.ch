@@ -123,12 +123,6 @@ th {
 }
 
 /* Left bar */
-#sideMenu {
-  overflow-y: auto;
-  scrollbar-width: thin;
-  height: 100%;
-  font-size: var(--leftbar-font-size);
-}
 #paneSearch {
   display: none;
 }
@@ -159,63 +153,88 @@ th {
   width: 116px;
 }
 
-.sideMenuPart {
-  padding-left: 1em;
+/* Navigation */
+#sideMenu2 {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  height: 100%;
+  font-size: var(--leftbar-font-size);
 }
-.sideMenuPart a {
+
+/* divs in sidebar represent entry and its children */
+#sideMenu2 div {
+  padding-left: 0.7em;
+  position: relative;
+  display: none;
+}
+
+#sideMenu2 div.expanded {
+  display: block;
+}
+
+/* hide children of hidden entries even if are expanded */
+#sideMenu2 div>div.expanded {
+  display: none;
+}
+
+/* show direct children of currently exmanded node*/
+#sideMenu2 div.expanded>div {
+  display: block;
+}
+
+/* always show top level entry*/
+#sideMenu2>div{
+  display: block;
+}
+
+/* 'a's in side menu represent text of entry with link */
+#sideMenu2 a {
   align-items: center;
   flex: 1;
   overflow-x: hidden;
   overflow-wrap: anywhere;
   color: var(--leftbar-fg);
   margin-right: .5rem;
-  padding: 7px 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  width: 100%;
+  display: block;
+  /* This trick adds selected bachground stratching to the lef side of screen */
+  margin-left: calc(0px - var(--side-width));
+  padding-left: var(--side-width);
+  width: calc(2 * var(--side-width));
 }
-.sideMenuPart > .overview {
-  display: flex;
-  align-items: center;
-  position: relative;
-  user-select: none;
+
+#sideMenu2 a::before {
+  margin-left: -12em;
+  width: 12em;
+  background: red;
 }
-.sideMenuPart > .overview::before {
-  width: var(--side-width);
-  box-sizing: border-box;
-  content: '';
-  top: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-  z-index: 1;
+
+#sideMenu2 a.selected {
+  background: var(--leftbar-current-bg);
+  font-weight: bold;
 }
-.sideMenuPart > .overview:hover::before {
+
+#sideMenu2 a:hover {
+  color: var(--leftbar-hover-fg);
   background: var(--leftbar-hover-bg);
 }
-.sideMenuPart > .overview:hover > a {
-  color: var(--leftbar-hover-fg);
-}
-.sideMenuPart[data-active] > .overview::before {
-  background: var(--leftbar-current-bg);
-}
-.sideMenuPart[data-active] > .overview > a  {
-  font-weight: bold;
-  color: var(--leftbar-current-fg);
-}
-.sideMenuPart.hidden > .sideMenuPart {
-  height: 0;
-  visibility: hidden;
-}
-.overview a, .overview .navButton {
-  z-index: 3;
-}
-.sideMenuPart .navButton {
+
+/* spans represent a expand button */
+#sideMenu2 span {
   align-items: center;
-  display: flex;
-  justify-content: flex-end;
-  padding: 7px 10px;
   cursor: pointer;
+  position: absolute;
+  right: 1em;
+  top: 0px;
+  padding: 4px;
 }
-.sideMenuPart .navButtonContent::before {
-  content: "\e905"; /* arrow up */
+
+#sideMenu2 span::before {
+  content: "\e903"; /* arrow down */
   font-family: "dotty-icons" !important;
   font-size: 20px;
   line-height: var(--leftbar-font-size);
@@ -225,10 +244,11 @@ th {
   align-items: center;
   justify-content: center;
 }
-.sideMenuPart.hidden .navButtonContent::before {
-  content: "\e903"; /* arrow down */
+#sideMenu2 .expanded>span::before {
+  content: "\e905"; /* arrow up */
 }
-.sideMenuPart .navButton:hover .navButtonContent::before {
+
+#sideMenu2 .div:hover>span::before {
   color: var(--leftbar-current-bg);
 }
 
@@ -295,7 +315,7 @@ th {
   padding-top: 0;
 }
 
-span[data-unresolved-link].strikethrough, a.strikethrough, div.strikethrough {
+span[data-unresolved-link].deprecated, a.deprecated, div.deprecated {
   text-decoration: line-through;
 }
 .brief {
@@ -441,7 +461,7 @@ footer .pull-right {
 }
 
 
-.modifiers {
+.documentableElement .modifiers {
   display: table-cell;
   padding-right: 0.5em;
   min-width: 10em;
@@ -452,23 +472,27 @@ footer .pull-right {
   text-indent: 0em;
 }
 
-.modifiers .other-modifiers {
+.documentableElement .modifiers .other-modifiers {
   color: gray;
+}
+
+.kind {
+  margin-left: 0.5em;
 }
 
 .other-modifiers a, .other-modifiers a:visited, .other-modifiers span[data-unresolved-link] {
   color: var(--link-sig-fd);
 }
 
-.expand .modifiers {
+.documentableElement.expand .modifiers {
   display: inline-table;
   min-width: 7em;
 }
 
-.signature {
+.documentableElement .signature {
   color: gray;
   display: table-cell;
-  padding-left: 0.5em;
+  white-space: pre-wrap;
 }
 
 .signature a, .signature a:visited, .signature span[data-unresolved-link] {
@@ -531,12 +555,12 @@ footer .pull-right {
 .expand.documentableElement {
   border-left: 0.25em solid var(--leftbar-bg);
 }
-.annotations {
+.documentableElement .annotations {
   color: gray;
   display: none;
 }
 
-.expand .annotations {
+.documentableElement.expand .annotations {
   display: inline-block;
 }
 
@@ -553,6 +577,39 @@ footer .pull-right {
 
 .documentableBrief>p{
   margin: .5em 0 0 0;
+}
+
+.tabs .names .tab {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 6px 4px 6px;
+  margin: 1rem 1rem 0 0;
+  border-bottom: 1px solid grey;
+  cursor: pointer;
+}
+
+.tabs .names .tab.selected {
+  color: unset;
+  font-weight: bold;
+  border-bottom: 2px solid var(--active-tab-color);
+}
+
+.tabs .names {
+  margin-bottom: 20px;
+}
+
+.tabs .contents .tab{
+  display: none;
+}
+
+.tabs .contents .tab.selected {
+  display: block;
+}
+
+.diagram-class {
+  width: 100%;
+  max-height: 400px;
 }
 
 /* Large Screens */

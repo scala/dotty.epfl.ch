@@ -1,0 +1,346 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>scala.jdk</title><link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"></link><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" defer="true"></script><script type="text/javascript" src="../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../styles/nord-light.css"></link><link rel="stylesheet" href="../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../styles/diagram.css"></link><link rel="stylesheet" href="../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><link rel="stylesheet" href="../../styles/filter-bar.css"></link><script type="text/javascript" src="../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../scripts/data.js" defer="true"></script><script>var pathToRoot = "../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-M3-bin-20201215-cbe50b3-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu2"><div class="expanded"><a href="../../index.html">Scala 3</a><span></span><div><a href="../../blog/index.html">Blog</a><span></span><div><a href="../../blog/2020/11/09/scala3-m1.html">Scala 3.0.0-M1 is here</a></div><div><a href="../../blog/2020/09/21/naming-schema-change.html">Dotty becomes Scala 3</a></div><div><a href="../../blog/2020/08/31/27th-dotty-milestone-release.html">Announcing Dotty 0.27.0-RC1 - ScalaJS, performance, stability</a></div><div><a href="../../blog/2020/07/27/26th-dotty-milestone-release.html">Announcing Dotty 0.26.0-RC1 - unified extension methods and more</a></div><div><a href="../../blog/2020/06/22/25th-dotty-milestone-release.html">Announcing Dotty 0.25.0-RC2 - speed-up of givens and change in the tuple API</a></div><div><a href="../../blog/2020/04/29/24th-dotty-milestone-release.html">Announcing Dotty 0.24.0-RC1 - 2.13.2 standard library, better error messages and more</a></div><div><a href="../../blog/2020/03/18/23rd-dotty-milestone-release.html">Announcing Dotty 0.23.0-RC1 - safe initialization checks, type-level bitwise operations and more</a></div><div><a href="../../blog/2020/02/05/22nd-dotty-milestone-release.html">Announcing Dotty 0.22.0-RC1 - syntactic enhancements, type-level arithmetic and more</a></div><div><a href="../../blog/2019/12/20/21th-dotty-milestone-release.html">Announcing Dotty 0.21.0-RC1 - explicit nulls, new syntax for `match` and conditional givens, and more</a></div><div><a href="../../blog/2019/11/04/20th-dotty-milestone-release.html">Announcing Dotty 0.20.0-RC1 – `with` starting indentation blocks, inline given specializations and more</a></div><div><a href="../../blog/2019/09/23/19th-dotty-milestone-release.html">Announcing Dotty 0.19.0-RC1 – further refinements of the syntax and the migration to 2.13.1 standard library</a></div><div><a href="../../blog/2019/08/30/18th-dotty-milestone-release.html">Announcing Dotty 0.18.1-RC1 – switch to the 2.13 standard library, indentation-based syntax and other experiments</a></div><div><a href="../../blog/2019/07/25/17th-dotty-milestone-release.html">Announcing Dotty 0.17.0-RC1 – new implicit scoping rules and more</a></div><div><a href="../../blog/2019/06/11/16th-dotty-milestone-release.html">Announcing Dotty 0.16.0-RC3 – the Scala Days 2019 Release</a></div><div><a href="../../blog/2019/05/23/15th-dotty-milestone-release.html">Announcing Dotty 0.15.0-RC1 – the fully bootstrapped compiler</a></div><div><a href="../../blog/2019/04/15/14th-dotty-milestone-release.html">Announcing Dotty 0.14.0-RC1 with export, immutable arrays, creator applications and more</a></div><div><a href="../../blog/2019/03/05/13th-dotty-milestone-release.html">Announcing Dotty 0.13.0-RC1 with Spark support, top level definitions and redesigned implicits</a></div><div><a href="../../blog/2019/01/21/12th-dotty-milestone-release.html">Announcing Dotty 0.12.0-RC1</a></div><div><a href="../../blog/2018/11/30/11th-dotty-milestone-release.html">Announcing Dotty 0.11.0-RC1</a></div><div><a href="../../blog/2018/10/10/10th-dotty-milestone-release.html">Announcing Dotty 0.10.0-RC1</a></div><div><a href="../../blog/2018/07/06/ninth-dotty-milestone-release.html">Announcing Dotty 0.9.0-RC1</a></div><div><a href="../../blog/2018/04/27/eighth-dotty-milestone-release.html">Announcing Dotty 0.7.0 and 0.8.0-RC1</a></div><div><a href="../../blog/2018/03/05/seventh-dotty-milestone-release.html">Announcing Dotty 0.6.0 and 0.7.0-RC1</a></div><div><a href="../../blog/2017/12/01/fifth-dotty-milestone-release.html">Announcing Dotty 0.5.0-RC1</a></div><div><a href="../../blog/2017/10/16/fourth-dotty-milestone-release.html">Announcing Dotty 0.4.0-RC1</a></div><div><a href="../../blog/2017/09/07/third-dotty-milestone-release.html">Announcing Dotty 0.3.0-RC2</a></div><div><a href="../../blog/2017/07/12/second-dotty-milestone-release.html">Announcing Dotty 0.2.0-RC1, with new optimizations, improved stability and IDE support</a></div><div><a href="../../blog/2017/05/31/first-dotty-milestone-release.html">Announcing Dotty 0.1.2-RC1, a major step towards Scala 3</a></div><div><a href="../../blog/2016/12/05/implicit-function-types.html">Implicit Function Types</a></div><div><a href="../../blog/2016/05/05/multiversal-equality.html">Multiversal Equality for Scala</a></div><div><a href="../../blog/2016/02/17/scaling-dot-soundness.html">Scaling DOT to Scala - Soundness</a></div><div><a href="../../blog/2016/02/03/essence-of-scala.html">The Essence of Scala</a></div><div><a href="../../blog/2016/01/02/new-year-resolutions.html">New Year Resolutions</a></div><div><a href="../../blog/2015/10/23/dotty-compiler-bootstraps.html">We got liftoff!</a></div></div><div><a href="../../docs/Usage/index.html">Usage</a><span></span><div><a href="../../docs/usage/getting-started.html">Getting Started: Users</a></div><div><a href="../../docs/usage/sbt-projects.html">Using Dotty with sbt</a></div><div><a href="../../docs/usage/ide-support.html">IDE support for Dotty</a></div><div><a href="../../docs/usage/worksheet-mode.html">Worksheet mode with Dotty IDE</a></div><div><a href="../../docs/usage/language-versions.html">Language Versions</a></div><div><a href="../../docs/usage/cbt-projects.html">Using Dotty with cbt</a></div><div><a href="../../docs/usage/scala3doc/index.html">Scala3doc</a><span></span><div><a href="../../docs/usage/scala3doc/blog.html">Built-in blog</a></div><div><a href="../../docs/usage/scala3doc/specificTags.html">Scala3doc-specific Tags and Features</a></div><div><a href="../../docs/usage/scala3doc/staticSite.html">Static docucmentation</a></div><div><a href="../../docs/usage/scala3doc/docComments.html">API Documentation</a></div></div><div><a href="../../docs/usage/dottydoc.html">Dottydoc [Legacy]</a></div></div><div><a href="../../docs/Reference/index.html">Reference</a><span></span><div><a href="../../docs/reference/overview.html">Overview</a></div><div><a href="../../docs/New Types/index.html">New Types</a><span></span><div><a href="../../docs/reference/new-types/intersection-types.html">Intersection Types</a></div><div><a href="../../docs/reference/new-types/union-types.html">Union Types</a></div><div><a href="../../docs/reference/new-types/type-lambdas.html">Type Lambdas</a></div><div><a href="../../docs/reference/new-types/match-types.html">Match Types</a></div><div><a href="../../docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></div><div><a href="../../docs/reference/new-types/polymorphic-function-types.html">Polymorphic Function Types</a></div></div><div><a href="../../docs/Enums/index.html">Enums</a><span></span><div><a href="../../docs/reference/enums/enums.html">Enumerations</a></div><div><a href="../../docs/reference/enums/adts.html">Algebraic Data Types</a></div><div><a href="../../docs/reference/enums/desugarEnums.html">Translation of Enums and ADTs</a></div></div><div><a href="../../docs/Contextual Abstractions/index.html">Contextual Abstractions</a><span></span><div><a href="../../docs/reference/contextual/motivation.html">Overview</a></div><div><a href="../../docs/reference/contextual/givens.html">Given Instances</a></div><div><a href="../../docs/reference/contextual/using-clauses.html">Using Clauses</a></div><div><a href="../../docs/reference/contextual/context-bounds.html">Context Bounds</a></div><div><a href="../../docs/reference/contextual/given-imports.html">Importing Givens</a></div><div><a href="../../docs/reference/contextual/extension-methods.html">Extension Methods</a></div><div><a href="../../docs/reference/contextual/type-classes.html">Implementing Type classes</a></div><div><a href="../../docs/reference/contextual/derivation.html">Type Class Derivation</a></div><div><a href="../../docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a></div><div><a href="../../docs/reference/contextual/context-functions.html">Context Functions</a></div><div><a href="../../docs/reference/contextual/conversions.html">Implicit Conversions</a></div><div><a href="../../docs/reference/contextual/by-name-context-parameters.html">By-Name Context Parameters</a></div><div><a href="../../docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></div></div><div><a href="../../docs/Metaprogramming/index.html">Metaprogramming</a><span></span><div><a href="../../docs/reference/metaprogramming/toc.html">Overview</a></div><div><a href="../../docs/reference/metaprogramming/inline.html">Inline</a></div><div><a href="../../docs/reference/metaprogramming/macros.html">Macros</a></div><div><a href="../../docs/reference/metaprogramming/staging.html">Multi-Stage Programming</a></div><div><a href="../../docs/reference/metaprogramming/tasty-reflect.html">TASTy Reflect</a></div><div><a href="../../docs/reference/metaprogramming/tasty-inspect.html">TASTy Inspection</a></div></div><div><a href="../../docs/Other New Features/index.html">Other New Features</a><span></span><div><a href="../../docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a></div><div><a href="../../docs/reference/other-new-features/transparent-traits.html">Transparent Traits</a></div><div><a href="../../docs/reference/other-new-features/creator-applications.html">Creator Applications</a></div><div><a href="../../docs/reference/other-new-features/export.html">Export Clauses</a></div><div><a href="../../docs/reference/other-new-features/opaques.html">Opaque Type Aliases</a></div><div><a href="../../docs/reference/other-new-features/open-classes.html">Open Classes</a></div><div><a href="../../docs/reference/other-new-features/parameter-untupling.html">Parameter Untupling</a></div><div><a href="../../docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a></div><div><a href="../../docs/reference/other-new-features/matchable.html">matchable</a></div><div><a href="../../docs/reference/other-new-features/threadUnsafe-annotation.html">threadUnsafe annotation</a></div><div><a href="../../docs/reference/other-new-features/targetName.html">The @targetName annotation</a></div><div><a href="../../docs/reference/other-new-features/control-syntax.html">New Control Syntax</a></div><div><a href="../../docs/reference/other-new-features/indentation.html">Optional Braces</a></div><div><a href="../../docs/reference/other-new-features/explicit-nulls.html">Explicit Nulls</a></div><div><a href="../../docs/reference/other-new-features/safe-initialization.html">Safe Initialization</a></div></div><div><a href="../../docs/Other Changed Features/index.html">Other Changed Features</a><span></span><div><a href="../../docs/reference/changed-features/numeric-literals.html">Numeric Literals</a></div><div><a href="../../docs/reference/changed-features/structural-types.html">Programmatic Structural Types</a></div><div><a href="../../docs/reference/changed-features/operators.html">Rules for Operators</a></div><div><a href="../../docs/reference/changed-features/wildcards.html">Wildcard Arguments in Types</a></div><div><a href="../../docs/reference/changed-features/type-checking.html">Changes in Type Checking</a></div><div><a href="../../docs/reference/changed-features/type-inference.html">Changes in Type Inference</a></div><div><a href="../../docs/reference/changed-features/implicit-resolution.html">Changes in Implicit Resolution</a></div><div><a href="../../docs/reference/changed-features/implicit-conversions.html">Implicit Conversions</a></div><div><a href="../../docs/reference/changed-features/overload-resolution.html">Changes in Overload Resolution</a></div><div><a href="../../docs/reference/changed-features/match-syntax.html">Match Expressions</a></div><div><a href="../../docs/reference/changed-features/vararg-patterns.html">Vararg Patterns</a></div><div><a href="../../docs/reference/changed-features/pattern-bindings.html">Pattern Bindings</a></div><div><a href="../../docs/reference/changed-features/pattern-matching.html">Option-less pattern matching</a></div><div><a href="../../docs/reference/changed-features/eta-expansion.html">Automatic Eta Expansion</a></div><div><a href="../../docs/reference/changed-features/compiler-plugins.html">Changes in Compiler Plugins</a></div><div><a href="../../docs/reference/changed-features/lazy-vals-init.html">Lazy Vals initialization</a></div><div><a href="../../docs/reference/changed-features/main-functions.html">Main Methods</a></div></div><div><a href="../../docs/Dropped Features/index.html">Dropped Features</a><span></span><div><a href="../../docs/reference/dropped-features/delayed-init.html">Dropped: Delayedinit</a></div><div><a href="../../docs/reference/dropped-features/macros.html">Dropped: Scala 2 Macros</a></div><div><a href="../../docs/reference/dropped-features/existential-types.html">Dropped: Existential Types</a></div><div><a href="../../docs/reference/dropped-features/type-projection.html">Dropped: General Type Projection</a></div><div><a href="../../docs/reference/dropped-features/do-while.html">Dropped: Do-While</a></div><div><a href="../../docs/reference/dropped-features/procedure-syntax.html">Dropped: Procedure Syntax</a></div><div><a href="../../docs/reference/dropped-features/package-objects.html">Dropped: Package Objects</a></div><div><a href="../../docs/reference/dropped-features/early-initializers.html">Dropped: Early Initializers</a></div><div><a href="../../docs/reference/dropped-features/class-shadowing.html">Dropped: Class Shadowing</a></div><div><a href="../../docs/reference/dropped-features/limit22.html">Dropped: Limit 22</a></div><div><a href="../../docs/reference/dropped-features/xml.html">Dropped: XML Literals</a></div><div><a href="../../docs/reference/dropped-features/symlits.html">Dropped: Symbol Literals</a></div><div><a href="../../docs/reference/dropped-features/auto-apply.html">Dropped: Auto-Application</a></div><div><a href="../../docs/reference/dropped-features/weak-conformance.html">Dropped: Weak Conformance</a></div><div><a href="../../docs/reference/dropped-features/nonlocal-returns.html">Deprecated: Nonlocal Returns</a></div><div><a href="../../docs/reference/dropped-features/this-qualifier.html">Dropped: private[this] and protected[this]</a></div></div><div><a href="../../docs/reference/syntax.html">Scala 3 Syntax Summary</a></div></div><div><a href="../../docs/Contributing/index.html">Contributing</a><span></span><div><a href="../../docs/contributing/contribute-knowledge.html">Contributing Knowledge</a></div><div><a href="../../docs/contributing/getting-started.html">Getting Started</a></div><div><a href="../../docs/contributing/workflow.html">Workflow</a></div><div><a href="../../docs/contributing/testing.html">Testing in Dotty</a></div><div><a href="../../docs/contributing/debugging.html">Debugging Techniques</a></div><div><a href="../../docs/IDEs and Tools/index.html">IDEs and Tools</a><span></span><div><a href="../../docs/contributing/tools/mill.html">Basic Operations with Mill</a></div><div><a href="../../docs/contributing/tools/scalafix.html">Working with Scalafix</a></div></div><div><a href="../../docs/Procedures/index.html">Procedures</a><span></span><div><a href="../../docs/contributing/procedures/release.html">Release Procedure</a></div><div><a href="../../docs/contributing/procedures/vulpix.html">Test Vulpix Framework</a></div></div></div><div><a href="../../docs/Internals/index.html">Internals</a><span></span><div><a href="../../docs/internals/backend.html">Backend Internals</a></div><div><a href="../../docs/internals/classpaths.html">Classpaths</a></div><div><a href="../../docs/internals/core-data-structures.html">Core Data Structures</a></div><div><a href="../../docs/internals/contexts.html">Contexts</a></div><div><a href="../../docs/internals/dotc-scalac.html">Differences between Scalac and Dotty</a></div><div><a href="../../docs/internals/higher-kinded-v2.html">Higher-Kinded Types in Dotty</a></div><div><a href="../../docs/internals/overall-structure.html">Dotty Overall Structure</a></div><div><a href="../../docs/internals/periods.html">Dotc&apos;s concept of time</a></div><div><a href="../../docs/internals/syntax.html">Scala 3 Syntax Summary</a></div><div><a href="../../docs/internals/type-system.html">Type System</a></div><div><a href="../../docs/internals/dotty-internals-1-notes.html">Dotty Internals 1: Trees &amp; Symbols (Meeting Notes)</a></div><div><a href="../../docs/internals/debug-macros.html">Debug Macros</a></div></div><div><a href="../../docs/Resources/index.html">Resources</a><span></span><div><a href="../../docs/resources/talks.html">Talks</a></div></div><div class="expanded"><a href="../index.html">API</a><span></span><div><a href="../dotty/tools/tasty.html">dotty.tools.tasty</a></div><div><a href="../dotty/tools/tasty/util.html">dotty.tools.tasty.util</a></div><div><a href="../scala.html">scala</a></div><div><a href="annotation.html">scala.annotation</a></div><div><a href="annotation/meta.html">scala.annotation.meta</a></div><div><a href="annotation/unchecked.html">scala.annotation.unchecked</a></div><div><a href="beans.html">scala.beans</a></div><div><a href="collection.html">scala.collection</a></div><div><a href="collection/concurrent.html">scala.collection.concurrent</a></div><div><a href="collection/convert.html">scala.collection.convert</a></div><div><a href="collection/generic.html">scala.collection.generic</a></div><div><a href="collection/immutable.html">scala.collection.immutable</a></div><div><a href="collection/mutable.html">scala.collection.mutable</a></div><div><a href="compat.html">scala.compat</a></div><div><a href="compiletime.html">scala.compiletime</a></div><div><a href="compiletime/ops.html">scala.compiletime.ops</a></div><div><a href="compiletime/testing.html">scala.compiletime.testing</a></div><div><a href="concurrent.html">scala.concurrent</a></div><div><a href="concurrent/duration.html">scala.concurrent.duration</a></div><div><a href="deriving.html">scala.deriving</a></div><div><a href="io.html">scala.io</a></div><div><a href="" class="selected expanded">scala.jdk</a></div><div><a href="jdk/javaapi.html">scala.jdk.javaapi</a></div><div><a href="math.html">scala.math</a></div><div><a href="quoted.html">scala.quoted</a></div><div><a href="quoted/runtime.html">scala.quoted.runtime</a></div><div><a href="ref.html">scala.ref</a></div><div><a href="reflect.html">scala.reflect</a></div><div><a href="reflect/macros.html">scala.reflect.macros</a></div><div><a href="runtime.html">scala.runtime</a></div><div><a href="runtime/java8.html">scala.runtime.java8</a></div><div><a href="sys.html">scala.sys</a></div><div><a href="sys/process.html">scala.sys.process</a></div><div><a href="util.html">scala.util</a></div><div><a href="util/control.html">scala.util.control</a></div><div><a href="util/hashing.html">scala.util.hashing</a></div><div><a href="util/matching.html">scala.util.matching</a></div></div></div></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="scala.jdk////PointingToDeclaration/jdkscala.jdk//[]/-1810906834">
+    <div class="breadcrumbs"><a href="../../docs/index.html">Scala 3</a>/<a href="../index.html">API</a>/<a href="">scala.jdk</a></div>
+<div><div><h1>scala.jdk</h1><div class="header monospace"><span class="annotations monospace"></span><span class="modifiers"><span class="other-modifiers">package</span><span class="kind"> </span></span><a href="" class="documentableName ">scala.jdk</a><span class="signature"></span></div><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div><div class="documentableFilter"><div class="filterUpperContainer"><button class="filterToggleButton" data-test-id="filterToggleButton">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </button><input class="filterableInput" placeholder="Filter all members" data-test-id="filterBarInput"></input></div><div class="filterLowerContainer"></div></div><div class="membersList"><div class="tabs"><div class="names"><button data-togglable="Type members" class="tab selected">Type members</button></div><div class="contents"><div data-togglable="Type members" class="tab selected"><h2 data-togglable="Type members">Type members</h2><div class="documentableList"><h3 class="groupHeader">Classlikes</h3><div class="documentableElement" data-f-keywords="abstract"><a href="jdk/Accumulator.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers">abstract </span><span class="kind">class </span></span><a href="jdk/Accumulator.html" class="documentableName ">Accumulator</a><span class="signature">[A, +CC <: ([X] =>> <a href="collection/mutable/Seq.html">Seq</a>[X]), +C <: <a href="collection/mutable/Seq.html">Seq</a>[<a href="jdk/Accumulator.html#A">A</a>]] extends <a href="collection/mutable/Seq.html">Seq</a>[<a href="jdk/Accumulator.html#A">A</a>] with <a href="collection/mutable/Builder.html">Builder</a>[<a href="jdk/Accumulator.html#A">A</a>, <a href="jdk/Accumulator.html#C">C</a>]</span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">Accumulators are mutable sequences with two distinct features:</div>
+</div><div class="cover"><div class="doc">
+  <ul>
+    <li>
+      <div class="block">An accumulator can be appended efficiently to another</div>
+    </li>
+    <li>
+      <div class="block">There are manually specialized Accumulators for <code>Int</code>, <code>Long</code> and <code>Double</code> that don't box
+   the elements</div>
+    </li>
+  </ul>
+
+  <div class="block">These two features make Accumulators a good candidate to collect the results of a parallel Java
+stream pipeline into a Scala collection. The
+<a href="collection/convert/StreamExtensions$StreamHasToScala.html#toScala">scala.collection.convert.StreamExtensions.StreamHasToScala.toScala</a> extension method on Java
+streams (available by importing
+<a href="jdk/StreamConverters$.html"><code>scala.jdk.StreamConverters._</code></a>) is specialized for
+Accumulators: they are built in parallel, the parts are merged efficiently.</div>
+
+  <div class="block">Building specialized Accumulators is handled transparently. As a user, using the
+<a href="jdk/Accumulator.html">Accumulator</a> object as a factory automatically creates an <a href="jdk/IntAccumulator.html">IntAccumulator</a>,
+<a href="jdk/LongAccumulator.html">LongAccumulator</a>, <a href="jdk/DoubleAccumulator.html">DoubleAccumulator</a> or <a href="jdk/AnyAccumulator.html">AnyAccumulator</a> depending on the element type.</div>
+
+  <div class="block">Note: to run the example, start the Scala REPL with <code>scala -Yrepl-class-based</code> to avoid
+deadlocks, see <a href="https://github.com/scala/bug/issues/9076">https://github.com/scala/bug/issues/9076</a>.</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala&gt; import scala.jdk.StreamConverters._
+import scala.jdk.StreamConverters._
+
+scala&gt; def isPrime(n: Int): Boolean = !(2 +: (3 to Math.sqrt(n).toInt by 2) exists (n % _ == 0))
+isPrime: (n: Int)Boolean
+
+scala&gt; val intAcc = (1 to 10000).asJavaParStream.filter(isPrime).toScala(scala.jdk.Accumulator)
+intAcc: scala.jdk.IntAccumulator = IntAccumulator(1, 3, 5, 7, 11, 13, 17, 19, ...
+
+scala&gt; val stringAcc = (1 to 100).asJavaParStream.mapToObj(&quot;&lt;&gt;&quot; * _).toScala(Accumulator)
+stringAcc: scala.jdk.AnyAccumulator[String] = AnyAccumulator(&lt;&gt;, &lt;&gt;&lt;&gt;, &lt;&gt;&lt;&gt;&lt;&gt;, ...</code></pre>
+  </div>
+
+  <div class="block">There are two possibilities to process elements of a primitive Accumulator without boxing:
+specialized operations of the Accumulator, or the Stepper interface. The most common collection
+operations are overloaded or overridden in the primitive Accumulator classes, for example
+<a href="#">Int =&gt; Int)* IntAccumulator.map</a> or <a href="#">IntAccumulator.exists</a>. Thanks to Scala's function specialization,
+<code>intAcc.exists(x =&gt; testOn(x))</code> does not incur boxing.</div>
+
+  <div class="block">The <a href="collection/Stepper.html">scala.collection.Stepper</a> interface provides iterator-like <code>hasStep</code> and <code>nextStep</code> methods, and is
+specialized for <code>Int</code>, <code>Long</code> and <code>Double</code>. The <code>intAccumulator.stepper</code> method creates an
+<a href="collection/IntStepper.html">scala.collection.IntStepper</a> that yields the elements of the accumulator without boxing.</div>
+
+  <div class="block">Accumulators can hold more than <code>Int.MaxValue</code> elements. They have a <a href="jdk/Accumulator.html#sizeLong">sizeLong</a> method that
+returns the size as a <code>Long</code>. Note that certain operations defined in <a href="collection/Seq.html">scala.collection.Seq</a>
+are implemented using <a href="jdk/Accumulator.html#length">length</a>, so they will not work correctly for large accumulators.</div>
+
+  <div class="block">The <a href="jdk/Accumulator.html">Accumulator</a> class is a base class to share code between <a href="jdk/AnyAccumulator.html">AnyAccumulator</a> (for
+reference types) and the manual specializations <a href="jdk/IntAccumulator.html">IntAccumulator</a>, <a href="jdk/LongAccumulator.html">LongAccumulator</a> and
+<a href="jdk/DoubleAccumulator.html">DoubleAccumulator</a>.
+</div>
+</div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/Accumulator$.html">object</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/Accumulator$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/Accumulator$.html" class="documentableName ">Accumulator</a><span class="signature"></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">Contains factory methods to build Accumulators.</div>
+</div><div class="cover"><div class="doc">
+  <div class="block">Note that the <code>Accumulator</code> object itself is not a factory, but it is implicitly convert to
+a factory according to the element type, see <a href="#">Accumulator.toFactory</a>.</div>
+
+  <div class="block">This allows passing the <code>Accumulator</code> object as argument when a <a href="#">collection.Factory</a>, and
+the implicit <a href="#">Accumulator.AccumulatorFactoryShape</a> instance is used to build a specialized
+Accumulator according to the element type:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala&gt; val intAcc = Accumulator(1,2,3)
+intAcc: scala.collection.convert.IntAccumulator = IntAccumulator(1, 2, 3)
+
+scala&gt; val anyAccc = Accumulator(&quot;K&quot;)
+anyAccc: scala.collection.convert.AnyAccumulator[String] = AnyAccumulator(K)
+
+scala&gt; val intAcc2 = List(1,2,3).to(Accumulator)
+intAcc2: scala.jdk.IntAccumulator = IntAccumulator(1, 2, 3)
+
+scala&gt; val anyAcc2 = List(&quot;K&quot;).to(Accumulator)
+anyAcc2: scala.jdk.AnyAccumulator[String] = AnyAccumulator(K)</code></pre>
+  </div>
+</div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/Accumulator.html">class</a></dd></dl></div></div></div></div></div><div class="documentableElement" data-f-keywords="final"><a href="jdk/AnyAccumulator.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers">final </span><span class="kind">class </span></span><a href="jdk/AnyAccumulator.html" class="documentableName ">AnyAccumulator</a><span class="signature">[A] extends <a href="jdk/Accumulator.html">Accumulator</a>[<a href="jdk/AnyAccumulator.html#A">A</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A], <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[<a href="jdk/AnyAccumulator.html#A">A</a>]] with <a href="collection/mutable/SeqOps.html">SeqOps</a>[<a href="jdk/AnyAccumulator.html#A">A</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A], <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[<a href="jdk/AnyAccumulator.html#A">A</a>]] with <a href="collection/IterableFactoryDefaults.html">IterableFactoryDefaults</a>[<a href="jdk/AnyAccumulator.html#A">A</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A]] with <a href="../scala.html#Serializable">Serializable</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">An Accumulator for arbitrary element types, see <a href="jdk/Accumulator.html">Accumulator</a>.</div>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/AnyAccumulator$.html">object</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/AnyAccumulator$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/AnyAccumulator$.html" class="documentableName ">AnyAccumulator</a><span class="signature"> extends <a href="collection/SeqFactory.html">SeqFactory</a>[[A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A]]</span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/AnyAccumulator.html">class</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/CollectionConverters$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/CollectionConverters$.html" class="documentableName ">CollectionConverters</a><span class="signature"> extends <a href="collection/convert/AsJavaExtensions.html">AsJavaExtensions</a> with <a href="collection/convert/AsScalaExtensions.html">AsScalaExtensions</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">This object provides extension methods that convert between Scala and Java collections.</div>
+</div><div class="cover"><div class="doc">
+  <div class="block">When writing Java code, use the explicit conversion methods defined in
+<a href="#">javaapi.CollectionConverters</a> instead.</div>
+
+  <div class="block">Note: to create <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Java Streams</a> that operate on Scala collections
+(sequentially or in parallel), use <a href="jdk/StreamConverters$.html">StreamConverters</a>.</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">import scala.jdk.CollectionConverters._
+val s: java.util.Set[String] = Set(&quot;one&quot;, &quot;two&quot;).asJava</code></pre>
+  </div>
+
+  <div class="block">The conversions return adapters for the corresponding API, i.e., the collections are wrapped,
+not converted. Changes to the original collection are reflected in the view, and vice versa:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala&gt; import scala.jdk.CollectionConverters._
+
+scala&gt; val s = collection.mutable.Set(&quot;one&quot;)
+s: scala.collection.mutable.Set[String] = HashSet(one)
+
+scala&gt; val js = s.asJava
+js: java.util.Set[String] = [one]
+
+scala&gt; js.add(&quot;two&quot;)
+
+scala&gt; s
+res2: scala.collection.mutable.Set[String] = HashSet(two, one)</code></pre>
+  </div>
+
+  <div class="block">The following conversions are supported via <code>asScala</code> and <code>asJava</code>:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala.collection.Iterable       &lt;=&gt; java.lang.Iterable
+scala.collection.Iterator       &lt;=&gt; java.util.Iterator
+scala.collection.mutable.Buffer &lt;=&gt; java.util.List
+scala.collection.mutable.Set    &lt;=&gt; java.util.Set
+scala.collection.mutable.Map    &lt;=&gt; java.util.Map
+scala.collection.concurrent.Map &lt;=&gt; java.util.concurrent.ConcurrentMap</code></pre>
+  </div>
+
+  <div class="block">The following conversions are supported via <code>asScala</code> and through
+specially-named extension methods to convert to Java collections, as shown:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala.collection.Iterable    &lt;=&gt; java.util.Collection   (via asJavaCollection)
+scala.collection.Iterator    &lt;=&gt; java.util.Enumeration  (via asJavaEnumeration)
+scala.collection.mutable.Map &lt;=&gt; java.util.Dictionary   (via asJavaDictionary)</code></pre>
+  </div>
+
+  <div class="block">In addition, the following one-way conversions are provided via <code>asJava</code>:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala.collection.Seq         =&gt; java.util.List
+scala.collection.mutable.Seq =&gt; java.util.List
+scala.collection.Set         =&gt; java.util.Set
+scala.collection.Map         =&gt; java.util.Map</code></pre>
+  </div>
+
+  <div class="block">The following one way conversion is provided via <code>asScala</code>:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">java.util.Properties =&gt; scala.collection.mutable.Map</code></pre>
+  </div>
+
+  <div class="block">In all cases, converting from a source type to a target type and back
+again will return the original source object. For example:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">import scala.jdk.CollectionConverters._
+
+val source = new scala.collection.mutable.ListBuffer[Int]
+val target: java.util.List[Int] = source.asJava
+val other: scala.collection.mutable.Buffer[Int] = target.asScala
+assert(source eq other)</code></pre>
+  </div>
+</div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" data-f-keywords="final"><a href="jdk/DoubleAccumulator.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers">final </span><span class="kind">class </span></span><a href="jdk/DoubleAccumulator.html" class="documentableName ">DoubleAccumulator</a><span class="signature"> extends <a href="jdk/Accumulator.html">Accumulator</a>[<a href="Double.html">Double</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A], <a href="jdk/DoubleAccumulator.html">DoubleAccumulator</a>] with <a href="collection/mutable/SeqOps.html">SeqOps</a>[<a href="Double.html">Double</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A], <a href="jdk/DoubleAccumulator.html">DoubleAccumulator</a>] with <a href="../scala.html#Serializable">Serializable</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">A specialized Accumulator that holds <code>Double</code>s without boxing, see <a href="jdk/Accumulator.html">Accumulator</a>.</div>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/DoubleAccumulator$.html">object</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/DoubleAccumulator$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/DoubleAccumulator$.html" class="documentableName ">DoubleAccumulator</a><span class="signature"> extends <a href="collection/SpecificIterableFactory.html">SpecificIterableFactory</a>[<a href="Double.html">Double</a>, <a href="jdk/DoubleAccumulator.html">DoubleAccumulator</a>]</span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/DoubleAccumulator.html">class</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/DurationConverters$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/DurationConverters$.html" class="documentableName ">DurationConverters</a><span class="signature"></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">This object provides extension methods that convert between Scala and Java duration types.</div>
+</div><div class="cover"><div class="doc">
+  <div class="block">When writing Java code, use the explicit conversion methods defined in
+<a href="#">javaapi.DurationConverters</a> instead.
+</div>
+</div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/FunctionConverters$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/FunctionConverters$.html" class="documentableName ">FunctionConverters</a><span class="signature"> extends <a href="jdk/Priority0FunctionExtensions.html">Priority0FunctionExtensions</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">This object provides extension methods that convert between Scala and Java function types.</div>
+</div><div class="cover"><div class="doc">
+  <div class="block">When writing Java code, use the explicit conversion methods defined in
+<a href="#">javaapi.FunctionConverters</a> instead.</div>
+
+  <div class="block">Using the <code>.asJava</code> extension method on a Scala function produces the most specific possible
+Java function type:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala&gt; import scala.jdk.FunctionConverters._
+scala&gt; val f = (x: Int) =&gt; x + 1
+
+scala&gt; val jf1 = f.asJava
+jf1: java.util.function.IntUnaryOperator = ...</code></pre>
+  </div>
+
+  <div class="block">More generic Java function types can be created using the corresponding <code>asJavaXYZ</code> extension
+method:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala&gt; val jf2 = f.asJavaFunction
+jf2: java.util.function.Function[Int,Int] = ...
+
+scala&gt; val jf3 = f.asJavaUnaryOperator
+jf3: java.util.function.UnaryOperator[Int] = ...</code></pre>
+  </div>
+
+  <div class="block">Converting a Java function to Scala is done using the <code>asScala</code> extension method:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala&gt; List(1,2,3).map(jf2.asScala)
+res1: List[Int] = List(2, 3, 4)</code></pre>
+  </div>
+</div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/FunctionWrappers$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/FunctionWrappers$.html" class="documentableName ">FunctionWrappers</a><span class="signature"></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/FutureConverters$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/FutureConverters$.html" class="documentableName ">FutureConverters</a><span class="signature"></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">This object provides extension methods that convert between Scala <a href="concurrent/Future.html">scala.concurrent.Future</a> and Java
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html">java.util.concurrent.CompletionStage</a></div>
+</div><div class="cover"><div class="doc">
+  <div class="block">When writing Java code, use the explicit conversion methods defined in
+<a href="#">javaapi.FutureConverters</a> instead.</div>
+
+  <div class="block">Note that the bridge is implemented at the read-only side of asynchronous handles, namely
+<a href="concurrent/Future.html">scala.concurrent.Future</a> (instead of <a href="concurrent/Promise.html">scala.concurrent.Promise</a>) and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html">java.util.concurrent.CompletionStage</a> (instead of
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">java.util.concurrent.CompletableFuture</a>). This is intentional, as the semantics of bridging
+the write-handles would be prone to race conditions; if both ends (<code>CompletableFuture</code> and
+<code>Promise</code>) are completed independently at the same time, they may contain different values
+afterwards. For this reason, <code>toCompletableFuture</code> is not supported on the created
+<code>CompletionStage</code>s.
+</div>
+</div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" data-f-keywords="final"><a href="jdk/IntAccumulator.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers">final </span><span class="kind">class </span></span><a href="jdk/IntAccumulator.html" class="documentableName ">IntAccumulator</a><span class="signature"> extends <a href="jdk/Accumulator.html">Accumulator</a>[<a href="Int.html">Int</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A], <a href="jdk/IntAccumulator.html">IntAccumulator</a>] with <a href="collection/mutable/SeqOps.html">SeqOps</a>[<a href="Int.html">Int</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A], <a href="jdk/IntAccumulator.html">IntAccumulator</a>] with <a href="../scala.html#Serializable">Serializable</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">A specialized Accumulator that holds <code>Int</code>s without boxing, see <a href="jdk/Accumulator.html">Accumulator</a>.</div>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/IntAccumulator$.html">object</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/IntAccumulator$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/IntAccumulator$.html" class="documentableName ">IntAccumulator</a><span class="signature"> extends <a href="collection/SpecificIterableFactory.html">SpecificIterableFactory</a>[<a href="Int.html">Int</a>, <a href="jdk/IntAccumulator.html">IntAccumulator</a>]</span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/IntAccumulator.html">class</a></dd></dl></div></div></div></div></div><div class="documentableElement" data-f-keywords="final"><a href="jdk/LongAccumulator.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers">final </span><span class="kind">class </span></span><a href="jdk/LongAccumulator.html" class="documentableName ">LongAccumulator</a><span class="signature"> extends <a href="jdk/Accumulator.html">Accumulator</a>[<a href="Long.html">Long</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A], <a href="jdk/LongAccumulator.html">LongAccumulator</a>] with <a href="collection/mutable/SeqOps.html">SeqOps</a>[<a href="Long.html">Long</a>, [A] =>> <a href="jdk/AnyAccumulator.html">AnyAccumulator</a>[A], <a href="jdk/LongAccumulator.html">LongAccumulator</a>] with <a href="../scala.html#Serializable">Serializable</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">A specialized Accumulator that holds <code>Long</code>s without boxing, see <a href="jdk/Accumulator.html">Accumulator</a>.</div>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/LongAccumulator$.html">object</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/LongAccumulator$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/LongAccumulator$.html" class="documentableName ">LongAccumulator</a><span class="signature"> extends <a href="collection/SpecificIterableFactory.html">SpecificIterableFactory</a>[<a href="Long.html">Long</a>, <a href="jdk/LongAccumulator.html">LongAccumulator</a>]</span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/LongAccumulator.html">class</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/OptionConverters$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/OptionConverters$.html" class="documentableName ">OptionConverters</a><span class="signature"></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">This object provides extension methods that convert between Scala <code>Option</code> and Java <code>Optional</code>
+types.</div>
+</div><div class="cover"><div class="doc">
+  <div class="block">When writing Java code, use the explicit conversion methods defined in
+<a href="#">javaapi.OptionConverters</a> instead.</div>
+
+  <div class="block">Scala <code>Option</code> is extended with a <code>toJava</code> method that creates a corresponding <code>Optional</code>, and
+a <code>toJavaPrimitive</code> method that creates a specialized variant (e.g., <code>OptionalInt</code>) if
+applicable.</div>
+
+  <div class="block">Java <code>Optional</code> is extended with a <code>toScala</code> method and a <code>toJavaPrimitive</code> method.</div>
+
+  <div class="block">Finally, specialized <code>Optional</code> types are extended with <code>toScala</code> and <code>toJavaGeneric</code> methods.</div>
+
+  <div class="block">Example usage:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">import scala.jdk.OptionConverters._
+val a = Option(&quot;example&quot;).toJava      // Creates java.util.Optional[String] containing &quot;example&quot;
+val b = (None: Option[String]).toJava // Creates an empty java.util.Optional[String]
+val c = a.toScala                     // Back to Option(&quot;example&quot;)
+val d = b.toScala                     // Back to None typed as Option[String]
+val e = Option(2.7).toJava            // java.util.Optional[Double] containing boxed 2.7
+val f = Option(2.7).toJavaPrimitive   // java.util.OptionalDouble containing 2.7 (not boxed)
+val g = f.toScala                     // Back to Option(2.7)
+val h = f.toJavaGeneric               // Same as e
+val i = e.toJavaPrimitive             // Same as f</code></pre>
+  </div>
+</div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement" data-f-keywords="sealed,abstract"><a href="jdk/OptionShape.html" class="documentableAnchor"></a><div><span class="annotations monospace">@<a href="annotation/implicitNotFound.html">implicitNotFound</a>("No specialized Optional type exists for elements of type ${A}") </span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers">sealed abstract </span><span class="kind">class </span></span><a href="jdk/OptionShape.html" class="documentableName ">OptionShape</a><span class="signature">[A, O]</span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">A type class implementing conversions from a generic Scala <code>Option</code> or Java <code>Optional</code> to
+a specialized Java variant (for <code>Double</code>, <code>Int</code> and <code>Long</code>).
+</div>
+</div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Type Params</dt><dd><dl class="attributes"><dt>A</dt><dd>
+  <div class="block">the primitive type wrapped in an option</div>
+</dd><dt>O</dt><dd>
+  <div class="block">the specialized Java <code>Optional</code> wrapping an element of type <code>A</code></div>
+</dd></dl></dd><dt>Companion</dt><dd><a href="jdk/OptionShape$.html">object</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/OptionShape$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/OptionShape$.html" class="documentableName ">OptionShape</a><span class="signature"></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion</dt><dd><a href="jdk/OptionShape.html">class</a></dd></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/Priority0FunctionExtensions.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">trait </span></span><a href="jdk/Priority0FunctionExtensions.html" class="documentableName ">Priority0FunctionExtensions</a><span class="signature"> extends <a href="jdk/Priority1FunctionExtensions.html">Priority1FunctionExtensions</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/Priority1FunctionExtensions.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">trait </span></span><a href="jdk/Priority1FunctionExtensions.html" class="documentableName ">Priority1FunctionExtensions</a><span class="signature"> extends <a href="jdk/Priority2FunctionExtensions.html">Priority2FunctionExtensions</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/Priority2FunctionExtensions.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">trait </span></span><a href="jdk/Priority2FunctionExtensions.html" class="documentableName ">Priority2FunctionExtensions</a><span class="signature"> extends <a href="jdk/Priority3FunctionExtensions.html">Priority3FunctionExtensions</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/Priority3FunctionExtensions.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">trait </span></span><a href="jdk/Priority3FunctionExtensions.html" class="documentableName ">Priority3FunctionExtensions</a><span class="signature"></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement"><a href="jdk/StreamConverters$.html" class="documentableAnchor"></a><div><span class="annotations monospace"></span></div><div class="header monospace"><span class="modifiers"><span class="other-modifiers"> </span><span class="kind">object </span></span><a href="jdk/StreamConverters$.html" class="documentableName ">StreamConverters</a><span class="signature"> extends <a href="collection/convert/StreamExtensions.html">StreamExtensions</a></span></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="documentableBrief"><div class="documentableBrief doc">
+  <div class="block">This object provides extension methods to create <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Java Streams</a> that
+operate on Scala collections (sequentially or in parallel). For more information on Java
+streams, consult the documentation
+(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html">https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html</a>).</div>
+</div><div class="cover"><div class="doc">
+  <div class="block">When writing Java code, use the explicit conversion methods defined in
+<a href="#">javaapi.StreamConverters</a> instead.</div>
+
+  <div class="block">The methods <code>asJavaSeqStream</code> and <code>asJavaParStream</code> convert a collection to a Java Stream:</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala&gt; import scala.jdk.StreamConverters._
+
+scala&gt; val s = (1 to 10).toList.asJavaSeqStream
+s: java.util.stream.IntStream = java.util.stream.IntPipeline$Head@7b1e5e55
+
+scala&gt; s.map(_ * 2).filter(_ &gt; 5).toScala(List)
+res1: List[Int] = List(6, 8, 10, 12, 14, 16, 18, 20)</code></pre>
+  </div>
+
+  <div class="block">Note: using parallel streams in the Scala REPL causes deadlocks, see
+<a href="https://github.com/scala/bug/issues/9076">https://github.com/scala/bug/issues/9076</a>. As a workaround, use <code>scala -Yrepl-class-based</code>.</div>
+
+  <div class="sample-container">
+    <pre><code class=" language-scala" theme="idea">scala&gt; def isPrime(n: Int): Boolean = !(2 +: (3 to Math.sqrt(n).toInt by 2) exists (n % _ == 0))
+isPrime: (n: Int)Boolean
+
+scala&gt; (10000 to 1000000).asJavaParStream.filter(isPrime).toScala(Vector)
+res6: scala.collection.immutable.Vector[Int] = Vector(10007, 10009, 10037, 10039, ...</code></pre>
+  </div>
+
+  <div class="block">A Java <a href="#">Stream</a> provides operations on a sequence of elements. Streams are created from
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Spliterator.html">Spliterators</a>, which are similar to Iterators with the additional
+capability to partition off some of their elements. This partitioning, if supported by the
+Spliterator, is used for parallelizing Stream operations.</div>
+
+  <div class="block">Scala collections have a method <a href="collection/IterableOnce.html#stepper"><code>stepper</code></a> that
+returns a <a href="collection/Stepper.html">scala.collection.Stepper</a> for the collection, which in turn can be converted to a
+Spliterator for creating a Java Stream.</div>
+
+  <div class="block">The <code>asJavaSeqStream </code> extension method is available on any Scala collection. The
+<code>asJavaParStream</code> extension method can only be invoked on collections where the return type of
+the <a href="collection/IterableOnce.html#stepper"><code>stepper</code></a> method is marked with the
+<a href="#">scala.collection.Stepper.EfficientSplit</a> marker trait. This trait is added to steppers that
+support partitioning, and therefore efficient parallel processing.</div>
+
+  <div class="block">The following extension methods are available:</div>
+
+  <div class="block">| Collection Type | Extension Methods |
+| --- | --- |
+| <code>IterableOnce</code> | <code>asJavaSeqStream</code> |
+| <code>IndexedSeq</code>, Arrays, <code>BitSet</code>, <code>Accumulator</code>, <code>HashMap</code>, <code>HashSet</code>, <code>Range</code>, <code>TreeMap</code>, <code>TreeSet</code>, <code>Vector</code>, Strings | <code>asJavaParStream</code> |
+| <code>Map</code> | <code>asJavaSeqKeyStream</code>, <code>asJavaSeqValueStream</code> |
+| <code>HashMap</code>, <code>TreeMap</code> | <code>asJavaParKeyStream</code>, <code>asJavaParValueStream</code> |
+| <code>Stepper</code> | <code>asJavaSeqStream</code> |
+| <code>Stepper with EfficientSplit</code> | <code>asJavaParStream</code> |
+| Strings | <code>asJavaSeqStream</code>, <code>asJavaParStream</code>, <code>asJavaSeqCharStream</code>, <code>asJavaParCharStream</code>, <code>asJavaSeqCodePointStream</code>, <code>asJavaParCodePointStream</code> |
+| Java streams | <code>toScala</code>, <code>asJavaPrimitiveStream</code> |</div>
+
+  <div class="block">The <code>asJavaPrimitiveStream</code> method converts a <code>Stream[Int]</code> to an <code>IntStream</code>. It is the dual
+of the <code>boxed</code> method defined on primitive streams (e.g., <code>IntStream.boxed</code> is a
+<code>Stream[Integer]</code>).</div>
+
+  <div class="block">The <code>toScala</code> extension methods on Java streams collects the result of a stream pipeline into a
+Scala collection, for example <code>stream.toScala(List)</code>, <code>stream.toScala(Vector)</code>. Note that
+transformation operations on streams are lazy (also called &quot;intermediate&quot;), terminal operations
+such as <code>forEach</code>, <code>count</code> or <code>toScala</code> trigger the evaluation.</div>
+
+  <div class="block">Collecting a parallel stream to a collection can be performed in parallel. This is beneficial if
+the target collection supports efficient merging of the segments that are built in parallel.
+To support this use case, the Scala standard library provides the <a href="jdk/Accumulator.html">Accumulator</a> collection.
+This collection supports efficient parallel construction, and it has specialized subtypes for
+<code>Int</code>, <code>Long</code> and <code>Double</code> so that primitive Java streams can be collected to a Scala collection
+without boxing the elements.
+</div>
+</div><dl class="attributes"></dl></div></div></div></div></div></div></div></div></div></div></div></div>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../scripts/pages.js"></script><script type="text/javascript" src="../../scripts/main.js"></script></body></html>
