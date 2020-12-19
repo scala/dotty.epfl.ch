@@ -1,0 +1,201 @@
+<html><head><meta charset="utf-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><title>Scala 3.0.0-M3: developer&apos;s preview before RC1</title><link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico"></link><script type="text/javascript" src="../../../../scripts/clipboard.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/nord-light.css"></link><link rel="stylesheet" href="../../../../styles/scalastyle.css"></link><link rel="stylesheet" href="../../../../styles/dotty-icons.css"></link><link rel="stylesheet" href="../../../../styles/diagram.css"></link><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><link rel="stylesheet" href="../../../../styles/search-bar.css"></link><script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" defer="true"></script><script type="text/javascript" src="https://d3js.org/d3.v6.min.js" defer="true"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/graphlib-dot@0.6.2/dist/graphlib-dot.min.js" defer="true"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.1/dagre-d3.min.js" defer="true"></script><link rel="stylesheet" href="../../../../styles/filter-bar.css"></link><script type="text/javascript" src="../../../../hljs/highlight.pack.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/hljs-scala3.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/ux.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/component.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/common/utils.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterBar.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/DocumentableList.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Input.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/FilterGroup.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/components/Filter.js" defer="true"></script><script type="text/javascript" src="../../../../scripts/data.js" defer="true"></script><link rel="stylesheet" href="../../../../css/bootstrap.min.css"></link><link rel="stylesheet" href="../../../../css/dottydoc.css"></link><link rel="stylesheet" href="../../../../css/color-brewer.css"></link><script type="text/javascript" src="../../../../js/jquery.min.js" defer="true"></script><script type="text/javascript" src="../../../../js/bootstrap.min.js" defer="true"></script><script>var pathToRoot = "../../../../";</script></head><body><div id="container"><div id="leftColumn"><div id="logo"><span><img src="../../../../project-logo/logo.svg"></img></span><span><div class="projectName">Scala 3</div></span><span><div class="projectVersion">3.0.0-RC1-bin-20201218-33b710a-NIGHTLY</div></span></div><div id="paneSearch"></div><nav id="sideMenu2"><div class="expanded"><a href="../../../../index.html">Scala 3</a><span></span><div class="expanded"><a href="../../../index.html">Blog</a><span></span><div><a href="" class="selected expanded">Scala 3.0.0-M3: developer&apos;s preview before RC1</a></div><div><a href="../../11/09/scala3-m1.html">Scala 3.0.0-M1 is here</a></div><div><a href="../../09/21/naming-schema-change.html">Dotty becomes Scala 3</a></div><div><a href="../../08/31/27th-dotty-milestone-release.html">Announcing Dotty 0.27.0-RC1 - ScalaJS, performance, stability</a></div><div><a href="../../07/27/26th-dotty-milestone-release.html">Announcing Dotty 0.26.0-RC1 - unified extension methods and more</a></div><div><a href="../../06/22/25th-dotty-milestone-release.html">Announcing Dotty 0.25.0-RC2 - speed-up of givens and change in the tuple API</a></div><div><a href="../../04/29/24th-dotty-milestone-release.html">Announcing Dotty 0.24.0-RC1 - 2.13.2 standard library, better error messages and more</a></div><div><a href="../../03/18/23rd-dotty-milestone-release.html">Announcing Dotty 0.23.0-RC1 - safe initialization checks, type-level bitwise operations and more</a></div><div><a href="../../02/05/22nd-dotty-milestone-release.html">Announcing Dotty 0.22.0-RC1 - syntactic enhancements, type-level arithmetic and more</a></div><div><a href="../../../2019/12/20/21th-dotty-milestone-release.html">Announcing Dotty 0.21.0-RC1 - explicit nulls, new syntax for `match` and conditional givens, and more</a></div><div><a href="../../../2019/11/04/20th-dotty-milestone-release.html">Announcing Dotty 0.20.0-RC1 – `with` starting indentation blocks, inline given specializations and more</a></div><div><a href="../../../2019/09/23/19th-dotty-milestone-release.html">Announcing Dotty 0.19.0-RC1 – further refinements of the syntax and the migration to 2.13.1 standard library</a></div><div><a href="../../../2019/08/30/18th-dotty-milestone-release.html">Announcing Dotty 0.18.1-RC1 – switch to the 2.13 standard library, indentation-based syntax and other experiments</a></div><div><a href="../../../2019/07/25/17th-dotty-milestone-release.html">Announcing Dotty 0.17.0-RC1 – new implicit scoping rules and more</a></div><div><a href="../../../2019/06/11/16th-dotty-milestone-release.html">Announcing Dotty 0.16.0-RC3 – the Scala Days 2019 Release</a></div><div><a href="../../../2019/05/23/15th-dotty-milestone-release.html">Announcing Dotty 0.15.0-RC1 – the fully bootstrapped compiler</a></div><div><a href="../../../2019/04/15/14th-dotty-milestone-release.html">Announcing Dotty 0.14.0-RC1 with export, immutable arrays, creator applications and more</a></div><div><a href="../../../2019/03/05/13th-dotty-milestone-release.html">Announcing Dotty 0.13.0-RC1 with Spark support, top level definitions and redesigned implicits</a></div><div><a href="../../../2019/01/21/12th-dotty-milestone-release.html">Announcing Dotty 0.12.0-RC1</a></div><div><a href="../../../2018/11/30/11th-dotty-milestone-release.html">Announcing Dotty 0.11.0-RC1</a></div><div><a href="../../../2018/10/10/10th-dotty-milestone-release.html">Announcing Dotty 0.10.0-RC1</a></div><div><a href="../../../2018/07/06/ninth-dotty-milestone-release.html">Announcing Dotty 0.9.0-RC1</a></div><div><a href="../../../2018/04/27/eighth-dotty-milestone-release.html">Announcing Dotty 0.7.0 and 0.8.0-RC1</a></div><div><a href="../../../2018/03/05/seventh-dotty-milestone-release.html">Announcing Dotty 0.6.0 and 0.7.0-RC1</a></div><div><a href="../../../2017/12/01/fifth-dotty-milestone-release.html">Announcing Dotty 0.5.0-RC1</a></div><div><a href="../../../2017/10/16/fourth-dotty-milestone-release.html">Announcing Dotty 0.4.0-RC1</a></div><div><a href="../../../2017/09/07/third-dotty-milestone-release.html">Announcing Dotty 0.3.0-RC2</a></div><div><a href="../../../2017/07/12/second-dotty-milestone-release.html">Announcing Dotty 0.2.0-RC1, with new optimizations, improved stability and IDE support</a></div><div><a href="../../../2017/05/31/first-dotty-milestone-release.html">Announcing Dotty 0.1.2-RC1, a major step towards Scala 3</a></div><div><a href="../../../2016/12/05/implicit-function-types.html">Implicit Function Types</a></div><div><a href="../../../2016/05/05/multiversal-equality.html">Multiversal Equality for Scala</a></div><div><a href="../../../2016/02/17/scaling-dot-soundness.html">Scaling DOT to Scala - Soundness</a></div><div><a href="../../../2016/02/03/essence-of-scala.html">The Essence of Scala</a></div><div><a href="../../../2016/01/02/new-year-resolutions.html">New Year Resolutions</a></div><div><a href="../../../2015/10/23/dotty-compiler-bootstraps.html">We got liftoff!</a></div></div><div><a href="../../../../docs/Usage/index.html">Usage</a><span></span><div><a href="../../../../docs/usage/getting-started.html">Getting Started: Users</a></div><div><a href="../../../../docs/usage/sbt-projects.html">Using Dotty with sbt</a></div><div><a href="../../../../docs/usage/ide-support.html">IDE support for Dotty</a></div><div><a href="../../../../docs/usage/worksheet-mode.html">Worksheet mode with Dotty IDE</a></div><div><a href="../../../../docs/usage/language-versions.html">Language Versions</a></div><div><a href="../../../../docs/usage/cbt-projects.html">Using Dotty with cbt</a></div><div><a href="../../../../docs/usage/scala3doc/index.html">Scala3doc</a><span></span><div><a href="../../../../docs/usage/scala3doc/blog.html">Built-in blog</a></div><div><a href="../../../../docs/usage/scala3doc/specificTags.html">Scala3doc-specific Tags and Features</a></div><div><a href="../../../../docs/usage/scala3doc/staticSite.html">Static docucmentation</a></div><div><a href="../../../../docs/usage/scala3doc/docComments.html">API Documentation</a></div></div><div><a href="../../../../docs/usage/dottydoc.html">Dottydoc [Legacy]</a></div></div><div><a href="../../../../docs/Reference/index.html">Reference</a><span></span><div><a href="../../../../docs/reference/overview.html">Overview</a></div><div><a href="../../../../docs/New Types/index.html">New Types</a><span></span><div><a href="../../../../docs/reference/new-types/intersection-types.html">Intersection Types</a></div><div><a href="../../../../docs/reference/new-types/union-types.html">Union Types</a></div><div><a href="../../../../docs/reference/new-types/type-lambdas.html">Type Lambdas</a></div><div><a href="../../../../docs/reference/new-types/match-types.html">Match Types</a></div><div><a href="../../../../docs/reference/new-types/dependent-function-types.html">Dependent Function Types</a></div><div><a href="../../../../docs/reference/new-types/polymorphic-function-types.html">Polymorphic Function Types</a></div></div><div><a href="../../../../docs/Enums/index.html">Enums</a><span></span><div><a href="../../../../docs/reference/enums/enums.html">Enumerations</a></div><div><a href="../../../../docs/reference/enums/adts.html">Algebraic Data Types</a></div><div><a href="../../../../docs/reference/enums/desugarEnums.html">Translation of Enums and ADTs</a></div></div><div><a href="../../../../docs/Contextual Abstractions/index.html">Contextual Abstractions</a><span></span><div><a href="../../../../docs/reference/contextual/motivation.html">Overview</a></div><div><a href="../../../../docs/reference/contextual/givens.html">Given Instances</a></div><div><a href="../../../../docs/reference/contextual/using-clauses.html">Using Clauses</a></div><div><a href="../../../../docs/reference/contextual/context-bounds.html">Context Bounds</a></div><div><a href="../../../../docs/reference/contextual/given-imports.html">Importing Givens</a></div><div><a href="../../../../docs/reference/contextual/extension-methods.html">Extension Methods</a></div><div><a href="../../../../docs/reference/contextual/type-classes.html">Implementing Type classes</a></div><div><a href="../../../../docs/reference/contextual/derivation.html">Type Class Derivation</a></div><div><a href="../../../../docs/reference/contextual/multiversal-equality.html">Multiversal Equality</a></div><div><a href="../../../../docs/reference/contextual/context-functions.html">Context Functions</a></div><div><a href="../../../../docs/reference/contextual/conversions.html">Implicit Conversions</a></div><div><a href="../../../../docs/reference/contextual/by-name-context-parameters.html">By-Name Context Parameters</a></div><div><a href="../../../../docs/reference/contextual/relationship-implicits.html">Relationship with Scala 2 Implicits</a></div></div><div><a href="../../../../docs/Metaprogramming/index.html">Metaprogramming</a><span></span><div><a href="../../../../docs/reference/metaprogramming/toc.html">Overview</a></div><div><a href="../../../../docs/reference/metaprogramming/inline.html">Inline</a></div><div><a href="../../../../docs/reference/metaprogramming/macros.html">Macros</a></div><div><a href="../../../../docs/reference/metaprogramming/staging.html">Multi-Stage Programming</a></div><div><a href="../../../../docs/reference/metaprogramming/tasty-reflect.html">TASTy Reflect</a></div><div><a href="../../../../docs/reference/metaprogramming/tasty-inspect.html">TASTy Inspection</a></div></div><div><a href="../../../../docs/Other New Features/index.html">Other New Features</a><span></span><div><a href="../../../../docs/reference/other-new-features/trait-parameters.html">Trait Parameters</a></div><div><a href="../../../../docs/reference/other-new-features/transparent-traits.html">Transparent Traits</a></div><div><a href="../../../../docs/reference/other-new-features/creator-applications.html">Universal Apply Methods</a></div><div><a href="../../../../docs/reference/other-new-features/export.html">Export Clauses</a></div><div><a href="../../../../docs/reference/other-new-features/opaques.html">Opaque Type Aliases</a></div><div><a href="../../../../docs/reference/other-new-features/open-classes.html">Open Classes</a></div><div><a href="../../../../docs/reference/other-new-features/parameter-untupling.html">Parameter Untupling</a></div><div><a href="../../../../docs/reference/other-new-features/kind-polymorphism.html">Kind Polymorphism</a></div><div><a href="../../../../docs/reference/other-new-features/matchable.html">The Matchable Trait</a></div><div><a href="../../../../docs/reference/other-new-features/threadUnsafe-annotation.html">threadUnsafe annotation</a></div><div><a href="../../../../docs/reference/other-new-features/targetName.html">The @targetName annotation</a></div><div><a href="../../../../docs/reference/other-new-features/control-syntax.html">New Control Syntax</a></div><div><a href="../../../../docs/reference/other-new-features/indentation.html">Optional Braces</a></div><div><a href="../../../../docs/reference/other-new-features/explicit-nulls.html">Explicit Nulls</a></div><div><a href="../../../../docs/reference/other-new-features/safe-initialization.html">Safe Initialization</a></div></div><div><a href="../../../../docs/Other Changed Features/index.html">Other Changed Features</a><span></span><div><a href="../../../../docs/reference/changed-features/numeric-literals.html">Numeric Literals</a></div><div><a href="../../../../docs/reference/changed-features/structural-types.html">Programmatic Structural Types</a></div><div><a href="../../../../docs/reference/changed-features/operators.html">Rules for Operators</a></div><div><a href="../../../../docs/reference/changed-features/wildcards.html">Wildcard Arguments in Types</a></div><div><a href="../../../../docs/reference/changed-features/type-checking.html">Changes in Type Checking</a></div><div><a href="../../../../docs/reference/changed-features/type-inference.html">Changes in Type Inference</a></div><div><a href="../../../../docs/reference/changed-features/implicit-resolution.html">Changes in Implicit Resolution</a></div><div><a href="../../../../docs/reference/changed-features/implicit-conversions.html">Implicit Conversions</a></div><div><a href="../../../../docs/reference/changed-features/overload-resolution.html">Changes in Overload Resolution</a></div><div><a href="../../../../docs/reference/changed-features/match-syntax.html">Match Expressions</a></div><div><a href="../../../../docs/reference/changed-features/vararg-patterns.html">Vararg Patterns</a></div><div><a href="../../../../docs/reference/changed-features/pattern-bindings.html">Pattern Bindings</a></div><div><a href="../../../../docs/reference/changed-features/pattern-matching.html">Option-less pattern matching</a></div><div><a href="../../../../docs/reference/changed-features/eta-expansion.html">Automatic Eta Expansion</a></div><div><a href="../../../../docs/reference/changed-features/compiler-plugins.html">Changes in Compiler Plugins</a></div><div><a href="../../../../docs/reference/changed-features/lazy-vals-init.html">Lazy Vals initialization</a></div><div><a href="../../../../docs/reference/changed-features/main-functions.html">Main Methods</a></div></div><div><a href="../../../../docs/Dropped Features/index.html">Dropped Features</a><span></span><div><a href="../../../../docs/reference/dropped-features/delayed-init.html">Dropped: Delayedinit</a></div><div><a href="../../../../docs/reference/dropped-features/macros.html">Dropped: Scala 2 Macros</a></div><div><a href="../../../../docs/reference/dropped-features/existential-types.html">Dropped: Existential Types</a></div><div><a href="../../../../docs/reference/dropped-features/type-projection.html">Dropped: General Type Projection</a></div><div><a href="../../../../docs/reference/dropped-features/do-while.html">Dropped: Do-While</a></div><div><a href="../../../../docs/reference/dropped-features/procedure-syntax.html">Dropped: Procedure Syntax</a></div><div><a href="../../../../docs/reference/dropped-features/package-objects.html">Dropped: Package Objects</a></div><div><a href="../../../../docs/reference/dropped-features/early-initializers.html">Dropped: Early Initializers</a></div><div><a href="../../../../docs/reference/dropped-features/class-shadowing.html">Dropped: Class Shadowing</a></div><div><a href="../../../../docs/reference/dropped-features/limit22.html">Dropped: Limit 22</a></div><div><a href="../../../../docs/reference/dropped-features/xml.html">Dropped: XML Literals</a></div><div><a href="../../../../docs/reference/dropped-features/symlits.html">Dropped: Symbol Literals</a></div><div><a href="../../../../docs/reference/dropped-features/auto-apply.html">Dropped: Auto-Application</a></div><div><a href="../../../../docs/reference/dropped-features/weak-conformance.html">Dropped: Weak Conformance</a></div><div><a href="../../../../docs/reference/dropped-features/nonlocal-returns.html">Deprecated: Nonlocal Returns</a></div><div><a href="../../../../docs/reference/dropped-features/this-qualifier.html">Dropped: private[this] and protected[this]</a></div></div><div><a href="../../../../docs/reference/syntax.html">Scala 3 Syntax Summary</a></div></div><div><a href="../../../../docs/Contributing/index.html">Contributing</a><span></span><div><a href="../../../../docs/contributing/contribute-knowledge.html">Contributing Knowledge</a></div><div><a href="../../../../docs/contributing/getting-started.html">Getting Started</a></div><div><a href="../../../../docs/contributing/workflow.html">Workflow</a></div><div><a href="../../../../docs/contributing/testing.html">Testing in Dotty</a></div><div><a href="../../../../docs/contributing/debugging.html">Debugging Techniques</a></div><div><a href="../../../../docs/IDEs and Tools/index.html">IDEs and Tools</a><span></span><div><a href="../../../../docs/contributing/tools/mill.html">Basic Operations with Mill</a></div><div><a href="../../../../docs/contributing/tools/scalafix.html">Working with Scalafix</a></div></div><div><a href="../../../../docs/Procedures/index.html">Procedures</a><span></span><div><a href="../../../../docs/contributing/procedures/release.html">Release Procedure</a></div><div><a href="../../../../docs/contributing/procedures/vulpix.html">Test Vulpix Framework</a></div></div></div><div><a href="../../../../docs/Internals/index.html">Internals</a><span></span><div><a href="../../../../docs/internals/backend.html">Backend Internals</a></div><div><a href="../../../../docs/internals/classpaths.html">Classpaths</a></div><div><a href="../../../../docs/internals/core-data-structures.html">Core Data Structures</a></div><div><a href="../../../../docs/internals/contexts.html">Contexts</a></div><div><a href="../../../../docs/internals/dotc-scalac.html">Differences between Scalac and Dotty</a></div><div><a href="../../../../docs/internals/higher-kinded-v2.html">Higher-Kinded Types in Dotty</a></div><div><a href="../../../../docs/internals/overall-structure.html">Dotty Overall Structure</a></div><div><a href="../../../../docs/internals/periods.html">Dotc&apos;s concept of time</a></div><div><a href="../../../../docs/internals/syntax.html">Scala 3 Syntax Summary</a></div><div><a href="../../../../docs/internals/type-system.html">Type System</a></div><div><a href="../../../../docs/internals/dotty-internals-1-notes.html">Dotty Internals 1: Trees &amp; Symbols (Meeting Notes)</a></div><div><a href="../../../../docs/internals/debug-macros.html">Debug Macros</a></div></div><div><a href="../../../../docs/Resources/index.html">Resources</a><span></span><div><a href="../../../../docs/resources/talks.html">Talks</a></div></div><div><a href="../../../../api/index.html">API</a><span></span><div><a href="../../../../api/dotty/tools/tasty.html">dotty.tools.tasty</a></div><div><a href="../../../../api/dotty/tools/tasty/util.html">dotty.tools.tasty.util</a></div><div><a href="../../../../api/scala.html">scala</a></div><div><a href="../../../../api/scala/annotation.html">scala.annotation</a></div><div><a href="../../../../api/scala/annotation/meta.html">scala.annotation.meta</a></div><div><a href="../../../../api/scala/annotation/unchecked.html">scala.annotation.unchecked</a></div><div><a href="../../../../api/scala/beans.html">scala.beans</a></div><div><a href="../../../../api/scala/collection.html">scala.collection</a></div><div><a href="../../../../api/scala/collection/concurrent.html">scala.collection.concurrent</a></div><div><a href="../../../../api/scala/collection/convert.html">scala.collection.convert</a></div><div><a href="../../../../api/scala/collection/generic.html">scala.collection.generic</a></div><div><a href="../../../../api/scala/collection/immutable.html">scala.collection.immutable</a></div><div><a href="../../../../api/scala/collection/mutable.html">scala.collection.mutable</a></div><div><a href="../../../../api/scala/compat.html">scala.compat</a></div><div><a href="../../../../api/scala/compiletime.html">scala.compiletime</a></div><div><a href="../../../../api/scala/compiletime/ops.html">scala.compiletime.ops</a></div><div><a href="../../../../api/scala/compiletime/testing.html">scala.compiletime.testing</a></div><div><a href="../../../../api/scala/concurrent.html">scala.concurrent</a></div><div><a href="../../../../api/scala/concurrent/duration.html">scala.concurrent.duration</a></div><div><a href="../../../../api/scala/deriving.html">scala.deriving</a></div><div><a href="../../../../api/scala/io.html">scala.io</a></div><div><a href="../../../../api/scala/jdk.html">scala.jdk</a></div><div><a href="../../../../api/scala/jdk/javaapi.html">scala.jdk.javaapi</a></div><div><a href="../../../../api/scala/math.html">scala.math</a></div><div><a href="../../../../api/scala/quoted.html">scala.quoted</a></div><div><a href="../../../../api/scala/quoted/runtime.html">scala.quoted.runtime</a></div><div><a href="../../../../api/scala/ref.html">scala.ref</a></div><div><a href="../../../../api/scala/reflect.html">scala.reflect</a></div><div><a href="../../../../api/scala/reflect/macros.html">scala.reflect.macros</a></div><div><a href="../../../../api/scala/runtime.html">scala.runtime</a></div><div><a href="../../../../api/scala/runtime/java8.html">scala.runtime.java8</a></div><div><a href="../../../../api/scala/sys.html">scala.sys</a></div><div><a href="../../../../api/scala/sys/process.html">scala.sys.process</a></div><div><a href="../../../../api/scala/util.html">scala.util</a></div><div><a href="../../../../api/scala/util/control.html">scala.util.control</a></div><div><a href="../../../../api/scala/util/hashing.html">scala.util.hashing</a></div><div><a href="../../../../api/scala/util/matching.html">scala.util.matching</a></div></div></div></nav></div><div id="main"><div id="leftToggler"><span class="icon-toggler"></span></div><div id="searchBar"></div><main>
+  <div id="content" pageIds="blog._posts.2020-12-18-scala3-m3.md////PointingToDeclaration//-1063587316">
+    <div class="breadcrumbs"><a href="../../../../docs/index.html">Scala 3</a>/<a href="../../../index.html">Blog</a>/<a href="">Scala 3.0.0-M3: developer's preview before RC1</a></div>
+<html>
+ <head>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"> 
+ </head>
+ <body>
+  <div id="content-wrapper"> 
+   <main class="container"> 
+    <header> 
+     <h1>Scala 3.0.0-M3: developer's preview before RC1</h1> 
+     <div class="byline"> <time class="date"> <i class="far fa-calendar-alt"></i> 2020-12-18 </time> <span class="author"> <i class="fas fa-pen-nib"></i> Anatolii Kmetiuk </span> 
+     </div> 
+    </header> 
+    <p>We are happy to announce the release of Scala 3.0.0-M3. This release is the Developer's Preview release. It is intended to contain all the features meant for RC1, which is tentatively planned for January 2021. The purpose of M3 is to give the larger community, beyond early adopters, a chance to try out all the features and give us feedback before sealing them in RC1.</p> 
+    <p>To collect the feedback, we have designed a <a href="https://docs.google.com/forms/d/e/1FAIpQLSflVmTu9lhrtnSTh2tKAjUGrt3WvEgwlDqZg66O3EVSXd1aJg/viewform?usp=sf_link">Scala 3 Developer’s Preview satisfaction survey (3-5 min)</a> – please fill it in to express how you feel about Scala 3.</p> 
+    <p>During the weeks between M2 and M3, we have been tying up all the loose ends, so that everything intended for the release could be finished before ending 2020. In addition, we have used this time to review and fine-tune the language syntax. Finally, a large number of consultations with the community took place during this time.</p> 
+    <p>In this article, you will find the most important changes of this release compared to Scala 3.0.0-M2.</p> 
+    <p>To read more about all things that surround the Scala 3 release in the next months, check out the "<a href="https://www.scala-lang.org/blog/2020/12/15/scala-3-crossing-the-finish-line.html">Scala 3 - Crossing the finish line</a>" blog post on scala-lang.org</p> 
+    <p>You can try out the M3 version online via <a href="https://scastie.scala-lang.org/?target=dotty">Scastie</a>.</p> <!--more--> 
+    <h1><a href="#sbt-plugin-update" id="sbt-plugin-update" class="anchor"></a>sbt plugin update</h1> 
+    <p>We published a new version of the sbt plugin <code>sbt-dotty</code>, v0.5.1. Because of the changes in PR <a href="https://github.com/lampepfl/dotty/pull/10607">#10607</a>, this release of Scala 3 will not work with earlier versions of sbt-dotty. You will need to upgrade sbt-dotty to 0.5.1 to be able to use Scala 3.0.0-M3.</p> 
+    <h1><a href="#final-syntactic-tweaks" id="final-syntactic-tweaks" class="anchor"></a>Final syntactic tweaks</h1> 
+    <h2><a href="#as-dropped-from-the-given-syntax" id="as-dropped-from-the-given-syntax" class="anchor"></a><code>as</code> dropped from the <code>given</code> syntax</h2> 
+    <p>The following syntax is obsolete:</p> 
+    <pre><code class="language-scala">given intOrd as Ordering[Int]:
+  ...
+given listOrd[T: Ordering] as Ordering[List[T]]:
+  ...
+
+given Ordering[Int]:
+  ...
+given [T: Ordering] as Ordering[List[T]]:
+  ...
+
+given global as ExecutionContext = ForkJoinContext()
+given Context = ctx
+</code></pre> 
+    <p>Here is how the above is expressed now:</p> 
+    <pre><code class="language-scala">given intOrd: Ordering[Int] with
+  ...
+given listOrd[T: Ordering]: Ordering[List[T]] with
+  ...
+
+given Ordering[Int] with
+  ...
+given [T: Ordering]: Ordering[List[T]] with
+  ...
+
+given global: ExecutionContext = ForkJoinContext()
+given Context = ctx
+</code></pre> 
+    <p>You can find a discussion of the above change in the <a href="https://github.com/lampepfl/dotty/pull/10538">PR #10538</a>.</p> 
+    <h2><a href="#drop-as-in-patterns" id="drop-as-in-patterns" class="anchor"></a>Drop <code>as</code> in patterns</h2> 
+    <p>Since we dropped <code>as</code> from <code>given</code>s, we lost a strong reason for having <code>as</code> at all. Therefore, we dropped <code>as</code> from patterns as well. The following syntax, valid in Scala 3.0.0-M2, is not accepted anymore:</p> 
+    <pre><code class="language-scala">case opt as Some(foo)
+</code></pre> 
+    <p>Instead, code that used it should be reverted to use the existing syntax of Scala 2, using <code>@</code>:</p> 
+    <pre><code class="language-scala">case opt @ Some(foo)
+</code></pre> 
+    <h2><a href="#switch-back-to-the-old-context-function-closure-syntax" id="switch-back-to-the-old-context-function-closure-syntax" class="anchor"></a>Switch back to the old context function closure syntax</h2> 
+    <p>Previously, context function closures were written as follows:</p> 
+    <pre><code class="language-scala">(using s: Show[String]) =&gt; s.show("foobar")
+</code></pre> 
+    <p>Now, we have reverted to the following syntax:</p> 
+    <pre><code class="language-scala">(s: Show[String]) ?=&gt; s.show("foobar")
+</code></pre> 
+    <h1><a href="#matchable-trait--a-new-top-level-type" id="matchable-trait--a-new-top-level-type" class="anchor"></a><code>Matchable</code> trait – a new top-level type</h1> 
+    <p>Although opaque types are supposed to provide an opaque abstraction of their underlying types, it is currently too easy to break the abstraction using pattern matching:</p> 
+    <pre><code class="language-scala">val imm = IArray(1,2,3) // supposedly immutable...
+imm match
+  case a: Array[Int] =&gt; a(0) = 0  // but that's shown to be lie
+</code></pre> 
+    <p>To address this change, we introduce a new trait <code>Matchable</code> near the top of the type hierarchy:</p> 
+    <pre><code class="language-scala">abstract class Any:
+  def asInstanceOf
+  def ==
+  def !=
+  def ##
+  def equals
+  def hashCode
+  def toString
+
+trait Matchable extends Any:
+  def isInstanceOf
+  def getClass
+
+class AnyVal extends Any, Matchable
+
+class Object extends Any, Matchable
+</code></pre> 
+    <p><code>Matchable</code> is currently a marker trait without any methods. Over time, we intend to migrate the methods <code>getClass</code> and <code>isInstanceOf</code> to it, since these are closely related to pattern-matching.</p> 
+    <p>In the meantime, the compiler will emit warnings when trying to call those methods, or when performing a <code>match</code>, on an value that is not a <code>Matchable</code>. For example, the above example is now flagged:</p> 
+    <pre><code class="language-scala">-- Warning: i7314.scala:6:12 ---------------------------------------------------
+6 |    case a: Array[Int] =&gt;
+  |            ^^^^^^^^^^
+  |            pattern selector should be an instance of Matchable,
+  |            but it has unmatchable type opaques.IArray[Int] instead
+</code></pre> 
+    <p>Note that the warnings are only active with language mode <code>3.1-migration</code> or higher - see the documentation on the <a href="https://dotty.epfl.ch/docs/usage/language-versions.html">Language Versions</a> to learn how to enable it.</p> 
+    <p>You can read the discussion of this change in the <a href="https://github.com/lampepfl/dotty/pull/10670">PR #10670</a>. You can also read more about it in the <a href="https://dotty.epfl.ch/docs/reference/other-new-features/matchable.html">documentation</a>.</p> 
+    <h1><a href="#tooling-improvements" id="tooling-improvements" class="anchor"></a>Tooling improvements</h1> 
+    <p>As we are getting closer to a stable release of Scala 3, the focus increasingly shifts on the tooling available to get started with Scala 3.</p> 
+    <p>For a while now, we are not using the old dottydoc documentation tool for building the documentation. We are developing an entirely new tool, scala3doc, from scratch. This new documentation tool is more robust and faster than the old one.</p> 
+    <p>As part of the tooling effort, this new Scala 3 documentation tool is rapidly improved. <a href="https://github.com/lampepfl/dotty/pull/10522">PR #10522</a> proves that the doctool can generate documentation for the community build projects. You can access this documentation via the following <a href="https://scala3doc.virtuslab.com/pr-master-docs/index.html">link</a>.</p> 
+    <p><a href="https://github.com/lampepfl/dotty/pull/10491">PR #10491</a> introduced scripting support in Scala 3. Consider the following source named <code>Main.scala</code>:</p> 
+    <pre><code class="language-scala">@main def Test(name: String): Unit =
+  println(s"Hello ${name}!")
+</code></pre> 
+    <p>If you have Scala 3 binaries on your path (which you can get by following the steps on the <a href="https://dotty.epfl.ch/">Dotty website</a>, in the section "Try Dotty"), you can run the following command:</p> 
+    <pre><code>$ scala Main.scala World
+</code></pre> 
+    <p>This will compile the source in question to a temporary directory and run the discovered main method with the argument <code>World</code>.</p> 
+    <p>Note the difference from the Scala 2 scripting implementation. In Scala 2, we do not require the users to have a <code>main</code> method in their scripts due to it being too cumbersome to write. In Scala 3, thanks to the top-level definitions and the <code>@main</code> annotations, <code>main</code> methods are one-liners and hence are more suited for scripts.</p> 
+    <p>The documentation for this feature is available <a href="https://dotty.epfl.ch/docs/usage/getting-started.html#scala-3-for-scripting">here</a>.</p> 
+    <h1><a href="#metaprogramming-changes" id="metaprogramming-changes" class="anchor"></a>Metaprogramming changes</h1> 
+    <p>We have been polishing the metaprogramming API and making it more uniform. The following notable changes occurred between M2 and M3:</p> 
+    <ul> 
+     <li>Add <code>Expr.asTerm</code> <a href="https://github.com/lampepfl/dotty/pull/10694">#10694</a></li> 
+     <li>Add reflect <code>MatchCase</code> <code>TypeRepr</code> <a href="https://github.com/lampepfl/dotty/pull/10735">#10735</a></li> 
+     <li>Rework reflect Symbol fields API <a href="https://github.com/lampepfl/dotty/pull/10705">#10705</a></li> 
+     <li>Remove <code>Expr.StringContext.unapply</code> <a href="https://github.com/lampepfl/dotty/pull/10675">#10675</a></li> 
+     <li>Rename <code>Liftable</code> to <code>ToExpr</code> and <code>Unliftable</code> to <code>FromExpr</code> <a href="https://github.com/lampepfl/dotty/pull/10618">#10618</a></li> 
+     <li>Remove Unliftable[Unit] <a href="https://github.com/lampepfl/dotty/pull/10570">#10570</a></li> 
+     <li>Remove reflect.LambdaType <a href="https://github.com/lampepfl/dotty/pull/10548">#10548</a></li> 
+     <li>Add <code>scala.quoted.Expr.unapply</code> as dual of <code>Expr.apply</code> <a href="https://github.com/lampepfl/dotty/pull/10580">#10580</a></li> 
+     <li>Move <code>Quotes</code> as last parameter in <code>ExprMap.transform</code> <a href="https://github.com/lampepfl/dotty/pull/10519">#10519</a></li> 
+     <li>Rework reflect Constant API <a href="https://github.com/lampepfl/dotty/pull/10753">#10753</a></li> 
+     <li>Unify quoted.report and reflect.Reporting <a href="https://github.com/lampepfl/dotty/pull/10474">#10474</a></li> 
+     <li>Fix #10359: Add GivenSelector to reflection API <a href="https://github.com/lampepfl/dotty/pull/10469">#10469</a></li> 
+     <li>Rework reflect show API <a href="https://github.com/lampepfl/dotty/pull/10661">#10661</a></li> 
+     <li>Fix #10709: Add missing level check before inlining <a href="https://github.com/lampepfl/dotty/pull/10781">#10781</a></li> 
+    </ul> 
+    <h1><a href="#let-us-know-what-you-think" id="let-us-know-what-you-think" class="anchor"></a>Let us know what you think!</h1> 
+    <p>If you have questions or any sort of feedback, feel free to send us a message on our <a href="https://gitter.im/lampepfl/dotty">Gitter channel</a>. If you encounter a bug, please <a href="https://github.com/lampepfl/dotty/issues/new">open an issue on GitHub</a>.</p> 
+    <h2><a href="#contributors" id="contributors" class="anchor"></a>Contributors</h2> 
+    <p>Thank you to all the contributors who made this release possible 🎉</p> 
+    <p>According to <code>git shortlog -sn --no-merges 3.0.0-M2..3.0.0-M3</code> these are:</p> 
+    <pre><code>    80  Nicolas Stucki
+    73  Martin Odersky
+    64  Krzysztof Romanowski
+    32  Liu Fengyun
+    28  Aleksander Boruch-Gruszecki
+    22  Anatolii Kmetiuk
+    17  Guillaume Martres
+    17  Sébastien Doeraene
+    14  Andrzej Ratajczak
+    13  Tom Grigg
+     8  Filip Zybała
+     7  Lan, Jian
+     5  Olivier Blanvillain
+     5  Som Snytt
+     5  Jamie Thompson
+     4  Stéphane Micheloud
+     4  Lionel Parreaux
+     3  Adrien Piquerez
+     3  Artur Opala
+     3  Hanns Holger Rutz
+     3  Michael Pilquist
+     3  Michał Pałka
+     3  bishabosha
+     2  Jonathan Brachthäuser
+     2  Camila Andrea Gonzalez Williamson
+     1  Mikael Blomstrand
+     1  Francois GORET
+     1  Felix Mulder
+     1  Raphael Jolly
+     1  Robert Stoll
+     1  Ruslan Shevchenko
+     1  Seth Tisue
+     1  Eugene Yokota
+     1  Amadou CISSE
+     1  Akhtiam Sakaev
+     1  Martin Duhem
+     1  Tomasz Godzik
+     1  Matthew Pickering
+     1  odersky
+</code></pre> 
+    <p>If you want to get your hands dirty and contribute to Scala 3, head to our <a href="https://dotty.epfl.ch/docs/contributing/getting-started.html">Getting Started page for new contributors</a> and read the docs on contributing. You are also very welcome to contact someone from our team to help you get started and see what currently we need help with.</p> 
+    <p>We are looking forward to having you join the team of contributors.</p> 
+    <h2><a href="#library-authors-join-our-community-build" id="library-authors-join-our-community-build" class="anchor"></a>Library authors: Join our community build</h2> 
+    <p>Scala 3 is regularly tested against a sample of libraries known as the "community build". You can add your library to the <a href="https://github.com/lampepfl/dotty/tree/master/community-build">community build</a> by submitting a PR.</p> 
+    <hr> 
+    <footer> 
+     <img id="author-img" src="../../../../images/anatolii.png"> <span id="author-signature"> Anatolii Kmetiuk </span> 
+    </footer> 
+   </main> 
+  </div> 
+  <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'lampepfl/dotty'
+  };
+</script> 
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+ </body>
+</html>  </div>
+</main><footer><span class="go-to-top-icon"><a href="#container"><span class="icon-vertical_align_top"></span>&nbsp;Back to top</a></span>Generated by&nbsp;<a href="https://github.com/lampepfl/dotty/tree/master/scala3doc"><img src="../../../../images/scala3doc_logo.svg" alt="Scala3doc" class="scala3doc_logo"></img></a></footer></div></div><script type="text/javascript" src="../../../../scripts/pages.js"></script><script type="text/javascript" src="../../../../scripts/main.js"></script></body></html>
