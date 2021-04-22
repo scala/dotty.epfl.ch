@@ -1,5 +1,6 @@
 pages = [{"l":"index.html","n":"Scala 3","t":"Scala 3","d":""},
 {"l":"blog/index.html","n":"Blog","t":"Blog","d":""},
+{"l":"blog/2021/04/21/scala3-rc3.html","n":"Scala 3.0.0-RC3 – bug fixes for 3.0.0 stable","t":"Scala 3.0.0-RC3 – bug fixes for 3.0.0 stable","d":""},
 {"l":"blog/2021/03/31/scala3-rc2.html","n":"Scala 3.0.0-RC2 – getting ready for 3.0.0","t":"Scala 3.0.0-RC2 – getting ready for 3.0.0","d":""},
 {"l":"blog/2021/02/17/scala3-rc1.html","n":"Scala 3.0.0-RC1 – first release candidate is here","t":"Scala 3.0.0-RC1 – first release candidate is here","d":""},
 {"l":"blog/2020/12/18/scala3-m3.html","n":"Scala 3.0.0-M3: developer's preview before RC1","t":"Scala 3.0.0-M3: developer's preview before RC1","d":""},
