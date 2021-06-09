@@ -39,9 +39,14 @@ window.addEventListener("DOMContentLoaded", () => {
   })
 
   if (location.hash) {
-    var selected = document.getElementById(location.hash.substring(1));
-    if (selected){
-      selected.classList.toggle("expand");
+    var target = location.hash.substring(1);
+    // setting the 'expand' class on the top-level container causes undesireable styles
+    // to apply to the top-level docs, so we avoid this logic for that element.
+    if (target != 'container') {
+      var selected = document.getElementById(location.hash.substring(1));
+      if (selected) {
+        selected.classList.toggle("expand");
+      }
     }
   }
 
@@ -54,6 +59,20 @@ window.addEventListener("DOMContentLoaded", () => {
   hljs.registerLanguage("scala", highlightDotty);
   hljs.registerAliases(["dotty", "scala3"], "scala");
   hljs.initHighlighting();
+
+  /* listen for the `F` key to be pressed, to focus on the member filter input (if it's present) */
+  document.body.addEventListener('keydown', e => {
+    if (e.key == "f") {
+      const tag = e.target.tagName;
+      if (tag != "INPUT" && tag != "TEXTAREA") {
+        const filterInput = findRef('.documentableFilter input.filterableInput');
+        if (filterInput != null) {
+          // if we focus during this event handler, the `f` key gets typed into the input
+          setTimeout(() => filterInput.focus(), 1);
+        }
+      }
+    }
+  })
 });
 
 var zoom;
