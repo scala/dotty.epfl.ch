@@ -1,5 +1,6 @@
-pages = [{"l":"index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"},
+pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"},
 {"l":"blog/index.html","n":"Blog","t":"Blog","d":"","k":"static"},
+{"l":"blog/2021/06/25/scala301-rc2.html","n":"Scala 3.0.1-RC2 – backports of critical bugfixes","t":"Scala 3.0.1-RC2 – backports of critical bugfixes","d":"","k":"static"},
 {"l":"blog/2021/06/07/scala3.0.1-rc1-release.html","n":"Scala 3.0.1-RC1 – further stabilising the compiler","t":"Scala 3.0.1-RC1 – further stabilising the compiler","d":"","k":"static"},
 {"l":"blog/2021/04/21/scala3-rc3.html","n":"Scala 3.0.0-RC3 – bug fixes for 3.0.0 stable","t":"Scala 3.0.0-RC3 – bug fixes for 3.0.0 stable","d":"","k":"static"},
 {"l":"blog/2021/03/31/scala3-rc2.html","n":"Scala 3.0.0-RC2 – getting ready for 3.0.0","t":"Scala 3.0.0-RC2 – getting ready for 3.0.0","d":"","k":"static"},
