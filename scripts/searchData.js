@@ -2141,6 +2141,7 @@ pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}
 {"l":"api/scala/Selectable.html","n":"Selectable","t":"trait Selectable","d":"scala/Selectable","k":"trait"},
 {"l":"api/scala/Selectable$.html","n":"Selectable","t":"object Selectable","d":"scala/Selectable$","k":"object"},
 {"l":"api/scala/Selectable$.html","n":"reflectiveSelectableFromLangReflectiveCalls","t":"def reflectiveSelectableFromLangReflectiveCalls(x: Any)(using reflectiveCalls): Selectable","d":"scala/Selectable$","k":"def"},
+{"l":"api/scala/Selectable$$WithoutPreciseParameterTypes.html","n":"WithoutPreciseParameterTypes","t":"trait WithoutPreciseParameterTypes extends Selectable","d":"scala/Selectable$$WithoutPreciseParameterTypes","k":"trait"},
 {"l":"api/scala/SerialVersionUID.html","n":"SerialVersionUID","t":"class SerialVersionUID(value: Long) extends ConstantAnnotation","d":"scala/SerialVersionUID","k":"class"},
 {"l":"api/scala/Short.html","n":"Short","t":"class Short extends AnyVal","d":"scala/Short","k":"class"},
 {"l":"api/scala/Short.html","n":"!=","t":"def !=(x: Byte): Boolean","d":"scala/Short","k":"def"},
