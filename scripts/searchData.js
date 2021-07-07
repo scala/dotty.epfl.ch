@@ -172,7 +172,6 @@ pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}
 {"l":"docs/internals/debug-macros.html","n":"Debug Macros","t":"Debug Macros","d":"","k":"static"},
 {"l":"docs/Resources/index.html","n":"Resources","t":"Resources","d":"","k":"static"},
 {"l":"docs/resources/talks.html","n":"Talks","t":"Talks","d":"","k":"static"},
-{"l":"index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"},
 {"l":"api/index.html","n":"API","t":"API","d":"","k":"static"},
 {"l":"api/dotty/tools/tasty.html","n":"dotty.tools.tasty","t":"package dotty.tools.tasty","d":"dotty/tools/tasty","k":"package"},
 {"l":"api/dotty/tools/tasty/TastyBuffer$.html","n":"TastyBuffer","t":"object TastyBuffer","d":"dotty/tools/tasty/TastyBuffer$","k":"object"},
@@ -11549,7 +11548,6 @@ pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}
 {"l":"docs/contributing/debug-tests.html","n":"Tests for Debuggability","t":"Tests for Debuggability","d":"","k":"static"},
 {"l":"docs/internals/syntax-3.1.html","n":"Scala Syntax Summary","t":"Scala Syntax Summary","d":"","k":"static"},
 {"l":"docs/internals/explicit-nulls.html","n":"Explicit Nulls","t":"Explicit Nulls","d":"","k":"static"},
-{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"},
 {"l":"docs/reference/changed-features/implicit-conversions-spec.html","n":"Implicit Conversions - More Details","t":"Implicit Conversions - More Details","d":"","k":"static"},
 {"l":"docs/reference/changed-features/interpolation-escapes.html","n":"Escapes in interpolations","t":"Escapes in interpolations","d":"","k":"static"},
 {"l":"docs/reference/changed-features/eta-expansion-spec.html","n":"Automatic Eta Expansion - More Details","t":"Automatic Eta Expansion - More Details","d":"","k":"static"},
@@ -11574,4 +11572,5 @@ pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}
 {"l":"docs/reference/other-new-features/parameter-untupling-spec.html","n":"Parameter Untupling - More Details","t":"Parameter Untupling - More Details","d":"","k":"static"},
 {"l":"docs/reference/other-new-features/named-typeargs.html","n":"Named Type Arguments","t":"Named Type Arguments","d":"","k":"static"},
 {"l":"docs/reference/dropped-features/weak-conformance-spec.html","n":"Dropped: Weak Conformance - More Details","t":"Dropped: Weak Conformance - More Details","d":"","k":"static"},
-{"l":"docs/reference/dropped-features/class-shadowing-spec.html","n":"Dropped: Class Shadowing - More Details","t":"Dropped: Class Shadowing - More Details","d":"","k":"static"}];
+{"l":"docs/reference/dropped-features/class-shadowing-spec.html","n":"Dropped: Class Shadowing - More Details","t":"Dropped: Class Shadowing - More Details","d":"","k":"static"},
+{"l":"index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}];
