@@ -126,7 +126,7 @@ pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}
 {"l":"docs/reference/changed-features/lazy-vals-init.html","n":"Lazy Vals initialization","t":"Lazy Vals initialization","d":"","k":"static"},
 {"l":"docs/reference/changed-features/main-functions.html","n":"Main Methods","t":"Main Methods","d":"","k":"static"},
 {"l":"docs/Dropped Features/index.html","n":"Dropped Features","t":"Dropped Features","d":"","k":"static"},
-{"l":"docs/reference/dropped-features/delayed-init.html","n":"Dropped: Delayedinit","t":"Dropped: Delayedinit","d":"","k":"static"},
+{"l":"docs/reference/dropped-features/delayed-init.html","n":"Dropped: DelayedInit","t":"Dropped: DelayedInit","d":"","k":"static"},
 {"l":"docs/reference/dropped-features/macros.html","n":"Dropped: Scala 2 Macros","t":"Dropped: Scala 2 Macros","d":"","k":"static"},
 {"l":"docs/reference/dropped-features/existential-types.html","n":"Dropped: Existential Types","t":"Dropped: Existential Types","d":"","k":"static"},
 {"l":"docs/reference/dropped-features/type-projection.html","n":"Dropped: General Type Projection","t":"Dropped: General Type Projection","d":"","k":"static"},
