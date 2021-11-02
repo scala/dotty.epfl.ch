@@ -2405,6 +2405,8 @@ pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}
 {"l":"api/scala/language$.html","n":"reflectiveCalls","t":"val reflectiveCalls: reflectiveCalls","d":"scala/language$","k":"val"},
 {"l":"api/scala/runtime/stdLibPatches/language$$3/0$.html","n":"3.0","t":"object 3.0","d":"scala/runtime/stdLibPatches/language$$3/0$","k":"object"},
 {"l":"api/scala/runtime/stdLibPatches/language$$3/0-migration$.html","n":"3.0-migration","t":"object 3.0-migration","d":"scala/runtime/stdLibPatches/language$$3/0-migration$","k":"object"},
+{"l":"api/scala/runtime/stdLibPatches/language$$3/1$.html","n":"3.1","t":"object 3.1","d":"scala/runtime/stdLibPatches/language$$3/1$","k":"object"},
+{"l":"api/scala/runtime/stdLibPatches/language$$3/1-migration$.html","n":"3.1-migration","t":"object 3.1-migration","d":"scala/runtime/stdLibPatches/language$$3/1-migration$","k":"object"},
 {"l":"api/scala/runtime/stdLibPatches/language$$adhocExtensions$.html","n":"adhocExtensions","t":"object adhocExtensions","d":"scala/runtime/stdLibPatches/language$$adhocExtensions$","k":"object"},
 {"l":"api/scala/runtime/stdLibPatches/language$$deprecated$.html","n":"deprecated","t":"object deprecated","d":"scala/runtime/stdLibPatches/language$$deprecated$","k":"object"},
 {"l":"api/scala/runtime/stdLibPatches/language$$deprecated$$symbolLiterals$.html","n":"symbolLiterals","t":"object symbolLiterals","d":"scala/runtime/stdLibPatches/language$$deprecated$$symbolLiterals$","k":"object"},
