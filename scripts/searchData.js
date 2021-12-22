@@ -142,7 +142,7 @@ pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}
 {"l":"docs/reference/dropped-features/wildcard-init.html","n":"Dropped: Wildcard Initializer","t":"Dropped: Wildcard Initializer","d":"","k":"static"},
 {"l":"docs/experimental features/index.html","n":"Experimental Features","t":"Experimental Features","d":"","k":"static"},
 {"l":"docs/reference/experimental/overview.html","n":"Experimental language features","t":"Experimental language features","d":"","k":"static"},
-{"l":"docs/reference/experimental/canthrow.html","n":"CanThrow Abilities","t":"CanThrow Abilities","d":"","k":"static"},
+{"l":"docs/reference/experimental/canthrow.html","n":"CanThrow Capabilities","t":"CanThrow Capabilities","d":"","k":"static"},
 {"l":"docs/reference/experimental/erased-defs.html","n":"Erased Definitions","t":"Erased Definitions","d":"","k":"static"},
 {"l":"docs/reference/experimental/erased-defs-spec.html","n":"Erased Definitions: More Details","t":"Erased Definitions: More Details","d":"","k":"static"},
 {"l":"docs/reference/experimental/named-typeargs.html","n":"Named Type Arguments","t":"Named Type Arguments","d":"","k":"static"},
