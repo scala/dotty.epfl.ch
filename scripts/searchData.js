@@ -146,6 +146,7 @@ pages = [{"l":"docs/index.html","n":"Scala 3","t":"Scala 3","d":"","k":"static"}
 {"l":"docs/reference/experimental/named-typeargs.html","n":"Named Type Arguments","t":"Named Type Arguments","d":"","k":"static"},
 {"l":"docs/reference/experimental/numeric-literals.html","n":"Numeric Literals","t":"Numeric Literals","d":"","k":"static"},
 {"l":"docs/reference/experimental/explicit-nulls.html","n":"Explicit Nulls","t":"Explicit Nulls","d":"","k":"static"},
+{"l":"docs/reference/experimental/cc.html","n":"Capture Checking","t":"Capture Checking","d":"","k":"static"},
 {"l":"docs/reference/syntax.html","n":"Scala 3 Syntax Summary","t":"Scala 3 Syntax Summary","d":"","k":"static"},
 {"l":"docs/reference/language-versions/language-versions.html","n":"Language Versions","t":"Language Versions","d":"","k":"static"},
 {"l":"docs/reference/language-versions/source-compatibility.html","n":"Source Compatibility","t":"Source Compatibility","d":"","k":"static"},
