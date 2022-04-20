@@ -7976,6 +7976,7 @@ pages = [{"l":"index.html#","e":false,"n":"Scala 3","t":"Scala 3","d":"","k":"st
 {"l":"api/scala/quoted/Quotes$reflectModule$AppliedTypeMethods.html#args-5f","e":false,"n":"args","t":"args: List[TypeRepr]","d":"scala/quoted/Quotes$reflectModule$AppliedTypeMethods","k":"def"},
 {"l":"api/scala/quoted/Quotes$reflectModule$AppliedTypeMethods.html#tycon-d26","e":false,"n":"tycon","t":"tycon: TypeRepr","d":"scala/quoted/Quotes$reflectModule$AppliedTypeMethods","k":"def"},
 {"l":"api/scala/quoted/Quotes$reflectModule$AppliedTypeModule.html#","e":false,"n":"AppliedTypeModule","t":"AppliedTypeModule","d":"scala/quoted/Quotes$reflectModule$AppliedTypeModule","k":"trait"},
+{"l":"api/scala/quoted/Quotes$reflectModule$AppliedTypeModule.html#apply-fffffbf2","e":false,"n":"apply","t":"apply(tycon: TypeRepr, args: List[TypeRepr]): AppliedType","d":"scala/quoted/Quotes$reflectModule$AppliedTypeModule","k":"def"},
 {"l":"api/scala/quoted/Quotes$reflectModule$AppliedTypeModule.html#unapply-fffff445","e":false,"n":"unapply","t":"unapply(x: AppliedType): (TypeRepr, List[TypeRepr])","d":"scala/quoted/Quotes$reflectModule$AppliedTypeModule","k":"def"},
 {"l":"api/scala/quoted/Quotes$reflectModule$ApplyMethods.html#","e":false,"n":"ApplyMethods","t":"ApplyMethods","d":"scala/quoted/Quotes$reflectModule$ApplyMethods","k":"trait"},
 {"l":"api/scala/quoted/Quotes$reflectModule$ApplyMethods.html#args-5f","e":false,"n":"args","t":"args: List[Term]","d":"scala/quoted/Quotes$reflectModule$ApplyMethods","k":"def"},
