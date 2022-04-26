@@ -154,6 +154,7 @@ pages = [{"l":"index.html#","e":false,"n":"Scala 3","t":"Scala 3","d":"","k":"st
 {"l":"docs/internals/type-system.html#","e":false,"n":"Type System","t":"Type System","d":"","k":"static"},
 {"l":"docs/internals/dotty-internals-1-notes.html#","e":false,"n":"Dotty Internals 1: Trees & Symbols (Meeting Notes)","t":"Dotty Internals 1: Trees & Symbols (Meeting Notes)","d":"","k":"static"},
 {"l":"docs/internals/debug-macros.html#","e":false,"n":"Debug Macros","t":"Debug Macros","d":"","k":"static"},
+{"l":"docs/internals/gadts.html#","e":false,"n":"gadts","t":"gadts","d":"","k":"static"},
 {"l":"release-notes-0.1.2.html#","e":false,"n":"0.1.2 release notes","t":"0.1.2 release notes","d":"","k":"static"},
 {"l":"blog/index.html#","e":false,"n":"Blog","t":"Blog","d":"","k":"static"},
 {"l":"blog/2021/06/25/scala301-rc2.html#","e":false,"n":"Scala 3.0.1-RC2 – backports of critical bugfixes","t":"Scala 3.0.1-RC2 – backports of critical bugfixes","d":"","k":"static"},
