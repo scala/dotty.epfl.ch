@@ -4119,7 +4119,6 @@ pages = [{"l":"index.html#","e":false,"n":"Scala 3","t":"Scala 3","d":"","k":"st
 {"l":"api/scala/collection/generic.html#Shrinkable-0","e":false,"n":"Shrinkable","t":"Shrinkable[-A] = Shrinkable[A]","d":"scala/collection/generic","k":"type"},
 {"l":"api/scala/collection/generic/DefaultSerializable.html#","e":false,"n":"DefaultSerializable","t":"DefaultSerializable extends Serializable","d":"scala/collection/generic/DefaultSerializable","k":"trait"},
 {"l":"api/scala/collection/generic/DefaultSerializationProxy.html#","e":false,"n":"DefaultSerializationProxy","t":"DefaultSerializationProxy[A](factory: Factory[A, Any], coll: Iterable[A]) extends Serializable","d":"scala/collection/generic/DefaultSerializationProxy","k":"class"},
-{"l":"api/scala/collection/generic/DefaultSerializationProxy.html#builder-0","e":false,"n":"builder","t":"builder: Builder[A, Any]","d":"scala/collection/generic/DefaultSerializationProxy","k":"var"},
 {"l":"api/scala/collection/generic/IsIterable.html#","e":false,"n":"IsIterable","t":"IsIterable[Repr] extends IsIterableOnce[Repr]","d":"scala/collection/generic/IsIterable","k":"trait"},
 {"l":"api/scala/collection/generic/IsIterable.html#C-0","e":false,"n":"C","t":"C","d":"scala/collection/generic/IsIterable","k":"type"},
 {"l":"api/scala/collection/generic/IsIterable.html#apply-fffff62b","e":false,"n":"apply","t":"apply(coll: Repr): IterableOps[A, Iterable, C]","d":"scala/collection/generic/IsIterable","k":"def"},
