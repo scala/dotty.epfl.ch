@@ -336,7 +336,7 @@ except those of value classes. Value classes are subclasses of <a href="scala/An
 primitive types such as <a href="scala/Int.html">Int</a>, <a href="scala/Boolean.html">Boolean</a>, and user-defined value classes.</span></p><p><span>Since <code>Null</code> is not a subtype of value types, <code>null</code> is not a member of any such type.
 For instance, it is not possible to assign <code>null</code> to a variable of type <a href="scala/Int.html">scala.Int</a>.
 </span></p></div></div><dl class="attributes"></dl></div></div></div></div></div><div class="documentableElement"><div><span class="annotations monospace"></span></div><div class="header monospace"><div class="signature"><span class="modifiers"></span><span class="kind"><span t="k">object </span></span><a href="scala/Option$.html" class="documentableName ">Option</a><span></span></div></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="memberDocumentation"><div class="documentableBrief doc"></div><div class="cover"><div class="doc"></div><dl class="attributes"><dt>Companion:</dt><dd><a href="scala/Option.html">class</a></dd><dt>Source:</dt><dd><a href="https://github.com/scala/scala/blob/v2.13.8/src/library/scala/Option.scala#L15">Option.scala</a></dd></dl></div></div></div></div></div><div class="documentableElement" data-f-keywords="sealed,abstract"><div><span class="annotations monospace"></span></div><div class="header monospace"><div class="signature"><span class="modifiers"><span t="k">sealed abstract </span></span><span class="kind"><span t="k">class </span></span><a href="scala/Option.html" class="documentableName ">Option</a><span>[<span t="k">+</span><span data-unresolved-link="" t="t">A</span>]<span t="k"> extends </span><a href="scala/collection/IterableOnce.html" t="t">IterableOnce</a>[<span t="t">A</span>]<span t="k"> with </span><a href="scala/Product.html" t="t">Product</a><span t="k"> with </span><a href="scala.html#Serializable-0" t="t">Serializable</a></span></div></div><div class="docs"><span class="modifiers"></span><div><div class="originInfo"></div><div class="memberDocumentation"><div class="documentableBrief doc"><p><span>Represents optional values.</span></p></div><div class="cover"><div class="doc"><div><p><span><span>Represents optional values.</span><span> Instances of <code>Option</code>
-are either an instance of <a href="scala/Some.html">scala.Some</a> or the object <code>None</code>.</span></span></p><p><span>The most idiomatic way to use an <a href="scala/Option.html">scala.Option</a> instance is to treat it
+are either an instance of $some or the object $none.</span></span></p><p><span>The most idiomatic way to use an $option instance is to treat it
 as a collection or monad and use <code>map</code>,<code>flatMap</code>, <code>filter</code>, or
 <code>foreach</code>:</span></p><pre><code>val name: Option[String] = request getParameter &quot;name&quot;
 val upper = name map { _.trim } filter { _.length != 0 } map { _.toUpperCase }
@@ -345,10 +345,10 @@ println(upper getOrElse &quot;&quot;)</code></pre><p>Note that this is equivalen
   trimmed &lt;- Some(name.trim)
   upper &lt;- Some(trimmed.toUpperCase) if trimmed.length != 0
 } yield upper
-println(upper getOrElse &quot;&quot;)</code></pre><p><span>Because of how for comprehension works, if <code>None</code> is returned
+println(upper getOrElse &quot;&quot;)</code></pre><p><span>Because of how for comprehension works, if $none is returned
 from <code>request.getParameter</code>, the entire expression results in
-<code>None</code></span></p><p><span>This allows for sophisticated chaining of <a href="scala/Option.html">scala.Option</a> values without
-having to check for the existence of a value.</span></p><p><span>These are useful methods that exist for both <a href="scala/Some.html">scala.Some</a> and <code>None</code>.
+$none</span></p><p>This allows for sophisticated chaining of $option values without
+having to check for the existence of a value.</p><p><span>These are useful methods that exist for both $some and $none.
 - <a href="scala/Option.html#isDefined-0">isDefined</a> — True if not empty
 - <a href="scala/Option.html#isEmpty-0">isEmpty</a> — True if empty
 - <a href="scala/Option.html#nonEmpty-0">nonEmpty</a> — True if not empty
@@ -368,14 +368,14 @@ having to check for the existence of a value.</span></p><p><span>These are usefu
 - <a href="scala/Option.html#zip-fffff32c">zip</a> — Combine two optional values to make a paired optional value
 - <a href="scala/Option.html#unzip-916">unzip</a> — Split an optional pair to two optional values
 - <a href="scala/Option.html#unzip3-fffff3b6">unzip3</a> — Split an optional triple to three optional values
-- <a href="scala/Option.html#toList-0">toList</a> — Unary list of optional value, otherwise the empty list</span></p><p><span>A less-idiomatic way to use <a href="scala/Option.html">scala.Option</a> values is via pattern matching: </span></p><pre><code>val nameMaybe = request getParameter &quot;name&quot;
+- <a href="scala/Option.html#toList-0">toList</a> — Unary list of optional value, otherwise the empty list</span></p><p>A less-idiomatic way to use $option values is via pattern matching: </p><pre><code>val nameMaybe = request getParameter &quot;name&quot;
 nameMaybe match {
   case Some(name) =&gt;
     println(name.trim.toUppercase)
   case None =&gt;
     println(&quot;No name value&quot;)
-}</code></pre><p><span>Interacting with code that can occasionally return null can be
-safely wrapped in <a href="scala/Option.html">scala.Option</a> to become <code>None</code> and <a href="scala/Some.html">scala.Some</a> otherwise. </span></p><pre><code>val abc = new java.util.HashMap[Int, String]
+}</code></pre><p>Interacting with code that can occasionally return null can be
+safely wrapped in $option to become $none and $some otherwise. </p><pre><code>val abc = new java.util.HashMap[Int, String]
 abc.put(1, &quot;A&quot;)
 bMaybe = Option(abc.get(2))
 bMaybe match {
