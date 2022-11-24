@@ -43,6 +43,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/dotty/tools/tasty/TastyFormat$.html#APPLIEDtpt-0","e":false,"i":"","n":"APPLIEDtpt","t":"APPLIEDtpt: 162","d":"dotty.tools.tasty.TastyFormat","k":"val"},
 {"l":"api/dotty/tools/tasty/TastyFormat$.html#APPLIEDtype-0","e":false,"i":"","n":"APPLIEDtype","t":"APPLIEDtype: 161","d":"dotty.tools.tasty.TastyFormat","k":"val"},
 {"l":"api/dotty/tools/tasty/TastyFormat$.html#APPLY-0","e":false,"i":"","n":"APPLY","t":"APPLY: 136","d":"dotty.tools.tasty.TastyFormat","k":"val"},
+{"l":"api/dotty/tools/tasty/TastyFormat$.html#APPLYsigpoly-0","e":false,"i":"","n":"APPLYsigpoly","t":"APPLYsigpoly: 181","d":"dotty.tools.tasty.TastyFormat","k":"val"},
 {"l":"api/dotty/tools/tasty/TastyFormat$.html#ARTIFACT-0","e":false,"i":"","n":"ARTIFACT","t":"ARTIFACT: 24","d":"dotty.tools.tasty.TastyFormat","k":"val"},
 {"l":"api/dotty/tools/tasty/TastyFormat$.html#ASSIGN-0","e":false,"i":"","n":"ASSIGN","t":"ASSIGN: 139","d":"dotty.tools.tasty.TastyFormat","k":"val"},
 {"l":"api/dotty/tools/tasty/TastyFormat$.html#ASTsSection-0","e":false,"i":"","n":"ASTsSection","t":"ASTsSection: \"ASTs\"","d":"dotty.tools.tasty.TastyFormat","k":"val"},
