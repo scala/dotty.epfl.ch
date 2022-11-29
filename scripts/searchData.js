@@ -3947,7 +3947,6 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/collection/generic.html#Shrinkable-0","e":false,"i":"","n":"Shrinkable","t":"Shrinkable[-A] = Shrinkable[A]","d":"scala.collection.generic","k":"type"},
 {"l":"api/scala/collection/generic/DefaultSerializable.html#","e":false,"i":"","n":"DefaultSerializable","t":"DefaultSerializable extends Serializable","d":"scala.collection.generic","k":"trait"},
 {"l":"api/scala/collection/generic/DefaultSerializationProxy.html#","e":false,"i":"","n":"DefaultSerializationProxy","t":"DefaultSerializationProxy[A](factory: Factory[A, Any], coll: Iterable[A]) extends Serializable","d":"scala.collection.generic","k":"class"},
-{"l":"api/scala/collection/generic/DefaultSerializationProxy.html#builder-0","e":false,"i":"","n":"builder","t":"builder: Builder[A, Any]","d":"scala.collection.generic.DefaultSerializationProxy","k":"var"},
 {"l":"api/scala/collection/generic/IsIterable.html#","e":false,"i":"","n":"IsIterable","t":"IsIterable[Repr] extends IsIterableOnce[Repr]","d":"scala.collection.generic","k":"trait"},
 {"l":"api/scala/collection/generic/IsIterable.html#C-0","e":false,"i":"","n":"C","t":"C","d":"scala.collection.generic.IsIterable","k":"type"},
 {"l":"api/scala/collection/generic/IsIterable.html#apply-fffff62b","e":false,"i":"","n":"apply","t":"apply(coll: Repr): IterableOps[A, Iterable, C]","d":"scala.collection.generic.IsIterable","k":"def"},
