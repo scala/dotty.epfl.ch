@@ -7021,7 +7021,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/runtime/LazyVals$.html#setFlag-fffff8c3","e":false,"i":"","n":"setFlag","t":"setFlag(t: Object, offset: Long, v: Int, ord: Int): Unit","d":"scala.runtime.LazyVals","k":"def","x":""},
 {"l":"api/scala/runtime/LazyVals$.html#wait4Notification-638","e":false,"i":"","n":"wait4Notification","t":"wait4Notification(t: Object, offset: Long, cur: Long, ord: Int): Unit","d":"scala.runtime.LazyVals","k":"def","x":""},
 {"l":"api/scala/runtime/LazyVals$$Evaluating$.html#","e":false,"i":"","n":"Evaluating","t":"Evaluating extends LazyValControlState","d":"scala.runtime.LazyVals","k":"object","x":""},
-{"l":"api/scala/runtime/LazyVals$$LazyValControlState.html#","e":false,"i":"","n":"LazyValControlState","t":"LazyValControlState","d":"scala.runtime.LazyVals","k":"trait","x":""},
+{"l":"api/scala/runtime/LazyVals$$LazyValControlState.html#","e":false,"i":"","n":"LazyValControlState","t":"LazyValControlState extends Serializable","d":"scala.runtime.LazyVals","k":"trait","x":""},
 {"l":"api/scala/runtime/LazyVals$$Names$.html#","e":false,"i":"","n":"Names","t":"Names","d":"scala.runtime.LazyVals","k":"object","x":""},
 {"l":"api/scala/runtime/LazyVals$$Names$.html#cas-0","e":false,"i":"","n":"cas","t":"cas: \"CAS\"","d":"scala.runtime.LazyVals.Names","k":"val","x":""},
 {"l":"api/scala/runtime/LazyVals$$Names$.html#get-0","e":false,"i":"","n":"get","t":"get: \"get\"","d":"scala.runtime.LazyVals.Names","k":"val","x":""},
