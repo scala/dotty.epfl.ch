@@ -10166,7 +10166,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"docs/reference/metaprogramming/macros.html#","e":false,"i":"","n":"Macros","t":"Macros","d":"","k":"static","x":""},
 {"l":"docs/reference/metaprogramming/macros-spec.html#","e":false,"i":"","n":"Macros Spec","t":"Macros Spec","d":"","k":"static","x":""},
 {"l":"docs/reference/metaprogramming/simple-smp.html#","e":false,"i":"","n":"The Meta-theory of Symmetric Metaprogramming","t":"The Meta-theory of Symmetric Metaprogramming","d":"","k":"static","x":""},
-{"l":"docs/reference/metaprogramming/staging.html#","e":false,"i":"","n":"Runtime Multi-Stage Programming","t":"Runtime Multi-Stage Programming","d":"","k":"static","x":""},
+{"l":"docs/reference/metaprogramming/staging.html#","e":false,"i":"","n":"Run-Time Multi-Stage Programming","t":"Run-Time Multi-Stage Programming","d":"","k":"static","x":""},
 {"l":"docs/reference/metaprogramming/reflection.html#","e":false,"i":"","n":"Reflection","t":"Reflection","d":"","k":"static","x":""},
 {"l":"docs/reference/metaprogramming/tasty-inspect.html#","e":false,"i":"","n":"TASTy Inspection","t":"TASTy Inspection","d":"","k":"static","x":""},
 {"l":"docs/reference/other-new-features/index.html#","e":false,"i":"","n":"Other New Features","t":"Other New Features","d":"","k":"static","x":""},
