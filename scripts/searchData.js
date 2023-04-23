@@ -9911,6 +9911,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/runtime/stdLibPatches/language$$experimental$$into$.html#","e":false,"i":"","n":"into","t":"into","d":"scala.language.experimental","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$experimental$$namedTypeArguments$.html#","e":false,"i":"","n":"namedTypeArguments","t":"namedTypeArguments","d":"scala.language.experimental","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$experimental$$pureFunctions$.html#","e":false,"i":"","n":"pureFunctions","t":"pureFunctions","d":"scala.language.experimental","k":"object","x":""},
+{"l":"api/scala/runtime/stdLibPatches/language$$experimental$$relaxedExtensionImports$.html#","e":false,"i":"","n":"relaxedExtensionImports","t":"relaxedExtensionImports","d":"scala.language.experimental","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$experimental$$saferExceptions$.html#","e":false,"i":"","n":"saferExceptions","t":"saferExceptions","d":"scala.language.experimental","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$future$.html#","e":false,"i":"","n":"future","t":"future","d":"scala.language","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$future-migration$.html#","e":false,"i":"","n":"future-migration","t":"future-migration","d":"scala.language","k":"object","x":""},
