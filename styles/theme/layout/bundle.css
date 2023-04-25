@@ -1407,11 +1407,21 @@ p {
   --header-height: calc(8 * var(--base-spacing));
 }
 
+/* Scrollbar */
+
 ::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
-.arrow-navigation {
+
+#leftColumn ::-webkit-scrollbar{
+  width: 5px;
+}
+
+#leftColumn ::-webkit-scrollbar-thumb {
+  background: var(--code-syntax-highlighting-scrollbar);
+  border-radius: 2px;
+}.arrow-navigation {
   display: flex;
   margin-bottom: calc(6 * var(--base-spacing));
   margin-top: calc(6 * var(--base-spacing));
