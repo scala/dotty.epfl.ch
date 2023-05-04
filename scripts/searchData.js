@@ -5722,6 +5722,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/quoted/Quotes$reflectModule$FlagsMethods.html#show-9f8","e":false,"i":"extension (self: Flags)","n":"show","t":"show: String","d":"scala.quoted.Quotes.reflectModule.FlagsMethods","k":"def","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule$FlagsMethods.html#|-fffffab9","e":false,"i":"extension (self: Flags)","n":"|","t":"|(that: Flags): Flags","d":"scala.quoted.Quotes.reflectModule.FlagsMethods","k":"def","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule$FlagsModule.html#","e":false,"i":"","n":"FlagsModule","t":"FlagsModule","d":"scala.quoted.Quotes.reflectModule","k":"trait","x":""},
+{"l":"api/scala/quoted/Quotes$reflectModule$FlagsModule.html#AbsOverride-0","e":false,"i":"","n":"AbsOverride","t":"AbsOverride: Flags","d":"scala.quoted.Quotes.reflectModule.FlagsModule","k":"def","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule$FlagsModule.html#Abstract-0","e":false,"i":"","n":"Abstract","t":"Abstract: Flags","d":"scala.quoted.Quotes.reflectModule.FlagsModule","k":"def","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule$FlagsModule.html#Artifact-0","e":false,"i":"","n":"Artifact","t":"Artifact: Flags","d":"scala.quoted.Quotes.reflectModule.FlagsModule","k":"def","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule$FlagsModule.html#Case-0","e":false,"i":"","n":"Case","t":"Case: Flags","d":"scala.quoted.Quotes.reflectModule.FlagsModule","k":"def","x":""},
