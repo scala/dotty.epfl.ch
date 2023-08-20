@@ -2124,7 +2124,7 @@ node22 -> node0;
                n
               </dt>
               <dd class="body-medium">
-               <p><span><span>the number of elements to drop from this view.</span></span></p>
+               <p><span><span>the number of elements to drop from this iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -2133,7 +2133,7 @@ node22 -> node0;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a view consisting of all elements of this view except the last <code>n</code> ones, or else the empty view, if this view has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, don't drop any elements.</span></span></p>
+               <p><span><span><span>a iterable collection consisting of all elements of this iterable collection except the last <code>n</code> ones, or else the empty iterable collection, if this iterable collection has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, don't drop any elements.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -5280,11 +5280,11 @@ node22 -> node0;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Builds a new view by applying a function to all elements of this view.</span></p>
+             <p><span>Builds a new iterable collection by applying a function to all elements of this iterable collection.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>Builds a new view by applying a function to all elements of this view.</span> </span></p>
+              <p><span><span>Builds a new iterable collection by applying a function to all elements of this iterable collection.</span> </span></p>
              </div>
              <h2 class="h200">Type parameters</h2>
              <dl class="attributes attributes-small">
@@ -5292,7 +5292,7 @@ node22 -> node0;
                B
               </dt>
               <dd class="body-medium">
-               <p><span><span>the element type of the returned view.</span></span></p>
+               <p><span><span>the element type of the returned iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Value parameters</h2>
@@ -5310,7 +5310,7 @@ node22 -> node0;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a new view resulting from applying the given function <code>f</code> to each element of this view and collecting the results</span>.</span></span></p>
+               <p><span><span><span>a new iterable collection resulting from applying the given function <code>f</code> to each element of this iterable collection and collecting the results</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -6612,13 +6612,13 @@ node22 -> node0;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>A copy of the view with an element prepended.</span></p>
+             <p><span>A copy of the iterable collection with an element prepended.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>A copy of the view with an element prepended.</span></span></p>
-               <p>Also, the original view is not modified, so you will want to capture the result.</p>
+               <p><span><span>A copy of the iterable collection with an element prepended.</span></span></p>
+               <p>Also, the original iterable collection is not modified, so you will want to capture the result.</p>
                <p> Example:</p>
                <div class="snippet mono-small-block">
                 <pre><code><span line-number="1" class=""><span class="tooltip-container"></span>scala&gt; val x = List(1)
@@ -6640,7 +6640,7 @@ node22 -> node0;
                B
               </dt>
               <dd class="body-medium">
-               <p><span><span>the element type of the returned view.</span></span></p>
+               <p><span><span>the element type of the returned iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Value parameters</h2>
@@ -6658,7 +6658,7 @@ node22 -> node0;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a new view consisting of <code>value</code> followed by all elements of this view</span>.</span></span></p>
+               <p><span><span><span>a new iterable collection consisting of <code>value</code> followed by all elements of this iterable collection</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -7427,7 +7427,7 @@ node22 -> node0;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span>an iterator yielding the elements of this view in reversed order</span></p>
+               <p><span>an iterator yielding the elements of this iterable collection in reversed order</span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -8385,7 +8385,7 @@ node22 -> node0;
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>Selects an interval of elements.</span><span> The returned view is made up of all elements <code>x</code> which satisfy the invariant:</span></span></p>
+               <p><span><span>Selects an interval of elements.</span><span> The returned iterable collection is made up of all elements <code>x</code> which satisfy the invariant:</span></span></p>
                <div class="snippet mono-small-block">
                 <pre><code><span line-number="1" class=""><span class="tooltip-container"></span>from &lt;= indexOf(x) &lt; until
 </span></code></pre>
@@ -8399,13 +8399,13 @@ node22 -> node0;
                from
               </dt>
               <dd class="body-medium">
-               <p><span><span>the lowest index to include from this view.</span></span></p>
+               <p><span><span>the lowest index to include from this iterable collection.</span></span></p>
               </dd>
               <dt class="body-small">
                until
               </dt>
               <dd class="body-medium">
-               <p><span><span>the lowest index to EXCLUDE from this view.</span></span></p>
+               <p><span><span>the lowest index to EXCLUDE from this iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -8414,7 +8414,7 @@ node22 -> node0;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a view containing the elements greater than or equal to index <code>from</code> extending up to (but not including) index <code>until</code> of this view</span>.</span></span></p>
+               <p><span><span><span>a iterable collection containing the elements greater than or equal to index <code>from</code> extending up to (but not including) index <code>until</code> of this iterable collection</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
