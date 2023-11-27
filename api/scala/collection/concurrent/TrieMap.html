@@ -390,11 +390,11 @@ node38 -> node5;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Adds a single element to this mutable map.</span></p>
+             <p><span>Adds a single element to this concurrent map.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>Adds a single element to this mutable map.</span> </span></p>
+              <p><span><span>Adds a single element to this concurrent map.</span> </span></p>
              </div>
              <h2 class="h200">Value parameters</h2>
              <dl class="attributes attributes-small">
@@ -411,7 +411,7 @@ node38 -> node5;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span>the mutable map itself</span></p>
+               <p><span>the concurrent map itself</span></p>
               </dd>
               <dt class="body-small">
                Source
@@ -749,12 +749,12 @@ node38 -> node5;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Tests whether the mutable map is empty.</span></p>
+             <p><span>Tests whether the concurrent map is empty.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>Tests whether the mutable map is empty.</span></span></p>
+               <p><span><span>Tests whether the concurrent map is empty.</span></span></p>
                <p>Note: The default implementation creates and discards an iterator.</p>
                <p><span>Note: Implementations in subclasses that are not repeatedly iterable must take care not to consume any elements when <code>isEmpty</code> is called. </span></p>
               </div>
@@ -765,7 +765,7 @@ node38 -> node5;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span><code>true</code> if the mutable map contains no elements, <code>false</code> otherwise</span>.</span></span></p>
+               <p><span><span><span><code>true</code> if the concurrent map contains no elements, <code>false</code> otherwise</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -975,7 +975,7 @@ node38 -> node5;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>the last element of this mutable map$ if it is nonempty, <code>None</code> if it is empty</span>.</span></span></p>
+               <p><span><span><span>the last element of this concurrent map$ if it is nonempty, <code>None</code> if it is empty</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -1165,7 +1165,7 @@ node38 -> node5;
              <div class="doc">
               <div>
                <p><span><span>Associates the given key with a given value, unless the key was already associated with some other value.</span></span></p>
-               <p>$atomicop </p>
+               <p>This is an atomic operation. </p>
               </div>
              </div>
              <h2 class="h200">Value parameters</h2>
@@ -1321,7 +1321,7 @@ node38 -> node5;
              <div class="doc">
               <div>
                <p><span><span>Removes the entry for the specified key if it's currently mapped to the specified value.</span></span></p>
-               <p>$atomicop </p>
+               <p>This is an atomic operation. </p>
               </div>
              </div>
              <h2 class="h200">Value parameters</h2>
@@ -1380,7 +1380,7 @@ node38 -> node5;
              <div class="doc">
               <div>
                <p><span><span>Replaces the entry for the given key only if it was previously mapped to a given value.</span></span></p>
-               <p>$atomicop </p>
+               <p>This is an atomic operation. </p>
               </div>
              </div>
              <h2 class="h200">Value parameters</h2>
@@ -1445,7 +1445,7 @@ node38 -> node5;
              <div class="doc">
               <div>
                <p><span><span>Replaces the entry for the given key only if it was previously mapped to some value.</span></span></p>
-               <p>$atomicop </p>
+               <p>This is an atomic operation. </p>
               </div>
              </div>
              <h2 class="h200">Value parameters</h2>
@@ -1498,12 +1498,12 @@ node38 -> node5;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>The size of this mutable map.</span></p>
+             <p><span>The size of this concurrent map.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>The size of this mutable map.</span></span></p>
+               <p><span><span>The size of this concurrent map.</span></span></p>
                <p> Note: will not terminate for infinite-sized collections. </p>
               </div>
              </div>
@@ -1513,7 +1513,7 @@ node38 -> node5;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span>the number of elements in this mutable map.</span></span></p>
+               <p><span><span>the number of elements in this concurrent map.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -1618,11 +1618,11 @@ node38 -> node5;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Removes a single element from this mutable map.</span></p>
+             <p><span>Removes a single element from this concurrent map.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>Removes a single element from this mutable map.</span> </span></p>
+              <p><span><span>Removes a single element from this concurrent map.</span> </span></p>
              </div>
              <h2 class="h200">Value parameters</h2>
              <dl class="attributes attributes-small">
@@ -1639,7 +1639,7 @@ node38 -> node5;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span>the mutable map itself</span></p>
+               <p><span>the concurrent map itself</span></p>
               </dd>
               <dt class="body-small">
                Source
