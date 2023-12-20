@@ -155,6 +155,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/annotation/newMain$$alias.html#","e":false,"i":"","n":"alias","t":"alias(val name: String) extends ParameterAnnotation","d":"scala.annotation.newMain","k":"class","x":""},
 {"l":"api/scala/annotation/newMain$$alias.html#name-0","e":false,"i":"","n":"name","t":"name: String","d":"scala.annotation.newMain.alias","k":"val","x":""},
 {"l":"api/scala/annotation/nowarn.html#","e":false,"i":"","n":"nowarn","t":"nowarn(value: String) extends ConstantAnnotation","d":"scala.annotation","k":"class","x":"An annotation for local warning suppression."},
+{"l":"api/scala/annotation/publicInBinary.html#","e":false,"i":"","n":"publicInBinary","t":"publicInBinary extends StaticAnnotation","d":"scala.annotation","k":"class","x":""},
 {"l":"api/scala/annotation/retains.html#","e":false,"i":"","n":"retains","t":"retains(xs: Any*) extends StaticAnnotation","d":"scala.annotation","k":"class","x":""},
 {"l":"api/scala/annotation/retainsByName.html#","e":false,"i":"","n":"retainsByName","t":"retainsByName(xs: Any*) extends StaticAnnotation","d":"scala.annotation","k":"class","x":""},
 {"l":"api/scala/annotation/showAsInfix.html#","e":false,"i":"","n":"showAsInfix","t":"showAsInfix(enabled: Boolean) extends StaticAnnotation","d":"scala.annotation","k":"class","x":"This annotation configures how Scala prints two-parameter generic types."},
