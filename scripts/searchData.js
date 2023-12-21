@@ -9919,6 +9919,8 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/runtime/stdLibPatches/language$$3/3-migration$.html#","e":false,"i":"","n":"3.3-migration","t":"3.3-migration","d":"scala.language","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$3/4$.html#","e":false,"i":"","n":"3.4","t":"3.4","d":"scala.language","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$3/4-migration$.html#","e":false,"i":"","n":"3.4-migration","t":"3.4-migration","d":"scala.language","k":"object","x":""},
+{"l":"api/scala/runtime/stdLibPatches/language$$3/5$.html#","e":false,"i":"","n":"3.5","t":"3.5","d":"scala.language","k":"object","x":""},
+{"l":"api/scala/runtime/stdLibPatches/language$$3/5-migration$.html#","e":false,"i":"","n":"3.5-migration","t":"3.5-migration","d":"scala.language","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$adhocExtensions$.html#","e":false,"i":"","n":"adhocExtensions","t":"adhocExtensions","d":"scala.language","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$deprecated$.html#","e":false,"i":"","n":"deprecated","t":"deprecated","d":"scala.language","k":"object","x":""},
 {"l":"api/scala/runtime/stdLibPatches/language$$deprecated$$ascriptionVarargsUnpacking$.html#","e":false,"i":"","n":"ascriptionVarargsUnpacking","t":"ascriptionVarargsUnpacking","d":"scala.language.deprecated","k":"object","x":""},
