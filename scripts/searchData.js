@@ -158,6 +158,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/annotation/publicInBinary.html#","e":false,"i":"","n":"publicInBinary","t":"publicInBinary extends StaticAnnotation","d":"scala.annotation","k":"class","x":""},
 {"l":"api/scala/annotation/retains.html#","e":false,"i":"","n":"retains","t":"retains(xs: Any*) extends StaticAnnotation","d":"scala.annotation","k":"class","x":""},
 {"l":"api/scala/annotation/retainsByName.html#","e":false,"i":"","n":"retainsByName","t":"retainsByName(xs: Any*) extends StaticAnnotation","d":"scala.annotation","k":"class","x":""},
+{"l":"api/scala/annotation/retainsCap.html#","e":false,"i":"","n":"retainsCap","t":"retainsCap() extends StaticAnnotation","d":"scala.annotation","k":"class","x":""},
 {"l":"api/scala/annotation/showAsInfix.html#","e":false,"i":"","n":"showAsInfix","t":"showAsInfix(enabled: Boolean) extends StaticAnnotation","d":"scala.annotation","k":"class","x":"This annotation configures how Scala prints two-parameter generic types."},
 {"l":"api/scala/annotation/static.html#","e":false,"i":"","n":"static","t":"static extends StaticAnnotation","d":"scala.annotation","k":"class","x":""},
 {"l":"api/scala/annotation/strictfp.html#","e":false,"i":"","n":"strictfp","t":"strictfp extends StaticAnnotation","d":"scala.annotation","k":"class","x":"If this annotation is present on a method or its enclosing class,\nthe strictfp flag will be emitted.\n"},
