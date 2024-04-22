@@ -428,7 +428,10 @@ node61 -> node47;
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span><span>Selects all elements except first <em>n</em> ones</span>.</span> </span></p>
+              <div>
+               <p><span><span><span>Selects all elements except first <em>n</em> ones</span>.</span></span></p>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered.</p>
+              </div>
              </div>
              <h2 class="h200">Value parameters</h2>
              <dl class="attributes attributes-small">
@@ -436,7 +439,7 @@ node61 -> node47;
                n
               </dt>
               <dd class="body-medium">
-               <p><span><span>the number of elements to drop from this sequence.</span></span></p>
+               <p><span><span>the number of elements to drop from this iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -445,7 +448,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a sequence consisting of all elements of this sequence except the first <code>n</code> ones, or else the empty sequence, if this sequence has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, don't drop any elements.</span></span></p>
+               <p><span><span><span>a iterable collection consisting of all elements of this iterable collection except the first <code>n</code> ones, or else the empty iterable collection, if this iterable collection has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, don't drop any elements.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -486,7 +489,10 @@ node61 -> node47;
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span><span>Selects all elements except last <em>n</em> ones</span>.</span> </span></p>
+              <div>
+               <p><span><span><span>Selects all elements except last <em>n</em> ones</span>.</span></span></p>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered.</p>
+              </div>
              </div>
              <h2 class="h200">Value parameters</h2>
              <dl class="attributes attributes-small">
@@ -494,7 +500,7 @@ node61 -> node47;
                n
               </dt>
               <dd class="body-medium">
-               <p><span><span>the number of elements to drop from this sequence.</span></span></p>
+               <p><span><span>the number of elements to drop from this iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -503,7 +509,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a sequence consisting of all elements of this sequence except the last <code>n</code> ones, or else the empty sequence, if this sequence has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, don't drop any elements.</span></span></p>
+               <p><span><span><span>a iterable collection consisting of all elements of this iterable collection except the last <code>n</code> ones, or else the empty iterable collection, if this iterable collection has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, don't drop any elements.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -540,13 +546,14 @@ node61 -> node47;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Applies a binary operator to all elements of this sequence and a start value, going right to left.</span></p>
+             <p><span>Applies a binary operator to all elements of this iterable collection and a start value, going right to left.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>Applies a binary operator to all elements of this sequence and a start value, going right to left.</span></span></p>
+               <p><span><span>Applies a binary operator to all elements of this iterable collection and a start value, going right to left.</span></span></p>
                <p>Note: will not terminate for infinite-sized collections.</p>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered or the operator is associative and commutative.</p>
               </div>
              </div>
              <h2 class="h200">Type parameters</h2>
@@ -579,7 +586,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>the result of inserting <code>op</code> between consecutive elements of this sequence, going right to left with the start value <code>z</code> on the right: <code><span>op(x<span class="subscript">1</span>, op(x<span class="subscript">2</span>, ... op(x<span class="subscript">n</span>, z)...))</span></code> where <code><span>x<span class="subscript">1</span>, ..., x<span class="subscript">n</span></span></code> are the elements of this sequence</span>.</span><span> Returns <code>z</code> if this sequence is empty.</span></span></p>
+               <p><span><span><span>the result of inserting <code>op</code> between consecutive elements of this iterable collection, going right to left with the start value <code>z</code> on the right: <code><span>op(x<span class="subscript">1</span>, op(x<span class="subscript">2</span>, ... op(x<span class="subscript">n</span>, z)...))</span></code> where <code><span>x<span class="subscript">1</span>, ..., x<span class="subscript">n</span></span></code> are the elements of this iterable collection</span>.</span><span> Returns <code>z</code> if this iterable collection is empty.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -616,11 +623,14 @@ node61 -> node47;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Selects the first element of this sequence.</span></p>
+             <p><span>Selects the first element of this iterable collection.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>Selects the first element of this sequence.</span> </span></p>
+              <div>
+               <p><span><span>Selects the first element of this iterable collection.</span></span></p>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered.</p>
+              </div>
              </div>
              <h2 class="h200">Attributes</h2>
              <dl class="attributes attributes-small">
@@ -628,7 +638,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span>the first element of this sequence.</span></span></p>
+               <p><span><span>the first element of this iterable collection.</span></span></p>
               </dd>
               <dt class="body-small">
                Throws
@@ -636,7 +646,7 @@ node61 -> node47;
               <dd class="body-medium">
                <div>
                 <div>
-                 <p><span><a href="../../scala.html#NoSuchElementException-0">NoSuchElementException</a> <span>if the sequence is empty.</span></span></p>
+                 <p><span><a href="../../scala.html#NoSuchElementException-0">NoSuchElementException</a> <span>if the iterable collection is empty.</span></span></p>
                 </div>
                </div>
               </dd>
@@ -679,7 +689,10 @@ node61 -> node47;
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>Optionally selects the first element.</span> </span></p>
+              <div>
+               <p><span><span>Optionally selects the first element.</span></span></p>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered.</p>
+              </div>
              </div>
              <h2 class="h200">Attributes</h2>
              <dl class="attributes attributes-small">
@@ -687,7 +700,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>the first element of this sequence if it is nonempty, <code>None</code> if it is empty</span>.</span></span></p>
+               <p><span><span><span>the first element of this iterable collection if it is nonempty, <code>None</code> if it is empty</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -766,7 +779,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span>The number of elements in this sequence, if it can be cheaply computed, -1 otherwise.</span> Cheaply usually means: Not requiring a collection traversal.</span></p>
+               <p><span><span>The number of elements in this iterable collection, if it can be cheaply computed, -1 otherwise.</span> Cheaply usually means: Not requiring a collection traversal.</span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -807,7 +820,10 @@ node61 -> node47;
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>Selects the last element.</span> </span></p>
+              <div>
+               <p><span><span>Selects the last element.</span></span></p>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered.</p>
+              </div>
              </div>
              <h2 class="h200">Attributes</h2>
              <dl class="attributes attributes-small">
@@ -815,7 +831,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span>The last element of this sequence.</span></span></p>
+               <p><span><span>The last element of this iterable collection.</span></span></p>
               </dd>
               <dt class="body-small">
                Throws
@@ -823,7 +839,7 @@ node61 -> node47;
               <dd class="body-medium">
                <div>
                 <div>
-                 <p><span><a href="../../scala.html#NoSuchElementException-0">NoSuchElementException</a> <span>If the sequence is empty.</span></span></p>
+                 <p><span><a href="../../scala.html#NoSuchElementException-0">NoSuchElementException</a> <span>If the iterable collection is empty.</span></span></p>
                 </div>
                </div>
               </dd>
@@ -862,11 +878,11 @@ node61 -> node47;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Compares the length of this sequence to a test value.</span></p>
+             <p><span>Compares the length of this iterable collection to a test value.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>Compares the length of this sequence to a test value.</span> </span></p>
+              <p><span><span>Compares the length of this iterable collection to a test value.</span> </span></p>
              </div>
              <h2 class="h200">Value parameters</h2>
              <dl class="attributes attributes-small">
@@ -940,11 +956,11 @@ node61 -> node47;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span><span>Compares the length of this sequence to the size of another <code>Iterable</code></span>.</span></p>
+             <p><span><span>Compares the length of this iterable collection to the size of another <code>Iterable</code></span>.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span><span>Compares the length of this sequence to the size of another <code>Iterable</code></span>.</span> </span></p>
+              <p><span><span><span>Compares the length of this iterable collection to the size of another <code>Iterable</code></span>.</span> </span></p>
              </div>
              <h2 class="h200">Value parameters</h2>
              <dl class="attributes attributes-small">
@@ -952,7 +968,7 @@ node61 -> node47;
                that
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>the <code>Iterable</code> whose size is compared with this sequence's length</span>.</span></span></p>
+               <p><span><span><span>the <code>Iterable</code> whose size is compared with this iterable collection's length</span>.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -1008,11 +1024,11 @@ node61 -> node47;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Builds a new sequence by applying a function to all elements of this sequence.</span></p>
+             <p><span>Builds a new iterable collection by applying a function to all elements of this iterable collection.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>Builds a new sequence by applying a function to all elements of this sequence.</span> </span></p>
+              <p><span><span>Builds a new iterable collection by applying a function to all elements of this iterable collection.</span> </span></p>
              </div>
              <h2 class="h200">Type parameters</h2>
              <dl class="attributes attributes-small">
@@ -1020,7 +1036,7 @@ node61 -> node47;
                B
               </dt>
               <dd class="body-medium">
-               <p><span><span>the element type of the returned sequence.</span></span></p>
+               <p><span><span>the element type of the returned iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Value parameters</h2>
@@ -1038,7 +1054,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a new sequence resulting from applying the given function <code>f</code> to each element of this sequence and collecting the results</span>.</span></span></p>
+               <p><span><span><span>a new iterable collection resulting from applying the given function <code>f</code> to each element of this iterable collection and collecting the results</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -1075,13 +1091,13 @@ node61 -> node47;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>A copy of the sequence with an element prepended.</span></p>
+             <p><span>A copy of the iterable collection with an element prepended.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>A copy of the sequence with an element prepended.</span></span></p>
-               <p>Also, the original sequence is not modified, so you will want to capture the result.</p>
+               <p><span><span>A copy of the iterable collection with an element prepended.</span></span></p>
+               <p>Also, the original iterable collection is not modified, so you will want to capture the result.</p>
                <p>Example:</p>
                <div class="snippet mono-small-block">
                 <pre><code><span line-number="1" class=""><span class="tooltip-container"></span>scala&gt; val x = List(1)
@@ -1103,7 +1119,7 @@ node61 -> node47;
                B
               </dt>
               <dd class="body-medium">
-               <p><span><span>the element type of the returned sequence.</span></span></p>
+               <p><span><span>the element type of the returned iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Value parameters</h2>
@@ -1121,7 +1137,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a new sequence consisting of <code>value</code> followed by all elements of this sequence</span>.</span></span></p>
+               <p><span><span><span>a new iterable collection consisting of <code>value</code> followed by all elements of this iterable collection</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -1158,12 +1174,12 @@ node61 -> node47;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Returns new sequence with elements in reversed order.</span></p>
+             <p><span>Returns new iterable collection with elements in reversed order.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>Returns new sequence with elements in reversed order.</span></span></p>
+               <p><span><span>Returns new iterable collection with elements in reversed order.</span></span></p>
                <p>Note: will not terminate for infinite-sized collections.</p>
                <p>Note: Even when applied to a view or a lazy collection it will always force the elements.</p>
               </div>
@@ -1174,7 +1190,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span>A new sequence with all elements of this sequence in reversed order.</span></span></p>
+               <p><span><span>A new iterable collection with all elements of this iterable collection in reversed order.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -1227,7 +1243,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span>an iterator yielding the elements of this sequence in reversed order</span></p>
+               <p><span>an iterator yielding the elements of this iterable collection in reversed order</span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -1495,12 +1511,13 @@ node61 -> node47;
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>Selects an interval of elements.</span><span> The returned sequence is made up of all elements <code>x</code> which satisfy the invariant:</span></span></p>
+               <p><span><span>Selects an interval of elements.</span><span> The returned iterable collection is made up of all elements <code>x</code> which satisfy the invariant:</span></span></p>
                <div class="snippet mono-small-block">
                 <pre><code><span line-number="1" class=""><span class="tooltip-container"></span>from &lt;= indexOf(x) &lt; until
 </span></code></pre>
                 <div class="buttons"></div>
                </div>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered.</p>
               </div>
              </div>
              <h2 class="h200">Value parameters</h2>
@@ -1509,13 +1526,13 @@ node61 -> node47;
                from
               </dt>
               <dd class="body-medium">
-               <p><span><span>the lowest index to include from this sequence.</span></span></p>
+               <p><span><span>the lowest index to include from this iterable collection.</span></span></p>
               </dd>
               <dt class="body-small">
                until
               </dt>
               <dd class="body-medium">
-               <p><span><span>the lowest index to EXCLUDE from this sequence.</span></span></p>
+               <p><span><span>the lowest index to EXCLUDE from this iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -1524,7 +1541,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a sequence containing the elements greater than or equal to index <code>from</code> extending up to (but not including) index <code>until</code> of this sequence</span>.</span></span></p>
+               <p><span><span><span>a iterable collection containing the elements greater than or equal to index <code>from</code> extending up to (but not including) index <code>until</code> of this iterable collection</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -1623,7 +1640,10 @@ node61 -> node47;
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span><span>Selects the first <em>n</em> elements</span>.</span> </span></p>
+              <div>
+               <p><span><span><span>Selects the first <em>n</em> elements</span>.</span></span></p>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered.</p>
+              </div>
              </div>
              <h2 class="h200">Value parameters</h2>
              <dl class="attributes attributes-small">
@@ -1631,7 +1651,7 @@ node61 -> node47;
                n
               </dt>
               <dd class="body-medium">
-               <p><span><span>the number of elements to take from this sequence.</span></span></p>
+               <p><span><span>the number of elements to take from this iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -1640,7 +1660,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a sequence consisting only of the first <code>n</code> elements of this sequence, or else the whole sequence, if it has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, returns an empty sequence.</span></span></p>
+               <p><span><span><span>a iterable collection consisting only of the first <code>n</code> elements of this iterable collection, or else the whole iterable collection, if it has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, returns an empty iterable collection.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -1681,7 +1701,10 @@ node61 -> node47;
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span><span>Selects the last <em>n</em> elements</span>.</span> </span></p>
+              <div>
+               <p><span><span><span>Selects the last <em>n</em> elements</span>.</span></span></p>
+               <p>Note: might return different results for different runs, unless the underlying collection type is ordered.</p>
+              </div>
              </div>
              <h2 class="h200">Value parameters</h2>
              <dl class="attributes attributes-small">
@@ -1689,7 +1712,7 @@ node61 -> node47;
                n
               </dt>
               <dd class="body-medium">
-               <p><span><span>the number of elements to take from this sequence.</span></span></p>
+               <p><span><span>the number of elements to take from this iterable collection.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -1698,7 +1721,7 @@ node61 -> node47;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>a sequence consisting only of the last <code>n</code> elements of this sequence, or else the whole sequence, if it has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, returns an empty sequence.</span></span></p>
+               <p><span><span><span>a iterable collection consisting only of the last <code>n</code> elements of this iterable collection, or else the whole iterable collection, if it has less than <code>n</code> elements</span>.</span><span> If <code>n</code> is negative, returns an empty iterable collection.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
