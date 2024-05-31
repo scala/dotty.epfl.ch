@@ -9149,6 +9149,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/NamedTuple$.html#Zip-0","e":false,"i":"","n":"Zip","t":"Zip[X <: AnyNamedTuple, Y <: AnyNamedTuple] = Names[X] match {\n  case Names[Y] => NamedTuple[Names[X], Zip[DropNames[X], DropNames[Y]]]\n}","d":"scala.NamedTuple","k":"type","x":""},
 {"l":"api/scala/NamedTuple$.html#apply-fffffd12","e":false,"i":"","n":"apply","t":"apply[N <: Tuple, V <: Tuple](x: V): NamedTuple[N, V]","d":"scala.NamedTuple","k":"def","x":""},
 {"l":"api/scala/NamedTuple$.html#apply-725","e":false,"i":"extension [N <: Tuple, V <: Tuple](x: NamedTuple[N, V])","n":"apply","t":"apply(n: Int): Elem[V, n.type]","d":"scala.NamedTuple","k":"def","x":""},
+{"l":"api/scala/NamedTuple$.html#build-fffff580","e":false,"i":"","n":"build","t":"build[N <: Tuple]()[V <: Tuple](x: V): NamedTuple[N, V]","d":"scala.NamedTuple","k":"def","x":""},
 {"l":"api/scala/NamedTuple$.html#drop-fffff3d5","e":false,"i":"extension [N <: Tuple, V <: Tuple](x: NamedTuple[N, V])","n":"drop","t":"drop(n: Int): NamedTuple[Drop[N, n.type], Drop[V, n.type]]","d":"scala.NamedTuple","k":"def","x":""},
 {"l":"api/scala/NamedTuple$.html#head-fffff8c8","e":false,"i":"extension [N <: Tuple, V <: Tuple](x: NamedTuple[N, V])","n":"head","t":"head: Elem[V, 0]","d":"scala.NamedTuple","k":"def","x":""},
 {"l":"api/scala/NamedTuple$.html#init-fffffd12","e":false,"i":"extension [N <: Tuple, V <: Tuple](x: NamedTuple[N, V])","n":"init","t":"init: NamedTuple[Init[N], Init[V]]","d":"scala.NamedTuple","k":"def","x":""},
