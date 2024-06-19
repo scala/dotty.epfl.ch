@@ -9133,7 +9133,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/NamedTuple$.html#Concat-0","e":false,"i":"","n":"Concat","t":"Concat[X <: AnyNamedTuple, Y <: AnyNamedTuple] = NamedTuple[Concat[Names[X], Names[Y]], Concat[DropNames[X], DropNames[Y]]]","d":"scala.NamedTuple","k":"type","x":""},
 {"l":"api/scala/NamedTuple$.html#Drop-0","e":false,"i":"","n":"Drop","t":"Drop[X <: AnyNamedTuple, N <: Int] = NamedTuple[Drop[Names[X], N], Drop[DropNames[X], N]]","d":"scala.NamedTuple","k":"type","x":""},
 {"l":"api/scala/NamedTuple$.html#Elem-0","e":false,"i":"","n":"Elem","t":"Elem[X <: AnyNamedTuple, N <: Int] = Elem[DropNames[X], N]","d":"scala.NamedTuple","k":"type","x":""},
-{"l":"api/scala/NamedTuple$.html#Empty-0","e":false,"i":"","n":"Empty","t":"Empty = EmptyTuple.type","d":"scala.NamedTuple","k":"type","x":""},
+{"l":"api/scala/NamedTuple$.html#Empty-0","e":false,"i":"","n":"Empty","t":"Empty = NamedTuple[EmptyTuple, EmptyTuple]","d":"scala.NamedTuple","k":"type","x":""},
 {"l":"api/scala/NamedTuple$.html#Empty-0","e":false,"i":"","n":"Empty","t":"Empty: Empty","d":"scala.NamedTuple","k":"val","x":""},
 {"l":"api/scala/NamedTuple$.html#From-0","e":false,"i":"","n":"From","t":"From[T] <: AnyNamedTuple","d":"scala.NamedTuple","k":"type","x":""},
 {"l":"api/scala/NamedTuple$.html#Head-0","e":false,"i":"","n":"Head","t":"Head[X <: AnyNamedTuple] = Elem[X, 0]","d":"scala.NamedTuple","k":"type","x":""},
