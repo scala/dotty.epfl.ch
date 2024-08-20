@@ -5505,7 +5505,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/quoted/Quotes$reflectModule.html#TypeRef-0","e":false,"i":"","n":"TypeRef","t":"TypeRef: TypeRefModule","d":"scala.quoted.Quotes.reflectModule","k":"val","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule.html#TypeRefMethods-0","e":false,"i":"","n":"TypeRefMethods","t":"TypeRefMethods: TypeRefMethods","d":"scala.quoted.Quotes.reflectModule","k":"given","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule.html#TypeRefTypeTest-0","e":false,"i":"","n":"TypeRefTypeTest","t":"TypeRefTypeTest: TypeTest[TypeRepr, TypeRef]","d":"scala.quoted.Quotes.reflectModule","k":"given","x":""},
-{"l":"api/scala/quoted/Quotes$reflectModule.html#TypeRepr-0","e":false,"i":"","n":"TypeRepr","t":"TypeRepr","d":"scala.quoted.Quotes.reflectModule","k":"type","x":""},
+{"l":"api/scala/quoted/Quotes$reflectModule.html#TypeRepr-0","e":false,"i":"","n":"TypeRepr","t":"TypeRepr <: Matchable","d":"scala.quoted.Quotes.reflectModule","k":"type","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule.html#TypeRepr-0","e":false,"i":"","n":"TypeRepr","t":"TypeRepr: TypeReprModule","d":"scala.quoted.Quotes.reflectModule","k":"val","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule.html#TypeReprMethods-0","e":false,"i":"","n":"TypeReprMethods","t":"TypeReprMethods: TypeReprMethods","d":"scala.quoted.Quotes.reflectModule","k":"given","x":""},
 {"l":"api/scala/quoted/Quotes$reflectModule.html#TypeReprPrinter-0","e":false,"i":"","n":"TypeReprPrinter","t":"TypeReprPrinter: Printer[TypeRepr]","d":"scala.quoted.Quotes.reflectModule","k":"given","x":""},
