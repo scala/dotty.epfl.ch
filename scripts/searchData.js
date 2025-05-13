@@ -10175,6 +10175,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"docs/reference/experimental/main-annotation.html#","e":false,"i":"","n":"MainAnnotation","t":"MainAnnotation","d":"","k":"static","x":""},
 {"l":"docs/reference/experimental/into-modifier.html#","e":false,"i":"","n":"The `into` Type Modifier","t":"The `into` Type Modifier","d":"","k":"static","x":""},
 {"l":"docs/reference/experimental/cc.html#","e":false,"i":"","n":"Capture Checking","t":"Capture Checking","d":"","k":"static","x":""},
+{"l":"docs/reference/experimental/cc-advanced.html#","e":false,"i":"","n":"Capture Checking -- Advanced Use Cases","t":"Capture Checking -- Advanced Use Cases","d":"","k":"static","x":""},
 {"l":"docs/reference/experimental/purefuns.html#","e":false,"i":"","n":"Pure Function Syntax","t":"Pure Function Syntax","d":"","k":"static","x":""},
 {"l":"docs/reference/experimental/tupled-function.html#","e":false,"i":"","n":"Tupled Function","t":"Tupled Function","d":"","k":"static","x":""},
 {"l":"docs/reference/experimental/modularity.html#","e":false,"i":"","n":"Modularity Improvements","t":"Modularity Improvements","d":"","k":"static","x":""},
