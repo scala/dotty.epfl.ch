@@ -165,6 +165,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/caps/internal$.html#capsOf-fffff7c4","e":false,"i":"","n":"capsOf","t":"capsOf[CS >: CapSet <: CapSet]: Any","d":"scala.caps.internal","k":"def","x":""},
 {"l":"api/scala/caps/internal$.html#reachCapability-d26","e":false,"i":"extension (x: Any)","n":"reachCapability","t":"reachCapability: Any","d":"scala.caps.internal","k":"def","x":""},
 {"l":"api/scala/caps/internal$.html#readOnlyCapability-d26","e":false,"i":"extension (x: Any)","n":"readOnlyCapability","t":"readOnlyCapability: Any","d":"scala.caps.internal","k":"def","x":""},
+{"l":"api/scala/caps/internal$$inferredDepFun.html#","e":false,"i":"","n":"inferredDepFun","t":"inferredDepFun extends StaticAnnotation","d":"scala.caps.internal","k":"class","x":""},
 {"l":"api/scala/caps/internal$$refineOverride.html#","e":false,"i":"","n":"refineOverride","t":"refineOverride extends StaticAnnotation","d":"scala.caps.internal","k":"class","x":""},
 {"l":"api/scala/caps/internal$$rootCapability.html#","e":false,"i":"","n":"rootCapability","t":"rootCapability extends StaticAnnotation","d":"scala.caps.internal","k":"class","x":""},
 {"l":"api/scala/caps/unsafe$.html#","e":false,"i":"","n":"unsafe","t":"unsafe","d":"scala.caps","k":"object","x":""},
