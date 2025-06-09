@@ -342,12 +342,12 @@ node0 -> node43;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Selects the first element of this sequence.</span></p>
+             <p><span>Selects the first element of this list.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>Selects the first element of this sequence.</span></span></p>
+               <p><span><span>Selects the first element of this list.</span></span></p>
                <p><span>Note: *Must* be overridden in subclasses. The default implementation is inherited from <a href="../IterableOps.html">IterableOps</a>. </span></p>
               </div>
              </div>
@@ -400,7 +400,7 @@ node0 -> node43;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span><span>the first element of this sequence if it is nonempty, <code>None</code> if it is empty</span>.</span></span></p>
+               <p><span><span><span>the first element of this list if it is nonempty, <code>None</code> if it is empty</span>.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
@@ -483,12 +483,12 @@ node0 -> node43;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span><span>An <a href="../Iterator.html">scala.collection.Iterator</a> over the elements of this sequence</span>.</span></p>
+             <p><span><span>An <a href="../Iterator.html">scala.collection.Iterator</a> over the elements of this list</span>.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span><span>An <a href="../Iterator.html">scala.collection.Iterator</a> over the elements of this sequence</span>.</span></span></p>
+               <p><span><span><span>An <a href="../Iterator.html">scala.collection.Iterator</a> over the elements of this list</span>.</span></span></p>
                <p><span>If an <code>IterableOnce</code> object is in fact an <a href="../Iterator.html">scala.collection.Iterator</a>, this method always returns itself, in its current state, but if it is an <a href="../Iterable.html">scala.collection.Iterable</a>, this method always returns a new <a href="../Iterator.html">scala.collection.Iterator</a>. </span></p>
               </div>
              </div>
@@ -529,11 +529,11 @@ node0 -> node43;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>The number of elements in this sequence, if it can be cheaply computed, -1 otherwise.</span></p>
+             <p><span>The number of elements in this list, if it can be cheaply computed, -1 otherwise.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
-              <p><span><span>The number of elements in this sequence, if it can be cheaply computed, -1 otherwise.</span> Cheaply usually means: Not requiring a collection traversal. </span></p>
+              <p><span><span>The number of elements in this list, if it can be cheaply computed, -1 otherwise.</span> Cheaply usually means: Not requiring a collection traversal. </span></p>
              </div>
              <h2 class="h200">Attributes</h2>
              <dl class="attributes attributes-small">
@@ -584,7 +584,7 @@ node0 -> node43;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span>The last element of this sequence.</span></span></p>
+               <p><span><span>The last element of this list.</span></span></p>
               </dd>
               <dt class="body-small">
                Throws
@@ -592,7 +592,7 @@ node0 -> node43;
               <dd class="body-medium">
                <div>
                 <div>
-                 <p><span><a href="../../../scala.html#NoSuchElementException-0">NoSuchElementException</a> <span>If the sequence is empty.</span></span></p>
+                 <p><span><a href="../../../scala.html#NoSuchElementException-0">NoSuchElementException</a> <span>If the list is empty.</span></span></p>
                 </div>
                </div>
               </dd>
@@ -677,19 +677,19 @@ node0 -> node43;
            <div class="originInfo"></div>
            <div class="memberDocumentation">
             <div class="documentableBrief doc">
-             <p><span>Converts this sequence of pairs into two collections of the first and second half of each pair.</span></p>
+             <p><span>Converts this list of pairs into two collections of the first and second half of each pair.</span></p>
             </div>
             <div class="cover">
              <div class="doc">
               <div>
-               <p><span><span>Converts this sequence of pairs into two collections of the first and second half of each pair.</span></span></p>
+               <p><span><span>Converts this list of pairs into two collections of the first and second half of each pair.</span></span></p>
                <div class="snippet mono-small-block">
-                <pre><code><span line-number="1" class=""><span class="tooltip-container"></span>val xs = `Seq`(
+                <pre><code><span line-number="1" class=""><span class="tooltip-container"></span>val xs = `List`(
 </span><span line-number="2" class=""><span class="tooltip-container"></span>           (1, "one"),
 </span><span line-number="3" class=""><span class="tooltip-container"></span>           (2, "two"),
 </span><span line-number="4" class=""><span class="tooltip-container"></span>           (3, "three")).unzip
-</span><span line-number="5" class=""><span class="tooltip-container"></span>// xs == (`Seq`(1, 2, 3),
-</span><span line-number="6" class=""><span class="tooltip-container"></span>//        `Seq`(one, two, three))
+</span><span line-number="5" class=""><span class="tooltip-container"></span>// xs == (`List`(1, 2, 3),
+</span><span line-number="6" class=""><span class="tooltip-container"></span>//        `List`(one, two, three))
 </span></code></pre>
                 <div class="buttons"></div>
                </div>
@@ -716,7 +716,7 @@ node0 -> node43;
                asPair
               </dt>
               <dd class="body-medium">
-               <p><span><span>an implicit conversion which asserts that the element type of this sequence is a pair.</span></span></p>
+               <p><span><span>an implicit conversion which asserts that the element type of this list is a pair.</span></span></p>
               </dd>
              </dl>
              <h2 class="h200">Attributes</h2>
@@ -725,7 +725,7 @@ node0 -> node43;
                Returns
               </dt>
               <dd class="body-medium">
-               <p><span><span>a pair of sequences, containing the first, respectively second half of each element pair of this sequence.</span></span></p>
+               <p><span><span>a pair of lists, containing the first, respectively second half of each element pair of this list.</span></span></p>
               </dd>
               <dt class="body-small">
                Definition Classes
