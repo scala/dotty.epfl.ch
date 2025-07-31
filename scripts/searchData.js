@@ -10190,6 +10190,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"docs/reference/experimental/runtimeChecked.html#","e":false,"i":"","n":"The runtimeChecked method","t":"The runtimeChecked method","d":"","k":"static","x":""},
 {"l":"docs/reference/experimental/unrolled-defs.html#","e":false,"i":"","n":"Automatic Parameter Unrolling","t":"Automatic Parameter Unrolling","d":"","k":"static","x":""},
 {"l":"docs/reference/experimental/package-object-values.html#","e":false,"i":"","n":"Reference-able Package Objects","t":"Reference-able Package Objects","d":"","k":"static","x":""},
+{"l":"docs/reference/experimental/quoted-patterns-with-polymorphic-functions.html#","e":false,"i":"","n":"Quoted Patterns with Polymorphic Functions","t":"Quoted Patterns with Polymorphic Functions","d":"","k":"static","x":""},
 {"l":"docs/reference/syntax.html#","e":false,"i":"","n":"Scala 3 Syntax Summary","t":"Scala 3 Syntax Summary","d":"","k":"static","x":""},
 {"l":"docs/reference/language-versions/index.html#","e":false,"i":"","n":"Language Versions","t":"Language Versions","d":"","k":"static","x":""},
 {"l":"docs/reference/language-versions/source-compatibility.html#","e":false,"i":"","n":"Source Compatibility","t":"Source Compatibility","d":"","k":"static","x":""},
