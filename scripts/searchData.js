@@ -9190,6 +9190,7 @@ pages = [{"l":"api/index.html#","e":false,"i":"","n":"Scala 3","t":"Scala 3","d"
 {"l":"api/scala/NamedTuple$.html#Zip-0","e":false,"i":"","n":"Zip","t":"Zip[X <: AnyNamedTuple, Y <: AnyNamedTuple] = Names[X] match {\n  case Names[Y] => NamedTuple[Names[X], Zip[DropNames[X], DropNames[Y]]]\n}","d":"scala.NamedTuple","k":"type","x":""},
 {"l":"api/scala/NamedTuple$.html#apply-fffffd12","e":false,"i":"","n":"apply","t":"apply[N <: Tuple, V <: Tuple](x: V): NamedTuple[N, V]","d":"scala.NamedTuple","k":"def","x":""},
 {"l":"api/scala/NamedTuple$.html#build-fffff580","e":false,"i":"","n":"build","t":"build[N <: Tuple]()[V <: Tuple](x: V): NamedTuple[N, V]","d":"scala.NamedTuple","k":"def","x":""},
+{"l":"api/scala/NamedTuple$.html#namedTupleOrdering-ffffff64","e":false,"i":"","n":"namedTupleOrdering","t":"namedTupleOrdering[N <: Tuple, V <: Tuple](using ord: Ordering[V]): namedTupleOrdering[N, V]","d":"scala.NamedTuple","k":"given","x":""},
 {"l":"api/scala/NamedTuple$.html#toTuple-fffffd12","e":false,"i":"extension [N <: Tuple, V <: Tuple](x: NamedTuple[N, V])","n":"toTuple","t":"toTuple: V","d":"scala.NamedTuple","k":"def","x":""},
 {"l":"api/scala/NamedTuple$.html#unapply-fb1","e":false,"i":"","n":"unapply","t":"unapply[N <: Tuple, V <: Tuple](x: NamedTuple[N, V]): Some[V]","d":"scala.NamedTuple","k":"def","x":""},
 {"l":"api/scala/NamedTuple$.html#withNames-ac","e":false,"i":"extension [V <: Tuple](x: V)","n":"withNames","t":"withNames[N <: Tuple]: NamedTuple[N, V]","d":"scala.NamedTuple","k":"def","x":""},
